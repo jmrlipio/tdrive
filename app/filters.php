@@ -33,6 +33,24 @@ App::after(function($request, $response)
 |
 */
 
+Route::filter('admin', function($route, $request)
+{
+	if (Auth::guest())
+	{
+		if (Request::ajax())
+		{
+			return Response::make('Unauthorized', 401);
+		}
+		else
+		{
+			return Redirect::guest('login');
+		}
+	} else if (!Auth::user()->admin) {
+		// return App::abort(401, 'You are not authorized.');
+		return Response::make('Unauthorized', 401);
+	}
+});
+
 Route::filter('auth', function()
 {
 	if (Auth::guest())
@@ -47,7 +65,6 @@ Route::filter('auth', function()
 		}
 	}
 });
-
 
 Route::filter('auth.basic', function()
 {

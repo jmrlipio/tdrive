@@ -12,7 +12,7 @@ class AdminUsersController extends \BaseController {
 	{
 		$users = User::all();
 
-		return View::make('admin.users')->with('users', $users);
+		return View::make('admin.users.index')->with('users', $users);
 	}
 
 	/**
@@ -23,7 +23,7 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.users.create');
 	}
 
 	/**
@@ -34,7 +34,16 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make($data = Input::all(), User::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		User::create($data);
+
+		return Redirect::route('admin.users.index');
 	}
 
 	/**
@@ -46,7 +55,9 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$user = User::find($id);
+
+		return View::make('admin.users.view')->with('user', $user);
 	}
 
 	/**
@@ -58,7 +69,9 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$user = User::find($id);
+
+		return View::make('admin.users.edit')->with('user', $user);
 	}
 
 	/**
@@ -70,7 +83,17 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$user = User::findOrFail($id);
+
+		$validator = Validator::make($data = Input::all(), User::$update_rules);
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$user->update($data);
+
+		return Redirect::route('admin.users.show', $user->id);
 	}
 
 	/**
@@ -85,4 +108,32 @@ class AdminUsersController extends \BaseController {
 		//
 	}
 
+	public function getLogin(){
+        return View::make('admin.login');
+    }
+
+    public function postLogin(){
+        $data = Input::all();
+
+        $validator = Validator::make($data, User::$auth_rules);
+        if ($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))){
+            return Redirect::intended('admin/dashboard');
+        }
+
+        return Redirect::route('admin.login');
+    }
+
+    public function getLogout(){
+        Auth::logout();
+        return Redirect::route('admin.login');
+    }
+
+    public function getDashboard(){
+    	return View::make('admin.dashboard.index');
+    }
 }

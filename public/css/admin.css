@@ -1,0 +1,76 @@
+* { font-size: 14px; font-family: 'open sans'; }
+html, body { width: 100%; height: 100%; }
+body { margin: 0; padding: 0; }
+h1 { font-size: 24px; }
+h2 { font-size: 18px; }
+h3 { font-size: 15px; }
+header { padding: 0; background: #E43C49; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
+header div { padding: 10px; }
+header h1 { color: #fff; float: left; line-height: 80px; margin-left: 20px; }
+header img { float: left; height: 80px; width: 264px; }
+main { width: 82%; float: right; margin-top: 80px; background: #ccc; min-height: calc(100% - 100px); padding-top: 20px; }
+main h2 { text-align: center; }
+footer { min-height: 50px; background-color: #ccc; }
+.container { width: 80%; margin: 0 auto; }
+header a { color: #EECF40; }
+
+/* forms */
+form { width: 50%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; }
+form h2 { text-align: left; }
+form li { list-style-type: none; }
+form li .error { display: inline-block; color: red; }
+form label { display: block; font-weight: bold; line-height: 30px; }
+input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 96%; }
+input[type="text"], input[type="email"], input[type="password"] { height: 30px; line-height: 30px; padding: 0 2%; }
+textarea { width: 100%; padding: 2%; }
+input[type="submit"], a.mgmt-link { background: #4288CE; color: #fff; height: 40px; line-height: 40px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
+input[type="submit"]:hover, a.mgmt-link:hover { background: #333; cursor: pointer; }
+form.destroy { display: inline-block; padding: 0; border: none; width: auto; }
+form.destroy input[type="submit"] { margin-left: 10px; background: #999; display: inline-block; height: auto; padding: 0.2em; line-height: 1.2em; }
+form.destroy input[type="submit"]:hover { background: red; }
+
+#admin-panel { float: left; width: 18%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
+#admin-panel ul { list-style: none; width: 100%; }
+#admin-panel ul li { width: 100%; display: block; }
+#admin-panel ul li a { display: block; line-height: 40px; text-decoration: none; color: #fff; padding-left: 20px; font-family: 'Indie Flower', cursive; font-size: 1.4em;}
+#admin-panel ul li a:hover { background-color: #2F3A40; }
+
+form.login { width: 30%; }
+
+header h1 { float: left; }
+#user-menu { float: right; }
+
+#dashboard { width: 100%; }
+#dashboard section { border: 1px solid #ccc; width: 25%; padding: 1%; border-radius: 3px; float: left; min-height: 200px;  margin: 10px; }
+#dashboard h2 { text-align: center; }
+a.mgmt-link { text-decoration: none; line-height: 40px; display: block; width: 100px; text-align: center; margin: 0 auto; }
+
+.clear { clear: both; }
+
+#user-account, .item-listing { padding: 10px; width: 30%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+#user-account table { border-collapse: collapse; width: 50%; margin: 0 auto; }
+#user-account td { padding: 5px; }
+#user-account h2 { text-align: center; }
+
+.item-listing { width: 90%; }
+.item-listing table { width: 100%; margin: 0 auto; }
+.item-listing th { background-color: lightyellow; line-height: 30px; padding: 5px 15px; text-align: left; border: 2px solid #fff; }
+.item-listing td { background-color: lightblue; line-height: 20px; padding: 5px 15px; border: 2px solid #fff; }
+.item-listing input[type=checkbox] { vertical-align: middle; cursor: pointer; }
+.item-listing td:hover a + ul { visibility: visible; }
+.item-listing ul.actions { list-style: none; visibility: hidden; }
+.item-listing ul.actions li { float: left; margin-right: 5px; }
+.item-listing ul.actions li a { color: #606060; font-size: 0.8em; }
+
+
+#games-list td:first-child, #games-list th:first-child { width: 20px; }
+#games-list td:nth-child(2), #games-list th:nth-child(2) { width: 40%; }
+
+#login { background: #ccc; height: 100%; }
+#login form { position: relative; top: 120px; background: #fff; }
+/*
+.dropzone {
+	height: 300px;
+	width: 50%;
+	border: 1px solid black;
+}*/
