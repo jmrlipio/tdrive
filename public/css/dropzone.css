@@ -364,35 +364,47 @@
   color: #666;
 }
 @-moz-keyframes loading {
-  from {
+  0% {
     background-position: 0 -400px;
   }
-  to {
+
+  100% {
     background-position: -7px -400px;
   }
 }
 @-webkit-keyframes loading {
-  from {
+  0% {
     background-position: 0 -400px;
   }
-  to {
+
+  100% {
     background-position: -7px -400px;
   }
 }
 @-o-keyframes loading {
-  from {
+  0% {
     background-position: 0 -400px;
   }
-  to {
+
+  100% {
+    background-position: -7px -400px;
+  }
+}
+@-ms-keyframes loading {
+  0% {
+    background-position: 0 -400px;
+  }
+
+  100% {
     background-position: -7px -400px;
   }
 }
 @keyframes loading {
-  from {
+  0% {
     background-position: 0 -400px;
   }
-  to {
+
+  100% {
     background-position: -7px -400px;
   }
 }
-{"_em_plugin_v":"1.0.6_em_chrome","_em_plugin_partner_id":0,"_em_is_panel":1}

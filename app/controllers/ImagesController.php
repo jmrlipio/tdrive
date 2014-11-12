@@ -84,11 +84,16 @@ class ImagesController extends \BaseController {
 	}
 
 	public function postUpload() {
-		$file = Input::file('file');
-		$path = 'public/images';
-		$filename = $file->getClientOriginalExtension();
+		$path = public_path().'/images';
+		$filename = str_random(12).'.jpg';
 
-		return $file->move($path, $filename);
+		$upload_success = Input::file('file')->move($path, $filename);
+
+		if($upload_success) {
+		   return Response::json('success', 200);
+		} else {
+		   return Response::json('error', 400);
+		}
 	}
 
 }
