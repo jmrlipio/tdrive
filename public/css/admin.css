@@ -68,9 +68,8 @@ a.mgmt-link { text-decoration: none; line-height: 40px; display: block; width: 1
 
 #login { background: #ccc; height: 100%; }
 #login form { position: relative; top: 120px; background: #fff; }
-/*
+
 .dropzone {
 	height: 300px;
-	width: 50%;
-	border: 1px solid black;
-}*/
+	width: 90%;
+}

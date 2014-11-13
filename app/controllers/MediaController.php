@@ -1,32 +1,32 @@
 <?php
 
-class ImagesController extends \BaseController {
+class MediaController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /images
+	 * GET /media
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-
+		//
 	}
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /images/create
+	 * GET /media/create
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
-		
+		return View::make('admin.media.create');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /images
+	 * POST /media
 	 *
 	 * @return Response
 	 */
@@ -37,19 +37,19 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /images/{id}
+	 * GET /media/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function show($id)
 	{
-
+		//
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /images/{id}/edit
+	 * GET /media/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -61,7 +61,7 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /images/{id}
+	 * PUT /media/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -73,7 +73,7 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /images/{id}
+	 * DELETE /media/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -81,6 +81,23 @@ class ImagesController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function postUpload() {
+		$file = Input::file('file');
+		$path = public_path().'/images';
+		$filename = $file->getClientOriginalName().'.jpg';
+		$upload_success = $file->move($path, $filename);
+
+		if($upload_success) {
+			$media = new Media;
+		   	$media->media_url = time() . '_' . $file->getClientOriginalName();
+		   	$media->save();
+		   	return Response::json('success', 200);
+		} else {
+		   	return Response::json('error', 400);
+		}
+		
 	}
 
 }

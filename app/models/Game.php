@@ -19,4 +19,8 @@ class Game extends \Eloquent {
 	public function type() {
 		return $this->belongsTo('GameType');
 	}
+
+	public function image() {
+		return $this->morphMany('Image', 'imageable');
+	}
 }
