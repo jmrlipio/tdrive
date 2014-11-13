@@ -7,5 +7,5 @@ class Media extends \Eloquent {
 
 	public static $rules = [
 		'media_url' => 'required|image|mimes:jpeg,jpg,bmp,png,gif'
-	]
-;}
+	];
+}
