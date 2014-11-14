@@ -41,17 +41,19 @@ class AdminGamesController extends \BaseController {
 	public function store()
 	{
 		$validator = Validator::make($data = Input::all(), Game::$rules);
-
+		echo "<pre>";
+		dd($data);
+		echo "</pre>";
 		
 
-		if($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();	
-		}
+		// if($validator->fails())
+		// {
+		// 	return Redirect::back()->withErrors($validator)->withInput();	
+		// }
 
-		Game::create($data);
+		// Game::create($data);
 
-		return Redirect::route('admin.games.index');
+		// return Redirect::route('admin.games.index');
 	}
 
 	/**

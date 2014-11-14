@@ -5,6 +5,12 @@ Route::get('/', function()
 	return View::make('index');
 });
 
+Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
+
+// Route::get('/', function() {
+//     return 'hello';
+// });
+
 Route::group(array('prefix' => 'admin'), function() {
 	Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
     Route::post('login', array('as' => 'admin.login.post', 'uses' => 'AdminUsersController@postLogin'));
@@ -18,6 +24,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('news', 'NewsController');
     Route::resource('media', 'MediaController');
     Route::post('media/upload', array('as' => 'media.upload', 'uses' => 'MediaController@postUpload'));
+    // Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
 });
 
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));

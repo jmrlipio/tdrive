@@ -86,18 +86,33 @@ class MediaController extends \BaseController {
 	public function postUpload() {
 		$file = Input::file('file');
 		$path = public_path().'/images';
-		$filename = $file->getClientOriginalName().'.jpg';
+		$filename = time() . '_' . $file->getClientOriginalName();
 		$upload_success = $file->move($path, $filename);
 
 		if($upload_success) {
 			$media = new Media;
-		   	$media->media_url = time() . '_' . $file->getClientOriginalName();
+		   	$media->media_url = $filename;
 		   	$media->save();
 		   	return Response::json('success', 200);
 		} else {
 		   	return Response::json('error', 400);
 		}
 		
+	}
+
+	public function showAllMedia() {
+		$media = Media::all();
+
+		$images = [];
+
+		foreach($media as $img) {
+			// $images[$img->id] = public_path() . "/images/" . $img->media_url;
+			$images[$img->id] = "http://tdrive.dev/images/" . $img->media_url;
+		}
+
+		if(Request::ajax()) {
+			return $images;
+		}
 	}
 
 }
