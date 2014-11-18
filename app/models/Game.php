@@ -16,11 +16,29 @@ class Game extends \Eloquent {
 		return $this->belongsTo('User');
 	}
 
-	public function type() {
-		return $this->belongsTo('GameType');
+	public function categories() {
+		return $this->belongsToMany('Category', 'game_categories');
 	}
 
-	public function image() {
-		return $this->morphMany('Image', 'imageable');
+	public function platforms() {
+		return $this->belongsToMany('Platform', 'game_platforms');
 	}
+
+	public function currencies() {
+		return $this->belongsToMany('Currency', 'game_currencies');
+	}
+
+	public function media() {
+		return $this->morphToMany('Media', 'imageable');
+	}
+
+	public function keywords()
+    {
+        return $this->morphToMany('Keyword', 'keywordable');
+    }
+
+    public function languages()
+    {
+        return $this->morphToMany('Language', 'languagable');
+    }
 }
