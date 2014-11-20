@@ -23,13 +23,38 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function create()
 	{
-		$types = array();
+		// $types = array();
 
-		foreach(GameType::orderBy('name')->get() as $type) {
-			$types[$type->id] = $type->name;
+		// foreach(GameType::orderBy('name')->get() as $type) {
+		// 	$types[$type->id] = $type->name;
+		// }
+
+		$categories = [];
+		$platforms = [];
+		$languages = [];
+		$currencies = [];
+
+		foreach(Category::orderBy('category')->get() as $category) {
+			$categories[$category->id] = $category->category;
 		}
 
-		return View::make('admin.games.create')->with('types', $types);
+		foreach(Platform::orderBy('platform')->get() as $platform) {
+			$platforms[$platform->id] = $platform->platform;
+		}
+
+		foreach(Language::orderBy('language')->get() as $language) {
+			$languages[$language->id] = $language->language;
+		}
+
+		foreach(Currency::orderBy('currency')->get() as $currency) {
+			$currencies[$currency->id] = $currency->currency;
+		}
+
+		return View::make('admin.games.create')
+			->with('categories', $categories)
+			->with('platforms', $platforms)
+			->with('languages', $languages)
+			->with('currencies', $currencies);
 	}
 
 	/**

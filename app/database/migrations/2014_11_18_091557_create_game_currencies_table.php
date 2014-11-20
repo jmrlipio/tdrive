@@ -19,6 +19,7 @@ class CreateGameCurrenciesTable extends Migration {
             $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
             $table->integer('currency_id')->unsigned()->index();
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
+            $table->float('price');
 			$table->timestamps();
 		});
 	}

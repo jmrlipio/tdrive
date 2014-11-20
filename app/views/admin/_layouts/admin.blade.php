@@ -12,6 +12,7 @@
     {{ HTML::style('css/dropzone.css') }}
     {{ HTML::style('css/style.css') }}
     {{ HTML::style('css/admin.css') }}
+    {{ HTML::style('css/chosen.css')}}
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
