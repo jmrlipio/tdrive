@@ -5,11 +5,12 @@ Route::get('/', function()
 	return View::make('index');
 });
 
-Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
+Route::get('path', function(){
+    return public_path();
+});
 
-// Route::get('/', function() {
-//     return 'hello';
-// });
+Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
+Route::get('carrier/load', array('as' => 'carrier.load', 'uses' => 'CarriersController@loadCarrier'));
 
 Route::group(array('prefix' => 'admin'), function() {
 	Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
@@ -23,6 +24,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('games', 'AdminGamesController');
     Route::resource('news', 'NewsController');
     Route::resource('media', 'MediaController');
+    Route::resource('categories', 'CategoriesController');
+    Route::resource('languages', 'LanguagesController');
+    Route::resource('platforms', 'PlatformsController');
+    Route::resource('carriers', 'CarriersController');
     Route::post('media/upload', array('as' => 'media.upload', 'uses' => 'MediaController@postUpload'));
     // Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
 });

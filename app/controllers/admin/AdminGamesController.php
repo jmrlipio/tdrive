@@ -23,16 +23,10 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function create()
 	{
-		// $types = array();
-
-		// foreach(GameType::orderBy('name')->get() as $type) {
-		// 	$types[$type->id] = $type->name;
-		// }
-
 		$categories = [];
 		$platforms = [];
 		$languages = [];
-		$currencies = [];
+		$carriers = [];
 
 		foreach(Category::orderBy('category')->get() as $category) {
 			$categories[$category->id] = $category->category;
@@ -46,15 +40,15 @@ class AdminGamesController extends \BaseController {
 			$languages[$language->id] = $language->language;
 		}
 
-		foreach(Currency::orderBy('currency')->get() as $currency) {
-			$currencies[$currency->id] = $currency->currency;
+		foreach(Carrier::orderBy('carrier')->get() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
 		}
 
 		return View::make('admin.games.create')
 			->with('categories', $categories)
 			->with('platforms', $platforms)
 			->with('languages', $languages)
-			->with('currencies', $currencies);
+			->with('carriers', $carriers);
 	}
 
 	/**
@@ -65,20 +59,35 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Game::$rules);
-		echo "<pre>";
-		dd($data);
-		echo "</pre>";
+		// echo "<pre>";
+		// dd(Input::all());
+		// echo "</pre>";
 		
 
-		// if($validator->fails())
-		// {
-		// 	return Redirect::back()->withErrors($validator)->withInput();	
-		// }
+		$validator = Validator::make($data = Input::all(), Game::$rules);
 
-		// Game::create($data);
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
 
-		// return Redirect::route('admin.games.index');
+		$game = Game::create($data);
+
+		$platforms = Input::get('platform_id');
+		$categories = Input::get('category_id');
+		$languages = Input::get('language_id');
+
+		foreach($platforms as $platform_id) {
+			$game->platforms()->attach($platform_id);
+		}
+
+		foreach($categories as $category_id) {
+			$game->categories()->attach($category_id);
+		}
+
+		foreach($languages as $language_id) {
+			$game->languages()->attach($language_id);
+		}
 	}
 
 	/**

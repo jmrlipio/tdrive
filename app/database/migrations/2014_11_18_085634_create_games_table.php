@@ -25,6 +25,8 @@ class CreateGamesTable extends Migration {
 			$table->boolean('featured');
 			$table->text('content');
 			$table->date('release_date');
+			$table->integer('downloads');
+			$table->integer('actual_downloads');
 			$table->timestamps();
 		});
 	}

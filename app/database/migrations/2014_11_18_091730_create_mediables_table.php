@@ -16,6 +16,7 @@ class CreateMediablesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->morphs('mediable');
+			$table->string('type');
 			$table->timestamps();
 		});
 	}

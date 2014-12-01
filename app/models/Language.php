@@ -1,7 +1,11 @@
 <?php
 
 class Language extends \Eloquent {
-	protected $fillable = [];
+	protected $fillable = ['language'];
+
+    public static $rules = [
+        'language' => 'required|min:3|unique:languages',
+    ];
 
 	public function games()
     {
@@ -12,4 +16,5 @@ class Language extends \Eloquent {
     {
         return $this->morphedByMany('News', 'languagable');
     }
+
 }

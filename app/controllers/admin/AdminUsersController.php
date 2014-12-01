@@ -10,7 +10,7 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = User::all();
+		$users = User::orderBy('id')->paginate(5);
 
 		return View::make('admin.users.index')->with('users', $users);
 	}

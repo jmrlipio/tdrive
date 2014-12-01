@@ -18,4 +18,8 @@ class News extends \Eloquent {
 	public function comments() {
 		return $this->belongsToMany('Comment', 'news_comments');
 	}
+
+	public function newsCategory() {
+		return $this->belongsTo('NewsCategory');
+	}
 }
