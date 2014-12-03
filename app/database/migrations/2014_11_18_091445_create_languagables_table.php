@@ -15,6 +15,8 @@ class CreateLanguagablesTable extends Migration {
 		Schema::create('languagables', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('language_id')->unsigned();
+			$table->foreign('language_id')->references('id')->on('languages');
 			$table->morphs('languagable');
 			$table->timestamps();
 		});

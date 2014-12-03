@@ -81,6 +81,10 @@
 					{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 					{{-- Form::select('sports[]', $sports, null, array('multiple')) --}}
 				</li>
+				<li>
+					{{ Form::label('default_price', 'Default Price: ') }}
+					{{ Form::text('default_price') }}
+				</li>
 				<li id="prices">
 					<div id="carrier-tab"></div>
 				</li>
@@ -103,7 +107,7 @@
 					<li>
 						<div class="img-holder"></div>
 						<p>
-							{{ Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) }}
+							{{ Form::text('screenshots[]', null, array('class' => 'img-url', 'disabled')) }}
 							{{ Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) }}
 							{{ Form::button('Select', array('class' => 'select-img')) }}
 						</p>
@@ -149,11 +153,11 @@
 			height : 300
 		});
 
-		tinymce.init({
-			mode : "specific_textareas",
-			selector: "#excerpt",
-			height : 300
-		});
+		// tinymce.init({
+		// 	mode : "specific_textareas",
+		// 	selector: "#excerpt",
+		// 	height : 150
+		// });
 
         // Initializes Chosen Select for all multiple select fields
         $(".chosen-select").chosen();
@@ -234,6 +238,7 @@
 	    	carrier_tab.find('.panel-container').append('<div id="' + carrier_div +'"></div>');
 
 	    	$('#' + carrier_div).append('<h3>Prices for countries with ' + carrier + ' carrier:</h3>');
+	    	$('#' + carrier_div).append('<input type="hidden" value="' + id + '">');
 	    	loadCurrencies(id, carrier_div);
 	    });
 
@@ -280,7 +285,7 @@
 				if (data.hasOwnProperty(id)) {
 					var price = ' \
 						<label for="' + id + '">' + data[id] + ': </label> \
-						<input type="text" class="prices" id="' + id + '">';
+						<input type="text" class="prices" name="prices' + cid + '[]" id="' + id + '">';
 
 					carrier_div.append(price);
 				}

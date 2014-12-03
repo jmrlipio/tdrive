@@ -45,6 +45,8 @@
             <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>
             <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>
             <li><a href="{{ URL::route('admin.media.create') }}">Gallery</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Pages</a></li>
             <li><a href="#">FAQ</a></li>
         </ul>
     </nav>

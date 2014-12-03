@@ -8,11 +8,11 @@ class News extends \Eloquent {
 	}
 
 	public function languages() {
-		return $this->morphToMany('Keyword', 'languagable');
+		return $this->morphToMany('Language', 'languagable');
 	}
 
 	public function media() {
-		return $this->morphToMany('Keyword', 'mediable');
+		return $this->morphToMany('Media', 'mediable');
 	}
 
 	public function comments() {

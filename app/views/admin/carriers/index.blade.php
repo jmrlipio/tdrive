@@ -4,6 +4,11 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="carriers-list">
 		<h2>Carriers</h2>
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
 		<br>
 		<table>
 			<tr>

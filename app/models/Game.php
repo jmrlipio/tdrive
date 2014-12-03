@@ -16,6 +16,7 @@ class Game extends \Eloquent {
 		'featured' => 'required|boolean',
 		'content' => 'required|min:20',
 		'release_date' => 'required|date',
+		'default_price' => 'required|numeric'
 	);
 
 	public function user() {
@@ -35,7 +36,7 @@ class Game extends \Eloquent {
 	}
 
 	public function media() {
-		return $this->morphToMany('Media', 'imageable');
+		return $this->morphToMany('Media', 'mediable');
 	}
 
 	public function keywords()

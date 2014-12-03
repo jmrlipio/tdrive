@@ -15,6 +15,8 @@ class CreateMediablesTable extends Migration {
 		Schema::create('mediables', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('media_id')->unsigned();
+			$table->foreign('media_id')->references('id')->on('media');
 			$table->morphs('mediable');
 			$table->string('type');
 			$table->timestamps();

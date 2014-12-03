@@ -59,35 +59,26 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function store()
 	{
-		// echo "<pre>";
-		// dd(Input::all());
-		// echo "</pre>";
-		
+		echo "<pre>";
+		dd(Input::all());
+		echo "</pre>";
 
-		$validator = Validator::make($data = Input::all(), Game::$rules);
+		// $validator = Validator::make($data = Input::all(), Game::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+		// if ($validator->fails())
+		// {
+		// 	return Redirect::back()->withErrors($validator)->withInput();
+		// }
 
-		$game = Game::create($data);
+		// $game = Game::create($data);
 
-		$platforms = Input::get('platform_id');
-		$categories = Input::get('category_id');
-		$languages = Input::get('language_id');
+		// $game->platforms()->sync(Input::get('platform_id'));
+		// $game->categories()->sync(Input::get('category_id'));
+		// $game->languages()->sync(Input::get('language_id'));
+		// $game->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
+		// $game->media()->sync(Input::get('screenshot_id'));
 
-		foreach($platforms as $platform_id) {
-			$game->platforms()->attach($platform_id);
-		}
-
-		foreach($categories as $category_id) {
-			$game->categories()->attach($category_id);
-		}
-
-		foreach($languages as $language_id) {
-			$game->languages()->attach($language_id);
-		}
+		// return Redirect::route('admin.games.index')->with('message', 'You have successfully added a game.');
 	}
 
 	/**

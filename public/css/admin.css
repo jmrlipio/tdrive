@@ -278,3 +278,8 @@ form.login { width: 30%; }
 
 .tall-tr { height: 50px; }
 .tall-tr p { line-height: 50px; text-align: center; }
+
+#excerpt {
+	width: 95%;
+	resize: none;
+}

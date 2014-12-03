@@ -19,7 +19,7 @@ class CreateGamesTable extends Migration {
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->string('title');
 			$table->string('slug');
-			$table->string('url');
+			$table->float('default_price');
 			$table->string('excerpt');
 			$table->string('status');
 			$table->boolean('featured');
