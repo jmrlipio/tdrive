@@ -59,26 +59,26 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function store()
 	{
-		echo "<pre>";
+		/*echo "<pre>";
 		dd(Input::all());
-		echo "</pre>";
+		echo "</pre>";*/
 
-		// $validator = Validator::make($data = Input::all(), Game::$rules);
+		$validator = Validator::make($data = Input::all(), Game::$rules);
 
-		// if ($validator->fails())
-		// {
-		// 	return Redirect::back()->withErrors($validator)->withInput();
-		// }
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
 
-		// $game = Game::create($data);
+		$game = Game::create($data);
 
-		// $game->platforms()->sync(Input::get('platform_id'));
-		// $game->categories()->sync(Input::get('category_id'));
-		// $game->languages()->sync(Input::get('language_id'));
-		// $game->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
-		// $game->media()->sync(Input::get('screenshot_id'));
+		$game->platforms()->sync(Input::get('platform_id'));
+		$game->categories()->sync(Input::get('category_id'));
+		$game->languages()->sync(Input::get('language_id'));
+		$game->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
+		$game->media()->sync(Input::get('screenshot_id'));
 
-		// return Redirect::route('admin.games.index')->with('message', 'You have successfully added a game.');
+		return Redirect::route('admin.games.index')->with('message', 'You have successfully added a game.');
 	}
 
 	/**

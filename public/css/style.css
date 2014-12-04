@@ -45,3 +45,185 @@ main {
 	width: 80%;
 	margin: 0 auto;
 }
+
+/** 
+* Added by: Jone   
+* Purpose: For user registration styles & login
+* Date: 12/04/2014
+*/
+
+.pull-right { 
+	float: right;
+	 }
+.pull-left { 
+	float: left; 
+}
+.clear { 
+	clear: both; 
+}
+form#login-form ul li{
+	margin-top: 10px;
+}
+form#login-form { 
+	background: #465A65 !important;
+	color: #fff;
+}
+form#login-form input[type=submit] { 
+	margin-top: 0;
+	background: #FF92B2; 
+	font-size: 20px;
+	padding: 0px 5px;
+	height: 30px;
+	line-height: 14px;
+}
+form#login-form input[type="submit"]:hover {
+	background: #333; cursor: pointer;
+}
+form#login-form input[type=checkbox] {
+	-webkit-appearance: none;
+	margin: 0 3px;	
+	background-color: none;
+	border: 1px solid #FF92B2;
+	padding: 7px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+}
+
+form#login-form input[type=checkbox]:checked {
+	background-color: none;
+	border: 1px solid #FF92B2;	
+	color: #FF92B2;
+}
+form#login-form input[type=checkbox]:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: -3px;
+	left: 0px;
+	color: #FF92B2;
+}
+form#login-form div#register-button a { 
+	color: #fff; 
+	text-decoration: none;
+	font-size: 27px;
+	display: block;
+	line-height: 14px;
+}
+form#login-form input::-webkit-input-placeholder {
+   text-align: center;
+}
+form#login-form input:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+form#login-form input::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+form#login-form input:-ms-input-placeholder {  
+   text-align: center; 
+}
+form#login-form div#register-button:hover {
+	background: #333; cursor: pointer;
+}
+form#login-form div#register-button {
+	width: 55%;
+	background: #FF92B2; 
+	margin: 0 auto;
+	min-height: 20px;
+	border-radius: 3px;
+	padding: 5px 0;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+form#login-form .not-member, form#login-form .signin{ 
+	font-size: 33px;
+}
+.text-center {
+	text-align: center;
+}
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-justify {
+	text-align: justify;
+}
+.pink { 
+	color: #FF92B2;
+}
+div#login { 
+	text-align: center;
+}
+div#login p, h1{
+	padding: 8px;
+}
+div#form-errors { 
+	width: 30%; 
+	min-height: 20px;
+} 
+div#register {
+	width: 80%;
+	padding-top: 100px;
+	margin: 0 auto;
+}
+div#register form {
+	margin-top: 0;
+}
+div#register .text-lg {
+	font-size: 33px;
+	text-align: center;
+}
+div#register input{
+	margin-bottom: 10px;
+}
+div#register form .error { display: inline-block; color: red; line-height: 30px; }
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.form-control::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: #999;
+}
+.form-control::-webkit-input-placeholder {
+  color: #999;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  cursor: not-allowed;
+  background-color: #eee;
+  opacity: 1;
+}
+textarea.form-control {
+  height: auto;
+}
+/* ===================== END */

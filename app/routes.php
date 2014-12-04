@@ -35,6 +35,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));
 Route::post('login', array('as' => 'login.post', 'uses' => 'UsersController@postLogin'));
 Route::get('logout', array('as' => 'users.logout', 'uses' => 'UsersController@getLogout'));
+Route::get('signup', array('as' => 'users.signup', 'uses' => 'UsersController@getSignup'));
+Route::post('register', array('as' => 'users.register', 'uses' => 'UsersController@postRegister'));
 
 Route::group(array('before' => 'auth'), function(){
 	Route::resource('users', 'UsersController');

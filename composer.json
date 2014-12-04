@@ -8,7 +8,6 @@
 		"way/generators": "~2.0",
 		"fzaninotto/faker": "1.5.*@dev",
 		"nesbot/Carbon": "*",
-		"intervention/image": "dev-master",
 		"webpatser/laravel-countries": "dev-master",
 		"jarektkaczyk/eloquent-triple-pivot": "dev-master"
 	},
