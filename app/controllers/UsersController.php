@@ -140,9 +140,6 @@ class UsersController extends \BaseController {
         	}
         	return Redirect::intended('/');
         }
-        /*if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))){
-            return Redirect::intended('/');
-        }*/
 
         return Redirect::route('login');
     }
