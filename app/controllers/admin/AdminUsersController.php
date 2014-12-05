@@ -85,7 +85,7 @@ class AdminUsersController extends \BaseController {
 	{
 		$user = User::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), User::$update_rules);
+		$validator = Validator::make($data = Input::all(), User::$rules);
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
