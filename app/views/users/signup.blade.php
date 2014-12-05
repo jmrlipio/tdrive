@@ -2,7 +2,7 @@
 
 	<div id="register">
 		
-		{{ Form::open(array('route'=>'users.register')) }}
+		{{ Form::open(array('route'=>'users.register', 'id' => 'signup-form')) }}
 			<p class="text-lg">Create new account</p>
 
 			{{ Form::label('username') }}

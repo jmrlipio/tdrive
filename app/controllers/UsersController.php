@@ -132,7 +132,7 @@ class UsersController extends \BaseController {
         	'username' => Input::get('username'), 
         	'password' => Input::get('password')
         	);
-        echo $remember;
+        
         if (Auth::attempt($credentials)){        	
         	
         	if(!empty($remember)){

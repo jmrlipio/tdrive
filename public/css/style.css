@@ -48,7 +48,7 @@ main {
 
 /** 
 * Added by: Jone   
-* Purpose: For user registration styles & login
+* Purpose: For user registration & login styles
 * Date: 12/04/2014
 */
 
@@ -61,6 +61,8 @@ main {
 .clear { 
 	clear: both; 
 }
+
+/* Login Form Styles */
 form#login-form ul li{
 	margin-top: 10px;
 }
@@ -90,6 +92,10 @@ form#login-form input[type=checkbox] {
 	position: relative;
 }
 
+form#login-form input[type=text], form#login-form input[type=password]{
+	width: 94.6%;
+}
+
 form#login-form input[type=checkbox]:checked {
 	background-color: none;
 	border: 1px solid #FF92B2;	
@@ -106,9 +112,9 @@ form#login-form input[type=checkbox]:checked:after {
 form#login-form div#register-button a { 
 	color: #fff; 
 	text-decoration: none;
-	font-size: 27px;
+	font-size: 30px;
 	display: block;
-	line-height: 14px;
+	line-height: 18px;
 }
 form#login-form input::-webkit-input-placeholder {
    text-align: center;
@@ -126,10 +132,10 @@ form#login-form div#register-button:hover {
 	background: #333; cursor: pointer;
 }
 form#login-form div#register-button {
-	width: 55%;
+	width: 65%;
 	background: #FF92B2; 
-	margin: 0 auto;
-	min-height: 20px;
+	margin: 6px auto 0;
+	min-height: 25px;
 	border-radius: 3px;
 	padding: 5px 0;
 	-webkit-transition: all 0.5s ease-in-out;
@@ -140,6 +146,9 @@ form#login-form div#register-button {
 form#login-form .not-member, form#login-form .signin{ 
 	font-size: 33px;
 }
+/* ===================== END ===================== */
+
+/* Text Styles */
 .text-center {
 	text-align: center;
 }
@@ -155,10 +164,19 @@ form#login-form .not-member, form#login-form .signin{
 .pink { 
 	color: #FF92B2;
 }
+/* ===================== END ===================== */
+
+/* Registraion Form Styles */
+form#signup-form input[type="submit"] {
+	background: #FF92B2;
+}
+form#signup-form input[type="submit"]:hover {
+	background: #333; cursor: pointer;
+}
 div#login { 
 	text-align: center;
 }
-div#login p, h1{
+div#login p{
 	padding: 8px;
 }
 div#form-errors { 
@@ -176,54 +194,63 @@ div#register form {
 div#register .text-lg {
 	font-size: 33px;
 	text-align: center;
+	padding: 8px;
 }
 div#register input{
 	margin-bottom: 10px;
 }
-div#register form .error { display: inline-block; color: red; line-height: 30px; }
+div#register form .error { 
+	display: inline-block; 
+	color: red; 
+	line-height: 30px; 
+}
+/* ===================== END ===================== */
 
 .form-control {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
 }
 .form-control::-moz-placeholder {
-  color: #999;
-  opacity: 1;
+	color: #999;
+	opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #999;
+	color: #999;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999;
+	color: #999;
 }
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-  cursor: not-allowed;
-  background-color: #eee;
-  opacity: 1;
+	cursor: not-allowed;
+	background-color: #eee;
+	opacity: 1;
 }
 textarea.form-control {
-  height: auto;
+	height: auto;
 }
-/* ===================== END */
+textarea#text-excerpt {
+	width: 95.8%;
+}
+/* ===================== END ===================== */
