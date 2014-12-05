@@ -204,7 +204,18 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$tables = ['categories','platforms','languages','media', 'carriers'];
+
+		$game = Game::with($tables)->get()->find($id);
+
+		$validator = Validator::make($data = Input::all(), Game::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$game->update($data);
 	}
 
 	/**
