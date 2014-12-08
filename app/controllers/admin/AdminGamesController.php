@@ -135,11 +135,15 @@ class AdminGamesController extends \BaseController {
 		$root = Request::root();
 
 		foreach($game->media as $media) {
-			$selected_media[$count]['media_id'] = $media->url;
+			$selected_media[$count]['media_id'] = $media->id;
 			$selected_media[$count]['media_url'] = $root. '/images/uploads/' . $media->url;
 			$selected_media[$count]['type'] = $media->pivot->type;
 			$count++;
 		}
+
+		// echo "<pre>";
+		// print_r($selected_media);
+		// echo "</pre>";
 
 		foreach($game->carriers as $carrier) {
 			$selected_carriers[] = $carrier->id;
@@ -216,6 +220,40 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$game->update($data);
+
+		// $game->platforms()->sync(Input::get('platform_id'));
+		// $game->categories()->sync(Input::get('category_id'));
+		// $game->languages()->sync(Input::get('language_id'));
+		// $game->carriers()->sync(Input::get('carrier_id'));
+		// $game->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
+
+		$selected_media = [];
+		$new_media = Input::get('screenshot_id');
+
+		foreach($game->media as $media) {
+			$selected_media[] = $media->id;
+		}
+
+		foreach($selected_media as $smid) {
+			if(!in_array($smid, $new_media)) {
+				$game->media()->detach($smid);
+			}
+		}
+
+		foreach($new_media as $nm) {
+			if(!in_array($nm, $selected_media)) {
+				$game->media()->attach(array($nm => array('type' => 'featured')));
+			}
+		}
+
+		// foreach(Input::get('carrier_id') as $carrier_id) {
+		// 	foreach(Input::get('prices'.$carrier_id) as $country_id => $price) {
+		// 		$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
+		// 	}
+		// }
+
+		// return Redirect::back()
+		// 	->with('message', 'You have successfully added a game.');
 	}
 
 	/**

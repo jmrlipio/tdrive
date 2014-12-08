@@ -116,8 +116,10 @@
 			<ul id="media">
 				<li>
 					{{ Form::label('featured-img', 'Featured Image:') }}
+					<?php $featured = false; ?>
 					@foreach($selected_media as $media)
 						@if($media['type'] == 'featured')
+							<?php $featured = true; ?>
 							<div class="img-holder">
 								<img src="{{ $media['media_url'] }}">
 							</div>
@@ -128,14 +130,26 @@
 							</p>
 						@endif
 					@endforeach
+					@if(!$featured)
+						<div class="img-holder"></div>
+						<p>
+							{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+							{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
+							{{ Form::button('Select', array('class' => 'select-img')) }}
+						</p>
+					@endif
 				</li>
 				<br>
 				<ul id="screenshots">
 					<label>Images:</label>
 					{{ Form::button('Add Image', array('id' => 'add-img')) }}<br>
-					<?php $i = 1; ?>
+					<?php 
+						$screenshot = false; 
+						$i = 1; 
+					?>
 					@foreach($selected_media as $media)
 						@if($media['type'] == 'screenshot')
+							<?php $screenshot = true; ?>
 							<li>
 								<div class="img-holder">
 									<img src="{{ $media['media_url'] }}">
@@ -152,6 +166,16 @@
 							</li>
 						@endif
 					@endforeach
+					@if(!$screenshot)
+						<li>
+							<div class="img-holder"></div>
+							<p>
+								{{ Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) }}
+								{{ Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) }}
+								{{ Form::button('Select', array('class' => 'select-img')) }}
+							</p>
+						</li>
+					@endif
 				</ul>
 				
 			</ul>

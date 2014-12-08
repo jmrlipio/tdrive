@@ -5,6 +5,11 @@
 	
 	{{ Form::open(array('route' => 'admin.games.store', 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
 		<h2>Create New Game</h2>
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
 		<br>
 		<ul class='etabs'>
 			<li class='tab'><a href="#content">Content</a></li>

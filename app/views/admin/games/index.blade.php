@@ -4,6 +4,11 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
 		<h2>Games</h2>
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
 		<br>
 		<table>
 			<tr>
