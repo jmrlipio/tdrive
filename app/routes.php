@@ -36,7 +36,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 * Purpose: For admin news creation
 * Date: 12/04/2014
 */
-//Route::post('admin_news', array('as' => 'admin.news.createnews', 'uses' => 'NewsController@postCreatenews'));
+
 /*END*/
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));
 Route::post('login', array('as' => 'login.post', 'uses' => 'UsersController@postLogin'));

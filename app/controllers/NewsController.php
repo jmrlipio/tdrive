@@ -31,39 +31,6 @@ class NewsController extends \BaseController {
 
 	}
 
-/*	public function postCreatenews()
-	{
-		$validator = Validator::make(Input::all(), News::$rules);
-
-		$news = new News;
-		//$excerpt = Input::get('excerpt');
-		
-		if($validator->passes()){
-			
-			$news->user_id= Input::get('user_id');
-			$news->title= Input::get('title');
-			$news->status= Input::get('status');
-			$news->content= Input::get('content');
-			$news->excerpt = $excerpt.'...';
-			$news->news_category_id = Input::get('category_id');
-			$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'news')));
-			$news->save();			
-			return Redirect::route('admin.news.create')->with('message', 'Adding news successful.');	
-
-		}
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$news = News::create($data);
-		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'news')));
-	}
-*/
-
-
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -80,7 +47,7 @@ class NewsController extends \BaseController {
 		}
 
 		$news = News::create($data);
-		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'news')));
+		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
 		
 		return Redirect::route('admin.news.create')->with('message', 'Adding news successful.');
 
