@@ -23,8 +23,8 @@
 
 	<div class="tablet">
 		<ul class="nav-main">
-			<li><a href="#" class="games">Games</a></li>
-			<li><a href="#" class="news">News</a></li>
+			<li><a href="{{ route('games') }}" class="games">Games</a></li>
+			<li><a href="{{ route('news') }}" class="news">News</a></li>
 			<li><a href="#" class="faqs">FAQs</a></li>
 			<li><a href="#" class="contact">Contact</a></li>
 		</ul>

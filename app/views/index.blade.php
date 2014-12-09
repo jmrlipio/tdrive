@@ -81,11 +81,36 @@
         </div>
 
         <div class="container">
-
             <div id="container-scroll">
-                @include('_partials.game_thumbnails'); 
+                <div class="column-three mobile">
+                    <div class="row clearfix">
+                        <?php $count = 0; ?>
+                            @foreach($games as $game)                             
+                                
+                                <div>
+                                    <a href="#"><img src="{{ $thumbnails[$count] }}" class="border-radius" alt="{{ $game->title }}"></a>
+                                    <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
+                                </div> 
+                                <?php $count++; ?> 
+                            @endforeach
+                    </div>
+                        
+                </div>
+                
+                <div class="column-four tablet">                
+                    <div class="row clearfix">
+                        <?php $count = 0; ?>
+                            @foreach($games as $game)                             
+                                
+                                <div>
+                                    <a href="#"><img src="{{ $thumbnails[$count] }}" class="border-radius" alt="{{ $game->title }}"></a>
+                                    <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
+                                </div> 
+                                <?php $count++; ?> 
+                            @endforeach
+                    </div>
+                </div> 
             </div>
-
         </div>
 
         <div id="ajax-loader" class="center" style="display: none;">
@@ -93,18 +118,6 @@
         </div>
 
         <div class="tablet clearfix"><a href="#" id="more">More +</a></div>
-        <div class="tablet">
-            <footer class="footer-main clearfix">
-                <ul>
-                    <li class="support"><span></span><a href="#">support@tdrive.co</a></li>
-                    <li><a href="#" class="facebook">Facebook</a></li>
-                    <li><a href="#" class="twitter">Twitter</a></li>
-                </ul>
-                
-                <p>Japan | Philippines</p>
-                <p>Copyright &copy; 2014. TDrive | All Rights Reserved.</p>
-            <footer>
-        </div>
 
     </div>
 </div>
@@ -124,7 +137,7 @@ $(document).ready(function () {
 
     $.slidebars();
 
-    $('.mobile').each(function() {
+    /*$('.mobile').each(function() {
 
         if ($(this).is(':visible')) {
 
@@ -171,7 +184,7 @@ $(document).ready(function () {
 
         }
 
-    });
+    });*/
 });
 </script>
 @stop

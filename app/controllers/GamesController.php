@@ -10,7 +10,21 @@ class GamesController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+
+		$games = Game::with('media')->get();
+		$root = Request::root();
+		$thumbnails = array();
+
+		foreach($games as $game) {
+			foreach($game->media as $media) {
+				if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			}
+		}
+		return View::make('pages.games')
+		->with('thumbnails', $thumbnails)
+		->with('games', $games);
 	}
 
 	/**

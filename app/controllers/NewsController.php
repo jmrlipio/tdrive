@@ -2,6 +2,13 @@
 
 class NewsController extends \BaseController {
 
+	public function usersindex()
+	{
+		$news = News::orderBy('id')->paginate(10);
+		return View::make('pages.news')->with('news', $news);
+	}
+
+
 	/**
 	 * Display a listing of the resource.
 	 *

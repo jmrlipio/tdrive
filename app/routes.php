@@ -1,9 +1,7 @@
 <?php
 
-Route::get('/', function()
-{
-	return View::make('index');
-});
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
+
 
 Route::get('path', function(){
     return public_path();
@@ -36,6 +34,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 * Purpose: For admin news creation
 * Date: 12/04/2014
 */
+Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
+Route::get('news', array('as' => 'news', 'uses' => 'NewsController@usersindex'));
 
 /*END*/
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));
