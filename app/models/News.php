@@ -22,7 +22,7 @@ class News extends \Eloquent {
 	}
 
 	public function media() {
-		return $this->morphToMany('Media', 'mediable');
+		return $this->morphToMany('Media', 'mediable')->withPivot('type');
 	}
 
 	public function comments() {

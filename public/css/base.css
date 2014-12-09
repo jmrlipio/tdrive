@@ -1,0 +1,185 @@
+html, button, input, select, textarea { color: #222; font-family: opensans_regular, Arial, sans-serif; }
+html { font-size: 16px; line-height: 1.4; }
+
+::-moz-selection { background: #cc0001; text-shadow: none; color: #fff; }
+::selection { background: #cc0001; text-shadow: none; color: #fff; }
+
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 20px 0; padding: 0; }
+audio, canvas, img, video { vertical-align: middle; }
+fieldset { border: 0; margin: 0; padding: 0; }
+textarea { resize: vertical; }
+ul { padding-left: 0; }
+select, label { cursor: pointer; }
+a, input, select, label, textarea { outline: none; border: 0; }
+a { text-decoration: none; }
+img, video { width: 100%; height: auto; }
+
+/* Defaults */
+body { 
+	background: #455a64; 
+	font-family: opensans_regular, Arial, sans-serif; 
+	padding-top: 56px;
+}
+
+.header-main {
+	background: #cc0001;
+	color: #fff;
+	width: 100%;
+	top: 0;
+	position: fixed;
+	padding: 0;
+	z-index: 99999;
+}
+
+
+.header-main > div { 
+	padding: 5px 13px; 
+	max-width: 1024px;
+	margin: auto;
+}
+
+/* .logo-main {
+	background: url(../images/logo-tdrive.png) left top no-repeat;
+	width: 111px;
+	height: 42px;
+	margin-top: 1px;
+	display: block;
+	text-indent: -9999px;
+	float: left;
+} */
+.logo-main {
+	background: url(../images/logo-tdrive.png) left top no-repeat;
+	width: 111px;
+	height: 42px;
+	margin-top: 1px;
+	display: block;
+	text-indent: -9999px;
+	float: left;
+}
+
+.logo-tose {
+	background: url(../images/logo-tose.png) left top no-repeat;
+	width: 61px;
+	height: 46px;
+	display: block;
+	text-indent: -9999px;
+	float: right;
+}
+
+.link { 
+	color: #888; 
+	-webkit-transition: all 0.3s ease-out;  /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+	transition: all 0.3s ease-out;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+}
+
+.link:hover { color: #888; text-decoration: none; }
+
+.link-pink { color: #ff91b2; }
+.link-pink:hover { color: #f38aaa; }
+
+.button {
+	color: #fff;
+	background: #888;
+	text-decoration: none;
+	padding: 5px 10px;
+	border: 0;
+	-webkit-transition: all 0.3s ease-out;  /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+	transition: all 0.3s ease-out;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+}
+
+.button-pink { background: #ff91b2; }
+.button-pink:hover { background: #f38aaa; }
+
+.border-radius {
+	border-radius: 8px;
+	background-clip: padding-box; 
+}
+
+.center { text-align: center; }
+
+.container {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.column-three .row > div {
+	width: 29.3%;
+	float: left;
+	padding-left: 2%;
+	padding-right: 2%;
+	margin-bottom: 20px;
+}
+
+.column-four .row > div {
+	width: 21%;
+	float: left;
+	padding-left: 2%;
+	padding-right: 2%;
+	margin-bottom: 20px;
+}
+
+.tablet { display: none; }
+.mobile { display: block; }
+
+.tablet-portrait { display: none; }
+.tablet-landscape { display: none; }
+
+/* Mobile (landscape) */
+@media only screen and (min-width: 321px) {
+
+}
+
+/* Mobile (portrait) */
+@media only screen and (max-width: 320px) {
+
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+
+	.tablet { display: block; }
+	.mobile { display: none; }
+	.nav-toggle { display: none; }
+
+	.header-main > div { padding: 0; }
+
+	.logo-main { margin: 42px 20px 0 20px; }
+
+	.logo-tose { margin: 42px 20px 0 0; }
+
+}
+
+/* Tablet (landscape) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+	body { padding-top: 132px; }
+
+	.tablet-landscape { display: block; }
+
+}
+
+/* Tablet (portrait) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+
+	body { padding-top: 194px; }
+
+	.logo-tose { margin-right: 36px; }
+
+	.tablet-portrait { display: block; }
+
+}
+
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+@font-face {
+    font-family: 'opensans_regular';
+    src: url('../fonts/opensans_regular/OpenSans-Regular-webfont.eot');
+    src: url('../fonts/opensans_regular/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans_regular/OpenSans-Regular-webfont.woff') format('woff'),
+         url('../fonts/opensans_regular/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/opensans_regular/OpenSans-Regular-webfont.svg#opensans_regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -1,4 +1,5 @@
-@include('_partials.header')
+@extends('_layouts.login')
+@section('content')
 
 	<div id="register">
 		
@@ -24,8 +25,7 @@
 			{{ Form::label('password_confirmation') }}
 			{{ Form::password('password_confirmation',array('placeholder'=>'Confirm password', 'class'=> 'form-control')) }}
 			
-			{{ Form::submit('Create new Account', array('class' => 'btn btn-primary')) }}
+			{{ Form::submit('Create new Account', array('class' => 'button button-pink')) }}
 		{{ Form::close() }}
 	</div>
-</body>
-</html>
+@stop

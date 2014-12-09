@@ -2,8 +2,8 @@
 
 @section('content')
 
-	<div class="item-listing" id="games-list">
-		<h2>News</h2>
+	<div class="item-listing" id="news-list">
+		<h2 class="text-lg">News</h2>
 		<br>
 		<table>
 			<tr>
@@ -20,7 +20,12 @@
 							<ul class="actions">
 								<li><a href="{{ URL::route('admin.news.edit', $news_item->id) }}">Edit</a></li>
 								<li><a href="">View</a></li>
-								<li><a href="">Delete</a></li>
+								<li>
+								{{ Form::open(array('route' => array('admin.news.destroy', $news_item->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+								{{ Form::close() }}
+
+								</li>
 							</ul>
 						</td>
 						<td>{{ $news_item->created_at }}</td>

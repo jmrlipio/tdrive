@@ -1,32 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>TDrive</title>
-    {{ HTML::style('css/style.css') }}
-    {{ HTML::style('css/admin.css') }}
-    {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans') }}
-    {{ HTML::style('http://fonts.googleapis.com/css?family=Indie+Flower') }}
+<div class="tablet-portrait">
+	<div class="nav-sub">
+		<ul>
+			<div class="clearfix">
+				<li><a href="{{ route('users.login') }}" class="sign-in">Sign In</a></li>
+				<li><a href="{{ route('users.signup') }}" class="join-now">Join Now</a></li>
+			</div>
+		</ul>
 
-    <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
-<body>
-    <header>
-        {{ HTML::image('images/tdrive-logo.png', 'TDrive Logo') }}
-        <div id="user-menu">
-            @if(Auth::check())
-                <p>
-                    Welcome, 
-                    <a href="{{ URL::route('users.show', Auth::user()->id) }}">{{ Auth::user()->first_name }}</a> | 
-                    {{ link_to_route('users.logout', 'Sign Out') }}
-                </p>
-            @else
-                <p>
-                    <a href="{{ route('users.signup') }}">Sign Up</a>
-                </p>
-            @endif
-        </div>
-    </header>
+		<form action="#" method="post">
+			<select name="language">
+				<option value="">select language...</option>
+				<option value="singtel (english)">singtel (english)</option>
+			</select>
+		</form>
+	</div>
+</div>
+
+<div class="clearfix">
+
+	<a href="#" class="sb-toggle-left nav-toggle">Menu</a>
+	<a href="/" class="logo-main">TDrive</a>
+
+	<div class="tablet">
+		<ul class="nav-main">
+			<li><a href="#" class="games">Games</a></li>
+			<li><a href="#" class="news">News</a></li>
+			<li><a href="#" class="faqs">FAQs</a></li>
+			<li><a href="#" class="contact">Contact</a></li>
+		</ul>
+
+		<div class="tablet-landscape">
+			<div class="nav-sub">
+				<ul>
+					<div class="clearfix">
+						<li><a href="{{ route('users.login') }}" class="sign-in">Sign In</a></li>
+						<li><a href="{{ route('users.signup') }}" class="join-now">Join Now</a></li>
+					</div>
+				</ul>
+
+				<form action="#" method="post">
+					<select name="language">
+						<option value="">select language...</option>
+						<option value="singtel (english)">singtel (english)</option>
+					</select>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<a href="http://tose.com.ph" class="logo-tose" target="_blank">TOSE</a>
+
+</div>

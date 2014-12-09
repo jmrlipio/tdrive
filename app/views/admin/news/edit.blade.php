@@ -1,11 +1,11 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-{{ Form::open(array('route' => 'admin.news.update', 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
+{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'class' => 'large-form tab-container','id' => 'tab-container')) }}
 	<h2>Edit News</h2>
-	 @if(Session::has('message'))
+	@if(Session::has('message'))
         <div class="flash-success">
-            <p>{{ Session::get('message') }}</p>
+            <p>{{ Session::get('message') }}</p>           
         </div>
     @endif
 
@@ -16,8 +16,7 @@
 		<li class='tab'><a href="#feature-image">Feature Image</a></li>
 	</ul>
 <div class='panel-container'>
-	
-	
+		
 	<ul id="content">
 			<li>
 				{{ Form::label('title', 'Title: ') }}
@@ -31,7 +30,7 @@
 			</li>
 			<li>
 				{{ Form::label('news_category', 'Category:') }}
-		  		{{ Form::select('news_category_id', $news_categories, null) }}				
+		  		{{ Form::select('news_category_id', $news_categories, $news->news_category_id) }}				
 				{{ $errors->first('news_category', '<p class="error">:message</p>') }}
 			</li>
 			<li>
@@ -63,21 +62,40 @@
 		
 		<ul id="feature-image">
 			<li>
-				{{ Form::label('featured-img', 'Featured Image:') }}
-				<div class="img-holder"></div>
-				<p>
-					{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-					{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-					{{ Form::button('Select', array('class' => 'select-img')) }}
-				</p>
+
+			{{ Form::label('featured-img', 'Featured Image:') }}
+				<?php $featured = false; ?>
+				@foreach($selected_media as $media)					
+					@if($media['type'] == 'featured')
+						<?php $featured = true; ?>
+						<div class="img-holder">
+							<img src="{{ $media['media_url'] }}">
+						</div>
+						<p>
+							{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+							{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
+							{{ Form::button('Select', array('class' => 'select-img')) }}
+						</p>
+					@endif
+				@endforeach
+				@if(!$featured)
+					<div class="img-holder"></div>
+					<p>
+						{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+						{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
+						{{ Form::button('Select', array('class' => 'select-img')) }}
+					</p>	
+				@endif
 			</li>
 			
 		</ul>
 
 		<li>
-			{{ Form::submit('Save', array('id' => 'save-news')) }}
+			{{ Form::submit('Update', array('id' => 'update-news')) }}
 		</li>
 </div>
+		
+		{{ Form::hidden('news_id', $news->id) }}
 		{{ Form::hidden('user_id', Auth::user()->id) }}
 	{{ Form::close() }}
 
@@ -107,13 +125,7 @@
         tinymce.init({
 			mode : "specific_textareas",
 			selector: "#text-content",
-			height : 300,
-			plugins: "image",
-			file_browser_callback : "myFileBrowser",
-		    image_list: [ 
-		        {title: 'My image 1', value: 'http://www.tinymce.com/my1.gif'}, 
-		        {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'} 
-		    ]
+			height : 300
 		});
 
 		$(".chosen-select").chosen();

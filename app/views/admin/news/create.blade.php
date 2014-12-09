@@ -4,7 +4,7 @@
 
 {{ Form::open(array('route' => 'admin.news.store', 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
 	<h2>Create News</h2>
-	 @if(Session::has('message'))
+	@if(Session::has('message'))
         <div class="flash-success">
             <p>{{ Session::get('message') }}</p>
         </div>
