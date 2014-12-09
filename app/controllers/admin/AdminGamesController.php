@@ -59,10 +59,6 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function store()
 	{
-		/*echo "<pre>";
-		dd(Input::all());
-		echo "</pre>";*/
-
 		$validator = Validator::make($data = Input::all(), Game::$rules);
 
 		if ($validator->fails())
@@ -75,9 +71,19 @@ class AdminGamesController extends \BaseController {
 		$game->platforms()->sync(Input::get('platform_id'));
 		$game->categories()->sync(Input::get('category_id'));
 		$game->languages()->sync(Input::get('language_id'));
+		$game->carriers()->sync(Input::get('carrier_id'));
 		$game->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
-		$game->media()->sync(Input::get('screenshot_id'));
 
+		foreach(Input::get('screenshot_id') as $scid) {
+			$game->media()->attach(array($scid => array('type' => 'screenshot')));
+		}
+
+		foreach(Input::get('carrier_id') as $carrier_id) {
+			foreach(Input::get('prices'.$carrier_id) as $country_id => $price) {
+				$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
+			}
+		}
+		
 		return Redirect::route('admin.games.index')->with('message', 'You have successfully added a game.');
 	}
 
@@ -102,7 +108,95 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$tables = ['categories','platforms','languages','media', 'carriers'];
+
+	    $game = Game::with($tables)->get()->find($id);
+
+		$selected_categories = [];
+		$selected_platforms = [];
+		$selected_languages = [];
+		$selected_media = [];
+		$selected_carriers = [];
+		$selected_countries = [];
+
+		foreach($game->categories as $category) {
+			$selected_categories[] = $category->id;
+		}
+
+		foreach($game->platforms as $platform) {
+			$selected_platforms[] = $platform->id;
+		}
+
+		foreach($game->languages as $language) {
+			$selected_languages[] = $language->id;
+		}
+
+		$count = 0;
+		$root = Request::root();
+
+		foreach($game->media as $media) {
+			$selected_media[$count]['media_id'] = $media->id;
+			$selected_media[$count]['media_url'] = $root. '/images/uploads/' . $media->url;
+			$selected_media[$count]['type'] = $media->pivot->type;
+			$count++;
+		}
+
+		// echo "<pre>";
+		// print_r($selected_media);
+		// echo "</pre>";
+
+		foreach($game->carriers as $carrier) {
+			$selected_carriers[] = $carrier->id;
+		}
+
+		$categories = [];
+		$platforms = [];
+		$languages = [];
+		$carriers = [];
+		$prices = [];
+
+		foreach(Category::orderBy('category')->get() as $category) {
+			$categories[$category->id] = $category->category;
+		}
+
+		foreach(Platform::orderBy('platform')->get() as $platform) {
+			$platforms[$platform->id] = $platform->platform;
+		}
+
+		foreach(Language::orderBy('language')->get() as $language) {
+			$languages[$language->id] = $language->language;
+		}
+
+		foreach(Carrier::orderBy('carrier')->get() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+
+		$count = 0;
+
+		foreach($game->prices as $price) {
+			$prices[$count]['country_id'] = $price->pivot->country_id;
+			$prices[$count]['carrier_id'] = $price->pivot->carrier_id;
+			$prices[$count]['price'] = $price->pivot->price;
+			$selected_countries[] = $price->pivot->country_id;
+			$count++;
+	    }
+
+	    $countries = Country::find($selected_countries);
+
+		return View::make('admin.games.edit')
+			->with('game', $game)
+			->with('selected_categories', $selected_categories)
+			->with('selected_platforms', $selected_platforms)
+			->with('selected_languages', $selected_languages)
+			->with('selected_media', $selected_media)
+			->with('selected_carriers', $selected_carriers)
+			->with('categories', $categories)
+			->with('platforms', $platforms)
+			->with('languages', $languages)
+			->with('carriers', $carriers)
+			->with('prices', $prices)
+			->with('countries', $countries);
+
 	}
 
 	/**
@@ -114,7 +208,52 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$tables = ['categories','platforms','languages','media', 'carriers'];
+
+		$game = Game::with($tables)->get()->find($id);
+
+		$validator = Validator::make($data = Input::all(), Game::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$game->update($data);
+
+		// $game->platforms()->sync(Input::get('platform_id'));
+		// $game->categories()->sync(Input::get('category_id'));
+		// $game->languages()->sync(Input::get('language_id'));
+		// $game->carriers()->sync(Input::get('carrier_id'));
+		// $game->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
+
+		$selected_media = [];
+		$new_media = Input::get('screenshot_id');
+
+		foreach($game->media as $media) {
+			$selected_media[] = $media->id;
+		}
+
+		foreach($selected_media as $smid) {
+			if(!in_array($smid, $new_media)) {
+				$game->media()->detach($smid);
+			}
+		}
+
+		foreach($new_media as $nm) {
+			if(!in_array($nm, $selected_media)) {
+				$game->media()->attach(array($nm => array('type' => 'featured')));
+			}
+		}
+
+		// foreach(Input::get('carrier_id') as $carrier_id) {
+		// 	foreach(Input::get('prices'.$carrier_id) as $country_id => $price) {
+		// 		$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
+		// 	}
+		// }
+
+		// return Redirect::back()
+		// 	->with('message', 'You have successfully added a game.');
 	}
 
 	/**

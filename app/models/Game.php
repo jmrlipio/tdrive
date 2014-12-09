@@ -16,7 +16,7 @@ class Game extends \Eloquent {
 		'featured' => 'required|boolean',
 		'content' => 'required|min:20',
 		'release_date' => 'required|date',
-		'default_price' => 'required|numeric'
+		//'default_price' => 'required|numeric'
 	);
 
 	public function user() {
@@ -31,12 +31,12 @@ class Game extends \Eloquent {
 		return $this->belongsToMany('Platform', 'game_platforms');
 	}
 
-	public function currencies() {
-		return $this->belongsToMany('Currency', 'game_currencies');
+	public function carriers() {
+		return $this->belongsToMany('Carrier', 'game_carriers');
 	}
 
 	public function media() {
-		return $this->morphToMany('Media', 'mediable');
+		return $this->morphToMany('Media', 'mediable')->withPivot('type');
 	}
 
 	public function keywords()
@@ -54,6 +54,10 @@ class Game extends \Eloquent {
 	}
 
 	public function prices() {
-        return $this->tripleBelongsToMany('Carrier', 'Country', 'game_prices' );
+        return $this->tripleBelongsToMany('Carrier', 'Country', 'game_prices' )->withPivot('price');
     }
+
+   	public function currencies() {
+   		return $this->hasManyThrough('','');
+   	}
 }
