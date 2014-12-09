@@ -88,8 +88,10 @@
 				<li id="prices">
 					<div id="carrier-tab">
 						<ul class="etabs">
-							@foreach($carriers as $carrier)
-								<li class="tab"><a href="#{{ $carrier }}">{{ $carrier }}</a></li>
+							@foreach($carriers as $carrier_id => $carrier)
+								@if(in_array($carrier_id, $selected_carriers))
+									<li class="tab"><a href="#{{ $carrier }}">{{ $carrier }}</a></li>
+								@endif
 							@endforeach
 						</ul>
 						<div class="panel-container">
