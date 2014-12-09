@@ -12,7 +12,7 @@
                     <li><a href="{{ route('users.signup') }}" class="join-now">Join Now</a></li>
                 </div>
             </ul>
-
+            
             <form action="#" method="post" class="search clearfix">
                 <input type="text" name="search" placeholder="search game...">
                 <input type="submit" value="Go">
@@ -24,7 +24,7 @@
                     <option value="singtel (english)">singtel (english)</option>
                 </select>
             </form>
-
+            
             <ul class="second">
                 <li><a href="#" class="games">Games</a></li>
                 <li><a href="#" class="news">News</a></li>
@@ -83,7 +83,7 @@
         <div class="container">
 
             <div id="container-scroll">
-                <?php @include('_partials.game_thumbnails') ; ?>  
+                @include('_partials.game_thumbnails'); 
             </div>
 
         </div>

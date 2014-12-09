@@ -25,7 +25,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'tdrive',
 			'username'  => 'root',
-			'password'  => 'qwerty4321',
+			'password'  => '1234aA',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
