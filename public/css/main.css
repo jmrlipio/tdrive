@@ -1,0 +1,85 @@
+.home #slider-main { margin: 0; }
+
+.home .slider-item .details {
+	background: #fff9c8;
+	margin: 0;
+}
+
+.home .slider-item .details > p {
+	margin: 0;
+	float: left;
+	padding: 5px 10px;
+	height: 100%;
+}
+
+.home .slider-item .details .date {
+	background: #ffb100;
+	text-align: center;
+	line-height: 1;
+	font-size: 26px;
+}
+
+.home .slider-item .details .date span {
+	display: block;
+	font-size: 16px;
+}
+
+.home .slider-item .details .go { 
+	float: right; 
+	padding: 0;
+}
+
+.home .slider-item .details .go a {
+	background: #ffb100 url(../images/sprite-slider-controls.png) right 10px no-repeat;
+	text-indent: -9999px;
+	display: block;
+	padding: 5px 15px;
+	height: 42px;
+}
+
+.home .slider-item .details .description {
+	font-size: 18px;
+	line-height: 42px;
+}
+
+.home .content-main h2 { color: #fff; }
+
+.home .content-main .row .description { 
+	color: #fff; 
+	margin: 8px auto;
+	font-size: 14px;
+	text-align: center;
+}
+
+.home #ajax-loader { margin-bottom: 20px; }
+.home #ajax-loader img { width: auto !important; }
+.home #ajax-loader p { color: #fff; }
+
+/* Mobile (landscape) */
+@media only screen and (min-width: 321px) {
+
+}
+
+/* Mobile (portrait) */
+@media only screen and (max-width: 320px) {
+
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+
+	.home .content-main .row .description { 
+		font-size: 16px;
+	}
+
+}
+
+/* Tablet (landscape) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+}
+
+/* Tablet (portrait) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+
+}

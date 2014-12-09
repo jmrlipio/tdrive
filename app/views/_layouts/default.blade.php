@@ -1,20 +1,16 @@
-<!doctype html>
+<!DOCTYPE>
 <html>
-<head lang="en">
-	<meta charset="utf-8">
-	<meta name="description" content="This is the TDrive website.">
-	{{ HTML::style('css/style.css') }}
-	<title>TDrive</title>
+	@include('_partials.head')
 </head>
-<body>
-	<header>
-		
+
+<body class="home">
+	<header class="header-main clearfix">
+		@include('_partials.header')
 	</header>
+
 	<main>
 		@yield('content')
 	</main>
-	<footer>
-		
-	</footer>
+
 </body>
 </html>

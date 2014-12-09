@@ -45,3 +45,127 @@ main {
 	width: 80%;
 	margin: 0 auto;
 }
+
+/** 
+* Added by: Jone   
+* Purpose: For user registration & login styles
+* Date: 12/04/2014
+*/
+
+.pull-right { 
+	float: right;
+	 }
+.pull-left { 
+	float: left; 
+}
+.clear { 
+	clear: both; 
+}
+
+/* Login Form Styles */
+/* form#login-form ul li{
+	margin-top: 10px;
+}
+form#login-form { 
+	background: #465A65 !important;
+	color: #fff;
+}
+form#login-form input[type=submit] { 
+	margin-top: 0;
+	background: #FF92B2; 
+	font-size: 20px;
+	padding: 0px 5px;
+	height: 30px;
+	line-height: 14px;
+}
+form#login-form input[type="submit"]:hover {
+	background: #333; cursor: pointer;
+}
+form#login-form input[type=checkbox] {
+	-webkit-appearance: none;
+	margin: 0 3px;	
+	background-color: none;
+	border: 1px solid #FF92B2;
+	padding: 7px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+}
+
+form#login-form input[type=text], form#login-form input[type=password]{
+	width: 94.6%;
+}
+
+form#login-form input[type=checkbox]:checked {
+	background-color: none;
+	border: 1px solid #FF92B2;	
+	color: #FF92B2;
+}
+form#login-form input[type=checkbox]:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: -3px;
+	left: 0px;
+	color: #FF92B2;
+}
+form#login-form div#register-button a { 
+	color: #fff; 
+	text-decoration: none;
+	font-size: 30px;
+	display: block;
+	line-height: 18px;
+}
+form#login-form input::-webkit-input-placeholder {
+   text-align: center;
+}
+form#login-form input:-moz-placeholder { Firefox 18-
+   text-align: center;  
+}
+form#login-form input::-moz-placeholder {  Firefox 19+
+   text-align: center;  
+}
+form#login-form input:-ms-input-placeholder {  
+   text-align: center; 
+}
+form#login-form div#register-button:hover {
+	background: #333; cursor: pointer;
+}
+form#login-form div#register-button {
+	width: 65%;
+	background: #FF92B2; 
+	margin: 6px auto 0;
+	min-height: 25px;
+	border-radius: 3px;
+	padding: 5px 0;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+form#login-form .not-member, form#login-form .signin{ 
+	font-size: 33px;
+} */
+/* ===================== END ===================== */
+
+/* Text Styles */
+.text-center {
+	text-align: center;
+}
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-justify {
+	text-align: justify;
+}
+.pink { 
+	color: #FF92B2;
+}
+.text-lg {
+	font-size: 33px;
+}
+/* ===================== END ===================== */
+

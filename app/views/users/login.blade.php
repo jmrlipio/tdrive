@@ -1,23 +1,52 @@
+<<<<<<< HEAD
+@extends('_layouts.login')
+@section('content')
+=======
 @include('_partials.header')
+>>>>>>> master
     <div id="login">
-        {{ Form::open(array('route' => 'login.post', 'class' => 'login')) }}
-            <h2>Please login</h2>
-            <ul>
-                <li>
-                    {{ Form::label('username', 'Username') }}
-                    {{ Form::text('username') }}
+        @if(Session::has('message'))
+            <div class="flash-success">
+                <p>{{ Session::get('message') }}</p>
+            </div>
+        @endif
+
+       <h3 class="center">Sign In</h3>
+
+        <div class="center">
+           {{ Form::open(array('route' => 'login.post', 'class' => 'login', 'id' => 'login-form')) }}
+
+                <div class="control">
+                    {{ Form::text('username', null, array('placeholder'=>'username')) }}
                     {{ $errors->first('username', '<p class="error">:message</p>') }}
-                </li>
-                <li>
-                    {{ Form::label('password', 'Password') }}
-                    {{ Form::password('password') }}
+                </div>
+
+                <div class="control">
+                    {{ Form::password('password', array('placeholder'=>'password')) }}
                     {{ $errors->first('password', '<p class="error">:message</p>') }}
-                </li>
-                <li>
-                    {{ Form::submit('Log in') }}
-                </li>
-            </ul>
-        {{ Form::close() }}
+                </div>
+
+                <div class="control-group clearfix">
+                    <div class="control-item">
+                        {{ Form::checkbox('remember', 1 , null, ['class' => 'pull-left', 'id'=>'remember']); }}
+                       <label for="remember">Remember me</label>
+                    </div>
+
+                    <div class="control-item">
+                         {{ Form::submit('Login &raquo;',  ['class' => 'button button-pink']) }}
+                    </div>
+                </div>
+
+            {{ Form::close() }}
+        </div>
+
+        <div class="center">
+            <a href="#" class="button button-pink">Forgot your password?</a>
+        </div>
+
+        <div class="center">
+            <h3>Not yet a member? <a href="{{ route('users.signup') }}" class="link link-pink">Register</a></h3>
+        </div>
+        
     </div>
-</body>
-</html>
+@stop

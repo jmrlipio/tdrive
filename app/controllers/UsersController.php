@@ -83,6 +83,38 @@ class UsersController extends \BaseController {
 		//
 	}
 
+
+/** 
+* Added by: Jone   
+* Purpose: For user registration
+* Date: 12/04/2014
+*/
+
+	public function getSignup() {
+		return View::make('users.signup');
+	}
+
+	public function postRegister(){
+		$validator = Validator::make(Input::all(), User::$rules);
+		$user = new User;
+		if($validator->passes()){
+			
+			$user->username= Input::get('username');
+			$user->first_name= Input::get('first_name');
+			$user->last_name= Input::get('last_name');
+			$user->password=  Hash::make(Input::get('password'));
+			
+			$user->save();			
+			return Redirect::route('users.login')->with('message', 'Registration successfull. Please sign in.');			
+		}
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+	}
+
+/* END */
 	public function getLogin(){
         return View::make('users.login');
     }
@@ -95,9 +127,18 @@ class UsersController extends \BaseController {
         {
             return Redirect::back()->withErrors($validator)->withInput();
         }
-
-        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))){
-            return Redirect::intended('/');
+        $remember = Input::get('remember');
+        $credentials = array(
+        	'username' => Input::get('username'), 
+        	'password' => Input::get('password')
+        	);
+        
+        if (Auth::attempt($credentials)){        	
+        	
+        	if(!empty($remember)){
+        		Auth::login(Auth::user(), true);
+        	}
+        	return Redirect::intended('/');
         }
 
         return Redirect::route('login');

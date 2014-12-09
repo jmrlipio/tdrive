@@ -1,0 +1,276 @@
+.nav-main { text-transform: lowercase; }
+
+.nav-toggle {
+	float: left;
+	text-indent: -9999px;
+	background: url(../images/icon-toggle.png) left top no-repeat;
+	height: 27px;
+	width: 32px;
+	margin: 9px 20px 0 0;
+}
+
+.mobile .nav-main { 
+	background: #fff;
+	padding: 10px;
+	max-width: 380px;
+	padding-top: 66px;
+}
+
+.mobile .nav-main form.search {
+	border: 1px solid #ccc;
+	position: relative;
+	margin-bottom: 15px;
+}
+
+.mobile .nav-main form.search input[type="text"] {
+	border: 0;
+	float: left;
+	width: 96%;
+	padding-left: 8px;
+}
+
+.mobile .nav-main form.search input[type="submit"] {
+	background: #fff url(../images/icon-search.png) center 4px no-repeat;
+	border: 0;
+	text-indent: -9999px;
+	width: 35px;
+	height: 24px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.mobile .nav-main form.language select {
+	border: 1px solid #ccc;
+	width: 100%;
+	padding: 0 0 0 4px;
+	color: #555;
+	cursor: pointer;
+}
+
+.mobile .nav-main a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.mobile .nav-main ul.first {
+	background: #57d9cd;
+	margin-top: 0; 
+	text-align: center;
+}
+
+.mobile .nav-main ul.first > div { display: inline-block; }
+
+.mobile .nav-main ul.first li {
+	float: left;
+	line-height: 1;
+	border-right: 1px solid #fff;
+	margin: 5px 0 0;
+}
+
+.mobile .nav-main ul.first .sign-in { margin-left: 0; }
+
+.mobile .nav-main ul.first li:last-child { border-right: none; }
+
+.mobile .nav-main ul.first .join-now { 
+	margin-right: 0; 
+	padding-right: 22px;
+	background: url(../images/icon-join-now.png) right top no-repeat;
+}
+
+.mobile .nav-main ul.first a { 
+	display: block;
+	margin: 0 10px;
+}
+
+.mobile .nav-main ul.second a {
+	display: block;
+	padding: 26px 10px 26px 0;
+	text-align: right;
+	font-size: 28px;
+}
+
+.mobile .nav-main ul.second .games { background: #57d9cd url(../images/nav-main-games.png) 8px center no-repeat; }
+.mobile .nav-main ul.second .news { background: #ffdf00 url(../images/nav-main-news.png) 8px center no-repeat; }
+.mobile .nav-main ul.second .faqs { background: #a1c82a url(../images/nav-main-faqs.png) 8px center no-repeat; }
+.mobile .nav-main ul.second .contact { background: #ff8966 url(../images/nav-main-contact.png) 8px center no-repeat; }
+
+.mobile .nav-main ul.social li { margin-bottom: 10px; }
+
+.mobile .nav-main ul.social a {
+	background: url(../images/icon-social-facebook.png) left top no-repeat;
+	line-height: 32px;
+	display: block;
+	color: #555;
+	padding-left: 40px;
+}
+
+.mobile .nav-main ul.social .twitter { background: url(../images/icon-social-twitter.png) left top no-repeat; }
+.mobile .nav-main ul.social .support { background: url(../images/icon-social-support.png) left top no-repeat; }
+
+.mobile .nav-main div.copyright { color: #555; }
+.mobile .nav-main div.copyright p { line-height: .8; text-transform: none; }
+
+.tablet .nav-main {
+	float: left;
+	overflow: hidden;
+	list-style: none;
+	margin: 0;
+}
+
+.tablet .nav-main li { float: left; }
+
+.tablet .nav-main a {
+	display: block;
+	font-size: 28px;
+	color: #fff;
+	width: 100px;
+	padding: 90px 10px 4px;
+	text-align: center;
+}
+
+.tablet .nav-main .games { background: #57d9cd url(../images/nav-main-games.png) center 10px no-repeat; }
+.tablet .nav-main .news { background: #ffdf00 url(../images/nav-main-news.png) center 10px no-repeat; }
+.tablet .nav-main .faqs { background: #a1c82a url(../images/nav-main-faqs.png) center 10px no-repeat; }
+.tablet .nav-main .contact { background: #ff8966 url(../images/nav-main-contact.png) center 10px no-repeat; }
+
+.tablet-portrait { clear: both; }
+
+.tablet-portrait .nav-sub {
+	padding: 18px 18px 4px;
+	//background: #bf0202;
+	background: #E23637;
+	overflow: hidden;
+}
+
+.tablet-portrait .nav-sub form {
+	border: 1px solid #ccc;
+	position: relative;
+	margin-bottom: 15px;
+	float: right;
+}
+
+.tablet-portrait .nav-sub input[type="text"] {
+	border: 0;
+	float: left;
+	width: 96%;
+	padding-left: 8px;
+}
+
+.tablet-portrait .nav-sub input[type="submit"] {
+	background: #fff url(../images/icon-search.png) center 4px no-repeat;
+	border: 0;
+	text-indent: -9999px;
+	width: 35px;
+	height: 24px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.tablet-portrait .nav-sub select {
+	border: 1px solid #ccc;
+	width: 100%;
+	padding: 0 0 0 4px;
+	color: #555;
+	cursor: pointer;
+}
+
+.tablet-portrait .nav-sub ul {
+	margin-top: 0; 
+	text-align: center;
+	list-style: none;
+	float: left;
+}
+
+.tablet-portrait .nav-sub ul li {
+	float: left;
+	line-height: 1;
+	border-right: 1px solid #fff;
+	margin: 5px 0 0;
+}
+
+.tablet-portrait .nav-sub .sign-in { margin-left: 0; }
+
+.tablet-portrait .nav-sub ul li:last-child { border-right: none; }
+
+.tablet-portrait .nav-sub .join-now { 
+	margin-right: 0; 
+	padding-right: 22px;
+	background: url(../images/icon-join-now.png) right top no-repeat;
+}
+
+.tablet-portrait .nav-sub ul a { 
+	display: block;
+	text-transform: lowercase;
+	color: #fff;
+	margin: 0 10px;
+}
+
+.tablet-landscape .nav-sub {
+	margin: 30px 0 0 20px;
+	float: left;
+	overflow: hidden;
+}
+
+.tablet-landscape .nav-sub form {
+	position: relative;
+	margin-bottom: 15px;
+}
+
+.tablet-landscape .nav-sub input[type="text"] {
+	border: 0;
+	float: left;
+	width: 96%;
+	padding-left: 8px;
+}
+
+.tablet-landscape .nav-sub input[type="submit"] {
+	background: #fff url(../images/icon-search.png) center 4px no-repeat;
+	border: 0;
+	text-indent: -9999px;
+	width: 35px;
+	height: 24px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.tablet-landscape .nav-sub select {
+	border: 1px solid #ccc;
+	width: 100%;
+	padding: 0 0 0 4px;
+	color: #555;
+	cursor: pointer;
+}
+
+.tablet-landscape .nav-sub ul {
+	margin-top: 0; 
+	text-align: center;
+	list-style: none;
+	float: left;
+}
+
+.tablet-landscape .nav-sub ul li {
+	float: left;
+	line-height: 1;
+	border-right: 1px solid #fff;
+	margin: 5px 0 0;
+}
+
+.tablet-landscape .nav-sub .sign-in { margin-left: 0; }
+
+.tablet-landscape .nav-sub ul li:last-child { border-right: none; }
+
+.tablet-landscape .nav-sub .join-now { 
+	margin-right: 0; 
+	padding-right: 22px;
+	background: url(../images/icon-join-now.png) right top no-repeat;
+}
+
+.tablet-landscape .nav-sub ul a { 
+	display: block;
+	text-transform: lowercase;
+	color: #fff;
+	margin: 0 10px;
+}

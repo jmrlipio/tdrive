@@ -1,0 +1,212 @@
+@extends('admin._layouts.admin')
+
+@section('content')
+{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'class' => 'large-form tab-container','id' => 'tab-container')) }}
+	<h2>Edit News</h2>
+	@if(Session::has('message'))
+        <div class="flash-success">
+            <p>{{ Session::get('message') }}</p>           
+        </div>
+    @endif
+
+	<br>
+	<ul class='etabs'>
+		<li class='tab'><a href="#content">Content</a></li>
+		<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
+		<li class='tab'><a href="#feature-image">Feature Image</a></li>
+	</ul>
+<div class='panel-container'>
+		
+	<ul id="content">
+			<li>
+				{{ Form::label('title', 'Title: ') }}
+				{{ Form::text('title', $news->title , array('id' => 'title', 'class' => 'slug-reference')) }}
+				{{ $errors->first('title', '<p class="error">:message</p>') }}
+			</li>
+			<li>
+				{{ Form::label('slug', 'Slug: ') }}
+				{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
+				{{ $errors->first('slug', '<p class="error">:message</p>') }}
+			</li>
+			<li>
+				{{ Form::label('news_category', 'Category:') }}
+		  		{{ Form::select('news_category_id', $news_categories, $news->news_category_id) }}				
+				{{ $errors->first('news_category', '<p class="error">:message</p>') }}
+			</li>
+			<li>
+				{{ Form::label('status', 'Status: ') }}
+				{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
+				{{ $errors->first('status', '<p class="error">:message</p>') }}
+			</li>
+			<li>
+				{{ Form::label('release_date', 'Release Date:') }}
+				{{ Form::text('release_date', null, array('id' => 'release_date')) }}
+				{{ $errors->first('release_date', '<p class="error">:message</p>') }}
+			</li>
+			
+			<li>
+				{{ Form::label('content', 'Content:') }}
+				{{ Form::textarea('content', $news->content, array('id' => 'text-content')) }}
+				{{ $errors->first('content', '<p class="error">:message</p>') }}
+			</li>
+			
+		</ul>
+		
+		<ul id="custom-fields">
+			<li>
+				{{ Form::label('excerpt', 'Excerpt:') }}
+				{{ Form::textarea('excerpt', null, array('id' => 'text-excerpt')) }}
+				{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
+			</li>
+		</ul>
+		
+		<ul id="feature-image">
+			<li>
+
+			{{ Form::label('featured-img', 'Featured Image:') }}
+				<?php $featured = false; ?>
+				@foreach($selected_media as $media)					
+					@if($media['type'] == 'featured')
+						<?php $featured = true; ?>
+						<div class="img-holder">
+							<img src="{{ $media['media_url'] }}">
+						</div>
+						<p>
+							{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+							{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
+							{{ Form::button('Select', array('class' => 'select-img')) }}
+						</p>
+					@endif
+				@endforeach
+				@if(!$featured)
+					<div class="img-holder"></div>
+					<p>
+						{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+						{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
+						{{ Form::button('Select', array('class' => 'select-img')) }}
+					</p>	
+				@endif
+			</li>
+			
+		</ul>
+
+		<li>
+			{{ Form::submit('Update', array('id' => 'update-news')) }}
+		</li>
+</div>
+		
+		{{ Form::hidden('news_id', $news->id) }}
+		{{ Form::hidden('user_id', Auth::user()->id) }}
+	{{ Form::close() }}
+
+	@include('admin._partials.image-select')
+	{{ HTML::script('js/tinymce/tinymce.min.js') }}
+	{{ HTML::script('js/jquery.easytabs.min.js') }}
+	{{ HTML::script('js/chosen.jquery.js') }}
+	{{ HTML::script('js/form-functions.js') }}
+
+	<script>
+	var gallery = $('#img-gallery ul'), 
+		img_li;
+
+	$(document).ready(function() {
+		// Initializes different tab sections
+		$('.tab-container').easytabs();
+
+		// Date picker for Release Date
+        $("#release_date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+            var minValue = $(this).val();
+            minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
+            minValue.setDate(minValue.getDate()+1);
+            $("#to").datepicker( "option", "minDate", minValue );
+    	});
+
+        // Initializes textarea editor for content and excerpt
+        tinymce.init({
+			mode : "specific_textareas",
+			selector: "#text-content",
+			height : 300
+		});
+
+		$(".chosen-select").chosen();
+
+// Appends fields for adding screenshots on Images tab		
+
+		$('#tab-container > .etabs a').click(function() {
+			$('body').scrollTop(0);
+		});
+
+		// Opens media dialog for selecting featured and screenshots images
+		$("#feature-image").on('click', '.select-img',function(){
+			img_li = $(this).parent().parent();
+			$('#cover').css('display', 'block');
+			
+			if(isEmpty(gallery)) {
+				loadGallery();
+			}
+		});
+
+		// Closes media dialog for selecting featured and screenshots images
+		$("#close-img-select, #img-close").on('click', function() {
+			$('#cover').css('display', 'none');
+		});
+
+		// Selects and sets chosen image for featured or screenshot image
+		$("#choose-img").on('click', function() {
+			var id, value;
+
+			gallery.find('input[type=radio]').each(function() {
+				if($(this).is(':checked')) {
+					var selected = $(this).parent().find('img');
+					value = selected.attr('src');
+					id = selected.data('value');
+				}
+			});
+
+			img_li.find('.img-url').val(value);
+			img_li.find('.hidden_id').val(id);
+			img_li.find('div').html('');
+			img_li.find('div').append('<img src="' + value + '">');
+
+			$('#cover').css('display', 'none');
+		});
+
+
+	});
+	$("#feature-image").on('click', '.remove-img',function(){
+		$(this).parent().parent().remove();
+	});
+
+	// On submit of form
+	$('#tab-container').on('submit', function() {
+		$('.img-url').prop('disabled', false);
+	});
+
+	// Check if element html is empty
+	function isEmpty(el){
+		return !$.trim(el.html())
+	}
+
+	// Ajax for loading uploaded images
+	function loadGallery() {
+		$.get("{{ URL::route('media.load') }}",function(data){
+			for(var id in data) {
+				if (data.hasOwnProperty(id)) {
+					var app = ' \
+						<li> \
+							<input name="imgs" type="radio" value="A" id="' + id + '"> \
+							<label for="' + id + '"><img src="' + data[id] + '" data-value="' + id + '"></label> \
+						</li>';
+			    	gallery.append(app);
+			    }
+			}
+		});
+	}
+
+	// On submit of form
+	$('#tab-container').on('submit', function() {
+		$('.img-url').prop('disabled', false);
+	});
+
+    </script>
+@stop

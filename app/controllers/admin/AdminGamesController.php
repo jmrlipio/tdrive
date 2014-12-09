@@ -83,7 +83,7 @@ class AdminGamesController extends \BaseController {
 				$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
 			}
 		}
-
+		
 		return Redirect::route('admin.games.index')->with('message', 'You have successfully added a game.');
 	}
 
