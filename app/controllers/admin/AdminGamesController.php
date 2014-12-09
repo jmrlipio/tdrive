@@ -141,10 +141,6 @@ class AdminGamesController extends \BaseController {
 			$count++;
 		}
 
-		// echo "<pre>";
-		// print_r($selected_media);
-		// echo "</pre>";
-
 		foreach($game->carriers as $carrier) {
 			$selected_carriers[] = $carrier->id;
 		}
@@ -221,28 +217,22 @@ class AdminGamesController extends \BaseController {
 
 		$game->update($data);
 
-		// $game->platforms()->sync(Input::get('platform_id'));
-		// $game->categories()->sync(Input::get('category_id'));
-		// $game->languages()->sync(Input::get('language_id'));
-		// $game->carriers()->sync(Input::get('carrier_id'));
-		// $game->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
-
-		$selected_media = [];
+		$game->platforms()->sync(Input::get('platform_id'));
+		$game->categories()->sync(Input::get('category_id'));
+		$game->languages()->sync(Input::get('language_id'));
+		$game->carriers()->sync(Input::get('carrier_id'));
+		
 		$new_media = Input::get('screenshot_id');
+		$game->media()->sync($new_media);
 
-		foreach($game->media as $media) {
-			$selected_media[] = $media->id;
-		}
+		$game2 = Game::with('media')->get()->find($id);
 
-		foreach($selected_media as $smid) {
-			if(!in_array($smid, $new_media)) {
-				$game->media()->detach($smid);
-			}
-		}
-
-		foreach($new_media as $nm) {
-			if(!in_array($nm, $selected_media)) {
-				$game->media()->attach(array($nm => array('type' => 'featured')));
+		foreach($game2->media as $media) {
+			if($media->pivot->type == null) {
+				$media->pivot->type = 'screenshot';
+				$media->pivot->save();
+			} else {
+				$game->media()->updateExistingPivot($media->pivot->media_id, array('type' => 'featured'));
 			}
 		}
 
@@ -252,8 +242,7 @@ class AdminGamesController extends \BaseController {
 		// 	}
 		// }
 
-		// return Redirect::back()
-		// 	->with('message', 'You have successfully added a game.');
+		// return Redirect::back()->with('message', 'You have successfully edited this game.');
 	}
 
 	/**
