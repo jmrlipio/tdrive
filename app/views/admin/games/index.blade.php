@@ -4,6 +4,11 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
 		<h2>Games</h2>
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
 		<br>
 		<table>
 			<tr>
@@ -20,9 +25,13 @@
 						<td>
 							<a href="#">{{ $game->title }}</a>
 							<ul class="actions">
-								<li><a href="">Edit</a></li>
-								<li><a href="">View</a></li>
-								<li><a href="">Delete</a></li>
+								<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">Edit</a></li>
+								<li><a href="#">View</a></li>
+								<li>
+									{{ Form::open(array('route' => array('admin.games.destroy', $game->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+									{{ Form::close() }}
+								</li>
 							</ul>
 						</td>
 						<td>{{ $game->user->username }}</td>

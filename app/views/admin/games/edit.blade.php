@@ -2,14 +2,9 @@
 
 @section('content')
 	@include('admin._partials.game-nav')
-	
-	{{ Form::open(array('route' => 'admin.games.store', 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
-		<h2>Create New Game</h2>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
+
+	{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put', 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
+		<h2>Edit Game</h2>
 		<br>
 		<ul class='etabs'>
 			<li class='tab'><a href="#content">Content</a></li>
@@ -58,17 +53,17 @@
 			<ul id="custom-fields">
 				<li>
 					{{ Form::label('platform_id', 'Platforms: ') }}
-					{{ Form::select('platform_id[]', $platforms, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose platform(s)...'))  }}
+					{{ Form::select('platform_id[]', $platforms, $selected_platforms, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose platform(s)...'))  }}
 					{{ $errors->first('platform_id', '<p class="error">:message</p>') }}
 				</li>
 				<li>
 					{{ Form::label('category_id', 'Categories: ') }}
-					{{ Form::select('category_id[]', $categories, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose category(s)...'))  }}
+					{{ Form::select('category_id[]', $categories, $selected_categories, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose category(s)...'))  }}
 					{{ $errors->first('category_id', '<p class="error">:message</p>') }}
 				</li>
 				<li>
 					{{ Form::label('language_id', 'Languages: ') }}
-					{{ Form::select('language_id[]', $languages, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose language(s)...'))  }}
+					{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose language(s)...'))  }}
 					{{ $errors->first('language_id', '<p class="error">:message</p>') }}
 				</li>
 				<li>
@@ -80,7 +75,7 @@
 			<ul id="carriers">
 				<li>
 					{{ Form::label('carrier_id', 'Carriers: ') }}
-					{{ Form::select('carrier_id[]', $carriers, null, array('multiple' => 'multiple', 'id' => 'carriers', 'class' => 'chosen-select', 'data-placeholder'=>'Choose carriers(s)...'))  }}
+					{{ Form::select('carrier_id[]', $carriers, $selected_carriers, array('multiple' => 'multiple', 'id' => 'carriers', 'class' => 'chosen-select', 'data-placeholder'=>'Choose carriers(s)...'))  }}
 					<br>
 					{{ Form::button('Set Currencies', array('id' => 'set-currency')) }}
 					{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
@@ -91,32 +86,96 @@
 					{{ Form::text('default_price') }}
 				</li>
 				<li id="prices">
-					<div id="carrier-tab"></div>
+					<div id="carrier-tab">
+						<ul class="etabs">
+							@foreach($carriers as $carrier)
+								<li class="tab"><a href="#{{ $carrier }}">{{ $carrier }}</a></li>
+							@endforeach
+						</ul>
+						<div class="panel-container">
+							@foreach($carriers as $carrier_id => $carrier)
+							<div id="{{ $carrier }}">
+								<h3>Prices for countries with {{ $carrier }} carrier:</h3>
+								@foreach($prices as $cid => $pid)
+									@if($carrier_id == $pid['carrier_id'])
+										@foreach($countries as $country)
+											@if($country->id == $pid['country_id'])
+												<label for="{{ $cid }}">{{ $country->currency_code }}:</label>
+											@endif	
+										@endforeach
+										<input type="text" class="prices" name="prices{{ $pid['carrier_id'] }}['{{ $pid['country_id'] }}']" id="{{ $pid['country_id'] }}" value="{{ $pid['price'] }}">
+									@endif
+								@endforeach
+							</div>
+							@endforeach
+						</div>
+					</div>
 				</li>
 				
 			</ul>
 			<ul id="media">
 				<li>
 					{{ Form::label('featured-img', 'Featured Image:') }}
-					<div class="img-holder"></div>
-					<p>
-						{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-						{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-						{{ Form::button('Select', array('class' => 'select-img')) }}
-					</p>
+					<?php $featured = false; ?>
+					@foreach($selected_media as $media)
+						@if($media['type'] == 'featured')
+							<?php $featured = true; ?>
+							<div class="img-holder">
+								<img src="{{ $media['media_url'] }}">
+							</div>
+							<p>
+								{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+								{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
+								{{ Form::button('Select', array('class' => 'select-img')) }}
+							</p>
+						@endif
+					@endforeach
+					@if(!$featured)
+						<div class="img-holder"></div>
+						<p>
+							{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+							{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
+							{{ Form::button('Select', array('class' => 'select-img')) }}
+						</p>
+					@endif
 				</li>
 				<br>
 				<ul id="screenshots">
 					<label>Images:</label>
 					{{ Form::button('Add Image', array('id' => 'add-img')) }}<br>
-					<li>
-						<div class="img-holder"></div>
-						<p>
-							{{ Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) }}
-							{{ Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) }}
-							{{ Form::button('Select', array('class' => 'select-img')) }}
-						</p>
-					</li>
+					<?php 
+						$screenshot = false; 
+						$i = 1; 
+					?>
+					@foreach($selected_media as $media)
+						@if($media['type'] == 'screenshot')
+							<?php $screenshot = true; ?>
+							<li>
+								<div class="img-holder">
+									<img src="{{ $media['media_url'] }}">
+								</div>
+								<p>
+									{{ Form::text('screenshots', $media['media_url'], array('class' => 'img-url', 'disabled')) }}
+									{{ Form::hidden('screenshot_id[]', $media['media_id'], array('class' => 'hidden_id')) }}
+									{{ Form::button('Select', array('class' => 'select-img')) }}
+									@if($i > 1)
+										{{ Form::button('Remove', array('class' => 'remove-img')) }}
+									@endif
+									<?php $i++; ?>
+								</p>
+							</li>
+						@endif
+					@endforeach
+					@if(!$screenshot)
+						<li>
+							<div class="img-holder"></div>
+							<p>
+								{{ Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) }}
+								{{ Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) }}
+								{{ Form::button('Select', array('class' => 'select-img')) }}
+							</p>
+						</li>
+					@endif
 				</ul>
 				
 			</ul>
@@ -141,7 +200,7 @@
 
 	$(document).ready(function() {
 		// Initializes different tab sections
-		$('.tab-container').easytabs();
+		$('.tab-container, #carrier-tab').easytabs();
 
 		// Date picker for Release Date
         $("#release_date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
@@ -157,12 +216,6 @@
 			selector: "#text-content",
 			height : 300
 		});
-
-		// tinymce.init({
-		// 	mode : "specific_textareas",
-		// 	selector: "#excerpt",
-		// 	height : 150
-		// });
 
         // Initializes Chosen Select for all multiple select fields
         $(".chosen-select").chosen();

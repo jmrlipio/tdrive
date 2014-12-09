@@ -16,6 +16,10 @@ class Carrier extends \Eloquent {
 		return $this->belongsToMany('Country', 'country_carriers');
 	}
 
+	public function games() {
+		return $this->belongsToMany('Game', 'game_carriers');
+	}
+
 	/**
      * @return \Jarektkaczyk\TriplePivot\TripleBelongsToMany
      */
