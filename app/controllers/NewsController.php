@@ -4,8 +4,21 @@ class NewsController extends \BaseController {
 
 	public function usersindex()
 	{
-		$news = News::orderBy('id')->paginate(10);
-		return View::make('pages.news')->with('news', $news);
+		$news_article = News::with('media')->get();
+		$root = Request::root();
+		$thumbnails = array();
+
+		foreach($news_article as $news) {
+			foreach($news->media as $media) {
+				if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			}
+		}
+
+		return View::make('pages.news')
+			->with('thumbnails', $thumbnails)
+			->with('news_article', $news_article);	
 	}
 
 
@@ -99,10 +112,6 @@ class NewsController extends \BaseController {
 			$count++;
 		}
 
-		/*echo '<pre>';
-		dd($selected_media);
-		echo '</pre>';*/
-
 		return View::make('admin.news.edit')
 			->with('news_categories', $news_categories)
 			->with('news', $news)
@@ -162,19 +171,12 @@ class NewsController extends \BaseController {
 	public function destroy($id)
 	{
 		$news = News::find($id);
-		/*$count = 0;
-		$root = Request::root();
-		$selected_media = array();*/
 		$mediable = Mediable::find($id);
 		
 		if($news){
 		 
 		   $news->delete();
 		   $mediable->delete();
-
-		   /*foreach($news->media as $media) {
-				File::delete($root. '/images/uploads/' . $media->url);
-			}*/
 
 		return Redirect::route('admin.news.index');		
 		}

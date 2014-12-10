@@ -6,6 +6,10 @@
 		{{ Form::open(array('route'=>'users.register', 'id' => 'signup-form')) }}
 			<p class="text-lg">Create new account</p>
 
+			{{ Form::label('email') }}
+			{{ Form::text('email',null,array('placeholder'=>'Input email', 'class'=> 'form-control','required')) }}
+			{{ $errors->first('email', '<p class="error">:message</p>') }}
+
 			{{ Form::label('username') }}
 			{{ Form::text('username',null,array('placeholder'=>'Input username', 'class'=> 'form-control','required')) }}
 			{{ $errors->first('username', '<p class="error">:message</p>') }}

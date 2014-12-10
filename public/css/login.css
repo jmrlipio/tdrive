@@ -74,6 +74,13 @@ div#register form .error {
 }
 /* ===================== END ===================== */
 
+div#forgot-password { 
+	text-align: center;
+}
+div#forgot-password p{
+	padding: 8px;
+}
+
 .form-control {
 	display: block;
 	width: 100%;

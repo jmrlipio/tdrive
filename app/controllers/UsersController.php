@@ -97,12 +97,14 @@ class UsersController extends \BaseController {
 	public function postRegister(){
 		$validator = Validator::make(Input::all(), User::$rules);
 		$user = new User;
+
 		if($validator->passes()){
 			
+			$user->email= Input::get('email');
 			$user->username= Input::get('username');
 			$user->first_name= Input::get('first_name');
 			$user->last_name= Input::get('last_name');
-			$user->password=  Hash::make(Input::get('password'));
+			$user->password=  Hash::make(Input::get('password'));			
 			
 			$user->save();			
 			return Redirect::route('users.login')->with('message', 'Registration successfull. Please sign in.');			
@@ -148,5 +150,46 @@ class UsersController extends \BaseController {
         Auth::logout();
         return Redirect::route('users.login');
     }
+
+    public function getForgotPassword(){
+
+    	return View::make('users.forgot');
+    }
+
+   /* public function postForgotPassword(){
+    	$validator = Validator::make(Input::all(), 
+    		array('email'=>'required|email')
+    		);
+
+    	if ($validator->fails())
+        {
+           ======= return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::route('users.forgot')
+            	->withErrors($validator)
+            	->withInput();
+        
+        } else {
+
+        	$user = User::where('email', '=', Input::get('email'));
+
+        	if($user->count()) {
+        		$user = $user->first();
+
+        		=====Generate new code and password
+
+        		$code = str_random(60);
+        		$password = str_random(60);
+
+        		$user->code = $code;
+        		$user->password_temp = Hash::make($password);
+
+        		if($user->save()) {
+        			die();
+        		}
+        	}
+        }
+
+    	==========return View::make('users.forgot');
+    }*/
 
 }

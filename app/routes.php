@@ -37,6 +37,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
 Route::get('news', array('as' => 'news', 'uses' => 'NewsController@usersindex'));
 
+//Password Reminder & Reset
+Route::get('password/remind', array('as' => 'password.remind', 'uses' => 'RemindersController@getRemind'));
+Route::post('password/request', array('as' => 'password.request', 'uses' => 'RemindersController@postRemind'));
+Route::get('password/reset/{token}', array('as' => 'password.reset', 'uses' => 'RemindersController@getReset'));
+Route::post('password/reset/{token}', array('as' => 'password.update', 'uses' => 'RemindersController@postReset'));
+//END
+
 /*END*/
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));
 Route::post('login', array('as' => 'login.post', 'uses' => 'UsersController@postLogin'));

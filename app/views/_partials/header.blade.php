@@ -27,6 +27,11 @@
 			<li><a href="{{ route('news') }}" class="news">News</a></li>
 			<li><a href="#" class="faqs">FAQs</a></li>
 			<li><a href="#" class="contact">Contact</a></li>
+			<?php
+				echo '<pre>';
+				print_r($user_location);
+				echo '</pre>';
+			?>
 		</ul>
 
 		<div class="tablet-landscape">

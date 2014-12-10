@@ -20,6 +20,7 @@ class HomeController extends BaseController {
 		$games = Game::with('media')->get();
 		$root = Request::root();
 		$thumbnails = array();
+		
 
 		foreach($games as $game) {
 			foreach($game->media as $media) {
@@ -31,8 +32,13 @@ class HomeController extends BaseController {
 		// echo '<pre>';
 		// print_r($thumbnails);
 		// echo '</pre>';
+		/*echo '<pre>';
+		print_r($location);
+		echo '</pre>';*/
+
 	return View::make('index')
 		->with('thumbnails', $thumbnails)
 		->with('games', $games);
+		
 	}
 }

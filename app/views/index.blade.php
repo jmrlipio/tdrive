@@ -84,14 +84,14 @@
             <div id="container-scroll">
                 <div class="column-three mobile">
                     <div class="row clearfix">
-                        <?php $count = 0; ?>
+                        <?php $ctr = 0; ?>
                             @foreach($games as $game)                             
                                 
                                 <div>
-                                    <a href="#"><img src="{{ $thumbnails[$count] }}" class="border-radius" alt="{{ $game->title }}"></a>
+                                    <a href="#"><img src="{{ $thumbnails[$ctr] }}" class="border-radius" alt="{{ $game->title }}"></a>
                                     <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
                                 </div> 
-                                <?php $count++; ?> 
+                                <?php $ctr++; ?> 
                             @endforeach
                     </div>
                         
@@ -99,14 +99,14 @@
                 
                 <div class="column-four tablet">                
                     <div class="row clearfix">
-                        <?php $count = 0; ?>
+                        <?php $ctr = 0; ?>
                             @foreach($games as $game)                             
                                 
                                 <div>
-                                    <a href="#"><img src="{{ $thumbnails[$count] }}" class="border-radius" alt="{{ $game->title }}"></a>
+                                    <a href="#"><img src="{{ $thumbnails[$ctr] }}" class="border-radius" alt="{{ $game->title }}"></a>
                                     <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
                                 </div> 
-                                <?php $count++; ?> 
+                                <?php $ctr++; ?> 
                             @endforeach
                     </div>
                 </div> 

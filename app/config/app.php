@@ -123,7 +123,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Webpatser\Countries\CountriesServiceProvider',
-		'Jarektkaczyk\TriplePivot\TriplePivotServiceProvider'
+		'Jarektkaczyk\TriplePivot\TriplePivotServiceProvider',
+		'Torann\GeoIP\GeoIPServiceProvider'
 	),
 
 	/*
@@ -191,7 +192,8 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Carbon' 		  => 'Carbon\Carbon',
-		'Countries' 	  => 'Webpatser\Countries\CountriesFacade'
+		'Countries' 	  => 'Webpatser\Countries\CountriesFacade',
+		'GeoIP' 		  => 'Torann\GeoIP\GeoIPFacade'
 	),
 
 );

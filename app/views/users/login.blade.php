@@ -38,7 +38,7 @@
         </div>
 
         <div class="center">
-            <a href="#" class="button button-pink">Forgot your password?</a>
+            <a href="{{ route('password.remind') }}" class="button button-pink">Forgot your password?</a>
         </div>
 
         <div class="center">
