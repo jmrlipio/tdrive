@@ -247,6 +247,10 @@ class AdminGamesController extends \BaseController {
 		}
 
 		return Redirect::back()->with('message', 'You have successfully edited this game.');
+
+		// echo '<pre>';
+		// print_r(Input::all());
+		// echo '</pre>';
 	}
 
 	/**
