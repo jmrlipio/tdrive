@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 @extends('_layouts.login')
 @section('content')
-=======
-@include('_partials.header')
->>>>>>> master
     <div id="login">
         @if(Session::has('message'))
             <div class="flash-success">
