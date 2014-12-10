@@ -228,21 +228,25 @@ class AdminGamesController extends \BaseController {
 		$game2 = Game::with('media')->get()->find($id);
 
 		foreach($game2->media as $media) {
-			if($media->pivot->type == null) {
+			if($media->pivot->type != 'featured') {
 				$media->pivot->type = 'screenshot';
 				$media->pivot->save();
-			} else {
-				$game->media()->updateExistingPivot($media->pivot->media_id, array('type' => 'featured'));
 			}
 		}
 
-		// foreach(Input::get('carrier_id') as $carrier_id) {
-		// 	foreach(Input::get('prices'.$carrier_id) as $country_id => $price) {
-		// 		$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
-		// 	}
-		// }
+		$game->media()->attach(Input::get('featured_img_id'), array('type' => 'featured'));
 
-		// return Redirect::back()->with('message', 'You have successfully edited this game.');
+		foreach($game->prices as $price) {
+			$game->prices()->detach($price->pivot->carrier_id);
+		}
+
+		foreach(Input::get('carrier_id') as $carrier_id) {
+			foreach(Input::get('prices'.$carrier_id) as $country_id => $price) {
+				$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
+			}
+		}
+
+		return Redirect::back()->with('message', 'You have successfully edited this game.');
 	}
 
 	/**

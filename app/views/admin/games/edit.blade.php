@@ -101,19 +101,21 @@
 						</ul>
 						<div class="panel-container">
 							@foreach($carriers as $carrier_id => $carrier)
-							<div id="{{ $carrier }}">
-								<h3>Prices for countries with {{ $carrier }} carrier:</h3>
-								@foreach($prices as $cid => $pid)
-									@if($carrier_id == $pid['carrier_id'])
-										@foreach($countries as $country)
-											@if($country->id == $pid['country_id'])
-												<label for="{{ $cid }}">{{ $country->currency_code }}:</label>
-											@endif	
+								@if(in_array($carrier_id, $selected_carriers))
+									<div id="{{ $carrier }}">
+										<h3>Prices for countries with {{ $carrier }} carrier:</h3>
+										@foreach($prices as $cid => $pid)
+											@if($carrier_id == $pid['carrier_id'])
+												@foreach($countries as $country)
+													@if($country->id == $pid['country_id'])
+														<label for="{{ $cid }}">{{ $country->currency_code }}:</label>
+													@endif	
+												@endforeach
+												<input type="text" class="prices" name="prices{{ $pid['carrier_id'] }}[{{ $pid['country_id'] }}]" id="{{ $pid['country_id'] }}" value="{{ $pid['price'] }}">
+											@endif
 										@endforeach
-										<input type="text" class="prices" name="prices{{ $pid['carrier_id'] }}['{{ $pid['country_id'] }}']" id="{{ $pid['country_id'] }}" value="{{ $pid['price'] }}">
-									@endif
-								@endforeach
-							</div>
+									</div>
+								@endif
 							@endforeach
 						</div>
 					</div>
