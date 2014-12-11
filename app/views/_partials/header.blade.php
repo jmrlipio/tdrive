@@ -26,12 +26,7 @@
 			<li><a href="{{ route('games') }}" class="games">Games</a></li>
 			<li><a href="{{ route('news') }}" class="news">News</a></li>
 			<li><a href="#" class="faqs">FAQs</a></li>
-			<li><a href="#" class="contact">Contact</a></li>
-			<?php
-				echo '<pre>';
-				print_r($user_location);
-				echo '</pre>';
-			?>
+			<li><a href="#" class="contact">Contact</a></li>			
 		</ul>
 
 		<div class="tablet-landscape">

@@ -9,6 +9,7 @@ Route::get('path', function(){
 
 Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
 Route::get('carrier/load', array('as' => 'carrier.load', 'uses' => 'CarriersController@loadCarrier'));
+Route::get('games/load', array('as' => 'games.load', 'uses' => 'GamesController@loadGames'));
 
 Route::group(array('prefix' => 'admin'), function() {
 	Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
@@ -54,3 +55,11 @@ Route::post('register', array('as' => 'users.register', 'uses' => 'UsersControll
 Route::group(array('before' => 'auth'), function(){
 	Route::resource('users', 'UsersController');
 });
+
+/*Route::get('allgames', function() {
+    $games = Game::all();
+
+    echo '<pre>';
+    print_r($games);
+    echo '</pre>';
+});*/

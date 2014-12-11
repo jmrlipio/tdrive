@@ -6,7 +6,7 @@
     <div class="content-main">
 
         <div class="container">
-            <h2>News Article</h2>
+            <h2>News page</h2>
         </div>
 
         <div class="container">

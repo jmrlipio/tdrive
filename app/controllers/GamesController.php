@@ -23,8 +23,8 @@ class GamesController extends \BaseController {
 			}
 		}
 		return View::make('pages.games')
-		->with('thumbnails', $thumbnails)
-		->with('games', $games);
+			->with('thumbnails', $thumbnails)
+			->with('games', $games);
 	}
 
 	/**
@@ -97,4 +97,9 @@ class GamesController extends \BaseController {
 		//
 	}
 
+	public function loadGames() {
+		$games = Game::with('media')->get();
+
+		return $games->toJson();
+	}
 }

@@ -17,6 +17,7 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
+		/*$games = Game::with('media')->take(8)->get();*/
 		$games = Game::with('media')->get();
 		$root = Request::root();
 		$thumbnails = array();
@@ -38,7 +39,8 @@ class HomeController extends BaseController {
 
 	return View::make('index')
 		->with('thumbnails', $thumbnails)
-		->with('games', $games);
+		->with('games', $games)
+		->with('root', $root . '/images/uploads/');
 		
 	}
 }

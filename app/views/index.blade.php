@@ -83,7 +83,7 @@
         <div class="container">
             <div id="container-scroll">
                 <div class="column-three mobile">
-                    <div class="row clearfix">
+                    <div class="row clearfix" >
                         <?php $ctr = 0; ?>
                             @foreach($games as $game)                             
                                 
@@ -98,15 +98,16 @@
                 </div>
                 
                 <div class="column-four tablet">                
-                    <div class="row clearfix">
+                    <div class="row clearfix" id="games">
                         <?php $ctr = 0; ?>
                             @foreach($games as $game)                             
-                                
+                                <?php if($ctr <= 7) { ?>
                                 <div>
                                     <a href="#"><img src="{{ $thumbnails[$ctr] }}" class="border-radius" alt="{{ $game->title }}"></a>
                                     <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
                                 </div> 
                                 <?php $ctr++; ?> 
+                                <?php } ?>
                             @endforeach
                     </div>
                 </div> 
@@ -125,6 +126,9 @@
 {{ HTML::script('js/slidebars.js') }}
 {{ HTML::script('js/jquery.lightSlider.min.js') }}
 <script>
+var ctr = <?php echo $ctr; ?>;
+var root = '<?php echo $root; ?>';
+
 $(document).ready(function () {
     $("#slider-main").lightSlider({
         loop: true,
@@ -137,9 +141,9 @@ $(document).ready(function () {
 
     $.slidebars();
 
-    /*$('.mobile').each(function() {
+    $('.mobile').each(function() {
 
-        if ($(this).is(':visible')) {
+        /*if ($(this).is(':visible')) {
 
             $(window).scroll(function() {
                 if ($(window).scrollTop() == $(document).height() - $(window).height()) {
@@ -162,29 +166,69 @@ $(document).ready(function () {
 
             });
 
-        } else {
+        } else {*/
 
-            $('#more').on('click', function(e) {
-                e.preventDefault();
-                $('#ajax-loader').show();
+            // $('#more').on('click', function(e) {
+            //     e.preventDefault();
+            //     $('#ajax-loader').show();
 
-                $.ajax({
-                    url: 'thumbnails.php',
+            //     $.get({
+            //         url: 'thumbnails.php',
 
-                    success: function(html) {
-                        if (html) {
-                            $('#container-scroll').append(html);
-                            $('#ajax-loader').hide();
-                        } else {
-                            $('#ajax-loader').html('<p class="center">No more games to show.</p>');
-                        }
+            //         success: function(html) {
+            //             if (html) {
+            //                 $('#container-scroll').append(html);
+            //                 $('#ajax-loader').hide();
+            //             } else {
+            //                 $('#ajax-loader').html('<p class="center">No more games to show.</p>');
+            //             }
+            //         }
+            //     });
+            // });
+
+
+           
+
+        //}
+
+    });
+
+    var gamediv = $('#games');
+
+    $('#more').on('click', function(e) {
+
+        e.preventDefault();
+        $.get("{{ URL::route('games.load') }}", function(data) {  
+            var myArray = jQuery.parseJSON(data);  
+            var cctr = 0;
+            for(var id in myArray) {
+                var img_url; 
+                if(cctr >= ctr) {
+
+                    for(var i = 0; i < myArray[id].media.length; i++) {                        
+                        if(myArray[id].media[i]['pivot']['type'] == 'featured') {
+                            img_url = myArray[id].media[i]['url'];
+                        }                      
                     }
-                });
-            });
 
-        }
+                    var game = $('<div> \
+                                    <a href="#"><img src="' + root + img_url +'" class="border-radius" alt="' + myArray[id]['title'] +'"></a> \
+                                    <p class="description">' + myArray[id]['title'] +'<span class="price"> (P '+myArray[id]['default_price'] +')</span></p> \
+                                </div>').hide();
 
-    });*/
+                    gamediv.append(game);
+                    game.show('slow');
+                   /* gamediv.fadeIn('slow');*/
+
+                }
+               
+                cctr++;
+            }
+            ctr = cctr;
+        });
+    });
+
+                    
 });
 </script>
 @stop
