@@ -9,6 +9,7 @@
 {{ HTML::style('css/normalize.css') }}
 {{ HTML::style('css/base.css') }}
 {{ HTML::style('css/login.css') }}
+{{ HTML::script('js/jquery-1.11.1.js') }}
 
 
 

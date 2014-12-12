@@ -1,53 +1,6 @@
 @extends('_layouts.default')
 @section('content')
 
-
-<div class="mobile">
-    <div class="sb-slidebar sb-left">
-
-        <nav class="nav-main">
-            <ul class="first">
-                <div class="clearfix">
-                    <li><a href="{{ route('users.login') }}" class="sign-in">Sign In</a></li>
-                    <li><a href="{{ route('users.signup') }}" class="join-now">Join Now</a></li>
-                </div>
-            </ul>
-            
-            <form action="#" method="post" class="search clearfix">
-                <input type="text" name="search" placeholder="search game...">
-                <input type="submit" value="Go">
-            </form>
-
-            <form action="#" method="post" class="language">
-                <select name="language">
-                    <option value="">select language...</option>
-                    <option value="singtel (english)">singtel (english)</option>
-                </select>
-            </form>
-            
-            <ul class="second">
-                <li><a href="#" class="games">Games</a></li>
-                <li><a href="#" class="news">News</a></li>
-                <li><a href="#" class="faqs">FAQs</a></li>
-                <li><a href="#" class="contact">Contact</a></li>
-            </ul>
-
-            <ul class="social">
-                <li><a href="#" class="facebook">Facebook</a></li>
-                <li><a href="#" class="twitter">Twitter</a></li>
-                <li><a href="#" class="support">support@tdrive.co</a></li>
-            </ul>
-
-            <div class="copyright">
-                <p>Japan &#124; Philippines</p>
-                <p>Copyright &copy; 2014 TDrive.</p>
-                <p>All rights reserved.</p>
-            </div>
-        </nav>
-
-    </div>
-</div>
-
 <div id="sb-site">
 
     <div class="content-main">
@@ -194,23 +147,34 @@ $(document).ready(function () {
     });
 
     var gamediv = $('#games');
-
+    var num=0;  
+    
     $('#more').on('click', function(e) {
-
         e.preventDefault();
         $.get("{{ URL::route('games.load') }}", function(data) {  
             var myArray = jQuery.parseJSON(data);  
             var cctr = 0;
             for(var id in myArray) {
-                var img_url; 
-                if(cctr >= ctr) {
+                var img_url;  
 
-                    for(var i = 0; i < myArray[id].media.length; i++) {                        
+                if(cctr >= ctr) {
+                   
+                        if (myArray.hasOwnProperty(id)) {
+                            num++;
+                        } //console.log(num);
+                        //var val = num%4;
+                        //console.log(num);
+                        if (num == 5){
+                            //console.log(myArray[id]);
+                            break;
+                        } 
+
+                    for(var i = 0; i < myArray[id].media.length; i++) {                      
                         if(myArray[id].media[i]['pivot']['type'] == 'featured') {
                             img_url = myArray[id].media[i]['url'];
                         }                      
                     }
-
+                    
                     var game = $('<div> \
                                     <a href="#"><img src="' + root + img_url +'" class="border-radius" alt="' + myArray[id]['title'] +'"></a> \
                                     <p class="description">' + myArray[id]['title'] +'<span class="price"> (P '+myArray[id]['default_price'] +')</span></p> \
@@ -220,9 +184,8 @@ $(document).ready(function () {
                     game.show('slow');
                    /* gamediv.fadeIn('slow');*/
 
-                }
-               
-                cctr++;
+                }               
+                cctr++;            
             }
             ctr = cctr;
         });

@@ -21,6 +21,18 @@ body {
 	padding-top: 56px;
 }
 
+div#error-container{
+	text-align: center !important;
+}
+div#error-container h2 { 
+	color: red !important; 
+	font-size: 33px !important; 
+	font-weight: normal !important;
+}
+div#error-container p {
+	color: #fff;
+}
+
 .header-main {
 	background: #cc0001;
 	color: #fff;

@@ -45,6 +45,12 @@ Route::get('password/reset/{token}', array('as' => 'password.reset', 'uses' => '
 Route::post('password/reset/{token}', array('as' => 'password.update', 'uses' => 'RemindersController@postReset'));
 //END
 
+//Search route for admin
+
+Route::post('admin/users/search', array('as' => 'admin.users.search', 'uses' => 'AdminUsersController@postSearch'));
+
+//END
+
 /*END*/
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));
 Route::post('login', array('as' => 'login.post', 'uses' => 'UsersController@postLogin'));
