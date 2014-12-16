@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordablesTable extends Migration {
+class CreateUserLogsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,12 @@ class CreateKeywordablesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('keywordables', function(Blueprint $table)
+		Schema::create('user_logs', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->morphs('keywordable');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->text('activity');
 			$table->timestamps();
 		});
 	}
@@ -28,7 +30,7 @@ class CreateKeywordablesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('keywordables');
+		Schema::drop('user_logs');
 	}
 
 }

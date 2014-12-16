@@ -19,8 +19,6 @@ class Game extends \Eloquent {
 		'excerpt' => 'required',
 		'downloads' => 'required|numeric',
 		'default_price' => 'required|numeric',
-		// 'featured_img_id' => 'required'
-		// 'screenshot_id' => 'array'
 	);
 
 	public function user() {
@@ -29,10 +27,6 @@ class Game extends \Eloquent {
 
 	public function categories() {
 		return $this->belongsToMany('Category', 'game_categories');
-	}
-
-	public function platforms() {
-		return $this->belongsToMany('Platform', 'game_platforms');
 	}
 
 	public function carriers() {
@@ -61,7 +55,4 @@ class Game extends \Eloquent {
         return $this->tripleBelongsToMany('Carrier', 'Country', 'game_prices' )->withPivot('price');
     }
 
-   	public function currencies() {
-   		return $this->hasManyThrough('','');
-   	}
 }

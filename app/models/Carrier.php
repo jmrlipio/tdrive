@@ -24,7 +24,7 @@ class Carrier extends \Eloquent {
      * @return \Jarektkaczyk\TriplePivot\TripleBelongsToMany
      */
     public function prices() {
-        return $this->tripleBelongsToMany('Game', 'Country', 'game_prices' );
+        return $this->tripleBelongsToMany('Game', 'Country', 'game_prices' )->withPivot('price');
     }
 
 	// public function sales() {

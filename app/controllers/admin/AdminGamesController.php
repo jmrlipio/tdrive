@@ -24,16 +24,11 @@ class AdminGamesController extends \BaseController {
 	public function create()
 	{
 		$categories = [];
-		$platforms = [];
 		$languages = [];
 		$carriers = [];
 
 		foreach(Category::orderBy('category')->get() as $category) {
 			$categories[$category->id] = $category->category;
-		}
-
-		foreach(Platform::orderBy('platform')->get() as $platform) {
-			$platforms[$platform->id] = $platform->platform;
 		}
 
 		foreach(Language::orderBy('language')->get() as $language) {
@@ -46,7 +41,6 @@ class AdminGamesController extends \BaseController {
 
 		return View::make('admin.games.create')
 			->with('categories', $categories)
-			->with('platforms', $platforms)
 			->with('languages', $languages)
 			->with('carriers', $carriers);
 	}
@@ -68,7 +62,6 @@ class AdminGamesController extends \BaseController {
 
 		$game = Game::create($data);
 
-		$game->platforms()->sync(Input::get('platform_id'));
 		$game->categories()->sync(Input::get('category_id'));
 		$game->languages()->sync(Input::get('language_id'));
 		$game->carriers()->sync(Input::get('carrier_id'));
@@ -108,12 +101,11 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$tables = ['categories','platforms','languages','media', 'carriers'];
+		$tables = ['categories','languages','media', 'carriers'];
 
 	    $game = Game::with($tables)->get()->find($id);
 
 		$selected_categories = [];
-		$selected_platforms = [];
 		$selected_languages = [];
 		$selected_media = [];
 		$selected_carriers = [];
@@ -121,10 +113,6 @@ class AdminGamesController extends \BaseController {
 
 		foreach($game->categories as $category) {
 			$selected_categories[] = $category->id;
-		}
-
-		foreach($game->platforms as $platform) {
-			$selected_platforms[] = $platform->id;
 		}
 
 		foreach($game->languages as $language) {
@@ -146,17 +134,12 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$categories = [];
-		$platforms = [];
 		$languages = [];
 		$carriers = [];
 		$prices = [];
 
 		foreach(Category::orderBy('category')->get() as $category) {
 			$categories[$category->id] = $category->category;
-		}
-
-		foreach(Platform::orderBy('platform')->get() as $platform) {
-			$platforms[$platform->id] = $platform->platform;
 		}
 
 		foreach(Language::orderBy('language')->get() as $language) {
@@ -182,12 +165,10 @@ class AdminGamesController extends \BaseController {
 		return View::make('admin.games.edit')
 			->with('game', $game)
 			->with('selected_categories', $selected_categories)
-			->with('selected_platforms', $selected_platforms)
 			->with('selected_languages', $selected_languages)
 			->with('selected_media', $selected_media)
 			->with('selected_carriers', $selected_carriers)
 			->with('categories', $categories)
-			->with('platforms', $platforms)
 			->with('languages', $languages)
 			->with('carriers', $carriers)
 			->with('prices', $prices)
@@ -204,7 +185,7 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$tables = ['categories','platforms','languages','media', 'carriers'];
+		$tables = ['categories','languages','media', 'carriers'];
 
 		$game = Game::with($tables)->get()->find($id);
 
@@ -217,7 +198,6 @@ class AdminGamesController extends \BaseController {
 
 		$game->update($data);
 
-		$game->platforms()->sync(Input::get('platform_id'));
 		$game->categories()->sync(Input::get('category_id'));
 		$game->languages()->sync(Input::get('language_id'));
 		$game->carriers()->sync(Input::get('carrier_id'));

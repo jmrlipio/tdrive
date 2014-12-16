@@ -4,8 +4,6 @@
 		<li><a href="{{ URL::route('admin.categories.index') }}">Categories</a></li>
 		<li><a href="{{ URL::route('admin.languages.index') }}">Languages</a></li>
 		<li><a href="{{ URL::route('admin.carriers.index')}}">Carriers</a></li>
-		<li><a href="{{ URL::route('admin.platforms.index') }}">Platforms</a></li>
-		<li><a href="#">Sales</a></li>
 	</ul>
 </nav>
 <script>

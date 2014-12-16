@@ -12,16 +12,16 @@
 		@endif
 		<br>
 		<ul class='etabs'>
-			<li class='tab'><a href="#content">Content</a></li>
 			<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
+			<li class='tab'><a href="#content">Content</a></li>
 			<li class='tab'><a href="#carriers">Carriers</a></li>
 			<li class='tab'><a href="#media">Media</a></li>
 		</ul>
 		<div class='panel-container'>
-			<ul id="content">
+			<ul id="custom-fields">
 				<li>
-					{{ Form::label('title', 'Title: ') }}
-					{{ Form::text('title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
+					{{ Form::label('main_title', 'Main Title: ') }}
+					{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 					{{ $errors->first('title', '<p class="error">:message</p>') }}
 				</li>
 				<li>
@@ -50,26 +50,26 @@
 					{{ $errors->first('downloads', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('content', 'Content:') }}
-					{{ Form::textarea('content', null, array('id' => 'text-content')) }}
-					{{ $errors->first('content', '<p class="error">:message</p>') }}
-				</li>
-			</ul>
-			<ul id="custom-fields">
-				<li>
-					{{ Form::label('platform_id', 'Platforms: ') }}
-					{{ Form::select('platform_id[]', $platforms, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose platform(s)...'))  }}
-					{{ $errors->first('platform_id', '<p class="error">:message</p>') }}
-				</li>
-				<li>
 					{{ Form::label('category_id', 'Categories: ') }}
 					{{ Form::select('category_id[]', $categories, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose category(s)...'))  }}
 					{{ $errors->first('category_id', '<p class="error">:message</p>') }}
 				</li>
+			</ul>
+			<ul id="content">
 				<li>
 					{{ Form::label('language_id', 'Languages: ') }}
-					{{ Form::select('language_id[]', $languages, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose language(s)...'))  }}
+					{{ Form::select('language_id[]', $languages, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
 					{{ $errors->first('language_id', '<p class="error">:message</p>') }}
+				</li>
+				<li>
+					{{ Form::label('title', 'Main Title: ') }}
+					{{ Form::text('title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
+					{{ $errors->first('title', '<p class="error">:message</p>') }}
+				</li>
+				<li>
+					{{ Form::label('content', 'Content:') }}
+					{{ Form::textarea('content', null, array('id' => 'text-content')) }}
+					{{ $errors->first('content', '<p class="error">:message</p>') }}
 				</li>
 				<li>
 					{{ Form::label('excerpt', 'Excerpt:') }}
@@ -184,6 +184,10 @@
 		$('#tab-container > .etabs a').click(function() {
 			$('body').scrollTop(0);
 		});
+	});
+
+	$('#languages_chosen').on('blur', function(){
+		alert('test');
 	});
 
 	// Opens media dialog for selecting featured and screenshots images

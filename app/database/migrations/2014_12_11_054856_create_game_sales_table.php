@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNewsTable extends Migration {
+class CreateGameSalesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,13 @@ class CreateNewsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('news', function(Blueprint $table)
+		Schema::create('game_sales', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('game_price_id')->unsigned();
+			$table->foreign('game_price_id')->references('id')->on('game_prices');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->boolean('comment_enabled');
-			$table->string('status');
-			$table->integer('news_category_id')->unsigned();
-			$table->foreign('news_category_id')->references('id')->on('news_categories');
 			$table->timestamps();
 		});
 	}
@@ -33,7 +31,7 @@ class CreateNewsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('news');
+		Schema::drop('game_sales');
 	}
 
 }
