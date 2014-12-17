@@ -37,6 +37,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 */
 Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
 Route::get('news', array('as' => 'news', 'uses' => 'NewsController@usersindex'));
+Route::get('news/show/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getSingleNews'));
+/*Route::controller('news/show', 'NewsController');*/
+Route::get('news/year', array('as' => 'news.year', 'uses' => 'NewsController@getNewsByYear'));
+
 
 //Password Reminder & Reset
 Route::get('password/remind', array('as' => 'password.remind', 'uses' => 'RemindersController@getRemind'));
@@ -62,10 +66,11 @@ Route::group(array('before' => 'auth'), function(){
 	Route::resource('users', 'UsersController');
 });
 
-/*Route::get('allgames', function() {
-    $games = Game::all();
-
-    echo '<pre>';
-    print_r($games);
-    echo '</pre>';
+/*Route::get('allnews', function() {    
+    $year = 2013;  
+    $news_article = News::whereYear('created_at', '=', $year)->with('media')->get();
+   
+    foreach ($news_article as $na) {
+        echo $na->title;
+    }
 });*/

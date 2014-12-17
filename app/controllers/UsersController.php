@@ -112,7 +112,7 @@ class UsersController extends \BaseController {
 
 		if ($validator->fails())
 		{
-			return Redirect::back()->withErrors($validator)->withInput();
+			return Redirect::towithErrors($validator)->withInput();
 		}
 	}
 
@@ -122,28 +122,32 @@ class UsersController extends \BaseController {
     }
 
     public function postLogin(){
-        $data = Input::all();
-
-        $validator = Validator::make($data, User::$auth_rules);
-        if ($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator)->withInput();
-        }
+        $credentials = array('username' => Input::get('username'), 'password' => Input::get('password')); 		
+       
         $remember = Input::get('remember');
-        $credentials = array(
-        	'username' => Input::get('username'), 
-        	'password' => Input::get('password')
-        	);
+
+        if (Auth::attempt($credentials)){
+
+        	if(Auth::check() && !empty($remember)){
+        		Auth::login(Auth::user(), true);
+        	}
+            return Redirect::intended('/');
+        }
+        //return Redirect::route('users.login')->withErrors('Your email/password was incorrect');
+        return Redirect::to('login')->withErrors('Your email/password was incorrect');
+        //return Redirect::back()->withErrors('Your username/password was incorrect');
+
+        //return Redirect::to('/login')->withErrors('Your email/password was incorrect');
         
-        if (Auth::attempt($credentials)){        	
+       /* if (Auth::attempt($credentials)){        	
         	
         	if(!empty($remember)){
         		Auth::login(Auth::user(), true);
         	}
         	return Redirect::intended('/');
-        }
+        }*/
 
-        return Redirect::route('login');
+        //return View::make('users.login');
     }
 
     public function getLogout(){

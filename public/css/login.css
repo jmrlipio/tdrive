@@ -11,12 +11,12 @@ form {
 .logo-main, .logo-tose { margin: 4px 20px; }
 
 .control { 
-	margin: 20px 0; 
+	margin: 10px 0; 
 	width: 100%;
 }
 
 .control-group { 
-	margin: 20px 0; 
+	margin: 10px 0; 
 	width: 100%;
 }
 
@@ -26,6 +26,13 @@ form {
 }
 
 .control-group .control-item:last-child { float: right; }
+
+input[type="text"], input[type="password"] {
+	width: 96%;
+	padding: 5px 2%;
+}
+
+input[type="submit"] { margin-left: 20px; }
 
 input[type="text"], input[type="password"] {
 	width: 96%;

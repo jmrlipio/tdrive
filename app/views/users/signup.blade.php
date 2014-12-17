@@ -25,7 +25,7 @@
 			{{ Form::label('password') }}
 			{{ Form::password('password',array('placeholder'=>'Input password','class'=> 'form-control','required')).'<p id="generated-password"></p>' }}
 			
-			<input class="button button-pink" type="button" value="Generate password" onClick="randomString();">
+			<input class="button button-pink" type="button" value="Generate password" onClick="randomString();"><br/>
 			
 			{{ $errors->first('password', '<p class="error">:message</p>') }}
 

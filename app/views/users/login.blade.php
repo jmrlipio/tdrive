@@ -1,26 +1,29 @@
 @extends('_layouts.login')
 @section('content')
 
-    <div id="login">
-        @if(Session::has('message'))
-            <div class="flash-success">
-                <p>{{ Session::get('message') }}</p>
-            </div>
-        @endif
+    <div id="login"> 
 
-       <h3 class="center">Sign In</h3>
+        @if($errors->has())
+                                        
+            @foreach($errors->all() as $error)                        
+                <h3 class="center">{{ $error }}</h3>                     
+            @endforeach                        
+
+        @else
+
+            <h3 class="center">Sign In</h3>
+
+        @endif     
 
         <div class="center">
            {{ Form::open(array('route' => 'login.post', 'class' => 'login', 'id' => 'login-form')) }}
 
                 <div class="control">
-                    {{ Form::text('username', null, array('placeholder'=>'username')) }}
-                    {{ $errors->first('username', '<p class="error">:message</p>') }}
+                    {{ Form::text('username', null, array('placeholder'=>'username')) }}                   
                 </div>
 
                 <div class="control">
-                    {{ Form::password('password', array('placeholder'=>'password')) }}
-                    {{ $errors->first('password', '<p class="error">:message</p>') }}
+                    {{ Form::password('password', array('placeholder'=>'password')) }}                    
                 </div>
 
                 <div class="control-group clearfix">

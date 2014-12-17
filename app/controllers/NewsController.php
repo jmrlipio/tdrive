@@ -3,12 +3,46 @@
 class NewsController extends \BaseController {
 
 	public function usersindex()
-	{
-		$news_article = News::with('media')->get();
+	{		
+		$news_article = News::orderBy('created_at', 'DESC')->with('media')->get();
 		$root = Request::root();
 		$thumbnails = array();
-
+		$arr_yrs = array();
+                                                 
 		foreach($news_article as $news) {
+			$year = date('Y', strtotime($news->created_at));
+			$arr_yrs[$year] = $year;
+			$years = array_unique($arr_yrs);
+
+			foreach($news->media as $media) {
+				if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			}
+		}
+		reset($arr_yrs);
+		$first_key = key($arr_yrs);
+
+
+		return View::make('pages.news.index', array('className' => 'news'))
+			->with('thumbnails', $thumbnails)
+			->with('news_article', $news_article)	
+			->with('years', $years)
+			->with('selected', $first_key);
+	}
+
+	 public function getNewsByYear() {
+    	$selected_year = Input::get('year');
+		$news_article = News::whereYear('created_at', '=', $selected_year)->with('media')->get();
+
+		$years = News::orderBy('created_at', 'DESC')->with('media')->get();
+		
+		$root = Request::root();
+		$thumbnails = array();
+		$arr_yrs = array();
+                                                 
+		foreach($news_article as $news) {			
+
 			foreach($news->media as $media) {
 				if($media->pivot->type == 'featured') {
 					$thumbnails[] = $root. '/images/uploads/' . $media->url;
@@ -16,10 +50,19 @@ class NewsController extends \BaseController {
 			}
 		}
 
-		return View::make('pages.news')
+		foreach ($years as $yrs) {
+			$year = date('Y', strtotime($yrs->created_at)); 
+			$arr_yrs[$year] = $year;
+			$years = array_unique($arr_yrs);
+		}
+
+
+    	return View::make('pages.news.index' , array('className' => 'news'))
 			->with('thumbnails', $thumbnails)
-			->with('news_article', $news_article);	
-	}
+			->with('news_article', $news_article)	
+			->with('years', $years)
+			->with('selected', $selected_year);
+    }
 
 
 	/**
@@ -80,9 +123,25 @@ class NewsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function getSingleNews($id)
 	{
-		//
+		$count = 0;
+		$news_article = News::find($id);
+		$root = Request::root();
+		$thumbnails = array();
+		$selected_media = array();
+
+
+		foreach($news_article->media as $media) {
+			if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			$count++;
+		}
+
+		return View::make('pages.news.view', array('className' => 'news-detail'))
+			->with('thumbnails', $thumbnails)
+			->with('news_article', $news_article);
 	}
 
 

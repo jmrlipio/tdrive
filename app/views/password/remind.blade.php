@@ -11,7 +11,7 @@
               An email with the password reset has been sent.
             @endif
              
-            {{ Form::open(array('route' => 'password.request', 'class' => 'forgot-password', 'id' => 'forgot-password-form')) }}   
+            {{ Form::open(array('route' => 'password.request', 'class' => 'forgot-password', 'id' => 'forgot-password-form')) }}  
 
                 <div class="control">       
                     {{ Form::text('email', null, array('placeholder'=>'email','required')) }}
