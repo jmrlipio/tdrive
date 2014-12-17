@@ -221,7 +221,7 @@ article.news-container img{
 
 @media only screen and (min-width: 800px) {
 
-	.news, .news-detail { background: #f4f4f4; }
+	.news, .news-detail { background: #f4f4f4; overflow: hidden;}
 
 	.news article.latest {
 		width: 49%;

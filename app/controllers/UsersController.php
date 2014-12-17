@@ -97,6 +97,8 @@ class UsersController extends \BaseController {
 	public function postRegister(){
 		$validator = Validator::make(Input::all(), User::$rules);
 		$user = new User;
+		$code = str_random(60);
+		$username = Input::get('username');
 
 		if($validator->passes()){
 			
@@ -105,14 +107,20 @@ class UsersController extends \BaseController {
 			$user->first_name= Input::get('first_name');
 			$user->last_name= Input::get('last_name');
 			$user->password=  Hash::make(Input::get('password'));			
-			
-			$user->save();			
-			return Redirect::route('users.login')->with('message', 'Registration successfull. Please sign in.');			
+			$user->code = $code;
+
+			$user->save();	
+
+			Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $code), 'username' => $username), function ($message) use ($user){
+				$message->to($user->email, $user->username)->subject('Activate your Account');
+			});
+
+			return Redirect::route('users.login')->with('message', 'Registration successful. Please sign in.');			
 		}
 
 		if ($validator->fails())
 		{
-			return Redirect::towithErrors($validator)->withInput();
+			return Redirect::back()->withErrors($validator)->withInput();
 		}
 	}
 
@@ -155,10 +163,10 @@ class UsersController extends \BaseController {
         return Redirect::route('users.login');
     }
 
-    public function getForgotPassword(){
+/*    public function getForgotPassword(){
 
     	return View::make('users.forgot');
-    }
+    }*/
 
    /* public function postForgotPassword(){
     	$validator = Validator::make(Input::all(), 
@@ -195,5 +203,26 @@ class UsersController extends \BaseController {
 
     	==========return View::make('users.forgot');
     }*/
+
+    public function getActivate($code){
+    	$user = User::where('code', '=', $code)->where('active', '=', 0);
+
+    	if($user->count()){
+    		$user = $user->first();
+
+    		//Update users to allow adding comment and review
+    		$user->active = 1;
+    		$user->code = '';
+
+    		if($user->save()){
+    			
+    		return Redirect::route('users.login')
+    			->with('message', 'Account activated, you can now rate/comment a game');    			
+    		}
+    	}
+
+    	return Redirect::route('users.login')    		
+    		->with('message', 'We could not activate your account. Try again later.');   	
+    }
 
 }

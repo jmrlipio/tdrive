@@ -38,9 +38,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
 Route::get('news', array('as' => 'news', 'uses' => 'NewsController@usersindex'));
 Route::get('news/show/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getSingleNews'));
+/*Route::get('news/year/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getNewsByYear'));*/
 /*Route::controller('news/show', 'NewsController');*/
 Route::get('news/year', array('as' => 'news.year', 'uses' => 'NewsController@getNewsByYear'));
-
+Route::get('users/activate/{code}', array('as' => 'account.activate', 'uses' => 'UsersController@getActivate'));
 
 //Password Reminder & Reset
 Route::get('password/remind', array('as' => 'password.remind', 'uses' => 'RemindersController@getRemind'));

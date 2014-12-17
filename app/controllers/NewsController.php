@@ -128,19 +128,21 @@ class NewsController extends \BaseController {
 		$count = 0;
 		$news_article = News::find($id);
 		$root = Request::root();
-		$thumbnails = array();
-		$selected_media = array();
+/*		$thumbnails = array();
+*/		$selected_media = array();
+		$media = $news_article->media[0]['url'];
+		$thumbnail = $root . '/images/uploads/' . $news_article->media[0]['url']; 
+		//echo $news_article->media[0]['url'];
 
-
-		foreach($news_article->media as $media) {
+/*		foreach($news_article->media as $media) {
 			if($media->pivot->type == 'featured') {
 					$thumbnails[] = $root. '/images/uploads/' . $media->url;
 				}
 			$count++;
 		}
-
+*/
 		return View::make('pages.news.view', array('className' => 'news-detail'))
-			->with('thumbnails', $thumbnails)
+			->with('thumbnail', $thumbnail)
 			->with('news_article', $news_article);
 	}
 

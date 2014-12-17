@@ -8,7 +8,7 @@
         <div class="container clearfix">
             <h1 class="fl">Latest News</h1>
                <!--  Form for loading news by its year. It should display news by its year -->
-                 {{ Form::open(array('route' => 'news.year', 'class' => 'date fr', 'id' => 'submit-year', 'method' => 'get')) }}                       
+                 {{ Form::open(array('route' => 'news.year', 'class' => 'date fr', 'id' => 'submit-year', 'method' => 'get')) }} 
                     {{ Form::select('year', $years, $selected, array('class' => 'select-year', 'id' => 'select-year')) }}
                 {{ Form::close() }}         
         </div>
@@ -27,10 +27,11 @@
                         <p class="date"><?php echo $dt->formatLocalized('%d'); ?> <span><?php echo $dt->formatLocalized('%b');?></span></p> 
                         <img src="{{ $thumbnails[$ctr] }}" alt="{{ $news->title }}">
                         <h3 class="title">{{ $news->title }}</h3>    
-                        <p class="description">{{ Str::words($news->excerpt, 10) }}</p>  
-                      
+                        <p class="description">{{ Str::words($news->excerpt, 10) }}</p>                     
                   
                       <a href="{{ URL::to('news/show').'/'.$news->id }}" class="button readmore">Read more <i class="fa fa-angle-right"></i></a>
+                       
+                     
 
                     </article>
                 @endif

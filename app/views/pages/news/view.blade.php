@@ -13,7 +13,7 @@
                 setlocale(LC_TIME, '');
             ?>
 
-             <img class="featured-image" src="{{ $thumbnails[0] }}" alt="{{ $news_article->title }}"> 
+             <img class="featured-image" src="{{ $thumbnail }}" alt="{{ $news_article->title }}"> 
                 <div class="meta clearfix">
                    <div class="date">
                         <p class="vhcenter"><?php echo $dt->formatLocalized('%d'); ?> <span><?php echo $dt->formatLocalized('%b');?></span></p> 
@@ -40,10 +40,10 @@
 
         <div class="container">
             <div class="tablet">
-                <a href="#" class="button button-pink"><i class="fa fa-chevron-left"></i> Back</a>
+                <a href="{{ URL::previous() }}" class="button button-pink"><i class="fa fa-chevron-left"></i> Back</a>
             </div>
         </div>
-        
+
     </div>
 </div>
 @stop

@@ -1,13 +1,17 @@
 @extends('_layouts.login')
 @section('content')
 
-    <div id="login"> 
+    <div id="login">
 
-        @if($errors->has())
-                                        
+        @if($errors->has() )                         
+           
             @foreach($errors->all() as $error)                        
                 <h3 class="center">{{ $error }}</h3>                     
-            @endforeach                        
+            @endforeach 
+
+        @elseif (Session::has('message') ) 
+            
+                <h3 class="center">{{ Session::get('message') }}</h3>              
 
         @else
 
