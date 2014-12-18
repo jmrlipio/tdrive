@@ -21,14 +21,13 @@ footer { min-height: 50px; background-color: #ccc; }
 .container { width: 80%; margin: 0 auto; }
 
 /* general forms */
-form { width: 80%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
+article { width: 80%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; } 
 form h2 { text-align: center; }
 form li { list-style-type: none; }
 form li .error { display: inline-block; color: red; line-height: 30px; }
 form label { display: block; font-weight: bold; line-height: 30px; }
-input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 96%; }
+input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 95%; }
 input[type="text"], input[type="email"], input[type="password"] { padding: 5px 10px; }
-textarea { width: 100%; padding: 2%; }
 input[type="submit"], a.mgmt-link { background: #4288CE; color: #fff; height: 40px; line-height: 40px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 input[type="submit"]:hover, a.mgmt-link:hover { background: #333; cursor: pointer; }
 button { background: #CE8342; color: #fff; height: 30px; line-height: 31px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
@@ -74,7 +73,11 @@ form.login { width: 30%; }
 .item-listing ul.actions li a { color: #606060; font-size: 0.8em; }
 .item-listing td > a { color: #E43C49; }
 
-
+textarea {
+	width: 95%;
+	resize: none;
+	height: 150px;
+}
 
 .item-listing td:first-child, .item-listing th:first-child { width: 20px; }
 .item-listing td:nth-child(2), .item-listing th:nth-child(2) { width: 40%; }
@@ -170,6 +173,8 @@ form.login { width: 30%; }
 .pagination { list-style: none; }
 .pagination li { float: left; margin: 3px 5px; }
 .pagination li a { text-decoration: none; color: #E43C49; }
+
+#create-game, .dropzone { width: 80%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
 
 #img-select .panel-container {
 	height: 85%;
@@ -274,8 +279,6 @@ form.login { width: 30%; }
 #carrier-tab { margin-top: 20px; }
 #carrier-tab .panel-container { padding-bottom: 20px; }
 
-/*#tab-container > .panel-container { min-height: 500px !important; }*/
-
 .tall-tr { height: 50px; }
 .tall-tr p { line-height: 50px; text-align: center; }
 
@@ -296,11 +299,15 @@ form.login { width: 30%; }
 	width: 100%;
 }
 
-.answer {
+.answer, .excerpt {
 	width: 96%;
 	resize: none;
 }
 
 #faq-order {
 	width: 10%;
+}
+
+.excerpt {
+	height: 100px;
 }

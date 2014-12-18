@@ -22,6 +22,12 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('dashboard', array('as' => 'admin.dashboard', 'uses' => 'AdminUsersController@getDashboard'));
     Route::get('users/roles', array('as' => 'admin.users.roles', 'uses' => 'AdminUsersController@getUsersByRole'));
     Route::resource('users', 'AdminUsersController');
+    Route::post('games/{id}/edit-content', array('as' => 'admin.games.update-content', 'uses' => 'AdminGamesController@updateContent'));
+    // Route::get('games/{id}/edit-content', array('as' => 'admin.games.edit-content', 'uses' => 'AdminGamesController@editContent'));
+    Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
+    // Route::get('games/{id}/edit-carriers', array('as' => 'admin.games.edit-carriers', 'uses' => 'AdminGamesController@editCarrier'));
+    Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
+    // Route::get('games/{id}/edit-carriers', array('as' => 'admin.games.edit-carriers', 'uses' => 'AdminGamesController@editCarrier'));
     Route::resource('games', 'AdminGamesController');
     Route::resource('news', 'NewsController');
     Route::resource('media', 'MediaController');

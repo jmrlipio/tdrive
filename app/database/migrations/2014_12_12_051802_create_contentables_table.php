@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateContentableTable extends Migration {
+class CreateContentablesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateContentableTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('contentable', function(Blueprint $table)
+		Schema::create('contentables', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('language_id')->unsigned();
@@ -33,7 +33,7 @@ class CreateContentableTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('contentable');
+		Schema::drop('contentables');
 	}
 
 }

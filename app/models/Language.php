@@ -17,4 +17,14 @@ class Language extends \Eloquent {
         return $this->morphedByMany('News', 'languagable');
     }
 
+    public function gamecontent()
+    {
+        return $this->morphedByMany('Game', 'contentable');
+    }
+
+    public function newscontent()
+    {
+        return $this->morphedByMany('News', 'contentable');
+    }
+
 }

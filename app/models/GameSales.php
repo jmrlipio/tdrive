@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class GamePrices extends Pivot{
+class GameSales extends Pivot{
     protected $table = 'game_prices';
 
     public function users() {

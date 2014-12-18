@@ -173,18 +173,6 @@ class CarriersController extends \BaseController {
 	}
 
 	public function loadCarrier() {
-		// $carrier = Carrier::with('countries')->get()->find(1);
-
-		// $selected_countries = [];
-
-		// foreach($carrier->countries as $country) {
-		// 	$selected_countries[$country->id] = $country->currency_code;
-		// }
-
-		// echo '<pre>';
-		// print_r($selected_countries);
-		// echo '</pre>';
-
 		$carrier = Carrier::with('countries')->get()->find(Input::get('carrier_id'));
 
 		$selected_countries = [];
