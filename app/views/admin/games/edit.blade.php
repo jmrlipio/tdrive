@@ -58,7 +58,7 @@
 						</li>
 						{{ Form::submit('Save', array('id' => 'save-game')) }}
 						{{ Form::hidden('user_id', Auth::user()->id) }}
-					{{ Form::close() }}	
+					{{ Form::close() }}
 				</ul>
 				<ul id="content">
 					{{ Form::open(array('route' => array('admin.games.update-content', $game->id), 'method' => 'post')) }}

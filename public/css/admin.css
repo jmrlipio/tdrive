@@ -36,7 +36,7 @@ form.destroy { display: inline-block; padding: 0; border: none; width: auto; }
 form.destroy input[type="submit"] { margin-left: 10px; background: #999; display: inline-block; height: auto; padding: 0.2em; line-height: 1.2em; }
 form.destroy input[type="submit"]:hover { background: red; }
 form.login { width: 30%; }
-#login form { margin-top: 0 !important; }
+#login form { margin: 0 auto 0; padding: 20px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 
 /* Smaller Forms */
 .small-form { width: 40%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
