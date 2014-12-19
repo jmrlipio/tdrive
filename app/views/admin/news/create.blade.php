@@ -76,6 +76,11 @@
 		<li>
 			{{ Form::submit('Save', array('id' => 'save-news')) }}
 		</li>
+
+		<iframe id="form_target" name="form_target" style="display:none"></iframe>
+		<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
+		    <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
+		</form>
 </div>
 		{{ Form::hidden('user_id', Auth::user()->id) }}
 	{{ Form::close() }}
@@ -103,7 +108,7 @@
     	});
 
         // Initializes textarea editor for content and excerpt
-        tinymce.init({
+       /* tinymce.init({
 			mode : "specific_textareas",
 			selector: "#text-content",
 			height : 300,
@@ -113,10 +118,10 @@
 		        {title: 'My image 1', value: 'http://www.tinymce.com/my1.gif'}, 
 		        {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'} 
 		    ]
-		});
+		});*/
 
 		
-    	/*tinymce.init({
+    	tinymce.init({
 			
 			selector: "#text-content",
 			height : 300,
@@ -124,7 +129,7 @@
 	        file_browser_callback: function(field_name, url, type, win) {
 	            if(type=='image') $('#my_form input').click();
 	        }
-		});*/
+		});
 
 		// tinymce.init({
 		// 	mode : "specific_textareas",
@@ -141,8 +146,7 @@
 
 		$(".chosen-select").chosen();
 
-// Appends fields for adding screenshots on Images tab
-		
+// Appends fields for adding screenshots on Images tab		
 
 		$('#tab-container > .etabs a').click(function() {
 			$('body').scrollTop(0);

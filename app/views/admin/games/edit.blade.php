@@ -146,7 +146,7 @@
 					<?php 
 						$screenshot = false; 
 						$i = 1; 
-					?>
+					?>					
 					@foreach($selected_media as $media)
 						@if($media['type'] == 'screenshot')
 							<?php $screenshot = true; ?>

@@ -1,15 +1,15 @@
-#slider-main { margin: 0; }
-
 .slider-item .details {
 	background: #fff9c8;
 	margin: 0;
 }
 
+#slider-main { margin: 0; }
+
 .slider-item .details > p {
 	margin: 0;
 	float: left;
 	padding: 5px 10px;
-	/* height: 100%; */
+	height: 100%;
 }
 
 .slider-item .details .date {
@@ -30,102 +30,32 @@
 }
 
 .slider-item .details .go a {
-	background: #ffb100 url(../images/sprite-slider-controls.png) right 10px no-repeat;
-	text-indent: -9999px;
 	display: block;
-	padding: 5px 15px;
+	padding: 5px 8px 5px 10px;
 	height: 42px;
 }
 
+.slider-item .details .go img {
+	padding-top: 11px;
+	width: auto;
+}
+
 .slider-item .details .description {
-	font-size: 18px;
+	font-size: 14px;
 	line-height: 42px;
 }
 
-.content-main h2 { color: #fff; }
-
-.content-main .row .description { 
+.content-main h2 { 
 	color: #fff; 
-	margin: 8px auto;
-	font-size: 14px;
-	text-align: center;
-}
-
-#ajax-loader { margin-bottom: 20px; }
-#ajax-loader img { width: auto !important; }
-#ajax-loader p { color: #fff; }
-
-#more {
-	background: #e9548f;
-	color: #fff;
 	text-transform: lowercase;
-	padding: 5px 10px;
 	font-size: 22px;
-	float: right;
-}
-
-.footer-main {
-	border-top: 4px solid #e9548f;
-	background: #f4f4f4;
-	padding: 10px 20px;
-}
-
-.footer-main ul { 
-	margin: 0 0 20px 0; 
-	overflow: hidden;
-	float: right;
-}
-
-.footer-main li { float: left; }
-
-.footer-main li:last-of-type { margin-right: 0; }
-
-.footer-main a {
-	color: #fff;
-	width: 32px;
-	height: 32px;
-	text-indent: -9999px;
-	display: block;
-}
-
-.footer-main li.support span {
-	background: url(../images/footer-main-heart.png) left top no-repeat;
-	width: 32px;
-	height: 27px;
-	display: inline-block;
-}
-
-.footer-main li.support a {
-	background: #fd88b0;
-	display: inline-block;
-	text-indent: 0;
-	padding: 0px 8px;
-	width: auto;
-	line-height: 28px;
-	margin-left: 8px;
-	margin-right: 0;
-}
-
-.footer-main .facebook {
-	background: url(../images/icon-social-facebook.png) left top no-repeat;
-	margin-top: 7px;
-	margin-right: 7px;
-}
-
-.footer-main .twitter {
-	background: url(../images/icon-social-twitter.png) left top no-repeat;
-	margin-top: 7px;
-}
-
-.footer-main p {
- 	margin: 5px 0;
-	clear: both;
-	text-align: right;
 }
 
 /* Tablet */
 @media only screen and (min-width: 768px) {
 
-	.content-main .row .description { font-size: 16px; }
+	#slider-main { margin: 40px 0 0 0; }
+
+	.slider-item .details .description { font-size: 18px; }
 
 }

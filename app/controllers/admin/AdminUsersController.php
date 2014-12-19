@@ -136,4 +136,16 @@ class AdminUsersController extends \BaseController {
     public function getDashboard(){
     	return View::make('admin.dashboard.index');
     }
+
+    public function postSearch(){
+
+    	if (!Request::ajax()) {
+		        return null;
+		    }
+		
+		$keyword = Input::get('keyword');
+		$user = User::where('username', 'LIKE', '%'.$keyword.'%')->get();
+
+		return $user;
+	}
 }

@@ -1,0 +1,183 @@
+.games h1:first-of-type {
+	padding-top: 10px;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: #fff;
+	text-transform: lowercase;
+}
+
+.games { background: #61ded0; }
+.games #sb-site { background: #61ded0; }
+
+.games .row { text-align: center; }
+
+.games form.categories { margin-top: 25px; }
+
+.games form.categories select {
+	width: 120px;
+	background: #fff;
+	color: #222;
+}
+
+.games .content-main .row .description { 
+	color: #222; 
+	margin: 8px auto;
+	font-size: 14px;
+	text-align: center;
+}
+
+.games .content-main .row .button { 
+	display: inline-block;
+	text-transform: lowercase;
+}
+
+.games .content-main .row .description .price { display: block; }
+
+.games .category-title { color: #fff; text-transform: lowercase; font-size: 24px; margin: 10px 0; }
+.games .odd .category-title { color: #222; }
+
+.games .container { border-top: 4px solid #e9548f; }
+
+.games .odd { background: #fff; }
+
+.games .noborder { border-top: 0; }
+
+.games .footer-main {
+	border: 0;
+	padding-top: 0;
+}
+
+.games .footer-main .social { margin-top: 10px; }
+
+.game, .game #sb-site { background: #fff; }
+
+.game .container {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.game .padding { padding: 0 20px; }
+
+.game .go-back { 
+	display: block; 
+	float: left;
+	margin-right: 20px;
+}
+
+.game .go-back i { 
+	color: #fff;
+	font-size: 20px;
+	line-height: 46px;
+}
+
+.game .nav-toggle { display: none; }
+
+.game .details {
+	padding: 20px;
+	color: #e9548e;
+}
+
+.game .details > div {
+	width: 60%;
+}
+
+.game .details h3, .game .details p {
+	margin: 0;
+}
+
+.game img.thumb { 
+	width: 33%; 
+	padding: 4px;
+	margin-right: 10px;
+}
+
+.game .buttons > div {
+	float: left;
+	position: relative;
+	height: 100px;
+}
+
+.game .buttons > div p { margin: 0; }
+
+.game .buttons > div.downloads {
+	width: 29.3333333%;
+	background: #57d9cd url(../images/game-downloads.png) center top no-repeat;
+	text-align: center;
+}
+
+.game .buttons > div.downloads span { 
+	font-size: 20px; 
+	display: block;
+}
+
+.game .buttons > div.ratings {
+	width: 47.3333333%;
+	background: #ffdf00;
+	text-align: center;
+}
+
+.game .buttons > div.ratings p:first-of-type { font-size: 20px; }
+
+.game .buttons > div.ratings .stars { 
+	list-style: none;
+	display: inline-block;
+	margin: 0;
+}
+
+.game .buttons > div.ratings .stars li { 
+	float: left;
+	margin: 0 2px;
+}
+
+.game .buttons > div.ratings a i {
+	color: #fff;
+}
+
+.game .buttons > div.ratings a:hover i {
+	color: #e9548e;
+}
+
+.game .buttons > div.buy {
+	width: 23.3333333%;
+	background: #e9548e;
+	color: #fff;
+	text-align: center;
+}
+
+.game .buttons > div.buy p:first-of-type { font-size: 20px; }
+
+.game .buttons > div.buy a {
+	color: #fff;
+	display: block;
+	position: relative;
+	height: 100px;
+}
+
+.game .buttons > div.buy i { font-size: 24px; }
+
+.game .screenshots > div {
+	width: 31.48%;
+	float: left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.game .screenshots > div:first-of-type { padding-left: 0; }
+.game .screenshots > div:last-of-type { padding-right: 0; }
+
+/* Mobile (Portrait) */
+@media only screen and (min-width: 320px) {
+
+
+}
+
+/* Tablet */
+@media only screen and (min-width: 800px) {
+
+	.games { background: #f4f4f4; }
+
+	.games .container h2 { padding-left: 0; }
+
+	.games .content-main .row .description { font-size: 16px; }
+
+}

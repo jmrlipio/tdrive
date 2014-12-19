@@ -9,7 +9,8 @@
 		"fzaninotto/faker": "1.5.*@dev",
 		"nesbot/Carbon": "*",
 		"webpatser/laravel-countries": "dev-master",
-		"jarektkaczyk/eloquent-triple-pivot": "dev-master"
+		"jarektkaczyk/eloquent-triple-pivot": "dev-master",
+		"torann/geoip": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

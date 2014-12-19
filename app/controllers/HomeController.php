@@ -15,9 +15,32 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function home()
+	public function index()
 	{
+		/*$games = Game::with('media')->take(8)->get();*/
+		$games = Game::with('media')->get();
+		$root = Request::root();
+		$thumbnails = array();
 		
-		return View::make('home');
+
+		foreach($games as $game) {
+			foreach($game->media as $media) {
+				if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			}
+		}
+		// echo '<pre>';
+		// print_r($thumbnails);
+		// echo '</pre>';
+		/*echo '<pre>';
+		print_r($location);
+		echo '</pre>';*/
+
+	return View::make('index')
+		->with('thumbnails', $thumbnails)
+		->with('games', $games)
+		->with('root', $root . '/images/uploads/');
+		
 	}
 }
