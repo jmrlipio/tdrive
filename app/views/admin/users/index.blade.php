@@ -12,11 +12,18 @@
 
 		<br>
 		<table id="user-lists">
+		{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
+			{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
+		{{ Form::close() }}
+		<table>
 			<tr>
 				<th><input type="checkbox"></th>
 				<th>Name</th>
 				<th>Username</th>
+				<th>email</th>
+				<th>Role</th>
 				<th>Last Login</th>
+				<th>Last Activity</th>
 			</tr>
 			@foreach($users as $user)
 			<tr class="result">
@@ -30,6 +37,9 @@
 					</ul>
 				</td>
 				<td>{{ $user->username }}</td>
+				<td>{{ $user->email }}</td>
+				<td>{{ $user->role }}</td>
+				<td>{{ $user->last_login }}</td>
 				<td>{{ $user->last_login }}</td>
 			</tr>
 			@endforeach
@@ -39,7 +49,6 @@
 		<br>
 		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
 	</div>
-
 	<script>
 
 	var user_list = $('tr#list');
@@ -76,6 +85,8 @@
    
     });
 
-
+	$('#select-role').on('change', function() {
+		$('#submit-role').trigger('submit');
+	});
 	</script>
 @stop

@@ -1,6 +1,5 @@
 @extends('_layouts.login')
 @section('content')
-
     <div id="login">
 
         @if($errors->has() )                         
