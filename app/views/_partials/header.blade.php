@@ -3,7 +3,7 @@
 		<ul>
 			<div class="clearfix">
 				<li><a href="{{ route('users.login') }}" class="sign-in">Sign In</a></li>
-				<li><a href="{{ route('users.signup') }}" class="join-now">Join Now</a></li>
+				<li><a href="{{ route('users.signup') }}" class="join-now">Join Now <i class="fa fa-user"></i></a></li>
 			</div>
 		</ul>
 
@@ -18,15 +18,16 @@
 
 <div class="clearfix">
 
-	<a href="#" class="sb-toggle-left nav-toggle">Menu</a>
+	<a href="#" class="sb-toggle-left nav-toggle"><i class="fa fa-bars"></i></a>
+	<a href="#" class="go-back"><i class="fa fa-chevron-left"></i></a>
 	<a href="/" class="logo-main">TDrive</a>
 
 	<div class="tablet">
 		<ul class="nav-main">
-			<li><a href="#" class="games">Games</a></li>
-			<li><a href="#" class="news">News</a></li>
-			<li><a href="#" class="faqs">FAQs</a></li>
-			<li><a href="#" class="contact">Contact</a></li>
+			<li><a href="{{ route('games') }}" class="games">Games</a></li>
+			<li><a href="{{ route('news') }}" class="news">News</a></li>
+			<li><a href="faqs.php" class="faqs">FAQs</a></li>
+			<li><a href="contact.php" class="contact">Contact</a></li>
 		</ul>
 
 		<div class="tablet-landscape">
@@ -34,7 +35,7 @@
 				<ul>
 					<div class="clearfix">
 						<li><a href="{{ route('users.login') }}" class="sign-in">Sign In</a></li>
-						<li><a href="{{ route('users.signup') }}" class="join-now">Join Now</a></li>
+						<li><a href="{{ route('users.signup') }}" class="join-now">Join Now <i class="fa fa-user"></i></a></li>
 					</div>
 				</ul>
 
@@ -51,3 +52,5 @@
 	<a href="http://tose.com.ph" class="logo-tose" target="_blank">TOSE</a>
 
 </div>
+
+

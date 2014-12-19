@@ -155,6 +155,34 @@
 									@endforeach
 								</div>
 							</div>
+							<p>
+								{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+								{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
+								{{ Form::button('Select', array('class' => 'select-img')) }}
+							</p>
+						@endif
+					@endforeach
+					@if(!$featured)
+						<div class="img-holder"></div>
+						<p>
+							{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+							{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
+							{{ Form::button('Select', array('class' => 'select-img')) }}
+						</p>
+					@endif
+				</li>
+				<br>
+				<ul id="screenshots">
+					<label>Images:</label>
+					{{ Form::button('Add Image', array('id' => 'add-img')) }}<br>
+					<?php 
+						$screenshot = false; 
+						$i = 1; 
+					?>					
+					@foreach($selected_media as $media)
+						@if($media['type'] == 'screenshot')
+							<?php $screenshot = true; ?>
+							<li>
 						</li>
 						{{ Form::submit('Update Carriers', array('id' => 'update-content')) }}
 					{{ Form::close() }}

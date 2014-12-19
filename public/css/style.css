@@ -167,5 +167,9 @@ form#login-form .not-member, form#login-form .signin{
 .text-lg {
 	font-size: 33px;
 }
+textarea#text-excerpt {
+	width: 96%;
+}
+
 /* ===================== END ===================== */
 

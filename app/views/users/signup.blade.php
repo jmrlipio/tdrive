@@ -6,6 +6,10 @@
 		{{ Form::open(array('route'=>'users.register', 'id' => 'signup-form')) }}
 			<p class="text-lg">Create new account</p>
 
+			{{ Form::label('email') }}
+			{{ Form::text('email',null,array('placeholder'=>'Input email', 'class'=> 'form-control','required')) }}
+			{{ $errors->first('email', '<p class="error">:message</p>') }}
+
 			{{ Form::label('username') }}
 			{{ Form::text('username',null,array('placeholder'=>'Input username', 'class'=> 'form-control','required')) }}
 			{{ $errors->first('username', '<p class="error">:message</p>') }}
@@ -19,7 +23,10 @@
 			{{ $errors->first('last_name', '<p class="error">:message</p>') }}
 			
 			{{ Form::label('password') }}
-			{{ Form::password('password',array('placeholder'=>'Input password','class'=> 'form-control','required')) }}
+			{{ Form::password('password',array('placeholder'=>'Input password','class'=> 'form-control','required')).'<p id="generated-password"></p>' }}
+			
+			<input class="button button-pink" type="button" value="Generate password" onClick="randomString();"><br/>
+			
 			{{ $errors->first('password', '<p class="error">:message</p>') }}
 
 			{{ Form::label('password_confirmation') }}
@@ -27,5 +34,22 @@
 			
 			{{ Form::submit('Create new Account', array('class' => 'button button-pink')) }}
 		{{ Form::close() }}
+		
 	</div>
+
+	<script>
+
+		function randomString() {
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var string_length = 8;
+			var randomstring = '';
+			for (var i=0; i<string_length; i++) {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum,rnum+1);
+			}
+			$('#generated-password').css('display', 'block');
+			$('#generated-password').text(randomstring);
+
+		}
+	</script>
 @stop

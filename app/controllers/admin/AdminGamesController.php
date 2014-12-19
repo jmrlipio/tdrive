@@ -1,7 +1,5 @@
 <?php
-
 class AdminGamesController extends \BaseController {
-
 	/**
 	 * Display a listing of the resource.
 	 * GET /admingames
@@ -11,10 +9,9 @@ class AdminGamesController extends \BaseController {
 	public function index()
 	{
 		$games = Game::all();
-
+		
 		return View::make('admin.games.index')->with('games', $games);
 	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /admingames/create
@@ -25,7 +22,6 @@ class AdminGamesController extends \BaseController {
 	{
 		return View::make('admin.games.create');
 	}
-
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /admingames
@@ -40,12 +36,10 @@ class AdminGamesController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-
 		$game = Game::create($data);
 
 		return Redirect::route('admin.games.edit',$game->id)->with('message', 'You have successfully added a game.');
 	}
-
 	/**
 	 * Display the specified resource.
 	 * GET /admingames/{id}
@@ -57,7 +51,6 @@ class AdminGamesController extends \BaseController {
 	{
 		//
 	}
-
 	/**
 	 * Show the form for editing the specified resource.
 	 * GET /admingames/{id}/edit
@@ -83,6 +76,18 @@ class AdminGamesController extends \BaseController {
 			$selected_languages[] = $language->id;
 		}
 
+		$count = 0;
+		$root = Request::root();
+
+		foreach($game->categories as $category) {
+			$selected_categories[] = $category->id;
+		}
+		foreach($game->platforms as $platform) {
+			$selected_platforms[] = $platform->id;
+		}
+		foreach($game->languages as $language) {
+			$selected_languages[] = $language->id;
+		}
 		$count = 0;
 		$root = Request::root();
 
@@ -150,7 +155,6 @@ class AdminGamesController extends \BaseController {
 			->with('countries', $countries)
 			->with('contents', $contents);
 	}
-
 	/**
 	 * Update the specified resource in storage.
 	 * PUT /admingames/{id}
@@ -160,6 +164,7 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function update($id)
 	{
+
 		$game = Game::find($id);
 
 		$validator = Validator::make($data = Input::all(), Game::$rules);
@@ -245,6 +250,25 @@ class AdminGamesController extends \BaseController {
 			}
 		}
 
+		foreach(Input::get('carrier_id') as $carrier_id) {
+			foreach(Input::get('prices'.$carrier_id) as $country_id => $price) {
+				$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
+			}
+		}
+
+
+		return Redirect::back()
+			->with('message', 'You have successfully added a game.');
+	}
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /admingames/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
 		$game->media()->attach(Input::get('featured_img_id'), array('type' => 'featured'));
 
 		return $this->loadGameValues($game);
@@ -332,5 +356,4 @@ class AdminGamesController extends \BaseController {
 			->with('countries', $countries)
 			->with('contents', $contents);
 	}
-
 }

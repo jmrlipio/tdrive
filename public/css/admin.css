@@ -287,6 +287,17 @@ textarea {
 	resize: none;
 }
 
+<<<<<<< HEAD
+div#search-box {
+	width: 25%;
+	padding: 5px
+}
+div#search-box input{
+	width: 89.5%;
+}
+p#generated-password {
+	display: none;
+=======
 .select-filter {
 	float: right;
 	margin-bottom: 10px;
@@ -310,4 +321,5 @@ textarea {
 
 .excerpt {
 	height: 100px;
+>>>>>>> f12081ec7f658f2432de47eeb7f831b050389f31
 }

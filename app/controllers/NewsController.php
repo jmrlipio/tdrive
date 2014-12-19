@@ -2,6 +2,67 @@
 
 class NewsController extends \BaseController {
 
+	public function usersindex()
+	{		
+		$news_article = News::orderBy('created_at', 'DESC')->with('media')->get();
+		$root = Request::root();
+		$thumbnails = array();
+		$arr_yrs = array();
+                                                 
+		foreach($news_article as $news) {
+			$year = date('Y', strtotime($news->created_at));
+			$arr_yrs[$year] = $year;
+			$years = array_unique($arr_yrs);
+
+			foreach($news->media as $media) {
+				if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			}
+		}
+		reset($arr_yrs);
+		$first_key = key($arr_yrs);
+
+		return View::make('pages.news.index', array('className' => 'news'))
+			->with('thumbnails', $thumbnails)
+			->with('news_article', $news_article)	
+			->with('years', $years)
+			->with('selected', $first_key);
+	}
+
+	 public function getNewsByYear() {
+    	$selected_year = Input::get('year');
+		$news_article = News::whereYear('created_at', '=', $selected_year)->with('media')->get();
+
+		$years = News::orderBy('created_at', 'DESC')->with('media')->get();
+		
+		$root = Request::root();
+		$thumbnails = array();
+		$arr_yrs = array();
+                                                 
+		foreach($news_article as $news) {			
+
+			foreach($news->media as $media) {
+				if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			}
+		}
+
+		foreach ($years as $yrs) {
+			$year = date('Y', strtotime($yrs->created_at)); 
+			$arr_yrs[$year] = $year;
+			$years = array_unique($arr_yrs);
+		}
+
+    	return View::make('pages.news.index' , array('className' => 'news'))
+			->with('thumbnails', $thumbnails)
+			->with('news_article', $news_article)	
+			->with('years', $years)
+			->with('selected', $selected_year);
+    }
+
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -28,41 +89,7 @@ class NewsController extends \BaseController {
 
 		return View::make('admin.news.create')
 			->with('news_categories', $news_categories);
-
 	}
-
-/*	public function postCreatenews()
-	{
-		$validator = Validator::make(Input::all(), News::$rules);
-
-		$news = new News;
-		//$excerpt = Input::get('excerpt');
-		
-		if($validator->passes()){
-			
-			$news->user_id= Input::get('user_id');
-			$news->title= Input::get('title');
-			$news->status= Input::get('status');
-			$news->content= Input::get('content');
-			$news->excerpt = $excerpt.'...';
-			$news->news_category_id = Input::get('category_id');
-			$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'news')));
-			$news->save();			
-			return Redirect::route('admin.news.create')->with('message', 'Adding news successful.');	
-
-		}
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$news = News::create($data);
-		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'news')));
-	}
-*/
-
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -80,7 +107,7 @@ class NewsController extends \BaseController {
 		}
 
 		$news = News::create($data);
-		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'news')));
+		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
 		
 		return Redirect::route('admin.news.create')->with('message', 'Adding news successful.');
 
@@ -93,9 +120,27 @@ class NewsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function getSingleNews($id)
 	{
-		//
+		$count = 0;
+		$news_article = News::find($id);
+		$root = Request::root();
+/*		$thumbnails = array();
+*/		$selected_media = array();
+		$media = $news_article->media[0]['url'];
+		$thumbnail = $root . '/images/uploads/' . $news_article->media[0]['url']; 
+		//echo $news_article->media[0]['url'];
+
+/*		foreach($news_article->media as $media) {
+			if($media->pivot->type == 'featured') {
+					$thumbnails[] = $root. '/images/uploads/' . $media->url;
+				}
+			$count++;
+		}
+*/
+		return View::make('pages.news.view', array('className' => 'news-detail'))
+			->with('thumbnail', $thumbnail)
+			->with('news_article', $news_article);
 	}
 
 
@@ -124,10 +169,6 @@ class NewsController extends \BaseController {
 			$selected_media[$count]['type'] = $media->pivot->type;
 			$count++;
 		}
-
-		/*echo '<pre>';
-		dd($selected_media);
-		echo '</pre>';*/
 
 		return View::make('admin.news.edit')
 			->with('news_categories', $news_categories)
@@ -188,19 +229,12 @@ class NewsController extends \BaseController {
 	public function destroy($id)
 	{
 		$news = News::find($id);
-		/*$count = 0;
-		$root = Request::root();
-		$selected_media = array();*/
 		$mediable = Mediable::find($id);
 		
 		if($news){
 		 
 		   $news->delete();
 		   $mediable->delete();
-
-		   /*foreach($news->media as $media) {
-				File::delete($root. '/images/uploads/' . $media->url);
-			}*/
 
 		return Redirect::route('admin.news.index');		
 		}
