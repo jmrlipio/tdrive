@@ -45,8 +45,7 @@ Route::filter('admin', function($route, $request)
 		{
 			return Redirect::guest('login');
 		}
-	} else if (!Auth::user()->admin) {
-		// return App::abort(401, 'You are not authorized.');
+	} else if (Auth::user()->role != 'superadmin') {
 		return Response::make('Unauthorized', 401);
 	}
 });

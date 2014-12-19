@@ -6,17 +6,17 @@ class Game extends \Eloquent {
 
 	use TriplePivotTrait;
 
-	protected $fillable = ['user_id','title','slug','status','featured','content','release_date'];
+	protected $fillable = ['user_id','main_title','slug','status','featured','release_date','default_price','downloads','default_price','category_id'];
 
 	public static $rules = array(
 		'user_id' => 'required|integer',
-		'title' => 'required|min:2',
+		'main_title' => 'required|min:2|unique:games',
 		'slug' => 'required|min:2',
 		'status' => 'required|boolean',
 		'featured' => 'required|boolean',
-		'content' => 'required|min:20',
 		'release_date' => 'required|date',
-		//'default_price' => 'required|numeric'
+		'downloads' => 'required|numeric',
+		'default_price' => 'required|numeric'
 	);
 
 	public function user() {
@@ -27,22 +27,13 @@ class Game extends \Eloquent {
 		return $this->belongsToMany('Category', 'game_categories');
 	}
 
-	public function platforms() {
-		return $this->belongsToMany('Platform', 'game_platforms');
-	}
-
 	public function carriers() {
 		return $this->belongsToMany('Carrier', 'game_carriers');
 	}
 
 	public function media() {
-		return $this->morphToMany('Media', 'mediable')->withPivot('type');
+		return $this->morphToMany('Media', 'mediable')->withPivot('type', 'id');
 	}
-
-	public function keywords()
-    {
-        return $this->morphToMany('Keyword', 'keywordable');
-    }
 
     public function languages()
     {
@@ -57,7 +48,8 @@ class Game extends \Eloquent {
         return $this->tripleBelongsToMany('Carrier', 'Country', 'game_prices' )->withPivot('price');
     }
 
-   	public function currencies() {
-   		return $this->hasManyThrough('','');
-   	}
+    public function contents() {
+    	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
+    }
+
 }

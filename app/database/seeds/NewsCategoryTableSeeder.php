@@ -9,7 +9,8 @@ class NewsCategoryTableSeeder extends Seeder {
 	{
 		$news_category = [
 			"news"			=> "News", 
-			"announcement"	=> "Announcement"
+			"announcement"	=> "Announcement",
+			"alert"			=> "Alert"
 		];
 
 		foreach($news_category as $key => $value)
