@@ -8,11 +8,20 @@ class AdminUsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($role = NULL)
 	{
 		$users = User::orderBy('id')->paginate(5);
 
-		return View::make('admin.users.index')->with('users', $users);
+		$roles = ['all' => 'All'];
+
+		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) {
+			$roles[$role->role] = ucfirst($role->role);
+		}
+
+		return View::make('admin.users.index')
+			->with('users', $users)
+			->with('roles', $roles)
+			->with('selected', 'all');
 	}
 
 	/**
@@ -148,4 +157,22 @@ class AdminUsersController extends \BaseController {
 
 		return $user;
 	}
+
+    public function getUsersByRole() {
+    	$selected_role = Input::get('role');
+
+    	if($selected_role == 'all') $users = User::orderBy('id')->paginate(5);
+    	else $users = User::where('role', '=', Input::get('role'))->paginate(5);
+
+    	$roles = ['all' => 'All'];
+
+		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) {
+			$roles[$role->role] = ucfirst($role->role);
+		}
+
+    	return View::make('admin.users.index')
+			->with('users', $users)
+			->with('roles', $roles)
+			->with('selected', $selected_role);
+    }
 }
