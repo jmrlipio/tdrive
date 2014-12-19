@@ -9,6 +9,8 @@ class UsersTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
+		$roles = ['superadmin','admin','editor','member'];
+
 		foreach(range(1, 10) as $index)
 		{
 			User::create([
@@ -16,6 +18,8 @@ class UsersTableSeeder extends Seeder {
 				'password' => Hash::make('tdrive1234'),
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
+				'email'		=> $faker->email,
+				'role'		=> $roles[rand(0,3)]
 			]);
 		}
 	}

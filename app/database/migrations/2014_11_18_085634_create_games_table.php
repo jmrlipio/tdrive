@@ -17,13 +17,11 @@ class CreateGamesTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->string('title');
+			$table->string('main_title');
 			$table->string('slug');
 			$table->float('default_price');
-			$table->string('excerpt');
 			$table->string('status');
 			$table->boolean('featured');
-			$table->text('content');
 			$table->date('release_date');
 			$table->integer('downloads');
 			$table->integer('actual_downloads');
