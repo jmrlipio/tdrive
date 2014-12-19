@@ -16,7 +16,7 @@
         <div id="latest" class="container clearfix">
             <?php $ctr = 0; ?>
             @foreach($news_article as $news)  
-             <?php
+            <?php
                 
                 $dateTime = $news->created_at;                     
                 $dt = Carbon::parse($dateTime);
@@ -29,9 +29,7 @@
                         <h3 class="title">{{ $news->title }}</h3>    
                         <p class="description">{{ Str::words($news->excerpt, 10) }}</p>                     
                   
-                      <a href="{{ URL::to('news/show').'/'.$news->id }}" class="button readmore">Read more <i class="fa fa-angle-right"></i></a>
-                       
-                     
+                      <a href="{{ URL::to('news/show').'/'.$news->id }}" class="button readmore">Read more <i class="fa fa-angle-right"></i></a>                                            
 
                     </article>
                 @endif
@@ -75,7 +73,6 @@
 @section('news-script')
 <script>
     $('#select-year').on('change', function() {
-        //console.log($( "#select-year option:selected" ).text());
         $('#submit-year').trigger('submit');
     });
 </script>

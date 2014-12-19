@@ -30,6 +30,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('media/upload', array('as' => 'media.upload', 'uses' => 'MediaController@postUpload'));
     // Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
 });
+
 /** 
 * Added by: Jone   
 * Purpose: For admin news creation

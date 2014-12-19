@@ -8,8 +8,7 @@
 	<div class="center">
 		@if (Session::has('error'))
 		  {{ trans(Session::get('reason')) }}
-		@endif
-		 
+		@endif		 
 
 		{{ Form::open(array('route' => 'password.update', 'class' => 'forgot-password', 'id' => 'forgot-password-form')) }}
 

@@ -11,7 +11,7 @@
 
         @elseif (Session::has('message') ) 
             
-                <h3 class="center">{{ Session::get('message') }}</h3>              
+            <h3 class="center">{{ Session::get('message') }}</h3>              
 
         @else
 

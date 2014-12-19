@@ -57,14 +57,14 @@
                     <div class="row clearfix" id="games">
                         <?php $ctr = 0; ?>
                             @foreach($games as $game)                             
-                                <?php if($ctr <= 3) { ?>
+                                <?php if($ctr <= 3) : ?>
                                 <div>
                                     <a href="#" class="radius"><img src="{{ $thumbnails[$ctr] }}" alt="{{ $game->title }}"></a>
                                     <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
-                                <a href="#" class="button button-pink">Get</a>
+                                    <a href="#" class="button button-pink">Get</a>
                                 </div> 
                                 <?php $ctr++; ?> 
-                                <?php } ?>
+                                <?php endif; ?>
                             @endforeach
                     </div>
                 </div> 

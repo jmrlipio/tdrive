@@ -23,7 +23,6 @@ class NewsController extends \BaseController {
 		reset($arr_yrs);
 		$first_key = key($arr_yrs);
 
-
 		return View::make('pages.news.index', array('className' => 'news'))
 			->with('thumbnails', $thumbnails)
 			->with('news_article', $news_article)	
@@ -55,7 +54,6 @@ class NewsController extends \BaseController {
 			$arr_yrs[$year] = $year;
 			$years = array_unique($arr_yrs);
 		}
-
 
     	return View::make('pages.news.index' , array('className' => 'news'))
 			->with('thumbnails', $thumbnails)
@@ -91,7 +89,6 @@ class NewsController extends \BaseController {
 
 		return View::make('admin.news.create')
 			->with('news_categories', $news_categories);
-
 	}
 
 	/**
