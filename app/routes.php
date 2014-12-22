@@ -25,7 +25,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     // Route::get('games/{id}/edit-content', array('as' => 'admin.games.edit-content', 'uses' => 'AdminGamesController@editContent'));
     Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
     // Route::get('games/{id}/edit-carriers', array('as' => 'admin.games.edit-carriers', 'uses' => 'AdminGamesController@editCarrier'));
-    Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
+    Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
     // Route::get('games/{id}/edit-carriers', array('as' => 'admin.games.edit-carriers', 'uses' => 'AdminGamesController@editCarrier'));
     Route::resource('games', 'AdminGamesController');
     Route::resource('news', 'NewsController');
