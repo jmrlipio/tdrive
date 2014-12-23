@@ -374,25 +374,25 @@
 
 			var title = '<li> \
 							<label for="title-' + content_div + '">Title: </label> \
-							<input id="title-' + content_div + '" name="title[]" type="text"> \
+							<input id="title-' + content_div + '" name="titles[]" type="text"> \
 						 </li>';
 
 			var content = '<li> \
 								<label for="content-' + content_div + '">Content: </label> \
-								<textarea id="content-' + content_div + '" name="content[]" class="ckeditor"></textarea> \
+								<textarea id="content-' + content_div + '" name="contents[]" class="ckeditor"></textarea> \
 						   </li>';
 
 			var excerpt = '<li> \
 								<label for="excerpt-' + content_div + '">Excerpt: </label> \
-								<textarea name="excerpt[]" class="excerpt" id="excerpt-' + content_div + '"></textarea>\
+								<textarea name="excerpts[]" class="excerpt" id="excerpt-' + content_div + '"></textarea>\
 						   </li>';
 
 			$('#' + content_div).append(title);
 			$('#' + content_div).append(content);
 			$('#' + content_div).append(excerpt);
 
-	    	CKEDITOR.replace('content-' + content_div);
-	    	CKEDITOR.add;
+	    	// CKEDITOR.replace('content-' + content_div);
+	    	// CKEDITOR.add;
 		});
 
 		content_tab.easytabs();

@@ -8,7 +8,7 @@ class Game extends \Eloquent {
 
 	protected $fillable = ['user_id','main_title','slug','status','featured','release_date','default_price','downloads','default_price','category_id'];
 
-	public static $rules = array(
+	public static $rules = [
 		'user_id' => 'required|integer',
 		'main_title' => 'required|min:2|unique:games',
 		'slug' => 'required|min:2',
@@ -17,7 +17,7 @@ class Game extends \Eloquent {
 		'release_date' => 'required|date',
 		'downloads' => 'required|numeric',
 		'default_price' => 'required|numeric'
-	);
+	];
 
 	public function user() {
 		return $this->belongsTo('User');

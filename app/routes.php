@@ -21,19 +21,21 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('dashboard', array('as' => 'admin.dashboard', 'uses' => 'AdminUsersController@getDashboard'));
     Route::get('users/roles', array('as' => 'admin.users.roles', 'uses' => 'AdminUsersController@getUsersByRole'));
     Route::resource('users', 'AdminUsersController');
-    Route::post('games/{id}/edit-content', array('as' => 'admin.games.update-content', 'uses' => 'AdminGamesController@updateContent'));
+    Route::resource('games', 'AdminGamesController');
+    Route::post('games/{id}/edit' . rawurlencode('#') . 'content', array('as' => 'admin.games.update-content', 'uses' => 'AdminGamesController@updateContent'));
     // Route::get('games/{id}/edit-content', array('as' => 'admin.games.edit-content', 'uses' => 'AdminGamesController@editContent'));
     Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
     // Route::get('games/{id}/edit-carriers', array('as' => 'admin.games.edit-carriers', 'uses' => 'AdminGamesController@editCarrier'));
     Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
     // Route::get('games/{id}/edit-carriers', array('as' => 'admin.games.edit-carriers', 'uses' => 'AdminGamesController@editCarrier'));
-    Route::resource('games', 'AdminGamesController');
+    
     Route::resource('news', 'NewsController');
     Route::resource('media', 'MediaController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
     Route::resource('carriers', 'CarriersController');
     Route::resource('faqs', 'FaqsController');
+    Route::resource('siteoptions', 'SiteOptionsController');
     Route::get('reports', array('as' => 'admin.reports.index', 'uses' => 'ReportsController@index'));
     Route::get('reports/sales', array('as' => 'admin.reports.sales', 'uses' => 'ReportsController@sales'));
     Route::get('reports/downloads', array('as' => 'admin.reports.downloads', 'uses' => 'ReportsController@downloads'));

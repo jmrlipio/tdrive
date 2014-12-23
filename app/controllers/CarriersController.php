@@ -8,6 +8,7 @@ class CarriersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
 	public function index()
 	{
 		$carriers = Carrier::orderBy('carrier')->paginate(10);

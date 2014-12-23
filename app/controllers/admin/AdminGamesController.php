@@ -61,97 +61,6 @@ class AdminGamesController extends \BaseController {
 	public function edit($id)
 	{
 		return $this->loadGameValues($id);
-
-		// $selected_categories = [];
-		// $selected_languages = [];
-		// $selected_media = [];
-		// $selected_carriers = [];
-		// $selected_countries = [];
-
-		// foreach($game->categories as $category) {
-		// 	$selected_categories[] = $category->id;
-		// }
-
-		// foreach($game->languages as $language) {
-		// 	$selected_languages[] = $language->id;
-		// }
-
-		// $count = 0;
-		// $root = Request::root();
-
-		// foreach($game->categories as $category) {
-		// 	$selected_categories[] = $category->id;
-		// }
-
-		// foreach($game->languages as $language) {
-		// 	$selected_languages[] = $language->id;
-		// }
-		// $count = 0;
-		// $root = Request::root();
-
-		// foreach($game->media as $media) {
-		// 	$selected_media[$count]['media_id'] = $media->id;
-		// 	$selected_media[$count]['media_url'] = $root. '/images/uploads/' . $media->url;
-		// 	$selected_media[$count]['type'] = $media->pivot->type;
-		// 	$count++;
-		// }
-
-		// foreach($game->carriers as $carrier) {
-		// 	$selected_carriers[] = $carrier->id;
-		// }
-
-		// $categories = [];
-		// $languages = [];
-		// $carriers = [];
-		// $prices = [];
-		// $contents = [];
-
-		// foreach(Category::orderBy('category')->get() as $category) {
-		// 	$categories[$category->id] = $category->category;
-		// }
-
-		// foreach(Language::orderBy('language')->get() as $language) {
-		// 	$languages[$language->id] = $language->language;
-		// }
-
-		// foreach(Carrier::orderBy('carrier')->get() as $carrier) {
-		// 	$carriers[$carrier->id] = $carrier->carrier;
-		// }
-
-		// $count = 0;
-
-		// foreach($game->prices as $price) {
-		// 	$prices[$count]['country_id'] = $price->pivot->country_id;
-		// 	$prices[$count]['carrier_id'] = $price->pivot->carrier_id;
-		// 	$prices[$count]['price'] = $price->pivot->price;
-		// 	$selected_countries[] = $price->pivot->country_id;
-		// 	$count++;
-	 //    }
-
-	 //    $count = 0;
-
-	 //    foreach($game->contents as $content) {
-	 //    	$contents[$count]['language_id'] = $content->pivot->language_id;
-	 //    	$contents[$count]['title'] = $content->pivot->title;
-	 //    	$contents[$count]['content'] = $content->pivot->content;
-	 //    	$contents[$count]['excerpt'] = $content->pivot->excerpt;
-	 //    	$count++;
-	 //    }
-
-	 //    $countries = Country::find($selected_countries);
-
-		// return View::make('admin.games.edit')
-		// 	->with('game', $game)
-		// 	->with('selected_categories', $selected_categories)
-		// 	->with('selected_languages', $selected_languages)
-		// 	->with('selected_media', $selected_media)
-		// 	->with('selected_carriers', $selected_carriers)
-		// 	->with('categories', $categories)
-		// 	->with('languages', $languages)
-		// 	->with('carriers', $carriers)
-		// 	->with('prices', $prices)
-		// 	->with('countries', $countries)
-		// 	->with('contents', $contents);
 	}
 	/**
 	 * Update the specified resource in storage.
@@ -330,6 +239,10 @@ class AdminGamesController extends \BaseController {
 	    }
 
 	    $countries = Country::find($selected_countries);
+
+	    // echo '<pre>';
+	    // dd($contents);
+	    // echo '</pre>';
 
 		return View::make('admin.games.edit')
 			->with('game', $game)
