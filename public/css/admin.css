@@ -287,17 +287,19 @@ textarea {
 	resize: none;
 }
 
-<<<<<<< HEAD
 div#search-box {
 	width: 25%;
 	padding: 5px
 }
+
 div#search-box input{
 	width: 89.5%;
 }
+
 p#generated-password {
 	display: none;
-=======
+}
+
 .select-filter {
 	float: right;
 	margin-bottom: 10px;
@@ -321,5 +323,46 @@ p#generated-password {
 
 .excerpt {
 	height: 100px;
->>>>>>> f12081ec7f658f2432de47eeb7f831b050389f31
+}
+
+#game-content  ul {
+	list-style: none;
+	padding: 10px;
+}
+
+#game-content li {
+	padding: 5px 0;
+}
+
+#game-content li a {
+	text-decoration: none;
+	color: #FF6100;
+}
+
+#game-content h3 {
+	margin-top: 10px;
+}
+
+#game-content-form {
+	width: 80%;
+	margin-top: 30px !important;
+	padding: 20px;
+	border: 1px solid #fff;
+	margin: 0 auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#game-content-form h3, #game-content-form p {
+	text-align: center;
+	padding: 5px;
+}
+
+#game-content-form input[type=text] {
+	width: 97.5%;
+}
+
+#game-content-form textarea {
+	width: 99%;
 }

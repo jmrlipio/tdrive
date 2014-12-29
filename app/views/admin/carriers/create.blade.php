@@ -22,6 +22,11 @@
 				{{ $errors->first('country_id', '<p class="error">:message</p>') }}
 			</li>
 			<li>
+				{{ Form::label('language_id', 'Default Language: ') }}
+				{{ Form::select('language_id', $languages, null, array('placeholder' => 'Choose default language...')) }}
+				{{ $errors->first('langauge_id', '<p class="error">:message</p>') }}
+			</li>
+			<li>
 				{{ Form::submit('Save') }}
 			</li>
 		</ul>

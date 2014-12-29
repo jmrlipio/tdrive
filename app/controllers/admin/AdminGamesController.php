@@ -122,23 +122,13 @@ class AdminGamesController extends \BaseController {
 		return $this->loadGameValues($id);
 	}
 
-	public function updateCarrier($id)
+	public function updateFields($id)
 	{
 		$game = Game::find($id);
 
 		$game->carriers()->sync(Input::get('carrier_id'));
-
-		foreach($game->prices as $price) {
-			$game->prices()->detach($price->pivot->carrier_id);
-		}
-
-		foreach(Input::get('carrier_id') as $carrier_id) {
-			foreach(Input::get('prices'.$carrier_id) as $country_id => $price) {
-				$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
-			}
-		}
-
-		return $this->loadGameValues($id);
+		$game->categories()->sync(Input::get('category_id'));
+		$game->languages()->sync(Input::get('language_id'));
 	}
 
 	public function updateMedia($id)
@@ -240,10 +230,6 @@ class AdminGamesController extends \BaseController {
 
 	    $countries = Country::find($selected_countries);
 
-	    // echo '<pre>';
-	    // dd($contents);
-	    // echo '</pre>';
-
 		return View::make('admin.games.edit')
 			->with('game', $game)
 			->with('selected_categories', $selected_categories)
@@ -256,5 +242,45 @@ class AdminGamesController extends \BaseController {
 			->with('prices', $prices)
 			->with('countries', $countries)
 			->with('contents', $contents);
+	}
+
+	public function getLanguageContent($id, $language_id) {
+		$game = Game::find($id);
+		$language = Language::find($language_id);
+
+		$title = '';
+		$content = '';
+		$excerpt = '';
+
+		foreach($game->contents as $game_content) {
+			if($game_content->pivot->language_id == $language_id) {
+				$excerpt = $game_content->pivot->excerpt;
+				$title = $game_content->pivot->title;
+		    	$content = $game_content->pivot->content;
+			}
+	    }
+
+		return View::make('admin.games.content.index')
+			->with('game', $game)
+			->with('language_id', $language_id)
+			->with('language', $language)
+			->with('content', $content)
+			->with('title', $title)
+			->with('excerpt', $excerpt);
+	}
+
+	public function updateLanguageContent($id, $language_id) {
+		$game = Game::find($id);
+		$language = Language::find($language_id);
+
+		foreach($game->contents as $content) {
+			if($content->pivot->language_id == $language_id) {
+				$game->contents()->detach($content->pivot->language_id);
+			}	
+		}
+
+		$game->contents()->attach($language_id, array('title' => Input::get('title'), 'content' => Input::get('content'), 'excerpt' => Input::get('excerpt')));
+
+		return Redirect::back()->with('message', 'You have successfully updated this game content');
 	}
 }

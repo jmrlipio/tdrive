@@ -14,14 +14,13 @@
 		<br>
 		<div class='large-form tab-container' id='tab-container'>
 			<ul class='etabs'>
-				<li class='tab'><a href="#details">Details</a></li>
 				<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
-				<li class='tab'><a href="#game-content">Game Content</a></li>
-				<li class='tab'><a href="#prices">Prices</a></li>
+				<li class='tab'><a href="#content">Content</a></li>
+				<li class='tab'><a href="#carriers">Carriers</a></li>
 				<li class='tab'><a href="#media">Media</a></li>
 			</ul>
 			<div class='panel-container'>	
-				<ul id="details">
+				<ul id="custom-fields">
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
@@ -61,8 +60,8 @@
 						{{ Form::hidden('user_id', Auth::user()->id) }}
 					{{ Form::close() }}
 				</ul>
-				<ul id="custom-fields">
-					{{ Form::open(array('route' => array('admin.games.update-fields', $game->id), 'method' => 'post')) }}
+				<ul id="content">
+					{{ Form::open(array('route' => array('admin.games.update-content', $game->id), 'method' => 'post')) }}
 						<li>
 							{{ Form::label('category_id', 'Categories: ') }}
 							{{ Form::select('category_id[]', $categories, $selected_categories, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose category(s)...'))  }}
@@ -72,27 +71,98 @@
 							{{ Form::label('language_id', 'Languages: ') }}
 							{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
 							{{ $errors->first('language_id', '<p class="error">:message</p>') }}
+							<br>
+							{{ Form::button('Set Content', array('id' => 'set-content')) }}
 						</li>
+						<br>
+						@if($selected_languages)
+						<li id="language-content">
+							<div id="content-tab">
+								<ul class="etabs">
+									@foreach($languages as $language_id => $language)
+										@if(in_array($language_id, $selected_languages))
+											<li class="tab"><a href="#{{ to_slug($language) }}">{{ $language }}</a></li>
+										@endif
+									@endforeach
+								</ul>
+								<div class="panel-container">
+									@foreach($languages as $language_id => $language)
+										@if(in_array($language_id, $selected_languages))
+											<div id="{{ to_slug($language) }}">
+												@foreach($contents as $content)
+													@if($language_id == $content['language_id'])
+														<ul>
+															<li>
+																{{ Form::label('title-' . $language_id, 'Title:') }}	
+																{{ Form::text('titles[]', $content['title'], array('id' => 'title-' .$language_id)) }}
+															</li>
+															<li>
+																{{ Form::label('content-' . $language_id, 'Content:') }}	
+																{{ Form::textarea('contents[]', $content['content'], array('id' => 'content-' .$language_id)) }}
+															</li>
+															<li>
+																{{ Form::label('excerpt-' . $language_id, 'Excerpt:') }}	
+																{{ Form::textarea('excerpts[]', $content['excerpt'], array('id' => 'excerpt-' .$language_id)) }}
+															</li>
+														</ul>
+														{{ Form::hidden('lid[]', $language_id) }}
+													@endif
+												@endforeach
+											</div>
+										@endif
+									@endforeach
+								</div>
+							</div>
+						</li>
+						@endif
+						{{ Form::submit('Update Content', array('class' => 'update-content')) }}
+					{{ Form::close() }}
+				</ul>
+				<ul id="carriers">
+					{{ Form::open(array('route' => array('admin.games.update-carriers', $game->id), 'method' => 'post')) }}
 						<li>
 							{{ Form::label('carrier_id', 'Carriers: ') }}
 							{{ Form::select('carrier_id[]', $carriers, $selected_carriers, array('multiple' => 'multiple', 'id' => 'carriers', 'class' => 'chosen-select', 'data-placeholder'=>'Choose carriers(s)...'))  }}
+							<br>
+							{{ Form::button('Set Currencies', array('id' => 'set-currency')) }}
 							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 						</li>
-						{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
+						@if($selected_carriers)
+						<li id="prices">
+							<div id="carrier-tab">
+								<ul class="etabs">
+									@foreach($carriers as $carrier_id => $carrier)
+										@if(in_array($carrier_id, $selected_carriers))
+											<li class="tab"><a href="#{{ to_slug($carrier) }}">{{ $carrier }}</a></li>
+										@endif
+									@endforeach
+								</ul>
+								<div class="panel-container">
+									@foreach($carriers as $carrier_id => $carrier)
+										@if(in_array($carrier_id, $selected_carriers))
+											<div id="{{ to_slug($carrier) }}">
+												<h3>Prices for countries with {{ $carrier }} carrier:</h3>
+												@foreach($prices as $pid)
+													@if($carrier_id == $pid['carrier_id'])
+														@foreach($countries as $country)
+															@if($country->id == $pid['country_id'])
+																<label for="{{ $pid['country_id'] }}">{{ $country->currency_code }}:</label>
+															@endif
+														@endforeach
+														<input type="text" class="prices" name="prices{{ $pid['carrier_id'] }}[{{ $pid['country_id'] }}]" id="{{ $pid['country_id'] }}" value="{{ $pid['price'] }}">
+													@endif
+												@endforeach
+											</div>
+										@endif
+									@endforeach
+								</div>
+							</div>
+						</li>
+						@endif
+					{{ Form::submit('Update Carriers', array('class' => 'update-content')) }}
 					{{ Form::close() }}
 				</ul>
-				<ul id="game-content">
-					<h3>Set Content for the following languages:</h3>
-					<ul>
-						@foreach($languages as $language_id => $language)
-							@if(in_array($language_id, $selected_languages))
-								<li><a href="{{ URL::route('admin.games.edit.content', array('game_id' => $game->id, 'language_id' => $language_id)) }}">{{ $language }}</a></li>
-							@endif
-						@endforeach
-					</ul>
-				</ul>
 				<br>
-				<ul id="prices"></ul>
 
 				<ul id="media">
 					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post')) }}
@@ -276,17 +346,49 @@
 	});
 
 	$('#set-content').on('click', function(){
-		var llinks = $('#language-links').html('');
+		var content = $('#content');
+		$('#content').remove('#language-content');
+		$('#content').append('<li id="language-content"></li>');
+		var content_li = $('#language-content').html('');
+		content_li.append('<div id="content-tab"></div>');
 
+		var content_tab = content_li.find('#content-tab');
 
+		content_tab.html('');
+		content_tab.append('<ul class="etabs"></ul>');
+		content_tab.append('<div class="panel-container"></div>');
 
 		$("#languages option:selected").each(function() {
 			var id = $(this).val();
 			var language = $(this).text();
 
-			var link = '<a href="">' + language + '</a>';
-			llinks.append(link);
+			var content_div = convertToSlug(language);
 
+			var content_menu = '<li class="tab"><a href="#' + content_div + '">' + language + '</a></li>';
+			content_tab.find('.etabs').append(content_menu);
+			content_tab.find('.panel-container').append('<div id="' + content_div + '"></div>');
+
+			var title = '<li> \
+							<label for="title-' + content_div + '">Title: </label> \
+							<input id="title-' + content_div + '" name="titles[]" type="text"> \
+						 </li>';
+
+			var content = '<li> \
+								<label for="content-' + content_div + '">Content: </label> \
+								<textarea id="content-' + content_div + '" name="contents[]" class="ckeditor"></textarea> \
+						   </li>';
+
+			var excerpt = '<li> \
+								<label for="excerpt-' + content_div + '">Excerpt: </label> \
+								<textarea name="excerpts[]" class="excerpt" id="excerpt-' + content_div + '"></textarea>\
+						   </li>';
+
+			$('#' + content_div).append(title);
+			$('#' + content_div).append(content);
+			$('#' + content_div).append(excerpt);
+
+	    	// CKEDITOR.replace('content-' + content_div);
+	    	// CKEDITOR.add;
 		});
 
 		content_tab.easytabs();
