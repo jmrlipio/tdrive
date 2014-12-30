@@ -15,6 +15,7 @@
     {{ HTML::style('css/chosen.css')}}
     {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::script('js/jquery-ui.js') }}
+    {{ HTML::script('js/ckeditor/ckeditor.js') }}
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
