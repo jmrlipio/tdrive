@@ -1,0 +1,137 @@
+@import "utilities";
+@import "config";
+
+#news-detail {
+	background: #eecf40;
+
+	#nav-toggle, #side-menu {
+		display: none;
+	}
+
+	#back {
+		display: block;
+		margin-top: 10px;
+	}
+
+	#featured { 
+		margin-top: 10px; 
+	}
+
+	#content { 
+		margin-bottom: 10px; 
+	}
+
+	.details {
+		position: relative;
+
+		.date {
+			position: absolute;
+			z-index: 2;
+			left: 0;
+			top: 0;
+
+			> div {
+				position: relative;
+				width: 50px;
+				height: 50px;
+				background: $pink;
+			}
+
+			p {
+				color: $white;
+				text-align: center;
+			}
+		}
+
+		.title {
+			padding: 0;
+			text-transform: none;
+			position: relative;
+			z-index: 1;
+
+			> div {
+				position: relative;
+				height: 50px;
+				background: #f3bf38;
+				padding-left: 60px;
+				padding-right: 10px;
+				@extend %box-sizing;
+			}
+
+			h2 {
+				color: $white;
+				font-size: 16px;
+			}
+		}
+	}
+
+	.description {
+		padding: 10px 10px 0 10px;
+		text-transform: none;
+		background: $white;
+
+		p {
+			margin: 10px 0;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.social {
+		background: $white;
+		padding: 10px 0;
+
+		> div {
+			float: right;
+		}
+
+		a {
+			display: block;
+			float: left;
+			text-align: center;
+			padding: 6px 32px 6px 8px;
+			margin-right: 10px;
+			@include border-radius(2px);
+
+			&.share {
+				background: $pink url(../images/share2.png) 56px center no-repeat;
+				color: $white;
+			}
+
+			&.like {
+				background: $blue url(../images/like.png) 40px center no-repeat;
+				color: $white;
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: 600px) {
+
+	#news-detail {
+		#back {
+			margin-top: 12px;
+		}
+	}
+
+}
+
+@media only screen and (min-width: 800px) {
+
+	#news-detail {
+		#back {
+			margin-top: 15px;
+		}
+
+		#featured {
+			margin-top: 40px;
+		}
+	}
+
+}

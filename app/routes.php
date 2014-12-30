@@ -1,7 +1,8 @@
 <?php
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-
+Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 
 Route::get('path', function(){
     return public_path();
@@ -52,6 +53,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 * Date: 12/04/2014
 */
 Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
+Route::get('games/{id}', array('as' => 'games.show', 'uses' => 'GamesController@show'));
 Route::get('news', array('as' => 'news', 'uses' => 'NewsController@usersindex'));
 Route::get('news/show/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getSingleNews'));
 /*Route::get('news/year/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getNewsByYear'));*/

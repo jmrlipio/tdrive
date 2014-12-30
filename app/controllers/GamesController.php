@@ -10,7 +10,6 @@ class GamesController extends \BaseController {
 	 */
 	public function index()
 	{
-
 		$games = Game::with('media')->get();
 		$root = Request::root();
 		$thumbnails = array();
@@ -58,7 +57,18 @@ class GamesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$languages = Language::all();
+
+		$game = Game::find($id);
+
+		$related_games = Game::all();
+
+		return View::make('game')
+			->with('page_title', $game->main_title)
+			->with('page_id', 'game-detail')
+			->with(compact('languages'))
+			->with(compact('related_games'))
+			->with(compact('game'));
 	}
 
 	/**

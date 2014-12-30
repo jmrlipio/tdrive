@@ -2,45 +2,22 @@
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
-
 	public function index()
 	{
-		/*$games = Game::with('media')->take(8)->get();*/
-		$games = Game::with('media')->get();
-		$root = Request::root();
-		$thumbnails = array();
-		
+		$languages = Language::all();
+		$games = Game::all();
+		$latest_news = News::all()->take(2);
+		$previous_news = News::all()->take(3);
+		$faqs = Faq::all();
 
-		foreach($games as $game) {
-			foreach($game->media as $media) {
-				if($media->pivot->type == 'featured') {
-					$thumbnails[] = $root. '/images/uploads/' . $media->url;
-				}
-			}
-		}
-		// echo '<pre>';
-		// print_r($thumbnails);
-		// echo '</pre>';
-		/*echo '<pre>';
-		print_r($location);
-		echo '</pre>';*/
-
-	return View::make('index')
-		->with('thumbnails', $thumbnails)
-		->with('games', $games)
-		->with('root', $root . '/images/uploads/');
-		
+		return View::make('index')
+			->with('page_title', 'Home')
+			->with('page_id', 'home')
+			->with('previous_news', $previous_news)
+			->with('latest_news', $latest_news)
+			->with(compact('games'))
+			->with(compact('faqs'))
+			->with(compact('languages'));
 	}
+
 }

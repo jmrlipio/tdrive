@@ -1,0 +1,613 @@
+@import "utilities";
+@import "config";
+
+#game-detail {
+	#nav-toggle, #side-menu {
+		display: none;
+	}
+
+	#back {
+		display: block;
+		margin-top: 10px;
+	}
+
+	#featured {
+		@extend %box-sizing;
+		max-width: 1024px;
+	}
+
+	#top {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		color: $pink;
+
+		.thumb {
+			float: left;
+			width: 100px;
+			height: 100px;
+			padding: 6px;
+			background: rgba(0, 0, 0, .1);
+			@extend %box-sizing;
+			@include border-radius(16px);
+
+			img {
+				@include border-radius(16px);
+			}
+		}
+
+		.title {
+			float: left;
+			text-transform: none;
+			width: 66%;
+			padding: 0;
+			padding-left: 10px;
+			@extend %box-sizing;
+		}
+	}
+
+	#buttons {
+		> div {
+			height: 62px;
+			margin-bottom: 2%;
+		}
+
+		.downloads {
+			background: #ff89b7 url(../images/downloads.png) -5px -8px no-repeat;
+			position: relative;
+			width: 100%;
+			font-weight: bold;
+
+			.count {
+				font-size: 18px;
+				float: left;
+				padding-left: 5px;
+				font-size: 20px;
+			}
+
+			.words {
+				float: left;
+				padding: 4px 0 0 8px;
+
+				span {
+					display: block;
+				}
+			}
+		}
+
+		.ratings {
+			background: #ffdf00 url(../images/ratings.png) -5px -8px no-repeat;
+			position: relative;
+			width: 100%;
+
+			.count {
+				font-weight: bold;
+				font-size: 18px;
+				float: left;
+				padding-left: 5px;
+				font-size: 20px;
+			}
+
+			.stars {
+				float: left;
+				margin-top: 4px;
+				padding-left: 5px;
+
+				i {
+					font-size: 14px;
+					color: $white;
+
+					&.active {
+						color: $pink;
+					}
+				}
+			}
+
+			.total {
+				font-size: 14px;
+				padding-left: 5px;
+				clear: both;
+			}
+		}
+
+		.buy {
+			background: #64ac36;
+			position: relative;
+			display: block;
+			height: 62px;
+			text-align: center;
+			color: $white;
+
+			> div {
+				padding-top: 8px;
+				display: inline-block;
+			}
+
+			.image {
+				text-align: left;
+
+				img {
+					float: left;
+					margin-right: 5px;
+				}
+
+				span {
+					float: left;
+					font-size: 18px;
+					font-weight: bold;
+					padding-top: 10px;
+				}
+			}
+
+			.price {
+				text-align: left;
+				padding-left: 43px;
+				color: $white;
+				text-transform: none;
+			}
+		}
+
+		.download {
+			background: #e9548e url(../images/download2.png) center center no-repeat;
+			position: relative;
+			display: block;
+			height: 62px;
+			text-align: center;
+			color: $white;
+
+			> div {
+				padding-top: 16px;
+				display: inline-block;
+			}
+
+			p {
+				text-align: left;
+
+				img {
+					float: left;
+					margin-right: 5px;
+				}
+
+				span {
+					float: left;
+					font-size: 18px;
+					font-weight: bold;
+					line-height: 29px;
+				}
+			}
+		}
+	}
+
+	#description {
+		text-transform: none;
+		margin: 10px 0;
+
+		p {
+			margin: 10px 0;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	#screenshots {
+		.item {
+			@extend %box-sizing;
+			padding: 0 2px;
+		}
+	}
+
+	#statistics {
+		background: #ebf1fe;
+
+		.top {
+			.count {
+				font-size: 32px;
+				float: left;
+				width: 50px;
+				padding-top: 24px;
+			}
+
+			.stars-container {
+				float: left;
+				padding-top: 20px;
+			}
+
+			.stars {
+				margin-top: 5px;
+
+				i {
+					color: $white;
+
+					&.active {
+						color: $pink;
+					}
+				}
+			}
+
+			.total {
+				font-size: 14px;
+			}
+
+			.social {
+				float: right;
+
+				a {
+					@include border-radius(4px);
+					display: block;
+					width: 66px;
+					float: left;
+					text-align: center;
+					margin-right: 5px;
+					padding: 2px 0 4px;
+					margin-top: 10px;
+
+					span {
+						display: block;
+					}
+
+					&.share {
+						margin-left: 5px;
+						background: $pink;
+
+						img {
+							padding-top: 7px;
+						}
+
+						span {
+							padding-top: 4px;
+							font-size: 18px;
+							color: $white;
+						}
+					}
+
+					&.likes {
+						background: $white;
+						margin-right: 0;
+						
+						span {
+							padding-top: 5px;
+							font-size: 12px;
+							color: $blue;
+						}
+					}
+				}
+			}
+		}
+
+		.bottom {
+			padding: 10px 0;
+
+			> div {
+				.stars {
+					float: left;
+					width: 93px;
+					text-align: right;
+
+					i {
+						color: $black;
+					}
+				}
+
+				.meter {
+					float: left;
+					width: 45%;
+					height: 14px;
+					position: relative;
+					padding-left: 10px;
+					@include border-radius(4px);
+					@extend %box-sizing;
+
+					span {
+						margin-top: 2px;
+						display: block;
+						float: left;
+						height: 100%;
+					}
+
+					.total {
+						float: left;
+						padding-left: 10px;
+						width: 20%;
+						font-size: 14px;
+						@extend %box-sizing;
+					}
+				}
+			}
+
+			.five {
+				span {
+					background: #64ac36;
+					width: 80%;
+				}
+			}
+
+			.four {
+				span {
+					background: #7fb52d;
+					width: 60%;
+				}
+			}
+
+			.three {
+				span {
+					background: #b4c61a;
+					width: 40%;
+				}
+			}
+
+			.two {
+				span {
+					background: #ffcd00;
+					width: 20%;
+				}
+			}
+
+			.one {
+				span {
+					background: #ffae00;
+					width: 10%;
+				}
+			}
+		}
+	}
+
+	#review {
+		margin: 10px 0;
+		text-align: center;
+
+		.button {
+			a {
+				@include border-radius(4px);
+			}
+		}
+
+		> div {
+			a {
+				display: inline-block;
+			}
+		}
+
+		form {
+			margin: 10px 0 0;
+			display: inline-block;
+			//display: none;
+			max-width: 320px;
+
+			input[type="text"], textarea {
+				@extend %box-sizing;
+				@include border-radius(4px);
+				border: 1px solid $pink;
+				padding: 5px 10px;
+				width: 100%;
+				margin: 5px 0;
+			}
+
+			input[type="submit"] {
+				text-transform: lowercase;
+				margin-top: 5px;
+				background: $pink;
+				color: $white;
+				padding: 4px 6px;
+				@include border-radius(4px);
+			}
+		}
+	}
+
+	#reviews {
+		.entry {
+			margin-bottom: 20px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			> div {
+				@extend %box-sizing;
+				text-transform: none;
+				float: left;
+				width: 80%;
+				padding-left: 10px;
+
+				.name {
+					font-weight: bold;
+				}
+
+				.message {
+					padding-top: 10px;
+				}
+
+				i {
+					color: $pink;
+				}
+			}
+
+			img {
+				@include border-radius(8px);
+				display: block;
+				width: 60px;
+				float: left;
+			}
+		}
+	}
+
+	#related-games {
+		background: #f4f4f4;
+		border-bottom: 4px solid $pink;
+
+		.thumb {
+			@extend %box-sizing;
+			@include border-radius(16px);
+			padding: 6px;
+			background: rgba(0, 0, 0, .1);
+			margin: 0 5px;
+
+			img {
+				@include border-radius(16px);
+			}
+		}
+
+		.meta {
+			text-align: center;
+			margin: 10px 0;
+			height: 57px;
+			text-transform: none;
+		}
+	}
+}
+
+@media only screen and (min-width: 320px) {
+
+	#game-detail {
+		#buttons {
+			.downloads {
+				float: left;
+				width: 49%;
+				margin-right: 1%;
+			}
+
+			.ratings {
+				float: left;
+				width: 49%;
+				margin-left: 1%;
+			}
+
+			.buy, .download {
+				clear: both;
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 480px) {
+
+	#game-detail {
+		#top {
+			.thumb {
+				width: 90px;
+				height: 90px;
+			}
+
+			.title {
+				width: 79%;
+
+				h3 {
+					padding-bottom: 10px;
+				}
+			}
+		}
+
+		#buttons {
+			.downloads {
+				width: 138px;
+				margin-bottom: 0;
+			}
+
+			.ratings {
+				width: 138px;
+				margin-bottom: 0;
+			}
+
+			.buy, .download {
+				float: right;
+				clear: none;
+				width: 138px;
+				margin-bottom: 0;
+			}
+		}
+
+		#statistics {
+			background: #ebf1fe;
+
+			.top {
+				.count {
+					font-size: 40px;
+					float: left;
+					width: 65px;
+					padding-top: 18px;
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 600px) {
+
+	#game-detail {
+		#back {
+			margin-top: 12px;
+		}
+
+		#featured {
+			margin-top: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+
+		#reviews {
+			.entry {
+				> div {
+					width: 89%;
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 800px) {
+
+	#game-detail {
+		#back {
+			margin-top: 15px;
+		}
+
+		#featured {
+			margin-top: 40px;
+			padding-left: 40px;
+			padding-right: 40px
+		}
+	}
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+	#game-detail {
+		#top {
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+
+		#description {
+			margin: 20px 0;
+
+			p {
+				margin: 10px 0;
+
+				&:first-child {
+					margin-top: 0;
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+
+		#reviews {
+			.entry {
+				> div {
+					width: 93%;
+				}
+			}
+		}
+	}
+
+}

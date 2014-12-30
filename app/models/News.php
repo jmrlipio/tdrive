@@ -32,4 +32,8 @@ class News extends \Eloquent {
 	public function newsCategory() {
 		return $this->belongsTo('NewsCategory');
 	}
+
+    public function contents() {
+    	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
+    }
 }

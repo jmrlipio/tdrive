@@ -15,11 +15,12 @@ class BaseController extends Controller {
 		}
 	}
 
-  public function __construct()
-  {       
-    $user_location = GeoIP::getLocation();   
-    View::share('user_location', $user_location); // Share $user with all views
-  }
+	public function __construct()
+	{       
+		$user_location = GeoIP::getLocation();   
+
+		View::share('user_location', $user_location); // Share $user with all views
+	}
 
 
 }

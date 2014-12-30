@@ -1,175 +1,942 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 14px;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	/*list-style: none;*/
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-main {
-	width: 80%;
-	margin: 0 auto;
+#home {
+  background: #465a65;
+}
+#home #slider {
+  margin-top: 10px;
+}
+#home #content {
+  text-transform: none;
+}
+#home .lSSlideOuter .lSPager.lSpg > li a {
+  background: #fff9c9;
+  width: 12px;
+  height: 12px;
+}
+#home .lSSlideOuter .lSPager.lSpg > li:hover a, #home .lSSlideOuter .lSPager.lSpg > li.active a {
+  background: #feb100;
+}
+#home .slider-item .details {
+  position: relative;
+}
+#home .slider-item .date {
+  background: #feb100;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  width: 50px;
+  text-align: center;
+  text-transform: lowercase;
+}
+#home .slider-item .date > div {
+  height: 50px;
+}
+#home .slider-item .description {
+  background: #fff9c9;
+  z-index: 1;
+  padding-left: 60px;
+  padding-right: 30px;
+  text-transform: none;
+}
+#home .slider-item .description > div {
+  height: 50px;
+}
+#home .slider-item .go {
+  background: #feb100;
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 0;
+  width: 10px;
+  padding: 0 5px 0 6px;
+}
+#home .slider-item .go > div {
+  height: 50px;
+}
+#home .slider-item .go a {
+  background: url(../images/go.png) center center no-repeat;
+  width: 10px;
+  height: 22px;
+  display: block;
+}
+#home .lSSlideOuter .lSPager.lSpg {
+  padding: 5px 0 10px;
+}
+#home .lSSlideOuter .lSPager.lSpg > li a {
+  background: #fff9c9;
+}
+#home .lSSlideOuter .lSPager.lSpg > li:hover a, #home .lSSlideOuter .lSPager.lSpg > li.active a {
+  background: #feb100;
+}
+#home .thumb {
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 5px;
+}
+#home .thumb img {
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+}
+#home .meta {
+  text-align: center;
+  margin: 10px 0;
+  height: 57px;
+}
+#home #latest-games {
+  background: #465a65;
+  color: #fff;
+  border-bottom: 4px solid #e9548e;
+}
+#home #games-heading {
+  background: #61ded0;
+}
+#home #games-heading h1.title {
+  padding-bottom: 0;
+  color: #fff;
+}
+#home .game-category, #home #news {
+  color: #fff;
+  background: #61ded0;
+}
+#home .game-category > div.clearfix .more {
+  padding: 10px 0;
+}
+#home .game-category .slick-slider {
+  margin-bottom: 0;
+  padding-bottom: 10px;
+}
+#home #news {
+  background: #eecf3f;
+  border-top: 4px solid #e9548e;
+  border-bottom: 4px solid #e9548e;
+}
+#home #news h1.title {
+  float: left;
+}
+#home #news select {
+  margin: 18px 0 0;
+  float: right;
+}
+#home #news .top > div {
+  position: relative;
+  margin-bottom: 10px;
+}
+#home #news .top .date {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  text-transform: lowercase;
+}
+#home #news .top .date > div {
+  width: 50px;
+  height: 50px;
+  background: #e9548e;
+  color: #fff;
+}
+#home #news .top .date span {
+  display: block;
+}
+#home #news .top .details {
+  background: #f2bf38;
+  padding: 10px;
+}
+#home #news .top .readmore {
+  background: #f2bf38;
+  text-transform: lowercase;
+}
+#home #news .top .readmore a {
+  float: right;
+  display: block;
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+}
+#home #news .bottom {
+  clear: both;
+}
+#home #news .bottom > div {
+  position: relative;
+  margin-bottom: 10px;
+}
+#home #news .bottom > div .date {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  z-index: 8;
+  text-transform: lowercase;
+}
+#home #news .bottom > div .date > div {
+  background: #e9548e;
+  color: #fff;
+  height: 100%;
+  text-align: center;
+}
+#home #news .bottom > div .details {
+  text-transform: none;
+  height: 50px;
+}
+#home #news .bottom > div .details > div {
+  position: relative;
+  background: #f2bf38;
+  padding: 0;
+  height: 100%;
+}
+#home #news .bottom > div .details > div > div {
+  padding-left: 62px;
+  padding-right: 26px;
+}
+#home #news .bottom > div .details h3 {
+  font-size: 12px;
+}
+#home #news .bottom > div .details p {
+  font-size: 12px;
+}
+#home #news .bottom > div .readmore {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 15px;
+  height: 50px;
+  z-index: 7;
+}
+#home #news .bottom > div .readmore > div {
+  position: relative;
+  height: 100%;
+  background: #e9548e;
+}
+#home #news .bottom > div .readmore > div i {
+  color: #fff;
+}
+#home #faqs {
+  background: #a1c82a;
+  border-bottom: 4px solid #e9548e;
+  color: #fff;
+}
+#home #faqs #questions {
+  padding: 10px 0;
+}
+#home #faqs .ui-accordion .ui-accordion-header {
+  font-size: 16px !important;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.1) url(../images/faq.png) 10px center no-repeat;
+  outline: 0;
+}
+#home #faqs .ui-accordion .ui-accordion-icons {
+  padding-left: 50px;
+}
+#home #faqs .ui-accordion .ui-accordion-content {
+  padding: 0px 10px 10px 50px;
+}
+#home #faqs .ui-widget-content {
+  background: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  font-size: 16px;
+  border: 0;
+}
+#home #faqs .ui-state-default, #home #faqs .ui-widget-content .ui-state-default, #home #faqs .ui-widget-header .ui-state-default {
+  border: 0;
+  background: rgba(0, 0, 0, 0.1);
+  font-weight: normal;
+  color: #fff;
+  font-size: 30px;
+}
+#home #contact {
+  border-bottom: 4px solid #e9548e;
+  background: #e47564;
+  color: #fff;
+}
+#home #contact form {
+  padding-bottom: 10px;
+}
+#home #contact label {
+  display: block;
+  position: absolute;
+  text-transform: lowercase;
+  left: 0;
+  top: 5px;
+  line-height: 26px;
+  background: #e9548e;
+  text-align: center;
+  width: 100px;
+}
+#home #contact .control {
+  position: relative;
+  margin-top: 10px;
+}
+#home #contact .control:last-child {
+  margin-top: 0;
+  background: #fff;
+  margin-left: 1%;
+  width: 99%;
+}
+#home #contact input[type="text"], #home #contact input[type="email"] {
+  padding: 18px 6px;
+  height: 26px;
+  padding-left: 105px;
+  margin-left: 1%;
+  width: 99%;
+}
+#home #contact textarea {
+  padding: 36px 6px 4px;
+  min-height: 100px;
+  width: 99%;
+  margin-left: 1%;
+}
+#home #contact input[type="submit"] {
+  text-transform: lowercase;
+  float: right;
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+}
+#home #footer {
+  display: block;
 }
 
-/** 
-* Added by: Jone   
-* Purpose: For user registration & login styles
-* Date: 12/04/2014
-*/
-
-.pull-right { 
-	float: right;
-	 }
-.pull-left { 
-	float: left; 
+@media only screen and (min-width: 480px) {
+  #home .meta {
+    height: auto;
+  }
+  #home #news .bottom > div .details h3 {
+    font-size: 16px;
+  }
+  #home #news .bottom > div .details p {
+    font-size: 16px;
+  }
 }
-.clear { 
-	clear: both; 
+@media only screen and (min-width: 600px) {
+  #home #news .top {
+    margin-bottom: 10px;
+  }
+  #home #news .top > div {
+    margin-bottom: 0;
+    float: left;
+    width: 50%;
+  }
+  #home #news .top > div:first-child {
+    padding-right: 5px;
+  }
+  #home #news .top > div:last-child {
+    padding-left: 5px;
+  }
+  #home #news .top > div:last-child .date {
+    left: 5px;
+  }
+  #home #news .top > div .details {
+    height: 76px;
+  }
 }
-
-/* Login Form Styles */
-/* form#login-form ul li{
-	margin-top: 10px;
+@media only screen and (min-width: 800px) {
+  #home #slider {
+    margin-top: 40px;
+  }
+  #home .lSSlideOuter .lSPager.lSpg > li a {
+    width: 20px;
+    height: 20px;
+  }
+  #home .thumb {
+    -webkit-border-radius: 22px;
+    border-radius: 22px;
+    background-clip: padding-box;
+    padding: 10px;
+  }
+  #home .thumb img {
+    -webkit-border-radius: 22px;
+    border-radius: 22px;
+    background-clip: padding-box;
+  }
+  #home #latest-games .meta {
+    height: auto;
+  }
 }
-form#login-form { 
-	background: #465A65 !important;
-	color: #fff;
-}
-form#login-form input[type=submit] { 
-	margin-top: 0;
-	background: #FF92B2; 
-	font-size: 20px;
-	padding: 0px 5px;
-	height: 30px;
-	line-height: 14px;
-}
-form#login-form input[type="submit"]:hover {
-	background: #333; cursor: pointer;
-}
-form#login-form input[type=checkbox] {
-	-webkit-appearance: none;
-	margin: 0 3px;	
-	background-color: none;
-	border: 1px solid #FF92B2;
-	padding: 7px;
-	border-radius: 3px;
-	display: inline-block;
-	position: relative;
-}
-
-form#login-form input[type=text], form#login-form input[type=password]{
-	width: 94.6%;
-}
-
-form#login-form input[type=checkbox]:checked {
-	background-color: none;
-	border: 1px solid #FF92B2;	
-	color: #FF92B2;
-}
-form#login-form input[type=checkbox]:checked:after {
-	content: '\2714';
-	font-size: 14px;
-	position: absolute;
-	top: -3px;
-	left: 0px;
-	color: #FF92B2;
-}
-form#login-form div#register-button a { 
-	color: #fff; 
-	text-decoration: none;
-	font-size: 30px;
-	display: block;
-	line-height: 18px;
-}
-form#login-form input::-webkit-input-placeholder {
-   text-align: center;
-}
-form#login-form input:-moz-placeholder { Firefox 18-
-   text-align: center;  
-}
-form#login-form input::-moz-placeholder {  Firefox 19+
-   text-align: center;  
-}
-form#login-form input:-ms-input-placeholder {  
-   text-align: center; 
-}
-form#login-form div#register-button:hover {
-	background: #333; cursor: pointer;
-}
-form#login-form div#register-button {
-	width: 65%;
-	background: #FF92B2; 
-	margin: 6px auto 0;
-	min-height: 25px;
-	border-radius: 3px;
-	padding: 5px 0;
-	-webkit-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-o-transition: all 0.5s ease-in-out;
-	transition: all 0.5s ease-in-out;
-}
-form#login-form .not-member, form#login-form .signin{ 
-	font-size: 33px;
-} */
-/* ===================== END ===================== */
-
-/* Text Styles */
-.text-center {
-	text-align: center;
-}
-.text-left {
-	text-align: left;
-}
-.text-right {
-	text-align: right;
-}
-.text-justify {
-	text-align: justify;
-}
-.pink { 
-	color: #FF92B2;
-}
-.text-lg {
-	font-size: 33px;
-}
-textarea#text-excerpt {
-	width: 96%;
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/* ===================== END ===================== */
+#game-detail #nav-toggle, #game-detail #side-menu {
+  display: none;
+}
+#game-detail #back {
+  display: block;
+  margin-top: 10px;
+}
+#game-detail #featured {
+  max-width: 1024px;
+}
+#game-detail #top {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #e9548e;
+}
+#game-detail #top .thumb {
+  float: left;
+  width: 100px;
+  height: 100px;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+}
+#game-detail #top .thumb img {
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+}
+#game-detail #top .title {
+  float: left;
+  text-transform: none;
+  width: 66%;
+  padding: 0;
+  padding-left: 10px;
+}
+#game-detail #buttons > div {
+  height: 62px;
+  margin-bottom: 2%;
+}
+#game-detail #buttons .downloads {
+  background: #ff89b7 url(../images/downloads.png) -5px -8px no-repeat;
+  position: relative;
+  width: 100%;
+  font-weight: bold;
+}
+#game-detail #buttons .downloads .count {
+  font-size: 18px;
+  float: left;
+  padding-left: 5px;
+  font-size: 20px;
+}
+#game-detail #buttons .downloads .words {
+  float: left;
+  padding: 4px 0 0 8px;
+}
+#game-detail #buttons .downloads .words span {
+  display: block;
+}
+#game-detail #buttons .ratings {
+  background: #ffdf00 url(../images/ratings.png) -5px -8px no-repeat;
+  position: relative;
+  width: 100%;
+}
+#game-detail #buttons .ratings .count {
+  font-weight: bold;
+  font-size: 18px;
+  float: left;
+  padding-left: 5px;
+  font-size: 20px;
+}
+#game-detail #buttons .ratings .stars {
+  float: left;
+  margin-top: 4px;
+  padding-left: 5px;
+}
+#game-detail #buttons .ratings .stars i {
+  font-size: 14px;
+  color: #fff;
+}
+#game-detail #buttons .ratings .stars i.active {
+  color: #e9548e;
+}
+#game-detail #buttons .ratings .total {
+  font-size: 14px;
+  padding-left: 5px;
+  clear: both;
+}
+#game-detail #buttons .buy {
+  background: #64ac36;
+  position: relative;
+  display: block;
+  height: 62px;
+  text-align: center;
+  color: #fff;
+}
+#game-detail #buttons .buy > div {
+  padding-top: 8px;
+  display: inline-block;
+}
+#game-detail #buttons .buy .image {
+  text-align: left;
+}
+#game-detail #buttons .buy .image img {
+  float: left;
+  margin-right: 5px;
+}
+#game-detail #buttons .buy .image span {
+  float: left;
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 10px;
+}
+#game-detail #buttons .buy .price {
+  text-align: left;
+  padding-left: 43px;
+  color: #fff;
+  text-transform: none;
+}
+#game-detail #buttons .download {
+  background: #e9548e url(../images/download2.png) center center no-repeat;
+  position: relative;
+  display: block;
+  height: 62px;
+  text-align: center;
+  color: #fff;
+}
+#game-detail #buttons .download > div {
+  padding-top: 16px;
+  display: inline-block;
+}
+#game-detail #buttons .download p {
+  text-align: left;
+}
+#game-detail #buttons .download p img {
+  float: left;
+  margin-right: 5px;
+}
+#game-detail #buttons .download p span {
+  float: left;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 29px;
+}
+#game-detail #description {
+  text-transform: none;
+  margin: 10px 0;
+}
+#game-detail #description p {
+  margin: 10px 0;
+}
+#game-detail #description p:first-child {
+  margin-top: 0;
+}
+#game-detail #description p:last-child {
+  margin-bottom: 0;
+}
+#game-detail #screenshots .item {
+  padding: 0 2px;
+}
+#game-detail #statistics {
+  background: #ebf1fe;
+}
+#game-detail #statistics .top .count {
+  font-size: 32px;
+  float: left;
+  width: 50px;
+  padding-top: 24px;
+}
+#game-detail #statistics .top .stars-container {
+  float: left;
+  padding-top: 20px;
+}
+#game-detail #statistics .top .stars {
+  margin-top: 5px;
+}
+#game-detail #statistics .top .stars i {
+  color: #fff;
+}
+#game-detail #statistics .top .stars i.active {
+  color: #e9548e;
+}
+#game-detail #statistics .top .total {
+  font-size: 14px;
+}
+#game-detail #statistics .top .social {
+  float: right;
+}
+#game-detail #statistics .top .social a {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-clip: padding-box;
+  display: block;
+  width: 66px;
+  float: left;
+  text-align: center;
+  margin-right: 5px;
+  padding: 2px 0 4px;
+  margin-top: 10px;
+}
+#game-detail #statistics .top .social a span {
+  display: block;
+}
+#game-detail #statistics .top .social a.share {
+  margin-left: 5px;
+  background: #e9548e;
+}
+#game-detail #statistics .top .social a.share img {
+  padding-top: 7px;
+}
+#game-detail #statistics .top .social a.share span {
+  padding-top: 4px;
+  font-size: 18px;
+  color: #fff;
+}
+#game-detail #statistics .top .social a.likes {
+  background: #fff;
+  margin-right: 0;
+}
+#game-detail #statistics .top .social a.likes span {
+  padding-top: 5px;
+  font-size: 12px;
+  color: #0086dd;
+}
+#game-detail #statistics .bottom {
+  padding: 10px 0;
+}
+#game-detail #statistics .bottom > div .stars {
+  float: left;
+  width: 93px;
+  text-align: right;
+}
+#game-detail #statistics .bottom > div .stars i {
+  color: #555;
+}
+#game-detail #statistics .bottom > div .meter {
+  float: left;
+  width: 45%;
+  height: 14px;
+  position: relative;
+  padding-left: 10px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+#game-detail #statistics .bottom > div .meter span {
+  margin-top: 2px;
+  display: block;
+  float: left;
+  height: 100%;
+}
+#game-detail #statistics .bottom > div .meter .total {
+  float: left;
+  padding-left: 10px;
+  width: 20%;
+  font-size: 14px;
+}
+#game-detail #statistics .bottom .five span {
+  background: #64ac36;
+  width: 80%;
+}
+#game-detail #statistics .bottom .four span {
+  background: #7fb52d;
+  width: 60%;
+}
+#game-detail #statistics .bottom .three span {
+  background: #b4c61a;
+  width: 40%;
+}
+#game-detail #statistics .bottom .two span {
+  background: #ffcd00;
+  width: 20%;
+}
+#game-detail #statistics .bottom .one span {
+  background: #ffae00;
+  width: 10%;
+}
+#game-detail #review {
+  margin: 10px 0;
+  text-align: center;
+}
+#game-detail #review .button a {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+#game-detail #review > div a {
+  display: inline-block;
+}
+#game-detail #review form {
+  margin: 10px 0 0;
+  display: inline-block;
+  max-width: 320px;
+}
+#game-detail #review form input[type="text"], #game-detail #review form textarea {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-clip: padding-box;
+  border: 1px solid #e9548e;
+  padding: 5px 10px;
+  width: 100%;
+  margin: 5px 0;
+}
+#game-detail #review form input[type="submit"] {
+  text-transform: lowercase;
+  margin-top: 5px;
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+#game-detail #reviews .entry {
+  margin-bottom: 20px;
+}
+#game-detail #reviews .entry:last-child {
+  margin-bottom: 0;
+}
+#game-detail #reviews .entry > div {
+  text-transform: none;
+  float: left;
+  width: 80%;
+  padding-left: 10px;
+}
+#game-detail #reviews .entry > div .name {
+  font-weight: bold;
+}
+#game-detail #reviews .entry > div .message {
+  padding-top: 10px;
+}
+#game-detail #reviews .entry > div i {
+  color: #e9548e;
+}
+#game-detail #reviews .entry img {
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  background-clip: padding-box;
+  display: block;
+  width: 60px;
+  float: left;
+}
+#game-detail #related-games {
+  background: #f4f4f4;
+  border-bottom: 4px solid #e9548e;
+}
+#game-detail #related-games .thumb {
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 5px;
+}
+#game-detail #related-games .thumb img {
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+}
+#game-detail #related-games .meta {
+  text-align: center;
+  margin: 10px 0;
+  height: 57px;
+  text-transform: none;
+}
 
+@media only screen and (min-width: 320px) {
+  #game-detail #buttons .downloads {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+  }
+  #game-detail #buttons .ratings {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+  }
+  #game-detail #buttons .buy, #game-detail #buttons .download {
+    clear: both;
+  }
+}
+@media only screen and (min-width: 480px) {
+  #game-detail #top .thumb {
+    width: 90px;
+    height: 90px;
+  }
+  #game-detail #top .title {
+    width: 79%;
+  }
+  #game-detail #top .title h3 {
+    padding-bottom: 10px;
+  }
+  #game-detail #buttons .downloads {
+    width: 138px;
+    margin-bottom: 0;
+  }
+  #game-detail #buttons .ratings {
+    width: 138px;
+    margin-bottom: 0;
+  }
+  #game-detail #buttons .buy, #game-detail #buttons .download {
+    float: right;
+    clear: none;
+    width: 138px;
+    margin-bottom: 0;
+  }
+  #game-detail #statistics {
+    background: #ebf1fe;
+  }
+  #game-detail #statistics .top .count {
+    font-size: 40px;
+    float: left;
+    width: 65px;
+    padding-top: 18px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  #game-detail #back {
+    margin-top: 12px;
+  }
+  #game-detail #featured {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #game-detail #reviews .entry > div {
+    width: 89%;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #game-detail #back {
+    margin-top: 15px;
+  }
+  #game-detail #featured {
+    margin-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #game-detail #top {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  #game-detail #description {
+    margin: 20px 0;
+  }
+  #game-detail #description p {
+    margin: 10px 0;
+  }
+  #game-detail #description p:first-child {
+    margin-top: 0;
+  }
+  #game-detail #description p:last-child {
+    margin-bottom: 0;
+  }
+  #game-detail #reviews .entry > div {
+    width: 93%;
+  }
+}
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#news-detail {
+  background: #eecf40;
+}
+#news-detail #nav-toggle, #news-detail #side-menu {
+  display: none;
+}
+#news-detail #back {
+  display: block;
+  margin-top: 10px;
+}
+#news-detail #featured {
+  margin-top: 10px;
+}
+#news-detail #content {
+  margin-bottom: 10px;
+}
+#news-detail .details {
+  position: relative;
+}
+#news-detail .details .date {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+}
+#news-detail .details .date > div {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: #e9548e;
+}
+#news-detail .details .date p {
+  color: #fff;
+  text-align: center;
+}
+#news-detail .details .title {
+  padding: 0;
+  text-transform: none;
+  position: relative;
+  z-index: 1;
+}
+#news-detail .details .title > div {
+  position: relative;
+  height: 50px;
+  background: #f3bf38;
+  padding-left: 60px;
+  padding-right: 10px;
+}
+#news-detail .details .title h2 {
+  color: #fff;
+  font-size: 16px;
+}
+#news-detail .description {
+  padding: 10px 10px 0 10px;
+  text-transform: none;
+  background: #fff;
+}
+#news-detail .description p {
+  margin: 10px 0;
+}
+#news-detail .description p:first-child {
+  margin-top: 0;
+}
+#news-detail .description p:last-child {
+  margin-bottom: 0;
+}
+#news-detail .social {
+  background: #fff;
+  padding: 10px 0;
+}
+#news-detail .social > div {
+  float: right;
+}
+#news-detail .social a {
+  display: block;
+  float: left;
+  text-align: center;
+  padding: 6px 32px 6px 8px;
+  margin-right: 10px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background-clip: padding-box;
+}
+#news-detail .social a.share {
+  background: #e9548e url(../images/share2.png) 56px center no-repeat;
+  color: #fff;
+}
+#news-detail .social a.like {
+  background: #0086dd url(../images/like.png) 40px center no-repeat;
+  color: #fff;
+}
+
+@media only screen and (min-width: 600px) {
+  #news-detail #back {
+    margin-top: 12px;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #news-detail #back {
+    margin-top: 15px;
+  }
+  #news-detail #featured {
+    margin-top: 40px;
+  }
+}
