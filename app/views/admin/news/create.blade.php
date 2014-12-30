@@ -1,88 +1,49 @@
 @extends('admin._layouts.admin')
 
 @section('content')
+	<article>
+		{{ Form::open(array('route' => 'admin.news.store', 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
+			<h2>Create News</h2>
+			<br>
+			@if(Session::has('message'))
+		        <div class="flash-success">
+		            <p>{{ Session::get('message') }}</p>
+		        </div>
+		    @endif
+			<div class='panel-container'>
+				<ul id="content">
+					<li>
+						{{ Form::label('main_title', 'Main Title: ') }}
+						{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
+						{{ $errors->first('title', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('slug', 'Slug: ') }}
+						{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
+						{{ $errors->first('slug', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('news_category', 'Category:') }}
+				  		{{ Form::select('news_category_id', $news_categories, null) }}				
+						{{ $errors->first('news_category', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('status', 'Status: ') }}
+						{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
+						{{ $errors->first('status', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('release_date', 'Release Date:') }}
+						{{ Form::text('release_date', null, array('id' => 'release_date')) }}
+						{{ $errors->first('release_date', '<p class="error">:message</p>') }}
+					</li>
+				</ul>
 
-{{ Form::open(array('route' => 'admin.news.store', 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
-	<h2>Create News</h2>
-	@if(Session::has('message'))
-        <div class="flash-success">
-            <p>{{ Session::get('message') }}</p>
-        </div>
-    @endif
-
-	<br>
-	<ul class='etabs'>
-		<li class='tab'><a href="#content">Content</a></li>
-		<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
-		<li class='tab'><a href="#feature-image">Feature Image</a></li>
-	</ul>
-	<div class='panel-container'>
-		<ul id="content">
-			<li>
-				{{ Form::label('title', 'Title: ') }}
-				{{ Form::text('title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
-				{{ $errors->first('title', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('slug', 'Slug: ') }}
-				{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
-				{{ $errors->first('slug', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('news_category', 'Category:') }}
-		  		{{ Form::select('news_category_id', $news_categories, null) }}				
-				{{ $errors->first('news_category', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('status', 'Status: ') }}
-				{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
-				{{ $errors->first('status', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('release_date', 'Release Date:') }}
-				{{ Form::text('release_date', null, array('id' => 'release_date')) }}
-				{{ $errors->first('release_date', '<p class="error">:message</p>') }}
-			</li>
-			
-			<li>
-				{{ Form::label('content', 'Content:') }}
-				{{ Form::textarea('content', null, array('id' => 'text-content')) }}
-				{{ $errors->first('content', '<p class="error">:message</p>') }}
-			</li>
-		</ul>
-			
-			<ul id="custom-fields">
-				<li>
-					{{ Form::label('excerpt', 'Excerpt:') }}
-					{{ Form::textarea('excerpt', null, array('id' => 'text-excerpt')) }}
-					{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
-				</li>
-			</ul>
-			
-			<ul id="feature-image">
-				<li>
-					{{ Form::label('featured-img', 'Featured Image:') }}
-					<div class="img-holder"></div>
-					<p>
-						{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-						{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-						{{ Form::button('Select', array('class' => 'select-img')) }}
-					</p>
-				</li>
-				
-			</ul>
-
-			<li>
 				{{ Form::submit('Save', array('id' => 'save-news')) }}
-			</li>
-
-			<iframe id="form_target" name="form_target" style="display:none"></iframe>
-			<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
-			    <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
-			</form>
-	</div>
-		{{ Form::hidden('user_id', Auth::user()->id) }}
-	{{ Form::close() }}
+			</div>
+			{{ Form::hidden('user_id', Auth::user()->id) }}
+		{{ Form::close() }}
+	</article>
 
 	@include('admin._partials.image-select')
 	{{ HTML::script('js/tinymce/tinymce.min.js') }}
@@ -95,8 +56,7 @@
 		img_li;
 
 	$(document).ready(function() {
-		// Initializes different tab sections
-		$('.tab-container').easytabs();
+
 
 		// Date picker for Release Date
         $("#release_date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
@@ -105,30 +65,6 @@
             minValue.setDate(minValue.getDate()+1);
             $("#to").datepicker( "option", "minDate", minValue );
     	});
-
-        // Initializes textarea editor for content and excerpt
-       /* tinymce.init({
-			mode : "specific_textareas",
-			selector: "#text-content",
-			height : 300,
-			plugins: "image",
-			file_browser_callback : "myFileBrowser",
-		    image_list: [ 
-		        {title: 'My image 1', value: 'http://www.tinymce.com/my1.gif'}, 
-		        {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'} 
-		    ]
-		});*/
-
-		
-    	tinymce.init({
-			
-			selector: "#text-content",
-			height : 300,
-			plugins: ["image"],
-	        file_browser_callback: function(field_name, url, type, win) {
-	            if(type=='image') $('#my_form input').click();
-	        }
-		});
 
 		// tinymce.init({
 		// 	mode : "specific_textareas",

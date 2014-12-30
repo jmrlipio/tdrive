@@ -107,10 +107,9 @@ class NewsController extends \BaseController {
 		}
 
 		$news = News::create($data);
-		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
+		// $news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
 		
-		return Redirect::route('admin.news.create')->with('message', 'Adding news successful.');
-
+		return Redirect::route('admin.news.edit',$news->id)->with('message', 'You have successfully added a game.');
 	}
 
 

@@ -1,14 +1,13 @@
 <?php
 
 class News extends \Eloquent {
-	protected $fillable = ['user_id','title','excerpt','status','content','news_category_id'];
+	protected $fillable = ['user_id','main_title','slug','status','news_category_id','release_date'];
 
 	public static $rules = array(
 		'user_id' => 'required|integer',
-		'title' => 'required|min:2',
-		'excerpt' => 'required|min:20',
+		'main_title' => 'required|min:2',
+		'slug' => 'required|min:2',
 		'status' => 'required|boolean',
-		'content' => 'required|min:20',
 		'release_date' => 'required|date',
 		'news_category_id' => 'required|integer'
 	);

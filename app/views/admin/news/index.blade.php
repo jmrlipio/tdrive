@@ -16,7 +16,7 @@
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>
-							<a href="#">{{ $news_item->title }}</a>
+							<a href="#">{{ $news_item->main_title }}</a>
 							<ul class="actions">
 								<li><a href="{{ URL::route('admin.news.edit', $news_item->id) }}">Edit</a></li>
 								<li><a href="">View</a></li>
