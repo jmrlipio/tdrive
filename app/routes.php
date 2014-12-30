@@ -47,8 +47,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     // Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
    
     Route::group(array('prefix' => 'reports', 'before' => 'reports'), function(){
-        Route::resource('inquiries', 'InquiriesController');
-        Route::post('inquiries/{$id}/reply', array('as' => 'admin.reports.inquiries.reply', 'uses' => 'InquiriesController@reply'));
+        
+        Route::post('inquiries/{id?}/reply', array('as' => 'admin.reports.inquiries.reply', 'uses' => 'InquiriesController@reply'));
+        Route::get('inquiries/settings', array('as' => 'admin.reports.inquiries.settings', 'uses' => 'InquiriesController@settings'));
+        Route::post('inquiries/settings/save', array('as' => 'admin.reports.inquiries.save-settings', 'uses' => 'InquiriesController@saveSettings'));
+        Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit')));
+
+
     });
 
 });
@@ -98,3 +103,4 @@ Route::group(array('before' => 'auth'), function(){
         echo $na->title;
     }
 });*/
+

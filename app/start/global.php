@@ -18,6 +18,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/models',
 	app_path().'/database/seeds',
 
+
 ));
 
 /*
@@ -79,8 +80,12 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+require app_path().'/constants.php';
+require app_path().'/observers.php';
 
-App::missing(function($exception)
+/*App::missing(function($exception)
 {
     return Response::view('404', array(), 404);
 });
+*/
+

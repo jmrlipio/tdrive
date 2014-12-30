@@ -17,17 +17,6 @@ class InquiriesController extends \BaseController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 * GET /inquiries/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 * POST /inquiries
 	 *
@@ -35,7 +24,17 @@ class InquiriesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make(Input::all(), Inquiry::$rules);
+		if($validator->passes()) 
+		{
+			Inquiry::create(Input::all());
+			return Redirect::back()
+							->with('message', 'Inquiry Sent!');
+		}
+		//validator fails
+		return Redirect::back()
+						->withErrors($validator)
+						->withInput();
 	}
 
 	/**
@@ -53,30 +52,6 @@ class InquiriesController extends \BaseController {
 					->with('inquiry', $inquiry);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /inquiries/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /inquiries/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -87,34 +62,69 @@ class InquiriesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Inquiry::destroy($id);
+
+		return Redirect::back()
+						->with('message', 'deleted!');
 	}
 
 	public function reply($id) 
 	{
+		$validator = Validator::make(Input::all(), Inquiry::$reply_rules);
 
-	return View::make('admin.reports.inquiries.show');
+		if($validator->passes())
+		{ 
+			$inquiry = Inquiry::find($id);
+			$message = Input::get('message');
+			$subject = 'Welcome!';
+			$data = array(
+			    'name' => 'adasd',
+			    'email' => $inquiry->email,
+			    'message' => $message,
+			);
 
-		$inquiry = Inquiry::find($id);
-		dd($inquiry);
-		$message = Input::get('message');
-		$subject = 'Welcome!';
+			$mail = Mail::send('emails.inquiries.replyto', $data , function ($message) use ($inquiry) {
+					$message->to($inquiry->email, $inquiry->name)->subject('Welcome!');
+				});
+
+			if(!$mail) 
+			{
+				return Redirect::back()->with('message', 'error sending!');
+			}
+
+			return Redirect::back()->with('message', 'Mail sent!');
+		}
+		//validator fails
+		return Redirect::back()->withErrors($validator)->withInput();
+		
+	}
+
+	public function settings() 
+	{	
 		$data = array(
-		    'name' => 'adasd',
-		    'email' => $inquiry->email,
-		    'message' => 'asdsad',
-		);
+				'email_subject' => Option::get(Constant::INQUIRY_EMAIL_SUBJECT),
+				'email_message' => Option::get(Constant::INQUIRY_EMAIL_MESSAGE)
+			);
 
-		 Mail::send('emails.inquiries.replyto', $data , function ($message) use ($inquiry) {
-				$message->to($inquiry->email, $inquiry->name)->subject('Welcome!');
-			});
+		return View::make('admin.reports.inquiries.settings')
+					->with('data', $data);
+	}
 
-		//if(!$mail) 
-		//{
-			//return Redirect::back()->with('message', 'error sending!');
-		//}
+	public function saveSettings() 
+	{
+		//add validations
+		$data_subject = array(
+				'option_name' => Constant::INQUIRY_EMAIL_SUBJECT,
+				'option_value' => Input::get('email_subject'),
+			);
+		$data_message = array(
+				'option_name' => Constant::INQUIRY_EMAIL_MESSAGE,
+				'option_value' => Input::get('email_message'),	
+			);
+		$email_subject = Option::saveOption($data_subject);
+		$email_message = Option::saveOption($data_message);
 
-		return Redirect::back()->with('message', 'Mail sent!');
+		return Redirect::back();
 	}
 
 }

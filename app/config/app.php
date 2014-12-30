@@ -193,6 +193,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Carbon' 		  => 'Carbon\Carbon',
+		'Constant' 		  => 'Constantine\Constant',
 		'Countries' 	  => 'Webpatser\Countries\CountriesFacade',
 		'GeoIP' 		  => 'Torann\GeoIP\GeoIPFacade',
 		'Analytics' 	  => 'Thujohn\Analytics\AnalyticsFacade'

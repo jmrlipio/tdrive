@@ -15,4 +15,5 @@ class Inquiry extends \Eloquent {
 		'message' => 'required|min:3',
 	];
 
+
 }

@@ -191,6 +191,19 @@ textarea {
 	height:20px;
 }
 
+.sub-nav .dropdown {
+	display: none;
+}
+
+.sub-nav li:hover ul.dropdown {
+  display: block;
+}
+
+.sub-nav .dropdown li {
+	width: 100%;
+	background-color: #888;
+}
+
 .sub-nav {
 	position: fixed;
 	z-index: 10;
