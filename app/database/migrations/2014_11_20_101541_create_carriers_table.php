@@ -16,6 +16,8 @@ class CreateCarriersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('carrier');
+			$table->integer('language_id')->unsigned();
+			$table->foreign('language_id')->references('id')->on('languages');
 			$table->timestamps();
 		});
 	}

@@ -14,10 +14,6 @@ class CarriersController extends \BaseController {
 		$carriers = Carrier::orderBy('carrier')->paginate(10);
 
 		return View::make('admin.carriers.index')->with('carriers', $carriers);
-
-		// $countries = Country::all();
-
-		// dd($countries);
 	}
 
 	/**
@@ -29,12 +25,19 @@ class CarriersController extends \BaseController {
 	public function create()
 	{
 		$countries = [];
+		$languages = [];
+
+		foreach(Language::orderBy('language')->get() as $language) {
+			$languages[$language->id] = $language->language;
+		}
 
 		foreach(Country::orderBy('full_name')->get() as $country) {
 			$countries[$country->id] = $country->full_name;
 		}
 
-		return View::make('admin.carriers.create')->with('countries', $countries);
+		return View::make('admin.carriers.create')
+			->with('countries', $countries)
+			->with('languages', $languages);
 	}
 
 	/**

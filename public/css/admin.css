@@ -37,6 +37,7 @@ form.destroy input[type="submit"] { margin-left: 10px; background: #999; display
 form.destroy input[type="submit"]:hover { background: red; }
 form.login { width: 30%; }
 #login form { margin: 0 auto 0; padding: 20px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+textarea { padding: 5px 10px; }
 
 /* Smaller Forms */
 .small-form { width: 40%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
@@ -300,17 +301,19 @@ textarea {
 	resize: none;
 }
 
-<<<<<<< HEAD
 div#search-box {
 	width: 25%;
 	padding: 5px
 }
+
 div#search-box input{
 	width: 89.5%;
 }
+
 p#generated-password {
 	display: none;
-=======
+}
+
 .select-filter {
 	float: right;
 	margin-bottom: 10px;
@@ -334,5 +337,78 @@ p#generated-password {
 
 .excerpt {
 	height: 100px;
->>>>>>> f12081ec7f658f2432de47eeb7f831b050389f31
+}
+
+.panel-container  ul {
+	list-style: none;
+	padding: 10px;
+}
+
+.panel-container li {
+	padding: 5px 0;
+}
+
+.panel-container li a {
+	text-decoration: none;
+	color: #FF6100;
+}
+
+.panel-container h3 {
+	margin-top: 10px;
+}
+
+#game-content-form {
+	width: 80%;
+	margin-top: 30px !important;
+	padding: 20px;
+	border: 1px solid #fff;
+	margin: 0 auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#game-content-form h3, #game-content-form h4 {
+	text-align: center;
+	padding: 5px;
+}
+
+#game-content-form h4 {
+	font-weight: normal;
+}
+
+#game-content-form input[type=text] {
+	width: 97.5%;
+}
+
+#game-content-form textarea {
+	width: 99%;
+}
+
+.small-text {
+	width: 30% !important;
+}
+
+#prices-form {
+	width: 40%;
+	margin-top: 30px !important;
+	padding: 20px;
+	border: 1px solid #fff;
+	margin: 0 auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#prices-form h3, #prices-form h4 {
+	text-align: center;
+	padding: 5px;
+}
+
+#prices-form h4 {
+	font-weight: normal;
+}
+
+#prices-form input[type=text] {
+	width: 97.5%;
 }

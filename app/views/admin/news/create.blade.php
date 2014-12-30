@@ -16,8 +16,8 @@
 		<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
 		<li class='tab'><a href="#feature-image">Feature Image</a></li>
 	</ul>
-<div class='panel-container'>
-	<ul id="content">
+	<div class='panel-container'>
+		<ul id="content">
 			<li>
 				{{ Form::label('title', 'Title: ') }}
 				{{ Form::text('title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
@@ -49,39 +49,38 @@
 				{{ Form::textarea('content', null, array('id' => 'text-content')) }}
 				{{ $errors->first('content', '<p class="error">:message</p>') }}
 			</li>
+		</ul>
 			
-		</ul>
-		
-		<ul id="custom-fields">
-			<li>
-				{{ Form::label('excerpt', 'Excerpt:') }}
-				{{ Form::textarea('excerpt', null, array('id' => 'text-excerpt')) }}
-				{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
-			</li>
-		</ul>
-		
-		<ul id="feature-image">
-			<li>
-				{{ Form::label('featured-img', 'Featured Image:') }}
-				<div class="img-holder"></div>
-				<p>
-					{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-					{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-					{{ Form::button('Select', array('class' => 'select-img')) }}
-				</p>
-			</li>
+			<ul id="custom-fields">
+				<li>
+					{{ Form::label('excerpt', 'Excerpt:') }}
+					{{ Form::textarea('excerpt', null, array('id' => 'text-excerpt')) }}
+					{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
+				</li>
+			</ul>
 			
-		</ul>
+			<ul id="feature-image">
+				<li>
+					{{ Form::label('featured-img', 'Featured Image:') }}
+					<div class="img-holder"></div>
+					<p>
+						{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
+						{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
+						{{ Form::button('Select', array('class' => 'select-img')) }}
+					</p>
+				</li>
+				
+			</ul>
 
-		<li>
-			{{ Form::submit('Save', array('id' => 'save-news')) }}
-		</li>
+			<li>
+				{{ Form::submit('Save', array('id' => 'save-news')) }}
+			</li>
 
-		<iframe id="form_target" name="form_target" style="display:none"></iframe>
-		<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
-		    <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
-		</form>
-</div>
+			<iframe id="form_target" name="form_target" style="display:none"></iframe>
+			<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
+			    <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
+			</form>
+	</div>
 		{{ Form::hidden('user_id', Auth::user()->id) }}
 	{{ Form::close() }}
 

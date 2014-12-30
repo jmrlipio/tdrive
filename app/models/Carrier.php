@@ -6,7 +6,7 @@ class Carrier extends \Eloquent {
 
 	use TriplePivotTrait;
 	
-	protected $fillable = ['carrier'];
+	protected $fillable = ['carrier','language_id'];
 
 	public static $rules = [
         'carrier' => 'required|min:3|unique:carriers'
