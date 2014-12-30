@@ -19,7 +19,9 @@ class ReportsController extends \BaseController {
 
 	public function adminlogs()
 	{
-		return View::make('admin.reports.adminlogs');
+		$logs = UserLog::all();
+		return View::make('admin.reports.adminLogs.index')
+					->with('logs', $logs);
 	}
 
 	public function visitorlogs()
@@ -27,9 +29,9 @@ class ReportsController extends \BaseController {
 		return View::make('admin.reports.visitorlogs');
 	}
 
-	public function inquiries()
+	/*public function inquiries()
 	{
 		return View::make('admin.reports.inquiries');
-	}
+	}*/
                                                                                                             
 }

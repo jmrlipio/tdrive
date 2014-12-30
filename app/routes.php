@@ -36,6 +36,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('languages', 'LanguagesController');
     Route::resource('carriers', 'CarriersController');
     Route::resource('faqs', 'FaqsController');
+    
     Route::resource('siteoptions', 'SiteOptionsController');
     Route::get('reports', array('as' => 'admin.reports.index', 'uses' => 'ReportsController@index'));
     Route::get('reports/sales', array('as' => 'admin.reports.sales', 'uses' => 'ReportsController@sales'));
@@ -45,6 +46,17 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('reports/inquiries', array('as' => 'admin.reports.inquiries', 'uses' => 'ReportsController@inquiries'));
     Route::post('media/upload', array('as' => 'media.upload', 'uses' => 'MediaController@postUpload'));
     // Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
+   
+    Route::group(array('prefix' => 'reports', 'before' => 'reports'), function(){
+        
+        Route::post('inquiries/{id?}/reply', array('as' => 'admin.reports.inquiries.reply', 'uses' => 'InquiriesController@reply'));
+        Route::get('inquiries/settings', array('as' => 'admin.reports.inquiries.settings', 'uses' => 'InquiriesController@settings'));
+        Route::post('inquiries/settings/save', array('as' => 'admin.reports.inquiries.save-settings', 'uses' => 'InquiriesController@saveSettings'));
+        Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit')));
+
+
+    });
+
 });
 
 /** 
@@ -93,3 +105,4 @@ Route::group(array('before' => 'auth'), function(){
         echo $na->title;
     }
 });*/
+

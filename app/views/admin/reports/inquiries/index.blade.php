@@ -17,7 +17,7 @@
 					<td>
 						<a href="#">{{ $inquiry->email }}</a>
 						<ul class="actions">
-							<li><a href="">View</a></li>
+							<li><a href="{{ URL::route('admin.reports.inquiries.show', $inquiry->id) }}">View</a></li>
 							<li>
 								{{ Form::open(array('route' => array('admin.reports.inquiries.destroy', $inquiry->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
