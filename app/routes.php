@@ -58,8 +58,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
         Route::get('inquiries/settings', array('as' => 'admin.reports.inquiries.settings', 'uses' => 'InquiriesController@settings'));
         Route::post('inquiries/settings/save', array('as' => 'admin.reports.inquiries.save-settings', 'uses' => 'InquiriesController@saveSettings'));
         Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit')));
-
-
     });
 
 });
