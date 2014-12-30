@@ -260,7 +260,7 @@ class AdminGamesController extends \BaseController {
 			}
 	    }
 
-		return View::make('admin.games.content.index')
+		return View::make('admin.games.content')
 			->with('game', $game)
 			->with('language_id', $language_id)
 			->with('language', $language)
@@ -282,5 +282,39 @@ class AdminGamesController extends \BaseController {
 		$game->contents()->attach($language_id, array('title' => Input::get('title'), 'content' => Input::get('content'), 'excerpt' => Input::get('excerpt')));
 
 		return Redirect::back()->with('message', 'You have successfully updated this game content');
+	}
+
+	public function getPriceContent($id, $carrier_id) {
+		$game = Game::find($id);
+		$carrier = Carrier::find($carrier_id);
+		$countries = Country::all();
+		$prices = [];
+
+		foreach($game->prices as $price) {
+			if($price->pivot->carrier_id == $carrier_id) {
+				$prices[$price->pivot->country_id] = $price->pivot->price;
+			}
+	    }
+
+	    $carrier = Carrier::find($carrier_id);
+
+		$selected_countries = [];
+
+		foreach($carrier->countries as $country) {
+			$selected_countries[$country->id] = $country->currency_code;
+		}
+
+	    return View::make('admin.games.price')
+	    	->with('game', $game)
+	    	->with('countries', $countries)
+	    	->with('selected_countries', $selected_countries)
+	    	->with('prices', $prices)
+	    	->with('carrier', $carrier);
+	}
+
+	public function updatePriceContent() {
+		echo '<pre>';
+		dd(Input::all());
+		echo '</pre>';
 	}
 }

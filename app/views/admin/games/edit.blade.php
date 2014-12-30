@@ -91,8 +91,14 @@
 						@endforeach
 					</ul>
 				</ul>
-				<br>
-				<ul id="prices"></ul>
+				<ul id="prices">
+					<h3>Set Prices for the following carriers:</h3>
+					@foreach($carriers as $carrier_id => $carrier)
+						@if(in_array($carrier_id, $selected_carriers))
+							<li><a href="{{ URL::route('admin.games.edit.prices', array('game_id' => $game->id, 'carrier_id' => $carrier_id)) }}">{{ $carrier }}</a></li>
+						@endif
+					@endforeach
+				</ul>
 
 				<ul id="media">
 					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post')) }}

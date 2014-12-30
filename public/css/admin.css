@@ -325,21 +325,21 @@ p#generated-password {
 	height: 100px;
 }
 
-#game-content  ul {
+.panel-container  ul {
 	list-style: none;
 	padding: 10px;
 }
 
-#game-content li {
+.panel-container li {
 	padding: 5px 0;
 }
 
-#game-content li a {
+.panel-container li a {
 	text-decoration: none;
 	color: #FF6100;
 }
 
-#game-content h3 {
+.panel-container h3 {
 	margin-top: 10px;
 }
 
