@@ -4,7 +4,7 @@
 	
 	{{ Form::open(array('route' => array('admin.games.edit.content', $game->id, $language_id), 'method' => 'post', 'id' => 'game-content-form')) }}
 		<h3>{{ $game->main_title }}</h3>
-		<p>{{ $language->language }} Content</p>
+		<h4>{{ $language->language }} Content</h4>
 		@if(Session::has('message'))
 		    <div class="flash-success">
 		        <p>{{ Session::get('message') }}</p>

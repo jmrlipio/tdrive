@@ -37,6 +37,7 @@ form.destroy input[type="submit"] { margin-left: 10px; background: #999; display
 form.destroy input[type="submit"]:hover { background: red; }
 form.login { width: 30%; }
 #login form { margin: 0 auto 0; padding: 20px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+textarea { padding: 5px 10px; }
 
 /* Smaller Forms */
 .small-form { width: 40%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
@@ -354,9 +355,13 @@ p#generated-password {
 	border-radius: 5px;
 }
 
-#game-content-form h3, #game-content-form p {
+#game-content-form h3, #game-content-form h4 {
 	text-align: center;
 	padding: 5px;
+}
+
+#game-content-form h4 {
+	font-weight: normal;
 }
 
 #game-content-form input[type=text] {
@@ -365,4 +370,32 @@ p#generated-password {
 
 #game-content-form textarea {
 	width: 99%;
+}
+
+.small-text {
+	width: 30% !important;
+}
+
+#prices-form {
+	width: 40%;
+	margin-top: 30px !important;
+	padding: 20px;
+	border: 1px solid #fff;
+	margin: 0 auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#prices-form h3, #prices-form h4 {
+	text-align: center;
+	padding: 5px;
+}
+
+#prices-form h4 {
+	font-weight: normal;
+}
+
+#prices-form input[type=text] {
+	width: 97.5%;
 }

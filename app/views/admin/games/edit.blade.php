@@ -17,7 +17,6 @@
 				<li class='tab'><a href="#details">Details</a></li>
 				<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
 				<li class='tab'><a href="#game-content">Game Content</a></li>
-				<li class='tab'><a href="#prices">Prices</a></li>
 				<li class='tab'><a href="#media">Media</a></li>
 			</ul>
 			<div class='panel-container'>	
@@ -82,7 +81,7 @@
 					{{ Form::close() }}
 				</ul>
 				<ul id="game-content">
-					<h3>Set Content for the following languages:</h3>
+					<h3>The game has content for the following languages:</h3>
 					<ul>
 						@foreach($languages as $language_id => $language)
 							@if(in_array($language_id, $selected_languages))
@@ -90,14 +89,15 @@
 							@endif
 						@endforeach
 					</ul>
-				</ul>
-				<ul id="prices">
-					<h3>Set Prices for the following carriers:</h3>
-					@foreach($carriers as $carrier_id => $carrier)
-						@if(in_array($carrier_id, $selected_carriers))
-							<li><a href="{{ URL::route('admin.games.edit.prices', array('game_id' => $game->id, 'carrier_id' => $carrier_id)) }}">{{ $carrier }}</a></li>
-						@endif
-					@endforeach
+					<br>
+					<h3>The game has prices for the following carriers:</h3>
+					<ul>
+						@foreach($carriers as $carrier_id => $carrier)
+							@if(in_array($carrier_id, $selected_carriers))
+								<li><a href="{{ URL::route('admin.games.edit.prices', array('game_id' => $game->id, 'carrier_id' => $carrier_id)) }}">{{ $carrier }}</a></li>
+							@endif
+						@endforeach
+					</ul>
 				</ul>
 
 				<ul id="media">

@@ -129,6 +129,8 @@ class AdminGamesController extends \BaseController {
 		$game->carriers()->sync(Input::get('carrier_id'));
 		$game->categories()->sync(Input::get('category_id'));
 		$game->languages()->sync(Input::get('language_id'));
+
+		return Redirect::back()->with('message', 'You have successfully updated the game fields.');
 	}
 
 	public function updateMedia($id)
@@ -193,8 +195,6 @@ class AdminGamesController extends \BaseController {
 		$categories = [];
 		$languages = [];
 		$carriers = [];
-		$prices = [];
-		$contents = [];
 
 		foreach(Category::orderBy('category')->get() as $category) {
 			$categories[$category->id] = $category->category;
@@ -208,28 +208,6 @@ class AdminGamesController extends \BaseController {
 			$carriers[$carrier->id] = $carrier->carrier;
 		}
 
-		$count = 0;
-
-		foreach($game->prices as $price) {
-			$prices[$count]['country_id'] = $price->pivot->country_id;
-			$prices[$count]['carrier_id'] = $price->pivot->carrier_id;
-			$prices[$count]['price'] = $price->pivot->price;
-			$selected_countries[] = $price->pivot->country_id;
-			$count++;
-	    }
-
-	    $count = 0;
-
-	    foreach($game->contents as $content) {
-	    	$contents[$count]['language_id'] = $content->pivot->language_id;
-	    	$contents[$count]['title'] = $content->pivot->title;
-	    	$contents[$count]['content'] = $content->pivot->content;
-	    	$contents[$count]['excerpt'] = $content->pivot->excerpt;
-	    	$count++;
-	    }
-
-	    $countries = Country::find($selected_countries);
-
 		return View::make('admin.games.edit')
 			->with('game', $game)
 			->with('selected_categories', $selected_categories)
@@ -238,10 +216,7 @@ class AdminGamesController extends \BaseController {
 			->with('selected_carriers', $selected_carriers)
 			->with('categories', $categories)
 			->with('languages', $languages)
-			->with('carriers', $carriers)
-			->with('prices', $prices)
-			->with('countries', $countries)
-			->with('contents', $contents);
+			->with('carriers', $carriers);
 	}
 
 	public function getLanguageContent($id, $language_id) {
@@ -312,9 +287,16 @@ class AdminGamesController extends \BaseController {
 	    	->with('carrier', $carrier);
 	}
 
-	public function updatePriceContent() {
-		echo '<pre>';
-		dd(Input::all());
-		echo '</pre>';
+	public function updatePriceContent($id, $carrier_id) {
+		$game = Game::find($id);
+		$carrier = Carrier::find($carrier_id);
+
+		$game->prices()->detach($carrier_id);
+
+		foreach(Input::get('prices') as $country_id => $price) {
+			$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
+		}
+
+		return Redirect::back()->with('message', 'You have successfully updated this game content');
 	}
 }
