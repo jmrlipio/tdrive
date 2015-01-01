@@ -1,4 +1,4 @@
-.three-columns > .row > div, .four-columns > .row > div, #side-menu, #side-menu .search input {
+#side-menu, #side-menu .search input {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -136,20 +136,6 @@ img.auto, video.auto {
 }
 .ajax-loader i {
   color: #fff;
-}
-
-.three-columns > .row > div {
-  width: 33.3333333%;
-  float: left;
-  padding: 0 10px;
-  margin-bottom: 20px;
-}
-
-.four-columns > .row > div {
-  width: 25%;
-  float: left;
-  padding: 0 10px;
-  margin-bottom: 20px;
 }
 
 .center {

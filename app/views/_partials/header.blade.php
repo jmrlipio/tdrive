@@ -22,7 +22,7 @@
 
 <body id="{{ $page_id }}">
 
-	@include('partials/side_menu')
+	@include('_partials/side_menu')
 
 	<div id="container">
 

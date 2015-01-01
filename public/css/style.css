@@ -1,4 +1,4 @@
-#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div {
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -362,7 +362,7 @@
     height: auto;
   }
 }
-#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div {
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -829,7 +829,7 @@
     width: 93%;
   }
 }
-#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div {
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -938,5 +938,89 @@
   }
   #news-detail #featured {
     margin-top: 40px;
+  }
+}
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#game-listing {
+  background: #61ded0;
+  color: #fff;
+}
+#game-listing #nav-toggle, #game-listing #side-menu {
+  display: none;
+}
+#game-listing #back {
+  display: block;
+  margin-top: 10px;
+}
+#game-listing .grid > .row > div {
+  width: 33.3333333%;
+  float: left;
+  padding: 0 5px;
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+  position: relative;
+}
+#game-listing .grid .thumb {
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 5px;
+}
+#game-listing .grid .thumb img {
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+}
+#game-listing .grid .meta {
+  margin: 10px 0 0;
+  font-size: 14px;
+  height: 38px;
+  text-align: center;
+  text-transform: none;
+}
+#game-listing .grid .button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+@media only screen and (min-width: 415px) {
+  #game-listing .grid > .row > div {
+    width: 25%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  #game-listing #back {
+    margin-top: 12px;
+  }
+}
+@media only screen and (min-width: 640px) {
+  #game-listing .grid > .row > div {
+    width: 20%;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #game-listing #back {
+    margin-top: 15px;
+  }
+  #game-listing .grid .thumb {
+    -webkit-border-radius: 22px;
+    border-radius: 22px;
+    background-clip: padding-box;
+    padding: 10px;
+  }
+  #game-listing .grid .thumb img {
+    -webkit-border-radius: 22px;
+    border-radius: 22px;
+    background-clip: padding-box;
   }
 }

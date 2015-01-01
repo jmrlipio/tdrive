@@ -6,4 +6,4 @@
 
 </div><!-- end #content -->
 
-@include('partials/footer')
+@include('_partials/footer')

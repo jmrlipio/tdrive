@@ -3,6 +3,7 @@
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
+Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGameCategories'));
 
 Route::get('path', function(){
     return public_path();

@@ -1,4 +1,4 @@
-@extends('layouts/default')
+@extends('_layouts/default')
 
 @section('stylesheets')
 	{{ HTML::style("css/lightSlider.css"); }}
@@ -28,7 +28,7 @@
 								</div>
 
 								<div class="go">
-									<div class="vhparent"><a href="#" class="vhcenter hide-text">Go</a></div>
+									<div class="vhparent"><a href="{{ route('game.show', $game->id) }}" class="vhcenter hide-text">Go</a></div>
 								</div>
 							</div>
 						</li>
@@ -76,7 +76,7 @@
 	<div id="memory-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Brain and Puzzle</h2>
-			<div class="more fr"><a href="#">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 1) }}">More +</a></div>
 		</div>
 
 		<div class="items">
@@ -110,7 +110,7 @@
 	<div id="casual-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Casual</h2>
-			<div class="more fr"><a href="#">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 2) }}">More +</a></div>
 		</div>
 
 		<div class="items">
@@ -144,7 +144,7 @@
 	<div id="arcade-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Arcade</h2>
-			<div class="more fr"><a href="#">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 3) }}">More +</a></div>
 		</div>
 
 		<div class="items">
@@ -178,7 +178,7 @@
 	<div id="card-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Cards and Casino</h2>
-			<div class="more fr"><a href="#">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 4) }}">More +</a></div>
 		</div>
 
 		<div class="items">
@@ -212,7 +212,7 @@
 	<div id="classic-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Classic</h2>
-			<div class="more fr"><a href="#">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 5) }}">More +</a></div>
 		</div>
 
 		<div class="items">
@@ -246,7 +246,7 @@
 	<div id="sanrio-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Sanrio</h2>
-			<div class="more fr"><a href="#">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 6) }}">More +</a></div>
 		</div>
 
 		<div class="items">
