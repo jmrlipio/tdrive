@@ -1,4 +1,4 @@
-@include('partials/header')
+@include('_partials/header')
 
 <div id="content">
 	
