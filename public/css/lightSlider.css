@@ -149,16 +149,19 @@
 .lSAction > a {
     width: 32px;
     display: block;
-    top: 45%;
+    top: 50%;
     height: 32px;
-    background-image: url('../images/sprite-slider-controls.png');
+    background-image: url('../img/controls.png');
     cursor: pointer;
     position: absolute;
     z-index: 9999;
     margin-top: -16px;
+    opacity: 0.5;
+    -webkit-transition: opacity 0.35s linear 0s;
+    transition: opacity 0.35s linear 0s;
 }
 .lSAction > a:hover {
-    /*opacity: 1;*/
+    opacity: 1;
 }
 .lSAction > .lSPrev {
     background-position: 0 0;
@@ -177,6 +180,7 @@
     filter: alpha(opacity=0);
     overflow: hidden;
 }
+
 
 /* vertical */
 .lSSlideOuter.vertical {
@@ -349,14 +353,4 @@
     -webkit-animation: rightEnd 0.3s;
     animation: rightEnd 0.3s;
     position: relative;
-}
-
-@media only screen and (min-width: 768px) {
-
-	.lSAction > a { top: 50%; }
-
-	.lSAction > .lSPrev { left: 20px; }
-
-	.lSAction > .lSNext { right: 20px; }
-
 }

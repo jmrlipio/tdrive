@@ -1,0 +1,467 @@
+@import "utilities";
+@import "config";
+
+#home {
+	background: $bluegray;
+
+	#slider {
+		margin-top: 10px;
+	}
+
+	#content {
+		text-transform: none;
+	}
+
+	.lSSlideOuter .lSPager.lSpg > li a {
+		background: $pear;
+		width: 12px;
+		height: 12px;
+	}
+
+	.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {
+		background: $orange;
+	}
+
+	.slider-item {
+		.details {
+			position: relative;
+		}
+
+		.date {
+			background: $orange;
+			position: absolute;
+			z-index: 3;
+			left: 0;
+			top: 0;
+			width: 50px;
+			text-align: center;
+			text-transform: lowercase;
+
+			> div {
+				height: 50px;
+			}
+		}
+
+		.description {
+			background: $pear;
+			z-index: 1;
+			padding-left: 60px;
+			padding-right: 30px;
+			text-transform: none;
+
+			> div {
+				height: 50px;
+			}
+		}
+
+		.go {
+			background: $orange;
+			position: absolute;
+			z-index: 2;
+			right: 0;
+			top: 0;
+			width: 10px;
+			padding: 0 5px 0 6px;
+
+			> div {
+				height: 50px;
+			}
+
+			a {
+				background: url(../images/go.png) center center no-repeat;
+				width: 10px;
+				height: 22px;
+				display: block;
+			}
+		}
+	}
+
+	.lSSlideOuter .lSPager.lSpg {
+		padding: 5px 0 10px;
+	}
+
+	.lSSlideOuter .lSPager.lSpg > li a {
+		background: $pear;
+	}
+
+	.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {
+		background: $orange;
+	}
+
+	.thumb {
+		@extend %box-sizing;
+		@include border-radius(16px);
+		padding: 6px;
+		background: rgba(0, 0, 0, .1);
+		margin: 0 5px;
+
+		img {
+			@include border-radius(16px);
+		}
+	}
+
+	.meta {
+		text-align: center;
+		margin: 10px 0;
+		height: 57px;
+	}
+
+	#latest-games {
+		background: $bluegray;
+		color: $white;
+		border-bottom: 4px solid $pink;
+	}
+
+	#games-heading {
+		background: #61ded0;
+
+		h1.title {
+			padding-bottom: 0;
+			color: $white;
+		}
+	}
+
+	.game-category, #news {
+		color: $white;
+		background: #61ded0;
+	}
+
+
+	.game-category {
+		> div.clearfix {
+			.more {
+				padding: 10px 0;
+			}
+		}
+
+		.slick-slider {
+			margin-bottom: 0;
+			padding-bottom: 10px;
+		}
+	}
+
+	#news {
+		background: #eecf3f;
+		border-top: 4px solid $pink;
+		border-bottom: 4px solid $pink;
+
+		h1.title {
+			float: left;
+		}
+
+		select {
+			margin: 18px 0 0;
+			float: right;
+		}
+
+		.top {
+			> div {
+				position: relative;
+				margin-bottom: 10px;
+				@extend %box-sizing;
+			}
+
+			.date {
+				position: absolute;
+				top: 0;
+				left: 0;
+				text-align: center;
+				text-transform: lowercase;
+				
+				> div {
+					width: 50px;
+					height: 50px;
+					background: $pink;
+					color: $white;
+				}
+
+				span {
+					display: block;
+				}
+			}
+
+			.details {
+				background: #f2bf38;
+				padding: 10px;
+			}
+
+			.readmore {
+				background: #f2bf38;
+				text-transform: lowercase;
+
+				a {
+					float: right;
+					display: block;
+					background: $pink;
+					color: $white;
+					padding: 4px 6px;
+				}
+			}
+		}
+
+		.bottom {
+			clear: both;
+
+			> div {
+				position: relative;
+				margin-bottom: 10px;
+
+				.date {
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 50px;
+					height: 50px;
+					z-index: 8;
+					text-transform: lowercase;
+
+					> div {
+						background: $pink;
+						color: $white;
+						height: 100%;
+						text-align: center;
+					}
+				}
+
+				.details {
+					text-transform: none;
+					height: 50px;
+
+					> div {
+						position: relative;
+						background: #f2bf38;
+						padding: 0;
+						height: 100%;
+
+						> div {
+							padding-left: 62px;
+							padding-right: 26px;
+						}
+					}
+
+					h3 {
+						font-size: 12px;
+					}
+
+					p {
+						font-size: 12px;
+					}
+				}
+
+				.readmore {
+					position: absolute;
+					right: 0;
+					top: 0;
+					width: 15px;
+					height: 50px;
+					z-index: 7;
+
+					> div {
+						position: relative;
+						height: 100%;
+						background: $pink;
+
+						i {
+							color: $white;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#faqs {
+		background: #a1c82a;
+		border-bottom: 4px solid $pink;
+		color: $white;
+
+		#questions {
+			padding: 10px 0;
+		}
+
+		.ui-accordion .ui-accordion-header {
+			font-size: 16px !important;
+			color: #fff;
+			background: rgba(0, 0, 0, .1) url(../images/faq.png) 10px center no-repeat;
+			outline: 0;
+		}
+
+		.ui-accordion .ui-accordion-icons { 
+			padding-left: 50px; 
+		}
+
+		.ui-accordion .ui-accordion-content { 
+			padding: 0px 10px 10px 50px; 
+		}
+
+		.ui-widget-content {
+			background: rgba(0, 0, 0, .1);
+			color: #fff;
+			font-size: 16px;
+			border: 0;
+		}
+
+		.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+			border: 0;
+			background: rgba(0, 0, 0, .1);
+			font-weight: normal;
+			color: #fff;
+			font-size: 30px;
+		}
+	}
+
+	#contact {
+		border-bottom: 4px solid $pink;
+		background: #e47564;
+		color: $white;
+
+		form {
+			padding-bottom: 10px;
+		}
+
+		label {
+			display: block;
+			position: absolute;
+			text-transform: lowercase;
+			left: 0;
+			top: 5px;
+			line-height: 26px;
+			background: $pink;
+			text-align: center;
+			width: 100px;
+			@extend %box-sizing;
+		}
+
+		.control {
+			position: relative;
+			margin-top: 10px;
+
+			&:last-child {
+				margin-top: 0;
+				background: $white;
+				margin-left: 1%;
+				width: 99%;
+			}
+		}
+
+		input[type="text"], input[type="email"] {
+			padding: 18px 6px;
+			height: 26px;
+			padding-left: 105px;
+			margin-left: 1%;
+			width: 99%;
+			@extend %box-sizing;
+		}
+
+		textarea {
+			padding: 36px 6px 4px;
+			min-height: 100px;
+			width: 99%;
+			margin-left: 1%;
+			@extend %box-sizing;
+		}
+
+		input[type="submit"] {
+			text-transform: lowercase;
+			float: right;
+			background: $pink;
+			color: $white;
+			padding: 4px 6px;
+		}
+	}	
+
+	#footer {
+		display: block;
+	}
+}
+
+@media only screen and (min-width: 480px) {
+
+	#home {
+		.meta {
+			height: auto;
+		}
+
+		#news {
+			.bottom {
+				> div {
+					.details {
+						h3 {
+							font-size: 16px;
+						}
+
+						p {
+							font-size: 16px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 600px) {
+
+	#home {
+
+		#news {
+			.top {
+				margin-bottom: 10px;
+
+				> div {
+					margin-bottom: 0;
+					float: left;
+					width: 50%;
+
+					&:first-child {
+						padding-right: 5px;
+					}
+
+					&:last-child {
+						padding-left: 5px;
+
+						.date {
+							left: 5px;
+						}
+					}
+
+					.details {
+						height: 76px;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 800px) {
+
+	#home {
+		#slider {
+			margin-top: 40px;
+		}
+
+		.lSSlideOuter .lSPager.lSpg > li a {
+			width: 20px;
+			height: 20px;
+		}
+
+		.thumb {
+			@include border-radius(22px);
+			padding: 10px;
+
+			img {
+				@include border-radius(22px);
+			}
+		}
+
+		#latest-games {
+			.meta {
+				height: auto;
+			}
+		}
+	}
+
+}

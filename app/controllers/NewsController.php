@@ -62,6 +62,19 @@ class NewsController extends \BaseController {
 			->with('selected', $selected_year);
     }
 
+	public function show($id) {
+		$languages = Language::all();
+
+		$news = News::find($id);
+
+		$page_title = $news->main_title;
+
+		return View::make('news')
+			->with('page_title', $page_title)
+			->with('page_id', 'news-detail')
+			->with(compact('news'))
+			->with(compact('languages'));
+	}
 
 	/**
 	 * Display a listing of the resource.

@@ -1,0 +1,659 @@
+@import "utilities";
+@import "config";
+
+html, button, input, select, textarea { 
+	color: $black; 
+}
+
+button, input, select, textarea { 
+	border: 0; 
+	outline: 0; 
+}
+
+audio, canvas, img, video, input[type="radio"], input[type="checkbox"] {
+	vertical-align: middle;
+}
+
+textarea {
+	resize: vertical;
+}
+
+a {
+	text-decoration: none;
+	color: $black;
+}
+
+h1, h2, h3, h4, p {
+	margin: 0;
+}
+
+h1 {
+	font-size: 26px;
+}
+
+h2 {
+	font-size: 22px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+::-moz-selection {
+	background: #b3d4fc;
+	text-shadow: none;
+}
+
+::selection {
+	background: #b3d4fc;
+	text-shadow: none;
+}
+
+@font-face {
+	font-family: "opensans_regular";
+	src: url("../fonts/opensans_regular/OpenSans-Regular-webfont.eot");
+	src: url("../fonts/opensans_regular/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans_regular/OpenSans-Regular-webfont.woff") format("woff"), url("../fonts/opensans_regular/OpenSans-Regular-webfont.ttf") format("truetype"), url("../fonts/opensans_regular/OpenSans-Regular-webfont.svg#opensans_regular") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	font: 16px/1.2 opensans_regular, Arial, sans-serif;
+	text-transform: lowercase;
+}
+
+img, video {
+	width: 100%;
+	height: auto;
+
+	&.auto {
+		width: auto;
+	}
+}
+
+.tablet {
+	display: none;
+}
+
+.container {
+	max-width: 1024px;
+	margin: 0 auto;
+	padding: 0 10px;
+}
+
+.title {
+	padding: 10px 0;
+	text-transform: lowercase;
+}
+
+.date {
+	line-height: 1;
+}
+
+.link {
+	text-align: center;
+	margin: 20px 0;
+
+	a {
+		display: inline-block;
+		color: $pink;
+	}
+}
+
+.button {
+	text-align: center;
+	text-transform: lowercase;
+
+	a {
+		background: $pink;
+		color: $white;
+		padding: 4px 6px;
+		display: inline-block;
+	}
+}
+
+.more {
+	overflow: hidden;
+	text-transform: lowercase;
+
+	a {
+		background: $pink;
+		color: $white;
+		padding: 4px 6px;
+		display: inline-block;
+		float: right;
+	}
+}
+
+.ajax-loader {
+	padding: 10px 0;
+	color: $white;
+	display: none;
+
+	i {
+		color: $white;
+	}
+}
+
+.center {
+	text-align: center;
+}
+
+.vcenter {
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.vhcenter {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.vparent, .vhparent {
+	position: relative;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clearfix {
+	*zoom: 1;
+
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+.hide-text {
+	font: 0 / 0 a;
+	text-shadow: none;
+	color: transparent;
+}
+
+#side-menu {
+	@extend %box-sizing;
+	padding: 10px;
+
+	.top {
+		background: $lightblue;
+		text-align: center;
+		padding: 4px 0;
+
+		ul {
+			display: inline-block;
+			overflow: hidden;
+		}
+
+		li {
+			float: left;
+
+			&:first-child {
+				margin-right: 10px;
+			}
+
+			&:last-child {
+				border-left: 1px solid $white;
+				padding-left: 10px;
+			}
+		}
+
+		a {
+			color: $white;
+			display: block;
+			height: 20px;
+		}
+	}
+
+	.search {
+		margin-top: 10px;
+		padding: 3px 6px;
+		border: 1px solid #ddd;
+		position: relative;
+
+		input {
+			@extend %box-sizing;
+			width: 100%;
+			padding-right: 20px;
+		}
+
+		a {
+			position: absolute;
+			right: 6px;
+			top: 5px;
+
+			i {
+				color: $black;
+			}
+		}
+	}
+
+	.language {
+		margin-top: 10px;
+		border: 1px solid #ddd;
+		padding: 3px;
+
+		select {
+			width: 100%;
+		}
+	}
+
+	.menu {
+		margin-top: 10px;
+
+		a {
+			color: $white;
+			display: block;
+			font-size: 20px;
+			padding: 40px 10px 5px 0;
+			text-align: right;
+
+			&.menu-games {
+				background: $lightblue url(../images/mobile-games.png) -10px -10px no-repeat;
+			}
+
+			&.menu-news {
+				background: $yellow url(../images/mobile-news.png) -5px -6px no-repeat;
+			}
+
+			&.menu-faqs {
+				background: $green url(../images/mobile-faqs.png) -5px -5px no-repeat;
+			}
+
+			&.menu-contact {
+				background: $lightred url(../images/mobile-contact.png) -18px -18px no-repeat;
+			}
+		}
+	}
+
+	.social {
+		margin-top: 10px;
+
+		li {
+			margin-bottom: 5px;
+			line-height: 32px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		a {
+			color: $black;
+			display: block;
+
+			&.facebook i {
+				background: #0086dd;
+			}
+
+			&.twitter i {
+				background: #22daff;
+			}
+
+			&.support i {
+				background: #e43c49;
+			}
+		}
+
+		span {
+			display: inline-block;
+			padding-left: 5px;
+		}
+
+		i {
+			@include border-radius(4px);
+			color: $white;
+			width: 32px;
+			line-height: 32px;
+			text-align: center;
+			float: left;
+			font-size: 20px;
+		}
+	}
+
+	.copyright {
+		margin-top: 10px;
+		text-transform: none;
+
+		ul {
+			overflow: hidden;
+		}
+
+		li {
+			float: left;
+			
+			&:first-child {
+				margin-right: 10px;
+			}
+
+			&:last-child {
+				border-left: 1px solid $pink;
+				padding-left: 10px;
+			}
+		}
+
+		p {
+			a {
+				display: inline;
+			}
+		}
+	}
+}
+
+#nav-toggle, #back {
+	margin-top: 12px;
+	margin-right: 12px;
+	display: block;
+	float: left;
+
+	i {
+		font-size: 26px;
+		color: $white;
+	}
+}
+
+#tdrive {
+	float: left;
+	padding: 4px 0;
+}
+
+#tose {
+	float: right;
+	padding-top: 2px;
+	display: block;
+}
+
+#back {
+	display: none;
+}
+
+#header {
+	background: $red;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 10;
+}
+
+#content {
+	padding-top: 50px;
+}
+
+#footer {
+	padding: 10px 0;
+	background: #f4f4f4;
+	display: none;
+
+	.social {
+		li {
+			margin-bottom: 5px;
+			line-height: 32px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		a {
+			color: $black;
+			display: block;
+
+			&.facebook i {
+				background: #0086dd;
+			}
+
+			&.twitter i {
+				background: #22daff;
+			}
+
+			&.support i {
+				background: #e43c49;
+			}
+		}
+
+		span {
+			display: inline-block;
+			padding-left: 5px;
+		}
+
+		i {
+			@include border-radius(4px);
+			color: $white;
+			width: 32px;
+			line-height: 32px;
+			text-align: center;
+			float: left;
+			font-size: 20px;
+		}
+	}
+
+	.copyright {
+		margin-top: 10px;
+		text-transform: none;
+
+		ul {
+			overflow: hidden;
+		}
+
+		a {
+			color: $pink;
+		}
+
+		li {
+			float: left;
+			
+			&:first-child {
+				margin-right: 10px;
+			}
+
+			&:last-child {
+				border-left: 1px solid $pink;
+				padding-left: 10px;
+			}
+		}
+
+		p {
+			a {
+				display: inline;
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: 213px) and (max-width: 300px) {
+
+	#tose {
+		display: none;
+	}
+
+}
+
+@media only screen and (min-width: 415px) {
+
+	#footer {
+		.container {
+			overflow: hidden;
+		}
+
+		.social {
+			overflow: hidden;
+			float: right;
+
+			li {
+				margin-bottom: 0;
+				margin-right: 5px;
+				float: left;
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+
+			a {
+				@include border-radius(4px);
+				padding-right: 10px;
+				color: $white;
+
+				&.facebook {
+					background: #0086dd;
+				}
+
+				&.twitter {
+					background: #22daff;
+				}
+
+				&.support {
+					background: #e43c49;
+				}
+			}
+
+			span {
+				display: inline-block;
+				padding-left: 0;
+			}
+		}
+
+		.copyright {
+			clear: both;
+			text-align: right;
+			overflow: hidden;
+
+			ul {
+				margin-top: 10px;
+				float: right;
+			}
+
+			p {
+				clear: both;
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 800px) {
+
+	.mobile, #nav-toggle, #side-menu {
+		display: none;
+	}
+
+	.container {
+		padding: 0 40px;
+	}
+
+	.tablet {
+		display: block;
+
+		.menu {
+			margin: 0 20px;
+			overflow: hidden;
+
+			li {
+				margin-right: 5px;
+				float: left;
+
+				&:last-child { margin-right: 0; }
+			}
+
+			a {
+				width: 70px;
+				padding: 45px 0 5px;
+				font-size: 16px;
+				display: block;
+				color: $white;
+				text-align: center;
+
+				&.menu-games {
+					background: #57d9cd url(../images/tablet-games.png) 4px top no-repeat;
+				}
+
+				&.menu-news {
+					background: #ffdf00 url(../images/tablet-news.png) center -6px no-repeat;
+				}
+
+				&.menu-faqs {
+					background: #a0c82a url(../images/tablet-faqs.png) right -5px no-repeat;
+				}
+
+				&.menu-contact {
+					background: #ff8866 url(../images/tablet-contact.png) center top no-repeat;
+				}
+			}
+		}
+
+		.top {
+			margin: 10px 0 5px;
+
+			ul {
+				display: inline-block;
+				overflow: hidden;
+			}
+
+			li {
+				float: left;
+
+				&:first-child {
+					margin-right: 10px;
+				}
+
+				&:last-child {
+					border-left: 1px solid $white;
+					padding-left: 10px;
+				}
+			}
+
+			a {
+				color: $white;
+				display: block;
+				height: 20px;
+			}
+		}
+	}
+
+	#header {
+		position: static;
+	}
+
+	#nav-toggle, #back {
+		margin-top: 18px;
+		margin-right: 18px;
+
+		i {
+			font-size: 36px;
+		}
+	}
+
+	#tdrive {
+		padding: 13px 0;
+	}
+
+	#tose {
+		padding-top: 12px;
+	}
+
+	#content {
+		padding-top: 0;
+	}
+
+}

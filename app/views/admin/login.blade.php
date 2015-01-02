@@ -1,4 +1,4 @@
-@include('_partials.header2')
+@include('admin._partials.header2')
     <div id="login">
         {{ Form::open(array('route' => 'admin.login.post', 'class' => 'login')) }}
             <h2>Please login</h2>

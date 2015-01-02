@@ -1,155 +1,481 @@
-@extends('_layouts.default')
-@section('content')
+@extends('_layouts/default')
 
-<div id="sb-site">
-
-    <div class="content-main">
-        <div class="container nopadding">
-
-            <ul id="slider-main" class="content-slider">
-
-                <li class="slider-item">
-                    {{ HTML::image('images/slider/lode-runner.jpg', 'Lode Runner') }}
-
-                    <div class="details clearfix">
-                        <p class="date">13 <span>Nov</span></p>
-                        <p class="description">Lode Runner is Back!</p>
-                        <p class="go"><a href="#"> {{ HTML::image('images/readmore.png', 'Read more') }} </a></p>                           
-                    </div>
-                </li>
-
-               <li class="slider-item">
-                  {{ HTML::image('images/slider/lode-runner.jpg', 'Lode Runner') }}
-               
-                   <div class="details clearfix">
-                       <p class="date">25 <span>Dec</span></p>
-                       <p class="description">Lode Runner is Back to Back!</p>
-                       <p class="go"><a href="#"> {{ HTML::image('images/readmore.png', 'Read more') }} </a></p>
-                   </div>
-               </li>
-
-            </ul>
-        </div>
-
-        <div class="container">
-            <h2>New and updated games</h2>
-        </div>
-
-        <div class="container">
-            <div id="container-scroll">
-                <div class="column-three mobile">
-                    <div class="row clearfix" >
-                        <?php $ctr = 0; ?>
-                            @foreach($games as $game)                             
-                                
-                                <div>
-                                    <a href="#" class="radius"><img src="{{ $thumbnails[$ctr] }}" alt="{{ $game->title }}"></a>
-                                    <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
-                                </div> 
-                                <?php $ctr++; ?> 
-                           
-                            @endforeach
-                    </div>
-                        
-                </div>
-                
-                <div class="column-four tablet" id="game-container">                
-                    <div class="row clearfix" id="games">
-                        <?php $ctr = 0; ?>
-                            @foreach($games as $game)                             
-                                <?php if($ctr <= 3) : ?>
-                                <div>
-                                    <a href="#" class="radius"><img src="{{ $thumbnails[$ctr] }}" alt="{{ $game->title }}"></a>
-                                    <p class="description">{{ $game->title }} <span class="price"> (P {{ $game->default_price }}) </span></p>
-                                    <a href="#" class="button button-pink">Get</a>
-                                </div> 
-                                <?php $ctr++; ?> 
-                                <?php endif; ?>
-                            @endforeach
-                    </div>
-                </div> 
-            </div>
-        </div>
-
-       <div class="container">
-            <div id="ajax-loader" class="ajax-loader center" style="display: none;"> {{ HTML::image('images/ajax-loader.gif') }}</div>
-            <div class="tablet clearfix"><a href="#" class="more" id="loadmore">More +</a></div>
-        </div>
-
-    </div>
-</div>
+@section('stylesheets')
+	{{ HTML::style("css/lightSlider.css"); }}
+	{{ HTML::style("css/slick.css"); }}
+	{{ HTML::style("css/jquery-ui.css"); }}
 @stop
 
-@section('page-script')
-    {{ HTML::script('js/slidebars.js') }}
-    {{ HTML::script('js/jquery.lightSlider.min.js') }}
-   
-    <script>
-    var ctr = <?php echo $ctr; ?>;
-    var root = '<?php echo $root; ?>';
+@section('content')
 
-    $(document).ready(function () {
+	<div class="container">
+		<ul id="slider" class="content-slider">
 
-        $.slidebars();
+			@foreach($games as $game)
+				@foreach($game->contents as $content)
 
-        $("#slider-main").lightSlider({
-            loop: true,
-            item: 1,
-            adaptiveHeight: true,
-            slideMargin: 0,
-            controls: true,
-            pager: false
-        });
+					@if($game->featured == 1)
+						<li class="slider-item">
+							<img src="images/slider/{{ $game->slug }}.jpg" alt="{{ $game->main_title }}">
 
-        var gamediv = $('#game-container');
-        
-        var num=0;  
-        
-        $('#loadmore').on('click', function(e) {
-            e.preventDefault();
-            $.get("{{ URL::route('games.load') }}", function(data) {  
-                var myArray = jQuery.parseJSON(data);  
-                var cctr = 0;
-                for(var id in myArray) {
-                    var img_url;  
+							<div class="details clearfix">
+								<div class="date">
+									<div class="vhparent"><p class="vhcenter">{{ Carbon::parse($game->release_date)->format('M j') }}</p></div>
+								</div>
 
-                    if(cctr >= ctr) {
-                       
-                            if (myArray.hasOwnProperty(id)) {
-                                num++;                                                      
-                            } 
-                            var gamecontainer = $('<div class="row clearfix ajax-call'+num+'"></div>');
-                            //console.log(num);
-                            //var val = num%4;
-                            //console.log(num);
-                            if (num == 5){
-                                //console.log(myArray[id]);                               
-                                break;
-                            } 
-                         gamediv.append(gamecontainer);
-                        for(var i = 0; i < myArray[id].media.length; i++) {                      
-                            if(myArray[id].media[i]['pivot']['type'] == 'featured') {
-                                img_url = myArray[id].media[i]['url'];
-                            }                      
-                        }
-                        
-                        var game = $('<div> \
-                                        <a href="#" class="radius"><img src="' + root + img_url +'" alt="' + myArray[id]['title'] +'"></a> \
-                                        <p class="description">' + myArray[id]['title'] +'<span class="price"> (P '+myArray[id]['default_price'] +')</span></p> \
-                                    </div>').hide();
+								<div class="description">
+									<div class="vparent"><p class="vcenter">{{ $content->pivot->excerpt }}</p></div>
+								</div>
 
-                        //gamecontainer.append(game);
-                        //game.show('slow');
-                       /* gamediv.fadeIn('slow');*/
+								<div class="go">
+									<div class="vhparent"><a href="{{ route('game.show', $game->id) }}" class="vhcenter hide-text">Go</a></div>
+								</div>
+							</div>
+						</li>
+					@endif
 
-                    }               
-                    cctr++;            
-                }
-                ctr = cctr;
-            });
-        });
+				@endforeach
+			@endforeach
 
-                        
-    });
-    </script>
+		</ul><!-- end #slider -->
+	</div>
+
+	<div id="latest-games" class="container">
+		<h1 class="title">New and updated games</h1>
+
+		<div class="items">
+
+			@foreach($games as $game)
+				
+				<div class="item">
+					<div class="thumb">
+						<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+					</div>
+
+					<div class="meta">
+						<p class="name">{{{ $game->main_title }}}</p>
+						<p class="price">P{{{ $game->default_price }}}.00</p>
+					</div>
+
+					<div class="button center"><a href="#">Buy</a></div>
+				</div>
+
+			@endforeach
+
+		</div>
+
+		<div class="more"><a href="#">More +</a></div>
+	</div><!-- end #latest-games -->
+
+	<div id="games-heading">
+		<div class="container">
+			<h1 class="title">Games</h1>
+		</div>
+	</div>
+
+	<div id="memory-games" class="game-category container">
+		<div class="clearfix">
+			<h2 class="title fl">Brain and Puzzle</h2>
+			<div class="more fr"><a href="{{ route('category.show', 1) }}">More +</a></div>
+		</div>
+
+		<div class="items">
+
+			@foreach($games as $game)
+				@foreach($game->categories as $category)
+
+					@if($category->id == 1)
+					
+						<div class="item">
+							<div class="thumb">
+								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							</div>
+
+							<div class="button center"><a href="#">Buy</a></div>
+						</div>
+
+					@endif
+
+				@endforeach
+			@endforeach
+
+		</div>
+	</div><!-- end #memory-games -->
+
+	<div id="casual-games" class="game-category container">
+		<div class="clearfix">
+			<h2 class="title fl">Casual</h2>
+			<div class="more fr"><a href="{{ route('category.show', 2) }}">More +</a></div>
+		</div>
+
+		<div class="items">
+
+			@foreach($games as $game)
+				@foreach($game->categories as $category)
+
+					@if($category->id == 2)
+					
+						<div class="item">
+							<div class="thumb">
+								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							</div>
+
+							<div class="button center"><a href="#">Buy</a></div>
+						</div>
+
+					@endif
+
+				@endforeach
+			@endforeach
+
+		</div>
+	</div><!-- end #casual-games -->
+
+	<div id="arcade-games" class="game-category container">
+		<div class="clearfix">
+			<h2 class="title fl">Arcade</h2>
+			<div class="more fr"><a href="{{ route('category.show', 3) }}">More +</a></div>
+		</div>
+
+		<div class="items">
+
+			@foreach($games as $game)
+				@foreach($game->categories as $category)
+
+					@if($category->id == 3)
+					
+						<div class="item">
+							<div class="thumb">
+								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							</div>
+
+							<div class="button center"><a href="#">Buy</a></div>
+						</div>
+
+					@endif
+
+				@endforeach
+			@endforeach
+
+		</div>
+	</div><!-- end #arcade-games -->
+
+	<div id="card-games" class="game-category container">
+		<div class="clearfix">
+			<h2 class="title fl">Cards and Casino</h2>
+			<div class="more fr"><a href="{{ route('category.show', 4) }}">More +</a></div>
+		</div>
+
+		<div class="items">
+
+			@foreach($games as $game)
+				@foreach($game->categories as $category)
+
+					@if($category->id == 4)
+					
+						<div class="item">
+							<div class="thumb">
+								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							</div>
+
+							<div class="button center"><a href="#">Buy</a></div>
+						</div>
+
+					@endif
+
+				@endforeach
+			@endforeach
+
+		</div>
+	</div><!-- end #card-games -->
+
+	<div id="classic-games" class="game-category container">
+		<div class="clearfix">
+			<h2 class="title fl">Classic</h2>
+			<div class="more fr"><a href="{{ route('category.show', 5) }}">More +</a></div>
+		</div>
+
+		<div class="items">
+
+			@foreach($games as $game)
+				@foreach($game->categories as $category)
+
+					@if($category->id == 5)
+					
+						<div class="item">
+							<div class="thumb">
+								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							</div>
+
+							<div class="button center"><a href="#">Buy</a></div>
+						</div>
+
+					@endif
+
+				@endforeach
+			@endforeach
+
+		</div>
+	</div><!-- end #classic-games -->
+
+	<div id="sanrio-games" class="game-category container">
+		<div class="clearfix">
+			<h2 class="title fl">Sanrio</h2>
+			<div class="more fr"><a href="{{ route('category.show', 6) }}">More +</a></div>
+		</div>
+
+		<div class="items">
+
+			@foreach($games as $game)
+				@foreach($game->categories as $category)
+
+					@if($category->id == 6)
+					
+						<div class="item">
+							<div class="thumb">
+								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							</div>
+
+							<div class="button center"><a href="#">Buy</a></div>
+						</div>
+
+					@endif
+
+				@endforeach
+			@endforeach
+
+		</div>
+	</div><!-- end #sanrio-games -->
+
+	<div id="news" class="container">
+		<div class="clearfix">
+			<h1 class="title">Latest news</h1>
+
+			<form action="#" method="post">
+				<select name="year">
+					<option value="">select year</option>
+					<option value="2014">2014</option>
+					<option value="2013">2013</option>
+					<option value="2012">2012</option>
+					<option value="2011">2011</option>
+					<option value="2010">2010</option>
+				</select>
+			</form>
+		</div>
+
+		<div class="top clearfix">
+
+			@foreach($latest_news as $item)
+				@foreach($item->contents as $content)
+
+				<div>
+					<div class="date">
+						<div class="vhparent">
+							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+						</div>
+					</div>
+
+					<img src="images/news/{{ preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($item->main_title)) }}.jpg" alt="{{ $item->main_title }}">
+
+					<div class="details">
+						<h3>{{ $item->main_title }}</h3>
+						<p>{{{ $content->pivot->excerpt }}}</p>
+					</div>	
+
+					<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">Read more <i class="fa fa-angle-right"></i></a></div>
+				</div>
+
+				@endforeach
+			@endforeach
+
+		</div>
+
+		<div class="bottom">
+
+			@foreach($previous_news as $item)
+				@foreach($item->contents as $content)
+
+				<div>
+					<div class="date">
+						<div class="vhparent">
+							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+						</div>	
+					</div>	
+
+					<div class="details">
+						<div class="vparent">
+							<div class="vcenter">
+								<h3>{{{ $item->main_title }}}</h3>
+								<p>{{{ $content->pivot->excerpt }}}</p>
+							</div>	
+						</div>
+					</div>	
+
+					<div class="readmore">
+						<div>
+							<a href="{{ 'news/'. $item->id }}" class="vhcenter"><i class="fa fa-angle-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+				@endforeach
+			@endforeach
+
+		</div>
+
+		<div class="more"><a href="#">More +</a></div>
+	</div><!-- end #news -->
+
+	<div id="faqs" class="container">
+		<h1 class="title">FAQs</h1>
+
+		<p>Find answers to Frequently Asked Questions about TDrive and our services below.</p>
+
+		<div id="questions">
+
+			@foreach($faqs as $faq)
+
+				<h3>{{{ $faq->question }}}</h3>
+				<div><p>{{{ $faq->answer }}}</p></div>
+
+			@endforeach
+
+		</div>
+	</div><!-- end #faqs -->
+
+	<div id="contact" class="container">
+		<h1 class="title">Contact us</h1>
+		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
+
+		<form action="#" method="post">
+			<div class="control clearfix">
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name">
+			</div>
+
+			<div class="control clearfix">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
+			</div>
+
+			<div class="control clearfix">
+				<label for="game">Game Title</label>
+				<input type="text" name="game" id="game">
+			</div>
+
+			<div class="control clearfix">
+				<label for="message">Message</label>
+				<textarea name="message" id="message"></textarea>
+			</div>
+
+			<div class="control clearfix">
+				<input type="submit" value="Submit &raquo;">
+			</div>
+		</form>
+	</div><!-- end #contact -->
+
+@stop
+
+@section('javascripts')
+	{{ HTML::script("js/fastclick.js"); }}
+	{{ HTML::script("js/jquery.lightSlider.min.js"); }}
+	{{ HTML::script("js/jquery-ui.min.js"); }}
+	{{ HTML::script("js/slick.min.js"); }}
+
+	<script>
+		FastClick.attach(document.body);
+
+		$("#slider").lightSlider({
+			auto: true,
+			pause: 6000,
+			loop: true,
+			item: 1,
+			adaptiveHeight: true,
+			slideMargin: 0,
+			controls: false,
+			pager: false
+		});
+
+		$('.items').slick({
+			infinite: true,
+			//slidesToScroll: 1,
+			swipeToSlide: true,
+			centerMode: true,
+			centerPadding: 20,
+			lazyLoad: 'progressive',
+			arrows: false,
+
+			responsive: [
+				{
+					breakpoint: 1025,
+					settings: {
+						slidesToShow: 5
+					}
+				},
+
+				{
+					breakpoint: 769,
+					settings: {
+						slidesToShow: 4,
+					}
+				},
+
+				{
+					breakpoint: 641,
+					settings: {
+						slidesToShow: 5,
+					}
+				},
+
+				{
+					breakpoint: 601,
+					settings: {
+						slidesToShow: 3,
+					}
+				},
+
+				{
+					breakpoint: 321,
+					settings: {
+						slidesToShow: 2
+					}
+				},
+			]
+		});
+
+		$("#questions").accordion({ 
+			heightStyle: 'panel', 
+			active: 'none' 
+		});
+	</script>
 @stop
