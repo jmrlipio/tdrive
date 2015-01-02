@@ -16,6 +16,6 @@ class Media extends \Eloquent {
 
     public function news()
     {
-        return $this->morphedByMany('News', 'mediable');
+        return $this->hasMany('News');
     }
 }

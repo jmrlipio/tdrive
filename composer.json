@@ -11,7 +11,8 @@
 		"webpatser/laravel-countries": "dev-master",
 		"jarektkaczyk/eloquent-triple-pivot": "dev-master",
 		"torann/geoip": "dev-master",
-		"thujohn/analytics": "dev-master"
+		"thujohn/analytics": "dev-master",
+		"intervention/image": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

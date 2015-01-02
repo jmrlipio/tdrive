@@ -36,6 +36,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('news/{id}/update-fields', array('as' => 'admin.news.update-fields', 'uses' => 'NewsController@updateFields'));
     Route::get('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@getLanguageContent'));
     Route::post('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@updateLanguageContent'));
+    Route::post('news/{id}/edit-media', array('as' => 'admin.news.update-media', 'uses' => 'NewsController@updateMedia'));
     Route::resource('media', 'MediaController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
