@@ -82,6 +82,8 @@
 				</ul>
 				<ul id="game-content">
 					<h3>The game has content for the following languages:</h3>
+					<br>
+					@if($selected_languages)
 					<ul>
 						@foreach($languages as $language_id => $language)
 							@if(in_array($language_id, $selected_languages))
@@ -89,8 +91,12 @@
 							@endif
 						@endforeach
 					</ul>
+					@else
+						<p>Please select one or more languages to add content to this game.
+					@endif
 					<br>
 					<h3>The game has prices for the following carriers:</h3>
+					@if($selected_carriers)
 					<ul>
 						@foreach($carriers as $carrier_id => $carrier)
 							@if(in_array($carrier_id, $selected_carriers))
@@ -98,6 +104,9 @@
 							@endif
 						@endforeach
 					</ul>
+					@else
+						<p>Please select one or more carriers to add prices to this game.
+					@endif
 				</ul>
 
 				<ul id="media">

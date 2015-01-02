@@ -164,28 +164,28 @@ class NewsController extends \BaseController {
 	 */
 	public function edit($id)
 	{	
-		$count = 0;
 		$news = News::find($id);
-		$root = Request::root();
-		$news_categories = array();
-		$selected_media = array();
+		$languages = [];
+		$news_categories = [];
+		$selected_languages = [];
+		
+		foreach($news->languages as $language) {
+			$selected_languages[] = $language->id;
+		}
 		
 		foreach (NewsCategory::all() as $news_cat) {
 			$news_categories[$news_cat->id] = $news_cat->category;
 		}
 
-		
-		foreach($news->media as $media) {
-			$selected_media[$count]['media_id'] = $media->url;
-			$selected_media[$count]['media_url'] = $root. '/images/uploads/' . $media->url;
-			$selected_media[$count]['type'] = $media->pivot->type;
-			$count++;
+		foreach(Language::orderBy('language')->get() as $language) {
+			$languages[$language->id] = $language->language;
 		}
 
 		return View::make('admin.news.edit')
-			->with('news_categories', $news_categories)
 			->with('news', $news)
-			->with('selected_media', $selected_media);		
+			->with('news_categories', $news_categories)
+			->with('languages', $languages)
+			->with('selected_languages', $selected_languages);		
 	}
 
 
@@ -197,38 +197,19 @@ class NewsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$count = 0;
-		$root = Request::root();		
 		$news = News::find($id);	
+
 		$validator = Validator::make($data = Input::all(), News::$rules);
-		$news_categories = array();
-		$selected_media = array();
-
-		foreach (NewsCategory::all() as $news_cat) {
-			$news_categories[$news_cat->id] = $news_cat->category;
-		}
-
-		foreach($news->media as $media) {
-			$selected_media[$count]['media_id'] = $media->url;
-			$selected_media[$count]['media_url'] = $root. '/images/uploads/' . $media->url;
-			$selected_media[$count]['type'] = $media->pivot->type;
-			$count++;
-		}
 		
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
-		}
-		
-		$news->update($data);
-		$news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));		
+		}		
 		
 		return View::make('admin.news.edit')
 			->with('news_categories', $news_categories)
 			->with('news', $news)
-			->with('selected_media', $selected_media)
 			->with('message', 'Update news successful.');
-
 	}
 
 
@@ -253,6 +234,63 @@ class NewsController extends \BaseController {
 
 		return Redirect::route('admin.news.index')
 			->with('message','Something went wrong, please try again.');
+	}
+
+	public function updateFields($id)
+	{
+		$news = News::find($id);
+		$url = URL::route('admin.news.edit', $news->id) . '#custom-fields';
+
+		$validator = Validator::make($data = Input::all(), News::$fieldRules);
+
+		if ($validator->fails())
+		{
+			return Redirect::to($url)->withErrors($validator)->withInput();
+		}
+
+		$news->languages()->sync(Input::get('language_id'));
+
+		return Redirect::to($url)->with('message', 'You have successfully updated the news fields.');
+	}
+
+	public function getLanguageContent($id, $language_id) {
+		$news = News::find($id);
+		$language = Language::find($language_id);
+
+		$title = '';
+		$content = '';
+		$excerpt = '';
+
+		foreach($news->contents as $news_content) {
+			if($news_content->pivot->language_id == $language_id) {
+				$excerpt = $news_content->pivot->excerpt;
+				$title = $news_content->pivot->title;
+		    	$content = $news_content->pivot->content;
+			}
+	    }
+
+		return View::make('admin.news.content')
+			->with('news', $news)
+			->with('language_id', $language_id)
+			->with('language', $language)
+			->with('content', $content)
+			->with('title', $title)
+			->with('excerpt', $excerpt);
+	}
+
+	public function updateLanguageContent($id, $language_id) {
+		$news = News::find($id);
+		$language = Language::find($language_id);
+
+		foreach($news->contents as $content) {
+			if($content->pivot->language_id == $language_id) {
+				$news->contents()->detach($content->pivot->language_id);
+			}	
+		}
+
+		$news->contents()->attach($language_id, array('title' => Input::get('title'), 'content' => Input::get('content'), 'excerpt' => Input::get('excerpt')));
+
+		return Redirect::back()->with('message', 'You have successfully updated this news content');
 	}
 
 }

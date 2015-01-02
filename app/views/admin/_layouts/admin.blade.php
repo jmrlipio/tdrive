@@ -10,7 +10,6 @@
     {{ HTML::style('css/jquery-ui.structure.css') }}
     {{ HTML::style('css/jquery-ui.theme.css') }}
     {{ HTML::style('css/dropzone.css') }}
-    {{ HTML::style('css/style.css') }}
     {{ HTML::style('css/admin.css') }}
     {{ HTML::style('css/chosen.css')}}
     {{ HTML::script('js/jquery-1.11.1.js') }}
