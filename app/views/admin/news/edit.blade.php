@@ -14,7 +14,8 @@
 		<ul class='etabs'>
 			<li class='tab'><a href="#content">Content</a></li>
 			<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
-			<li class='tab'><a href="#feature-image">Feature Image</a></li>
+			<li class='tab'><a href="#news-content">News Content</a></li>
+			<li class='tab'><a href="#feature-image">Featured Image</a></li>
 		</ul>
 		<div class='panel-container'>
 			<ul id="content">
@@ -49,35 +50,32 @@
 				{{ Form::close() }}
 			</ul>
 			<ul id="custom-fields">
-				
+				{{ Form::open(array('route' => array('admin.news.update-fields', $news->id), 'method' => 'post')) }}
+					<li>
+						{{ Form::label('language_id', 'Languages: ') }}
+						{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
+						{{ $errors->first('language_id', '<p class="error">:message</p>') }}
+					</li>
+					{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
+				{{ Form::close() }}
 			</ul>
-			<ul id="feature-image">
-				<li>
-
-				{{ Form::label('featured-img', 'Featured Image:') }}
-					<?php $featured = false; ?>
-					@foreach($selected_media as $media)					
-						@if($media['type'] == 'featured')
-							<?php $featured = true; ?>
-							<div class="img-holder">
-								<img src="{{ $media['media_url'] }}">
-							</div>
-							<p>
-								{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-								{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
-								{{ Form::button('Select', array('class' => 'select-img')) }}
-							</p>
+			<ul id="news-content">
+				<h3>Th has content for the following languages:</h3>
+				<br>
+				@if($selected_languages)
+				<ul>
+					@foreach($languages as $language_id => $language)
+						@if(in_array($language_id, $selected_languages))
+							<li><a href="{{ URL::route('admin.news.edit.content', array('news_id' => $news->id, 'language_id' => $language_id)) }}">{{ $language }}</a></li>
 						@endif
 					@endforeach
-					@if(!$featured)
-						<div class="img-holder"></div>
-						<p>
-							{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-							{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-							{{ Form::button('Select', array('class' => 'select-img')) }}
-						</p>	
-					@endif
-				</li>
+				</ul>
+				@else
+					<p>Please select one or more languages to add content to this news.
+				@endif
+			</ul>
+			<ul id="feature-image">
+				
 				
 			</ul>
 		</div>

@@ -19,6 +19,12 @@ class Game extends \Eloquent {
 		'default_price' => 'required|numeric'
 	];
 
+	public static $fieldRules = [
+		'language_id' 	=> 'required',
+		'carrier_id'	=> 'required',
+		'category_id' => 'required'
+	];
+
 	public function user() {
 		return $this->belongsTo('User');
 	}

@@ -3,14 +3,18 @@
 class News extends \Eloquent {
 	protected $fillable = ['user_id','main_title','slug','status','news_category_id','release_date'];
 
-	public static $rules = array(
+	public static $rules = [
 		'user_id' => 'required|integer',
 		'main_title' => 'required|min:2',
 		'slug' => 'required|min:2',
 		'status' => 'required|boolean',
 		'release_date' => 'required|date',
 		'news_category_id' => 'required|integer'
-	);
+	];
+
+	public static $fieldRules = [
+		'language_id' 	=> 'required'
+	];
 
 	public function keywords() {
 		return $this->morphToMany('Keyword', 'keywordable');

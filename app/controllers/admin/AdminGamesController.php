@@ -125,12 +125,20 @@ class AdminGamesController extends \BaseController {
 	public function updateFields($id)
 	{
 		$game = Game::find($id);
+		$url = URL::route('admin.games.edit', $game->id) . '#custom-fields';
+
+		$validator = Validator::make($data = Input::all(), Game::$fieldRules);
+
+		if ($validator->fails())
+		{
+			return Redirect::to($url)->withErrors($validator)->withInput();
+		}
 
 		$game->carriers()->sync(Input::get('carrier_id'));
 		$game->categories()->sync(Input::get('category_id'));
 		$game->languages()->sync(Input::get('language_id'));
 
-		return Redirect::back()->with('message', 'You have successfully updated the game fields.');
+		return Redirect::to($url)->with('message', 'You have successfully updated the game fields.');
 	}
 
 	public function updateMedia($id)
