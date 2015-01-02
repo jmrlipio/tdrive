@@ -37,6 +37,11 @@
 						{{ Form::text('release_date', null, array('id' => 'release_date')) }}
 						{{ $errors->first('release_date', '<p class="error">:message</p>') }}
 					</li>
+					<li>
+						{{ Form::label('featured_image', 'Choose an image') }}
+						{{ Form::file('featured_image') }}
+						{{ $errors->first('featured_image', '<p class="error">:message</p>') }}
+					</li>
 				</ul>
 
 				{{ Form::submit('Save', array('id' => 'save-news')) }}

@@ -75,8 +75,14 @@
 				@endif
 			</ul>
 			<ul id="feature-image">
-				
-				
+				<h3>Featured Image:</h3>
+				{{ Form::open(array('route' => array('admin.news.update-media', $news->id), 'method' => 'post')) }}
+					<li>
+						{{ Form::label('image', 'Choose an image') }}
+						{{ Form::file('image') }}
+					</li>
+					{{ Form::submit('Update Media', array('class' => 'update-content')) }}
+				{{ Form::close() }}
 			</ul>
 		</div>
 		

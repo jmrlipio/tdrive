@@ -24,10 +24,6 @@ class News extends \Eloquent {
 		return $this->morphToMany('Language', 'languagable');
 	}
 
-	public function media() {
-		return $this->morphToMany('Media', 'mediable')->withPivot('type');
-	}
-
 	public function comments() {
 		return $this->belongsToMany('Comment', 'news_comments');
 	}
@@ -38,5 +34,10 @@ class News extends \Eloquent {
 
     public function contents() {
     	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
+    }
+
+    public function featured()
+    {
+        return $this->belongsTo('Media');
     }
 }
