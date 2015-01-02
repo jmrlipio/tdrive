@@ -4,6 +4,26 @@ Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGameCategories'));
+Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
+Route::get('games/new', array('as' => 'games.new.show', 'uses' => 'ListingController@showGames'));
+
+Route::get('loadmore', function()
+{
+	$games = Game::all();
+
+	return View::make('_partials.games')
+		->with(compact('games'));
+});
+
+Route::get('loadmore/{id}', function($id) 
+{
+	$category = Category::find($id);
+	$games = Category::find($id)->games;
+
+	return View::make('_partials.category')
+		->with(compact('category'))
+		->with(compact('games'));
+});
 
 Route::get('path', function(){
     return public_path();
@@ -68,13 +88,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 * Purpose: For admin news creation
 * Date: 12/04/2014
 */
-Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
+/*Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
 Route::get('games/{id}', array('as' => 'games.show', 'uses' => 'GamesController@show'));
 Route::get('news', array('as' => 'news', 'uses' => 'NewsController@usersindex'));
 Route::get('news/show/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getSingleNews'));
-/*Route::get('news/year/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getNewsByYear'));*/
+/*Route::get('news/year/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getNewsByYear'));
 /*Route::controller('news/show', 'NewsController');*/
-Route::get('news/year', array('as' => 'news.year', 'uses' => 'NewsController@getNewsByYear'));
+//Route::get('news/year', array('as' => 'news.year', 'uses' => 'NewsController@getNewsByYear'));
 Route::get('users/activate/{code}', array('as' => 'account.activate', 'uses' => 'UsersController@getActivate'));
 
 //Password Reminder & Reset
@@ -94,8 +114,8 @@ Route::post('admin/users/search', array('as' => 'admin.users.search', 'uses' => 
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));
 Route::post('login', array('as' => 'login.post', 'uses' => 'UsersController@postLogin'));
 Route::get('logout', array('as' => 'users.logout', 'uses' => 'UsersController@getLogout'));
-Route::get('signup', array('as' => 'users.signup', 'uses' => 'UsersController@getSignup'));
-Route::post('register', array('as' => 'users.register', 'uses' => 'UsersController@postRegister'));
+Route::get('register', array('as' => 'users.register', 'uses' => 'UsersController@getRegister'));
+Route::post('register', array('as' => 'users.register.post', 'uses' => 'UsersController@postRegister'));
 
 Route::group(array('before' => 'auth'), function(){
 	Route::resource('users', 'UsersController');

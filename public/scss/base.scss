@@ -224,6 +224,14 @@ img, video {
 			display: block;
 			height: 20px;
 		}
+
+		p {
+			color: $white;
+
+			a {
+				display: inline;
+			}
+		}
 	}
 
 	.search {
@@ -627,6 +635,14 @@ img, video {
 				color: $white;
 				display: block;
 				height: 20px;
+			}
+
+			p {
+				color: $white;
+
+				a {
+					display: inline;
+				}
 			}
 		}
 	}

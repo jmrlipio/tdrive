@@ -64,7 +64,7 @@
 
 		</div>
 
-		<div class="more"><a href="#">More +</a></div>
+		<div class="more"><a href="{{ route('games.new.show') }}">More +</a></div>
 	</div><!-- end #latest-games -->
 
 	<div id="games-heading">

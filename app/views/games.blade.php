@@ -6,12 +6,12 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">{{{ $category->category }}}</h1>
+		<h1 class="title">New and updated games</h1>
 
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-					@include('_partials/category')
+					@include('_partials/games')
 				</div>
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 				$('.ajax-loader').show();
 
 				$.ajax({
-					url: "/loadmore/" + {{ $category->id }},
+					url: "/loadmore",
 
 					success: function(html) {
 						if (html) {

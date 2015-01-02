@@ -1,10 +1,20 @@
 <div id="side-menu" class="pushy pushy-left">
 
 	<div class="top">
-		<ul>
-			<li><a href="{{ route('users.login') }}" class="login">Sign in</a></li>
-			<li><a href="{{ route('users.signup') }}" class="register">Join now <i class="fa fa-user"></i></a></li>
-		</ul>
+
+		@if (Auth::check())
+			
+			<p><a href="#"><i class="fa fa-user"></i> {{ Auth::user()->username }}</a> | {{ link_to_route('users.logout', 'Logout') }}</p>
+
+		@else
+
+			<ul>
+				<li><a href="{{ route('users.login') }}" class="login">Sign in</a></li>
+				<li><a href="{{ route('users.register') }}" class="register">Join now <i class="fa fa-user"></i></a></li>
+			</ul>
+
+		@endif
+
 	</div>
 
 	<div class="search">
