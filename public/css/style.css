@@ -43,6 +43,7 @@
   padding-left: 60px;
   padding-right: 30px;
   text-transform: none;
+  font-size: 14px;
 }
 #home .slider-item .description > div {
   height: 50px;
@@ -91,6 +92,9 @@
   text-align: center;
   margin: 10px 0;
   height: 57px;
+}
+#home .meta p {
+  font-size: 14px;
 }
 #home #latest-games {
   background: #465a65;

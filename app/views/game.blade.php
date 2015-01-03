@@ -352,9 +352,9 @@
 		});
 
 		$('#related-games .items').slick({
-			infinite: true,
+			infinite: false,
 			swipeToSlide: true,
-			centerMode: true,
+			//centerMode: true,
 			centerPadding: 20,
 			lazyLoad: 'progressive',
 			arrows: false,

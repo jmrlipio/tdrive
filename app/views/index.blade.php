@@ -425,10 +425,10 @@
 		});
 
 		$('.items').slick({
-			infinite: true,
+			infinite: false,
 			//slidesToScroll: 1,
 			swipeToSlide: true,
-			centerMode: true,
+			//centerMode: true,
 			centerPadding: 20,
 			lazyLoad: 'progressive',
 			arrows: false,
