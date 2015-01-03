@@ -16,10 +16,9 @@ class DatabaseSeeder extends Seeder {
 		$this->call('NewsCategoryTableSeeder');
 		$this->call('CategoriesTableSeeder');
 		$this->call('CountriesSeeder');
-		$this->call('CountriesSeeder');
 		$this->call('FaqsTableSeeder');
+		$this->call('InquiriesTableSeeder');
 		// $this->call('GamesTableSeeder');
-		// $this->call('InquiriesTableSeeder');
 	}
 
 }

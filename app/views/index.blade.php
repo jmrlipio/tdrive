@@ -67,10 +67,8 @@
 		<div class="more"><a href="{{ route('games.new.show') }}">More +</a></div>
 	</div><!-- end #latest-games -->
 
-	<div id="games-heading">
-		<div class="container">
-			<h1 class="title">Games</h1>
-		</div>
+	<div id="games-heading" class="container">
+		<h1 class="title">Games</h1>
 	</div>
 
 	<div id="memory-games" class="game-category container">
