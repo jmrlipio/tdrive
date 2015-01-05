@@ -7,7 +7,7 @@ class HomeController extends BaseController {
 		$languages = Language::all();
 		$games = Game::all();
 		$latest_news = News::all()->take(2);
-		$previous_news = News::all()->take(3);
+		$previous_news = News::take(3)->skip(2)->get();
 		$faqs = Faq::all();
 
 		return View::make('index')

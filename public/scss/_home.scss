@@ -216,7 +216,7 @@
 					left: 0;
 					top: 0;
 					width: 50px;
-					height: 50px;
+					height: 80px;
 					z-index: 8;
 					text-transform: lowercase;
 
@@ -230,7 +230,7 @@
 
 				.details {
 					text-transform: none;
-					height: 50px;
+					height: 80px;
 
 					> div {
 						position: relative;
@@ -245,11 +245,11 @@
 					}
 
 					h3 {
-						font-size: 12px;
+						font-size: 14px;
 					}
 
 					p {
-						font-size: 12px;
+						font-size: 14px;
 					}
 				}
 
@@ -258,7 +258,7 @@
 					right: 0;
 					top: 0;
 					width: 15px;
-					height: 50px;
+					height: 80px;
 					z-index: 7;
 
 					> div {
@@ -386,22 +386,6 @@
 		.meta {
 			height: auto;
 		}
-
-		#news {
-			.bottom {
-				> div {
-					.details {
-						h3 {
-							font-size: 16px;
-						}
-
-						p {
-							font-size: 16px;
-						}
-					}
-				}
-			}
-		}
 	}
 
 }
@@ -433,6 +417,20 @@
 
 					.details {
 						height: 76px;
+					}
+				}
+			}
+
+			.bottom {
+				> div {
+					.details {
+						h3 {
+							font-size: 18px;
+						}
+
+						p {
+							font-size: 16px;
+						}
 					}
 				}
 			}

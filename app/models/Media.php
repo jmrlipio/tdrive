@@ -3,7 +3,7 @@
 class Media extends \Eloquent {
 	protected $table = 'media';
 
-	protected $fillable = ['media_url'];
+	protected $fillable = ['url', 'type'];
 
 	public static $rules = [
 		'media_url' => 'required|image|mimes:jpeg,jpg,bmp,png,gif'

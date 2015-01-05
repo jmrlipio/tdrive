@@ -1,7 +1,7 @@
 <?php
 
 class News extends \Eloquent {
-	protected $fillable = ['user_id','main_title','slug','status','news_category_id','release_date'];
+	protected $fillable = ['user_id','main_title','slug','status','news_category_id','release_date', 'featured_media_id'];
 
 	public static $rules = [
 		'user_id' => 'required|integer',

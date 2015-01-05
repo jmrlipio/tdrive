@@ -57,6 +57,86 @@
 	}
 }
 
+#news-listing {
+	background: #eecf3f;
+	color: $white;
+
+	#nav-toggle, #side-menu {
+		display: none;
+	}
+
+	#back {
+		display: block;
+		margin-top: 10px;
+	}
+
+	.item {
+		position: relative;
+		margin-bottom: 10px;
+
+		.date {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 50px;
+			height: 80px;
+			z-index: 8;
+			text-transform: lowercase;
+
+			> div {
+				background: $pink;
+				color: $white;
+				height: 100%;
+				text-align: center;
+			}
+		}
+
+		.details {
+			text-transform: none;
+			height: 80px;
+
+			> div {
+				position: relative;
+				background: #f2bf38;
+				padding: 0;
+				height: 100%;
+
+				> div {
+					padding-left: 62px;
+					padding-right: 26px;
+				}
+			}
+
+			h3 {
+				font-size: 14px;
+			}
+
+			p {
+				font-size: 14px;
+			}
+		}
+
+		.readmore {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 15px;
+			height: 80px;
+			z-index: 7;
+
+			> div {
+				position: relative;
+				height: 100%;
+				background: $pink;
+
+				i {
+					color: $white;
+				}
+			}
+		}
+	}
+}
+
 @media only screen and (min-width: 415px) {
 
 	#game-listing {
@@ -73,9 +153,23 @@
 
 @media only screen and (min-width: 600px) {
 
-	#game-listing {
+	#game-listing, #news-listing {
 		#back {
 			margin-top: 12px;
+		}
+	}
+
+	#news-listing {
+		.item {
+			.details {
+				h3 {
+					font-size: 18px;
+				}
+
+				p {
+					font-size: 16px;
+				}
+			}
 		}
 	}
 
@@ -111,6 +205,12 @@
 					@include border-radius(22px);
 				}
 			}
+		}
+	}
+
+	#news-listing {
+		#back {
+			margin-top: 15px;
 		}
 	}
 

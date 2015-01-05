@@ -169,6 +169,28 @@ img.auto, video.auto {
   float: right;
 }
 
+.pagination {
+  display: inline-block;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.pagination li {
+  float: left;
+  margin: 0 4px;
+}
+.pagination a {
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+  display: block;
+}
+.pagination span {
+  background: #fff;
+  color: #e9548e;
+  padding: 4px 6px;
+  display: block;
+}
+
 .clearfix {
   *zoom: 1;
 }
@@ -184,6 +206,10 @@ img.auto, video.auto {
   font: 0 / 0 a;
   text-shadow: none;
   color: transparent;
+}
+
+#end {
+  margin: 10px 0;
 }
 
 #side-menu {
