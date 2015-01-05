@@ -52,7 +52,10 @@ class Option extends \Eloquent {
         {
           $log = new UserLog;
           $log->user_id = Auth::user()->id;
-          $log->activity = sprintf(Constant::LOGS_OPTIONS_CREATE, Auth::user()->username, $option->option_name, Carbon::parse($option->created_at)->toDayDateTimeString()  );
+          $log->activity = sprintf(Constant::LOGS_OPTIONS_CREATE, 
+                                            Auth::user()->username, 
+                                            $option->option_name, 
+                                            Carbon::now()->toDayDateTimeString()  );
           $log->save();
         });
 
@@ -60,7 +63,10 @@ class Option extends \Eloquent {
         {
           $log = new UserLog;
           $log->user_id = Auth::user()->id;
-          $log->activity = sprintf(Constant::LOGS_OPTIONS_UPDATE, Auth::user()->username, $option->option_name, Carbon::parse($option->created_at)->toDayDateTimeString()  );
+          $log->activity = sprintf(Constant::LOGS_OPTIONS_UPDATE, 
+                                            Auth::user()->username, 
+                                            $option->option_name, 
+                                            Carbon::now()->toDayDateTimeString()  );
           $log->save();
         });
     }
