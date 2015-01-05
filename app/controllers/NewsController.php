@@ -111,18 +111,30 @@ class NewsController extends \BaseController {
 	 */
 	public function store()
 	{
-		
+		$featured = Input::file('featured_image');
+		$filename = time() . "_" . $featured->getClientOriginalName();
+		$path = public_path('assets/news/' . $filename);
+		Image::make($featured->getRealPath())->resize(800, 480)->save($path);
+
+		$data = [
+			'url' => $filename,
+			'type' => 'news'
+		];
+
+		$media = Media::create($data);
+
 		$validator = Validator::make($data = Input::all(), News::$rules);
-		
+
+		$data['featured_media_id'] = $media->id;
+
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
 		$news = News::create($data);
-		// $news->media()->sync(array(Input::get('featured_img_id') => array('type' => 'featured')));
 		
-		return Redirect::route('admin.news.edit',$news->id)->with('message', 'You have successfully added a game.');
+		return Redirect::route('admin.news.edit',$news->id)->with('message', 'You have successfully added a news.');
 	}
 
 

@@ -15,7 +15,6 @@
 			<li class='tab'><a href="#content">Content</a></li>
 			<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
 			<li class='tab'><a href="#news-content">News Content</a></li>
-			<li class='tab'><a href="#feature-image">Featured Image</a></li>
 		</ul>
 		<div class='panel-container'>
 			<ul id="content">
@@ -45,6 +44,10 @@
 						{{ Form::text('release_date', null, array('id' => 'release_date')) }}
 						{{ $errors->first('release_date', '<p class="error">:message</p>') }}
 					</li>
+					<li>
+						{{ Form::label('featured_image', 'Featured Image:') }}
+						{{ Form::file('featured_image') }}
+					</li>
 					{{ Form::hidden('user_id', Auth::user()->id) }}
 					{{ Form::submit('Save') }}
 				{{ Form::close() }}
@@ -73,16 +76,6 @@
 				@else
 					<p>Please select one or more languages to add content to this news.
 				@endif
-			</ul>
-			<ul id="feature-image">
-				<h3>Featured Image:</h3>
-				{{ Form::open(array('route' => array('admin.news.update-media', $news->id), 'method' => 'post')) }}
-					<li>
-						{{ Form::label('image', 'Choose an image') }}
-						{{ Form::file('image') }}
-					</li>
-					{{ Form::submit('Update Media', array('class' => 'update-content')) }}
-				{{ Form::close() }}
 			</ul>
 		</div>
 		
