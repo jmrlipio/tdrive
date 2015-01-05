@@ -172,6 +172,31 @@ img, video {
 	float: right;
 }
 
+.pagination {
+	display: inline-block;
+	overflow: hidden;
+	margin: 10px 0;
+
+	li {
+		float: left;
+		margin: 0 4px;
+	}
+
+	a {
+		background: $pink;
+		color: $white;
+		padding: 4px 6px;
+		display: block;
+	}
+
+	span {
+		background: $white;
+		color: $pink;
+		padding: 4px 6px;
+		display: block;
+	}
+}
+
 .clearfix {
 	*zoom: 1;
 
@@ -190,6 +215,10 @@ img, video {
 	font: 0 / 0 a;
 	text-shadow: none;
 	color: transparent;
+}
+
+#end {
+	margin: 10px 0;
 }
 
 #side-menu {

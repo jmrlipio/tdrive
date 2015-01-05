@@ -64,7 +64,7 @@
 
 		</div>
 
-		<div class="more"><a href="{{ route('games.new.show') }}">More +</a></div>
+		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
 	</div><!-- end #latest-games -->
 
 	<div id="games-heading" class="container">
@@ -74,7 +74,7 @@
 	<div id="memory-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Brain and Puzzle</h2>
-			<div class="more fr"><a href="{{ route('category.show', 1) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 1) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -108,7 +108,7 @@
 	<div id="casual-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Casual</h2>
-			<div class="more fr"><a href="{{ route('category.show', 2) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 2) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -142,7 +142,7 @@
 	<div id="arcade-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Arcade</h2>
-			<div class="more fr"><a href="{{ route('category.show', 3) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 3) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -176,7 +176,7 @@
 	<div id="card-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Cards and Casino</h2>
-			<div class="more fr"><a href="{{ route('category.show', 4) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 4) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -210,7 +210,7 @@
 	<div id="classic-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Classic</h2>
-			<div class="more fr"><a href="{{ route('category.show', 5) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 5) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -244,7 +244,7 @@
 	<div id="sanrio-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Sanrio</h2>
-			<div class="more fr"><a href="{{ route('category.show', 6) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 6) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -279,7 +279,10 @@
 		<div class="clearfix">
 			<h1 class="title">Latest news</h1>
 
-			<form action="#" method="post">
+			<form action="#" id="year" method="post">
+
+				<div id="token">{{ Form::token() }}</div>
+
 				<select name="year">
 					<option value="">select year</option>
 					<option value="2014">2014</option>
@@ -351,7 +354,7 @@
 
 		</div>
 
-		<div class="more"><a href="#">More +</a></div>
+		<div class="more"><a href="{{ route('news.all') }}">More +</a></div>
 	</div><!-- end #news -->
 
 	<div id="faqs" class="container">
@@ -475,5 +478,13 @@
 			heightStyle: 'panel', 
 			active: 'none' 
 		});
+
+		$('#year').change(function() {
+			var year = $(this).find('select').val();
+
+			$(this).attr('action', 'news/year/' + year);
+			$(this).submit();
+		});
+
 	</script>
 @stop

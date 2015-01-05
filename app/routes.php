@@ -1,29 +1,16 @@
 <?php
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
-Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGameCategories'));
 Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
-Route::get('games/new', array('as' => 'games.new.show', 'uses' => 'ListingController@showGames'));
+Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
+Route::post('news/more/{year}', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
 
-Route::get('loadmore', function()
-{
-	$games = Game::all();
-
-	return View::make('_partials.games')
-		->with(compact('games'));
-});
-
-Route::get('loadmore/{id}', function($id) 
-{
-	$category = Category::find($id);
-	$games = Category::find($id)->games;
-
-	return View::make('_partials.category')
-		->with(compact('category'))
-		->with(compact('games'));
-});
+Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
+Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));
+Route::post('games/more/{id}', array('as' => 'games.more.show', 'uses' => 'ListingController@showMoreGames'));
 
 Route::get('path', function(){
     return public_path();
