@@ -1,4 +1,4 @@
-#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -43,6 +43,7 @@
   padding-left: 60px;
   padding-right: 30px;
   text-transform: none;
+  font-size: 14px;
 }
 #home .slider-item .description > div {
   height: 50px;
@@ -91,6 +92,9 @@
   text-align: center;
   margin: 10px 0;
   height: 57px;
+}
+#home .meta p {
+  font-size: 14px;
 }
 #home #latest-games {
   background: #465a65;
@@ -362,7 +366,7 @@
     height: auto;
   }
 }
-#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -829,7 +833,7 @@
     width: 93%;
   }
 }
-#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -940,7 +944,7 @@
     margin-top: 40px;
   }
 }
-#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row > div, #game-listing .grid .thumb {
+#home .thumb, #home #news .top > div, #home #contact label, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -957,7 +961,7 @@
   display: block;
   margin-top: 10px;
 }
-#game-listing .grid > .row > div {
+#game-listing .grid > .row .item {
   width: 33.3333333%;
   float: left;
   padding: 0 5px;
@@ -994,7 +998,7 @@
 }
 
 @media only screen and (min-width: 415px) {
-  #game-listing .grid > .row > div {
+  #game-listing .grid > .row .item {
     width: 25%;
   }
 }
@@ -1004,7 +1008,7 @@
   }
 }
 @media only screen and (min-width: 640px) {
-  #game-listing .grid > .row > div {
+  #game-listing .grid > .row .item {
     width: 20%;
   }
 }

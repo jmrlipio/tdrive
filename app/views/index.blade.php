@@ -64,13 +64,11 @@
 
 		</div>
 
-		<div class="more"><a href="#">More +</a></div>
+		<div class="more"><a href="{{ route('games.new.show') }}">More +</a></div>
 	</div><!-- end #latest-games -->
 
-	<div id="games-heading">
-		<div class="container">
-			<h1 class="title">Games</h1>
-		</div>
+	<div id="games-heading" class="container">
+		<h1 class="title">Games</h1>
 	</div>
 
 	<div id="memory-games" class="game-category container">
@@ -301,7 +299,7 @@
 				<div>
 					<div class="date">
 						<div class="vhparent">
-							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+							<p class="vhcenter">{{ Carbon::parse($item->release_date)->format('M j') }}</p>
 						</div>
 					</div>
 
@@ -328,7 +326,7 @@
 				<div>
 					<div class="date">
 						<div class="vhparent">
-							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+							<p class="vhcenter">{{ Carbon::parse($item->release_date)->format('M j') }}</p>
 						</div>	
 					</div>	
 
@@ -427,10 +425,10 @@
 		});
 
 		$('.items').slick({
-			infinite: true,
+			infinite: false,
 			//slidesToScroll: 1,
 			swipeToSlide: true,
-			centerMode: true,
+			//centerMode: true,
 			centerPadding: 20,
 			lazyLoad: 'progressive',
 			arrows: false,

@@ -11,7 +11,7 @@ class Media extends \Eloquent {
 
 	public function games()
     {
-        return $this->morphedByMany('Game', 'mediable');
+        return $this->belongsToMany('Game', 'game_media');
     }
 
     public function news()

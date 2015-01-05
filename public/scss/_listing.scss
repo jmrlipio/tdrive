@@ -16,7 +16,7 @@
 
 	.grid {
 		> .row {
-			> div {
+			.item {
 				@extend %box-sizing;
 				width: 33.3333333%;
 				float: left;
@@ -62,7 +62,7 @@
 	#game-listing {
 		.grid {
 			> .row {
-				> div {
+				.item {
 					width: 25%;
 				}
 			}
@@ -86,7 +86,7 @@
 	#game-listing {
 		.grid {
 			> .row {
-				> div {
+				.item {
 					width: 20%;
 				}
 			}

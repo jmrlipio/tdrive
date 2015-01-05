@@ -25,7 +25,7 @@
                 </p>
             @else
                 <p>
-                    <a href="{{ route('users.signup') }}">Sign Up</a>
+                    <a href="{{ route('users.register') }}">Sign Up</a>
                 </p>
             @endif
         </div>

@@ -90,8 +90,13 @@ class UsersController extends \BaseController {
 * Date: 12/04/2014
 */
 
-	public function getSignup() {
-		return View::make('users.signup');
+	public function getRegister() {
+		$languages = Language::all();
+
+		return View::make('register')
+			->with('page_title', 'Register')
+			->with('page_id', 'form')
+			->with(compact('languages'));
 	}
 
 	public function postRegister(){
@@ -126,7 +131,12 @@ class UsersController extends \BaseController {
 
 /* END */
 	public function getLogin(){
-        return View::make('users.login');
+		$languages = Language::all();
+
+		return View::make('login')
+			->with('page_title', 'Login')
+			->with('page_id', 'form')
+			->with(compact('languages'));
     }
 
     public function postLogin(){
@@ -141,21 +151,7 @@ class UsersController extends \BaseController {
         	}
             return Redirect::intended('/');
         }
-        //return Redirect::route('users.login')->withErrors('Your email/password was incorrect');
         return Redirect::to('login')->withErrors('Your email/password was incorrect');
-        //return Redirect::back()->withErrors('Your username/password was incorrect');
-
-        //return Redirect::to('/login')->withErrors('Your email/password was incorrect');
-        
-       /* if (Auth::attempt($credentials)){        	
-        	
-        	if(!empty($remember)){
-        		Auth::login(Auth::user(), true);
-        	}
-        	return Redirect::intended('/');
-        }*/
-
-        //return View::make('users.login');
     }
 
     public function getLogout(){

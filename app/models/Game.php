@@ -38,7 +38,7 @@ class Game extends \Eloquent {
 	}
 
 	public function media() {
-		return $this->morphToMany('Media', 'mediable')->withPivot('type', 'id');
+		return $this->belongsToMany('Media', 'game_media')->withPivot('id');
 	}
 
     public function languages()

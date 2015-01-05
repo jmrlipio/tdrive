@@ -9,7 +9,12 @@ class RemindersController extends Controller {
 	 */
 	public function getRemind()
 	{
-		return View::make('password.remind');
+		$languages = Language::all();
+
+		return View::make('password.remind')
+			->with('page_title', 'Forgot Password')
+			->with('page_id', 'form')
+			->with(compact('languages'));
 	}
 
 	/**
@@ -44,7 +49,12 @@ class RemindersController extends Controller {
 	{
 		if (is_null($token)) App::abort(404);
 
-		return View::make('password.reset')->with('token', $token);
+		$languages = Language::all();
+
+		return View::make('password.reset')->with('token', $token)
+			->with('page_title', 'Reset Password')
+			->with('page_id', 'form')
+			->with(compact('languages'));
 
 	}
 
