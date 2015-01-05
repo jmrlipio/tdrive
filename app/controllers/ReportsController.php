@@ -19,7 +19,7 @@ class ReportsController extends \BaseController {
 
 	public function adminlogs()
 	{
-		$logs = UserLog::all();
+		$logs = AdminLog::orderBy('created_at', 'DESC')->get();
 		return View::make('admin.reports.adminLogs.index')
 					->with('logs', $logs);
 	}

@@ -48,26 +48,24 @@ class Option extends \Eloquent {
     {
         parent::boot();
 
-        static::created(function()
+        static::created(function($option)
         {
-          $log = new UserLog;
-          $log->user_id = Auth::user()->id;
-          $log->activity = sprintf(Constant::LOGS_OPTIONS_CREATE, 
+
+            $_activity = sprintf(Constant::LOGS_OPTIONS_CREATE, 
                                             Auth::user()->username, 
                                             $option->option_name, 
                                             Carbon::now()->toDayDateTimeString()  );
-          $log->save();
+            $log = AdminLog::createLogs($_activity);
+
         });
 
         static::updated(function($option)
         {
-          $log = new UserLog;
-          $log->user_id = Auth::user()->id;
-          $log->activity = sprintf(Constant::LOGS_OPTIONS_UPDATE, 
+            $_activity = sprintf(Constant::LOGS_OPTIONS_UPDATE, 
                                             Auth::user()->username, 
                                             $option->option_name, 
                                             Carbon::now()->toDayDateTimeString()  );
-          $log->save();
+            $log = AdminLog::createLogs($_activity);
         });
     }
 

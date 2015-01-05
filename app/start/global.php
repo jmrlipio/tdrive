@@ -81,7 +81,9 @@ App::down(function()
 
 require app_path().'/filters.php';
 require app_path().'/constants.php';
+require app_path().'/AuditLogHandler.php';
 
+Event::subscribe(new AuditLogHandler);
 
 /*App::missing(function($exception)
 {

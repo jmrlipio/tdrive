@@ -9,13 +9,13 @@ class UsersTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
-		$roles = ['superadmin','admin','editor','member'];
+		$roles = Constant::USER_ROLES;
 
 		foreach(range(1, 10) as $index)
 		{
 			User::create([
 				'username' => $faker->userName,
-				'password' => Hash::make('tdrive1234'),
+				'password'  => Hash::make('tdrive1234'),
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'email'		=> $faker->email,

@@ -52,6 +52,8 @@ class AdminUsersController extends \BaseController {
 
 		User::create($data);
 
+
+
 		return Redirect::route('admin.users.index');
 	}
 
@@ -131,6 +133,9 @@ class AdminUsersController extends \BaseController {
         }
 
         if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))){
+            //Audit log
+            Event::fire('audit.login', Auth::user());
+            
             return Redirect::intended('admin/dashboard');
         }
 
@@ -138,6 +143,7 @@ class AdminUsersController extends \BaseController {
     }
 
     public function getLogout(){
+    	
         Auth::logout();
         return Redirect::route('admin.login');
     }

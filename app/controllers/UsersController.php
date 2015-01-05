@@ -149,6 +149,7 @@ class UsersController extends \BaseController {
         	if(Auth::check() && !empty($remember)){
         		Auth::login(Auth::user(), true);
         	}
+
             return Redirect::intended('/');
         }
         return Redirect::to('login')->withErrors('Your email/password was incorrect');
