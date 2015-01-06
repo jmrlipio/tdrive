@@ -36,7 +36,7 @@
 
 							<div class="readmore">
 								<div>
-									<a href="{{ 'news/'. $item->id }}" class="vhcenter"><i class="fa fa-angle-right"></i></a>
+									<a href="{{ '/news/'. $item->id }}" class="vhcenter"><i class="fa fa-angle-right"></i></a>
 								</div>
 							</div>
 						</div>

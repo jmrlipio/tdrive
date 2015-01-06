@@ -1,0 +1,86 @@
+@import "utilities";
+@import "config";
+
+#reviews {
+	#nav-toggle, #side-menu {
+		display: none;
+	}
+
+	#back {
+		display: block;
+		margin-top: 10px;
+	}
+
+	.entry {
+		margin-bottom: 20px;
+
+		> div {
+			@extend %box-sizing;
+			text-transform: none;
+			float: left;
+			width: 80%;
+			padding-left: 10px;
+
+			.name {
+				font-weight: bold;
+			}
+
+			.message {
+				padding-top: 10px;
+			}
+
+			i {
+				color: $pink;
+			}
+		}
+
+		img {
+			@include border-radius(8px);
+			display: block;
+			width: 60px;
+			float: left;
+		}
+	}
+}
+
+@media only screen and (min-width: 600px) {
+
+	#reviews {
+		#back {
+			margin-top: 12px;
+		}
+
+		.entry {
+			> div {
+				width: 89%;
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 800px) {
+
+	#reviews {
+		#back {
+			margin-top: 15px;
+		}
+	}
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+	#reviews {
+		#back {
+			margin-top: 15px;
+		}
+
+		.entry {
+			> div {
+				width: 93%;
+			}
+		}
+	}
+
+}

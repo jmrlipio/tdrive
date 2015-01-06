@@ -1,6 +1,9 @@
 <?php
 
-Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
+Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
+Route::get('home', array('as' => 'home', 'uses' => 'HomeController@home'));
+Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
+
 Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
@@ -11,6 +14,18 @@ Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@sh
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
 Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));
 Route::post('games/more/{id}', array('as' => 'games.more.show', 'uses' => 'ListingController@showMoreGames'));
+
+Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
+
+Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
+
+Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
+
+Route::post('language', array(
+	'before' => 'csrf',
+	'as' => 'choose_language',
+	'uses' => 'LanguagesController@chooseLanguage'
+));
 
 Route::get('path', function(){
     return public_path();

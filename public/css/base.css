@@ -1,4 +1,4 @@
-#side-menu, #side-menu .search input {
+#side-menu, #side-menu .search input, #side-menu .language select {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -95,6 +95,10 @@ img.auto, video.auto {
 
 .date {
   line-height: 1;
+}
+
+.relative {
+  position: relative;
 }
 
 .link {
@@ -266,10 +270,20 @@ img.auto, video.auto {
 #side-menu .language {
   margin-top: 10px;
   border: 1px solid #ddd;
+  overflow: hidden;
   padding: 3px;
+  position: relative;
 }
 #side-menu .language select {
   width: 100%;
+}
+#side-menu .language input[type="submit"] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px;
+  background: #ddd;
+  color: #555;
 }
 #side-menu .menu {
   margin-top: 10px;

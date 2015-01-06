@@ -43,6 +43,25 @@
 			padding-left: 10px;
 			@extend %box-sizing;
 		}
+
+		.categories {
+
+			li {
+				float: left;
+
+				&::after {
+					content: ',\00a0';
+				}
+
+				&:last-child::after {
+					content: '';
+				}
+			}
+
+			a {
+				color: $pink;
+			}
+		}
 	}
 
 	#buttons {

@@ -241,40 +241,6 @@
 		</div>
 	</div><!-- end #classic-games -->
 
-	<div id="sanrio-games" class="game-category container">
-		<div class="clearfix">
-			<h2 class="title fl">Sanrio</h2>
-			<div class="more fr"><a href="{{ route('category.show', 6) }}">See all</a></div>
-		</div>
-
-		<div class="items">
-
-			@foreach($games as $game)
-				@foreach($game->categories as $category)
-
-					@if($category->id == 6)
-					
-						<div class="item">
-							<div class="thumb">
-								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
-							</div>
-
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
-
-							<div class="button center"><a href="#">Buy</a></div>
-						</div>
-
-					@endif
-
-				@endforeach
-			@endforeach
-
-		</div>
-	</div><!-- end #sanrio-games -->
-
 	<div id="news" class="container">
 		<div class="clearfix">
 			<h1 class="title">Latest news</h1>
@@ -285,11 +251,7 @@
 
 				<select name="year">
 					<option value="">select year</option>
-					<option value="2014">2014</option>
-					<option value="2013">2013</option>
-					<option value="2012">2012</option>
-					<option value="2011">2011</option>
-					<option value="2010">2010</option>
+					<option value="2015">2015</option>
 				</select>
 			</form>
 		</div>
@@ -306,7 +268,7 @@
 						</div>
 					</div>
 
-					<img src="images/news/{{ preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($item->main_title)) }}.jpg" alt="{{ $item->main_title }}">
+					<img src="images/news/{{ $item->slug }}.jpg" alt="{{ $item->main_title }}">
 
 					<div class="details">
 						<h3>{{ $item->main_title }}</h3>

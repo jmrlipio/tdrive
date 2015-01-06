@@ -19,7 +19,7 @@ class BaseController extends Controller {
 	{       
 		$user_location = GeoIP::getLocation();   
 
-		View::share('user_location', $user_location); // Share $user with all views
+		View::share('user_location', $user_location);
 	}
 
 

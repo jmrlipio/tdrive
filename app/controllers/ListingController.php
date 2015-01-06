@@ -122,7 +122,7 @@ class ListingController extends \BaseController {
 
 						echo '<div class="readmore">';
 							echo '<div>';
-								echo '<a href="news/' . $item->id . '" class="vhcenter"><i class="fa fa-angle-right"></i></a>';
+								echo '<a href="/news/' . $item->id . '" class="vhcenter"><i class="fa fa-angle-right"></i></a>';
 							echo '</div>';
 						echo '</div>';
 					echo '</div>';
@@ -130,6 +130,19 @@ class ListingController extends \BaseController {
 				}
 			}
 		}
+	}
+
+	public function searchGames() 
+	{
+		$languages = Language::all();
+
+		$games = Game::where('main_title', 'LIKE', Input::get('search') . "%")->paginate(6);
+
+		return View::make('search')
+			->with('page_title', 'Search results')
+			->with('page_id', 'game-listing')
+			->with(compact('games'))
+			->with(compact('languages'));
 	}
 
 }
