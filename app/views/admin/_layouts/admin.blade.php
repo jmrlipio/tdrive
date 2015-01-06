@@ -44,7 +44,6 @@
             <li><a href="{{ URL::route('admin.users.index') }}">Users</a></li>
             <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>
             <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>
-            <li><a href="{{ URL::route('admin.media.create') }}">Gallery</a></li>
             <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>
             <li><a href="{{ URL::route('admin.siteoptions.index') }}">Site Options</a></li>
             <li><a href="{{ URL::route('admin.faqs.index') }}">FAQ</a></li>

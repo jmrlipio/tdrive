@@ -71,10 +71,13 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-
 		$game = Game::find($id);
 
-		$validator = Validator::make($data = Input::all(), Game::$rules);
+		$edit_rules = Game::$rules;
+
+		$edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
+
+		$validator = Validator::make($data = Input::all(), $edit_rules);
 
 		if ($validator->fails())
 		{
@@ -83,7 +86,7 @@ class AdminGamesController extends \BaseController {
 
 		$game->update($data);
 
-		return $this->loadGameValues($id);
+		return Redirect::back()->with('message', 'You have successfully updated the game details.');
 	}
 
 	/**
@@ -145,21 +148,59 @@ class AdminGamesController extends \BaseController {
 	{
 		$game = Game::find($id);
 
-		$new_media = Input::get('screenshot_id');
-		$game->media()->sync($new_media);
+		$orientation = Input::get('orientation');
 
-		$game2 = Game::with('media')->get()->find($id);
+		echo $orientation;
 
-		foreach($game2->media as $media) {
-			if($media->pivot->type != 'featured') {
-				$media->pivot->type = 'screenshot';
-				$media->pivot->save();
-			}
-		}
+		echo '<pre>';
+		dd(Input::all());
+		echo '</pre>';
 
-		$game->media()->attach(Input::get('featured_img_id'), array('type' => 'featured'));
+		$promo = Input::get('promo_image');
+		dd(Input::get('promo_image'));
+		$promo_name = time() . "_" . $promo->getClientOriginalName();
+		$promo_path = public_path('assets/games/promo/' . $promo_name);
+		Image::make($promo->getRealPath())->resize(1024, 500)->save($path);
 
-		return $this->loadGameValues($id);
+		// $icon = Input::file('icon');
+		// $icon_name = time() . "_" . $featured->getClientOriginalName();
+		// $icon_path = public_path('assets/games/icons/' . $icon_name);
+		// Image::make($featured->getRealPath())->resize(512, 512)->save($path);
+
+		// $screenshots = Input::get('screenshots');
+
+		// foreach($screenshots as $screenshot) {
+		// 	$screenshot_name = time() . "_" . $screenshot->getClientOriginalName();
+		// 	$screenshot_path = public_path('assets/games/screenshots/' . $orientation . '/' . $featured_name);
+
+		// 	$width = 800;
+		// 	$height = 480;
+
+		// 	if($orientation == 'portrait') {
+		// 		$width = 480;
+		// 		$height = 800;
+		// 	} 
+
+		// 	Image::make($screenshot->getRealPath())->resize($width, $height)->save($path);
+		// }
+
+		
+
+		// $new_media = Input::get('screenshot_id');
+		// $game->media()->sync($new_media);
+
+		// $game2 = Game::with('media')->get()->find($id);
+
+		// foreach($game2->media as $media) {
+		// 	if($media->pivot->type != 'featured') {
+		// 		$media->pivot->type = 'screenshot';
+		// 		$media->pivot->save();
+		// 	}
+		// }
+
+		// $game->media()->attach(Input::get('featured_img_id'), array('type' => 'featured'));
+
+		// return $this->loadGameValues($id);
 	}
 	/**
 	 * Remove the specified resource from storage.

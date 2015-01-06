@@ -333,3 +333,8 @@ p#generated-password {
 #prices-form input[type=text] {
 	width: 97.5%;
 }
+
+.image-label {
+	line-height: 30px;
+	font-weight: bold;
+}
