@@ -12,7 +12,6 @@ class Game extends \Eloquent {
 		'user_id' => 'required|integer',
 		'main_title' => 'required|min:2|unique:games',
 		'slug' => 'required|min:2',
-		'status' => 'required|boolean',
 		'featured' => 'required|boolean',
 		'release_date' => 'required|date',
 		'downloads' => 'required|numeric',

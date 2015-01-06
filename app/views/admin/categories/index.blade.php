@@ -4,6 +4,7 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="categories-list">
 		<h2>Categories</h2>
+		<a href="{{ URL::route('admin.categories.create') }}" class="mgmt-link">New Category</a>
 		<br>
 		<table>
 			<tr>
@@ -31,7 +32,7 @@
 			@endforeach
 		</table>
 		<br>
-		<a href="{{ URL::route('admin.categories.create') }}" class="mgmt-link">New Category</a>
+		
 	</div>
 	{{ HTML::script('js/form-functions.js') }}
 @stop

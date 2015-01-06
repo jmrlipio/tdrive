@@ -1,13 +1,13 @@
 <?php
 
 class News extends \Eloquent {
-	protected $fillable = ['user_id','main_title','slug','status','news_category_id','release_date', 'featured_media_id'];
+	protected $fillable = ['user_id','main_title','slug','status','news_category_id','release_date', 'featured_image'];
 
 	public static $rules = [
 		'user_id' => 'required|integer',
 		'main_title' => 'required|min:2',
 		'slug' => 'required|min:2',
-		'status' => 'required|boolean',
+		'status' => 'required',
 		'release_date' => 'required|date',
 		'news_category_id' => 'required|integer'
 	];
@@ -34,10 +34,5 @@ class News extends \Eloquent {
 
     public function contents() {
     	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
-    }
-
-    public function featured()
-    {
-        return $this->belongsTo('Media');
     }
 }

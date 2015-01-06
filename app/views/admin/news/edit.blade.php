@@ -20,8 +20,8 @@
 			<ul id="content">
 				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put')) }}
 					<li>
-						{{ Form::label('title', 'Title: ') }}
-						{{ Form::text('title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}
+						{{ Form::label('main_title', 'Title: ') }}
+						{{ Form::text('main_title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}
 						{{ $errors->first('title', '<p class="error">:message</p>') }}
 					</li>
 					<li>
@@ -36,7 +36,7 @@
 					</li>
 					<li>
 						{{ Form::label('status', 'Status: ') }}
-						{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
+						{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 						{{ $errors->first('status', '<p class="error">:message</p>') }}
 					</li>
 					<li>

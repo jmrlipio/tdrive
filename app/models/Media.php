@@ -14,8 +14,4 @@ class Media extends \Eloquent {
         return $this->belongsToMany('Game', 'game_media');
     }
 
-    public function news()
-    {
-        return $this->hasMany('News');
-    }
 }
