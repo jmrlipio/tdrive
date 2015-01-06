@@ -8,7 +8,7 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$games = Game::all();
+		$games = Game::orderBy('id')->paginate(8);
 		
 		return View::make('admin.games.index')->with('games', $games);
 	}
@@ -150,57 +150,72 @@ class AdminGamesController extends \BaseController {
 
 		$orientation = Input::get('orientation');
 
-		echo $orientation;
-
-		echo '<pre>';
-		dd(Input::all());
-		echo '</pre>';
-
-		$promo = Input::get('promo_image');
-		dd(Input::get('icon'));
+		$promo = Input::file('promo_image');
 		$promo_name = time() . "_" . $promo->getClientOriginalName();
 		$promo_path = public_path('assets/games/promo/' . $promo_name);
-		Image::make($promo->getRealPath())->resize(1024, 500)->save($path);
+		Image::make($promo->getRealPath())->save($promo_path);
 
-		// $icon = Input::file('icon');
-		// $icon_name = time() . "_" . $featured->getClientOriginalName();
-		// $icon_path = public_path('assets/games/icons/' . $icon_name);
-		// Image::make($featured->getRealPath())->resize(512, 512)->save($path);
+		$promo_details = [
+			'url' => $promo_name,
+			'type' => 'promo'
+		];
 
-		// $screenshots = Input::get('screenshots');
+		$promo_media = Media::create($promo_details);
 
-		// foreach($screenshots as $screenshot) {
-		// 	$screenshot_name = time() . "_" . $screenshot->getClientOriginalName();
-		// 	$screenshot_path = public_path('assets/games/screenshots/' . $orientation . '/' . $featured_name);
+		foreach($game->media as $media) {
+			if($media->type == 'promo') {
+				$game->media()->detach($media->id);
+			}
+		}
 
-		// 	$width = 800;
-		// 	$height = 480;
+		$game->media()->attach($promo_media->id);
 
-		// 	if($orientation == 'portrait') {
-		// 		$width = 480;
-		// 		$height = 800;
-		// 	} 
+		$icon = Input::file('icon');
+		$icon_name = time() . "_" . $icon->getClientOriginalName();
+		$icon_path = public_path('assets/games/icons/' . $icon_name);
+		Image::make($icon->getRealPath())->save($icon_path);
 
-		// 	Image::make($screenshot->getRealPath())->resize($width, $height)->save($path);
-		// }
+		$screenshots = Input::file('screenshots');
 
-		
+		$icon_details = [
+			'url' => $icon_name,
+			'type' => 'icon'
+		];
 
-		// $new_media = Input::get('screenshot_id');
-		// $game->media()->sync($new_media);
+		$icon_media = Media::create($icon_details);
 
-		// $game2 = Game::with('media')->get()->find($id);
+		foreach($game->media as $media) {
+			if($media->type == 'icon') {
+				$game->media()->detach($media->id);
+			}
+		}
 
-		// foreach($game2->media as $media) {
-		// 	if($media->pivot->type != 'featured') {
-		// 		$media->pivot->type = 'screenshot';
-		// 		$media->pivot->save();
-		// 	}
-		// }
+		$game->media()->attach($icon_media->id);
 
-		// $game->media()->attach(Input::get('featured_img_id'), array('type' => 'featured'));
+		foreach($screenshots as $screenshot) {
+			$screenshot_name = time() . "_" . $screenshot->getClientOriginalName();
+			$screenshot_path = public_path('assets/games/screenshots/' . $orientation . '_' . $screenshot_name);
+			Image::make($screenshot->getRealPath())->save($screenshot_path);
 
-		// return $this->loadGameValues($id);
+			foreach($game->media as $media) {
+				if($media->type == 'screenshot') {
+					$game->media()->detach($media->id);
+				}
+			}
+
+			Image::make($screenshot->getRealPath())->save($screenshot_path);
+
+			$screenshot_details = [
+				'url' => $icon_name,
+				'type' => 'screenshot'
+			];
+
+			$screenshot_media = Media::create($screenshot_details);
+		}
+
+		$url = URL::route('admin.games.edit', $game->id) . '#media';
+
+		return Redirect::to($url)->with('message', 'You have successfully updated the game media.');
 	}
 	/**
 	 * Remove the specified resource from storage.

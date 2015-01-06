@@ -109,16 +109,12 @@
 					@endif
 				</ul>
 				<ul id="media">
-					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files'=> true)) }}
-						<h3>Orientation:</h3>
-						<p>
-							{{ Form::label('portrait', 'Portrait') }}
-							{{ Form::radio('orientation', 'portrait', null, array('id' => 'portrait')) }}
-						</p>
-						<p>
-							{{ Form::label('landscape', 'Landscape') }}
-							{{ Form::radio('orientation', 'landscape', null, array('id' => 'landscape')) }}
-						</p>
+					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true)) }}
+						<li>
+							{{ Form::label('orientation', 'Orientation: ') }}
+							{{ Form::select('orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'))  }}
+							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
+						</li>
 						<li>
 							{{ Form::label('promo_image', 'Featured Image:', array('class' => 'image-label')) }} <br>
 							{{ Form::file('promo_image') }}

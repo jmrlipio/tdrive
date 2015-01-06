@@ -48,9 +48,6 @@
 						{{ Form::label('featured_image', 'Featured Image:') }}
 						{{ Form::file('featured_image') }}
 					</li>
-					<li>
-						
-					</li>
 					{{ Form::hidden('user_id', Auth::user()->id) }}
 					{{ Form::submit('Save') }}
 				{{ Form::close() }}

@@ -4,6 +4,7 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="carriers-list">
 		<h2>Carriers</h2>
+		<a href="{{ URL::route('admin.carriers.create') }}" class="mgmt-link">New Carrier</a>
 		@if(Session::has('message'))
 		    <div class="flash-success">
 		        <p>{{ Session::get('message') }}</p>
@@ -34,7 +35,7 @@
 			@endforeach
 		</table>
 		<br>
-		<a href="{{ URL::route('admin.carriers.create') }}" class="mgmt-link">New Carrier</a>
+		
 	</div>
 	{{ HTML::script('js/form-functions.js') }}
 @stop

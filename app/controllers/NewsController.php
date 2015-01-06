@@ -83,7 +83,7 @@ class NewsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$news = News::orderBy('id')->paginate(10);
+		$news = News::orderBy('id')->paginate(8);
 		return View::make('admin.news.index')->with('news', $news);
 	}
 
@@ -205,6 +205,11 @@ class NewsController extends \BaseController {
 		$news = News::find($id);	
 
 		// $data = Input::all();
+
+		$featured = Input::get('featured_image');
+		$featured_name = time() . "_" . $featured->getClientOriginalName();
+		$featured_path = public_path('assets/news/' . $featured_name);
+		Image::make($featured->getRealPath())->resize(800, 480)->save($path);
 
 		$validator = Validator::make($data = Input::all(), News::$rules);
 		
