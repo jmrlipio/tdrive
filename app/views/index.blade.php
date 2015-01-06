@@ -4,11 +4,12 @@
 	{{ HTML::style("css/lightSlider.css"); }}
 	{{ HTML::style("css/slick.css"); }}
 	{{ HTML::style("css/jquery-ui.css"); }}
+	{{ HTML::style("css/idangerous.swiper.css"); }}
 @stop
 
 @section('content')
 
-	<div class="container">
+	<div class="slider-container container">
 		<ul id="slider" class="content-slider">
 
 			@foreach($games as $game)
@@ -43,25 +44,27 @@
 	<div id="latest-games" class="container">
 		<h1 class="title">New and updated games</h1>
 
-		<div class="items">
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
 
-			@foreach($games as $game)
-				
-				<div class="item">
-					<div class="thumb">
-						<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+				@foreach($games as $game)
+
+					<div class="swiper-slide item">
+						<div class="thumb">
+							<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+						</div>
+
+						<div class="meta">
+							<p class="name">{{{ $game->main_title }}}</p>
+							<p class="price">P{{{ $game->default_price }}}.00</p>
+						</div>
+
+						<div class="button center"><a href="#">Buy</a></div>
 					</div>
 
-					<div class="meta">
-						<p class="name">{{{ $game->main_title }}}</p>
-						<p class="price">P{{{ $game->default_price }}}.00</p>
-					</div>
+				@endforeach
 
-					<div class="button center"><a href="#">Buy</a></div>
-				</div>
-
-			@endforeach
-
+			</div>
 		</div>
 
 		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
@@ -77,31 +80,33 @@
 			<div class="more fr"><a href="{{ route('category.show', 1) }}">See all</a></div>
 		</div>
 
-		<div class="items">
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
 
-			@foreach($games as $game)
-				@foreach($game->categories as $category)
+				@foreach($games as $game)
+					@foreach($game->categories as $category)
 
-					@if($category->id == 1)
-					
-						<div class="item">
-							<div class="thumb">
-								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+						@if($category->id == 1)
+	
+							<div class="swiper-slide item">
+								<div class="thumb">
+									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+								</div>
+
+								<div class="meta">
+									<p class="name">{{{ $game->main_title }}}</p>
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								</div>
+
+								<div class="button center"><a href="#">Buy</a></div>
 							</div>
 
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
+						@endif
 
-							<div class="button center"><a href="#">Buy</a></div>
-						</div>
-
-					@endif
-
+					@endforeach
 				@endforeach
-			@endforeach
 
+			</div>
 		</div>
 	</div><!-- end #memory-games -->
 
@@ -111,31 +116,33 @@
 			<div class="more fr"><a href="{{ route('category.show', 2) }}">See all</a></div>
 		</div>
 
-		<div class="items">
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
 
-			@foreach($games as $game)
-				@foreach($game->categories as $category)
+				@foreach($games as $game)
+					@foreach($game->categories as $category)
 
-					@if($category->id == 2)
-					
-						<div class="item">
-							<div class="thumb">
-								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+						@if($category->id == 2)
+	
+							<div class="swiper-slide item">
+								<div class="thumb">
+									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+								</div>
+
+								<div class="meta">
+									<p class="name">{{{ $game->main_title }}}</p>
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								</div>
+
+								<div class="button center"><a href="#">Buy</a></div>
 							</div>
 
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
+						@endif
 
-							<div class="button center"><a href="#">Buy</a></div>
-						</div>
-
-					@endif
-
+					@endforeach
 				@endforeach
-			@endforeach
 
+			</div>
 		</div>
 	</div><!-- end #casual-games -->
 
@@ -145,31 +152,33 @@
 			<div class="more fr"><a href="{{ route('category.show', 3) }}">See all</a></div>
 		</div>
 
-		<div class="items">
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
 
-			@foreach($games as $game)
-				@foreach($game->categories as $category)
+				@foreach($games as $game)
+					@foreach($game->categories as $category)
 
-					@if($category->id == 3)
-					
-						<div class="item">
-							<div class="thumb">
-								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+						@if($category->id == 3)
+	
+							<div class="swiper-slide item">
+								<div class="thumb">
+									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+								</div>
+
+								<div class="meta">
+									<p class="name">{{{ $game->main_title }}}</p>
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								</div>
+
+								<div class="button center"><a href="#">Buy</a></div>
 							</div>
 
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
+						@endif
 
-							<div class="button center"><a href="#">Buy</a></div>
-						</div>
-
-					@endif
-
+					@endforeach
 				@endforeach
-			@endforeach
 
+			</div>
 		</div>
 	</div><!-- end #arcade-games -->
 
@@ -179,31 +188,33 @@
 			<div class="more fr"><a href="{{ route('category.show', 4) }}">See all</a></div>
 		</div>
 
-		<div class="items">
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
 
-			@foreach($games as $game)
-				@foreach($game->categories as $category)
+				@foreach($games as $game)
+					@foreach($game->categories as $category)
 
-					@if($category->id == 4)
-					
-						<div class="item">
-							<div class="thumb">
-								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+						@if($category->id == 4)
+	
+							<div class="swiper-slide item">
+								<div class="thumb">
+									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+								</div>
+
+								<div class="meta">
+									<p class="name">{{{ $game->main_title }}}</p>
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								</div>
+
+								<div class="button center"><a href="#">Buy</a></div>
 							</div>
 
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
+						@endif
 
-							<div class="button center"><a href="#">Buy</a></div>
-						</div>
-
-					@endif
-
+					@endforeach
 				@endforeach
-			@endforeach
 
+			</div>
 		</div>
 	</div><!-- end #card-games -->
 
@@ -213,31 +224,33 @@
 			<div class="more fr"><a href="{{ route('category.show', 5) }}">See all</a></div>
 		</div>
 
-		<div class="items">
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
 
-			@foreach($games as $game)
-				@foreach($game->categories as $category)
+				@foreach($games as $game)
+					@foreach($game->categories as $category)
 
-					@if($category->id == 5)
-					
-						<div class="item">
-							<div class="thumb">
-								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+						@if($category->id == 5)
+	
+							<div class="swiper-slide item">
+								<div class="thumb">
+									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+								</div>
+
+								<div class="meta">
+									<p class="name">{{{ $game->main_title }}}</p>
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								</div>
+
+								<div class="button center"><a href="#">Buy</a></div>
 							</div>
 
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
+						@endif
 
-							<div class="button center"><a href="#">Buy</a></div>
-						</div>
-
-					@endif
-
+					@endforeach
 				@endforeach
-			@endforeach
 
+			</div>
 		</div>
 	</div><!-- end #classic-games -->
 
@@ -372,11 +385,16 @@
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.lightSlider.min.js"); }}
+	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery-ui.min.js"); }}
 	{{ HTML::script("js/slick.min.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
+
+		/*$('.menu a').click(function() {
+			$('body, html').animate({ scrollTop: $($(this).attr('href')).offset().top - $('#header').height() + 2 }, 1000);
+		});*/
 
 		$("#slider").lightSlider({
 			auto: true,
@@ -388,6 +406,15 @@
 			controls: false,
 			pager: false
 		});
+
+		$('.thumbs-container').each(function() {
+			$(this).swiper({
+				slidesPerView: 'auto',
+				offsetPxBefore: 0,
+				offsetPxAfter: 10,
+				calculateHeight: true
+			})
+		})
 
 		$('.items').slick({
 			infinite: false,

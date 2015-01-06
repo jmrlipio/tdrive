@@ -15,7 +15,7 @@
 		<div class="control">
 			<select name="selected_carrier" required>
 				<option value="">Select</option>
-				
+
 				@foreach ($carriers as $carrier)
 					<option value="{{ $carrier->id }}">{{ $carrier->carrier }}</option>
 				@endforeach

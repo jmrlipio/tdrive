@@ -1,8 +1,8 @@
 <?php
 
 Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
-Route::get('home', array('as' => 'home', 'uses' => 'HomeController@home'));
-Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
+Route::get('home', array('as' => 'home.show', 'uses' => 'HomeController@home'));
+//Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
 
 Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
