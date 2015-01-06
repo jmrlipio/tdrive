@@ -4,6 +4,7 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
 		<h2>Games</h2>
+		<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">New Game</a>
 		@if(Session::has('message'))
 		    <div class="flash-success">
 		        <p>{{ Session::get('message') }}</p>
@@ -45,8 +46,8 @@
 				</tr>
 			@endif
 		</table>
+		{{ $games->links() }}
 		<br>
-		<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">New Game</a>
 	</div>
 	{{ HTML::script('js/jquery-1.11.1.js') }}
 	<script>

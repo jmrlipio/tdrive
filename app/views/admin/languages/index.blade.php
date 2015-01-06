@@ -4,6 +4,7 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="languages-list">
 		<h2>Languages</h2>
+		<a href="{{ URL::route('admin.languages.create') }}" class="mgmt-link">New Language</a>
 		<br>
 		<table>
 			<tr>
@@ -29,7 +30,7 @@
 			@endforeach
 		</table>
 		<br>
-		<a href="{{ URL::route('admin.languages.create') }}" class="mgmt-link">New Language</a>
+		
 	</div>
 	{{ HTML::script('js/form-functions.js') }}
 @stop
