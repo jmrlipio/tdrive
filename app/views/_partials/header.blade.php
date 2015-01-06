@@ -31,14 +31,14 @@
 			<div class="container clearfix">
 				<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
 				<a href="{{ URL::previous(); }}" id="back"><i class="fa fa-angle-left"></i></a>
-				<a href="{{ route('home') }}" id="tdrive">{{ HTML::image('images/tdrive.png', 'TDrive', array('class' => 'auto')) }}</a>
+				<a href="{{ route('home.show') }}" id="tdrive">{{ HTML::image('images/tdrive.png', 'TDrive', array('class' => 'auto')) }}</a>
 
 				<div class="tablet fl clearfix">
 					<ul class="menu fl">
-						<li><a href="{{ route('home') }}/#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
-						<li><a href="{{ route('home') }}/#news" class="menu-news">{{ trans('global.news') }}</a></li>
-						<li><a href="{{ route('home') }}/#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
-						<li><a href="{{ route('home') }}/#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
+						<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
+						<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
+						<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
+						<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
 					</ul>
 
 					<div class="fl">

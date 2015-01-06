@@ -42,10 +42,10 @@
 	</form>
 
 	<ul class="menu">
-		<li><a href="{{ route('home') }}/#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
-		<li><a href="{{ route('home') }}/#news" class="menu-news">{{ trans('global.news') }}</a></li>
-		<li><a href="{{ route('home') }}/#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
-		<li><a href="{{ route('home') }}/#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
+		<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
+		<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
+		<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
+		<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
 	</ul>
 
 	<ul class="social">
@@ -66,4 +66,4 @@
 
 </div><!-- end #side-menu -->
 
-<div class="site-overlay"></div>
+<!--<div class="site-overlay"></div>-->

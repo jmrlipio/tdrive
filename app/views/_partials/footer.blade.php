@@ -13,7 +13,7 @@
 					<li><a href="#">Philippines</a></li>
 				</ul>
 
-				<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home') }}">TDrive</a>.</p>
+				<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">TDrive</a>.</p>
 				<p>All rights reserved.</p>
 			</div>
 

@@ -3,6 +3,7 @@
 @section('stylesheets')
 	{{ HTML::style("css/slick.css"); }}
 	{{ HTML::style("css/jquery.fancybox.css"); }}
+	{{ HTML::style("css/idangerous.swiper.css"); }}
 @stop
 
 @section('content')
@@ -76,13 +77,23 @@
 	</div><!-- end #description -->
 
 	<div id="screenshots" class="container">
-		<div class="items">
-			<div class="item"><a href="/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
-			<div class="item"><a href="/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
-			<div class="item"><a href="/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
-			<div class="item"><a href="/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
-			<div class="item"><a href="/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
-			<div class="item"><a href="/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
+
+				@foreach($related_games as $game)
+					@foreach($game->categories as $category)
+
+						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
+
+					@endforeach
+				@endforeach
+
+			</div>
 		</div>
 	</div>
 
@@ -272,25 +283,29 @@
 	<div id="related-games" class="container">
 		<h1 class="title">Related games</h1>
 
-		<div class="items">
+		<div class="swiper-container thumbs-container">
+			<div class="swiper-wrapper">
 
-			@foreach($related_games as $item)
+				@foreach($related_games as $game)
+					@foreach($game->categories as $category)
 
-				<div class="item">
-					<div class="thumb">
-						<a href="{{ $item->id }}"><img src="/images/games/thumb-{{ $item->slug }}.jpg" alt="{{ $item->main_title }}"></a>
-					</div>
+						<div class="swiper-slide item">
+							<div class="thumb">
+								<a href="{{ URL::route('game.show', $game->id) }}"><img src="/images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+							</div>
 
-					<div class="meta">
-						<p class="name">{{{ $item->main_title }}}</p>
-						<p class="price">P{{{ $item->default_price }}}.00</p>
-					</div>
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							</div>
 
-					<div class="button center"><a href="#">Buy</a></div>
-				</div>
+							<div class="button center"><a href="#">Buy</a></div>
+						</div>
 
-			@endforeach
+					@endforeach
+				@endforeach
 
+			</div>
 		</div>
 
 		<div class="more"><a href="#">More +</a></div>
@@ -302,11 +317,12 @@
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/slick.min.js"); }}
 	{{ HTML::script("js/jquery.fancybox.js"); }}
+	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
 
-		$('#screenshots .items').slick({
+		/*$('#screenshots .items').slick({
 			infinite: true,
 			slidesToScroll: 1,
 			centerMode: true,
@@ -357,9 +373,9 @@
 					}
 				},
 			]
-		});
+		});*/
 
-		$('#related-games .items').slick({
+		/*$('#related-games .items').slick({
 			infinite: false,
 			swipeToSlide: true,
 			//centerMode: true,
@@ -403,7 +419,16 @@
 					}
 				},
 			]
-		});
+		});*/
+
+		$('.thumbs-container').each(function() {
+			$(this).swiper({
+				slidesPerView: 'auto',
+				offsetPxBefore: 0,
+				offsetPxAfter: 10,
+				calculateHeight: true
+			})
+		})
 
 		$('.fancybox').fancybox({ padding: 0 });
 	</script>
