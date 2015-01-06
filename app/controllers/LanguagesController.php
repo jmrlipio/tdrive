@@ -118,4 +118,10 @@ class LanguagesController extends \BaseController {
 			->with('sof', 'success');
 	}
 
+	public function chooseLanguage()
+	{
+		Session::set('locale', Input::get('locale'));
+		return Redirect::back();
+	}
+
 }

@@ -96,6 +96,10 @@ img, video {
 	line-height: 1;
 }
 
+.relative {
+	position: relative;
+}
+
 .link {
 	text-align: center;
 	margin: 20px 0;
@@ -172,6 +176,31 @@ img, video {
 	float: right;
 }
 
+.pagination {
+	display: inline-block;
+	overflow: hidden;
+	margin: 10px 0;
+
+	li {
+		float: left;
+		margin: 0 4px;
+	}
+
+	a {
+		background: $pink;
+		color: $white;
+		padding: 4px 6px;
+		display: block;
+	}
+
+	span {
+		background: $white;
+		color: $pink;
+		padding: 4px 6px;
+		display: block;
+	}
+}
+
 .clearfix {
 	*zoom: 1;
 
@@ -190,6 +219,10 @@ img, video {
 	font: 0 / 0 a;
 	text-shadow: none;
 	color: transparent;
+}
+
+#end {
+	margin: 10px 0;
 }
 
 #side-menu {
@@ -260,10 +293,22 @@ img, video {
 	.language {
 		margin-top: 10px;
 		border: 1px solid #ddd;
+		overflow: hidden;
 		padding: 3px;
+		position: relative;
 
 		select {
 			width: 100%;
+			@extend %box-sizing;
+		}
+
+		input[type="submit"] {
+			position: absolute;
+			right: 0;
+			top: 0;
+			padding: 5px;
+			background: #ddd;
+			color: $black;
 		}
 	}
 

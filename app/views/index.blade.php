@@ -64,7 +64,7 @@
 
 		</div>
 
-		<div class="more"><a href="{{ route('games.new.show') }}">More +</a></div>
+		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
 	</div><!-- end #latest-games -->
 
 	<div id="games-heading" class="container">
@@ -74,7 +74,7 @@
 	<div id="memory-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Brain and Puzzle</h2>
-			<div class="more fr"><a href="{{ route('category.show', 1) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 1) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -108,7 +108,7 @@
 	<div id="casual-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Casual</h2>
-			<div class="more fr"><a href="{{ route('category.show', 2) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 2) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -142,7 +142,7 @@
 	<div id="arcade-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Arcade</h2>
-			<div class="more fr"><a href="{{ route('category.show', 3) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 3) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -176,7 +176,7 @@
 	<div id="card-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Cards and Casino</h2>
-			<div class="more fr"><a href="{{ route('category.show', 4) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 4) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -210,7 +210,7 @@
 	<div id="classic-games" class="game-category container">
 		<div class="clearfix">
 			<h2 class="title fl">Classic</h2>
-			<div class="more fr"><a href="{{ route('category.show', 5) }}">More +</a></div>
+			<div class="more fr"><a href="{{ route('category.show', 5) }}">See all</a></div>
 		</div>
 
 		<div class="items">
@@ -241,52 +241,17 @@
 		</div>
 	</div><!-- end #classic-games -->
 
-	<div id="sanrio-games" class="game-category container">
-		<div class="clearfix">
-			<h2 class="title fl">Sanrio</h2>
-			<div class="more fr"><a href="{{ route('category.show', 6) }}">More +</a></div>
-		</div>
-
-		<div class="items">
-
-			@foreach($games as $game)
-				@foreach($game->categories as $category)
-
-					@if($category->id == 6)
-					
-						<div class="item">
-							<div class="thumb">
-								<a href="{{ 'game/'. $game->id }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
-							</div>
-
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
-
-							<div class="button center"><a href="#">Buy</a></div>
-						</div>
-
-					@endif
-
-				@endforeach
-			@endforeach
-
-		</div>
-	</div><!-- end #sanrio-games -->
-
 	<div id="news" class="container">
 		<div class="clearfix">
 			<h1 class="title">Latest news</h1>
 
-			<form action="#" method="post">
+			<form action="#" id="year" method="post">
+
+				<div id="token">{{ Form::token() }}</div>
+
 				<select name="year">
 					<option value="">select year</option>
-					<option value="2014">2014</option>
-					<option value="2013">2013</option>
-					<option value="2012">2012</option>
-					<option value="2011">2011</option>
-					<option value="2010">2010</option>
+					<option value="2015">2015</option>
 				</select>
 			</form>
 		</div>
@@ -303,7 +268,7 @@
 						</div>
 					</div>
 
-					<img src="images/news/{{ preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($item->main_title)) }}.jpg" alt="{{ $item->main_title }}">
+					<img src="images/news/{{ $item->slug }}.jpg" alt="{{ $item->main_title }}">
 
 					<div class="details">
 						<h3>{{ $item->main_title }}</h3>
@@ -351,7 +316,7 @@
 
 		</div>
 
-		<div class="more"><a href="#">More +</a></div>
+		<div class="more"><a href="{{ route('news.all') }}">More +</a></div>
 	</div><!-- end #news -->
 
 	<div id="faqs" class="container">
@@ -475,5 +440,13 @@
 			heightStyle: 'panel', 
 			active: 'none' 
 		});
+
+		$('#year').change(function() {
+			var year = $(this).find('select').val();
+
+			$(this).attr('action', 'news/year/' + year);
+			$(this).submit();
+		});
+
 	</script>
 @stop

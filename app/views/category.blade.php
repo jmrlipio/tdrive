@@ -8,15 +8,34 @@
 	<div class="container">
 		<h1 class="title">{{{ $category->category }}}</h1>
 
+		<div id="token">{{ Form::token() }}</div>
+
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-					@include('_partials/category')
+
+					@foreach ($games as $game)
+
+						<div class="item">
+							<div class="thumb"><img src="/images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></div>
+
+							<div class="meta">
+								<p>{{ $game->main_title }}</p>
+								<p>P{{ $game->default_price }}.00</p>
+							</div>
+
+							<div class="button"><a href="#">Buy</a></div>
+						</div>
+
+					@endforeach
+
 				</div>
 			</div>
 		</div>
 
-		<div class="ajax-loader"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
+		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
+		<div id="loadmore" class="button center"><a href="#">More +</a></div>
+		<div id="end" class="center"></div>
 	</div>
 
 @stop
@@ -27,21 +46,24 @@
 	<script>
 		FastClick.attach(document.body);
 
-		$(window).scroll(function() {
-			if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-				$('.ajax-loader').show();
+		var load = 0;
+		var _token = $('#token input').val();
+		var num = {{ $count }};
 
-				$.ajax({
-					url: "/loadmore/" + {{ $category->id }},
+		$('#loadmore').click(function(e) {
+			e.preventDefault();
+			$('.ajax-loader').show();
 
-					success: function(html) {
-						if (html) {
-							$("#scroll").append(html);
-							$('.ajax-loader').hide();
-						} else {
-							$('.ajax-loader').html('<p class="center">No more games to show.</p>');
-						}
-					}
+			load++;
+
+			if (load * 3 > num) {
+				$('#end').html('<p>End of Result</p>');
+				$('.ajax-loader').hide();
+				$('#loadmore').hide();
+			} else {
+				$.post("/games/more/" + {{ $category->id }}, { load: load, _token: _token }, function(data) {
+					$('#scroll').append(data);
+					$('.ajax-loader').hide();
 				});
 			}
 		});

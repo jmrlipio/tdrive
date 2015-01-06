@@ -15,8 +15,16 @@
 		</div>
 
 		<div class="title">
-			<h3>{{{ $game->main_title }}} Premium EN</h3>
-			<p>Casual, Arcade</p>
+			<h3>{{{ $game->main_title }}}</h3>
+
+			<ul class="categories clearfix">
+
+				@foreach ($game->categories as $item)
+					<li><a href="{{ route('category.show', $item->id) }}">{{ $item->category }}</a></li>
+				@endforeach
+
+			</ul>
+
 			<p>Android</p>
 			<p>Release: {{{ $game->release_date }}}</p>
 		</div>
@@ -258,7 +266,7 @@
 			</div>
 		</div>
 
-		<div class="link center"><a href="#">See all reviews &raquo;</a></div>
+		<div class="link center"><a href="{{ route('reviews', $game->id) }}">See all reviews &raquo;</a></div>
 	</div><!-- end #reviews -->
 
 	<div id="related-games" class="container">

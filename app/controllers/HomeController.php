@@ -5,9 +5,21 @@ class HomeController extends BaseController {
 	public function index()
 	{
 		$languages = Language::all();
+		$carriers = Carrier::all();
+
+		return View::make('carrier')
+			->with('page_title', 'Select carrier')
+			->with('page_id', 'form')
+			->with(compact('languages'))
+			->with(compact('carriers'));
+	}
+
+	public function home()
+	{
+		$languages = Language::all();
 		$games = Game::all();
 		$latest_news = News::all()->take(2);
-		$previous_news = News::all()->take(3);
+		$previous_news = News::take(3)->skip(2)->get();
 		$faqs = Faq::all();
 
 		return View::make('index')

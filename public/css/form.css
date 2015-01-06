@@ -1,4 +1,4 @@
-#form #content input[type="text"], #form #content input[type="email"], #form #content input[type="password"] {
+#form #content input[type="text"], #form #content input[type="email"], #form #content input[type="password"], #form #content select {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -19,7 +19,7 @@
 #form #content .control-group {
   margin: 10px 0;
 }
-#form #content input[type="text"], #form #content input[type="email"], #form #content input[type="password"] {
+#form #content input[type="text"], #form #content input[type="email"], #form #content input[type="password"], #form #content select {
   width: 100%;
   padding: 4px 6px;
 }

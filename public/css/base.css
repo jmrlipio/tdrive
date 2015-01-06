@@ -1,4 +1,4 @@
-#side-menu, #side-menu .search input {
+#side-menu, #side-menu .search input, #side-menu .language select {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -97,6 +97,10 @@ img.auto, video.auto {
   line-height: 1;
 }
 
+.relative {
+  position: relative;
+}
+
 .link {
   text-align: center;
   margin: 20px 0;
@@ -169,6 +173,28 @@ img.auto, video.auto {
   float: right;
 }
 
+.pagination {
+  display: inline-block;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.pagination li {
+  float: left;
+  margin: 0 4px;
+}
+.pagination a {
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+  display: block;
+}
+.pagination span {
+  background: #fff;
+  color: #e9548e;
+  padding: 4px 6px;
+  display: block;
+}
+
 .clearfix {
   *zoom: 1;
 }
@@ -184,6 +210,10 @@ img.auto, video.auto {
   font: 0 / 0 a;
   text-shadow: none;
   color: transparent;
+}
+
+#end {
+  margin: 10px 0;
 }
 
 #side-menu {
@@ -240,10 +270,20 @@ img.auto, video.auto {
 #side-menu .language {
   margin-top: 10px;
   border: 1px solid #ddd;
+  overflow: hidden;
   padding: 3px;
+  position: relative;
 }
 #side-menu .language select {
   width: 100%;
+}
+#side-menu .language input[type="submit"] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px;
+  background: #ddd;
+  color: #555;
 }
 #side-menu .menu {
   margin-top: 10px;

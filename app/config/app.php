@@ -126,7 +126,8 @@ return array(
 		'Jarektkaczyk\TriplePivot\TriplePivotServiceProvider',
 		'Torann\GeoIP\GeoIPServiceProvider',
 		'Thujohn\Analytics\AnalyticsServiceProvider',
-		'Intervention\Image\ImageServiceProvider'
+		'Intervention\Image\ImageServiceProvider',
+		'Torann\GeoIP\GeoIPServiceProvider'
 	),
 
 	/*
@@ -198,7 +199,8 @@ return array(
 		'Countries' 	  => 'Webpatser\Countries\CountriesFacade',
 		'GeoIP' 		  => 'Torann\GeoIP\GeoIPFacade',
 		'Analytics' 	  => 'Thujohn\Analytics\AnalyticsFacade',
-		'Image' 		  => 'Intervention\Image\Facades\Image'
+		'Image' 		  => 'Intervention\Image\Facades\Image',
+		'GeoIP'			  => 'Torann\GeoIP\GeoIPFacade'
 	),
 
 );

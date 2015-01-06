@@ -3,7 +3,7 @@
 @section('content')
 
 	<div id="featured" class="container">
-		<img src="/images/news/{{ preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($news->main_title)) }}.jpg" alt="{{ $news->main_title }}">
+		<img src="/images/news/{{ $news->slug }}.jpg" alt="{{ $news->main_title }}">
 	</div>
 
 	<div class="container">
