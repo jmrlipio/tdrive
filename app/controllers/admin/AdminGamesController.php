@@ -157,7 +157,7 @@ class AdminGamesController extends \BaseController {
 		echo '</pre>';
 
 		$promo = Input::get('promo_image');
-		dd(Input::get('promo_image'));
+		dd(Input::get('icon'));
 		$promo_name = time() . "_" . $promo->getClientOriginalName();
 		$promo_path = public_path('assets/games/promo/' . $promo_name);
 		Image::make($promo->getRealPath())->resize(1024, 500)->save($path);

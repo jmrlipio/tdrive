@@ -109,7 +109,7 @@
 					@endif
 				</ul>
 				<ul id="media">
-					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true)) }}
+					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files'=> true)) }}
 						<h3>Orientation:</h3>
 						<p>
 							{{ Form::label('portrait', 'Portrait') }}
