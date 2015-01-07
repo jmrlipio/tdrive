@@ -109,24 +109,48 @@
 					@endif
 				</ul>
 				<ul id="media">
-					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true)) }}
+					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
 						<li>
-							{{ Form::label('orientation', 'Orientation: ') }}
-							{{ Form::select('orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'))  }}
+							{{ Form::label('image_orientation', 'Orientation: ') }}
+							{{ Form::select('image_orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'), $game->image_orientation)  }}
 							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('promo_image', 'Featured Image:', array('class' => 'image-label')) }} <br>
-							{{ Form::file('promo_image') }}
+							{{ Form::label('promo', 'Featured Image:', array('class' => 'image-label')) }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'promos')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+								@endif
+							@endforeach
+							{{ Form::file('promo') }}
 						</li>
 						<li>
-							{{ Form::label('icon', 'Icon:', array('class' => 'image-label')) }} <br>
+							{{ Form::label('icon', 'Icon:', array('class' => 'image-label')) }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'icons')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+								@endif
+							@endforeach
 							{{ Form::file('icon') }}
 						</li>
 						<h3>Screenshots:</h3>
-						<li>
-							{{ Form::file('screenshots[]') }}
-						</li>
+						<br>
+						@foreach($selected_media as $media)
+							@if($media['type'] == 'screenshots')
+								<li>
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+									{{ Form::file('screenshots[]', array('class' => 'screenshot')) }}
+									{{ Form::button('Remove', array('class' => 'remove-btn')) }}
+									{{ Form::hidden('ssid[]', $media['media_id'], array('class' => 'ssid')) }}
+								</li>
+							@endif
+						@endforeach
 						{{ Form::button('Add Screenshot', array('id' => 'add-img')) }}
 						<br><br>
 						{{ Form::submit('Update Media', array('class' => 'update-content')) }}
@@ -238,6 +262,7 @@
 			$(this).before(' \
 				<li> \
 					<input name="screenshots[]" type="file"> \
+					<button class="remove-btn" type="button">Remove</button> \
 				</li> \
 				');
 		});
@@ -245,6 +270,20 @@
 		$('#tab-container > .etabs a').click(function() {
 			$('body').scrollTop(0);
 		});
+
+	    $('#update-media').on('submit', function() {
+	    	$('.screenshot').each(function() {
+	    		var sfile = $(this);
+	    		if(sfile.val() != '') {
+	    			sfile.parent().find('.ssid').remove();
+	    		}
+	    	});
+	    });
+	});
+
+	// Removes added field for screenshots on Images tab
+	$("#media").on('click', '.remove-btn',function(){
+		$(this).parent().remove();
 	});
 
 	/* Opens media dialog for selecting featured and screenshots images
@@ -326,11 +365,6 @@
 		});
 
 		content_tab.easytabs();
-	});
-
-	// Removes added field for screenshots on Images tab
-	$("#media").on('click', '.remove-img',function(){
-		$(this).parent().parent().remove();
 	});
 
 	// On submit of form
