@@ -13,7 +13,7 @@
 
 App::before(function($request)
 {
-	//
+	Lang::setLocale(Session::get('locale'));
 });
 
 
@@ -45,7 +45,7 @@ Route::filter('admin', function($route, $request)
 		{
 			return Redirect::guest('login');
 		}
-	} else if (Auth::user()->role != 'superadmin') {
+	} else if (Auth::user()->role == 'member' ) {
 		return Response::make('Unauthorized', 401);
 	}
 });
@@ -69,6 +69,14 @@ Route::filter('auth.basic', function()
 {
 	return Auth::basic();
 });
+
+Route::filter('role', function()
+{ 
+  if ( Auth::user()->role !== 'superadmin') {
+     // do something
+    return Response::make('Unauthorized', 401);
+   }
+}); 
 
 /*
 |--------------------------------------------------------------------------

@@ -4,13 +4,13 @@
 
 		@if (Auth::check())
 			
-			<p><a href="#"><i class="fa fa-user"></i> {{ Auth::user()->username }}</a> | {{ link_to_route('users.logout', 'Logout') }}</p>
+			<p><a href="{{ route('user.profile', Auth::user()->id) }}"><i class="fa fa-user"></i> {{ Auth::user()->username }}</a> | {{ link_to_route('users.logout', trans('global.logout')) }}</p>
 
 		@else
 
 			<ul>
-				<li><a href="{{ route('users.login') }}" class="login">Sign in</a></li>
-				<li><a href="{{ route('users.register') }}" class="register">Join now <i class="fa fa-user"></i></a></li>
+				<li><a href="{{ route('users.login') }}" class="login">{{ trans('global.login') }}</a></li>
+				<li><a href="{{ route('users.register') }}" class="register">{{ trans('global.register') }} <i class="fa fa-user"></i></a></li>
 			</ul>
 
 		@endif
@@ -18,28 +18,34 @@
 	</div>
 
 	<div class="search">
-		{{ Form::input('text', 'search', null, array('placeholder' => 'search game')); }}
-		<a href="#"><i class="fa fa-search"></i></a>
+
+		{{ Form::open(array('action' => 'ListingController@searchGames', 'id' => 'search_form')) }}
+			{{ Form::input('text', 'search', null, array('placeholder' => 'search game')); }}
+			{{ Form::token() }}
+
+			<a href="javascript:{}" onclick="document.getElementById('search_form').submit(); return false;"><i class="fa fa-search"></i></a>
+		{{ Form::close() }}
+
 	</div>
 
-	{{ Form::open(array('url' => '/', 'class' => 'language')); }}
+	<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
-		<select name="languages">
+		{{ Form::token() }}
+
+		<select name="locale" onselect="this.form.submit()">
 			<option value="" selected>select language</option>
-
-			@foreach($languages as $language)
-				<option value="{{ $language->id }}">{{ $language->language }}</option>
-			@endforeach
-
+			<option value="en">English</option>
+			<option value="de" {{ Lang::locale() == 'de' ? ' selected' : '' }}>German</option>
 		</select>
 
-	{{ Form::close(); }}
+		<input type="submit" value="select">
+	</form>
 
 	<ul class="menu">
-		<li><a href="{{ route('home') }}/#latest-games" class="menu-games">Games</a></li>
-		<li><a href="{{ route('home') }}/#news" class="menu-news">News</a></li>
-		<li><a href="{{ route('home') }}/#faqs" class="menu-faqs">FAQs</a></li>
-		<li><a href="{{ route('home') }}/#contact" class="menu-contact">Contact</a></li>
+		<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
+		<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
+		<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
+		<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
 	</ul>
 
 	<ul class="social">
@@ -60,4 +66,4 @@
 
 </div><!-- end #side-menu -->
 
-<div class="site-overlay"></div>
+<!--<div class="site-overlay"></div>-->

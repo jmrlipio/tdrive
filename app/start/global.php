@@ -83,11 +83,24 @@ require app_path().'/filters.php';
 require app_path().'/constants.php';
 require app_path().'/AuditLogHandler.php';
 
+
 Event::subscribe(new AuditLogHandler);
 
-/*App::missing(function($exception)
-{
-    return Response::view('404', array(), 404);
-});
+/* Added by: Jone   
+* Purpose: For adding event listener for user registration
+* Date: 01/07/2015
 */
+require app_path().'/events.php';
+
+/*END*/
+
+
+App::missing(function($exception)
+{
+	$page_title = "404 page";
+	$page_id = 'form';	
+    return Response::view('404', array( 'page_title' => $page_title, 'page_id' => $page_id ), 404);
+
+});
+
 

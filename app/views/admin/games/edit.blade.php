@@ -34,7 +34,7 @@
 						</li>
 						<li>
 							{{ Form::label('status', 'Status: ') }}
-							{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
+							{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 							{{ $errors->first('status', '<p class="error">:message</p>') }}
 						</li>
 						<li>
@@ -108,75 +108,125 @@
 						<p>Please select one or more carriers to add prices to this game.
 					@endif
 				</ul>
-
 				<ul id="media">
-					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post')) }}
+					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
 						<li>
-							{{ Form::label('featured-img', 'Featured Image:') }}
-							<?php $featured = false; ?>
+							{{ Form::label('image_orientation', 'Orientation: ') }}
+							{{ Form::select('image_orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'), $game->image_orientation)  }}
+							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
+						</li>
+						<li>
+							{{ Form::label('promo', 'Featured Image:', array('class' => 'image-label')) }}
 							@foreach($selected_media as $media)
-								@if($media['type'] == 'featured')
-									<?php $featured = true; ?>
-									<div class="img-holder">
-										<img src="{{ $media['media_url'] }}">
+								@if($media['type'] == 'promos')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
 									</div>
-									<p>
-										{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-										{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
-										{{ Form::button('Select', array('class' => 'select-img')) }}
-									</p>
 								@endif
 							@endforeach
-							@if(!$featured)
+							{{ Form::file('promo') }}
+						</li>
+						<li>
+							{{ Form::label('icon', 'Icon:', array('class' => 'image-label')) }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'icons')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+								@endif
+							@endforeach
+							{{ Form::file('icon') }}
+						</li>
+						<h3>Screenshots:</h3>
+						<br>
+						@foreach($selected_media as $media)
+							@if($media['type'] == 'screenshots')
+								<li>
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+									{{ Form::file('screenshots[]', array('class' => 'screenshot')) }}
+									{{ Form::button('Remove', array('class' => 'remove-btn')) }}
+									{{ Form::hidden('ssid[]', $media['media_id'], array('class' => 'ssid')) }}
+								</li>
+							@endif
+						@endforeach
+						{{ Form::button('Add Screenshot', array('id' => 'add-img')) }}
+						<br><br>
+						{{ Form::submit('Update Media', array('class' => 'update-content')) }}
+					{{ Form::close() }}
+				</ul>
+
+				<!--
+				<ul id="media">
+					{{-- Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post')) --}}
+						<li>
+							{{-- Form::label('featured-img', 'Featured Image:') --}}
+							<?php //$featured = false; ?>
+							@//foreach($selected_media as $media)
+								@//if($media['type'] == 'featured')
+									<?php //$featured = true; ?>
+									<div class="img-holder">
+										<img src="{{-- $media['media_url'] --}}">
+									</div>
+									<p>
+										{{-- Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) --}}
+										{{-- Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) --}}
+										{{-- Form::button('Select', array('class' => 'select-img')) --}}
+									</p>
+								@//endif
+							@//endforeach
+							@//if(!$featured)
 								<div class="img-holder"></div>
 								<p>
-									{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-									{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-									{{ Form::button('Select', array('class' => 'select-img')) }}
+									{{-- Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) --}}
+									{{-- Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) --}}
+									{{-- Form::button('Select', array('class' => 'select-img')) --}}
 								</p>
-							@endif
+							@//endif
 						</li>
 						<br>
 						<ul id="screenshots">
 							<label>Images:</label>
-							{{ Form::button('Add Image', array('id' => 'add-img')) }}<br>
+							{{-- Form::button('Add Image', array('id' => 'add-img')) --}}<br>
 							<?php 
-								$screenshot = false; 
-								$i = 1; 
+								//$screenshot = false; 
+								//$i = 1; 
 							?>
-							@foreach($selected_media as $media)
-								@if($media['type'] == 'screenshot')
-									<?php $screenshot = true; ?>
+							@//foreach($selected_media as $media)
+								@//if($media['type'] == 'screenshot')
+									<?php //$screenshot = true; ?>
 									<li>
 										<div class="img-holder">
-											<img src="{{ $media['media_url'] }}">
+											<img src="{{-- $media['media_url'] --}}">
 										</div>
 										<p>
-											{{ Form::text('screenshots', $media['media_url'], array('class' => 'img-url', 'disabled')) }}
-											{{ Form::hidden('screenshot_id[]', $media['media_id'], array('class' => 'hidden_id')) }}
-											{{ Form::button('Select', array('class' => 'select-img')) }}
-											@if($i > 1)
-												{{ Form::button('Remove', array('class' => 'remove-img')) }}
-											@endif
-											<?php $i++; ?>
+											{{-- Form::text('screenshots', $media['media_url'], array('class' => 'img-url', 'disabled')) --}}
+											{{-- Form::hidden('screenshot_id[]', $media['media_id'], array('class' => 'hidden_id')) --}}
+											{{-- Form::button('Select', array('class' => 'select-img')) --}}
+											@//if($i > 1)
+												{{-- Form::button('Remove', array('class' => 'remove-img')) --}}
+											@//endif
+											<?php //$i++; ?>
 										</p>
 									</li>
-								@endif
-							@endforeach
-							@if(!$screenshot)
+								@//endif
+							@//endforeach
+							@//if(!$screenshot)
 								<li>
 									<div class="img-holder"></div>
 									<p>
-										{{ Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) }}
-										{{ Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) }}
-										{{ Form::button('Select', array('class' => 'select-img')) }}
+										{{-- Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) --}}
+										{{-- Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) --}}
+										{{-- Form::button('Select', array('class' => 'select-img')) --}}
 									</p>
 								</li>
-							@endif
+							@//endif
 						</ul>
-						{{ Form::submit('Update Media', array('class' => 'update-content')) }}
-					{{ Form::close() }}
+						{{-- Form::submit('Update Media', array('class' => 'update-content')) --}}
+					{{-- Form::close() --}}
 				</ul>
+				-->
 			</div>
 		</div>
 	</article>
@@ -209,24 +259,34 @@
 
         // Appends fields for adding screenshots on Images tab
 		$('#add-img').click(function() {
-			$('#screenshots').append(" \
+			$(this).before(' \
 				<li> \
-					<div class='img-holder'></div> \
-					<p> \
-						<input class='img-url' type='text' name='screenshots' disabled> \
-						<input type='hidden' name='screenshot_id[]' class='hidden_id'> \
-						<button class='select-img' type='button'>Select</button> \
-						<button class='remove-img' type='button'>Remove</button> \
-					</p> \
-				</li>");
+					<input name="screenshots[]" type="file"> \
+					<button class="remove-btn" type="button">Remove</button> \
+				</li> \
+				');
 		});
 
 		$('#tab-container > .etabs a').click(function() {
 			$('body').scrollTop(0);
 		});
+
+	    $('#update-media').on('submit', function() {
+	    	$('.screenshot').each(function() {
+	    		var sfile = $(this);
+	    		if(sfile.val() != '') {
+	    			sfile.parent().find('.ssid').remove();
+	    		}
+	    	});
+	    });
 	});
 
-	// Opens media dialog for selecting featured and screenshots images
+	// Removes added field for screenshots on Images tab
+	$("#media").on('click', '.remove-btn',function(){
+		$(this).parent().remove();
+	});
+
+	/* Opens media dialog for selecting featured and screenshots images
 	$("#media").on('click', '.select-img',function(){
 		img_li = $(this).parent().parent();
 		$('#cover').css('display', 'block');
@@ -307,11 +367,6 @@
 		content_tab.easytabs();
 	});
 
-	// Removes added field for screenshots on Images tab
-	$("#media").on('click', '.remove-img',function(){
-		$(this).parent().parent().remove();
-	});
-
 	// On submit of form
 	$('#tab-container').on('submit', function() {
 		$('.img-url').prop('disabled', false);
@@ -353,6 +408,6 @@
 				}
 			}
 		});
-	}
+	} */
     </script>
 @stop

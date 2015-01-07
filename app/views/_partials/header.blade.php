@@ -31,14 +31,14 @@
 			<div class="container clearfix">
 				<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
 				<a href="{{ URL::previous(); }}" id="back"><i class="fa fa-angle-left"></i></a>
-				<a href="{{ route('home') }}" id="tdrive">{{ HTML::image('images/tdrive.png', 'TDrive', array('class' => 'auto')) }}</a>
+				<a href="{{ route('home.show') }}" id="tdrive">{{ HTML::image('images/tdrive.png', 'TDrive', array('class' => 'auto')) }}</a>
 
 				<div class="tablet fl clearfix">
 					<ul class="menu fl">
-						<li><a href="{{ route('home') }}/#latest-games" class="menu-games">Games</a></li>
-						<li><a href="{{ route('home') }}/#news" class="menu-news">News</a></li>
-						<li><a href="{{ route('home') }}/#faqs" class="menu-faqs">FAQs</a></li>
-						<li><a href="{{ route('home') }}/#contact" class="menu-contact">Contact</a></li>
+						<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
+						<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
+						<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
+						<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
 					</ul>
 
 					<div class="fl">
@@ -46,31 +46,31 @@
 
 							@if (Auth::check())
 								
-								<p><a href="#"><i class="fa fa-user"></i> {{ Auth::user()->username }}</a> | {{ link_to_route('users.logout', 'Logout') }}</p>
+								<p><a href="{{ route('user.profile', Auth::user()->id) }}"><i class="fa fa-user"></i> {{ Auth::user()->username }}</a> | {{ link_to_route('users.logout', trans('global.logout')) }}</p>
 
 							@else
 
 								<ul>
-									<li><a href="{{ route('users.login') }}" class="login">Sign in</a></li>
-									<li><a href="{{ route('users.register') }}" class="register">Join now <i class="fa fa-user"></i></a></li>
+									<li><a href="{{ route('users.login') }}" class="login">{{ trans('global.login') }}</a></li>
+									<li><a href="{{ route('users.register') }}" class="register">{{ trans('global.register') }} <i class="fa fa-user"></i></a></li>
 								</ul>
 
 							@endif
 
 						</div>
 
-						{{ Form::open(array('url' => '/', 'class' => 'language')); }}
+						<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
-							<select name="languages">
+							{{ Form::token() }}
+
+							<select name="locale" onselect="this.form.submit()">
 								<option value="" selected>select language</option>
-
-								@foreach($languages as $language)
-									<option value="{{ $language->id }}">{{ $language->language }}</option>
-								@endforeach
-
+								<option value="en">English</option>
+								<option value="de" {{ Lang::locale() == 'de' ? ' selected' : '' }}>German</option>
 							</select>
 
-						{{ Form::close(); }}
+							<input type="submit" value="select">
+						</form>
 
 					</div>
 				</div>

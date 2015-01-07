@@ -63,6 +63,11 @@ ul {
 	font-style: normal;
 }
 
+html, body {
+	overflow-x: hidden;
+    height: 100%;
+}
+
 body {
 	font: 16px/1.2 opensans_regular, Arial, sans-serif;
 	text-transform: lowercase;
@@ -94,6 +99,10 @@ img, video {
 
 .date {
 	line-height: 1;
+}
+
+.relative {
+	position: relative;
 }
 
 .link {
@@ -289,10 +298,22 @@ img, video {
 	.language {
 		margin-top: 10px;
 		border: 1px solid #ddd;
+		overflow: hidden;
 		padding: 3px;
+		position: relative;
 
 		select {
 			width: 100%;
+			@extend %box-sizing;
+		}
+
+		input[type="submit"] {
+			position: absolute;
+			right: 0;
+			top: 0;
+			padding: 5px;
+			background: #ddd;
+			color: $black;
 		}
 	}
 

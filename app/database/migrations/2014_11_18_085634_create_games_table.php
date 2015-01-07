@@ -25,6 +25,7 @@ class CreateGamesTable extends Migration {
 			$table->date('release_date');
 			$table->integer('downloads');
 			$table->integer('actual_downloads');
+			$table->string('image_orientation');
 			$table->timestamps();
 		});
 	}

@@ -24,8 +24,7 @@ class CreateNewsTable extends Migration {
 			$table->string('status');
 			$table->date('release_date');
 			$table->boolean('comment_enabled');
-			$table->integer('featured_media_id')->unsigned();
-			$table->foreign('featured_media_id')->references('id')->on('media');
+			$table->string('featured_image');
 			$table->timestamps();
 		});
 	}

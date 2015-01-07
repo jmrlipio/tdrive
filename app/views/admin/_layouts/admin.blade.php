@@ -29,6 +29,7 @@
                     Welcome, 
                     <a href="{{ URL::route('admin.users.show', Auth::user()->id) }}">{{ Auth::user()->first_name }}</a> | 
                     {{ link_to_route('admin.logout', 'Sign Out') }}
+                    {{ Auth::user()->role }}
                 </p>
             @else
                 <p>     
@@ -39,22 +40,37 @@
         </div>
     </header>
     @if(Auth::check())
-    <nav id="admin-panel">
-        <ul>
-            <li><a href="{{ URL::route('admin.users.index') }}">Users</a></li>
-            <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>
-            <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>
-            <li><a href="{{ URL::route('admin.media.create') }}">Gallery</a></li>
-            <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>
-            <li><a href="{{ URL::route('admin.siteoptions.index') }}">Site Options</a></li>
-            <li><a href="{{ URL::route('admin.faqs.index') }}">FAQ</a></li>
-        </ul>
-    </nav>
+
+        <nav id="admin-panel">
+            <ul>
+                @if(Auth::user()->role == 'admin')
+                               
+                    <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>            
+                    <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>
+
+                @elseif(Auth::user()->role == 'editor') 
+                    <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>
+
+                @else
+                    <li><a href="{{ URL::route('admin.users.index') }}">Users</a></li>                
+                    <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>               
+                    <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>               
+                    <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>               
+                    <li><a href="{{ URL::route('admin.siteoptions.index') }}">Site Options</a></li>
+                    <li><a href="{{ URL::route('admin.faqs.index') }}">FAQ</a></li>
+                @endif
+
+            </ul>
+        </nav>
+
     @endif
+
     <main>
         @yield('content')
     </main>
+
     <div class="clear"></div>
+
     <footer>
         
     </footer>

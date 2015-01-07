@@ -4,6 +4,11 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
 		<h2>Games</h2>
+		
+		@if(Auth::user()->role != 'admin')
+			<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">New Game</a>
+		@endif
+
 		@if(Session::has('message'))
 		    <div class="flash-success">
 		        <p>{{ Session::get('message') }}</p>
@@ -24,15 +29,17 @@
 						<td><input type="checkbox"></td>
 						<td>
 							<a href="#">{{ $game->main_title }}</a>
-							<ul class="actions">
-								<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">Edit</a></li>
-								<li><a href="#">View</a></li>
-								<li>
-									{{ Form::open(array('route' => array('admin.games.destroy', $game->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-									{{ Form::close() }}
-								</li>
-							</ul>
+							@if(Auth::user()->role != 'admin')
+								<ul class="actions">							
+									<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">Edit</a></li>							
+									<li><a href="#">View</a></li>
+									<li>
+										{{ Form::open(array('route' => array('admin.games.destroy', $game->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+										{{ Form::close() }}
+									</li>
+								</ul>
+							@endif
 						</td>
 						<td>{{ $game->user->username }}</td>
 						<td>{{ $game->release_date }}</td>
@@ -45,8 +52,8 @@
 				</tr>
 			@endif
 		</table>
+		{{ $games->links() }}
 		<br>
-		<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">New Game</a>
 	</div>
 	{{ HTML::script('js/jquery-1.11.1.js') }}
 	<script>

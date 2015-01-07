@@ -43,6 +43,25 @@
 			padding-left: 10px;
 			@extend %box-sizing;
 		}
+
+		.categories {
+
+			li {
+				float: left;
+
+				&::after {
+					content: ',\00a0';
+				}
+
+				&:last-child::after {
+					content: '';
+				}
+			}
+
+			a {
+				color: $pink;
+			}
+		}
 	}
 
 	#buttons {
@@ -52,7 +71,7 @@
 		}
 
 		.downloads {
-			background: #ff89b7 url(../images/downloads.png) -5px -8px no-repeat;
+			background: #ff89b7 url(../images/downloads.png) center -8px no-repeat;
 			position: relative;
 			width: 100%;
 			font-weight: bold;
@@ -66,7 +85,7 @@
 
 			.words {
 				float: left;
-				padding: 4px 0 0 8px;
+				padding: 4px 0 0 4px;
 
 				span {
 					display: block;
@@ -75,7 +94,7 @@
 		}
 
 		.ratings {
-			background: #ffdf00 url(../images/ratings.png) -5px -8px no-repeat;
+			background: #ffdf00 url(../images/ratings.png) center -8px no-repeat;
 			position: relative;
 			width: 100%;
 
@@ -195,6 +214,16 @@
 	}
 
 	#screenshots {
+		padding-bottom: 10px;
+
+		.swiper-slide {
+			width: 140px;
+			@extend %box-sizing;
+			padding-right: 0;
+			text-align: left;
+			line-height: 1.3;
+		}
+
 		.item {
 			@extend %box-sizing;
 			padding: 0 2px;
@@ -439,12 +468,26 @@
 		background: #f4f4f4;
 		border-bottom: 4px solid $pink;
 
+		.swiper-slide {
+			width: 110px;
+			@extend %box-sizing;
+			padding-right: 0;
+			text-align: left;
+			line-height: 1.3;
+		}
+
+		.swiper-container {
+			padding-bottom: 20px;
+		}
+
 		.thumb {
 			@extend %box-sizing;
 			@include border-radius(16px);
 			padding: 6px;
 			background: rgba(0, 0, 0, .1);
-			margin: 0 5px;
+			margin: 0 auto;
+			width: 100px;
+			height: 100px;
 
 			img {
 				@include border-radius(16px);
@@ -456,6 +499,10 @@
 			margin: 10px 0;
 			height: 57px;
 			text-transform: none;
+
+			p {
+				font-size: 14px;
+			}
 		}
 	}
 }

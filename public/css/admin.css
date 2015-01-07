@@ -19,7 +19,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
+  /*font: inherit;*/
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -48,17 +48,17 @@ table {
 
 
 /* general styles */
-* { font-size: 14px; font-family: 'open sans'; }
+* { font-size: 14px; font-family: 'Arial'; }
 html, body { width: 100%; height: 100%; }
 body { margin: 0; padding: 0; }
 h1 { font-size: 24px; }
 h2 { font-size: 18px; }
 h3 { font-size: 15px; font-weight: bold; }
 button { cursor: pointer; }
-a.mgmt-link { text-decoration: none; line-height: 40px; display: block; width: 100px; text-align: center; margin: 0 auto; }
+a.mgmt-link { text-decoration: none; line-height: 30px; display: inline-block; width: 100px; text-align: center; margin: 0 auto; float: right; background: #4288CE; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
 
 /* main sections */
-header { padding: 0; background: #E43C49; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
+header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
 header div { padding: 10px; }
 header h1 { color: #fff; float: left; line-height: 80px; margin-left: 20px; }
 header img { float: left; height: 80px; width: 264px; }
@@ -77,7 +77,7 @@ form li .error { display: inline-block; color: red; line-height: 30px; }
 form label { display: block; font-weight: bold; line-height: 30px; }
 input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 95%; }
 input[type="text"], input[type="email"], input[type="password"] { padding: 5px 10px; }
-input[type="submit"], a.mgmt-link { background: #4288CE; color: #fff; height: 40px; line-height: 40px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
+input[type="submit"] { background: #4288CE; color: #fff; height: 40px; line-height: 40px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 input[type="submit"]:hover, a.mgmt-link:hover { background: #333; cursor: pointer; }
 button { background: #CE8342; color: #fff; height: 30px; line-height: 31px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 button:hover { background: #92523F; cursor: pointer; }
@@ -95,7 +95,7 @@ textarea { padding: 5px 10px; }
 #admin-panel { float: left; width: 18%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
 #admin-panel ul li { width: 100%; display: block; }
-#admin-panel ul li a { display: block; line-height: 40px; text-decoration: none; color: #fff; padding-left: 20px; font-family: 'Indie Flower', cursive; font-size: 1.4em;}
+#admin-panel ul li a { display: block; line-height: 40px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
 #admin-panel ul li a:hover { background-color: #2F3A40; }
 
 #user-menu { float: right; }
@@ -106,7 +106,7 @@ textarea { padding: 5px 10px; }
 /* general classes */
 .clear { clear: both; }
 
-#user-account, .item-listing { padding: 10px; width: 30%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+#user-account, .item-listing { padding: 20px 10px; width: 30%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 #user-account table { border-collapse: collapse; width: 50%; margin: 0 auto; }
 #user-account td { padding: 5px; }
 #user-account h2 { text-align: center; }
@@ -200,7 +200,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 .sub-nav { position: fixed; z-index: 10; width: 100%; height: 30px; padding: 0; margin: 0; background-color: #888; }
 .sub-nav ul { list-style: none; }
-.sub-nav li { float: left; width: 16.4%; }
+.sub-nav li { float: left; width: 20.5%; }
 .sub-nav li a { display: block; text-align: center; line-height: 30px; text-decoration: none; color: #fff; position: relative; }
 .sub-nav li a:hover, .sub-nav li a.active:hover { background-color: #FEBA48; color: #000; }
 .sub-nav li a.active { background-color: #555; }
@@ -245,8 +245,10 @@ p#generated-password {
 }
 
 .select-filter {
-	float: right;
-	margin-bottom: 10px;
+	float: left;
+	display: inline-block;
+	height: 30px;
+	margin: 10px 0px;
 }
 
 .simple-form {
@@ -340,7 +342,24 @@ p#generated-password {
 	width: 97.5%;
 }
 
+
 .filter {
 	margin: 45px 37px 0px 30px;
 	float: left;
 }
+.image-label {
+	line-height: 30px;
+	font-weight: bold;
+}
+
+.media-box {
+	width: 150px;
+	height: 100px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+.media-box img {
+	width: 100%;
+	height: 100%;

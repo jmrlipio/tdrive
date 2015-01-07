@@ -4,14 +4,14 @@
 
 	<div class="item-listing">
 		<h2>Users</h2>
-		<div id="search-box" class="pull-right">			
-			{{ Form::open(array('route' => 'admin.users.search', 'id' => 'search')) }}
-				{{ Form::text('keyword', Input::old('keyword'), array('placeholder' => 'Search user..')) }}
-			{{ Form::close() }}
-		</div>
+		<!-- <div id="search-box" class="pull-right">			
+			{{-- Form::open(array('route' => 'admin.users.search', 'id' => 'search')) --}}
+				{{-- Form::text('keyword', Input::old('keyword'), array('placeholder' => 'Search user..')) --}}
+			{{-- Form::close() --}}
+		</div> -->
 
 		<br>
-		<table id="user-lists">
+		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
 		{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
 			{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
 		{{ Form::close() }}
@@ -47,7 +47,7 @@
 		</table>
 		{{ $users->links() }}
 		<br>
-		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
+		
 	</div>
 	<script>
 

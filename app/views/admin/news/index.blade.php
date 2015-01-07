@@ -4,6 +4,12 @@
 
 	<div class="item-listing" id="news-list">
 		<h2>News</h2>
+		<a href="{{ URL::route('admin.news.create') }}" class="mgmt-link">Create News</a>
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
 		<br>
 		<table>
 			<tr>
@@ -37,8 +43,9 @@
 				</tr>
 			@endif
 		</table>
+		{{ $news->links() }}
 		<br>
-		<a href="{{ URL::route('admin.news.create') }}" class="mgmt-link">Create News</a>
+		
 	</div>
 	{{ HTML::script('js/jquery-1.11.1.js') }}
 	<script>
