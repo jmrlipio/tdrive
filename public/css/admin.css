@@ -128,7 +128,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 .item-listing td:first-child, .item-listing th:first-child { width: 20px; }
 .item-listing td:nth-child(2), .item-listing th:nth-child(2) { width: 40%; }
 
-#categories-list, #languages-list, #faq-list, #platforms-list, #countries-list, #carriers-list { width: 50%; }
+#categories-list, #languages-list, #faq-list, #platforms-list, #countries-list, #carriers-list { width: 80%; }
 #categories-list td:nth-child(2), #categories-list th:nth-child(2), #platforms-list td:nth-child(2), #platforms-list th:nth-child(2){ width: 60%; }
 
 #languages-list td:last-child, #languages-list th:last-child, #faq-list td:last-child, #faq-list th:last-child, #countries-list th:last-child, #carriers-list th:last-child { width: 90%; }
@@ -338,4 +338,9 @@ p#generated-password {
 
 #prices-form input[type=text] {
 	width: 97.5%;
+}
+
+.filter {
+	margin: 45px 37px 0px 30px;
+	float: left;
 }

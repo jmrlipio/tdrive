@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
-		$roles = Constant::USER_ROLES;
+		$roles = ['superadmin','admin','editor','member'];
 
 		foreach(range(1, 10) as $index)
 		{

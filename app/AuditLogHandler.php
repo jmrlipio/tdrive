@@ -68,6 +68,24 @@ class AuditLogHandler
        $log = AdminLog::createLogs($_activity);
     }
 
+    public function onFAQSCreate($user)
+    {
+       $_activity = sprintf(Constant::LOGS_FAQS_CREATE, $user->username, Carbon::now()->toDayDateTimeString());
+       $log = AdminLog::createLogs($_activity);
+    }
+
+    public function onFAQSUpdate($user)
+    {
+       $_activity = sprintf(Constant::LOGS_FAQS_UPDATE, $user->username, Carbon::now()->toDayDateTimeString());
+       $log = AdminLog::createLogs($_activity);
+    }
+
+    public function onFAQSDelete($user)
+    {
+       $_activity = sprintf(Constant::LOGS_FAQS_DELETE, $user->username, Carbon::now()->toDayDateTimeString());
+       $log = AdminLog::createLogs($_activity);
+    }
+
     public function subscribe($events)
     {
         $events->listen('audit.login', 'AuditLogHandler@onLogin');
@@ -81,5 +99,8 @@ class AuditLogHandler
         $events->listen('audit.games.create', 'AuditLogHandler@onGamesCreate');
         $events->listen('audit.games.update', 'AuditLogHandler@onGamesUpdate');
         $events->listen('audit.games.delete', 'AuditLogHandler@onGamesDelete');
+        $events->listen('audit.faqs.create', 'AuditLogHandler@onFAQSCreate');
+        $events->listen('audit.faqs.update', 'AuditLogHandler@onFAQSUpdate');
+        $events->listen('audit.faqs.delete', 'AuditLogHandler@onFAQSDelete');
     }
 }

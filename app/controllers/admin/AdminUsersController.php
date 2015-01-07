@@ -14,7 +14,8 @@ class AdminUsersController extends \BaseController {
 
 		$roles = ['all' => 'All'];
 
-		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) {
+		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) 
+		{
 			$roles[$role->role] = ucfirst($role->role);
 		}
 
@@ -123,7 +124,8 @@ class AdminUsersController extends \BaseController {
         return View::make('admin.login');
     }
 
-    public function postLogin(){
+    public function postLogin()
+    {
         $data = Input::all();
 
         $validator = Validator::make($data, User::$auth_rules);
@@ -132,7 +134,8 @@ class AdminUsersController extends \BaseController {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))){
+        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password'))))
+        {
             //Audit log
             Event::fire('audit.login', Auth::user());
             
@@ -142,17 +145,21 @@ class AdminUsersController extends \BaseController {
         return Redirect::route('admin.login');
     }
 
-    public function getLogout(){
-    	
+    public function getLogout()
+    {
+
+    	Event::fire('audit.logout', Auth::user());
         Auth::logout();
         return Redirect::route('admin.login');
     }
 
-    public function getDashboard(){
+    public function getDashboard()
+    {
     	return View::make('admin.dashboard.index');
     }
 
-    public function postSearch(){
+    public function postSearch()
+    {
 
     	if (!Request::ajax()) {
 		        return null;
@@ -164,7 +171,8 @@ class AdminUsersController extends \BaseController {
 		return $user;
 	}
 
-    public function getUsersByRole() {
+    public function getUsersByRole() 
+    {
     	$selected_role = Input::get('role');
 
     	if($selected_role == 'all') $users = User::orderBy('id')->paginate(5);
@@ -172,7 +180,8 @@ class AdminUsersController extends \BaseController {
 
     	$roles = ['all' => 'All'];
 
-		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) {
+		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) 
+		{
 			$roles[$role->role] = ucfirst($role->role);
 		}
 
