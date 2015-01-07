@@ -50,10 +50,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 /** 
 * Added by: Jone   
 * Purpose: For role filtering
-* Date: 01/05/2015
+* Date: 01/06/2015
 */
 
-    Route::group(array('before' => 'role'), function() {
+
 
         Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
         Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
@@ -65,8 +65,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
         Route::resource('categories', 'CategoriesController');
         Route::resource('languages', 'LanguagesController');
         Route::resource('carriers', 'CarriersController');
-
-    });
 
     // Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
     // Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
