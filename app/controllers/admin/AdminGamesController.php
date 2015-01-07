@@ -105,7 +105,18 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$game = Game::find($id);
+
+		if($game) {
+			$game->delete();
+			return Redirect::route('admin.games.index')
+				->with('message', 'Game deleted')
+				->with('sof', 'success');
+		}
+
+		return Redirect::route('admin.games.index')
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'failed');
 	}
 
 	public function updateContent($id)
