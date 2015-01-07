@@ -9,7 +9,7 @@
 			<p>Hello {{ $username }},</p>
 
 			<p>Please activate your account using the following link</p>
-			<a href="{{ $link }}">Activate Now</a>
+			<a href="{{ $link }}">{{ $link }}</a>
 
 		</div>
 	</body>

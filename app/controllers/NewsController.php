@@ -126,7 +126,8 @@ class NewsController extends \BaseController {
 		}
 
 		$news = News::create($data);
-		
+		Event::fire('audit.news.create', Auth::user());
+
 		return Redirect::route('admin.news.edit',$news->id)->with('message', 'You have successfully added a news.');
 	}
 
@@ -220,9 +221,19 @@ class NewsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}		
 		
+
+		//TODO: add update call, what?
+		Event::fire('audit.faqs.update', Auth::user());	
+
+		return View::make('admin.news.edit')
+			->with('news_categories', $news_categories)
+			->with('news', $news)
+			->with('message', 'Update news successful.');
+
 		$news->update($data);
 
 		return Redirect::back()->with('message', 'You have successfully updated this news details.');
+
 	}
 
 
@@ -235,12 +246,15 @@ class NewsController extends \BaseController {
 	public function destroy($id)
 	{
 		$news = News::find($id);
-
-		if($news) {
+		
+		if($news)
+		{
 			$news->delete();
+			Event::fire('audit.news.delete', Auth::user());
+
 			return Redirect::route('admin.news.index')
 				->with('message', 'News deleted')
-				->with('sof', 'success');
+				->with('sof', 'success');	
 		}
 
 		return Redirect::route('admin.news.index')

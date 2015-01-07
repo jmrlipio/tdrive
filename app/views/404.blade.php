@@ -1,17 +1,11 @@
-@extends('_layouts.default')
+@extends('_layouts.single')
 @section('content')
 
-<div id="sb-site">
-    <div class="content-main">       
+	<br>
+    <h2 class="center">Page Not Found!</h2><br>
 
-        <div class="container" id="error-container">
-            <h2>Page Not Found!</h2>
+    <p class="center">This page could not be found on the server. <br> 404 error! <br><br>
+    	{{ HTML::link('/','Return to homepage', array('class' => 'center')) }}
+    </p>  
 
-            <p>This page could not be found on the server. <br/> 404 error!</p>
-
-            {{ HTML::link('/','Return to homepage') }}
-        </div>
-
-    </div>
-</div>
 @stop

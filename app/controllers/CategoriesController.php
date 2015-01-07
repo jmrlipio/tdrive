@@ -2,12 +2,6 @@
 
 class CategoriesController extends \BaseController {
 
-	public function __construct(){
-
-		parent::__construct();
-		$this->beforeFilter('role', array('only'=> array('create', 'store', 'edit', 'update', 'destroy')));
-	}
-
 	/**
 	 * Display a listing of the resource.
 	 * GET /categories
