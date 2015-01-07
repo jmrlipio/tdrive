@@ -39,6 +39,7 @@
         </div>
     </header>
     @if(Auth::check())
+
     <nav id="admin-panel">
         <ul>
             <li><a href="{{ URL::route('admin.users.index') }}">Users</a></li>
@@ -49,6 +50,7 @@
             <li><a href="{{ URL::route('admin.faqs.index') }}">FAQ</a></li>
         </ul>
     </nav>
+
     @endif
     <main>
         @yield('content')

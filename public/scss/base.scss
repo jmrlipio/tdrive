@@ -63,6 +63,11 @@ ul {
 	font-style: normal;
 }
 
+html, body {
+	overflow-x: hidden;
+    height: 100%;
+}
+
 body {
 	font: 16px/1.2 opensans_regular, Arial, sans-serif;
 	text-transform: lowercase;
