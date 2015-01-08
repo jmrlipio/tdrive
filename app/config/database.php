@@ -49,9 +49,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'tdrive2',
-			'username'  => 'root',
-			'password'  => '1234aA',
+			'database'  => 'jigzenco_tdrive1',
+			'username'  => 'jigzenco',
+			'password'  => '_1234aA_',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
