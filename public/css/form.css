@@ -39,3 +39,7 @@
 #form #content #register input[type="submit"] {
   margin: 15px 0 10px;
 }
+
+.select_carrier #header {
+  display: none !important;
+}

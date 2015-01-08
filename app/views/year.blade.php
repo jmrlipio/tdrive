@@ -49,8 +49,6 @@
 		</div>
 
 		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
-		<div id="loadmore" class="button center"><a href="#">More +</a></div>
-		<div id="end" class="center"></div>
 	</div>
 
 @stop
@@ -64,22 +62,31 @@
 		var load = 0;
 		var _token = $('#token input').val();
 		var num = {{ $count }};
+		var year = {{ $title }};
 
-		$('#loadmore').click(function(e) {
-			e.preventDefault();
+		$(window).scroll(function() {
 			$('.ajax-loader').show();
 
 			load++;
 
 			if (load * 3 > num) {
-				$('#end').html('<p>End of Result</p>');
 				$('.ajax-loader').hide();
-				$('#loadmore').hide();
 			} else {
-				$.post("news/more/" + {{ $title }}, { load: load, _token: _token }, function(data) {
-					$('#scroll').append(data);
-					$('.ajax-loader').hide();
+
+				$.ajax({
+					url: "news/more",
+					type: "POST",
+					data: {
+						load: load,
+						year: year,
+						_token: _token
+					},
+					success: function(data) {
+						$('#scroll').append(data);
+						$('.ajax-loader').hide();
+					}
 				});
+
 			}
 		});
 	</script>

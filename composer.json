@@ -12,7 +12,9 @@
 		"jarektkaczyk/eloquent-triple-pivot": "dev-master",
 		"torann/geoip": "dev-master",
 		"thujohn/analytics": "dev-master",
-		"intervention/image": "dev-master"
+		"intervention/image": "dev-master",
+		"zofe/rapyd": "1.3.*",
+		"mews/captcha": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

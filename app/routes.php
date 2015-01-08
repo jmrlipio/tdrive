@@ -1,17 +1,18 @@
 <?php
 
-//Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
-Route::get('/', array('as' => 'home.show', 'uses' => 'HomeController@home'));
-//Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
+Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
+Route::get('home', array('as' => 'home.show', 'uses' => 'HomeController@home'));
+Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
 
 Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
 Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingController@showMoreNews'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
 Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
-Route::post('news/more/{year}', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
+Route::post('news/year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
 
 Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+Route::post('game/{id}', array('as' => 'game.show.post', 'uses' => 'GamesController@show'));
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
 Route::post('category/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
 Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));

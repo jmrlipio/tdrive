@@ -42,6 +42,8 @@
 			@endforeach
 
 		</div>
+
+		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
 	</div>
 
 @stop
