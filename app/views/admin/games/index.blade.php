@@ -58,7 +58,7 @@
 
 				@empty
 					<tr class="tall-tr">
-						<td colspan="6"><p>You haven't created any cat yet.</p></td>
+						<td colspan="6"><p>You haven't created any games yet.</p></td>
 					</tr>
 				
 			@endforelse
