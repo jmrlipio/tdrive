@@ -10,7 +10,7 @@
 
 		<div class="grid">
 			<div class="row">
-				<div class="clearfix">
+				<div id="scroll" class="clearfix">
 
 					@foreach ($games as $game)
 
@@ -31,9 +31,7 @@
 			</div>
 		</div>
 
-		<div class="center">
-			{{ $games->links() }}
-		</div>
+		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
 
 	</div>
 
@@ -44,5 +42,36 @@
 
 	<script>
 		FastClick.attach(document.body);
+
+		var load = 0;
+		var _token = $('#token input').val();
+		var num = {{ $count }};
+		var search = {{ Input::get('search') }};
+
+		$(window).scroll(function() {
+			$('.ajax-loader').show();
+
+			load++;
+
+			if (load * 3 > num) {
+				$('.ajax-loader').hide();
+			} else {
+
+				$.ajax({
+					url: "search/more",
+					type: "POST",
+					data: {
+						load: load,
+						_token: _token,
+						search: search
+					},
+					success: function(data) {
+						$('#scroll').append(data);
+						$('.ajax-loader').hide();
+					}
+				});
+
+			}
+		});
 	</script>
 @stop
