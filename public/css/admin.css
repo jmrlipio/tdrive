@@ -95,12 +95,12 @@ textarea { padding: 5px 10px; }
 #admin-panel { float: left; width: 18%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
 #admin-panel ul li { width: 100%; display: block; }
-#admin-panel ul li a { display: block; line-height: 40px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
+#admin-panel ul li a { display: block; line-height: 35px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
 #admin-panel ul li a:hover { background-color: #2F3A40; }
 
-#site-options { display: none; -webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out; }
+#site-options { display: none; /*-webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out;*/ }
 #site-options li a { padding-left: 40px !important; }
-#options-link:hover ul { display: block;  }
+/*#options-link:hover ul { display: block;  }*/
 
 #user-menu { float: right; }
 #dashboard { width: 100%; }
@@ -371,4 +371,10 @@ p#generated-password {
 
 #reports-nav li {
 	width: 16.5%;
+}
+
+#ribbon {
+	margin-top: 10px;
+	width: 100px;
+	height: 100px;
 }

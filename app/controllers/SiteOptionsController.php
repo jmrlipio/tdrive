@@ -2,85 +2,111 @@
 
 class SiteOptionsController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /siteoptions
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
+	public function showGeneralSettings() {
+
+		$settings = GeneralSetting::all();
+
+		return View::make('admin.settings')->with('settings', $settings);
+
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /siteoptions/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+	public function updateGeneralSettings() {
+
+		$gen_settings = GeneralSetting::all();
+
+		foreach(Input::get('settings') as $setting) {
+
+			foreach($gen_settings as $gs) {
+
+				if($setting['id'] == $gs->id) {
+
+					$values = ['value' => $setting['value']];
+
+					$validator = Validator::make($data = $values, GeneralSetting::$rules);
+
+					if ($validator->fails())
+					{
+						return Redirect::back()->withErrors($validator)->withInput();
+					}
+
+					$gs->update($data);
+
+				}
+			}
+
+		}
+
+		return Redirect::back()->with('message', 'You have successfully updated these settings.');
+
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /siteoptions
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
+	public function showVariables() {
+
+		$variables = SiteVariable::all();
+
+		return View::make('admin.variables')->with('variables', $variables);
+
 	}
 
-	/**
-	 * Display the specified resource.
-	 * GET /siteoptions/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
+	public function updateVariables() {
+
+		$site_variables = SiteVariable::all();
+
+		foreach(Input::get('variables') as $variable) {
+
+			foreach($site_variables as $sv) {
+
+				if($variable['id'] == $sv->id) {
+
+					$values = ['variable_value' => $variable['variable_value']];
+
+					$validator = Validator::make($data = $values, SiteVariable::$rules);
+
+					if ($validator->fails())
+					{
+						return Redirect::back()->withErrors($validator)->withInput();
+					}
+
+					$sv->update($data);
+
+				}
+			}
+
+		}
+
+		return Redirect::back()->with('message', 'You have successfully updated the variables.');
+
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /siteoptions/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+	public function showGameSettings() {
+		$game_settings = GameSetting::find(1);
+
+		return View::make('admin.game-settings')->with('settings', $game_settings);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /siteoptions/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+	public function updateGameSettings($id) {
+		$game_settings = GameSetting::find($id);	
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /siteoptions/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		if(Input::hasFile('ribbon_url')) {
+			$ribbon = Input::get('ribbon_url');
+			$ribbon_name = time() . "_" . $ribbon->getClientOriginalName();
+			$ribbon_path = public_path('assets/site/' . $ribbon_name);
+			Image::make($featured->getRealPath())->save($ribbon_path);
+		}
+
+		$validator = Validator::make($data = Input::all(), GameSetting::$rules);
+		
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}		
+
+		return Redirect::back()->with('message', 'You have successfully updated the game settings.');
+
+		$game_settings->update($data);
+
+		return Redirect::back()->with('message', 'You have successfully updated this news details.');
+
 	}
 
 }
