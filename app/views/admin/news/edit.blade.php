@@ -45,6 +45,10 @@
 						{{ $errors->first('release_date', '<p class="error">:message</p>') }}
 					</li>
 					<li>
+						<div class="media-box">
+							{{ HTML::image(Request::root() . '/assets/news/' . $news->featured_image, null) }}
+						</div>
+
 						{{ Form::label('featured_image', 'Featured Image:') }}
 						{{ Form::file('featured_image') }}
 					</li>

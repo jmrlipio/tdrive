@@ -114,11 +114,9 @@ class UsersController extends \BaseController {
 			$user->password=  Hash::make(Input::get('password'));			
 			$user->code = $code;
 
-			$user->save();	
+			$user->save();
 
-			Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $code), 'username' => $username), function ($message) use ($user){
-				$message->to($user->email, $user->username)->subject('Activate your Account');
-			});
+			$response = Event::fire('user.registered', array($user));	
 
 			return Redirect::route('users.login')->with('message', 'Registration successful. Please sign in.');			
 		}
@@ -149,9 +147,10 @@ class UsersController extends \BaseController {
         	if(Auth::check() && !empty($remember)){
         		Auth::login(Auth::user(), true);
         	}
+
             return Redirect::intended('/');
         }
-        return Redirect::to('login')->withErrors('Your email/password was incorrect');
+        return Redirect::to('login')->with('message','Your email/password was incorrect');
     }
 
     public function getLogout(){

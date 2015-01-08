@@ -1,5 +1,6 @@
 <?php
 class AdminGamesController extends \BaseController {
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /admingames
@@ -36,7 +37,9 @@ class AdminGamesController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
+		
 		$game = Game::create($data);
+		Event::fire('audit.games.create', Auth::user());
 
 		return Redirect::route('admin.games.edit',$game->id)->with('message', 'You have successfully added a game.');
 	}
@@ -85,6 +88,7 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$game->update($data);
+		Event::fire('audit.games.update', Auth::user());
 
 		return Redirect::back()->with('message', 'You have successfully updated the game details.');
 	}
@@ -98,7 +102,21 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$game = Game::find($id);
+
+		if($game) {
+			$game->delete();
+			return Redirect::route('admin.games.index')
+				->with('message', 'Game deleted')
+				->with('sof', 'success');
+		}
+
+		return Redirect::route('admin.games.index')
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'failed');
+
+		//Event::fire('audit.games.delete', Auth::user());
+
 	}
 
 	public function updateContent($id)
@@ -148,75 +166,72 @@ class AdminGamesController extends \BaseController {
 	{
 		$game = Game::find($id);
 
-		$orientation = Input::get('orientation');
-
-		$promo = Input::file('promo_image');
-		$promo_name = time() . "_" . $promo->getClientOriginalName();
-		$promo_path = public_path('assets/games/promo/' . $promo_name);
-		Image::make($promo->getRealPath())->save($promo_path);
-
-		$promo_details = [
-			'url' => $promo_name,
-			'type' => 'promo'
-		];
-
-		$promo_media = Media::create($promo_details);
-
-		foreach($game->media as $media) {
-			if($media->type == 'promo') {
-				$game->media()->detach($media->id);
-			}
+		if(Input::hasFile('promo')) {
+			$promo = Input::file('promo');
+			$promo_name = $this->saveMedia($promo, 'promos');
+			$this->syncMedia($game, 'promos', $promo_name);
+		}
+		
+		if(Input::hasFile('icon')) {
+			$icon = Input::file('icon');
+			$icon_name = $this->saveMedia($icon, 'icons');
+			$this->syncMedia($game, 'icons', $icon_name);
 		}
 
-		$game->media()->attach($promo_media->id);
+		$orientation = Input::get('image_orientation');
 
-		$icon = Input::file('icon');
-		$icon_name = time() . "_" . $icon->getClientOriginalName();
-		$icon_path = public_path('assets/games/icons/' . $icon_name);
-		Image::make($icon->getRealPath())->save($icon_path);
+		$game->update(array('image_orientation' => $orientation));
 
 		$screenshots = Input::file('screenshots');
-
-		$icon_details = [
-			'url' => $icon_name,
-			'type' => 'icon'
-		];
-
-		$icon_media = Media::create($icon_details);
-
-		foreach($game->media as $media) {
-			if($media->type == 'icon') {
-				$game->media()->detach($media->id);
-			}
-		}
-
-		$game->media()->attach($icon_media->id);
+		$ssid = Input::get('ssid');
 
 		foreach($screenshots as $screenshot) {
-			$screenshot_name = time() . "_" . $screenshot->getClientOriginalName();
-			$screenshot_path = public_path('assets/games/screenshots/' . $orientation . '_' . $screenshot_name);
-			Image::make($screenshot->getRealPath())->save($screenshot_path);
-
-			foreach($game->media as $media) {
-				if($media->type == 'screenshot') {
-					$game->media()->detach($media->id);
-				}
+			if($screenshot != null) {
+				$screenshot_name = $this->saveMedia($screenshot, 'screenshots', $orientation);
+				$this->syncMedia($game, 'screenshots', $screenshot_name, $ssid);
 			}
-
-			Image::make($screenshot->getRealPath())->save($screenshot_path);
-
-			$screenshot_details = [
-				'url' => $icon_name,
-				'type' => 'screenshot'
-			];
-
-			$screenshot_media = Media::create($screenshot_details);
 		}
 
 		$url = URL::route('admin.games.edit', $game->id) . '#media';
 
 		return Redirect::to($url)->with('message', 'You have successfully updated the game media.');
 	}
+
+	private function saveMedia($media_file, $folder, $orientation = '') {
+		if($orientation != '') $orientation .= '-';
+
+		$media_name = time() . "_" . $media_file->getClientOriginalName();
+		$media_path = public_path('assets/games/' . $folder . '/' . $orientation . $media_name);
+		Image::make($media_file->getRealPath())->save($media_path);
+
+		return $media_name;
+	}
+
+	private function syncMedia($game, $type, $media_name, $ssid = '') {
+		$details = [
+			'url' => $media_name,
+			'type' => $type
+		];
+
+		$new_media = Media::create($details);
+
+		foreach($game->media as $media) {
+
+			if($media->type == $type) {
+
+				if($type == 'screenshots') {
+
+					if(!in_array($media->id, $ssid)) $game->media()->detach($media->id);
+
+				} else $game->media()->detach($media->id);
+
+			}
+			
+		}
+
+		$game->media()->attach($new_media->id);
+	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 * DELETE /admingames/{id}
@@ -246,11 +261,18 @@ class AdminGamesController extends \BaseController {
 		$root = Request::root();
 
 		foreach($game->media as $media) {
+			$orientation = '';
+			if($media->type == 'screenshots') $orientation = $game->image_orientation . '-';
+
 			$selected_media[$count]['media_id'] = $media->id;
-			$selected_media[$count]['media_url'] = $root. '/images/uploads/' . $media->url;
-			$selected_media[$count]['type'] = $media->pivot->type;
+			$selected_media[$count]['media_url'] = $root . '/assets/games/' . $media->type . '/' . $orientation . $media->url;
+			$selected_media[$count]['type'] = $media->type;
 			$count++;
 		}
+
+		// echo '<pre>';
+		// dd($game->image_orientation);
+		// echo '</pre>';
 
 		foreach($game->carriers as $carrier) {
 			$selected_carriers[] = $carrier->id;
