@@ -129,7 +129,6 @@ return array(
 		'Intervention\Image\ImageServiceProvider',
 		'Zofe\Rapyd\RapydServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider'
-
 	),
 
 	/*

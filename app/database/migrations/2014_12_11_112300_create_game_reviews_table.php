@@ -21,6 +21,7 @@ class CreateGameReviewsTable extends Migration {
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->text('review');
 			$table->boolean('status');
+			$table->integer('rating');
 			$table->timestamps();
 		});
 	}

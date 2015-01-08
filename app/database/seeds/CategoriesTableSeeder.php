@@ -20,7 +20,8 @@ class CategoriesTableSeeder extends Seeder {
 		{
 			Category::create([
 				"category" 	=> $value,
-				"slug"		=> $key
+				"slug"		=> $key,
+				"featured"  => rand(0,1)
 			]);
 		}
 	}

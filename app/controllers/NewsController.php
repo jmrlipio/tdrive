@@ -83,8 +83,17 @@ class NewsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$news = News::orderBy('id')->paginate(8);
-		return View::make('admin.news.index')->with('news', $news);
+		//$news = News::orderBy('id')->paginate(8);
+
+		$news = News::with('languages')->get();
+
+		foreach ($variable as $key => $value) {
+			# code...
+		}
+		echo '<pre>';
+		print_r($news);
+		echo '</pre>';
+		//return View::make('admin.news.index')->with('news', $news);
 	}
 
 

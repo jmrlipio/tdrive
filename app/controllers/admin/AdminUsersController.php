@@ -8,24 +8,10 @@ class AdminUsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index($role = NULL)
+	public function index()
 	{
 
-		$users = User::orderBy('id');
-		$grid = DataGrid::source($users);  //same source types of DataSet
-
-		$grid->add('name','Name', true); //field name, label, sortable
-		$grid->add('author.fullname','author'); //relation.fieldname 
-        $grid->add('username','Username', true);
-        $grid->add('email','Email','text');
-        $grid->add('role','Role','text');
-        
-		
-		/*$grid->add('body','Body')->filter('strip_tags|substr[0,20]'); //another way to filter
-		$grid->edit('/articles/edit', 'Edit','modify|delete'); //shortcut to link DataEdit actions
-		$grid->link('/articles/edit',"Add New", "TR");  //add button
-		$grid->orderBy('article_id','desc'); //default orderby*/
-		$grid->paginate(10); //pagination
+		$users = User::all();		
 
 		/*$users = User::orderBy('id')->paginate(5);
 
@@ -40,7 +26,8 @@ class AdminUsersController extends \BaseController {
 			->with('users', $users)
 			->with('roles', $roles)
 			->with('selected', 'all');*/
-		return View::make('admin.users.index', compact('grid'));
+		return View::make('admin.users.index')
+			->with('users', $users);
 	}
 
 	/**
