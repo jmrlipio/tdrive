@@ -30,7 +30,8 @@
 
 			<tbody>
 				@forelse($games as $game)
-					@foreach($game->categories as $gc)
+
+					
 						<tr>
 							<td><input type="checkbox"></td>
 							<td>
@@ -47,14 +48,19 @@
 									</ul>
 								@endif
 							</td>
-							<td>{{ $gc->category }}</td>
+						
+							<td>
+								@foreach($game->categories as $gc)
+									{{ $gc->category }}
+								@endforeach
+							</td>
 							<td>{{ $game->user->username }}</td>
 							<td>{{ $game->release_date }}</td>
 							<td>{{ $game->updated_at }}</td>						
 						
 						</tr>
 
-					@endforeach
+					
 
 				@empty
 					<tr class="tall-tr">

@@ -85,15 +85,22 @@ class NewsController extends \BaseController {
 	{
 		//$news = News::orderBy('id')->paginate(8);
 
-		$news = News::with('languages')->get();
+		$news = News::with('languages','NewsCategory')->get();
 
-		foreach ($variable as $key => $value) {
-			# code...
-		}
-		echo '<pre>';
-		print_r($news);
-		echo '</pre>';
-		//return View::make('admin.news.index')->with('news', $news);
+		/*foreach ($news as $data) {
+				echo '<pre>';
+				print_r($data->NewsCategory->category);
+				echo '</pre>';
+			
+				
+			foreach ($data->NewsCategory as $row) {
+
+			
+				
+			}
+		}*/
+	
+		return View::make('admin.news.index')->with('news', $news);
 	}
 
 
