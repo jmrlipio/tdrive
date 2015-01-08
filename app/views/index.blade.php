@@ -2,7 +2,6 @@
 
 @section('stylesheets')
 	{{ HTML::style("css/lightSlider.css"); }}
-	{{ HTML::style("css/slick.css"); }}
 	{{ HTML::style("css/jquery-ui.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
 @stop
@@ -28,9 +27,9 @@
 									<div class="vparent"><p class="vcenter">{{ $content->pivot->excerpt }}</p></div>
 								</div>
 
-								<div class="go">
-									<div class="vhparent"><a href="{{ route('game.show', $game->id) }}" class="vhcenter hide-text">Go</a></div>
-								</div>
+								<a href="{{ route('game.show', $game->id) }}" class="go">
+									<div class="vhparent"><p class="vhcenter hide-text">Go</p></div>
+								</a>
 							</div>
 						</li>
 					@endif
@@ -318,9 +317,9 @@
 					</div>	
 
 					<div class="readmore">
-						<div>
-							<a href="{{ 'news/'. $item->id }}" class="vhcenter"><i class="fa fa-angle-right"></i></a>
-						</div>
+						<a href="{{ 'news/'. $item->id }}">
+							<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
+						</a>
 					</div>
 				</div>
 
@@ -355,22 +354,30 @@
 
 		<form action="#" method="post">
 			<div class="control clearfix">
-				<label for="name">Name</label>
+				<label class="common" for="name">Name</label>
 				<input type="text" name="name" id="name">
 			</div>
 
 			<div class="control clearfix">
-				<label for="email">Email</label>
+				<label class="common" for="email">Email</label>
 				<input type="email" name="email" id="email">
 			</div>
 
-			<div class="control clearfix">
+			<div class="select clearfix">
 				<label for="game">Game Title</label>
-				<input type="text" name="game" id="game">
+
+				<select name="game" class="clearfix" id="game">
+					<option value="">General Inquiry</option>
+
+					@foreach($games as $game)
+						<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
+					@endforeach
+
+				</select>
 			</div>
 
 			<div class="control clearfix">
-				<label for="message">Message</label>
+				<label class="common" for="message">Message</label>
 				<textarea name="message" id="message"></textarea>
 			</div>
 
@@ -387,7 +394,6 @@
 	{{ HTML::script("js/jquery.lightSlider.min.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery-ui.min.js"); }}
-	{{ HTML::script("js/slick.min.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
@@ -415,53 +421,6 @@
 				calculateHeight: true
 			})
 		})
-
-		$('.items').slick({
-			infinite: false,
-			//slidesToScroll: 1,
-			swipeToSlide: true,
-			//centerMode: true,
-			centerPadding: 20,
-			lazyLoad: 'progressive',
-			arrows: false,
-
-			responsive: [
-				{
-					breakpoint: 1025,
-					settings: {
-						slidesToShow: 5
-					}
-				},
-
-				{
-					breakpoint: 769,
-					settings: {
-						slidesToShow: 4,
-					}
-				},
-
-				{
-					breakpoint: 641,
-					settings: {
-						slidesToShow: 5,
-					}
-				},
-
-				{
-					breakpoint: 601,
-					settings: {
-						slidesToShow: 3,
-					}
-				},
-
-				{
-					breakpoint: 321,
-					settings: {
-						slidesToShow: 2
-					}
-				},
-			]
-		});
 
 		$("#questions").accordion({ 
 			heightStyle: 'panel', 

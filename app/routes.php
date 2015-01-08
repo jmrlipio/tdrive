@@ -1,10 +1,11 @@
 <?php
 
-Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
-Route::get('home', array('as' => 'home.show', 'uses' => 'HomeController@home'));
+//Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
+Route::get('/', array('as' => 'home.show', 'uses' => 'HomeController@home'));
 //Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
 
 Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
+Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingController@showMoreNews'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
 Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
@@ -12,14 +13,17 @@ Route::post('news/more/{year}', array('as' => 'news.year.more.show', 'uses' => '
 
 Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
+Route::post('category/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
 Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));
-Route::post('games/more/{id}', array('as' => 'games.more.show', 'uses' => 'ListingController@showMoreGames'));
+Route::post('games/all/more', array('as' => 'games.all.more', 'uses' => 'ListingController@showAllMoreGames'));
+Route::post('games/more', array('as' => 'games.more.show', 'uses' => 'ListingController@showMoreGames'));
 
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
 
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
+Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
 
 Route::post('language', array(
 	'before' => 'csrf',
@@ -54,8 +58,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 * Purpose: For role filtering
 * Date: 01/06/2015
 */
-
-
 
         Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
         Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));

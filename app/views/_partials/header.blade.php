@@ -30,7 +30,7 @@
 
 			<div class="container clearfix">
 				<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
-				<a href="{{ URL::previous(); }}" id="back"><i class="fa fa-angle-left"></i></a>
+				<a onclick="window.history.back(); return false;" id="back"><i class="fa fa-angle-left"></i></a>
 				<a href="{{ route('home.show') }}" id="tdrive">{{ HTML::image('images/tdrive.png', 'TDrive', array('class' => 'auto')) }}</a>
 
 				<div class="tablet fl clearfix">
@@ -64,7 +64,7 @@
 							{{ Form::token() }}
 
 							<select name="locale" onselect="this.form.submit()">
-								<option value="" selected>select language</option>
+								<option value="" selected>select Telco</option>
 								<option value="en">English</option>
 								<option value="de" {{ Lang::locale() == 'de' ? ' selected' : '' }}>German</option>
 							</select>
