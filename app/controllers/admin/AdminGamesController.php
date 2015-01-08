@@ -9,31 +9,9 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function index()
 	{
-
-		$games = Game::with('categories')->get();
+		$games = Game::orderBy('id')->paginate(8);
 		
-		/*echo '<pre>';
-		print_r($games);
-		echo '</pre>';*/
-		/*foreach ($games as $data)		{
-		    //echo $data->categories;
-		    foreach ($data->categories as $row) {
-		    	echo $row->category;
-		    }
-		}*/
-		/*foreach($games as $game) {
-			echo '<pre>';
-			print_r($games->categories());
-			echo '</pre>';
-		}*/
-
-		// foreach($games as $game) {
-		// 	foreach($game->categories as $gc) {
-		// 		print_r($gc->category);
-		// 	}	
-		// }
-
-		 return View::make('admin.games.index')->with('games', $games);
+		return View::make('admin.games.index')->with('games', $games);
 	}
 	/**
 	 * Show the form for creating a new resource.
