@@ -4,20 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>TDrive</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    
+
+    {{ HTML::style('css/dataTables.bootstrap.css') }}
     {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans') }}
     {{ HTML::style('http://fonts.googleapis.com/css?family=Indie+Flower') }}
     {{ HTML::style('css/jquery-ui.css') }}
     {{ HTML::style('css/jquery-ui.structure.css') }}
     {{ HTML::style('css/jquery-ui.theme.css') }}
+    {{ HTML::style("css/font-awesome.min.css"); }}
     {{ HTML::style('css/dropzone.css') }}
     {{ HTML::style('css/admin.css') }}
     {{ HTML::style('css/chosen.css')}}
     {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::script('js/jquery-ui.js') }}
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,7 +88,7 @@
     <footer>
         
     </footer>
-    
+    @yield('scripts')
     <script>
         $( "#options-link" ).click(function(e) {
             e.preventDefault();
@@ -97,7 +97,5 @@
             });
         });
     </script>
-       
-
 </body>
 </html>

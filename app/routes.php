@@ -50,7 +50,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('users/roles', array('as' => 'admin.users.roles', 'uses' => 'AdminUsersController@getUsersByRole'));
     Route::resource('users', 'AdminUsersController');
     Route::resource('games', 'AdminGamesController');
-    
+
     Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
     Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
     Route::post('games/{id}/update-fields', array('as' => 'admin.games.update-fields', 'uses' => 'AdminGamesController@updateFields'));
@@ -72,6 +72,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
     Route::get('game-slideshow', array('as' => 'admin.game-slideshow', 'uses' => 'SiteOptionsController@showGames'));
+
+    //added for admin reviews - transfer later on
+    Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));
+    Route::get('reviews', array('as' => 'admin.reviews.index', 'uses' => 'ReviewsCOntroller@admin_index'));
 
     Route::resource('news', 'NewsController');
     Route::post('news/{id}/update-fields', array('as' => 'admin.news.update-fields', 'uses' => 'NewsController@updateFields'));

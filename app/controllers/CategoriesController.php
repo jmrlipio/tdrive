@@ -118,4 +118,17 @@ class CategoriesController extends \BaseController {
 			->with('sof', 'success');
 	}
 
+	public function update_featured()
+	{
+		$data = Input::all();
+        
+        if(Request::ajax())
+        {
+            $id = $data['id'];
+            $featured = Category::where('id', $id)->first();
+            $featured->featured = $data['featured'];
+            $featured->update();
+        }
+	}
+
 }
