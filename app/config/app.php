@@ -129,6 +129,8 @@ return array(
 		'Intervention\Image\ImageServiceProvider',
 		'Zofe\Rapyd\RapydServiceProvider',
 		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
+
+
 	),
 
 	/*

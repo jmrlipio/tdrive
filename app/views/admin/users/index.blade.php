@@ -15,8 +15,8 @@
 		{{-- Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) --}}
 			{{-- Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) --}}
 		{{-- Form::close() --}}
-		
-
+	
+		{{ $filter }}
 		{{ $grid }}
 		{{-- $users->links() --}}
 		<br>
