@@ -8,23 +8,28 @@ class AdminUsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index($role = NULL)
+	public function index()
 	{
 
-		$users = User::orderBy('id');
-		$grid = DataGrid::source($users);  //same source types of DataSet
-
-		$grid->add('name','Name', true); //field name, label, sortable
-		$grid->add('author.fullname','author'); //relation.fieldname 
-        $grid->add('username','Username', true);
-        $grid->add('email','Email','text');
-        $grid->add('role','Role','text');
-        
+		$users = new User;
 		
-		/*$grid->add('body','Body')->filter('strip_tags|substr[0,20]'); //another way to filter
-		$grid->edit('/articles/edit', 'Edit','modify|delete'); //shortcut to link DataEdit actions
-		$grid->link('/articles/edit',"Add New", "TR");  //add button
-		$grid->orderBy('article_id','desc'); //default orderby*/
+		$filter = DataFilter::source($users);
+		$grid = DataGrid::source($filter);  //same source types of DataSet
+
+        $filter->add('role','Role', 'text');
+        //$filter->text('src','Role')->scope('freesearch');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+
+
+		$grid->add('first_name','Name', 'first_name'); //field name, label, sortable
+        $grid->add('username','Username', 'username');
+        $grid->add('email','Email','email');
+        $grid->add('role','Role', false);
+        $grid->add('last_login','Last login','last_login');
+		// $grid->edit('/user/edit', 'Edit','modify|delete');
+	
 		$grid->paginate(10); //pagination
 
 		/*$users = User::orderBy('id')->paginate(5);
@@ -40,7 +45,7 @@ class AdminUsersController extends \BaseController {
 			->with('users', $users)
 			->with('roles', $roles)
 			->with('selected', 'all');*/
-		return View::make('admin.users.index', compact('grid'));
+		return View::make('admin.users.index', compact('filter', 'grid'));
 	}
 
 	/**
