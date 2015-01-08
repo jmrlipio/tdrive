@@ -86,7 +86,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     
     Route::resource('siteoptions', 'SiteOptionsController');
     Route::get('reports', array('as' => 'admin.reports.index', 'uses' => 'ReportsController@index'));
-    Route::get('reports/sales', array('as' => 'admin.reports.sales', 'uses' => 'ReportsController@sales'));
+   /* Route::get('reports/sales', array('as' => 'admin.reports.sales', 'uses' => 'ReportsController@sales'));*/
     Route::get('reports/downloads', array('as' => 'admin.reports.downloads', 'uses' => 'ReportsController@downloads'));
     Route::get('reports/adminlogs', array('as' => 'admin.reports.adminlogs', 'uses' => 'ReportsController@adminlogs'));
     Route::get('reports/visitorlogs', array('as' => 'admin.reports.visitorlogs', 'uses' => 'ReportsController@visitorlogs'));
@@ -96,10 +96,15 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
    
     Route::group(array('prefix' => 'reports', 'before' => 'reports'), function(){
         
+        Route::get('sales/lists', array('as' => 'admin.reports.sales.list', 'uses' => 'ReportsController@salesList'));
+        Route::get('sales/chart', array('as' => 'admin.reports.sales.chart', 'uses' => 'ReportsController@salesChart'));
+        Route::post('sales/filter/{id?}/{filter?}', array('as' => 'admin.reports.sales.filter', 'uses' => 'ReportsController@salesFilter'));
+        Route::post('sales/overall', array('as' => 'admin.reports.sales.overall', 'uses' => 'ReportsController@overallGamesSales'));
         Route::post('inquiries/{id?}/reply', array('as' => 'admin.reports.inquiries.reply', 'uses' => 'InquiriesController@reply'));
         Route::get('inquiries/settings', array('as' => 'admin.reports.inquiries.settings', 'uses' => 'InquiriesController@settings'));
         Route::post('inquiries/settings/save', array('as' => 'admin.reports.inquiries.save-settings', 'uses' => 'InquiriesController@saveSettings'));
         Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit')));
+    
     });
 
 });

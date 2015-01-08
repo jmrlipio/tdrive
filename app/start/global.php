@@ -81,6 +81,10 @@ App::down(function()
 
 require app_path().'/filters.php';
 require app_path().'/constants.php';
+require app_path().'/AuditLogHandler.php';
+
+
+Event::subscribe(new AuditLogHandler);
 
 /* Added by: Jone   
 * Purpose: For adding event listener for user registration
@@ -89,6 +93,7 @@ require app_path().'/constants.php';
 require app_path().'/events.php';
 
 /*END*/
+
 
 App::missing(function($exception)
 {

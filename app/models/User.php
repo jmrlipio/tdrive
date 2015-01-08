@@ -55,4 +55,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function game_prices() {
         return $this->belongsToMany('GamePrices', 'game_sales');
     }
+
+    public static function is_member($user_id) 
+    {
+        $user = User::find($user_id);
+        if($user && $user->role == 'member') 
+        {
+            return true;
+        } 
+
+        return false;
+    }
 }

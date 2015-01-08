@@ -42,6 +42,7 @@ class FaqsController extends \BaseController {
 		}
 
 		Faq::create($data);
+		Event::fire('audit.faqs.create', Auth::user());
 
 		return Redirect::route('admin.faqs.create')->with('message', 'You have successfully added a question and answer.');
 	}
@@ -90,6 +91,7 @@ class FaqsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+		Event::fire('audit.faqs.edit', Auth::user());
 		$faq->update($data);
 
 		return Redirect::route('admin.faqs.edit', $id)->with('message', 'You have successfully updated this question.');
@@ -108,6 +110,9 @@ class FaqsController extends \BaseController {
 
 		if($faq) {
 			$faq->delete();
+
+			Event::fire('audit.faqs.delete', Auth::user());
+			
 			return Redirect::route('admin.faqs.index')
 				->with('message', 'Faq deleted')
 				->with('sof', 'success');

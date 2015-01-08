@@ -126,7 +126,8 @@ class NewsController extends \BaseController {
 		}
 
 		$news = News::create($data);
-		
+		Event::fire('audit.news.create', Auth::user());
+
 		return Redirect::route('admin.news.edit',$news->id)->with('message', 'You have successfully added a news.');
 	}
 
@@ -206,10 +207,12 @@ class NewsController extends \BaseController {
 
 		// $data = Input::all();
 
-		$featured = Input::get('featured_image');
-		$featured_name = time() . "_" . $featured->getClientOriginalName();
-		$featured_path = public_path('assets/news/' . $featured_name);
-		Image::make($featured->getRealPath())->resize(800, 480)->save($path);
+		if(Input::hasFile('featured_image')) {
+			$featured = Input::get('featured_image');
+			$featured_name = time() . "_" . $featured->getClientOriginalName();
+			$featured_path = public_path('assets/news/' . $featured_name);
+			Image::make($featured->getRealPath())->resize(800, 480)->save($path);
+		}
 
 		$validator = Validator::make($data = Input::all(), News::$rules);
 		
@@ -218,9 +221,19 @@ class NewsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}		
 		
+
+		//TODO: add update call, what?
+		Event::fire('audit.faqs.update', Auth::user());	
+
+		return View::make('admin.news.edit')
+			->with('news_categories', $news_categories)
+			->with('news', $news)
+			->with('message', 'Update news successful.');
+
 		$news->update($data);
 
 		return Redirect::back()->with('message', 'You have successfully updated this news details.');
+
 	}
 
 
@@ -233,18 +246,20 @@ class NewsController extends \BaseController {
 	public function destroy($id)
 	{
 		$news = News::find($id);
-		$mediable = Mediable::find($id);
 		
-		if($news){
-		 
-		   $news->delete();
-		   $mediable->delete();
+		if($news)
+		{
+			$news->delete();
+			Event::fire('audit.news.delete', Auth::user());
 
-		return Redirect::route('admin.news.index');		
+			return Redirect::route('admin.news.index')
+				->with('message', 'News deleted')
+				->with('sof', 'success');	
 		}
 
 		return Redirect::route('admin.news.index')
-			->with('message','Something went wrong, please try again.');
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'failed');
 	}
 
 	public function updateFields($id)

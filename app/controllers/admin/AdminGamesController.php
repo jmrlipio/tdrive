@@ -37,7 +37,9 @@ class AdminGamesController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
+		
 		$game = Game::create($data);
+		Event::fire('audit.games.create', Auth::user());
 
 		return Redirect::route('admin.games.edit',$game->id)->with('message', 'You have successfully added a game.');
 	}
@@ -86,6 +88,7 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$game->update($data);
+		Event::fire('audit.games.update', Auth::user());
 
 		return Redirect::back()->with('message', 'You have successfully updated the game details.');
 	}
@@ -99,7 +102,21 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$game = Game::find($id);
+
+		if($game) {
+			$game->delete();
+			return Redirect::route('admin.games.index')
+				->with('message', 'Game deleted')
+				->with('sof', 'success');
+		}
+
+		return Redirect::route('admin.games.index')
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'failed');
+
+		//Event::fire('audit.games.delete', Auth::user());
+
 	}
 
 	public function updateContent($id)

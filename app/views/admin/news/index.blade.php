@@ -48,6 +48,7 @@
 		
 	</div>
 	{{ HTML::script('js/jquery-1.11.1.js') }}
+	{{ HTML::script('js/form-functions.js') }}
 	<script>
 	$(document).ready(function(){
 		$('th input[type=checkbox]').click(function(){
