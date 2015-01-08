@@ -18,7 +18,7 @@
 		</ul>
 		<div class='panel-container'>
 			<ul id="content">
-				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put')) }}
+				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
 					<li>
 						{{ Form::label('main_title', 'Title: ') }}
 						{{ Form::text('main_title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('GeneralSettingsTableSeeder');
 		$this->call('SiteVariablesTableSeeder');
 		$this->call('GameSettingsTableSeeder');
+		$this->call('MessagesTableSeeder');
 		// $this->call('GamesTableSeeder');
 	}
 

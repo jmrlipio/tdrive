@@ -378,3 +378,30 @@ p#generated-password {
 	width: 100px;
 	height: 100px;
 }
+
+#form-messages {
+	width: 60%;
+}
+
+#form-messages h2 {
+	font-weight: bold;
+}
+
+.form-messages {
+	padding: 20px;
+	border: 1px solid #fff;
+	margin: 10px 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.form-messages h3 {
+	text-align: center;
+
+}
+
+.form-messages label {
+	font-weight: normal;
+	margin-top: 5px;
+}

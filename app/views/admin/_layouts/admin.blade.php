@@ -63,7 +63,7 @@
                         <a href="#" id="options-link">Site Options</a>
                         <ul id="site-options">
                             <li><a href="{{ URL::route('admin.general-settings') }}">General Settings</a></li>
-                            <li><a href="#">Success/Error Messages</a></li>
+                            <li><a href="{{ URL::route('admin.form-messages') }}">Success/Error Messages</a></li>
                             <li><a href="#">Emails</a></li>
                             <li><a href="#">Homepage</a></li>
                             <li><a href="{{ URL::route('admin.game-settings') }}">Game Page</a></li>

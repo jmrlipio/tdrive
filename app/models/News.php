@@ -9,7 +9,8 @@ class News extends \Eloquent {
 		'slug' => 'required|min:2',
 		'status' => 'required',
 		'release_date' => 'required|date',
-		'news_category_id' => 'required|integer'
+		'news_category_id' => 'required|integer',
+		'featured_image' => 'required'
 	];
 
 	public static $fieldRules = [
