@@ -71,7 +71,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('form-messages', array('as' => 'admin.form-messages.update', 'uses' => 'SiteOptionsController@updateFormMessages'));
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
-   
+    Route::get('game-slideshow', array('as' => 'admin.game-slideshow', 'uses' => 'SiteOptionsController@showGames'));
 
     Route::resource('news', 'NewsController');
     Route::post('news/{id}/update-fields', array('as' => 'admin.news.update-fields', 'uses' => 'NewsController@updateFields'));

@@ -152,4 +152,16 @@ class SiteOptionsController extends \BaseController {
 
 	}
 
+	public function showGames() {
+
+		$games = Game::all();
+
+		return View::make('admin.game-slideshow')->with('games', $games);
+
+	}
+
+	public function editFeaturedGame() {
+
+	}
+
 }
