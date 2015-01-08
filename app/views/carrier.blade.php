@@ -8,7 +8,7 @@
 
 	<h1 class="title center">Select Carrier</h1>
 
-   {{ Form::open(array('route' => 'home.post', 'class' => 'login', 'id' => 'login-form')) }}
+   {{ Form::open(array('class' => 'login', 'id' => 'login-form')) }}
 
 		{{ Form::token(); }}
 
