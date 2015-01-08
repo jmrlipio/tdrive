@@ -83,10 +83,10 @@ class NewsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//$news = News::orderBy('id')->paginate(8);
+		$news = News::orderBy('id')->paginate(8);
 
 
-		$news = News::with('languages','NewsCategory')->get();
+		//$news = News::with('languages','NewsCategory')->get();
 
 		/*foreach ($news as $data) {
 				echo '<pre>';

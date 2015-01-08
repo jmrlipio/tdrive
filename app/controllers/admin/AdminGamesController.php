@@ -9,7 +9,7 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function index()
 	{
-<<<<<<< HEAD
+
 		//$games = Game::orderBy('id')->paginate(8);
 		/*$news_categories = [];
 		$selected_languages = [];
@@ -21,17 +21,17 @@ class AdminGamesController extends \BaseController {
 		foreach (NewsCategory::all() as $news_cat) {
 			$news_categories[$news_cat->id] = $news_cat->category;
 		}*/
-		$games = Game::with('categories')->get();
+		//$games = Game::with('categories')->get();
 		
 		/*echo '<pre>';
 		print_r($games);
 		echo '</pre>';*/
-		foreach ($games as $data)		{
+		/*foreach ($games as $data)		{
 		    //echo $data->categories;
 		    foreach ($data->categories as $row) {
 		    	echo $row->category;
 		    }
-		}
+		}*/
 		/*foreach($games as $game) {
 			echo '<pre>';
 			print_r($games->categories());
@@ -44,12 +44,12 @@ class AdminGamesController extends \BaseController {
 		// 	}	
 		// }
 
-		 return View::make('admin.games.index')->with('games', $games);
-=======
+		// return View::make('admin.games.index')->with('games', $games);
+
 		$games = Game::orderBy('id')->paginate(8);
 		
 		return View::make('admin.games.index')->with('games', $games);
->>>>>>> ba72053694f837380b1ef6c231e7d6fe1cb54465
+
 	}
 	/**
 	 * Show the form for creating a new resource.

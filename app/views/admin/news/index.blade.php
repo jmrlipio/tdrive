@@ -27,37 +27,34 @@
 			<tbody>
 
 				@forelse($news as $data)
-
 					
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>
-								<a href="#">{{ $data->main_title }}</a>
-								<ul class="actions">
-									<li><a href="{{ URL::route('admin.news.edit', $data->id) }}">Edit</a></li>
-									<li><a href="">View</a></li>
-									<li>
-									{{ Form::open(array('route' => array('admin.news.destroy', $data->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-									{{ Form::close() }}
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>
+							<a href="#">{{ $data->main_title }}</a>
+							<ul class="actions">
+								<li><a href="{{ URL::route('admin.news.edit', $data->id) }}">Edit</a></li>
+								<li><a href="">View</a></li>
+								<li>
+								{{ Form::open(array('route' => array('admin.news.destroy', $data->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+								{{ Form::close() }}
 
-									</li>
-								</ul>
-							</td>
-							<td>
-								@foreach($data->languages as $row)
-									{{ $row->language }}
-								@endforeach
-							</td>
+								</li>
+							</ul>
+						</td>
+						<td>
+							@foreach($data->languages as $row)
+								{{ $row->language }}
+							@endforeach
+						</td>
 
-							<td>
-								@foreach($data->languages as $row)
-									{{ $data->NewsCategory->category }}
-								@endforeach	
-							</td>
-							<td>{{ $data->created_at }}</td>
-							
-						</tr>
+						<td>								
+							{{ $data->NewsCategory->category }}								
+						</td>
+						<td>{{ $data->created_at }}</td>
+						
+					</tr>
 							
 			@empty
 				<tr class="tall-tr">
