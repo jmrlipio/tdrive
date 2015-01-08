@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>TDrive</title>
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
    
     {{ HTML::style('css/dataTables.bootstrap.css') }}
     {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans') }}
@@ -18,9 +17,6 @@
     {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::script('js/jquery-ui.js') }}
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
-    
-     
-   
     
 
     <!--[if lt IE 9]>

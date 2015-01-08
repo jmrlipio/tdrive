@@ -372,3 +372,7 @@ p#generated-password {
 #reports-nav li {
 	width: 16.5%;
 }
+
+div#user_tbl_container .item-listing td:nth-child(2), .item-listing th:nth-child(2) {
+	width: 19% !important;
+}
