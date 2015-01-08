@@ -422,3 +422,21 @@ p#generated-password {
 	font-weight: normal;
 	margin-top: 5px;
 }
+
+#featured-games {
+	width: 50%;
+}
+
+#featured-games td:nth-child(2) {
+	width: 10%;
+}
+
+#featured-games input[type=checkbox] {
+	line-height: 40px;
+}
+
+#featured-games > p{
+	font-style: italic;
+	line-height: 40px;
+	text-align: center;
+}

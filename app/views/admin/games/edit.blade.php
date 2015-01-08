@@ -290,16 +290,6 @@
 
 	// 	var checked = ($(this).is(':checked')) ? 1 : 0;
 
-	// 	$.ajax({
- //            url: '{{ URL::route('game.featured') }}',
- //            type:'POST',
- //            data:{
- //                "featured": checked
- //            }
- //        });
-
-	// });
-
 	/* Opens media dialog for selecting featured and screenshots images
 	$("#media").on('click', '.select-img',function(){
 		img_li = $(this).parent().parent();

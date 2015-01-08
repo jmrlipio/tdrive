@@ -1,4 +1,4 @@
-<?php
+// <?php
 
 class NewsController extends \BaseController {
 
@@ -87,13 +87,13 @@ class NewsController extends \BaseController {
 
 		$news = News::with('languages')->get();
 
-		foreach ($variable as $key => $value) {
-			# code...
-		}
-		echo '<pre>';
-		print_r($news);
-		echo '</pre>';
-		//return View::make('admin.news.index')->with('news', $news);
+		// foreach ($variable as $key => $value) {
+		// 	# code...
+		// }
+		// echo '<pre>';
+		// print_r($news);
+		// echo '</pre>';
+		return View::make('admin.news.index')->with('news', $news);
 	}
 
 

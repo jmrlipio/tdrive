@@ -154,14 +154,23 @@ class SiteOptionsController extends \BaseController {
 
 	public function showGames() {
 
-		$games = Game::all();
+		$games = Game::orderBy('created_at')->paginate(10);
 
 		return View::make('admin.game-slideshow')->with('games', $games);
 
 	}
 
-	public function editFeaturedGame() {
-
+	public function updateFeaturedGame()
+	{
+		$data = Input::all();
+        
+        if(Request::ajax())
+        {
+            $id = $data['id'];
+            $game = Game::where('id', $id)->first();
+            $game->featured = $data['featured'];
+            $game->update();
+        }
 	}
 
 }

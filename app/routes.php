@@ -58,6 +58,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@updateLanguageContent'));
     Route::get('games/{id}/edit/prices/{carrier}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@getPriceContent'));
     Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
+    Route::post('categories/featured', array('as' => 'admin.categories.featured', 'uses' => 'CategoriesController@update_featured'));
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
     Route::resource('carriers', 'CarriersController');
@@ -72,10 +73,39 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
     Route::get('game-slideshow', array('as' => 'admin.game-slideshow', 'uses' => 'SiteOptionsController@showGames'));
+    Route::post('games/featured', array('as' => 'admin.games.featured', 'uses' => 'SiteOptionsController@updateFeaturedGame'));
 
     //added for admin reviews - transfer later on
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));
     Route::get('reviews', array('as' => 'admin.reviews.index', 'uses' => 'ReviewsCOntroller@admin_index'));
+   
+/** 
+* Added by: Jone   
+* Purpose: For role filtering
+* Date: 01/06/2015
+*/
+
+        // Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
+        // Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
+        // Route::post('games/{id}/update-fields', array('as' => 'admin.games.update-fields', 'uses' => 'AdminGamesController@updateFields'));
+        // Route::get('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@getLanguageContent'));
+        // Route::post('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@updateLanguageContent'));
+        // Route::get('games/{id}/edit/prices/{carrier}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@getPriceContent'));
+        // Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
+        // Route::resource('languages', 'LanguagesController');
+        // Route::resource('carriers', 'CarriersController');
+        // Route::post('categories/featured', array('as' => 'admin.categories.featured', 'uses' => 'CategoriesController@update_featured'));
+        // Route::resource('categories', 'CategoriesController');
+        
+
+    // Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
+    // Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
+    // Route::post('games/{id}/update-fields', array('as' => 'admin.games.update-fields', 'uses' => 'AdminGamesController@updateFields'));
+    // Route::post('games/{id}/update-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
+    // Route::get('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@getLanguageContent'));
+    // Route::post('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@updateLanguageContent'));
+    // Route::get('games/{id}/edit/prices/{carrier}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@getPriceContent'));
+    // Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
 
     Route::resource('news', 'NewsController');
     Route::post('news/{id}/update-fields', array('as' => 'admin.news.update-fields', 'uses' => 'NewsController@updateFields'));
