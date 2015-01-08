@@ -107,6 +107,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
         Route::post('inquiries/{id?}/reply', array('as' => 'admin.reports.inquiries.reply', 'uses' => 'InquiriesController@reply'));
         Route::get('inquiries/settings', array('as' => 'admin.reports.inquiries.settings', 'uses' => 'InquiriesController@settings'));
         Route::post('inquiries/settings/save', array('as' => 'admin.reports.inquiries.save-settings', 'uses' => 'InquiriesController@saveSettings'));
+        Route::get('inquiries/links', array('as' => 'admin.reports.inquiries.links', 'uses' => 'InquiriesController@linkTo'));
         Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit')));
     
     });

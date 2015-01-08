@@ -10,9 +10,24 @@ class ReportsController extends \BaseController {
 
 	public function salesList()
 	{
-		$sales = Sales::all();	
+		$filter = DataFilter::source(GameSales::with('game', 'Country', 'Carrier'));
+        $filter->add('game.main_title','Game', 'text');
+        $filter->add('country.capital','Country', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('game.main_title','Game', 'game_id')->style("width:350px");
+        $grid->add('carrier.carrier','Carrier', true)->style("width:140px");
+        $grid->add('country.capital','Country');
+      	$grid->add('price','Price');
+        $grid->paginate(10);
+
 		return View::make('admin.reports.sales.lists')
-					->with('sales', $sales);
+					->with('grid', $grid)
+					->with('filter', $filter);
 	}
 
 	public function salesChart()
@@ -150,7 +165,10 @@ class ReportsController extends \BaseController {
 
 	public function downloads()
 	{
-		return View::make('admin.reports.downloads');
+		$games = Game::all();
+
+		return View::make('admin.reports.downloads')
+					->with('games', $games);
 	}
 
 	public function adminlogs()
@@ -169,5 +187,31 @@ class ReportsController extends \BaseController {
 	{
 		return View::make('admin.reports.inquiries');
 	}*/
+
+	public function downloadCheck() 
+	{
+		$filename = "the name of my file";
+		$filePath = "/path/to/download/$filename";
+		//lets read this file to the user
+		//open the file for binary reading
+		$file = fopen($filePath,"rb");
+		// we build some headers
+		header("Content-type: application/octet-stream"); 
+		header("Content-Disposition: inline; filename=\"$filename\"");
+		header("Content-length: ".(string)(filesize($filePath)));
+		while(!feof($file) )// if we haven't got to the End Of File
+		{ 
+		print(fread($file, 1024*8) );//read 8k from the file and send to the user
+		flush();//force the previous line to send its info
+		if (connection_status()!=0)//check the connection, if it has ended...
+		{
+		fclose($file);//close the file
+		die();//kill the script
+		}
+		}
+		fclose($file);//close the file
+		//if we get this far, the file was completely downloaded
+		//update the database
+	}
                                                                                                             
 }

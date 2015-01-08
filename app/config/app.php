@@ -127,7 +127,8 @@ return array(
 		'Torann\GeoIP\GeoIPServiceProvider',
 		'Thujohn\Analytics\AnalyticsServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-		'Zofe\Rapyd\RapydServiceProvider'
+		'Zofe\Rapyd\RapydServiceProvider',
+		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
 	),
 
 	/*
@@ -199,7 +200,8 @@ return array(
 		'Countries' 	  => 'Webpatser\Countries\CountriesFacade',
 		'GeoIP' 		  => 'Torann\GeoIP\GeoIPFacade',
 		'Analytics' 	  => 'Thujohn\Analytics\AnalyticsFacade',
-		'Image' 		  => 'Intervention\Image\Facades\Image'
+		'Image' 		  => 'Intervention\Image\Facades\Image',
+		'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
 	),
 
 );

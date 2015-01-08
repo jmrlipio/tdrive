@@ -14,6 +14,35 @@ class InquiriesController extends \BaseController {
 
 		return View::make('admin.reports.inquiries.index')
 					->with('inquiries', $inquiries);
+	
+/*		$inquiries = Inquiry::orderBy('created_at')->get();
+
+		$filter = DataFilter::source(DB::table('inquiries'));
+        $filter->add('name','Name', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+
+        $grid = DataGrid::source(DB::table('inquiries'));
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('name','Name', true)->style("width:400px");
+        $grid->add('email','Email', true)->style("width:140px");
+        $grid->add('game_title','Subject', true)->style("width:350px");
+        $grid->edit('/rapyd-demo/edit', 'Edit','show|delete');
+        $grid->paginate(10);*/
+
+      /*  return  View::make('admin.reports.inquiries.index', compact('filter', 'grid'));*/
+	}
+
+	public function linkTo() 
+	{
+		if(Input::has('show')) 
+		{
+			$inquiry = Inquiry::find($id);
+
+			return View::make('admin.reports.inquiries.show')
+					->with('inquiry', $inquiry);
+		}
 	}
 
 	/**
@@ -24,10 +53,27 @@ class InquiriesController extends \BaseController {
 	 */
 	public function store()
 	{
+
 		$validator = Validator::make(Input::all(), Inquiry::$rules);
 		if($validator->passes()) 
 		{
+
 			Inquiry::create(Input::all());
+
+			$message = Input::get('message');
+			$subject = 'Welcome!';
+			$data = array(
+			    'name' => Input::get('name'),
+			    'email' => Input::get('email'),
+			    'game' => Input::get('game'),
+			    'message' => $message,
+			);
+
+			Mail::send('emails.inquiries.replyto', $data , function ($message) use ($data) {
+					$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
+				});
+
+
 			return Redirect::back()
 							->with('message', 'Inquiry Sent!');
 		}
@@ -80,6 +126,7 @@ class InquiriesController extends \BaseController {
 			$data = array(
 			    'name' => 'adasd',
 			    'email' => $inquiry->email,
+			    'game' => Input::get('game'),
 			    'message' => $message,
 			);
 

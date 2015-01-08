@@ -352,7 +352,7 @@
 		<h1 class="title">Contact us</h1>
 		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
 
-		<form action="#" method="post">
+		{{ Form::open(array('route'=>'admin.reports.inquiries.store', 'method' => 'post')) }}
 			<div class="control clearfix">
 				<label class="common" for="name">Name</label>
 				<input type="text" name="name" id="name">
@@ -367,7 +367,7 @@
 				<label for="game">Game Title</label>
 
 				<select name="game" class="clearfix" id="game">
-					<option value="">General Inquiry</option>
+					<option value="General Inquiry">General Inquiry</option>
 
 					@foreach($games as $game)
 						<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
@@ -384,7 +384,7 @@
 			<div class="control clearfix">
 				<input type="submit" value="Submit &raquo;">
 			</div>
-		</form>
+		{{ Form::close() }}
 	</div><!-- end #contact -->
 
 @stop
