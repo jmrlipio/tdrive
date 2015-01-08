@@ -57,23 +57,17 @@
 		}
 
 		.go {
-			background: $orange;
+			background: orange url(../images/go.png) center center no-repeat;
 			position: absolute;
 			z-index: 2;
 			right: 0;
 			top: 0;
 			width: 10px;
 			padding: 0 5px 0 6px;
+			display: block;
 
 			> div {
 				height: 50px;
-			}
-
-			a {
-				background: url(../images/go.png) center center no-repeat;
-				width: 10px;
-				height: 22px;
-				display: block;
 			}
 		}
 	}
@@ -104,7 +98,7 @@
 
 	.thumb {
 		@extend %box-sizing;
-		@include border-radius(16px);
+		@include border-radius(20px);
 		padding: 6px;
 		background: rgba(0, 0, 0, .1);
 		margin: 0 auto;
@@ -255,7 +249,7 @@
 
 						> div {
 							padding-left: 62px;
-							padding-right: 26px;
+							padding-right: 32px;
 						}
 					}
 
@@ -272,17 +266,19 @@
 					position: absolute;
 					right: 0;
 					top: 0;
-					width: 15px;
+					width: 20px;
 					height: 80px;
 					z-index: 7;
 
-					> div {
+					> a {
 						position: relative;
+						display: block;
 						height: 100%;
 						background: $pink;
 
 						i {
 							color: $white;
+							font-size: 22px;
 						}
 					}
 				}
@@ -339,7 +335,7 @@
 			padding-bottom: 10px;
 		}
 
-		label {
+		label.common {
 			display: block;
 			position: absolute;
 			text-transform: lowercase;
@@ -373,6 +369,33 @@
 			@extend %box-sizing;
 		}
 
+		.select {
+			background: $white;
+			position: relative;
+			margin-top: 10px;
+			margin-left: 1%;
+
+			label {
+				display: block;
+				text-transform: lowercase;
+				margin-top: 5px;
+				line-height: 26px;
+				background: $pink;
+				text-align: center;
+				width: 100px;
+				margin-left: -1%;
+				float: left;
+				@extend %box-sizing;
+			}
+
+			select {
+				float: left;
+				width: 180px;
+				margin-left: 10px;
+				height: 36px;
+			}
+		}
+
 		textarea {
 			padding: 36px 6px 4px;
 			min-height: 100px;
@@ -393,16 +416,6 @@
 	#footer {
 		display: block;
 	}
-}
-
-@media only screen and (min-width: 480px) {
-
-	#home {
-		.meta {
-			height: auto;
-		}
-	}
-
 }
 
 @media only screen and (min-width: 600px) {
@@ -469,21 +482,6 @@
 		.lSSlideOuter .lSPager.lSpg > li a {
 			width: 20px;
 			height: 20px;
-		}
-
-		.thumb {
-			@include border-radius(22px);
-			padding: 10px;
-
-			img {
-				@include border-radius(22px);
-			}
-		}
-
-		#latest-games {
-			.meta {
-				height: auto;
-			}
 		}
 	}
 

@@ -3,7 +3,7 @@
 @section('content')
 
 	<div id="featured" class="container">
-		<img src="/images/news/{{ $news->slug }}.jpg" alt="{{ $news->main_title }}">
+		{{ HTML::image('images/news/' . $news->slug . '.jpg', $news->main_title) }}
 	</div>
 
 	<div class="container">

@@ -70,10 +70,15 @@
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-		<p>Stack as many cats as possible. All kinds of cats will appear. Fat cats, kittens, even cats with top hats!</p>	
+
+		@foreach($game->contents as $item)
+			{{ $item->pivot->content }}
+		@endforeach
+
+		<!--<p>Stack as many cats as possible. All kinds of cats will appear. Fat cats, kittens, even cats with top hats!</p>	
 		<p>Touch and tilt, but be careful. The tower may fall apart!</p>	
 		<p>Mew Mew Tower Premium is a simple and exciting game enjoyed by all ages.</p>	
-		<p>Test you skills and luck with friends in 2 player mode! Cute backgrounds are also unlockable wallpapers!</p>	
+		<p>Test you skills and luck with friends in 2 player mode! Cute backgrounds are also unlockable wallpapers!</p>	-->
 	</div><!-- end #description -->
 
 	<div id="screenshots" class="container">
@@ -83,12 +88,12 @@
 				@foreach($related_games as $game)
 					@foreach($game->categories as $category)
 
-						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
 
 					@endforeach
 				@endforeach
@@ -291,7 +296,7 @@
 
 						<div class="swiper-slide item">
 							<div class="thumb">
-								<a href="{{ URL::route('game.show', $game->id) }}"><img src="/images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
+								<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
 							</div>
 
 							<div class="meta">
@@ -308,7 +313,7 @@
 			</div>
 		</div>
 
-		<div class="more"><a href="#">More +</a></div>
+		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
 	</div><!-- end #related-games -->
 
 @stop
