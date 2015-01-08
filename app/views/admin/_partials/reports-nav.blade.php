@@ -1,4 +1,4 @@
-<nav class="sub-nav">
+<nav class="sub-nav" id="reports-nav">
 	<ul>
 		<li><a href="{{ URL::route('admin.reports.sales.list') }}">Sales</a>
 			<ul class="dropdown">

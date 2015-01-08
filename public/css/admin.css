@@ -98,6 +98,10 @@ textarea { padding: 5px 10px; }
 #admin-panel ul li a { display: block; line-height: 40px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
 #admin-panel ul li a:hover { background-color: #2F3A40; }
 
+#site-options { display: none; -webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out; }
+#site-options li a { padding-left: 40px !important; }
+#options-link:hover ul { display: block;  }
+
 #user-menu { float: right; }
 #dashboard { width: 100%; }
 #dashboard section { border: 1px solid #ccc; width: 25%; padding: 1%; border-radius: 3px; float: left; min-height: 200px;  margin: 10px; }
@@ -363,3 +367,8 @@ p#generated-password {
 .media-box img {
 	width: 100%;
 	height: 100%;
+}
+
+#reports-nav li {
+	width: 16.5%;
+}

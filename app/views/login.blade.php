@@ -5,8 +5,18 @@
 @stop
 
 @section('content')
+                         
 
-	<h1 class="title center">Sign In</h1>
+        @if (Session::has('message') ) 
+            
+            <h3 class="title center">{{ Session::get('message') }}</h3>              
+
+        @else
+
+            <h3 class="title center">Sign In</h3>
+
+        @endif    
+         
 
    {{ Form::open(array('route' => 'login.post', 'class' => 'login', 'id' => 'login-form')) }}
 
