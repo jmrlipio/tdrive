@@ -149,7 +149,7 @@ class UsersController extends \BaseController {
         	}
             return Redirect::intended('/');
         }
-        return Redirect::to('login')->withErrors('Your email/password was incorrect');
+        return Redirect::to('login')->with('message','Your email/password was incorrect');
     }
 
     public function getLogout(){

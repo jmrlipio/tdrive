@@ -126,7 +126,8 @@ return array(
 		'Jarektkaczyk\TriplePivot\TriplePivotServiceProvider',
 		'Torann\GeoIP\GeoIPServiceProvider',
 		'Thujohn\Analytics\AnalyticsServiceProvider',
-		'Intervention\Image\ImageServiceProvider'
+		'Intervention\Image\ImageServiceProvider',
+		'Zofe\Rapyd\RapydServiceProvider'
 	),
 
 	/*
