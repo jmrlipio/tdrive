@@ -185,11 +185,13 @@ class ListingController extends \BaseController {
 			->with(compact('languages'));
 	}
 
-	public function showMoreNewsByYear($year) 
+	public function showMoreNewsByYear() 
 	{
 		$languages = Language::all();
 
 		$load = Input::get('load') * 3;
+
+		$year = Input::get('year');
 
 		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->take(3)->skip($load)->get();
 

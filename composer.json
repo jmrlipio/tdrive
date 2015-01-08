@@ -13,7 +13,8 @@
 		"torann/geoip": "dev-master",
 		"thujohn/analytics": "dev-master",
 		"intervention/image": "dev-master",
-		"zofe/rapyd": "1.3.*"
+		"zofe/rapyd": "1.3.*",
+		"mews/captcha": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

@@ -724,6 +724,9 @@
   border-radius: 4px;
   background-clip: padding-box;
 }
+#game-detail #review .captcha-correct, #game-detail #review .captcha-error {
+  margin-left: 0;
+}
 #game-detail #reviews .entry {
   margin-bottom: 20px;
 }
