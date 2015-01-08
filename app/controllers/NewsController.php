@@ -1,4 +1,4 @@
-<?php
+// <?php
 
 class NewsController extends \BaseController {
 
@@ -85,6 +85,7 @@ class NewsController extends \BaseController {
 	{
 		//$news = News::orderBy('id')->paginate(8);
 
+
 		$news = News::with('languages','NewsCategory')->get();
 
 		/*foreach ($news as $data) {
@@ -100,6 +101,7 @@ class NewsController extends \BaseController {
 			}
 		}*/
 	
+
 		return View::make('admin.news.index')->with('news', $news);
 	}
 
@@ -127,14 +129,16 @@ class NewsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$featured = Input::file('featured_image');
-		$filename = time() . "_" . $featured->getClientOriginalName();
-		$path = public_path('assets/news/' . $filename);
-		Image::make($featured->getRealPath())->resize(800, 480)->save($path);
-
 		$validator = Validator::make($data = Input::all(), News::$rules);
 
-		$data['featured_image'] = $filename;
+		if(Input::hasFile('featured_image')) {
+			$featured = Input::file('featured_image');
+			$filename = time() . "_" . $featured->getClientOriginalName();
+			$path = public_path('assets/news/' . $filename);
+			Image::make($featured->getRealPath())->save($path);
+
+			$data['featured_image'] = $filename;
+		}
 
 		if ($validator->fails())
 		{
@@ -219,32 +223,32 @@ class NewsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$news = News::find($id);	
+		$news = News::find($id);
 
-		// $data = Input::all();
+		$edit_rules = News::$rules;
+
+		$edit_rules['featured_image'] = '';
+
+		$validator = Validator::make($data = Input::all(), $edit_rules);
 
 		if(Input::hasFile('featured_image')) {
-			$featured = Input::get('featured_image');
-			$featured_name = time() . "_" . $featured->getClientOriginalName();
-			$featured_path = public_path('assets/news/' . $featured_name);
-			Image::make($featured->getRealPath())->resize(800, 480)->save($path);
-		}
+			$featured = Input::file('featured_image');
+			$filename = time() . "_" . $featured->getClientOriginalName();
+			$path = public_path('assets/news/' . $filename);
+			Image::make($featured->getRealPath())->save($path);
 
-		$validator = Validator::make($data = Input::all(), News::$rules);
+			$data['featured_image'] = $filename;
+		} else {
+			$data['featured_image'] = $news->featured_image;
+		}
 		
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}		
 		
-
 		//TODO: add update call, what?
 		Event::fire('audit.faqs.update', Auth::user());	
-
-		return View::make('admin.news.edit')
-			->with('news_categories', $news_categories)
-			->with('news', $news)
-			->with('message', 'Update news successful.');
 
 		$news->update($data);
 

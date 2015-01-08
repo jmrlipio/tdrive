@@ -9,6 +9,7 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function index()
 	{
+<<<<<<< HEAD
 		//$games = Game::orderBy('id')->paginate(8);
 		/*$news_categories = [];
 		$selected_languages = [];
@@ -44,6 +45,11 @@ class AdminGamesController extends \BaseController {
 		// }
 
 		 return View::make('admin.games.index')->with('games', $games);
+=======
+		$games = Game::orderBy('id')->paginate(8);
+		
+		return View::make('admin.games.index')->with('games', $games);
+>>>>>>> ba72053694f837380b1ef6c231e7d6fe1cb54465
 	}
 	/**
 	 * Show the form for creating a new resource.

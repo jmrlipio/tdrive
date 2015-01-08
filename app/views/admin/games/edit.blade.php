@@ -286,6 +286,10 @@
 		$(this).parent().remove();
 	});
 
+	// $('.featured').on('click', function() {
+
+	// 	var checked = ($(this).is(':checked')) ? 1 : 0;
+
 	/* Opens media dialog for selecting featured and screenshots images
 	$("#media").on('click', '.select-img',function(){
 		img_li = $(this).parent().parent();

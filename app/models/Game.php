@@ -57,4 +57,8 @@ class Game extends \Eloquent {
     	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
     }
 
+    public function review() {
+    	return $this->belongsToMany('User', 'game_reviews');
+    }
+
 }

@@ -32,10 +32,17 @@
 
 		{{ Form::token() }}
 
-		<select name="locale" onselect="this.form.submit()">
-			<option value="" selected>select Telco</option>
-			<option value="en">English</option>
-			<option value="de" {{ Lang::locale() == 'de' ? ' selected' : '' }}>German</option>
+		<select name="locale">
+			<option value="" selected>Select Language</option>
+			<option value="en" {{ Lang::locale() == 'us' ? ' selected' : '' }}>English</option>
+			<option value="th" {{ Lang::locale() == 'th' ? ' selected' : '' }}>Thai</option>
+			<option value="id" {{ Lang::locale() == 'id' ? ' selected' : '' }}>Bahasa Indonesia</option>
+			<option value="my" {{ Lang::locale() == 'my' ? ' selected' : '' }}>Bahasa Malaysia</option>
+			<option value="cn" {{ Lang::locale() == 'cn' ? ' selected' : '' }}>Traditional Chinese</option>
+			<option value="cn" {{ Lang::locale() == 'cn' ? ' selected' : '' }}>Simplified Chinese</option>
+			<option value="vn" {{ Lang::locale() == 'vn' ? ' selected' : '' }}>Vietnamese</option>
+			<option value="jp" {{ Lang::locale() == 'jp' ? ' selected' : '' }}>Japanese</option>
+			<option value="hi" {{ Lang::locale() == 'hi' ? ' selected' : '' }}>Hindi</option>
 		</select>
 
 		<input type="submit" value="select">

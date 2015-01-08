@@ -29,38 +29,34 @@
 			</thead>
 
 			<tbody>
-				@forelse($games as $game)
 
+				@forelse($games as $game)	
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>
+							<a href="#">{{ $game->main_title }}</a>
+							@if(Auth::user()->role != 'admin')
+								<ul class="actions">							
+									<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">Edit</a></li>							
+									<li><a href="#">View</a></li>
+									<li>
+										{{ Form::open(array('route' => array('admin.games.destroy', $game->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+										{{ Form::close() }}
+									</li>
+								</ul>
+							@endif
+						</td>
+						<td>
+							@foreach($game->categories as $gc)
+								{{ $gc->category }}
+							@endforeach
+						</td>
+						<td>{{ $game->user->username }}</td>
+						<td>{{ $game->release_date }}</td>
+						<td>{{ $game->updated_at }}</td>						
 					
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>
-								<a href="#">{{ $game->main_title }}</a>
-								@if(Auth::user()->role != 'admin')
-									<ul class="actions">							
-										<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">Edit</a></li>							
-										<li><a href="#">View</a></li>
-										<li>
-											{{ Form::open(array('route' => array('admin.games.destroy', $game->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-												{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-											{{ Form::close() }}
-										</li>
-									</ul>
-								@endif
-							</td>
-						
-							<td>
-								@foreach($game->categories as $gc)
-									{{ $gc->category }}
-								@endforeach
-							</td>
-							<td>{{ $game->user->username }}</td>
-							<td>{{ $game->release_date }}</td>
-							<td>{{ $game->updated_at }}</td>						
-						
-						</tr>
-
-					
+					</tr>
 
 				@empty
 					<tr class="tall-tr">
