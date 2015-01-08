@@ -12,13 +12,14 @@
 		<br>
 		<table>
 			<tr>
-				<th><input type="checkbox"></th>
+				<!--<th><input type="checkbox"></th>-->
 				<th>Category Name</th>
 				<th>Slug</th>
+				<th>Featured</th>
 			</tr>
 			@foreach($categories as $category)
 				<tr>
-					<td><input type="checkbox"></td>
+					<!--<td><input type="checkbox"></td>-->
 					<td>
 						<a href="#">{{ $category->category }}</a>
 						@if(Auth::user()->role != 'admin')
@@ -34,9 +35,40 @@
 						@endif
 					</td>
 					<td>{{ $category->slug }}</td>
+					<td>
+						@if($category->featured == 1)
+							<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" checked id="{{ $category->id }}"/>
+						@else
+							<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" id="{{ $category->id }}" />
+						@endif
+					</td>
 				</tr>
 			@endforeach
 		</table>
+		<script>
+			$("document").ready(function(){
+		       
+
+		        $('.featured').on('click', function() {
+
+		        	var id = $(this).attr('id');
+		        	var checked = ($(this).is(':checked')) ? 1 : 0;
+
+		            $.ajax({
+		                type: "POST",
+		                url : "{{ URL::route('admin.categories.featured') }}",
+		                data :{
+		                	"featured": checked,
+		                	"id": id
+		                },
+		                success : function(data){
+		                    console.log('data');
+		                }
+		            });
+		    	});
+			});
+		</script>
+
 		<br>
 		
 	</div>

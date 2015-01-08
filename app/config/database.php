@@ -51,7 +51,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'tdrive2',
 			'username'  => 'root',
-			'password'  => '1234aA',
+			'password'  => '1234',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

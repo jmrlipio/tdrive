@@ -46,7 +46,9 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('users/roles', array('as' => 'admin.users.roles', 'uses' => 'AdminUsersController@getUsersByRole'));
     Route::resource('users', 'AdminUsersController');
     Route::resource('games', 'AdminGamesController');
-    
+    //added for admin reviews - transfer later on
+    Route::get('reviews', array('as' => 'admin.reviews.index', 'uses' => 'ReviewsCOntroller@admin_index'));
+   
 /** 
 * Added by: Jone   
 * Purpose: For role filtering
@@ -62,9 +64,11 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
         Route::post('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@updateLanguageContent'));
         Route::get('games/{id}/edit/prices/{carrier}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@getPriceContent'));
         Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
-        Route::resource('categories', 'CategoriesController');
         Route::resource('languages', 'LanguagesController');
         Route::resource('carriers', 'CarriersController');
+        Route::post('categories/featured', array('as' => 'admin.categories.featured', 'uses' => 'CategoriesController@update_featured'));
+        Route::resource('categories', 'CategoriesController');
+        
 
     // Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
     // Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
