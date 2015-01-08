@@ -11,6 +11,7 @@
     {{ HTML::style('css/jquery-ui.css') }}
     {{ HTML::style('css/jquery-ui.structure.css') }}
     {{ HTML::style('css/jquery-ui.theme.css') }}
+    {{ HTML::style("css/font-awesome.min.css"); }}
     {{ HTML::style('css/dropzone.css') }}
     {{ HTML::style('css/admin.css') }}
     {{ HTML::style('css/chosen.css')}}

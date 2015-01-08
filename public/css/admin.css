@@ -125,7 +125,7 @@ textarea { padding: 5px 10px; }
 .item-listing ul.actions { list-style: none; visibility: hidden; opacity: 0; transition: all 1s;}
 .item-listing ul.actions li { float: left; margin-right: 5px; }
 .item-listing ul.actions li a { color: #606060; font-size: 0.8em; }
-.item-listing td > a { color: #E43C49; }
+.item-listing td > a { color: #E43C49; text-decoration:none;}
 
 textarea { width: 95%; resize: none; height: 150px; }
 
@@ -389,3 +389,5 @@ p#generated-password {
 #reports-nav li {
 	width: 16.5%;
 }
+
+.table-striped th, .table-striped td{ vertical-align: middle !important; width: auto !important;}
