@@ -33,7 +33,7 @@
 		{{ Form::token() }}
 
 		<select name="locale" onselect="this.form.submit()">
-			<option value="" selected>select language</option>
+			<option value="" selected>select Telco</option>
 			<option value="en">English</option>
 			<option value="de" {{ Lang::locale() == 'de' ? ' selected' : '' }}>German</option>
 		</select>

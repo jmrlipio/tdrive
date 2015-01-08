@@ -35,9 +35,9 @@
 							</div>	
 
 							<div class="readmore">
-								<div>
-									<a href="{{ '/news/'. $item->id }}" class="vhcenter"><i class="fa fa-angle-right"></i></a>
-								</div>
+								<a href="{{ '/news/'. $item->id }}">
+									<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
+								</a>
 							</div>
 						</div>
 
@@ -76,7 +76,7 @@
 				$('.ajax-loader').hide();
 				$('#loadmore').hide();
 			} else {
-				$.post("/news/more/" + {{ $title }}, { load: load, _token: _token }, function(data) {
+				$.post("news/more/" + {{ $title }}, { load: load, _token: _token }, function(data) {
 					$('#scroll').append(data);
 					$('.ajax-loader').hide();
 				});
