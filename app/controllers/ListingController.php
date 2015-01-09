@@ -2,7 +2,10 @@
 
 class ListingController extends \BaseController {
 
-	public function __construct() {
+	public function __construct() 
+	{
+		parent::__construct();
+
 		$this->beforeFilter('csrf', array('on'=>'post'));
 	}
 
@@ -118,7 +121,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where('status', 1)->take(3)->get();
+		$news = News::where('status', 2)->take(3)->get();
 
 		$count = count($news);
 
@@ -134,7 +137,7 @@ class ListingController extends \BaseController {
 	{
 		$load = Input::get('load') * 3;
 
-		$news = News::where('status', 1)->take(3)->skip($load)->get();
+		$news = News::where('status', 2)->take(3)->skip($load)->get();
 		
 		if (Request::ajax()) {
 			foreach ($news as $item) {
@@ -172,7 +175,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->take(3)->get();
+		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->take(3)->get();
 
 		$count = count($news);
 
@@ -193,7 +196,7 @@ class ListingController extends \BaseController {
 
 		$year = Input::get('year');
 
-		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->take(3)->skip($load)->get();
+		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->take(3)->skip($load)->get();
 
 		if (Request::ajax()) {
 			foreach ($news as $item) {

@@ -6,6 +6,10 @@
 	<title>{{{ $page_title }}} | TDrive</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	@if (isset($general_settings[2]) || !empty($general_settings[2]))
+		{{ $general_settings[2]->value }}
+	@endif
+
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -31,7 +35,10 @@
 			<div class="container clearfix">
 				<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
 				<a href="{{ URL::previous(); }}" id="back"><i class="fa fa-angle-left"></i></a>
-				<a href="{{ route('home.show') }}" id="tdrive">{{ HTML::image('images/tdrive.png', 'TDrive', array('class' => 'auto')) }}</a>
+
+				<?php $tdrive = $general_settings[0]->value ?>
+
+				<a href="{{ route('home.show') }}" id="tdrive">{{ HTML::image("images/tdrive.png", "$tdrive", array('class' => 'auto')) }}</a>
 
 				<div class="tablet fl clearfix">
 					<ul class="menu fl">
@@ -65,15 +72,15 @@
 
 							<select name="locale">
 								<option value="" selected>Select Language</option>
-								<option value="en" {{ Lang::locale() == 'us' ? ' selected' : '' }}>English</option>
-								<option value="th" {{ Lang::locale() == 'th' ? ' selected' : '' }}>Thai</option>
-								<option value="id" {{ Lang::locale() == 'id' ? ' selected' : '' }}>Bahasa Indonesia</option>
-								<option value="my" {{ Lang::locale() == 'my' ? ' selected' : '' }}>Bahasa Malaysia</option>
-								<option value="cn" {{ Lang::locale() == 'cn' ? ' selected' : '' }}>Traditional Chinese</option>
-								<option value="cn" {{ Lang::locale() == 'cn' ? ' selected' : '' }}>Simplified Chinese</option>
-								<option value="vn" {{ Lang::locale() == 'vn' ? ' selected' : '' }}>Vietnamese</option>
-								<option value="jp" {{ Lang::locale() == 'jp' ? ' selected' : '' }}>Japanese</option>
-								<option value="hi" {{ Lang::locale() == 'hi' ? ' selected' : '' }}>Hindi</option>
+								<option value="en" {{ (strtolower($user_location['isoCode']) == 'us' || Lang::locale() == 'us') ? ' selected' : '' }}>English</option>
+								<option value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Lang::locale() == 'th') ? ' selected' : '' }}>Thai</option>
+								<option value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Lang::locale() == 'id') ? ' selected' : '' }}>Bahasa Indonesia</option>
+								<option value="my" {{ (strtolower($user_location['isoCode']) == 'my' || Lang::locale() == 'my') ? ' selected' : '' }}>Bahasa Malaysia</option>
+								<option value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Lang::locale() == 'cn') ? ' selected' : '' }}>Traditional Chinese</option>
+								<option value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Lang::locale() == 'cn') ? ' selected' : '' }}>Simplified Chinese</option>
+								<option value="vn" {{ (strtolower($user_location['isoCode']) == 'vn' || Lang::locale() == 'vn') ? ' selected' : '' }}>Vietnamese</option>
+								<option value="jp" {{ (strtolower($user_location['isoCode']) == 'jp' || Lang::locale() == 'jp') ? ' selected' : '' }}>Japanese</option>
+								<option value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || Lang::locale() == 'hi') ? ' selected' : '' }}>Hindi</option>
 							</select>
 
 							<input type="submit" value="select">
