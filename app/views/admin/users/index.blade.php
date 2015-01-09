@@ -12,11 +12,12 @@
 
 		<br>
 		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
+		{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
+			{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
+		{{ Form::close() }}
 		<br><br><br><br>
 	<div id="user_tbl_container">
-		{{-- Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) --}}
-			{{-- Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) --}}
-		{{-- Form::close() --}}
+		
 		<table class="table table-striped table-bordered table-hover"  id="user_table">
 			<thead>
 				<tr>
@@ -115,11 +116,11 @@
 		        // user_list.html(search_result);      
 		    });
 	   
-	    });
+	    });*/
 
 		$('#select-role').on('change', function() {
 			$('#submit-role').trigger('submit');
-		});*/
+		});
 	</script>
 
 @stop

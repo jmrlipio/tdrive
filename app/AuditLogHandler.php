@@ -8,6 +8,12 @@ class AuditLogHandler
        $log = AdminLog::createLogs($_activity);
     }
 
+    public function onLastLoginUser($user)
+    {
+       $_activity = sprintf(Constant::LOGS_ADMIN_LOGIN, $user->username, Carbon::now()->toDayDateTimeString());
+       $log = User::updateLastLogin($user->id);
+    }
+
     public function onLogout($user)
     {
        $_activity = sprintf(Constant::LOGS_ADMIN_LOGOUT, $user->username, Carbon::now()->toDayDateTimeString());
@@ -89,10 +95,12 @@ class AuditLogHandler
     public function subscribe($events)
     {
         $events->listen('audit.login', 'AuditLogHandler@onLogin');
+        $events->listen('audit.login', 'AuditLogHandler@onLastLoginUser');
         $events->listen('audit.logout', 'AuditLogHandler@onLogout');
         $events->listen('audit.users.create', 'AuditLogHandler@onUserCreate');
         $events->listen('audit.users.update', 'AuditLogHandler@onUserUpdate');
         $events->listen('audit.users.delete', 'AuditLogHandler@onUserDelete');
+        $events->listen('audit.users.lastlogin', 'AuditLogHandler@onLastLoginUser');
         $events->listen('audit.news.create', 'AuditLogHandler@onNewsCreate');
         $events->listen('audit.news.update', 'AuditLogHandler@onNewsUpdate');
         $events->listen('audit.news.delete', 'AuditLogHandler@onNewsDelete');
@@ -102,5 +110,6 @@ class AuditLogHandler
         $events->listen('audit.faqs.create', 'AuditLogHandler@onFAQSCreate');
         $events->listen('audit.faqs.update', 'AuditLogHandler@onFAQSUpdate');
         $events->listen('audit.faqs.delete', 'AuditLogHandler@onFAQSDelete');
+
     }
 }

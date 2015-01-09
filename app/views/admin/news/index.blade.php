@@ -11,9 +11,12 @@
 		    </div>
 		@endif
 
+		{{ Form::open(array('route' => 'admin.news.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
+			{{ Form::select('cat', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
+		{{ Form::close() }}
 		<br><br><br><br>
 
-		<table  class="table table-striped table-bordered table-hover"  id="news_table">
+		<table class="table table-striped table-bordered table-hover"  id="news_table">
 			<thead>
 				<tr>
 					<th><input type="checkbox"></th>
@@ -26,7 +29,7 @@
 
 			<tbody>
 
-				@forelse($news as $data)
+				@foreach($news as $data)
 					
 					<tr>
 						<td><input type="checkbox"></td>
@@ -56,18 +59,12 @@
 						
 					</tr>
 							
-			@empty
-				<tr class="tall-tr">
-					<td colspan="6"><p>You haven't created any news yet.</p></td>
-				</tr>
-			@endforelse
+				@endforeach
 
 			</tbody>
 		
 		</table>
-	
 		<br>
-		
 	</div>
 
 @stop
@@ -86,6 +83,10 @@
 			} else {
 				$('td input[type=checkbox').prop('checked', false);
 			}
+		});
+
+		$('#select-cat').on('change', function() {
+			$('#submit-cat').trigger('submit');
 		});
 	});
 
