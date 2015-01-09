@@ -10,24 +10,9 @@ class ReportsController extends \BaseController {
 
 	public function salesList()
 	{
-		$filter = DataFilter::source(GameSales::with('game', 'Country', 'Carrier'));
-        $filter->add('game.main_title','Game', 'text');
-        $filter->add('country.capital','Country', 'text');
-        $filter->submit('search');
-        $filter->reset('reset');
-        $filter->build();
-
-        $grid = DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
-        $grid->add('game.main_title','Game', 'game_id')->style("width:350px");
-        $grid->add('carrier.carrier','Carrier', true)->style("width:140px");
-        $grid->add('country.capital','Country');
-      	$grid->add('price','Price');
-        $grid->paginate(10);
-
+		$sales = Sales::all();
 		return View::make('admin.reports.sales.lists')
-					->with('grid', $grid)
-					->with('filter', $filter);
+					->with('sales', $sales);
 	}
 
 	public function salesChart()
@@ -180,6 +165,9 @@ class ReportsController extends \BaseController {
 
 	public function visitorlogs()
 	{
+		$sessions = Tracker::sessions(60 * 24);
+		echo '<pre>';
+		dd($sessions);
 		return View::make('admin.reports.visitorlogs');
 	}
 

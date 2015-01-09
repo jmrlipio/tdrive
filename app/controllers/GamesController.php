@@ -63,6 +63,12 @@ class GamesController extends \BaseController {
 
 		$related_games = Game::all();
 
+
+		$visitor = Tracker::currentSession();
+		echo "<pre>";
+		dd( $visitor->client_ip );
+
+
 		return View::make('game')
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')
