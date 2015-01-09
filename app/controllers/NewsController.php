@@ -81,28 +81,22 @@ class NewsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		$news = News::orderBy('id')->paginate(8);
+	public function index($category = NULL)
+	{		
+		$news = News::all();
 
+		$categories = ['all' => 'All'];
 
-		//$news = News::with('languages','NewsCategory')->get();
+		$news_category = NewsCategory::all();
 
-		/*foreach ($news as $data) {
-				echo '<pre>';
-				print_r($data->NewsCategory->category);
-				echo '</pre>';
-			
-				
-			foreach ($data->NewsCategory as $row) {
+		foreach($news_category as $nc){
+			$categories[$nc->id] = ucfirst($nc->category);
+		}
 
-			
-				
-			}
-		}*/
-	
-
-		return View::make('admin.news.index')->with('news', $news);
+		return View::make('admin.news.index')
+			->with('news', $news)
+			->with('categories', $categories)
+			->with('selected', 'all');
 	}
 
 
@@ -338,5 +332,35 @@ class NewsController extends \BaseController {
 
 		return Redirect::back()->with('message', 'You have successfully updated this news content');
 	}
+
+	public function getNewsByCategory() 
+    {
+    	
+		$selected_cat = Input::get('cat');
+    	$news_category = NewsCategory::all();  
+    	$categories = ['all' => 'All'];
+
+    	foreach($news_category as $nc){
+			$categories[$nc->id] = ucfirst($nc->category);
+		}
+
+
+		if($selected_cat != 'all'){
+
+	    	$news = News::whereHas('NewsCategory', function($q) use($selected_cat) {
+	    		$q->where('id', '=', $selected_cat);
+	    	})->get();   
+    		
+    	} else {
+
+    		$news = News::all();
+
+    	}
+
+		return View::make('admin.news.index')
+			->with('news', $news)
+			->with('categories', $categories)
+			->with('selected', $selected_cat);
+    }
 
 }
