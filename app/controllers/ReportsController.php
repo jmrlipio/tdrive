@@ -167,8 +167,9 @@ class ReportsController extends \BaseController {
 	public function visitorlogs()
 	{
 		$sessions = Tracker::sessions(60 * 24);
+		$pageViews = Tracker::pageViews(60 * 24 * 30);
 		echo '<pre>';
-		dd($sessions);
+		dd($pageViews);
 		return View::make('admin.reports.visitorlogs');
 	}
 
@@ -256,7 +257,15 @@ class ReportsController extends \BaseController {
 
 	public function visitorsUsersViews() 
 	{
-		return View::make('admin.reports.visitors.users-index');
+
+		$users = DB::table('tracker_sessions')
+					->join('users', 'tracker_sessions.user_id', '=' , 'users.id')
+					->join('tracker_devices', 'tracker_sessions.device_id', '=' , 'tracker_devices.id')
+					->select('users.username', 'tracker_sessions.client_ip', 'tracker_sessions.created_at', 'tracker_devices.kind', 'tracker_devices.platform', 'tracker_devices.model' )
+					->get();
+
+		return View::make('admin.reports.visitors.users-index')
+					->with('users', $users);
 	}
 
 	public function visitorsRatingsViews() 
