@@ -10,7 +10,7 @@ class ReportsController extends \BaseController {
 
 	public function salesList()
 	{
-		$sales = Sales::all();	
+		$sales = Sales::all();
 		return View::make('admin.reports.sales.lists')
 					->with('sales', $sales);
 	}
@@ -63,7 +63,8 @@ class ReportsController extends \BaseController {
 
 	    $array['rows'] = $rows;
 	    $json_data = json_encode($array);
-	    
+	    	
+
 	    return $json_data;
 	}
 
@@ -150,7 +151,10 @@ class ReportsController extends \BaseController {
 
 	public function downloads()
 	{
-		return View::make('admin.reports.downloads');
+		$games = Game::all();
+
+		return View::make('admin.reports.downloads')
+					->with('games', $games);
 	}
 
 	public function adminlogs()
@@ -162,6 +166,9 @@ class ReportsController extends \BaseController {
 
 	public function visitorlogs()
 	{
+		$sessions = Tracker::sessions(60 * 24);
+		echo '<pre>';
+		dd($sessions);
 		return View::make('admin.reports.visitorlogs');
 	}
 
@@ -169,5 +176,95 @@ class ReportsController extends \BaseController {
 	{
 		return View::make('admin.reports.inquiries');
 	}*/
+
+/*	public function downloadCheck() 
+	{
+		$filename = "the name of my file";
+		$filePath = "/path/to/download/$filename";
+		//lets read this file to the user
+		//open the file for binary reading
+		$file = fopen($filePath,"rb");
+		// we build some headers
+		header("Content-type: application/octet-stream"); 
+		header("Content-Disposition: inline; filename=\"$filename\"");
+		header("Content-length: ".(string)(filesize($filePath)));
+		while(!feof($file) )// if we haven't got to the End Of File
+		{ 
+			print(fread($file, 1024*8) );//read 8k from the file and send to the user
+			flush();//force the previous line to send its info
+			if (connection_status()!=0)//check the connection, if it has ended...
+			{
+				fclose($file);//close the file
+				die();//kill the script
+			}
+		}
+		fclose($file);//close the file
+		//if we get this far, the file was completely downloaded
+		//update the database
+	}
+*/
+
+	public function visitorsPagesViews() 
+	{
+		return View::make('admin.reports.visitors.index');
+	}
+
+	public function visitorsPagesViewsChart() 
+	{
+	   $array = array();
+	   $rows = array();	
+	   
+	   //show specific routes only
+	   $routes	= ['game.show', 'news.show'];
+
+	   $array['cols'] = array(
+	   						 array(
+	   						 	'id' => "pages", 
+	   						 	'label' => 'Pages', 
+	   						 	'type' => 'string'
+	   						 		),
+	    					array(
+	    						'id' => "pageviews", 
+	    						'label' => 'Page Views', 
+	    						'type' => 'number'
+	    						)
+	    					);
+	   	foreach($routes as $route) 
+	   	{
+	   		$page = DB::table('tracker_routes')
+	   						->select('id')
+	   						->where('name', '=', $route)
+	   						->first();
+
+	   		$views = DB::table('tracker_log')	
+	   					->select('route_path_id')
+	   					->where('route_path_id', '=', $page->id)
+	   					->get();
+	 	
+			$temp = array();
+		    $temp[] = array('v' => $route, 'f' => NULL);
+		    $temp[] = array('v' => count($views) , 'f' => NULL);
+		    $rows[] = array('c' => $temp);	
+
+	   	}
+
+		$array['rows'] = $rows;
+	    $json_data = json_encode($array);
+	    
+	    return  $json_data;	
+	}
+
+	public function visitorsUsersViews() 
+	{
+		return View::make('admin.reports.visitors.users-index');
+	}
+
+	public function visitorsRatingsViews() 
+	{
+		$games = Game::all();
+
+		return View::make('admin.reports.visitors.ratings')
+					->with('games', $games);
+	}
                                                                                                             
 }

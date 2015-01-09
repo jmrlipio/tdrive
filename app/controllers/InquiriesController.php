@@ -10,10 +10,22 @@ class InquiriesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$inquiries = Inquiry::orderBy('created_at')->paginate(10);
+		$inquiries = Inquiry::orderBy('created_at')->paginate(30);
 
 		return View::make('admin.reports.inquiries.index')
 					->with('inquiries', $inquiries);
+	
+	}
+
+	public function linkTo() 
+	{
+		if(Input::has('show')) 
+		{
+			$inquiry = Inquiry::find($id);
+
+			return View::make('admin.reports.inquiries.show')
+					->with('inquiry', $inquiry);
+		}
 	}
 
 	/**
@@ -24,10 +36,27 @@ class InquiriesController extends \BaseController {
 	 */
 	public function store()
 	{
+
 		$validator = Validator::make(Input::all(), Inquiry::$rules);
 		if($validator->passes()) 
 		{
+
 			Inquiry::create(Input::all());
+
+			$message = Input::get('message');
+			$subject = 'Welcome!';
+			$data = array(
+			    'name' => Input::get('name'),
+			    'email' => Input::get('email'),
+			    'game' => Input::get('game'),
+			    'messages' => $message,
+			);
+
+			Mail::send('emails.inquiries.inquire', $data , function ($message) use ($data) {
+					$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
+				});
+
+
 			return Redirect::back()
 							->with('message', 'Inquiry Sent!');
 		}
@@ -75,12 +104,12 @@ class InquiriesController extends \BaseController {
 		if($validator->passes())
 		{ 
 			$inquiry = Inquiry::find($id);
-			$message = Input::get('message');
 			$subject = 'Welcome!';
 			$data = array(
-			    'name' => 'adasd',
+			    'name' => $inquiry->name,
 			    'email' => $inquiry->email,
-			    'message' => $message,
+			    'game' => $inquiry->game_title,
+			    'messages' => Input::get('message'),
 			);
 
 			$mail = Mail::send('emails.inquiries.replyto', $data , function ($message) use ($inquiry) {
@@ -89,10 +118,10 @@ class InquiriesController extends \BaseController {
 
 			if(!$mail) 
 			{
-				return Redirect::back()->with('message', 'error sending!');
+				return Redirect::back()->with('message', 'Mail sent!');
 			}
 
-			return Redirect::back()->with('message', 'Mail sent!');
+			return Redirect::back()->with('message', 'Mail not sent');
 		}
 		//validator fails
 		return Redirect::back()->withErrors($validator)->withInput();

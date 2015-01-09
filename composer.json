@@ -14,6 +14,7 @@
 		"thujohn/analytics": "dev-master",
 		"intervention/image": "dev-master",
 		"zofe/rapyd": "1.3.*",
+		"pragmarx/tracker": "0.7.*",
 		"mews/captcha": "dev-master"
 	},
 	"autoload": {

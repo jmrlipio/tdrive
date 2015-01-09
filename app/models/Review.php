@@ -19,4 +19,30 @@ class Review extends Eloquent {
 		return $this->belongsTo('Game');
 	}
 
+	public static function getRatings($game_id) 
+	{
+		$ratings = Review::where('game_id', '=', $game_id)
+							->get();
+
+		if($ratings->isEmpty()) 
+		{
+			return false;
+		}		
+
+		$count = count($ratings->toArray());
+		$average = 0;
+		foreach($ratings as $rating) 
+		{
+			$average = $average + $rating->rating;
+		}
+
+		$average = round($average / $count, 1);
+
+		return array(
+				'count'   => $count,
+				'average' => $average,
+			);
+	
+		
+	}
 }

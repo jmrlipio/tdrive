@@ -9,7 +9,6 @@
 	<h1 class="title center">Select Carrier</h1>
 
 	{{ Form::open(array('action' => 'HomeController@home')) }}
-
 		{{ Form::token() }}
 
 		<div class="control">

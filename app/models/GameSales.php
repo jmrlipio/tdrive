@@ -6,7 +6,11 @@ class GameSales extends Eloquent{
     protected $table = 'game_sales';
 
     public function users() {
-		return $this->belongsToMany('User', 'prices');
+
+		//return $this->belongsToMany('User', 'prices');
+
+		return $this->belongsToMany('User', 'game_sales', 'id');
+
 	}
 
 	public function sales() {

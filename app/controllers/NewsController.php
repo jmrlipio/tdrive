@@ -68,6 +68,8 @@ class NewsController extends \BaseController {
 		$news = News::find($id);
 
 		$page_title = $news->main_title;
+		//page tracker
+		$visitor = Tracker::currentSession();
 
 		return View::make('news')
 			->with('page_title', $page_title)
