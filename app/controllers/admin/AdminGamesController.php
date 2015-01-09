@@ -7,48 +7,27 @@ class AdminGamesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($category = NULL)
 	{
 
-		//$games = Game::orderBy('id')->paginate(8);
-		/*$news_categories = [];
-		$selected_languages = [];
+		$games = Game::all();
+
+		$game_category = Category::all();
+
+		$categories = ['all' => 'All'];
 		
-		foreach($news->languages as $language) {
-			$selected_languages[] = $language->id;
+
+		foreach ($game_category as $gc) {
+
+			$categories[$gc->id] = ucfirst($gc->category);		
+		
 		}
-		
-		foreach (NewsCategory::all() as $news_cat) {
-			$news_categories[$news_cat->id] = $news_cat->category;
-		}*/
-		//$games = Game::with('categories')->get();
-		
-		/*echo '<pre>';
-		print_r($games);
-		echo '</pre>';*/
-		/*foreach ($games as $data)		{
-		    //echo $data->categories;
-		    foreach ($data->categories as $row) {
-		    	echo $row->category;
-		    }
-		}*/
-		/*foreach($games as $game) {
-			echo '<pre>';
-			print_r($games->categories());
-			echo '</pre>';
-		}*/
 
-		// foreach($games as $game) {
-		// 	foreach($game->categories as $gc) {
-		// 		print_r($gc->category);
-		// 	}	
-		// }
-
-		// return View::make('admin.games.index')->with('games', $games);
-
-		$games = Game::orderBy('id')->paginate(8);
 		
-		return View::make('admin.games.index')->with('games', $games);
+		return View::make('admin.games.index')
+			->with('games', $games)
+			->with('categories', $categories)
+			->with('selected', 'all');
 
 	}
 	/**
@@ -423,4 +402,39 @@ class AdminGamesController extends \BaseController {
 
 		return Redirect::back()->with('message', 'You have successfully updated this game content');
 	}
+
+	public function getGameByCategory() 
+    {
+    	
+		$selected_cat = Input::get('game_category');
+    	
+    	$game_category = Category::all(); 
+    	
+    	$categories = ['all' => 'All'];	
+
+		foreach ($game_category as $gc) {
+
+			$categories[$gc->id] = ucfirst($gc->category);		
+		
+		}
+
+		if($selected_cat != 'all'){
+
+	    	$games = Game::whereHas('categories', function($q) use($selected_cat) {
+	    		
+	    		$q->where('category_id', '=', $selected_cat);
+	    	
+	    	})->get();   
+    		
+    	} else {
+
+    		$games = Game::all();
+
+    	}
+
+		return View::make('admin.games.index')
+			->with('games', $games)
+			->with('categories', $categories)
+			->with('selected', $selected_cat);
+    }
 }
