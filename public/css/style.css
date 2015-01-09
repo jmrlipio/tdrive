@@ -779,7 +779,7 @@
   background-clip: padding-box;
   padding: 6px;
   background: rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+  margin: 5px auto;
   width: 100px;
   height: 100px;
 }
