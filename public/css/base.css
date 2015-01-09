@@ -1,4 +1,4 @@
-#side-menu, #side-menu .search input, #side-menu .language select {
+.captcha input, #side-menu, #side-menu .search input, #side-menu .language select {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -135,6 +135,36 @@ img.auto, video.auto {
   padding: 4px 6px;
   display: inline-block;
   float: right;
+}
+
+.captcha {
+  position: relative;
+}
+.captcha img {
+  position: absolute;
+  left: 2px;
+  top: 7px;
+  width: auto;
+  height: 26px;
+}
+.captcha input {
+  width: 100%;
+  padding-left: 126px !important;
+  display: block;
+}
+
+.captcha-correct {
+  background: #a0c82a;
+  color: #fff;
+  padding: 6px;
+  margin-left: 1%;
+}
+
+.captcha-error {
+  background: #cc0001;
+  color: #fff;
+  padding: 6px;
+  margin-left: 1%;
 }
 
 .ajax-loader {

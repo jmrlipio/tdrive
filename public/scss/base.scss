@@ -140,6 +140,39 @@ img, video {
 	}
 }
 
+.captcha {
+	position: relative;
+
+	img {
+		position: absolute;
+		left: 2px;
+		top: 7px;
+		width: auto;
+		height: 26px;
+	}
+
+	input {
+		width: 100%;
+		padding-left: 126px !important;
+		display: block;
+		@extend %box-sizing;
+	}
+}
+
+.captcha-correct {
+	background: $green;
+	color: $white;
+	padding: 6px;
+	margin-left: 1%;
+}
+
+.captcha-error {
+	background: $red;
+	color: $white;
+	padding: 6px;
+	margin-left: 1%;
+}
+
 .ajax-loader {
 	padding: 10px 0;
 	color: $white;

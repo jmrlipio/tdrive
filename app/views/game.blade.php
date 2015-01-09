@@ -202,13 +202,33 @@
 	<div id="review" class="container">
 
 		@if (Auth::check())
-			<form action="#" method="post">
+
+			{{ Form::open(array(URL::to(Request::segment(1)))) }}
+
+				{{ Form::token() }}
+
 				<div class="control">
 					<input type="text" name="username" placeholder="username">
 				</div>
 
 				<div class="control">
 					<input type="text" name="subject" placeholder="subject">
+				</div>
+
+				<div class="captcha control clearfix">
+					{{ HTML::image(Captcha::img(), 'Captcha image') }}
+					{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
+
+					<?php if (Request::getMethod() == 'POST') {
+						$rules =  array('captcha' => array('required', 'captcha'));
+						$validator = Validator::make(Input::all(), $rules);
+
+						if ($validator->fails()) {
+							echo '<p class="captcha-error"><i class="fa fa-close"></i> Incorrect</p>';
+						} else {
+							echo '<p class="captcha-correct"><i class="fa fa-check"></i> Matched</p>';
+						}
+					} ?>
 				</div>
 
 				<div class="control">
@@ -219,10 +239,13 @@
 					<input type="submit" value="Submit">
 				</div>
 			</form>
+
 		@else
+
 			<div class="button">
-				<a href="#">Login to write a review <i class="fa fa-pencil"></i></a>
+				<a href="{{ route('users.login') }}">Login to write a review <i class="fa fa-pencil"></i></a>
 			</div>
+
 		@endif
 
 	</div><!-- end #review -->

@@ -425,6 +425,10 @@
 				@include border-radius(4px);
 			}
 		}
+
+		.captcha-correct, .captcha-error {
+			margin-left: 0;
+		}
 	}
 
 	#reviews {

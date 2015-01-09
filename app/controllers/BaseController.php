@@ -18,7 +18,10 @@ class BaseController extends Controller {
 	public function __construct()
 	{       
 		$user_location = GeoIP::getLocation();   
+		$site_variables = SiteVariable::all();
+
 		View::share('user_location', $user_location);
+		View::share('site_variables', $site_variables);
 	}
 
 

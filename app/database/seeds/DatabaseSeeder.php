@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder {
 		$this->call('CountriesSeeder');
 		$this->call('FaqsTableSeeder');
 		$this->call('InquiriesTableSeeder');
+		$this->call('GeneralSettingsTableSeeder');
+		$this->call('SiteVariablesTableSeeder');
+		$this->call('GameSettingsTableSeeder');
+		$this->call('MessagesTableSeeder');
 		// $this->call('GamesTableSeeder');
 	}
 

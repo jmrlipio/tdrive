@@ -352,7 +352,8 @@
 		<h1 class="title">Contact us</h1>
 		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
 
-		<form action="#" method="post">
+		{{ Form::open(array(URL::to(Request::segment(1)))) }}
+
 			<div class="control clearfix">
 				<label class="common" for="name">Name</label>
 				<input type="text" name="name" id="name">
@@ -376,6 +377,22 @@
 				</select>
 			</div>
 
+			<div class="captcha control clearfix">
+				{{ HTML::image(Captcha::img(), 'Captcha image') }}
+				{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
+
+				<?php if (Request::getMethod() == 'POST') {
+					$rules =  array('captcha' => array('required', 'captcha'));
+					$validator = Validator::make(Input::all(), $rules);
+
+					if ($validator->fails()) {
+						echo '<p class="captcha-error"><i class="fa fa-close"></i> Incorrect</p>';
+					} else {
+						echo '<p class="captcha-correct"><i class="fa fa-check"></i> Matched</p>';
+					}
+				} ?>
+			</div>
+
 			<div class="control clearfix">
 				<label class="common" for="message">Message</label>
 				<textarea name="message" id="message"></textarea>
@@ -384,7 +401,9 @@
 			<div class="control clearfix">
 				<input type="submit" value="Submit &raquo;">
 			</div>
-		</form>
+
+		{{ Form::close(); }}
+
 	</div><!-- end #contact -->
 
 @stop

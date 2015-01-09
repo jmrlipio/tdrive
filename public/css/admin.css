@@ -95,12 +95,12 @@ textarea { padding: 5px 10px; }
 #admin-panel { float: left; width: 18%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
 #admin-panel ul li { width: 100%; display: block; }
-#admin-panel ul li a { display: block; line-height: 40px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
+#admin-panel ul li a { display: block; line-height: 35px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
 #admin-panel ul li a:hover { background-color: #2F3A40; }
 
-#site-options { display: none; -webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out; }
+#site-options { display: none; /*-webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out;*/ }
 #site-options li a { padding-left: 40px !important; }
-#options-link:hover ul { display: block;  }
+/*#options-link:hover ul { display: block;  }*/
 
 #user-menu { float: right; }
 #dashboard { width: 100%; }
@@ -389,4 +389,57 @@ p#generated-password {
 #reports-nav li {
 	width: 16.5%;
 }
+<<<<<<< HEAD
+=======
 
+#ribbon {
+	margin-top: 10px;
+	width: 100px;
+	height: 100px;
+}
+
+#form-messages {
+	width: 60%;
+}
+
+#form-messages h2 {
+	font-weight: bold;
+}
+
+.form-messages {
+	padding: 20px;
+	border: 1px solid #fff;
+	margin: 10px 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.form-messages h3 {
+	text-align: center;
+
+}
+
+.form-messages label {
+	font-weight: normal;
+	margin-top: 5px;
+}
+
+#featured-games {
+	width: 50%;
+}
+
+#featured-games td:nth-child(2) {
+	width: 10%;
+}
+
+#featured-games input[type=checkbox] {
+	line-height: 40px;
+}
+
+#featured-games > p{
+	font-style: italic;
+	line-height: 40px;
+	text-align: center;
+}
+>>>>>>> ba72053694f837380b1ef6c231e7d6fe1cb54465

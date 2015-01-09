@@ -59,7 +59,7 @@
 			} else {
 
 				$.ajax({
-					url: "/category/more",
+					url: "category/more",
 					type: "POST",
 					data: {
 						load: load,
