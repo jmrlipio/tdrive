@@ -13,6 +13,7 @@
     {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::style('css/jquery-ui.css') }}
     {{ HTML::style('css/jquery-ui.structure.css') }}
+    {{ HTML::style('css/jquery.fancybox.css') }}
     {{ HTML::style('css/jquery-ui.theme.css') }}
     {{ HTML::style("css/font-awesome.min.css"); }}
     {{ HTML::style('css/dropzone.css') }}
@@ -21,6 +22,7 @@
     {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::script('js/jquery-ui.js') }}
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
+    {{ HTML::script('js/jquery.fancybox.js') }}
 
 
     <!--[if lt IE 9]>

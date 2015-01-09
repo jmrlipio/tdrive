@@ -49,16 +49,27 @@
 				@foreach($games as $game)
 
 					<div class="swiper-slide item">
-						<div class="thumb">
+						<div class="thumb relative">
+							@if ($game->default_price == 0)
+								{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+							@endif
+
 							<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
 						</div>
 
 						<div class="meta">
 							<p class="name">{{{ $game->main_title }}}</p>
-							<p class="price">P{{{ $game->default_price }}}.00</p>
+
+							@unless ($game->default_price == 0)
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							@endunless
 						</div>
 
-						<div class="button center"><a href="#">Buy</a></div>
+						@if ($game->default_price == 0)
+							<div class="button center"><a href="#">Get</a></div>
+						@else
+							<div class="button center"><a href="#">Buy</a></div>
+						@endif
 					</div>
 
 				@endforeach
@@ -88,16 +99,27 @@
 						@if($category->id == 1)
 	
 							<div class="swiper-slide item">
-								<div class="thumb">
+								<div class="thumb relative">
+									@if ($game->default_price == 0)
+										{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+									@endif
+
 									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
 								</div>
 
 								<div class="meta">
 									<p class="name">{{{ $game->main_title }}}</p>
-									<p class="price">P{{{ $game->default_price }}}.00</p>
+
+									@unless ($game->default_price == 0)
+										<p class="price">P{{{ $game->default_price }}}.00</p>
+									@endunless
 								</div>
 
-								<div class="button center"><a href="#">Buy</a></div>
+								@if ($game->default_price == 0)
+									<div class="button center"><a href="#">Get</a></div>
+								@else
+									<div class="button center"><a href="#">Buy</a></div>
+								@endif
 							</div>
 
 						@endif
@@ -124,16 +146,26 @@
 						@if($category->id == 2)
 	
 							<div class="swiper-slide item">
-								<div class="thumb">
+								<div class="thumb relative">
+									@if ($game->default_price == 0)
+										{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+									@endif
 									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
 								</div>
 
 								<div class="meta">
 									<p class="name">{{{ $game->main_title }}}</p>
-									<p class="price">P{{{ $game->default_price }}}.00</p>
+
+									@unless ($game->default_price == 0)
+										<p class="price">P{{{ $game->default_price }}}.00</p>
+									@endunless
 								</div>
 
-								<div class="button center"><a href="#">Buy</a></div>
+								@if ($game->default_price == 0)
+									<div class="button center"><a href="#">Get</a></div>
+								@else
+									<div class="button center"><a href="#">Buy</a></div>
+								@endif
 							</div>
 
 						@endif
@@ -160,16 +192,25 @@
 						@if($category->id == 3)
 	
 							<div class="swiper-slide item">
-								<div class="thumb">
+								<div class="thumb relative">
+									@if ($game->default_price == 0)
+										{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+									@endif
 									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
 								</div>
 
 								<div class="meta">
 									<p class="name">{{{ $game->main_title }}}</p>
-									<p class="price">P{{{ $game->default_price }}}.00</p>
+									@unless ($game->default_price == 0)
+										<p class="price">P{{{ $game->default_price }}}.00</p>
+									@endunless
 								</div>
 
-								<div class="button center"><a href="#">Buy</a></div>
+								@if ($game->default_price == 0)
+									<div class="button center"><a href="#">Get</a></div>
+								@else
+									<div class="button center"><a href="#">Buy</a></div>
+								@endif
 							</div>
 
 						@endif
@@ -196,16 +237,26 @@
 						@if($category->id == 4)
 	
 							<div class="swiper-slide item">
-								<div class="thumb">
+								<div class="thumb relative">
+									@if ($game->default_price == 0)
+										{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+									@endif
 									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
 								</div>
 
 								<div class="meta">
 									<p class="name">{{{ $game->main_title }}}</p>
-									<p class="price">P{{{ $game->default_price }}}.00</p>
+
+									@unless ($game->default_price == 0)
+										<p class="price">P{{{ $game->default_price }}}.00</p>
+									@endunless
 								</div>
 
-								<div class="button center"><a href="#">Buy</a></div>
+								@if ($game->default_price == 0)
+									<div class="button center"><a href="#">Get</a></div>
+								@else
+									<div class="button center"><a href="#">Buy</a></div>
+								@endif
 							</div>
 
 						@endif
@@ -232,16 +283,27 @@
 						@if($category->id == 5)
 	
 							<div class="swiper-slide item">
-								<div class="thumb">
+								<div class="thumb relative">
+									@if ($game->default_price == 0)
+										{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+									@endif
+
 									<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
 								</div>
 
 								<div class="meta">
 									<p class="name">{{{ $game->main_title }}}</p>
-									<p class="price">P{{{ $game->default_price }}}.00</p>
+
+									@unless ($game->default_price == 0)
+										<p class="price">P{{{ $game->default_price }}}.00</p>
+									@endunless
 								</div>
 
-								<div class="button center"><a href="#">Buy</a></div>
+								@if ($game->default_price == 0)
+									<div class="button center"><a href="#">Get</a></div>
+								@else
+									<div class="button center"><a href="#">Buy</a></div>
+								@endif
 							</div>
 
 						@endif

@@ -3,10 +3,14 @@
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class GameSales extends Eloquent{
-    protected $table = 'game_prices';
+    protected $table = 'game_sales';
 
     public function users() {
-		return $this->belongsToMany('User', 'game_sales', 'id');
+
+		//return $this->belongsToMany('User', 'game_sales', 'id');
+
+		return $this->belongsToMany('User', 'prices');
+
 	}
 
 	public function sales() {

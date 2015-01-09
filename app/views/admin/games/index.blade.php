@@ -14,6 +14,9 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
+		{{ Form::open(array('route' => 'admin.game.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
+			{{ Form::select('game_category', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
+		{{ Form::close() }}
 		<br><br><br><br>
 
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
@@ -30,7 +33,7 @@
 
 			<tbody>
 
-				@forelse($games as $game)	
+				@foreach($games as $game)	
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>
@@ -57,18 +60,12 @@
 						<td>{{ $game->updated_at }}</td>						
 					
 					</tr>
-
-				@empty
-					<tr class="tall-tr">
-						<td colspan="6"><p>You haven't created any games yet.</p></td>
-					</tr>
 				
-			@endforelse
+			@endforeach
 
 			</tbody>
 		</table>
 
-		{{-- $games->links() --}}
 		<br>
 	</div>
 	
@@ -77,7 +74,6 @@
 
 
 @section('scripts')
-
 
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
@@ -91,6 +87,10 @@
 			} else {
 				$('td input[type=checkbox').prop('checked', false);
 			}
+		});
+
+		$('#select-cat').on('change', function() {
+			$('#submit-cat').trigger('submit');
 		});
 	});
 

@@ -86,7 +86,7 @@
   background-clip: padding-box;
   padding: 6px;
   background: rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+  margin: 5px auto;
   width: 100px;
   height: 100px;
 }
@@ -723,6 +723,9 @@
   -webkit-border-radius: 4px;
   border-radius: 4px;
   background-clip: padding-box;
+}
+#game-detail #review .captcha img {
+  top: 7px;
 }
 #game-detail #review .captcha-correct, #game-detail #review .captcha-error {
   margin-left: 0;

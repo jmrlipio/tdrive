@@ -8,26 +8,21 @@ class AdminUsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($role = NULL)
 	{
 
-		$users = User::all();		
-
-		/*$users = User::orderBy('id')->paginate(5);
+		$users = User::all();
 
 		$roles = ['all' => 'All'];
 
-		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) 
-		{
+		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) {
 			$roles[$role->role] = ucfirst($role->role);
 		}
 
 		return View::make('admin.users.index')
 			->with('users', $users)
 			->with('roles', $roles)
-			->with('selected', 'all');*/
-		return View::make('admin.users.index')
-			->with('users', $users);
+			->with('selected', 'all');
 	}
 
 	/**
@@ -58,8 +53,6 @@ class AdminUsersController extends \BaseController {
 
 		User::create($data);
 
-
-
 		return Redirect::route('admin.users.index');
 	}
 
@@ -73,8 +66,45 @@ class AdminUsersController extends \BaseController {
 	public function show($id)
 	{
 		$user = User::find($id);
+		$games = Game::all();
+		$carriers = Carrier::all();
+		$countries = Country::all();
+		$histories = DB::table('login_history')->where('user_id', $id)->get();	
+		$activities = DB::table('activity_logs')->where('user_id', $id)->get();	
 
-		return View::make('admin.users.view')->with('user', $user);
+		$selected_games = [];
+
+		$count = 0;
+		foreach($user->sales as $gm) {
+			
+			foreach($games as $game) {
+				if($game->id == $gm->game_id) {
+					$selected_games[$count]['game_title'] = $game->main_title;
+				}
+			}
+
+			foreach($carriers as $carrier) {
+				if($carrier->id == $gm->carrier_id) {
+					$selected_games[$count]['carrier'] = $carrier->carrier;
+				}
+			}
+
+			foreach($countries as $country) {
+				if($country->id == $gm->country_id) {
+					$selected_games[$count]['country'] = $country->full_name;
+					$selected_games[$count]['currency'] = $country->currency_code;
+					$selected_games[$count]['price'] = $gm->price;
+				}
+			}
+			$count++;
+		}
+
+
+		return View::make('admin.users.view')
+			->with('user', $user)
+			->with('games', $selected_games)
+			->with('histories', $histories)
+			->with('activities', $activities);
 	}
 
 	/**
@@ -180,7 +210,7 @@ class AdminUsersController extends \BaseController {
     {
     	$selected_role = Input::get('role');
 
-    	if($selected_role == 'all') $users = User::orderBy('id')->paginate(5);
+    	if($selected_role == 'all') $users = User::all();
     	else $users = User::where('role', '=', Input::get('role'))->paginate(5);
 
     	$roles = ['all' => 'All'];

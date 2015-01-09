@@ -13,7 +13,7 @@
 					<li><a href="{{ $site_variables[5]->variable_value }}">Philippines</a></li>
 				</ul>
 
-				<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">TDrive</a>.</p>
+				<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">{{ $general_settings[0]->value }}</a>.</p>
 				<p>All rights reserved.</p>
 			</div>
 
