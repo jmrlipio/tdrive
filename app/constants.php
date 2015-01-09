@@ -29,6 +29,14 @@ class Constant {
 	const LOGS_ADMIN_LOGIN = '%s logged in on %s';
 	const LOGS_ADMIN_LOGOUT = '%s logged out on %s';
 
+/* USER ACTIVITY */	
+	const LOGS_USER_LOGIN = '%s logged in on %s';
+	const LOGS_USER_LOGOUT = '%s logged out on %s';
+	
+/* USER ACTIONS */
+	const LOGS_USER_LOGIN_ACTION = 'log in';
+	const LOGS_USER_LOGOUT_ACTION = 'log out';
+
 	public static $USER_ROLES = ['superadmin','admin','editor','member'];
 
 }

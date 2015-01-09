@@ -148,12 +148,16 @@ class UsersController extends \BaseController {
         		Auth::login(Auth::user(), true);
         	}
 
+        	//Audit log
+            Event::fire('audit.login', Auth::user());
+
             return Redirect::intended('/');
         }
         return Redirect::to('login')->with('message','Your email/password was incorrect');
     }
 
     public function getLogout(){
+    	Event::fire('audit.logout', Auth::user());
         Auth::logout();
         return Redirect::route('users.login');
     }
@@ -200,6 +204,7 @@ class UsersController extends \BaseController {
     }*/
 
     public function getActivate($code){
+
     	$user = User::where('code', '=', $code)->where('active', '=', 0);
 
     	if($user->count()){
