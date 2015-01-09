@@ -29,6 +29,7 @@
 			</thead>
 
 			<tbody>
+
 				@forelse($games as $game)	
 					<tr>
 						<td><input type="checkbox"></td>
@@ -56,6 +57,7 @@
 						<td>{{ $game->updated_at }}</td>						
 					
 					</tr>
+
 				@empty
 					<tr class="tall-tr">
 						<td colspan="6"><p>You haven't created any games yet.</p></td>
