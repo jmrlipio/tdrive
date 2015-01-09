@@ -79,9 +79,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public static function updateLastLogin($id) 
     {
         $user = User::find($id);
-        user->last_login = Carbon::now();
+        $user->last_login = Carbon::now();
 
         $user->save();
 
         return $user;
     }
+}
