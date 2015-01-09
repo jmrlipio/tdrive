@@ -19,7 +19,7 @@
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Review</th>
-					<th>Status</th>
+					<th>Approve</th>
 					<th>Rating</th>
 				</tr>
 			</thead>

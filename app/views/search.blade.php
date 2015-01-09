@@ -17,7 +17,9 @@
 					@foreach ($games as $game)
 
 						<div class="item">
-							<div class="thumb"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></div>
+							<div class="thumb">
+								<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							</div>
 
 							<div class="meta">
 								<p>{{ $game->main_title }}</p>
