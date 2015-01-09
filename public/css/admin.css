@@ -95,12 +95,12 @@ textarea { padding: 5px 10px; }
 #admin-panel { float: left; width: 18%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
 #admin-panel ul li { width: 100%; display: block; }
-#admin-panel ul li a { display: block; line-height: 40px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
+#admin-panel ul li a { display: block; line-height: 35px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
 #admin-panel ul li a:hover { background-color: #2F3A40; }
 
-#site-options { display: none; -webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out; }
+#site-options { display: none; /*-webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out;*/ }
 #site-options li a { padding-left: 40px !important; }
-#options-link:hover ul { display: block;  }
+/*#options-link:hover ul { display: block;  }*/
 
 #user-menu { float: right; }
 #dashboard { width: 100%; }
@@ -110,7 +110,7 @@ textarea { padding: 5px 10px; }
 /* general classes */
 .clear { clear: both; }
 
-#user-account, .item-listing { padding: 20px 10px; width: 30%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+#user-account, .item-listing, .review-listing { padding: 20px 10px; width: 30%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 #user-account table { border-collapse: collapse; width: 50%; margin: 0 auto; }
 #user-account td { padding: 5px; }
 #user-account h2 { text-align: center; }
@@ -125,12 +125,29 @@ textarea { padding: 5px 10px; }
 .item-listing ul.actions { list-style: none; visibility: hidden; opacity: 0; transition: all 1s;}
 .item-listing ul.actions li { float: left; margin-right: 5px; }
 .item-listing ul.actions li a { color: #606060; font-size: 0.8em; }
-.item-listing td > a { color: #E43C49; }
+.item-listing td > a { color: #E43C49; text-decoration:none;}
 
 textarea { width: 95%; resize: none; height: 150px; }
 
-.item-listing td:first-child, .item-listing th:first-child { width: 20px; }
-.item-listing td:nth-child(2), .item-listing th:nth-child(2) { width: 40%; }
+.item-listing td:first-child, .item-listing th:first-child { width: auto; }
+.item-listing td:nth-child(2), .item-listing th:nth-child(2), { width: 40%; }
+
+/* (duplicated - temporary) review listing - index pages of tables */
+.review-listing { width: 90%; margin-top: 50px; }
+.review-listing table { width: 100%; margin: 0 auto;  }
+.review-listing th { background-color: lightyellow; line-height: 30px; padding: 5px 15px; text-align: left; border: 2px solid #fff; }
+.review-listing td { background-color: lightblue; line-height: 20px; padding: 5px 15px; border: 2px solid #fff; }
+.review-listing input[type=checkbox] { vertical-align: middle; cursor: pointer; }
+.review-listing td:hover a + ul { visibility: visible; opacity: 1; }
+.review-listing ul.actions { list-style: none; visibility: hidden; opacity: 0; transition: all 1s;}
+.review-listing ul.actions li { float: left; margin-right: 5px; }
+.review-listing ul.actions li a { color: #606060; font-size: 0.8em; }
+.review-listing td > a { color: #E43C49; }
+
+textarea { width: 95%; resize: none; height: 150px; }
+
+.review-listing td:first-child, .review-listing th:first-child { width: 20px; }
+.review-listing td:nth-child(2), .review-listing th:nth-child(2), .review-listing td:nth-child(3){ width: 15%; }
 
 #categories-list, #languages-list, #faq-list, #platforms-list, #countries-list, #carriers-list { width: 80%; }
 #categories-list td:nth-child(2), #categories-list th:nth-child(2), #platforms-list td:nth-child(2), #platforms-list th:nth-child(2){ width: 60%; }
@@ -204,7 +221,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 .sub-nav { position: fixed; z-index: 10; width: 100%; height: 30px; padding: 0; margin: 0; background-color: #888; }
 .sub-nav ul { list-style: none; }
-.sub-nav li { float: left; width: 20.5%; }
+.sub-nav li { float: left; width: 16.5%; }
 .sub-nav li a { display: block; text-align: center; line-height: 30px; text-decoration: none; color: #fff; position: relative; }
 .sub-nav li a:hover, .sub-nav li a.active:hover { background-color: #FEBA48; color: #000; }
 .sub-nav li a.active { background-color: #555; }
@@ -372,3 +389,57 @@ p#generated-password {
 #reports-nav li {
 	width: 16.5%;
 }
+<<<<<<< HEAD
+=======
+
+#ribbon {
+	margin-top: 10px;
+	width: 100px;
+	height: 100px;
+}
+
+#form-messages {
+	width: 60%;
+}
+
+#form-messages h2 {
+	font-weight: bold;
+}
+
+.form-messages {
+	padding: 20px;
+	border: 1px solid #fff;
+	margin: 10px 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.form-messages h3 {
+	text-align: center;
+
+}
+
+.form-messages label {
+	font-weight: normal;
+	margin-top: 5px;
+}
+
+#featured-games {
+	width: 50%;
+}
+
+#featured-games td:nth-child(2) {
+	width: 10%;
+}
+
+#featured-games input[type=checkbox] {
+	line-height: 40px;
+}
+
+#featured-games > p{
+	font-style: italic;
+	line-height: 40px;
+	text-align: center;
+}
+>>>>>>> ba72053694f837380b1ef6c231e7d6fe1cb54465

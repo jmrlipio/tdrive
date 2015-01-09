@@ -13,7 +13,7 @@ class Carrier extends \Eloquent {
     ];
 
 	public function countries() {
-		return $this->belongsToMany('Country', 'country_carriers');
+		return $this->belongsToMany('Country', 'country_carriers')->withPivot('id');
 	}
 
 	public function games() {

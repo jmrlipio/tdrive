@@ -8,6 +8,8 @@
 	<div class="container">
 		<h1 class="title">Search results</h1>
 
+		<div id="token">{{ Form::token() }}</div>
+
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
@@ -46,7 +48,7 @@
 		var load = 0;
 		var _token = $('#token input').val();
 		var num = {{ $count }};
-		var search = {{ Input::get('search') }};
+		var search = "{{ Input::get('search') }}";
 
 		$(window).scroll(function() {
 			$('.ajax-loader').show();

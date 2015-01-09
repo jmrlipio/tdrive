@@ -11,26 +11,7 @@ class AdminUsersController extends \BaseController {
 	public function index()
 	{
 
-		$users = new User;
-		
-		$filter = DataFilter::source($users);
-		$grid = DataGrid::source($filter);  //same source types of DataSet
-
-        $filter->add('role','Role', 'text');
-        //$filter->text('src','Role')->scope('freesearch');
-        $filter->submit('search');
-        $filter->reset('reset');
-        $filter->build();
-
-
-		$grid->add('first_name','Name', 'first_name'); //field name, label, sortable
-        $grid->add('username','Username', 'username');
-        $grid->add('email','Email','email');
-        $grid->add('role','Role', false);
-        $grid->add('last_login','Last login','last_login');
-		// $grid->edit('/user/edit', 'Edit','modify|delete');
-	
-		$grid->paginate(10); //pagination
+		$users = User::all();		
 
 		/*$users = User::orderBy('id')->paginate(5);
 
@@ -45,7 +26,8 @@ class AdminUsersController extends \BaseController {
 			->with('users', $users)
 			->with('roles', $roles)
 			->with('selected', 'all');*/
-		return View::make('admin.users.index', compact('filter', 'grid'));
+		return View::make('admin.users.index')
+			->with('users', $users);
 	}
 
 	/**

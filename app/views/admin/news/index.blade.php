@@ -10,47 +10,76 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
-		<br>
-		<table>
-			<tr>
-				<th><input type="checkbox"></th>
-				<th>Title</th>
-				<th>Date</th>
-			</tr>
-			@if(!$news->isEmpty())
-				@foreach($news as $news_item)
+
+		<br><br><br><br>
+
+		<table  class="table table-striped table-bordered table-hover"  id="news_table">
+			<thead>
+				<tr>
+					<th><input type="checkbox"></th>
+					<th>Title</th>
+					<th>Languages</th>
+					<th>Category</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				@forelse($news as $data)
+					
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>
-							<a href="#">{{ $news_item->main_title }}</a>
+							<a href="#">{{ $data->main_title }}</a>
 							<ul class="actions">
-								<li><a href="{{ URL::route('admin.news.edit', $news_item->id) }}">Edit</a></li>
+								<li><a href="{{ URL::route('admin.news.edit', $data->id) }}">Edit</a></li>
 								<li><a href="">View</a></li>
 								<li>
-								{{ Form::open(array('route' => array('admin.news.destroy', $news_item->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+								{{ Form::open(array('route' => array('admin.news.destroy', $data->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
 								{{ Form::close() }}
 
 								</li>
 							</ul>
 						</td>
-						<td>{{ $news_item->created_at }}</td>
+						<td>
+							@foreach($data->languages as $row)
+								{{ $row->language }}
+							@endforeach
+						</td>
+
+						<td>								
+							{{ $data->NewsCategory->category }}								
+						</td>
+						<td>{{ $data->created_at }}</td>
+						
 					</tr>
-				@endforeach
-			@else
+							
+			@empty
 				<tr class="tall-tr">
 					<td colspan="6"><p>You haven't created any news yet.</p></td>
 				</tr>
-			@endif
+			@endforelse
+
+			</tbody>
+		
 		</table>
-		{{ $news->links() }}
+	
 		<br>
 		
 	</div>
-	{{ HTML::script('js/jquery-1.11.1.js') }}
-	{{ HTML::script('js/form-functions.js') }}
+
+@stop
+
+@section('scripts')
+
+	{{ HTML::script('js/jquery.dataTables.js') }}
+	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+
 	<script>
 	$(document).ready(function(){
+		$('#news_table').DataTable();
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
 				$('td input[type=checkbox').prop('checked', true);
@@ -59,6 +88,6 @@
 			}
 		});
 	});
-	</script>
 
+	</script>
 @stop

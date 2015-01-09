@@ -6,8 +6,7 @@
     <title>TDrive</title>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
-   
+
     {{ HTML::style('css/dataTables.bootstrap.css') }}
     {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans') }}
     {{ HTML::style('http://fonts.googleapis.com/css?family=Indie+Flower') }}
@@ -15,13 +14,13 @@
     {{ HTML::style('css/jquery-ui.css') }}
     {{ HTML::style('css/jquery-ui.structure.css') }}
     {{ HTML::style('css/jquery-ui.theme.css') }}
+    {{ HTML::style("css/font-awesome.min.css"); }}
     {{ HTML::style('css/dropzone.css') }}
     {{ HTML::style('css/admin.css') }}
     {{ HTML::style('css/chosen.css')}}
     {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::script('js/jquery-ui.js') }}
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
-    
 
 
     <!--[if lt IE 9]>
@@ -64,16 +63,16 @@
                     <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>               
                     <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>               
                     <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>               
-                    <li id="options-link">
-                        <a href="{{ URL::route('admin.siteoptions.index') }}">Site Options</a>
+                    <li>
+                        <a href="#" id="options-link">Site Options</a>
                         <ul id="site-options">
-                            <li><a href="#">General Settings</a></li>
-                            <li><a href="#">Success/Error Messages</a></li>
+                            <li><a href="{{ URL::route('admin.general-settings') }}">General Settings</a></li>
+                            <li><a href="{{ URL::route('admin.form-messages') }}">Success/Error Messages</a></li>
                             <li><a href="#">Emails</a></li>
-                            <li><a href="#">Homepage</a></li>
-                            <li><a href="#">Game Page</a></li>
+                            <li><a href="{{ URL::route('admin.game-slideshow') }}">Game Slideshow</a></li>
+                            <li><a href="{{ URL::route('admin.game-settings') }}">Game Page</a></li>
                             <li><a href="#">News Page</a></li>
-                            <li><a href="#">Site Variables</a></li>
+                            <li><a href="{{ URL::route('admin.variables') }}">Site Variables</a></li>
                             <li><a href="#">Maintenance</a></li>
                         </ul>
                     </li>
@@ -94,6 +93,7 @@
         
     </footer>
 <<<<<<< HEAD
+<<<<<<< HEAD
      
       
 
@@ -101,5 +101,16 @@
        
 @yield('scripts')
 >>>>>>> ef66bc6e25ff1dcfbc794320a6a8349473c45f1c
+=======
+    @yield('scripts')
+    <script>
+        $( "#options-link" ).click(function(e) {
+            e.preventDefault();
+            $( "#site-options" ).toggle( "fast", function() {
+
+            });
+        });
+    </script>
+>>>>>>> 636e185bd028e530a9a695538c20e0f4768ffd08
 </body>
 </html>

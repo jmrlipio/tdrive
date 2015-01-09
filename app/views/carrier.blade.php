@@ -8,20 +8,21 @@
 
 	<h1 class="title center">Select Carrier</h1>
 
-
-   {{ Form::open(array('class' => 'login', 'id' => 'login-form')) }}
-		{{ Form::token(); }}
+	{{ Form::open(array('action' => 'HomeController@home')) }}
+		{{ Form::token() }}
 
 		<div class="control">
 			<select name="selected_carrier" required>
-				<option value="">Select</option>
+				<option value="">Select Carrier</option>
 
-				@foreach ($carriers as $carrier)
+				@foreach ($selected_carriers as $carrier)
 					<option value="{{ $carrier->id }}">{{ $carrier->carrier }}</option>
 				@endforeach
 
 			</select>
 		</div>
+
+		{{ Form::hidden('country', $country) }}
 
 		<div class="control-item fr">
 			 {{ Form::submit('choose') }}

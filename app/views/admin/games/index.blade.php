@@ -14,13 +14,14 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
-		<br>
-	<div class="table-responsive">
+		<br><br><br><br>
+
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
 			<thead>
 				<tr>
 					<th><input type="checkbox"></th>
 					<th>Game Name</th>
+					<th>Categories</th>
 					<th>Author</th>
 					<th>Release Date</th>
 					<th>Last Updated</th>
@@ -28,7 +29,8 @@
 			</thead>
 
 			<tbody>
-				@forelse($games as $game)
+
+				@forelse($games as $game)	
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>
@@ -45,20 +47,28 @@
 								</ul>
 							@endif
 						</td>
+						<td>
+							@foreach($game->categories as $gc)
+								{{ $gc->category }}
+							@endforeach
+						</td>
 						<td>{{ $game->user->username }}</td>
 						<td>{{ $game->release_date }}</td>
-						<td>{{ $game->updated_at }}</td>
+						<td>{{ $game->updated_at }}</td>						
+					
 					</tr>
+
 				@empty
 					<tr class="tall-tr">
 						<td colspan="6"><p>You haven't created any games yet.</p></td>
 					</tr>
+				
+			@endforelse
 
-				@endforelse
 			</tbody>
 		</table>
-	</div>
-		{{ $games->links() }}
+
+		{{-- $games->links() --}}
 		<br>
 	</div>
 	
@@ -67,13 +77,14 @@
 
 
 @section('scripts')
-{{ HTML::script('js/jquery-1.11.1.js') }}
-	{{ HTML::script('js/form-functions.js') }}
+
+
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
 	<script>
-	/*$(document).ready(function(){
+	$(document).ready(function(){
+		$('#game_table').DataTable();
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
 				$('td input[type=checkbox').prop('checked', true);
@@ -81,9 +92,7 @@
 				$('td input[type=checkbox').prop('checked', false);
 			}
 		});
-	});*/
-	$(document).ready(function(){
-	    $('#game_table').DataTable();
 	});
+
 	</script>
 @stop
