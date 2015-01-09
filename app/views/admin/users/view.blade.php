@@ -3,7 +3,7 @@
 @section('content')
 	<div id="user-account">
 		<h2>Account Information</h2>
-		<table border="1">
+		<table border="1" class="account-table">
 			<tr>
 				<td><strong>Email:</strong></td>
 				<td>{{ $user->email }}</td>
@@ -27,56 +27,137 @@
 		</table>
 		<h2>Game Purchased</h2>
 		@if($games)
-			<table border="1">
-				<tr>
-					<th>Game Title</th>
-					<th>Carrier</th>
-					<th>Country</th>
-					<th>Price</th>
-				</tr>
-				@foreach($games as $game)
-					<tr>
-						<td>{{ $game['game_title'] }}</td>
-						<td>{{ $game['carrier'] }}</td>
-						<td>{{ $game['country'] }}</td>
-						<td>{{ $game['currency'] . ' ' . $game['price'] }}</td>
-					</tr>
-				@endforeach
-			</table>
+			<div class="purchased_cont">
+				<table class="table table-striped table-bordered table-hover purchased_games"  id="purchased_games">
+					<thead>
+						<tr>
+							<th>Game Title</th>
+							<th>Carrier</th>
+							<th>Country</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						@foreach($games as $game)
+							<tr>
+								<td>{{ $game['game_title'] }}</td>
+								<td>{{ $game['carrier'] }}</td>
+								<td>{{ $game['country'] }}</td>
+								<td>{{ $game['currency'] . ' ' . $game['price'] }}</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
 		@else
 			<p class="ml5">You have not purchased any games yet.</p>
 		@endif
 
 		<br/>
 
-		<a href="#login_hx" id="inline" class="link ml5" ><span>Login History</span></a> |
+		<h2>Login History</h2>
+		@if($histories)
+			<div class="purchased_cont">
+				<table class="table table-striped table-bordered table-hover purchased_games"  id="login_history">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Time Difference</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						@foreach($histories as $history)
+							<tr>
+								<td>{{ Carbon::parse($history->logins)->format('M d, Y') }}</td>
+								<!-- <td>{{ Carbon::parse($history->logins)->toDayDateTimeString(); }}</td> -->
+								<td>{{ Carbon::parse($history->logins)->diffForHumans() }}</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+		@else
+			<p class="ml5">This user has no login history.</p>
+		@endif
+
+		<br/>
+
+		<h2>Activity History</h2>
+		<div class="purchased_cont">
+			<table class="table table-striped table-bordered table-hover purchased_games"  id="activity_history">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Time Difference</th>
+					</tr>
+				</thead>
+
+						<tr>
+							<td>Activity</td>
+							<td>Activity</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<br/>
+		<br/>
+		<!-- <p class="ml5">This user has no activity history.</p> -->
+
+		<!-- <a href="#login_hx" id="inline" class="link ml5" ><span>Login History</span></a> |
 	    <a href="#activity_hx" id="inline2" class="link ml5" ><span>Activity History</span></a>
 
 	    <div style="display:none">
-		    <div id="login_hx" style="text-align:center; width:800px; height: 500px;">
+		    <div id="login_hx" style="text-align:center; width:400px;">
 		    	<h4 style="margin: 10px 0;">Login History</h4>
+		    	<table border="1" style="margin: 0 auto;">
+					<tr>
+						<th>Date</th>
+						<th>Time Difference</th>
+					</tr>
+					@foreach($histories as $login)
+						<tr>
+							<td>{{ $login->logins }}</td>
+							<td>{{ $login->logins }}</td>
+						</tr>
+					@endforeach
+		    	</table>
 		    </div>
 	    </div>
 
 	    <div style="display:none">
-		    <div id="activity_hx" style="text-align:center; width:800px; height: 500px;">
+		    <div id="activity_hx" style="text-align:center; width:400px;">
 		    	<h4 style="margin: 10px 0;">Activity History</h4>
 		    </div>
-	    </div>
+	    </div> -->
+
+		{{ HTML::script('js/form-functions.js') }}
+		{{ HTML::script('js/jquery.dataTables.js') }}
+		{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 	    <script>
-	    	$("#inline").fancybox({
-	            'titlePosition'     : 'inside',
-	            'transitionIn'      : 'none',
-	            'transitionOut'     : 'none'
-	        });
+	    	// $("#inline").fancybox({
+	     //        'titlePosition'     : 'inside',
+	     //        'transitionIn'      : 'none',
+	     //        'transitionOut'     : 'none'
+	     //    });
 
-	        $("#inline2").fancybox({
-	            'titlePosition'     : 'inside',
-	            'transitionIn'      : 'none',
-	            'transitionOut'     : 'none'
-	        });
+	     //    $("#inline2").fancybox({
+	     //        'titlePosition'     : 'inside',
+	     //        'transitionIn'      : 'none',
+	     //        'transitionOut'     : 'none'
+	     //    });
+
+			$(document).ready(function(){
+			    $('#purchased_games').DataTable();
+			    $('#login_history').DataTable();
+			    $('#activity_history').DataTable();
+			});
 	    </script>
+
 		<!-- <tr>
 			<td colspan="2"><a href="{{ URL::route('admin.users.edit', $user->id) }}" class="mgmt-link">Edit Account</a></td>
 		</tr> -->
