@@ -339,7 +339,7 @@ p#generated-password {
 	width: 30% !important;
 }
 
-#prices-form {
+#prices-form, #faq-content {
 	width: 40%;
 	margin-top: 30px !important;
 	padding: 20px;
@@ -362,7 +362,6 @@ p#generated-password {
 #prices-form input[type=text] {
 	width: 97.5%;
 }
-
 
 .filter {
 	margin: 45px 37px 0px 30px;
@@ -439,4 +438,12 @@ p#generated-password {
 	font-style: italic;
 	line-height: 40px;
 	text-align: center;
+}
+
+#faq-content {
+	display: none;
+}
+
+a#back {
+	margin-top: 10px;
 }

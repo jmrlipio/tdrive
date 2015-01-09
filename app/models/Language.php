@@ -27,4 +27,8 @@ class Language extends \Eloquent {
         return $this->morphedByMany('News', 'contentable');
     }
 
+    public function faqs() {
+        return $this->belongsToMany('Faq', 'faq_languages');
+    }
+
 }

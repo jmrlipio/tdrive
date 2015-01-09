@@ -113,6 +113,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@getLanguageContent'));
     Route::post('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@updateLanguageContent'));
     Route::post('news/{id}/edit-media', array('as' => 'admin.news.update-media', 'uses' => 'NewsController@updateMedia'));
+    Route::get('faq/{id}/edit/content/{language}', array('as' => 'admin.faq.edit.content', 'uses' => 'FaqsController@getLanguageContent'));
     Route::resource('media', 'MediaController');
     Route::resource('faqs', 'FaqsController');
     
