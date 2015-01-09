@@ -1034,12 +1034,15 @@
   background-clip: padding-box;
   padding: 6px;
   background: rgba(0, 0, 0, 0.1);
-  margin: 0 5px;
+  margin: 0;
 }
 #game-listing .grid .thumb img {
   -webkit-border-radius: 16px;
   border-radius: 16px;
   background-clip: padding-box;
+}
+#game-listing .grid .thumb .free {
+  left: -5px;
 }
 #game-listing .grid .meta {
   margin: 10px 0 0;
