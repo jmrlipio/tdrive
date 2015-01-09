@@ -11,25 +11,6 @@ class AdminUsersController extends \BaseController {
 	public function index($role = NULL)
 	{
 
-		/*$users = User::all();		
-
-		$users = User::orderBy('id')->paginate(5);
-
-		$roles = ['all' => 'All'];
-
-		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) 
-		{
-			$roles[$role->role] = ucfirst($role->role);
-		}
-
-		return View::make('admin.users.index')
-			->with('users', $users)
-			->with('roles', $roles)
-			->with('selected', 'all');
-		return View::make('admin.users.index')
-			->with('users', $users);*/
-
-
 		$users = User::all();
 
 		$roles = ['all' => 'All'];
@@ -71,8 +52,6 @@ class AdminUsersController extends \BaseController {
 		}
 
 		User::create($data);
-
-
 
 		return Redirect::route('admin.users.index');
 	}

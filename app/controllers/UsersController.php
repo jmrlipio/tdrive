@@ -200,6 +200,7 @@ class UsersController extends \BaseController {
     }*/
 
     public function getActivate($code){
+    	
     	$user = User::where('code', '=', $code)->where('active', '=', 0);
 
     	if($user->count()){
