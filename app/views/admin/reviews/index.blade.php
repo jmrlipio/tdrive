@@ -12,7 +12,7 @@
 		@endif
 		<br>
 	<div class="table-responsive">
-		<table class="table table-striped table-bordered table-hover"  id="game_table">
+		<table class="table table-striped table-bordered table-hover"  id="review_table">
 			<thead>
 				<tr>
 					<th>Game Title</th>
@@ -89,7 +89,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function(){
-		    $('#game_table').DataTable();
+		    $('#review_table').DataTable();
 		});
 	</script>
 

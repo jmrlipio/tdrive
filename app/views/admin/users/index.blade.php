@@ -35,10 +35,10 @@
 					<tr class="result">
 						<td><input type="checkbox"></td>
 						<td>
-							<a href="#">{{ $user->first_name . ' ' . $user->last_name }}</a>
+							<a href="{{ URL::route('admin.users.show', $user->id) }}">{{ $user->first_name . ' ' . $user->last_name }}</a>
 							<ul class="actions">
 								<li><a href="">Edit</a></li>
-								<li><a href="">View</a></li>
+								<li><a href="{{ URL::route('admin.users.show', $user->id) }}">View</a></li>
 								<li><a href="">Delete</a></li>
 							</ul>
 						</td>

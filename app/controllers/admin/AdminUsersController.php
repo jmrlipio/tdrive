@@ -11,7 +11,7 @@ class AdminUsersController extends \BaseController {
 	public function index()
 	{
 
-		$users = User::all();		
+		$users = User::all();	
 
 		/*$users = User::orderBy('id')->paginate(5);
 
@@ -73,8 +73,43 @@ class AdminUsersController extends \BaseController {
 	public function show($id)
 	{
 		$user = User::find($id);
+		$games = Game::all();
+		$carriers = Carrier::all();
+		$countries = Country::all();
 
-		return View::make('admin.users.view')->with('user', $user);
+		$selected_games = [];
+
+
+
+		$count = 0;
+		foreach($user->sales as $gm) {
+			
+			foreach($games as $game) {
+				if($game->id == $gm->game_id) {
+					$selected_games[$count]['game_title'] = $game->main_title;
+				}
+			}
+
+			foreach($carriers as $carrier) {
+				if($carrier->id == $gm->carrier_id) {
+					$selected_games[$count]['carrier'] = $carrier->carrier;
+				}
+			}
+
+			foreach($countries as $country) {
+				if($country->id == $gm->country_id) {
+					$selected_games[$count]['country'] = $country->full_name;
+					$selected_games[$count]['currency'] = $country->currency_code;
+					$selected_games[$count]['price'] = $gm->price;
+				}
+			}
+			$count++;
+		}
+
+
+		return View::make('admin.users.view')
+			->with('user', $user)
+			->with('games', $selected_games);
 	}
 
 	/**
