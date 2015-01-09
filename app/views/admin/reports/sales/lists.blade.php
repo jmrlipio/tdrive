@@ -7,7 +7,7 @@
 		<table id="table">
 			<thead>
 			<tr>
-				<th>Game</th>
+				<th style="width: 300px;">Game</th>
 				<th>Carrier</th>
 				<th>Country</th>
 				<th>User</th>
@@ -17,11 +17,11 @@
 			<tbody>
 			@foreach($sales as $sale)
 				<tr>
-					<td>{{ $sale->prices->game->main_title }}</td>
-					<td>{{ $sale->prices->carrier->carrier }}</td>
-					<td>{{ $sale->prices->country->capital }}</td>
-					<td>{{ $sale->user->username }}</td>
-					<td>{{ $sale->prices->price }}</td>
+					<td style="width: 300px;">{{ $sale->prices->game->main_title }}</td>
+					<td style="width: 80px;" >{{ $sale->prices->carrier->carrier }}</td>
+					<td style="width: 280px;">{{ $sale->prices->country->capital }}</td>
+					<td style="width: 180px;">{{ $sale->user->username }}</td>
+					<td style="width: 180px;">{{ $sale->prices->price }}</td>
 				</tr>
 			@endforeach
 		</tbody>

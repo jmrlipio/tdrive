@@ -70,4 +70,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function review() {
         return $this->belongsToMany('Game', 'game_reviews');
     }
+
+    public static function updateLastLogin($id) 
+    {
+        $user = User::find($id);
+        $user->last_login = Carbon::today('Asia/Manila');
+        $user->save();
+
+        return $user;
+    }
+
 }

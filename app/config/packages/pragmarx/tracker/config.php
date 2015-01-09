@@ -41,6 +41,7 @@ return [
 	 */
 	'do_not_track_routes' => [
 		'tracker.stats.*',
+		'admin.*',
 	],
 
 	/**
@@ -170,12 +171,12 @@ return [
 	/**
 	 * Do you wish to log your users?
 	 */
-	'log_users' => false,
+	'log_users' => true,
 
 	/**
 	 * Do you wish to log devices?
 	 */
-	'log_devices' => false,
+	'log_devices' => true,
 
 	/**
 	 * Do you wish to log HTTP referers?
@@ -297,7 +298,7 @@ return [
 	/**
 	 * Enable the Stats Panel?
 	 */
-	'stats_panel_enabled' => true,
+	'stats_panel_enabled' => false,
 
 	/**
 	 * Stats Panel routes before filter
@@ -319,7 +320,7 @@ return [
      *    http://wwww.mysite.com/stats
      *
      */
-    'stats_base_uri' => '/stats',
+    'stats_base_uri' => 'stats',
 
     /**
      * Stats Panel layout view

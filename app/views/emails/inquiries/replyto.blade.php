@@ -8,7 +8,7 @@
 
 		<div>
 			<p>Hello, {{ $name }}</p>
-			
+			<p>{{ $messages }}</p>
 		</div>
 	</body>
 </html>

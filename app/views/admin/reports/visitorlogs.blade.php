@@ -7,7 +7,7 @@
 		<table id="table">
 			<thead>
 			<tr>
-				<th style="width: 300px;">Game</th>
+				<th style="width: 300px;">UIID</th>
 				<th style="width: 120px !important;" >Real Downloads</th>
 				<th>Modified Downloads</th>
 				<th>Success Downloads</th>

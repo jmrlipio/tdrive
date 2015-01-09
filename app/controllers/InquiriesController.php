@@ -10,28 +10,11 @@ class InquiriesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$inquiries = Inquiry::orderBy('created_at')->paginate(10);
+		$inquiries = Inquiry::orderBy('created_at')->paginate(30);
 
 		return View::make('admin.reports.inquiries.index')
 					->with('inquiries', $inquiries);
 	
-/*		$inquiries = Inquiry::orderBy('created_at')->get();
-
-		$filter = DataFilter::source(DB::table('inquiries'));
-        $filter->add('name','Name', 'text');
-        $filter->submit('search');
-        $filter->reset('reset');
-        $filter->build();
-
-        $grid = DataGrid::source(DB::table('inquiries'));
-        $grid->attributes(array("class"=>"table table-striped"));
-        $grid->add('name','Name', true)->style("width:400px");
-        $grid->add('email','Email', true)->style("width:140px");
-        $grid->add('game_title','Subject', true)->style("width:350px");
-        $grid->edit('/rapyd-demo/edit', 'Edit','show|delete');
-        $grid->paginate(10);*/
-
-      /*  return  View::make('admin.reports.inquiries.index', compact('filter', 'grid'));*/
 	}
 
 	public function linkTo() 
@@ -66,10 +49,10 @@ class InquiriesController extends \BaseController {
 			    'name' => Input::get('name'),
 			    'email' => Input::get('email'),
 			    'game' => Input::get('game'),
-			    'message' => $message,
+			    'messages' => $message,
 			);
 
-			Mail::send('emails.inquiries.replyto', $data , function ($message) use ($data) {
+			Mail::send('emails.inquiries.inquire', $data , function ($message) use ($data) {
 					$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
 				});
 
@@ -121,13 +104,12 @@ class InquiriesController extends \BaseController {
 		if($validator->passes())
 		{ 
 			$inquiry = Inquiry::find($id);
-			$message = Input::get('message');
 			$subject = 'Welcome!';
 			$data = array(
-			    'name' => 'adasd',
+			    'name' => $inquiry->name,
 			    'email' => $inquiry->email,
-			    'game' => Input::get('game'),
-			    'message' => $message,
+			    'game' => $inquiry->game_title,
+			    'messages' => Input::get('message'),
 			);
 
 			$mail = Mail::send('emails.inquiries.replyto', $data , function ($message) use ($inquiry) {
@@ -136,10 +118,10 @@ class InquiriesController extends \BaseController {
 
 			if(!$mail) 
 			{
-				return Redirect::back()->with('message', 'error sending!');
+				return Redirect::back()->with('message', 'Mail sent!');
 			}
 
-			return Redirect::back()->with('message', 'Mail sent!');
+			return Redirect::back()->with('message', 'Mail not sent');
 		}
 		//validator fails
 		return Redirect::back()->withErrors($validator)->withInput();
