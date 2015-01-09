@@ -1,4 +1,11 @@
-<?php class HomeController extends BaseController {
+<?php 
+
+class HomeController extends BaseController {
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	public function index()
 	{
@@ -46,8 +53,6 @@
 		Session::put('country', Input::get('country'));
 		Session::put('carrier', Input::get('selected_carrier'));
 
-		$iso_code = strtolower(Session::get('geoip-location')['isoCode']);
-
 		$carrier = Carrier::find(Session::get('carrier'));
 		$countries = [];
 
@@ -60,7 +65,6 @@
 			->with('page_id', 'home')
 			->with('previous_news', $previous_news)
 			->with('latest_news', $latest_news)
-			->with('iso_code', $iso_code)
 			->with('carrier', $carrier)
 			->with(compact('games'))
 			->with(compact('faqs'))

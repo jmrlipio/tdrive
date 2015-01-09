@@ -426,6 +426,12 @@
 			}
 		}
 
+		.captcha {
+			img {
+				top: 7px;
+			}
+		}
+
 		.captcha-correct, .captcha-error {
 			margin-left: 0;
 		}

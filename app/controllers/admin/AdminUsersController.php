@@ -10,6 +10,7 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function index($role = NULL)
 	{
+
 		$users = User::all();
 
 		$roles = ['all' => 'All'];
@@ -51,8 +52,6 @@ class AdminUsersController extends \BaseController {
 		}
 
 		User::create($data);
-
-
 
 		return Redirect::route('admin.users.index');
 	}

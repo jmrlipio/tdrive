@@ -12,6 +12,7 @@ class AuditLogHandler
     {
        $_activity = sprintf(Constant::LOGS_ADMIN_LOGIN, $user->username, Carbon::now()->toDayDateTimeString());
        $log = User::updateLastLogin($user->id);
+       $log = LoginHistory::addLoginHistory();
     }
 
     public function onLogout($user)
