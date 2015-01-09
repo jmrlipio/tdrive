@@ -85,22 +85,33 @@
 		<br/>
 
 		<h2>Activity History</h2>
-		<div class="purchased_cont">
-			<table class="table table-striped table-bordered table-hover purchased_games"  id="activity_history">
-				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Time Difference</th>
-					</tr>
-				</thead>
-
+		@if($activities)
+			<div class="purchased_cont">
+				<table class="table table-striped table-bordered table-hover purchased_games"  id="activity_history">
+					<thead>
 						<tr>
-							<td>Activity</td>
-							<td>Activity</td>
+							<th>Activity</th>
+							<th>Action</th>
+							<th>Date Created</th>
+							<th>Time Difference</th>
 						</tr>
-				</tbody>
-			</table>
-		</div>
+					</thead>
+
+					<tbody>
+						@foreach($activities as $activity)
+							<tr>
+								<td>{{ $activity->activity }}</td>
+								<td>{{ $activity->action }}</td>
+								<td>{{ Carbon::parse($activity->created_at)->format('M d, Y') }}</td>
+								<td>{{ Carbon::parse($activity->created_at)->diffForHumans() }}</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+		@else
+			<p class="ml5">This user has no activity history.</p>
+		@endif
 
 		<br/>
 		<br/>

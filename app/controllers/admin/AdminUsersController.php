@@ -70,6 +70,7 @@ class AdminUsersController extends \BaseController {
 		$carriers = Carrier::all();
 		$countries = Country::all();
 		$histories = DB::table('login_history')->where('user_id', $id)->get();	
+		$activities = DB::table('activity_logs')->where('user_id', $id)->get();	
 
 		$selected_games = [];
 
@@ -102,7 +103,8 @@ class AdminUsersController extends \BaseController {
 		return View::make('admin.users.view')
 			->with('user', $user)
 			->with('games', $selected_games)
-			->with('histories', $histories);
+			->with('histories', $histories)
+			->with('activities', $activities);
 	}
 
 	/**
