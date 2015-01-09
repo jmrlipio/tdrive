@@ -6,6 +6,12 @@ class AuditLogHandler
     {
        $_activity = sprintf(Constant::LOGS_ADMIN_LOGIN, $user->username, Carbon::now()->toDayDateTimeString());
        $log = AdminLog::createLogs($_activity);
+
+       if(Auth::user()->role == 'member'){
+          $_activity = sprintf(Constant::LOGS_USER_LOGIN, $user->username, Carbon::now()->toDayDateTimeString());
+          $_action = Constant::LOGS_USER_LOGIN_ACTION;
+          $log = ActivityLog::createLogs($_activity, $_action);
+       }
     }
 
     public function onLastLoginUser($user)
@@ -19,6 +25,12 @@ class AuditLogHandler
     {
        $_activity = sprintf(Constant::LOGS_ADMIN_LOGOUT, $user->username, Carbon::now()->toDayDateTimeString());
        $log = AdminLog::createLogs($_activity);
+
+       if(Auth::user()->role == 'member'){
+          $_activity = sprintf(Constant::LOGS_USER_LOGOUT, $user->username, Carbon::now()->toDayDateTimeString());
+          $_action = Constant::LOGS_USER_LOGOUT_ACTION;
+          $log = ActivityLog::createLogs($_activity, $_action);
+       }
     }
 
     public function onUserCreate($user)
