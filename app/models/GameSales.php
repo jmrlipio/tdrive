@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class GameSales extends Eloquent{
-    protected $table = 'game_sales';
+    protected $table = 'game_prices';
 
     public function users() {
 
