@@ -55,6 +55,14 @@
 			$countries[$country->id] = $country->full_name;
 		}
 
+		$telco = $carrier->carrier;
+		$data = array(
+			'id' => Auth::user()->id,
+			'carrier' => $telco
+			);
+		
+		Event::fire('audit.user.carrier', array($data));
+		
 		return View::make('index')
 			->with('page_title', 'Home')
 			->with('page_id', 'home')

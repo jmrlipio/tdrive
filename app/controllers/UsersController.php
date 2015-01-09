@@ -147,6 +147,8 @@ class UsersController extends \BaseController {
         	if(Auth::check() && !empty($remember)){
         		Auth::login(Auth::user(), true);
         	}
+        	//Audit log
+            Event::fire('audit.login', Auth::user());
 
             return Redirect::intended('/');
         }
@@ -154,6 +156,7 @@ class UsersController extends \BaseController {
     }
 
     public function getLogout(){
+    	Event::fire('audit.logout', Auth::user());
         Auth::logout();
         return Redirect::route('users.login');
     }
