@@ -46,8 +46,39 @@
 		@else
 			<p class="ml5">You have not purchased any games yet.</p>
 		@endif
-			<!-- <tr>
-				<td colspan="2"><a href="{{ URL::route('admin.users.edit', $user->id) }}" class="mgmt-link">Edit Account</a></td>
-			</tr> -->
+
+		<br/>
+
+		<a href="#login_hx" id="inline" class="link ml5" ><span>Login History</span></a> |
+	    <a href="#activity_hx" id="inline2" class="link ml5" ><span>Activity History</span></a>
+
+	    <div style="display:none">
+		    <div id="login_hx" style="text-align:center; width:800px; height: 500px;">
+		    	<h4 style="margin: 10px 0;">Login History</h4>
+		    </div>
+	    </div>
+
+	    <div style="display:none">
+		    <div id="activity_hx" style="text-align:center; width:800px; height: 500px;">
+		    	<h4 style="margin: 10px 0;">Activity History</h4>
+		    </div>
+	    </div>
+
+	    <script>
+	    	$("#inline").fancybox({
+	            'titlePosition'     : 'inside',
+	            'transitionIn'      : 'none',
+	            'transitionOut'     : 'none'
+	        });
+
+	        $("#inline2").fancybox({
+	            'titlePosition'     : 'inside',
+	            'transitionIn'      : 'none',
+	            'transitionOut'     : 'none'
+	        });
+	    </script>
+		<!-- <tr>
+			<td colspan="2"><a href="{{ URL::route('admin.users.edit', $user->id) }}" class="mgmt-link">Edit Account</a></td>
+		</tr> -->
 	</div>
 @stop
