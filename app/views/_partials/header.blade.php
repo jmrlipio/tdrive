@@ -30,18 +30,7 @@
 
 	<div id="container">
 
-		<div id="header">
-
-			@if( Session::get('telco') != NULL || Session::get('user_country') != NULL)
-
-				{{ Session::get('telco') }}
-				{{ Session::get('user_country') }}
-
-			@else
-
-				<h1 class="center">NO country</h1>
-
-			@endif
+		<div id="header">	
 
 			<div class="container clearfix">
 				<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
