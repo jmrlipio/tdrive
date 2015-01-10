@@ -10,6 +10,7 @@ class HomeController extends BaseController {
 	public function index()
 	{
 		Session::forget('telco');
+		Session::forget('carrier');
 		$languages = Language::all();
 
 		$user_location = GeoIP::getLocation();   
@@ -47,7 +48,7 @@ class HomeController extends BaseController {
 	}
 
 	public function home()
-	{
+	{		
 		$latest_news = News::all()->take(2);
 		$previous_news = News::take(3)->skip(2)->get();
 		$faqs = Faq::all();
@@ -82,16 +83,8 @@ class HomeController extends BaseController {
 
 		$carrier = Carrier::find(Session::get('carrier'));
 		$countries = [];
-
-		foreach(Country::orderBy('full_name')->get() as $country) {
-			$countries[$country->id] = $country->full_name;
-		}
 		
-	
-		if(Session::get('telco') == NULL ) {
-
-			Session::put('telco', $carrier->carrier);		
-		} 
+		Session::put('telco', $carrier->carrier);		
 
 		Session::put('user_country', $country->full_name);
 		

@@ -92,10 +92,11 @@
 						@endforeach
 					</ul>
 					@else
-						<p>Please select one or more languages to add content to this game.
+						<p>Please select one or more languages to add content to this game.</p>
 					@endif
 					<br>
 					<h3>The game has prices for the following carriers:</h3>
+					<br>
 					@if($selected_carriers)
 					<ul>
 						@foreach($carriers as $carrier_id => $carrier)
@@ -105,14 +106,14 @@
 						@endforeach
 					</ul>
 					@else
-						<p>Please select one or more carriers to add prices to this game.
+						<p>Please select one or more carriers to add prices to this game.</p>
 					@endif
 				</ul>
 				<ul id="media">
 					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
 						<li>
 							{{ Form::label('image_orientation', 'Orientation: ') }}
-							{{ Form::select('image_orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'), $game->image_orientation)  }}
+							{{ Form::select('image_orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'), $game->image_orientation, array('id' => 'orientation'))  }}
 							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
 						</li>
 						<li>
@@ -124,7 +125,7 @@
 									</div>
 								@endif
 							@endforeach
-							{{ Form::file('promo') }}
+							{{ Form::file('promo', array('id' => 'promo-img')) }}
 						</li>
 						<li>
 							{{ Form::label('icon', 'Icon:', array('class' => 'image-label')) }}
@@ -135,7 +136,7 @@
 									</div>
 								@endif
 							@endforeach
-							{{ Form::file('icon') }}
+							{{ Form::file('icon', array('id' => 'icon-img')) }}
 						</li>
 						<h3>Screenshots:</h3>
 						<br>
@@ -145,7 +146,7 @@
 									<div class="media-box">
 										{{ HTML::image($media['media_url'], null) }}
 									</div>
-									{{ Form::file('screenshots[]', array('class' => 'screenshot')) }}
+									{{ Form::file('screenshots[]', null, array('class' => 'screenshot')) }}
 									{{ Form::button('Remove', array('class' => 'remove-btn')) }}
 									{{ Form::hidden('ssid[]', $media['media_id'], array('class' => 'ssid')) }}
 								</li>
@@ -156,77 +157,6 @@
 						{{ Form::submit('Update Media', array('class' => 'update-content')) }}
 					{{ Form::close() }}
 				</ul>
-
-				<!--
-				<ul id="media">
-					{{-- Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post')) --}}
-						<li>
-							{{-- Form::label('featured-img', 'Featured Image:') --}}
-							<?php //$featured = false; ?>
-							@//foreach($selected_media as $media)
-								@//if($media['type'] == 'featured')
-									<?php //$featured = true; ?>
-									<div class="img-holder">
-										<img src="{{-- $media['media_url'] --}}">
-									</div>
-									<p>
-										{{-- Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) --}}
-										{{-- Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) --}}
-										{{-- Form::button('Select', array('class' => 'select-img')) --}}
-									</p>
-								@//endif
-							@//endforeach
-							@//if(!$featured)
-								<div class="img-holder"></div>
-								<p>
-									{{-- Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) --}}
-									{{-- Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) --}}
-									{{-- Form::button('Select', array('class' => 'select-img')) --}}
-								</p>
-							@//endif
-						</li>
-						<br>
-						<ul id="screenshots">
-							<label>Images:</label>
-							{{-- Form::button('Add Image', array('id' => 'add-img')) --}}<br>
-							<?php 
-								//$screenshot = false; 
-								//$i = 1; 
-							?>
-							@//foreach($selected_media as $media)
-								@//if($media['type'] == 'screenshot')
-									<?php //$screenshot = true; ?>
-									<li>
-										<div class="img-holder">
-											<img src="{{-- $media['media_url'] --}}">
-										</div>
-										<p>
-											{{-- Form::text('screenshots', $media['media_url'], array('class' => 'img-url', 'disabled')) --}}
-											{{-- Form::hidden('screenshot_id[]', $media['media_id'], array('class' => 'hidden_id')) --}}
-											{{-- Form::button('Select', array('class' => 'select-img')) --}}
-											@//if($i > 1)
-												{{-- Form::button('Remove', array('class' => 'remove-img')) --}}
-											@//endif
-											<?php //$i++; ?>
-										</p>
-									</li>
-								@//endif
-							@//endforeach
-							@//if(!$screenshot)
-								<li>
-									<div class="img-holder"></div>
-									<p>
-										{{-- Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) --}}
-										{{-- Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) --}}
-										{{-- Form::button('Select', array('class' => 'select-img')) --}}
-									</p>
-								</li>
-							@//endif
-						</ul>
-						{{-- Form::submit('Update Media', array('class' => 'update-content')) --}}
-					{{-- Form::close() --}}
-				</ul>
-				-->
 			</div>
 		</div>
 	</article>
@@ -261,7 +191,7 @@
 		$('#add-img').click(function() {
 			$(this).before(' \
 				<li> \
-					<input name="screenshots[]" type="file"> \
+					<input name="screenshots[]" type="file" class="screenshot"> \
 					<button class="remove-btn" type="button">Remove</button> \
 				</li> \
 				');
@@ -279,139 +209,76 @@
 	    		}
 	    	});
 	    });
+
+	    
 	});
+
+	var _URL = window.URL || window.webkitURL;
+
+	$("#media").on('change', '#promo-img', function(e) {
+	    var control = $(this),
+	    	orientation = $('#orientation').val();
+
+	    checkDimensions('promo', control,this.files[0]);
+	});
+
+	$("#media").on('change', '#icon-img', function(e) {
+		var control = $(this),
+	    	orientation = $('#orientation').val();
+
+	    checkDimensions('icon', control,this.files[0]);
+	});
+
+	$("#media").on('change', '.screenshot', function(e) {
+	    var control = $(this),
+	    	orientation = $('#orientation').val();
+
+	    checkDimensions('screenshot', control,this.files[0]);
+	});
+
+	function checkDimensions(type, control,first) {
+		var image, file, width, height;
+
+	    if(type == 'promo') {
+	    	if(orientation == 'landscape') {
+	    		width = 1024;
+	    		height = 768;
+	    	} else {
+	    		width = 768;
+	    		height = 1024;
+	    	}
+	    } else if(type == 'icon') {
+	    	width = 512;
+	    	height = 512;
+	    } else {
+	    	if(orientation == 'landscape') {
+	    		width = 800;
+	    		height = 480;
+	    	} else {
+	    		width = 480;
+	    		height = 500;
+	    	}
+	    }
+
+	    if ((file = first)) {
+	        image = new Image();
+
+	        image.onload = function() {
+	            if(!(this.width == width && this.height == height) || (this.width == width && this.height == height)) {
+	            	alert('Please upload an image with a ' + width + ' x ' + height +' dimension. You have uploaded a ' + this.width + ' x ' + this.height + ' image');
+	            	control.replaceWith(control = control.clone(true));
+	            }
+	        };
+
+	        image.src = _URL.createObjectURL(file);
+	    }	
+
+	}
 
 	// Removes added field for screenshots on Images tab
 	$("#media").on('click', '.remove-btn',function(){
 		$(this).parent().remove();
 	});
 
-	// $('.featured').on('click', function() {
-
-	// 	var checked = ($(this).is(':checked')) ? 1 : 0;
-
-	/* Opens media dialog for selecting featured and screenshots images
-	$("#media").on('click', '.select-img',function(){
-		img_li = $(this).parent().parent();
-		$('#cover').css('display', 'block');
-		
-		if(isEmpty(gallery)) {
-			loadGallery();
-		}
-	});
-
-	// Closes media dialog for selecting featured and screenshots images
-	$("#close-img-select, #img-close").on('click', function() {
-		$('#cover').css('display', 'none');
-	});
-
-	// Selects and sets chosen image for featured or screenshot image
-	$("#choose-img").on('click', function() {
-		var id, value;
-
-		gallery.find('input[type=radio]').each(function() {
-			if($(this).is(':checked')) {
-				var selected = $(this).parent().find('img');
-				value = selected.attr('src');
-				id = selected.data('value');
-			}
-		});
-
-		img_li.find('.img-url').val(value);
-		img_li.find('.hidden_id').val(id);
-		img_li.find('div').html('');
-		img_li.find('div').append('<img src="' + value + '">');
-
-		$('#cover').css('display', 'none');
-	});
-
-	// Shows price fields for the game for the countries under the selected carriers
-	$('#set-currency').on('click', function(){
-		var prices_li = $('#prices').html('');
-		prices_li.append('<div id="carrier-tab"></div>');
-
-		var carrier_tab = prices_li.find('#carrier-tab');
-
-		carrier_tab.html('');
-		carrier_tab.append('<ul class="etabs"></ul>');
-		carrier_tab.append('<div class="panel-container"></div>');
-
-		$("#carriers option:selected").each(function() {
-	    	var id = $(this).val();
-	    	var carrier = $(this).text();
-
-	    	var carrier_div = convertToSlug(carrier);
-
-	    	var carrier_menu = '<li class="tab"><a href="#' + carrier_div + '">' + carrier + '</a></li>';
-	    	carrier_tab.find('.etabs').append(carrier_menu);
-	    	carrier_tab.find('.panel-container').append('<div id="' + carrier_div +'"></div>');
-
-	    	$('#' + carrier_div).append('<h3>Prices for countries with ' + carrier + ' carrier:</h3>');
-	    	$('#' + carrier_div).append('<input type="hidden" value="' + id + '">');
-	    	loadCurrencies(id, carrier_div);
-	    });
-
-		carrier_tab.easytabs();
-	});
-
-	$('#set-content').on('click', function(){
-		var llinks = $('#language-links').html('');
-
-
-
-		$("#languages option:selected").each(function() {
-			var id = $(this).val();
-			var language = $(this).text();
-
-			var link = '<a href="">' + language + '</a>';
-			llinks.append(link);
-
-		});
-
-		content_tab.easytabs();
-	});
-
-	// On submit of form
-	$('#tab-container').on('submit', function() {
-		$('.img-url').prop('disabled', false);
-	});
-
-	// Check if element html is empty
-	function isEmpty(el){
-		return !$.trim(el.html())
-	}
-
-	// Ajax for loading uploaded images
-	function loadGallery() {
-		$.get("{{ URL::route('media.load') }}",function(data){
-			for(var id in data) {
-				if (data.hasOwnProperty(id)) {
-					var app = ' \
-						<li> \
-							<input name="imgs" type="radio" value="A" id="' + id + '"> \
-							<label for="' + id + '"><img src="' + data[id] + '" data-value="' + id + '"></label> \
-						</li>';
-			    	gallery.append(app);
-			    }
-			}
-		});
-	}
-
-	// Ajax for selecting countries under selected carriers
-	function loadCurrencies(cid, cdiv) {
-		var carrier_div = $('#' + cdiv);
-
-		$.get("{{ URL::route('carrier.load') }}", { carrier_id: cid }, function(data) {
-			for(var id in data) {
-				if (data.hasOwnProperty(id)) {
-					var price = ' \
-						<label for="' + id + '">' + data[id] + ': </label> \
-						<input type="text" class="prices" name="prices' + cid + '[' + id +']" id="' + id + '">';
-
-					carrier_div.append(price);
-				}
-			}
-		});
-	} */
     </script>
 @stop

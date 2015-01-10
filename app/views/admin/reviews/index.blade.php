@@ -39,18 +39,26 @@
 						@endif
 					</td>
 						<td>
-							<p style="display:none;">{{ $review->rating }}</p>
-							@if($review->rating == 1)
-								<i class="fa fa-star"></i>
+												
+						<!-- UPDATED BY: Jone -->
+							@for ($i=1; $i <= 5 ; $i++)
+		                      <i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-empty'}}"></i>
+		                    @endfor         
+						<!-- END -->
+													
+
+							<!-- @if($review->rating == 1)
+								<i class="fa fa-star">1</i>
 							@elseif($review->rating == 2)
-								<i class="fa fa-star"></i><i class="fa fa-star"></i>
+								<i class="fa fa-star"></i><i class="fa fa-star">2</i>
 							@elseif($review->rating == 3)
-								<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+								<i class="fa fa-star"></i><i class="fa fa-star"></i>3<i class="fa fa-star"></i>
 							@elseif($review->rating == 4)
-								<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+								<i class="fa fa-star"></i><i class="fa fa-star"></i>4<i class="fa fa-star"></i><i class="fa fa-star"></i>
 							@else
-								<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-							@endif
+								<i class="fa fa-star"></i><i class="fa fa-star"></i>5<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+							@endif -->
+
 						</td>
 					</tr>
 				@endforeach
