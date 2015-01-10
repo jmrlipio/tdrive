@@ -43,4 +43,21 @@ class Sales extends Eloquent{
 
 	}
 
+	public static function getTotal($game_id)
+	{
+		$prices = GameSales::where('game_id', '=', $game_id)
+				->get();
+		$total = 0;		
+		foreach($prices as $_prices) 
+		{
+			$sales 	= Sales::where('game_price_id', '=', $_prices->id)
+							->get();
+			$count = count($sales->toArray());
+			$total = $total + $count;
+
+		}
+
+		return $total;	
+	}
+
 }
