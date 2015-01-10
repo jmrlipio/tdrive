@@ -10,7 +10,8 @@
 		<li><a href="{{ URL::route('admin.reports.visitors.pageviews') }}">Visitor Logs</a>
 			<ul class="dropdown">
 				<li><a href="{{ URL::route('admin.reports.visitors.ratings') }}">Ratings</a></li>
-				<li><a href="{{ URL::route('admin.reports.visitors.userviews') }}">Users Views</a></li>
+				<li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Game Statistics</a></li>
+				<li><a href="{{ URL::route('admin.reports.visitors.analytics') }}">Google Analytics</a></li>
 			</ul>
 		</li>
 		<li><a href="{{ URL::route('admin.reports.inquiries') }}">Inquiries</a>
