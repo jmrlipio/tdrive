@@ -26,7 +26,6 @@
 
 			</ul>
 
-			<p>Android</p>
 			<p>Release: {{{ $game->release_date }}}</p>
 		</div>
 	</div><!-- end #top -->
@@ -315,22 +314,31 @@
 			<div class="swiper-wrapper">
 
 				@foreach($related_games as $game)
-					@foreach($game->categories as $category)
 
-						<div class="swiper-slide item">
-							<div class="thumb">
-								<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
-							</div>
+					<div class="swiper-slide item">
+						<div class="thumb relative">
+							@if ($game->default_price == 0)
+								{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+							@endif
 
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							</div>
-
-							<div class="button center"><a href="#">Buy</a></div>
+							<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
 						</div>
 
-					@endforeach
+						<div class="meta">
+							<p class="name">{{{ $game->main_title }}}</p>
+
+							@unless ($game->default_price == 0)
+								<p class="price">P{{{ $game->default_price }}}.00</p>
+							@endunless
+						</div>
+
+						@if ($game->default_price == 0)
+							<div class="button center"><a href="#">Get</a></div>
+						@else
+							<div class="button center"><a href="#">Buy</a></div>
+						@endif
+					</div>
+
 				@endforeach
 
 			</div>
@@ -349,105 +357,6 @@
 
 	<script>
 		FastClick.attach(document.body);
-
-		/*$('#screenshots .items').slick({
-			infinite: true,
-			slidesToScroll: 1,
-			centerMode: true,
-			centerPadding: 20,
-			lazyLoad: 'progressive',
-			arrows: false,
-
-			responsive: [
-				{
-					breakpoint: 1025,
-					settings: {
-						slidesToShow: 5
-					}
-				},
-
-				{
-					breakpoint: 769,
-					settings: {
-						slidesToShow: 4,
-					}
-				},
-
-				{
-					breakpoint: 641,
-					settings: {
-						slidesToShow: 5,
-					}
-				},
-
-				{
-					breakpoint: 601,
-					settings: {
-						slidesToShow: 2,
-					}
-				},
-
-				{
-					breakpoint: 401,
-					settings: {
-						slidesToShow: 3,
-					}
-				},
-
-				{
-					breakpoint: 321,
-					settings: {
-						slidesToShow: 2
-					}
-				},
-			]
-		});*/
-
-		/*$('#related-games .items').slick({
-			infinite: false,
-			swipeToSlide: true,
-			//centerMode: true,
-			centerPadding: 20,
-			lazyLoad: 'progressive',
-			arrows: false,
-
-			responsive: [
-				{
-					breakpoint: 1025,
-					settings: {
-						slidesToShow: 5
-					}
-				},
-
-				{
-					breakpoint: 769,
-					settings: {
-						slidesToShow: 4,
-					}
-				},
-
-				{
-					breakpoint: 641,
-					settings: {
-						slidesToShow: 5,
-					}
-				},
-
-				{
-					breakpoint: 601,
-					settings: {
-						slidesToShow: 3,
-					}
-				},
-
-				{
-					breakpoint: 321,
-					settings: {
-						slidesToShow: 2
-					}
-				},
-			]
-		});*/
 
 		$('.thumbs-container').each(function() {
 			$(this).swiper({

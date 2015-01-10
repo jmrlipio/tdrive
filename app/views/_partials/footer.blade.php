@@ -2,18 +2,18 @@
 		<div class="container">
 
 			<ul class="social">
-				<li><a href="#" class="support"><i class="fa fa-heart"></i> <span>support@tdrive.co</span></a></li>
-				<li><a href="#" class="facebook"><i class="fa fa-facebook"></i> <span>Facebook</span></a></li>
-				<li><a href="#" class="twitter"><i class="fa fa-twitter"></i> <span>Twitter</span></a></li>
+				<li><a href="{{ $site_variables[6]->variable_value }}" class="support"><i class="fa fa-heart"></i> <span>support@tdrive.co</span></a></li>
+				<li><a href="{{ $site_variables[0]->variable_value }}" class="facebook"><i class="fa fa-facebook"></i> <span>Facebook</span></a></li>
+				<li><a href="{{ $site_variables[1]->variable_value }}" class="twitter"><i class="fa fa-twitter"></i> <span>Twitter</span></a></li>
 			</ul>
 
 			<div class="copyright">
 				<ul>
-					<li><a href="#">Japan</a></li>
-					<li><a href="#">Philippines</a></li>
+					<li><a href="{{ $site_variables[4]->variable_value }}">Japan</a></li>
+					<li><a href="{{ $site_variables[5]->variable_value }}">Philippines</a></li>
 				</ul>
 
-				<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">TDrive</a>.</p>
+				<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">{{ $general_settings[0]->value }}</a>.</p>
 				<p>All rights reserved.</p>
 			</div>
 

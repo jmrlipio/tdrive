@@ -86,7 +86,7 @@
   background-clip: padding-box;
   padding: 6px;
   background: rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+  margin: 5px auto;
   width: 100px;
   height: 100px;
 }
@@ -724,6 +724,9 @@
   border-radius: 4px;
   background-clip: padding-box;
 }
+#game-detail #review .captcha img {
+  top: 7px;
+}
 #game-detail #review .captcha-correct, #game-detail #review .captcha-error {
   margin-left: 0;
 }
@@ -1031,12 +1034,15 @@
   background-clip: padding-box;
   padding: 6px;
   background: rgba(0, 0, 0, 0.1);
-  margin: 0 5px;
+  margin: 0;
 }
 #game-listing .grid .thumb img {
   -webkit-border-radius: 16px;
   border-radius: 16px;
   background-clip: padding-box;
+}
+#game-listing .grid .thumb .free {
+  left: -5px;
 }
 #game-listing .grid .meta {
   margin: 10px 0 0;

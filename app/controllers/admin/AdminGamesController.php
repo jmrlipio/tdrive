@@ -7,11 +7,28 @@ class AdminGamesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($category = NULL)
 	{
-		$games = Game::orderBy('id')->paginate(8);
+
+		$games = Game::all();
+
+		$game_category = Category::all();
+
+		$categories = ['all' => 'All'];
 		
-		return View::make('admin.games.index')->with('games', $games);
+
+		foreach ($game_category as $gc) {
+
+			$categories[$gc->id] = ucfirst($gc->category);		
+		
+		}
+
+		
+		return View::make('admin.games.index')
+			->with('games', $games)
+			->with('categories', $categories)
+			->with('selected', 'all');
+
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -385,4 +402,39 @@ class AdminGamesController extends \BaseController {
 
 		return Redirect::back()->with('message', 'You have successfully updated this game content');
 	}
+
+	public function getGameByCategory() 
+    {
+    	
+		$selected_cat = Input::get('game_category');
+    	
+    	$game_category = Category::all(); 
+    	
+    	$categories = ['all' => 'All'];	
+
+		foreach ($game_category as $gc) {
+
+			$categories[$gc->id] = ucfirst($gc->category);		
+		
+		}
+
+		if($selected_cat != 'all'){
+
+	    	$games = Game::whereHas('categories', function($q) use($selected_cat) {
+	    		
+	    		$q->where('category_id', '=', $selected_cat);
+	    	
+	    	})->get();   
+    		
+    	} else {
+
+    		$games = Game::all();
+
+    	}
+
+		return View::make('admin.games.index')
+			->with('games', $games)
+			->with('categories', $categories)
+			->with('selected', $selected_cat);
+    }
 }
