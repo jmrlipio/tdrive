@@ -67,6 +67,15 @@ class GamesController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
+		$reviews = [];
+		//dd($game->review->toArray());
+
+		
+
+		foreach($game->review as $review) {
+			$reviews[] = $review;
+		}
+
 		$games = Game::all();
 		$related_games = [];
 
@@ -87,6 +96,7 @@ class GamesController extends \BaseController {
 		return View::make('game')
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')
+			->with('reviews', $reviews)
 			->with(compact('languages'))
 			->with(compact('related_games'))
 			->with(compact('game'));
