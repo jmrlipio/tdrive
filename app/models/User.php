@@ -71,6 +71,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsToMany('Game', 'game_reviews');
     }
 
+
     public function sales() {
         return $this->belongsToMany('GamePrice', 'game_sales');
     }
@@ -79,6 +80,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         $user = User::find($id);
         $user->last_login = Carbon::now();
+
         $user->save();
 
         return $user;

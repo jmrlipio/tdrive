@@ -232,11 +232,13 @@
 		<h1 class="title">Contact us</h1>
 		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
 
-		{{ Form::open(array(URL::to(Request::segment(1)))) }}
+		{{ Form::open(array('route'=>'admin.reports.inquiries.store', 'method' => 'post')) }}
 
 			<div class="control clearfix">
 				<label class="common" for="name">Name</label>
 				<input type="text" name="name" id="name">
+
+				{{ $errors->first('name', '<p class="error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
@@ -247,8 +249,8 @@
 			<div class="select clearfix">
 				<label for="game">Game Title</label>
 
-				<select name="game" class="clearfix" id="game">
-					<option value="">General Inquiry</option>
+				<select name="game_title" class="clearfix" id="game">
+					<option value="General Inquiry">General Inquiry</option>
 
 					@foreach($games as $game)
 						<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
@@ -260,17 +262,6 @@
 			<div class="captcha control clearfix">
 				{{ HTML::image(Captcha::img(), 'Captcha image') }}
 				{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
-
-				<?php if (Request::getMethod() == 'POST') {
-					$rules =  array('captcha' => array('required', 'captcha'));
-					$validator = Validator::make(Input::all(), $rules);
-
-					if ($validator->fails()) {
-						echo '<p class="captcha-error"><i class="fa fa-close"></i> Incorrect</p>';
-					} else {
-						echo '<p class="captcha-correct"><i class="fa fa-check"></i> Matched</p>';
-					}
-				} ?>
 			</div>
 
 			<div class="control clearfix">
@@ -281,8 +272,7 @@
 			<div class="control clearfix">
 				<input type="submit" value="Submit &raquo;">
 			</div>
-
-		{{ Form::close(); }}
+		{{ Form::close() }}
 
 	</div><!-- end #contact -->
 

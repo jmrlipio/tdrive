@@ -244,8 +244,7 @@
 #home #contact .control:last-child {
   margin-top: 0;
   background: #fff;
-  margin-left: 1%;
-  width: 99%;
+  width: 100%;
 }
 #home #contact input[type="text"], #home #contact input[type="email"] {
   padding: 18px 6px;

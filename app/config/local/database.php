@@ -30,6 +30,18 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
+		'tracker' => [
+				    'driver'   => 'mysql',
+				    'host'     => 'localhost',
+				    'database' => 'tdrive2',
+				    'username' =>'root',
+				    'password' => '',
+				    'charset'  => 'utf8',
+				    'prefix'   => '',
+				    'collation' => 'utf8_unicode_ci',
+				    'schema'   => 'public',
+				],
+
 	),
 
 );

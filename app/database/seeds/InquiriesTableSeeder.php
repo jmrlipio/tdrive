@@ -13,6 +13,7 @@ class InquiriesTableSeeder extends Seeder {
 			Inquiry::create([
 				'name' 		=> $faker->name,
 				'email'		=> $faker->email,
+				'game_title' 	=> $faker->text($maxNbChars = 15),
 				'message' 	=> $faker->text($maxNbChars = 70),
 			]);
 		}

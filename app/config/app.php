@@ -128,7 +128,9 @@ return array(
 		'Thujohn\Analytics\AnalyticsServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Zofe\Rapyd\RapydServiceProvider',
+		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider'
+
 	),
 
 	/*
@@ -201,6 +203,7 @@ return array(
 		'GeoIP' 		  => 'Torann\GeoIP\GeoIPFacade',
 		'Analytics' 	  => 'Thujohn\Analytics\AnalyticsFacade',
 		'Image' 		  => 'Intervention\Image\Facades\Image',
+		'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
 		'Captcha'		  => 'Mews\Captcha\Facades\Captcha'
 	),
 

@@ -84,6 +84,8 @@ class GamesController extends \BaseController {
 
 		$reviews = Review::all();
 
+		$visitor = Tracker::currentSession();
+
 		return View::make('game')
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')

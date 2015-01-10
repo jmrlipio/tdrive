@@ -129,13 +129,19 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
    
     Route::group(array('prefix' => 'reports', 'before' => 'reports'), function(){
         
+        Route::get('visitors/pageviews', array('as' => 'admin.reports.visitors.pageviews', 'uses' => 'ReportsController@visitorsPagesViews'));
+        Route::post('visitors/chart/pageviews', array('as' => 'admin.reports.visitors.pageviews-chart', 'uses' => 'ReportsController@visitorsPagesViewsChart'));
+        Route::get('visitors/userviews', array('as' => 'admin.reports.visitors.userviews', 'uses' => 'ReportsController@visitorsUsersViews'));
+        Route::get('visitors/ratings', array('as' => 'admin.reports.visitors.ratings', 'uses' => 'ReportsController@visitorsRatingsViews'));
+
         Route::get('sales/lists', array('as' => 'admin.reports.sales.list', 'uses' => 'ReportsController@salesList'));
         Route::get('sales/chart', array('as' => 'admin.reports.sales.chart', 'uses' => 'ReportsController@salesChart'));
-        Route::post('sales/filter/{id?}/{filter?}', array('as' => 'admin.reports.sales.filter', 'uses' => 'ReportsController@salesFilter'));
-        Route::post('sales/overall', array('as' => 'admin.reports.sales.overall', 'uses' => 'ReportsController@overallGamesSales'));
+        Route::post('sales/chart/{id?}/{filter?}', array('as' => 'admin.reports.sales.filter', 'uses' => 'ReportsController@salesFilter'));
+        Route::post('sales/chart/overall', array('as' => 'admin.reports.sales.overall', 'uses' => 'ReportsController@overallGamesSales'));
         Route::post('inquiries/{id?}/reply', array('as' => 'admin.reports.inquiries.reply', 'uses' => 'InquiriesController@reply'));
         Route::get('inquiries/settings', array('as' => 'admin.reports.inquiries.settings', 'uses' => 'InquiriesController@settings'));
         Route::post('inquiries/settings/save', array('as' => 'admin.reports.inquiries.save-settings', 'uses' => 'InquiriesController@saveSettings'));
+        Route::get('inquiries/links', array('as' => 'admin.reports.inquiries.links', 'uses' => 'InquiriesController@linkTo'));
         Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit')));
     
     });
