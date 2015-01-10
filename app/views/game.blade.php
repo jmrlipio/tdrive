@@ -261,10 +261,12 @@
 	</div><!-- end #review -->
 
 	<div id="reviews" class="container">
+		
 		@forelse($reviews as $data)
 			<div class="entry clearfix">
-				{{ HTML::image('images/avatars/placeholder.jpg', 'Jaypee Onza') }}
+				{{-- HTML::image('images/avatars/jaypee-onza.jpg', 'Jaypee Onza') --}}
 
+				{{-- dd($data->toArray())  --}}
 				<div>
 					<p class="name">{{ $data->first_name }}</p>
 
