@@ -39,7 +39,7 @@ class AuditLogHandler
        $log = User::updateLastLogin($user->id);
     }*/
 
-    }
+    
 
     public function onLogout($user)
     {
