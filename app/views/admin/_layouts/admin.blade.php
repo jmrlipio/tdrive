@@ -59,8 +59,7 @@
                 @else
                     <li><a href="{{ URL::route('admin.users.index') }}">Users</a></li>                
                     <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>               
-                    <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>
-                    <li><a href="{{ URL::route('admin.discounts.index') }}">Discounts</a></li>             
+                    <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>        
                     <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>               
                     <li>
                         <a href="#" id="options-link">Site Options</a>

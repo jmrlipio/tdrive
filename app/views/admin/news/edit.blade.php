@@ -39,11 +39,13 @@
 						{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 						{{ $errors->first('status', '<p class="error">:message</p>') }}
 					</li>
+					<!--
 					<li>
-						{{ Form::label('release_date', 'Release Date:') }}
-						{{ Form::text('release_date', null, array('id' => 'release_date')) }}
-						{{ $errors->first('release_date', '<p class="error">:message</p>') }}
+						{{-- Form::label('release_date', 'Release Date:') --}}
+						{{-- Form::text('release_date', null, array('id' => 'release_date')) --}}
+						{{-- $errors->first('release_date', '<p class="error">:message</p>') --}}
 					</li>
+					-->
 					<li>
 						<div class="media-box">
 							{{ HTML::image(Request::root() . '/assets/news/' . $news->featured_image, null) }}

@@ -10,7 +10,10 @@ class DiscountsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$discounts = Discount::all();
+
+		return View::make('admin.discounts.index')
+			->with('discounts', $discounts);
 	}
 
 	/**
@@ -21,7 +24,14 @@ class DiscountsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$games = [];
+
+		foreach(Game::all() as $game) {
+			$games[$game->id] = $game->main_title;
+		}
+
+		return View::make('admin.discounts.create')
+			->with('games', $games);
 	}
 
 	/**
@@ -32,7 +42,26 @@ class DiscountsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make($data = Input::all(), Discount::$rules);
+
+		if(Input::hasFile('featured_image')) {
+			$featured = Input::file('featured_image');
+			$filename = time() . "_" . $featured->getClientOriginalName();
+			$path = public_path('assets/discounts/' . $filename);
+			Image::make($featured->getRealPath())->save($path);
+
+			$data['featured_image'] = $filename;
+		}
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+		
+		$discount = Discount::create($data);
+		$discount->games()->sync(Input::get('game_id'));
+		
+		return Redirect::route('admin.discounts.edit',$discount->id)->with('message', 'You have successfully added a discount.');
 	}
 
 	/**
@@ -56,7 +85,23 @@ class DiscountsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$discount = Discount::find($id);
+
+		$games = [];
+		$selected_games = [];
+		
+		foreach($discount->games as $game) {
+			$selected_games[] = $game->id;
+		}
+
+		foreach(Game::all() as $game) {
+			$games[$game->id] = $game->main_title;
+		}
+
+		return View::make('admin.discounts.edit')
+			->with('discount', $discount)
+			->with('games', $games)
+			->with('selected_games', $selected_games);
 	}
 
 	/**
@@ -68,7 +113,33 @@ class DiscountsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$discount = Discount::find($id);
+
+		$edit_rules = Discount::$rules;
+
+		$edit_rules['featured_image'] = '';
+
+		$validator = Validator::make($data = Input::all(), $edit_rules);
+
+		if(Input::hasFile('featured_image')) {
+			$featured = Input::file('featured_image');
+			$filename = time() . "_" . $featured->getClientOriginalName();
+			$path = public_path('assets/discounts/' . $filename);
+			Image::make($featured->getRealPath())->save($path);
+
+			$data['featured_image'] = $filename;
+		} else {
+			$data['featured_image'] = $discount->featured_image;
+		}
+		
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}		
+
+		$discount->update($data);
+
+		return Redirect::back()->with('message', 'You have successfully updated this discount item.');
 	}
 
 	/**
@@ -80,7 +151,21 @@ class DiscountsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$discount = Discount::find($id);
+		
+		if($discount)
+		{
+			$discount->delete();
+			// Event::fire('audit.discount.delete', Auth::user());
+
+			return Redirect::route('admin.discounts.index')
+				->with('message', 'News deleted')
+				->with('sof', 'success');	
+		}
+
+		return Redirect::route('admin.discounts.index')
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'failed');
 	}
 
 }

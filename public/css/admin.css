@@ -55,7 +55,7 @@ h1 { font-size: 24px; }
 h2 { font-size: 18px; }
 h3 { font-size: 15px; font-weight: bold; }
 button { cursor: pointer; }
-a.mgmt-link { text-decoration: none; line-height: 30px; display: inline-block; width: 100px; text-align: center; margin: 0 auto; float: right; background: #4288CE; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
+a.mgmt-link { text-decoration: none; line-height: 30px; display: inline-block; width: 120px; text-align: center; margin: 0 auto; float: right; background: #4288CE; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
 
 /* main sections */
 header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
@@ -223,7 +223,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 .sub-nav { position: fixed; z-index: 10; width: 100%; height: 30px; padding: 0; margin: 0; background-color: #888; }
 .sub-nav ul { list-style: none; }
-.sub-nav li { float: left; width: 16.5%; }
+.sub-nav li { float: left; width: 13.65%; }
 .sub-nav li a { display: block; text-align: center; line-height: 30px; text-decoration: none; color: #fff; position: relative; }
 .sub-nav li a:hover, .sub-nav li a.active:hover { background-color: #FEBA48; color: #000; }
 .sub-nav li a.active { background-color: #555; }
@@ -286,7 +286,7 @@ p#generated-password {
 	resize: none;
 }
 
-#faq-order {
+#faq-order, #discount-percent {
 	width: 10%;
 }
 
@@ -390,8 +390,6 @@ p#generated-password {
 #reports-nav li {
 	width: 16.5%;
 }
-<<<<<<< HEAD
-=======
 
 #ribbon {
 	margin-top: 10px;

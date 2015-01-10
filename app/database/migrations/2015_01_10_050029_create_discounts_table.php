@@ -17,11 +17,12 @@ class CreateDiscountsTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->text('description');
-            $table->float('price');
+            $table->float('discount_percentage');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('featured_image');
-            $table->boolean('sale_active');
+            $table->boolean('active');
+            $table->integer('user_limit');
 			$table->timestamps();
 		});
 	}
