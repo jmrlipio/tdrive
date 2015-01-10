@@ -69,7 +69,8 @@ class HomeController extends BaseController {
 		foreach(Language::all() as $language) {
 			$languages[$language->id] = $language->language;
 		}
-
+		
+		/* TODO: check if session has carrier */
 		if (!Session::has('carrier')) {
 			Session::put('country_id', Input::get('country_id'));
 			Session::put('carrier', Input::get('selected_carrier'));

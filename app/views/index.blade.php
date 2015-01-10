@@ -118,6 +118,7 @@
 
 											@unless ($game->default_price == 0)
 												@foreach($game->prices as $price) 
+
 													@if($country->id == $price->pivot->country_id)
 														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 													@endif
