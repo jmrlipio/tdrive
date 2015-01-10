@@ -134,6 +134,11 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
         Route::post('visitors/chart/pageviews', array('as' => 'admin.reports.visitors.pageviews-chart', 'uses' => 'ReportsController@visitorsPagesViewsChart'));
         Route::get('visitors/userviews', array('as' => 'admin.reports.visitors.userviews', 'uses' => 'ReportsController@visitorsUsersViews'));
         Route::get('visitors/ratings', array('as' => 'admin.reports.visitors.ratings', 'uses' => 'ReportsController@visitorsRatingsViews'));
+        Route::get('visitors/statistics', array('as' => 'admin.reports.visitors.statistics', 'uses' => 'ReportsController@visitorsStatisticViews'));
+        Route::get('visitors/statistics/{id?}/buy', array('as' => 'admin.reports.visitors.statistics.buy', 'uses' => 'ReportsController@visitorsBuyStatisticViews'));
+        Route::get('visitors/statistics/{id?}/download', array('as' => 'admin.reports.visitors.statistics.download', 'uses' => 'ReportsController@visitorsDownloadStatisticViews'));
+        Route::get('visitors/analytics', array('as' => 'admin.reports.visitors.analytics', 'uses' => 'ReportsController@visitorsGoolgeAnaylitcsViews'));
+        Route::get('visitors/activity', array('as' => 'admin.reports.visitors.activity', 'uses' => 'ReportsController@visitorActivityUsers'));
 
         Route::get('sales/lists', array('as' => 'admin.reports.sales.list', 'uses' => 'ReportsController@salesList'));
         Route::get('sales/chart', array('as' => 'admin.reports.sales.chart', 'uses' => 'ReportsController@salesChart'));
