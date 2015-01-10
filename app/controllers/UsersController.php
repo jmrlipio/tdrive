@@ -151,7 +151,7 @@ class UsersController extends \BaseController {
         	//Audit log
             Event::fire('audit.login', Auth::user());
 
-            return Redirect::intended('/');
+            return Redirect::intended('/home');
         }
         return Redirect::to('login')->with('message','Your email/password was incorrect');
     }

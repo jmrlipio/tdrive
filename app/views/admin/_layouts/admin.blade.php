@@ -94,16 +94,6 @@
     <footer>
         
     </footer>
-<<<<<<< HEAD
-<<<<<<< HEAD
-     
-      
-
-=======
-       
-@yield('scripts')
->>>>>>> ef66bc6e25ff1dcfbc794320a6a8349473c45f1c
-=======
     @yield('scripts')
     <script>
         $( "#options-link" ).click(function(e) {
@@ -113,6 +103,5 @@
             });
         });
     </script>
->>>>>>> 636e185bd028e530a9a695538c20e0f4768ffd08
 </body>
 </html>

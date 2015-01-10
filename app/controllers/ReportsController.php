@@ -275,5 +275,35 @@ class ReportsController extends \BaseController {
 		return View::make('admin.reports.visitors.ratings')
 					->with('games', $games);
 	}
-                                                                                                            
+        
+     public function visitorsStatisticViews() 
+     {
+     	//$games = Sales::getTotalSales(1);
+     	$games = Game::all();
+
+     	return View::make('admin.reports.visitors.statistics-index')
+     				->with('games', $games);
+     }   
+
+     public function visitorsBuyStatisticViews($id) 
+     {
+     	$games = Sales::getTotalSales($id);
+/*     	echo '<pre>';
+     	dd($games);*/
+     	return View::make('admin.reports.visitors.buy-index')
+     				->with('games', $games);
+     }   
+
+     public function visitorsDownloadStatisticViews($id) 
+     {
+     	$games = Download::getTotalDownloads($id);
+
+     	return View::make('admin.reports.visitors.download-index')
+     				->with('games', $games);
+     }
+
+     public function visitorsGoolgeAnaylitcsViews() 
+     {
+     	return View::make('admin.reports.visitors.analytics');
+     }                                                                                                      
 }
