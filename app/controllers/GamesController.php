@@ -61,6 +61,8 @@ class GamesController extends \BaseController {
 
 		$game = Game::find($id);
 
+		$current_game = Game::find($id);
+
 		$categories = [];
 
 		foreach($game->categories as $cat) {
@@ -92,6 +94,7 @@ class GamesController extends \BaseController {
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')
 			->with('ratings', $ratings)
+			->with('current_game', $current_game)
 			->with('country', $country)
 			->with(compact('languages'))
 			->with(compact('related_games'))

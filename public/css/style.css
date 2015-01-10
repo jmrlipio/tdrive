@@ -1,4 +1,4 @@
-#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact label.common, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select label, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
+#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -228,67 +228,50 @@
 }
 #home #contact label.common {
   display: block;
-  position: absolute;
   text-transform: lowercase;
-  left: 0;
-  top: 5px;
   line-height: 26px;
-  background: #e9548e;
-  text-align: center;
-  width: 100px;
 }
 #home #contact .control {
   position: relative;
   margin-top: 10px;
 }
 #home #contact .control:last-child {
-  margin-top: 0;
-  background: #fff;
-  margin-left: 1%;
-  width: 99%;
+  margin-top: 10px;
+}
+#home #contact .captcha img {
+  top: 4px;
 }
 #home #contact input[type="text"], #home #contact input[type="email"] {
-  padding: 18px 6px;
-  height: 26px;
-  padding-left: 105px;
-  margin-left: 1%;
-  width: 99%;
+  padding: 12px 6px;
+  height: 34px;
+  width: 100%;
 }
 #home #contact .select {
-  background: #fff;
   position: relative;
   margin-top: 10px;
-  margin-left: 1%;
 }
 #home #contact .select label {
   display: block;
   text-transform: lowercase;
-  margin-top: 5px;
   line-height: 26px;
-  background: #e9548e;
-  text-align: center;
-  width: 100px;
-  margin-left: -1%;
-  float: left;
 }
 #home #contact .select select {
-  float: left;
-  width: 180px;
-  margin-left: 10px;
-  height: 36px;
+  padding: 8px 6px;
+  font-size: 12px;
+  height: 34px;
+  width: 100%;
 }
 #home #contact textarea {
-  padding: 36px 6px 4px;
+  padding: 6px 4px;
   min-height: 100px;
-  width: 99%;
-  margin-left: 1%;
+  width: 100%;
 }
 #home #contact input[type="submit"] {
   text-transform: lowercase;
-  float: right;
   background: #e9548e;
   color: #fff;
   padding: 4px 6px;
+  float: right;
 }
 #home #footer {
   display: block;
@@ -328,7 +311,7 @@
     height: 20px;
   }
 }
-#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact label.common, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select label, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
+#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -388,7 +371,7 @@
   margin-bottom: 2%;
 }
 #game-detail #buttons .downloads {
-  background: #ff89b7 url(../images/downloads.png) center -8px no-repeat;
+  background: #ff89b7 url(../images/downloads.png) -5px -8px no-repeat;
   position: relative;
   width: 100%;
   font-weight: bold;
@@ -638,6 +621,30 @@
   margin: 10px 0;
   text-align: center;
 }
+#game-detail #review .rating-control {
+  border: 1px solid #e9548e;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+#game-detail #review .rating-control label {
+  padding: 5px 10px;
+  background: #e9548e;
+  color: #fff;
+  float: left;
+  width: 20%;
+}
+#game-detail #review .rating-control select {
+  height: 29px;
+  float: left;
+  width: 80%;
+}
+#game-detail #review .form-success {
+  margin-left: 0;
+}
+#game-detail #review .form-error {
+  margin-left: 0;
+}
 #game-detail #review .button a {
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -837,7 +844,7 @@
     width: 93%;
   }
 }
-#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact label.common, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select label, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
+#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -948,7 +955,7 @@
     margin-top: 40px;
   }
 }
-#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact label.common, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select label, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
+#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1104,7 +1111,7 @@
     margin-top: 15px;
   }
 }
-#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact label.common, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select label, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
+#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1222,7 +1229,7 @@
     background-clip: padding-box;
   }
 }
-#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact label.common, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select label, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
+#home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

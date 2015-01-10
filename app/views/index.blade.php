@@ -234,23 +234,24 @@
 
 		{{ Form::open(array('route'=>'admin.reports.inquiries.store', 'method' => 'post')) }}
 
+			@if(Session::has('message'))
+				<br>
+				<p class="form-success">{{ Session::get('message') }}</p>
+			@endif
+
 			<div class="control clearfix">
-				<label class="common" for="name">Name</label>
-				<input type="text" name="name" id="name" required>
+				<input type="text" name="name" id="name" placeholder="name" required>
 
 				{{ $errors->first('name', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
-				<label class="common" for="email">Email</label>
-				<input type="email" name="email" id="email" required>
+				<input type="email" name="email" id="email" placeholder="email" required>
 
 				{{ $errors->first('email', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="select clearfix">
-				<label for="game">Game Title</label>
-
 				<select name="game_title" class="clearfix" id="game" required>
 					<option value="General Inquiry">General Inquiry</option>
 
@@ -271,8 +272,7 @@
 			</div>
 
 			<div class="control clearfix">
-				<label class="common" for="message">Message</label>
-				<textarea name="message" id="message" required></textarea>
+				<textarea name="message" id="message" placeholder="message" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>
@@ -292,6 +292,7 @@
 	{{ HTML::script("js/jquery.lightSlider.min.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery-ui.min.js"); }}
+	{{ HTML::script("js/jquery.ddslick.min.js"); }}
 
 	<script>
 		FastClick.attach(document.body);

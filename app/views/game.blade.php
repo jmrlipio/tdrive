@@ -33,8 +33,8 @@
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
-				<p class="count">100</p>
-				<p class="words"><span>Thousand</span> Downloads</p>
+				<p class="count">{{ number_format($game->downloads, 0) }}</p>
+				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
 			</div>
 		</div>
 
@@ -121,7 +121,7 @@
 					<a href="#"><i class="fa fa-star"></i></a>
 				</div>
 
-				<p class="total">{{ $ratings['count'] }} total</p>
+				<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
 			</div>
 
 			<div class="social clearfix">
@@ -148,7 +148,7 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['five'] / $ratings['count']) * 100 }}%"></span>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
 
 					<p class="total">{{ $ratings['five'] }}</p>
 				</div>
@@ -163,7 +163,7 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['four'] / $ratings['count']) * 100 }}%"></span>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
 
 					<p class="total">{{ $ratings['four'] }}</p>
 				</div>
@@ -177,7 +177,7 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['three'] / $ratings['count']) * 100 }}%"></span>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
 
 					<p class="total">{{ $ratings['three'] }}</p>
 				</div>
@@ -190,7 +190,7 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['two'] / $ratings['count']) * 100 }}%"></span>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
 
 					<p class="total">{{ $ratings['two'] }}</p>
 				</div>
@@ -202,7 +202,7 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['one'] / $ratings['count']) * 100 }}%"></span>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
 
 					<p class="total">{{ $ratings['one'] }}</p>
 				</div>
@@ -213,34 +213,37 @@
 	<div id="review" class="container">
 
 		@if (Auth::check())
+			@if(Session::has('message'))
+				<p class="form-success">{{ Session::get('message') }}</p>
+			@endif
 
-			{{ Form::open(array(URL::to(Request::segment(1)))) }}
+			{{ Form::open(array('route'=>'review.post', 'method' => 'post')) }}
 
-				{{ Form::token() }}
+				{{ Form::hidden('status', 1) }}
+				{{ Form::hidden('game_id', $current_game->id) }}
+				{{ Form::hidden('user_id', Auth::id()) }}
+
+				<div class="rating-control clearfix control">
+					<label class="rating" for="rating">Rating</label>
+
+					{{ Form::selectRange('rating', 1, 5) }}
+
+					{{ $errors->first('rating', '<p class="form-error">:message</p>') }}
+				</div>
 
 				<div class="control">
-					<input type="text" name="subject" placeholder="subject">
+					<textarea name="review" placeholder="write a review" required></textarea>
+
+					{{ $errors->first('review', '<p class="form-error">:message</p>') }}
 				</div>
 
 				<div class="captcha control clearfix">
 					{{ HTML::image(Captcha::img(), 'Captcha image') }}
-					{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
+					{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
 
-					<?php if (Request::getMethod() == 'POST') {
-						$rules =  array('captcha' => array('required', 'captcha'));
-						$validator = Validator::make(Input::all(), $rules);
-
-						if ($validator->fails()) {
-							echo '<p class="captcha-error"><i class="fa fa-close"></i> Incorrect</p>';
-						} else {
-							echo '<p class="captcha-correct"><i class="fa fa-check"></i> Matched</p>';
-						}
-					} ?>
+					{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 				</div>
 
-				<div class="control">
-					<textarea name="message" placeholder="message"></textarea>
-				</div>
 
 				<div class="control">
 					<input type="submit" value="Submit">

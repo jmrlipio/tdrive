@@ -22,7 +22,7 @@ return [
 	/**
 	 * Enable it?
 	 */
-	'enabled' => false,
+	'enabled' => true,
 
 	/**
 	 * Robots should be tracked?

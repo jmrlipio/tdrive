@@ -55,7 +55,7 @@ class InquiriesController extends \BaseController {
 				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
 			});
 
-			return Redirect::back()->with('message', 'Inquiry Sent!');
+			return Redirect::back()->with('message', 'Your inquiry has been sent.');
 		}
 
 		//validator fails

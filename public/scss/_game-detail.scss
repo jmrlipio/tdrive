@@ -71,7 +71,7 @@
 		}
 
 		.downloads {
-			background: #ff89b7 url(../images/downloads.png) center -8px no-repeat;
+			background: #ff89b7 url(../images/downloads.png) -5px -8px no-repeat;
 			position: relative;
 			width: 100%;
 			font-weight: bold;
@@ -389,6 +389,34 @@
 	#review {
 		margin: 10px 0;
 		text-align: center;
+
+		.rating-control {
+			border: 1px solid $pink;
+			@include border-radius(4px);
+
+			label {
+				padding: 5px 10px;
+				background: $pink;
+				color: $white;
+				float: left;
+				width: 20%;
+				@extend %box-sizing;
+			}
+
+			select {
+				height: 29px;
+				float: left;
+				width: 80%;
+			}
+		}
+
+		.form-success {
+			margin-left: 0;
+		}
+
+		.form-error {
+			margin-left: 0;
+		}
 
 		.button {
 			a {

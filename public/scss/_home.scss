@@ -278,15 +278,8 @@
 
 		label.common {
 			display: block;
-			position: absolute;
 			text-transform: lowercase;
-			left: 0;
-			top: 5px;
 			line-height: 26px;
-			background: $pink;
-			text-align: center;
-			width: 100px;
-			@extend %box-sizing;
 		}
 
 		.control {
@@ -294,63 +287,55 @@
 			margin-top: 10px;
 
 			&:last-child {
-				margin-top: 0;
-				background: $white;
-				margin-left: 1%;
-				width: 99%;
+				margin-top: 10px;
+			}
+		}
+
+		.captcha {
+			img {
+				top: 4px;
 			}
 		}
 
 		input[type="text"], input[type="email"] {
-			padding: 18px 6px;
-			height: 26px;
-			padding-left: 105px;
-			margin-left: 1%;
-			width: 99%;
+			padding: 12px 6px;
+			height: 34px;
+			width: 100%;
 			@extend %box-sizing;
 		}
 
 		.select {
-			background: $white;
 			position: relative;
 			margin-top: 10px;
-			margin-left: 1%;
 
 			label {
 				display: block;
 				text-transform: lowercase;
-				margin-top: 5px;
 				line-height: 26px;
-				background: $pink;
-				text-align: center;
-				width: 100px;
-				margin-left: -1%;
-				float: left;
-				@extend %box-sizing;
 			}
 
 			select {
-				float: left;
-				width: 180px;
-				margin-left: 10px;
-				height: 36px;
+				padding: 8px 6px;
+				font-size: 12px;
+				height: 34px;
+				width: 100%;
+				@extend %box-sizing;
 			}
 		}
 
 		textarea {
-			padding: 36px 6px 4px;
+			padding: 6px 4px;
 			min-height: 100px;
-			width: 99%;
-			margin-left: 1%;
+			width: 100%;
 			@extend %box-sizing;
 		}
 
 		input[type="submit"] {
 			text-transform: lowercase;
-			float: right;
 			background: $pink;
 			color: $white;
 			padding: 4px 6px;
+			float: right;
 		}
 	}	
 

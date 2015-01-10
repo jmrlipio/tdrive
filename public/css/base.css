@@ -154,6 +154,7 @@ img.auto, video.auto {
 }
 
 .form-success {
+  text-transform: none;
   background: #a0c82a;
   color: #fff;
   padding: 6px;
@@ -161,6 +162,7 @@ img.auto, video.auto {
 }
 
 .form-error {
+  text-transform: none;
   background: #cc0001;
   color: #fff;
   padding: 6px;
