@@ -17,14 +17,27 @@
 					@foreach ($games as $game)
 
 						<div class="item">
-							<div class="thumb"><img src="{{ URL::to('/') }}/images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></div>
+							<div class="thumb relative">
+								@if ($game->default_price == 0)
+									{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+								@endif
+
+								<img src="{{ URL::to('/') }}/images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}">
+							</div>
 
 							<div class="meta">
 								<p>{{ $game->main_title }}</p>
-								<p>P{{ $game->default_price }}.00</p>
+
+								@unless ($game->default_price == 0)
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								@endunless
 							</div>
 
-							<div class="button"><a href="#">Buy</a></div>
+							@if ($game->default_price == 0)
+								<div class="button center"><a href="#">Get</a></div>
+							@else
+								<div class="button center"><a href="#">Buy</a></div>
+							@endif
 						</div>
 
 					@endforeach

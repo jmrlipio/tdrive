@@ -16,13 +16,20 @@
 				<option value="">Select Carrier</option>
 
 				@foreach ($selected_carriers as $carrier)
-					<option value="{{ $carrier->id }}">{{ $carrier->carrier }}</option>
+					<?php $selected = ''; ?>
+
+					@if(Session::has('carrier'))
+						<?php $selected = ($carrier->id == Session::get('carrier')) ? 'selected' : ''; ?>
+					@endif
+
+					<option value="{{ $carrier->id }}" {{ $selected }}>{{ $carrier->carrier }}</option>
 				@endforeach
 
 			</select>
 		</div>
+		
 
-		{{ Form::hidden('country', $country) }}
+		{{ Form::hidden('country_id', $country_id) }}
 
 		<div class="control-item fr">
 			 {{ Form::submit('choose') }}

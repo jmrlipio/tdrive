@@ -446,4 +446,10 @@ p#generated-password {
 }
 #review_table .fa{ color: #FF7F00 !important;}
 .ml5{margin-left: 5px;}
+.link{
+	color: #E43C49;
+	text-decoration: none;
+}
+.purchased_cont{width: 90%;}
+.purchased_games{width:100%;}
 

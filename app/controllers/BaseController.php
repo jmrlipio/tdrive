@@ -20,6 +20,7 @@ class BaseController extends Controller {
 		$user_location = GeoIP::getLocation();   
 		$site_variables = SiteVariable::all();
 		$general_settings = GeneralSetting::all();
+		$game_settings = GameSetting::all();
 
 		View::share('user_location', $user_location);
 		View::share('site_variables', $site_variables);

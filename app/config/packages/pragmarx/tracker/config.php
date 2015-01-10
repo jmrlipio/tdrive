@@ -27,7 +27,7 @@ return [
 	/**
 	 * Robots should be tracked?
 	 */
-	'do_not_track_robots' => false,
+	'do_not_track_robots' => true,
 
 	/**
 	 * Which environments are not trackable?
@@ -42,6 +42,8 @@ return [
 	'do_not_track_routes' => [
 		'tracker.stats.*',
 		'admin.*',
+		'home.show',
+
 	],
 
 	/**

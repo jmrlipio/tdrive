@@ -167,8 +167,9 @@ class ReportsController extends \BaseController {
 	public function visitorlogs()
 	{
 		$sessions = Tracker::sessions(60 * 24);
+		$pageViews = Tracker::pageViews(60 * 24 * 30);
 		echo '<pre>';
-		dd($sessions);
+		dd($pageViews);
 		return View::make('admin.reports.visitorlogs');
 	}
 
@@ -256,7 +257,15 @@ class ReportsController extends \BaseController {
 
 	public function visitorsUsersViews() 
 	{
-		return View::make('admin.reports.visitors.users-index');
+
+		$users = DB::table('tracker_sessions')
+					->join('users', 'tracker_sessions.user_id', '=' , 'users.id')
+					->join('tracker_devices', 'tracker_sessions.device_id', '=' , 'tracker_devices.id')
+					->select('users.username', 'tracker_sessions.client_ip', 'tracker_sessions.created_at', 'tracker_devices.kind', 'tracker_devices.platform', 'tracker_devices.model' )
+					->get();
+
+		return View::make('admin.reports.visitors.users-index')
+					->with('users', $users);
 	}
 
 	public function visitorsRatingsViews() 
@@ -266,5 +275,35 @@ class ReportsController extends \BaseController {
 		return View::make('admin.reports.visitors.ratings')
 					->with('games', $games);
 	}
-                                                                                                            
+        
+     public function visitorsStatisticViews() 
+     {
+     	//$games = Sales::getTotalSales(1);
+     	$games = Game::all();
+
+     	return View::make('admin.reports.visitors.statistics-index')
+     				->with('games', $games);
+     }   
+
+     public function visitorsBuyStatisticViews($id) 
+     {
+     	$games = Sales::getTotalSales($id);
+/*     	echo '<pre>';
+     	dd($games);*/
+     	return View::make('admin.reports.visitors.buy-index')
+     				->with('games', $games);
+     }   
+
+     public function visitorsDownloadStatisticViews($id) 
+     {
+     	$games = Download::getTotalDownloads($id);
+
+     	return View::make('admin.reports.visitors.download-index')
+     				->with('games', $games);
+     }
+
+     public function visitorsGoolgeAnaylitcsViews() 
+     {
+     	return View::make('admin.reports.visitors.analytics');
+     }                                                                                                      
 }
