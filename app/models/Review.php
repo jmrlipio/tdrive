@@ -4,10 +4,14 @@ class Review extends Eloquent {
 
 	protected $table = 'game_reviews';
 
+	protected $fillable = ['game_id', 'user_id', 'review', 'rating', 'status'];
+
 	public static $rules = [
 		'game_id' => 'required|integer',
 		'user_id' => 'required|integer',
 		'review' => 'required',
+		'rating' => 'required',
+		'captcha' => 'required|captcha',
 		'status' => 'required|boolean'
 	];
 
@@ -64,5 +68,29 @@ class Review extends Eloquent {
 			'two' => $two,
 			'one' => $one,
 		);
+	}
+
+	public static function getRatingsPerUser($user_id) 
+	{
+		$ratings = Review::where('user_id', $user_id)->first();
+
+		if($ratings) 
+		{
+			return $ratings->rating;
+		}
+
+		return false;				
+	}
+
+	public static function getReviewPerUser($user_id) 
+	{
+		$ratings = Review::where('user_id', $user_id)->first();
+
+		if($ratings) 
+		{
+			return $ratings->review;
+		}
+
+		return false;				
 	}
 }

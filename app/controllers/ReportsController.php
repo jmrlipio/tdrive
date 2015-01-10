@@ -305,5 +305,13 @@ class ReportsController extends \BaseController {
      public function visitorsGoolgeAnaylitcsViews() 
      {
      	return View::make('admin.reports.visitors.analytics');
-     }                                                                                                      
+     }     
+
+     public function visitorActivityUsers() 
+     {
+     	$activities = ActivityLog::all();
+     	//dd($activities);
+     	return View::make('admin.reports.visitors.activity')
+     				->with('activities', $activities);
+     }                                                                                                 
 }
