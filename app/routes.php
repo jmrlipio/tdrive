@@ -65,6 +65,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
     Route::resource('carriers', 'CarriersController');
+    Route::resource('discounts', 'DiscountsController');
 
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));
@@ -115,6 +116,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@getLanguageContent'));
     Route::post('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@updateLanguageContent'));
     Route::post('news/{id}/edit-media', array('as' => 'admin.news.update-media', 'uses' => 'NewsController@updateMedia'));
+    Route::get('faq/{id}/edit/content/{language}', array('as' => 'admin.faq.edit.content', 'uses' => 'FaqsController@getLanguageContent'));
     Route::resource('media', 'MediaController');
     Route::resource('faqs', 'FaqsController');
     

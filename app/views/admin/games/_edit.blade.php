@@ -14,13 +14,13 @@
 		<br>
 		<div class='large-form tab-container' id='tab-container'>
 			<ul class='etabs'>
+				<li class='tab'><a href="#details">Details</a></li>
 				<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
-				<li class='tab'><a href="#content">Content</a></li>
-				<li class='tab'><a href="#carriers">Carriers</a></li>
+				<li class='tab'><a href="#game-content">Game Content</a></li>
 				<li class='tab'><a href="#media">Media</a></li>
 			</ul>
 			<div class='panel-container'>	
-				<ul id="custom-fields">
+				<ul id="details">
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
@@ -34,7 +34,7 @@
 						</li>
 						<li>
 							{{ Form::label('status', 'Status: ') }}
-							{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
+							{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 							{{ $errors->first('status', '<p class="error">:message</p>') }}
 						</li>
 						<li>
@@ -60,8 +60,8 @@
 						{{ Form::hidden('user_id', Auth::user()->id) }}
 					{{ Form::close() }}
 				</ul>
-				<ul id="content">
-					{{ Form::open(array('route' => array('admin.games.update-content', $game->id), 'method' => 'post')) }}
+				<ul id="custom-fields">
+					{{ Form::open(array('route' => array('admin.games.update-fields', $game->id), 'method' => 'post')) }}
 						<li>
 							{{ Form::label('category_id', 'Categories: ') }}
 							{{ Form::select('category_id[]', $categories, $selected_categories, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose category(s)...'))  }}
@@ -71,167 +71,163 @@
 							{{ Form::label('language_id', 'Languages: ') }}
 							{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
 							{{ $errors->first('language_id', '<p class="error">:message</p>') }}
-							<br>
-							{{ Form::button('Set Content', array('id' => 'set-content')) }}
 						</li>
-						<br>
-						@if($selected_languages)
-						<li id="language-content">
-							<div id="content-tab">
-								<ul class="etabs">
-									@foreach($languages as $language_id => $language)
-										@if(in_array($language_id, $selected_languages))
-											<li class="tab"><a href="#{{ to_slug($language) }}">{{ $language }}</a></li>
-										@endif
-									@endforeach
-								</ul>
-								<div class="panel-container">
-									@foreach($languages as $language_id => $language)
-										@if(in_array($language_id, $selected_languages))
-											<div id="{{ to_slug($language) }}">
-												@foreach($contents as $content)
-													@if($language_id == $content['language_id'])
-														<ul>
-															<li>
-																{{ Form::label('title-' . $language_id, 'Title:') }}	
-																{{ Form::text('titles[]', $content['title'], array('id' => 'title-' .$language_id)) }}
-															</li>
-															<li>
-																{{ Form::label('content-' . $language_id, 'Content:') }}	
-																{{ Form::textarea('contents[]', $content['content'], array('id' => 'content-' .$language_id)) }}
-															</li>
-															<li>
-																{{ Form::label('excerpt-' . $language_id, 'Excerpt:') }}	
-																{{ Form::textarea('excerpts[]', $content['excerpt'], array('id' => 'excerpt-' .$language_id)) }}
-															</li>
-														</ul>
-														{{ Form::hidden('lid[]', $language_id) }}
-													@endif
-												@endforeach
-											</div>
-										@endif
-									@endforeach
-								</div>
-							</div>
-						</li>
-						@endif
-						{{ Form::submit('Update Content', array('class' => 'update-content')) }}
-					{{ Form::close() }}
-				</ul>
-				<ul id="carriers">
-					{{ Form::open(array('route' => array('admin.games.update-carriers', $game->id), 'method' => 'post')) }}
 						<li>
 							{{ Form::label('carrier_id', 'Carriers: ') }}
 							{{ Form::select('carrier_id[]', $carriers, $selected_carriers, array('multiple' => 'multiple', 'id' => 'carriers', 'class' => 'chosen-select', 'data-placeholder'=>'Choose carriers(s)...'))  }}
-							<br>
-							{{ Form::button('Set Currencies', array('id' => 'set-currency')) }}
 							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 						</li>
-						@if($selected_carriers)
-						<li id="prices">
-							<div id="carrier-tab">
-								<ul class="etabs">
-									@foreach($carriers as $carrier_id => $carrier)
-										@if(in_array($carrier_id, $selected_carriers))
-											<li class="tab"><a href="#{{ to_slug($carrier) }}">{{ $carrier }}</a></li>
-										@endif
-									@endforeach
-								</ul>
-								<div class="panel-container">
-									@foreach($carriers as $carrier_id => $carrier)
-										@if(in_array($carrier_id, $selected_carriers))
-											<div id="{{ to_slug($carrier) }}">
-												<h3>Prices for countries with {{ $carrier }} carrier:</h3>
-												@foreach($prices as $pid)
-													@if($carrier_id == $pid['carrier_id'])
-														@foreach($countries as $country)
-															@if($country->id == $pid['country_id'])
-																<label for="{{ $pid['country_id'] }}">{{ $country->currency_code }}:</label>
-															@endif
-														@endforeach
-														<input type="text" class="prices" name="prices{{ $pid['carrier_id'] }}[{{ $pid['country_id'] }}]" id="{{ $pid['country_id'] }}" value="{{ $pid['price'] }}">
-													@endif
-												@endforeach
-											</div>
-										@endif
-									@endforeach
-								</div>
-							</div>
-						</li>
-						@endif
-					{{ Form::submit('Update Carriers', array('class' => 'update-content')) }}
+						{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
 					{{ Form::close() }}
 				</ul>
-				<br>
-
+				<ul id="game-content">
+					<h3>The game has content for the following languages:</h3>
+					<br>
+					@if($selected_languages)
+					<ul>
+						@foreach($languages as $language_id => $language)
+							@if(in_array($language_id, $selected_languages))
+								<li><a href="{{ URL::route('admin.games.edit.content', array('game_id' => $game->id, 'language_id' => $language_id)) }}">{{ $language }}</a></li>
+							@endif
+						@endforeach
+					</ul>
+					@else
+						<p>Please select one or more languages to add content to this game.</p>
+					@endif
+					<br>
+					<h3>The game has prices for the following carriers:</h3>
+					<br>
+					@if($selected_carriers)
+					<ul>
+						@foreach($carriers as $carrier_id => $carrier)
+							@if(in_array($carrier_id, $selected_carriers))
+								<li><a href="{{ URL::route('admin.games.edit.prices', array('game_id' => $game->id, 'carrier_id' => $carrier_id)) }}">{{ $carrier }}</a></li>
+							@endif
+						@endforeach
+					</ul>
+					@else
+						<p>Please select one or more carriers to add prices to this game.</p>
+					@endif
+				</ul>
 				<ul id="media">
-					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post')) }}
+					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
 						<li>
-							{{ Form::label('featured-img', 'Featured Image:') }}
-							<?php $featured = false; ?>
+							{{ Form::label('image_orientation', 'Orientation: ') }}
+							{{ Form::select('image_orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'), $game->image_orientation)  }}
+							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
+						</li>
+						<li>
+							{{ Form::label('promo', 'Featured Image:', array('class' => 'image-label')) }}
 							@foreach($selected_media as $media)
-								@if($media['type'] == 'featured')
-									<?php $featured = true; ?>
-									<div class="img-holder">
-										<img src="{{ $media['media_url'] }}">
+								@if($media['type'] == 'promos')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
 									</div>
-									<p>
-										{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-										{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
-										{{ Form::button('Select', array('class' => 'select-img')) }}
-									</p>
 								@endif
 							@endforeach
-							@if(!$featured)
+							{{ Form::file('promo') }}
+						</li>
+						<li>
+							{{ Form::label('icon', 'Icon:', array('class' => 'image-label')) }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'icons')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+								@endif
+							@endforeach
+							{{ Form::file('icon') }}
+						</li>
+						<h3>Screenshots:</h3>
+						<br>
+						@foreach($selected_media as $media)
+							@if($media['type'] == 'screenshots')
+								<li>
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+									{{ Form::file('screenshots[]', array('class' => 'screenshot')) }}
+									{{ Form::button('Remove', array('class' => 'remove-btn')) }}
+									{{ Form::hidden('ssid[]', $media['media_id'], array('class' => 'ssid')) }}
+								</li>
+							@endif
+						@endforeach
+						{{ Form::button('Add Screenshot', array('id' => 'add-img')) }}
+						<br><br>
+						{{ Form::submit('Update Media', array('class' => 'update-content')) }}
+					{{ Form::close() }}
+				</ul>
+
+				<!--
+				<ul id="media">
+					{{-- Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post')) --}}
+						<li>
+							{{-- Form::label('featured-img', 'Featured Image:') --}}
+							<?php //$featured = false; ?>
+							@//foreach($selected_media as $media)
+								@//if($media['type'] == 'featured')
+									<?php //$featured = true; ?>
+									<div class="img-holder">
+										<img src="{{-- $media['media_url'] --}}">
+									</div>
+									<p>
+										{{-- Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) --}}
+										{{-- Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) --}}
+										{{-- Form::button('Select', array('class' => 'select-img')) --}}
+									</p>
+								@//endif
+							@//endforeach
+							@//if(!$featured)
 								<div class="img-holder"></div>
 								<p>
-									{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-									{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-									{{ Form::button('Select', array('class' => 'select-img')) }}
+									{{-- Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) --}}
+									{{-- Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) --}}
+									{{-- Form::button('Select', array('class' => 'select-img')) --}}
 								</p>
-							@endif
+							@//endif
 						</li>
 						<br>
 						<ul id="screenshots">
 							<label>Images:</label>
-							{{ Form::button('Add Image', array('id' => 'add-img')) }}<br>
+							{{-- Form::button('Add Image', array('id' => 'add-img')) --}}<br>
 							<?php 
-								$screenshot = false; 
-								$i = 1; 
+								//$screenshot = false; 
+								//$i = 1; 
 							?>
-							@foreach($selected_media as $media)
-								@if($media['type'] == 'screenshot')
-									<?php $screenshot = true; ?>
+							@//foreach($selected_media as $media)
+								@//if($media['type'] == 'screenshot')
+									<?php //$screenshot = true; ?>
 									<li>
 										<div class="img-holder">
-											<img src="{{ $media['media_url'] }}">
+											<img src="{{-- $media['media_url'] --}}">
 										</div>
 										<p>
-											{{ Form::text('screenshots', $media['media_url'], array('class' => 'img-url', 'disabled')) }}
-											{{ Form::hidden('screenshot_id[]', $media['media_id'], array('class' => 'hidden_id')) }}
-											{{ Form::button('Select', array('class' => 'select-img')) }}
-											@if($i > 1)
-												{{ Form::button('Remove', array('class' => 'remove-img')) }}
-											@endif
-											<?php $i++; ?>
+											{{-- Form::text('screenshots', $media['media_url'], array('class' => 'img-url', 'disabled')) --}}
+											{{-- Form::hidden('screenshot_id[]', $media['media_id'], array('class' => 'hidden_id')) --}}
+											{{-- Form::button('Select', array('class' => 'select-img')) --}}
+											@//if($i > 1)
+												{{-- Form::button('Remove', array('class' => 'remove-img')) --}}
+											@//endif
+											<?php //$i++; ?>
 										</p>
 									</li>
-								@endif
-							@endforeach
-							@if(!$screenshot)
+								@//endif
+							@//endforeach
+							@//if(!$screenshot)
 								<li>
 									<div class="img-holder"></div>
 									<p>
-										{{ Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) }}
-										{{ Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) }}
-										{{ Form::button('Select', array('class' => 'select-img')) }}
+										{{-- Form::text('screenshots', null, array('class' => 'img-url', 'disabled')) --}}
+										{{-- Form::hidden('screenshot_id[]', null, array('class' => 'hidden_id')) --}}
+										{{-- Form::button('Select', array('class' => 'select-img')) --}}
 									</p>
 								</li>
-							@endif
+							@//endif
 						</ul>
-						{{ Form::submit('Update Media', array('class' => 'update-content')) }}
-					{{ Form::close() }}
+						{{-- Form::submit('Update Media', array('class' => 'update-content')) --}}
+					{{-- Form::close() --}}
 				</ul>
+				-->
 			</div>
 		</div>
 	</article>
@@ -264,24 +260,38 @@
 
         // Appends fields for adding screenshots on Images tab
 		$('#add-img').click(function() {
-			$('#screenshots').append(" \
+			$(this).before(' \
 				<li> \
-					<div class='img-holder'></div> \
-					<p> \
-						<input class='img-url' type='text' name='screenshots' disabled> \
-						<input type='hidden' name='screenshot_id[]' class='hidden_id'> \
-						<button class='select-img' type='button'>Select</button> \
-						<button class='remove-img' type='button'>Remove</button> \
-					</p> \
-				</li>");
+					<input name="screenshots[]" type="file"> \
+					<button class="remove-btn" type="button">Remove</button> \
+				</li> \
+				');
 		});
 
 		$('#tab-container > .etabs a').click(function() {
 			$('body').scrollTop(0);
 		});
+
+	    $('#update-media').on('submit', function() {
+	    	$('.screenshot').each(function() {
+	    		var sfile = $(this);
+	    		if(sfile.val() != '') {
+	    			sfile.parent().find('.ssid').remove();
+	    		}
+	    	});
+	    });
 	});
 
-	// Opens media dialog for selecting featured and screenshots images
+	// Removes added field for screenshots on Images tab
+	$("#media").on('click', '.remove-btn',function(){
+		$(this).parent().remove();
+	});
+
+	// $('.featured').on('click', function() {
+
+	// 	var checked = ($(this).is(':checked')) ? 1 : 0;
+
+	/* Opens media dialog for selecting featured and screenshots images
 	$("#media").on('click', '.select-img',function(){
 		img_li = $(this).parent().parent();
 		$('#cover').css('display', 'block');
@@ -346,57 +356,20 @@
 	});
 
 	$('#set-content').on('click', function(){
-		var content = $('#content');
-		$('#content').remove('#language-content');
-		$('#content').append('<li id="language-content"></li>');
-		var content_li = $('#language-content').html('');
-		content_li.append('<div id="content-tab"></div>');
+		var llinks = $('#language-links').html('');
 
-		var content_tab = content_li.find('#content-tab');
 
-		content_tab.html('');
-		content_tab.append('<ul class="etabs"></ul>');
-		content_tab.append('<div class="panel-container"></div>');
 
 		$("#languages option:selected").each(function() {
 			var id = $(this).val();
 			var language = $(this).text();
 
-			var content_div = convertToSlug(language);
+			var link = '<a href="">' + language + '</a>';
+			llinks.append(link);
 
-			var content_menu = '<li class="tab"><a href="#' + content_div + '">' + language + '</a></li>';
-			content_tab.find('.etabs').append(content_menu);
-			content_tab.find('.panel-container').append('<div id="' + content_div + '"></div>');
-
-			var title = '<li> \
-							<label for="title-' + content_div + '">Title: </label> \
-							<input id="title-' + content_div + '" name="titles[]" type="text"> \
-						 </li>';
-
-			var content = '<li> \
-								<label for="content-' + content_div + '">Content: </label> \
-								<textarea id="content-' + content_div + '" name="contents[]" class="ckeditor"></textarea> \
-						   </li>';
-
-			var excerpt = '<li> \
-								<label for="excerpt-' + content_div + '">Excerpt: </label> \
-								<textarea name="excerpts[]" class="excerpt" id="excerpt-' + content_div + '"></textarea>\
-						   </li>';
-
-			$('#' + content_div).append(title);
-			$('#' + content_div).append(content);
-			$('#' + content_div).append(excerpt);
-
-	    	// CKEDITOR.replace('content-' + content_div);
-	    	// CKEDITOR.add;
 		});
 
 		content_tab.easytabs();
-	});
-
-	// Removes added field for screenshots on Images tab
-	$("#media").on('click', '.remove-img',function(){
-		$(this).parent().parent().remove();
 	});
 
 	// On submit of form
@@ -440,6 +413,6 @@
 				}
 			}
 		});
-	}
+	} */
     </script>
 @stop
