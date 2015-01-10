@@ -8,8 +8,9 @@ class Inquiry extends \Eloquent {
 	public static $rules = [
 		'name' => 'required|min:3',
 		'email' => 'required|email|min:3',
-		'game' => 'required',
-		'message' => 'required|min:3'
+		'game_title' => 'required',
+		'message' => 'required|min:3',
+		'captcha' => 'required'
 	];
 
 	public static $reply_rules = [

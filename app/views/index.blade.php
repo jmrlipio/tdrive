@@ -419,6 +419,8 @@
 			<div class="control clearfix">
 				<label class="common" for="name">Name</label>
 				<input type="text" name="name" id="name">
+
+				{{ $errors->first('name', '<p class="error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
@@ -429,7 +431,7 @@
 			<div class="select clearfix">
 				<label for="game">Game Title</label>
 
-				<select name="game" class="clearfix" id="game">
+				<select name="game_title" class="clearfix" id="game">
 					<option value="General Inquiry">General Inquiry</option>
 
 					@foreach($games as $game)
@@ -442,17 +444,6 @@
 			<div class="captcha control clearfix">
 				{{ HTML::image(Captcha::img(), 'Captcha image') }}
 				{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
-
-				<?php if (Request::getMethod() == 'POST') {
-					$rules =  array('captcha' => array('required', 'captcha'));
-					$validator = Validator::make(Input::all(), $rules);
-
-					if ($validator->fails()) {
-						echo '<p class="captcha-error"><i class="fa fa-close"></i> Incorrect</p>';
-					} else {
-						echo '<p class="captcha-correct"><i class="fa fa-check"></i> Matched</p>';
-					}
-				} ?>
 			</div>
 
 			<div class="control clearfix">
