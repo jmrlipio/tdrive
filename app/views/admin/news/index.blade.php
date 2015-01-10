@@ -26,7 +26,7 @@
 
 			<tbody>
 
-				@forelse($news as $data)
+				@foreach($news as $data)
 					
 					<tr>
 						<td><input type="checkbox"></td>
@@ -55,12 +55,8 @@
 						<td>{{ $data->created_at }}</td>
 						
 					</tr>
-							
-			@empty
-				<tr class="tall-tr">
-					<td colspan="6"><p>You haven't created any news yet.</p></td>
-				</tr>
-			@endforelse
+						
+			@endforeach
 
 			</tbody>
 		
