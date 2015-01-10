@@ -24,9 +24,9 @@ class Download extends Eloquent{
 		$total = 0;
 		foreach($prices as $_prices) 
 		{
-			$sales 	= Download::where('game_price_id', '=', $_prices->id)
+			$download 	= Download::where('game_price_id', '=', $_prices->id)
 							->get();
-			$count = count($sales->toArray());
+			$count = count($download->toArray());
 			$total = $total + $count;
 
 			$array = array(
@@ -41,6 +41,23 @@ class Download extends Eloquent{
 
 		return $games;	
 
+	}
+
+		public static function getTotal($game_id)
+	{
+		$prices = GameSales::where('game_id', '=', $game_id)
+				->get();
+		$total = 0;		
+		foreach($prices as $_prices) 
+		{
+			$download 	= Download::where('game_price_id', '=', $_prices->id)
+							->get();
+			$count = count($download->toArray());
+			$total = $total + $count;
+
+		}
+
+		return $total;	
 	}
 
 }
