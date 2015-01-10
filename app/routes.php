@@ -63,6 +63,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
     Route::resource('carriers', 'CarriersController');
+    Route::resource('discounts', 'DiscountsController');
 
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));
