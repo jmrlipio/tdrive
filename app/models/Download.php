@@ -1,8 +1,8 @@
 <?php
 
-class Sales extends Eloquent{
+class Download extends Eloquent{
 
-    protected $table = 'game_sales';
+    protected $table = 'game_downloads';
 
     public function user() {
 		return $this->belongsTo('User');
@@ -13,7 +13,7 @@ class Sales extends Eloquent{
 		return $this->belongsTo('GameSales', 'game_price_id', 'id');
 	}
 
-	public static function getTotalSales($game_id) 
+	public static function getTotalDownloads($game_id) 
 	{
     	$prices = GameSales::where('game_id', '=', $game_id)
 				->get();
@@ -24,7 +24,7 @@ class Sales extends Eloquent{
 		$total = 0;
 		foreach($prices as $_prices) 
 		{
-			$sales 	= Sales::where('game_price_id', '=', $_prices->id)
+			$sales 	= Download::where('game_price_id', '=', $_prices->id)
 							->get();
 			$count = count($sales->toArray());
 			$total = $total + $count;

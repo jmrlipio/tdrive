@@ -238,12 +238,14 @@
 				<label class="common" for="name">Name</label>
 				<input type="text" name="name" id="name">
 
-				{{ $errors->first('name', '<p class="error">:message</p>') }}
+				{{ $errors->first('name', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
 				<label class="common" for="email">Email</label>
 				<input type="email" name="email" id="email">
+
+				{{ $errors->first('email', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="select clearfix">
@@ -257,21 +259,28 @@
 					@endforeach
 
 				</select>
+
+				{{ $errors->first('game_title', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="captcha control clearfix">
 				{{ HTML::image(Captcha::img(), 'Captcha image') }}
 				{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
+
+				{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
 				<label class="common" for="message">Message</label>
 				<textarea name="message" id="message"></textarea>
+
+				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
 				<input type="submit" value="Submit &raquo;">
 			</div>
+
 		{{ Form::close() }}
 
 	</div><!-- end #contact -->

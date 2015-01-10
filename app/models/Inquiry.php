@@ -10,7 +10,7 @@ class Inquiry extends \Eloquent {
 		'email' => 'required|email|min:3',
 		'game_title' => 'required',
 		'message' => 'required|min:3',
-		'captcha' => 'required'
+		'captcha' => 'required|captcha'
 	];
 
 	public static $reply_rules = [

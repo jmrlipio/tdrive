@@ -237,7 +237,8 @@
 			.count {
 				font-size: 32px;
 				float: left;
-				width: 50px;
+				width: auto;
+				padding-right: 10px;
 				padding-top: 24px;
 			}
 
@@ -324,18 +325,18 @@
 
 				.meter {
 					float: left;
-					width: 45%;
 					height: 14px;
 					position: relative;
 					padding-left: 10px;
+					width: 198px;
 					@include border-radius(4px);
 					@extend %box-sizing;
 
 					span {
 						margin-top: 2px;
-						display: block;
 						float: left;
 						height: 100%;
+						max-width: 96px;
 					}
 
 					.total {
@@ -586,7 +587,6 @@
 				.count {
 					font-size: 40px;
 					float: left;
-					width: 65px;
 					padding-top: 18px;
 				}
 			}

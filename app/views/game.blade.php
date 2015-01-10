@@ -40,7 +40,7 @@
 
 		<div class="ratings">
 			<div class="vcenter">
-				<p class="count">4.3</p>
+				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
 
 				<div class="stars">
 					<a href="#"><i class="fa fa-star active"></i></a>
@@ -50,22 +50,29 @@
 					<a href="#"><i class="fa fa-star"></i></a>
 				</div>
 
-				<p class="total">453,962 Total</p>
+				<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
 			</div>
 		</div>
 
-		<a href="#" class="buy">
-			<div>
-				<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
-				<p class="price">P{{{ $game->default_price }}}.00</p>
-			</div>
-		</a>
+		@if ($game->default_price == 0)
+			<a href="#" class="download">
+				<div>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+				</div>
+			</a>
+		@else
+			<a href="#" class="buy">
+				<div>
+					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
 
-		<!--<a href="#" class="download">
-			<div>
-				<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
-			</div>
-		</a>-->
+					@foreach($game->prices as $price) 
+						@if($country->id == $price->pivot->country_id)
+							<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+						@endif
+					@endforeach
+				</div>
+			</a>
+		@endif
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
@@ -103,7 +110,7 @@
 
 	<div id="statistics" class="container">
 		<div class="top clearfix">
-			<p class="count">4.3</p>
+			<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
 
 			<div class="stars-container">
 				<div class="stars">
@@ -114,7 +121,7 @@
 					<a href="#"><i class="fa fa-star"></i></a>
 				</div>
 
-				<p class="total">5,649,796 Total</p>
+				<p class="total">{{ $ratings['count'] }} total</p>
 			</div>
 
 			<div class="social clearfix">
@@ -141,8 +148,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">3,677,764</p>
+					<span style="width: {{ ($ratings['five'] / $ratings['count']) * 100 }}%"></span>
+
+					<p class="total">{{ $ratings['five'] }}</p>
 				</div>
 			</div>
 
@@ -155,8 +163,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">1,009,887</p>
+					<span style="width: {{ ($ratings['four'] / $ratings['count']) * 100 }}%"></span>
+
+					<p class="total">{{ $ratings['four'] }}</p>
 				</div>
 			</div>
 
@@ -168,8 +177,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">443,260</p>
+					<span style="width: {{ ($ratings['three'] / $ratings['count']) * 100 }}%"></span>
+
+					<p class="total">{{ $ratings['three'] }}</p>
 				</div>
 			</div>
 
@@ -180,8 +190,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">189,961</p>
+					<span style="width: {{ ($ratings['two'] / $ratings['count']) * 100 }}%"></span>
+
+					<p class="total">{{ $ratings['two'] }}</p>
 				</div>
 			</div>
 
@@ -191,8 +202,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">328,887</p>
+					<span style="width: {{ ($ratings['one'] / $ratings['count']) * 100 }}%"></span>
+
+					<p class="total">{{ $ratings['one'] }}</p>
 				</div>
 			</div>
 		</div>
@@ -205,10 +217,6 @@
 			{{ Form::open(array(URL::to(Request::segment(1)))) }}
 
 				{{ Form::token() }}
-
-				<div class="control">
-					<input type="text" name="username" placeholder="username">
-				</div>
 
 				<div class="control">
 					<input type="text" name="subject" placeholder="subject">
@@ -373,7 +381,9 @@
 				offsetPxAfter: 10,
 				calculateHeight: true
 			})
-		})
+		});
+
+
 
 		$('.fancybox').fancybox({ padding: 0 });
 	</script>

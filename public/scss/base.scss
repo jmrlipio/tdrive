@@ -159,14 +159,14 @@ img, video {
 	}
 }
 
-.captcha-correct {
+.form-success {
 	background: $green;
 	color: $white;
 	padding: 6px;
 	margin-left: 1%;
 }
 
-.captcha-error {
+.form-error {
 	background: $red;
 	color: $white;
 	padding: 6px;
