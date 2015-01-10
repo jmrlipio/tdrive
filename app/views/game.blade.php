@@ -310,39 +310,47 @@
 	<div id="related-games" class="container">
 		<h1 class="title">Related games</h1>
 
-		<div class="swiper-container thumbs-container">
-			<div class="swiper-wrapper">
+		@if(!empty($related_games))
 
-				@foreach($related_games as $game)
+			<div class="swiper-container thumbs-container">
+				<div class="swiper-wrapper">
 
-					<div class="swiper-slide item">
-						<div class="thumb relative">
+					@foreach($related_games as $game)
+
+						<div class="swiper-slide item">
+							<div class="thumb relative">
+								@if ($game->default_price == 0)
+									{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+								@endif
+
+								<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+
+								@unless ($game->default_price == 0)
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								@endunless
+							</div>
+
 							@if ($game->default_price == 0)
-								{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+								<div class="button center"><a href="#">Get</a></div>
+							@else
+								<div class="button center"><a href="#">Buy</a></div>
 							@endif
-
-							<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
 						</div>
 
-						<div class="meta">
-							<p class="name">{{{ $game->main_title }}}</p>
+					@endforeach
 
-							@unless ($game->default_price == 0)
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							@endunless
-						</div>
-
-						@if ($game->default_price == 0)
-							<div class="button center"><a href="#">Get</a></div>
-						@else
-							<div class="button center"><a href="#">Buy</a></div>
-						@endif
-					</div>
-
-				@endforeach
-
+				</div>
 			</div>
-		</div>
+
+		@else
+
+			<p>No related games.</p>
+
+		@endif
 
 		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
 	</div><!-- end #related-games -->

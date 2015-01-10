@@ -1,3 +1,12 @@
+<?php
+
+$user_location = GeoIP::getLocation();   
+$site_variables = SiteVariable::all();
+$general_settings = GeneralSetting::all();
+$game_settings = GameSetting::all();
+
+?>
+
 <div id="side-menu" class="pushy pushy-left">
 
 	<div class="top">

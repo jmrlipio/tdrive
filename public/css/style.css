@@ -25,7 +25,6 @@
 }
 #home #slider .swiper-slide {
   width: 260px;
-  height: 153px;
 }
 #home #slider img {
   width: 100%;
@@ -324,13 +323,6 @@
   }
 }
 @media only screen and (min-width: 800px) {
-  #home #slider {
-    margin-top: 40px;
-  }
-  #home .slider-container {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
   #home .lSSlideOuter .lSPager.lSpg > li a {
     width: 20px;
     height: 20px;

@@ -58,6 +58,8 @@ class HomeController extends BaseController {
 
 		$game_settings = GameSetting::all();
 
+		$featured_games = Game::where('featured', 1)->orderBy('created_at', 'DESC')->get();
+
 		$games = Game::all()->take($game_settings[0]->game_thumbnails);
 
 		foreach(Category::all() as $cat) {
@@ -89,6 +91,7 @@ class HomeController extends BaseController {
 			->with('carrier', $carrier)
 			->with('country', $country)
 			->with('categories', $categories)
+			->with(compact('featured_games'))
 			->with(compact('games'))
 			->with(compact('faqs'))
 			->with(compact('languages'));

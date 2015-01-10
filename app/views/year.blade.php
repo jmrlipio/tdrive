@@ -13,38 +13,34 @@
 
 			<div id="token">{{ Form::token() }}</div>
 
-			<div id="scroll">
+			@foreach ($news as $item)
+				@foreach ($item->contents as $content)
 
-				@foreach ($news as $item)
-					@foreach ($item->contents as $content)
+					<div class="item">
+						<div class="date">
+							<div class="vhparent">
+								<p class="vhcenter">{{ Carbon::parse($item->release_date)->format('M j') }}</p>
+							</div>	
+						</div>	
 
-						<div class="item">
-							<div class="date">
-								<div class="vhparent">
-									<p class="vhcenter">{{ Carbon::parse($item->release_date)->format('M j') }}</p>
+						<div class="details">
+							<div class="vparent">
+								<div class="vcenter">
+									<h3>{{{ $item->main_title }}}</h3>
+									<p>{{{ $content->pivot->excerpt }}}</p>
 								</div>	
-							</div>	
-
-							<div class="details">
-								<div class="vparent">
-									<div class="vcenter">
-										<h3>{{{ $item->main_title }}}</h3>
-										<p>{{{ $content->pivot->excerpt }}}</p>
-									</div>	
-								</div>
-							</div>	
-
-							<div class="readmore">
-								<a href="{{ '/news/'. $item->id }}">
-									<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
-								</a>
 							</div>
+						</div>	
+
+						<div class="readmore">
+							<a href="{{ '/news/'. $item->id }}">
+								<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
+							</a>
 						</div>
+					</div>
 
-					@endforeach
 				@endforeach
-
-			</div>
+			@endforeach
 
 		</div>
 
@@ -62,7 +58,7 @@
 		var load = 0;
 		var _token = $('#token input').val();
 		var num = {{ $count }};
-		var year = {{ $title }};
+		var year = "{{ $title }}";
 
 		$(window).scroll(function() {
 			$('.ajax-loader').show();
@@ -74,7 +70,7 @@
 			} else {
 
 				$.ajax({
-					url: "news/more",
+					url: "{{ url() }}/year/more",
 					type: "POST",
 					data: {
 						load: load,
