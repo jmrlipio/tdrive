@@ -33,14 +33,14 @@
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
-				<p class="count">100</p>
-				<p class="words"><span>Thousand</span> Downloads</p>
+				<p class="count">{{ number_format($game->downloads, 0) }}</p>
+				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
 			</div>
 		</div>
 
 		<div class="ratings">
 			<div class="vcenter">
-				<p class="count">4.3</p>
+				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
 
 				<div class="stars">
 					<a href="#"><i class="fa fa-star active"></i></a>
@@ -50,22 +50,29 @@
 					<a href="#"><i class="fa fa-star"></i></a>
 				</div>
 
-				<p class="total">453,962 Total</p>
+				<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
 			</div>
 		</div>
 
-		<a href="#" class="buy">
-			<div>
-				<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
-				<p class="price">P{{{ $game->default_price }}}.00</p>
-			</div>
-		</a>
+		@if ($game->default_price == 0)
+			<a href="#" class="download">
+				<div>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+				</div>
+			</a>
+		@else
+			<a href="#" class="buy">
+				<div>
+					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
 
-		<!--<a href="#" class="download">
-			<div>
-				<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
-			</div>
-		</a>-->
+					@foreach($game->prices as $price) 
+						@if($country->id == $price->pivot->country_id)
+							<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+						@endif
+					@endforeach
+				</div>
+			</a>
+		@endif
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
@@ -103,7 +110,7 @@
 
 	<div id="statistics" class="container">
 		<div class="top clearfix">
-			<p class="count">4.3</p>
+			<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
 
 			<div class="stars-container">
 				<div class="stars">
@@ -114,7 +121,7 @@
 					<a href="#"><i class="fa fa-star"></i></a>
 				</div>
 
-				<p class="total">5,649,796 Total</p>
+				<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
 			</div>
 
 			<div class="social clearfix">
@@ -141,8 +148,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">3,677,764</p>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+					<p class="total">{{ $ratings['five'] }}</p>
 				</div>
 			</div>
 
@@ -155,8 +163,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">1,009,887</p>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+					<p class="total">{{ $ratings['four'] }}</p>
 				</div>
 			</div>
 
@@ -168,8 +177,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">443,260</p>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+					<p class="total">{{ $ratings['three'] }}</p>
 				</div>
 			</div>
 
@@ -180,8 +190,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">189,961</p>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+					<p class="total">{{ $ratings['two'] }}</p>
 				</div>
 			</div>
 
@@ -191,8 +202,9 @@
 				</div>
 
 				<div class="meter clearfix">
-					<span></span>
-					<p class="total">328,887</p>
+					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+					<p class="total">{{ $ratings['one'] }}</p>
 				</div>
 			</div>
 		</div>
@@ -201,38 +213,37 @@
 	<div id="review" class="container">
 
 		@if (Auth::check())
+			@if(Session::has('message'))
+				<p class="form-success">{{ Session::get('message') }}</p>
+			@endif
 
-			{{ Form::open(array(URL::to(Request::segment(1)))) }}
+			{{ Form::open(array('route'=>'review.post', 'method' => 'post')) }}
 
-				{{ Form::token() }}
+				{{ Form::hidden('status', 1) }}
+				{{ Form::hidden('game_id', $current_game->id) }}
+				{{ Form::hidden('user_id', Auth::id()) }}
 
-				<div class="control">
-					<input type="text" name="username" placeholder="username">
+				<div class="rating-control clearfix control">
+					<label class="rating" for="rating">Rating</label>
+
+					{{ Form::selectRange('rating', 1, 5) }}
+
+					{{ $errors->first('rating', '<p class="form-error">:message</p>') }}
 				</div>
 
 				<div class="control">
-					<input type="text" name="subject" placeholder="subject">
+					<textarea name="review" placeholder="write a review" required></textarea>
+
+					{{ $errors->first('review', '<p class="form-error">:message</p>') }}
 				</div>
 
 				<div class="captcha control clearfix">
 					{{ HTML::image(Captcha::img(), 'Captcha image') }}
-					{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
+					{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
 
-					<?php if (Request::getMethod() == 'POST') {
-						$rules =  array('captcha' => array('required', 'captcha'));
-						$validator = Validator::make(Input::all(), $rules);
-
-						if ($validator->fails()) {
-							echo '<p class="captcha-error"><i class="fa fa-close"></i> Incorrect</p>';
-						} else {
-							echo '<p class="captcha-correct"><i class="fa fa-check"></i> Matched</p>';
-						}
-					} ?>
+					{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 				</div>
 
-				<div class="control">
-					<textarea name="message" placeholder="message"></textarea>
-				</div>
 
 				<div class="control">
 					<input type="submit" value="Submit">
@@ -286,39 +297,47 @@
 	<div id="related-games" class="container">
 		<h1 class="title">Related games</h1>
 
-		<div class="swiper-container thumbs-container">
-			<div class="swiper-wrapper">
+		@if(!empty($related_games))
 
-				@foreach($related_games as $game)
+			<div class="swiper-container thumbs-container">
+				<div class="swiper-wrapper">
 
-					<div class="swiper-slide item">
-						<div class="thumb relative">
+					@foreach($related_games as $game)
+
+						<div class="swiper-slide item">
+							<div class="thumb relative">
+								@if ($game->default_price == 0)
+									{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+								@endif
+
+								<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
+							</div>
+
+							<div class="meta">
+								<p class="name">{{{ $game->main_title }}}</p>
+
+								@unless ($game->default_price == 0)
+									<p class="price">P{{{ $game->default_price }}}.00</p>
+								@endunless
+							</div>
+
 							@if ($game->default_price == 0)
-								{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+								<div class="button center"><a href="#">Get</a></div>
+							@else
+								<div class="button center"><a href="#">Buy</a></div>
 							@endif
-
-							<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
 						</div>
 
-						<div class="meta">
-							<p class="name">{{{ $game->main_title }}}</p>
+					@endforeach
 
-							@unless ($game->default_price == 0)
-								<p class="price">P{{{ $game->default_price }}}.00</p>
-							@endunless
-						</div>
-
-						@if ($game->default_price == 0)
-							<div class="button center"><a href="#">Get</a></div>
-						@else
-							<div class="button center"><a href="#">Buy</a></div>
-						@endif
-					</div>
-
-				@endforeach
-
+				</div>
 			</div>
-		</div>
+
+		@else
+
+			<p>No related games.</p>
+
+		@endif
 
 		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
 	</div><!-- end #related-games -->
@@ -341,7 +360,9 @@
 				offsetPxAfter: 10,
 				calculateHeight: true
 			})
-		})
+		});
+
+
 
 		$('.fancybox').fancybox({ padding: 0 });
 	</script>

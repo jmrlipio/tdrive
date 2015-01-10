@@ -13,14 +13,19 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
+		$country = Country::find(Session::get('country_id'));
+
 		$games = Game::all()->take(6);
 
-		$count = count($games);
+		$games_all = Game::all();
+
+		$count = count($games_all);
 
 		return View::make('games')
 			->with('page_title', 'New and updated games')
 			->with('page_id', 'game-listing')
 			->with('count', $count)
+			->with('country', $country)
 			->with(compact('games'))
 			->with(compact('languages'));
 	}
@@ -30,22 +35,13 @@ class ListingController extends \BaseController {
 		$load = Input::get('load') * 6;
 
 		$games = Game::take(3)->skip($load)->get();
+
+		$country = Country::find(Session::get('country_id'));
 		
 		if (Request::ajax()) {
-			foreach ($games as $game) {
-
-				echo '<div class="item">';
-					echo '<div class="thumb"><img src="images/games/thumb-' . $game->slug . '.jpg" alt="' . $game->main_title . '"></div>';
-
-					echo '<div class="meta">';
-						echo '<p>' . $game->main_title . '</p>';
-						echo '<p>P' . $game->default_price . '.00</p>';
-					echo '</div>';
-
-					echo '<div class="button"><a href="#">Buy</a></div>';
-				echo '</div>';
-
-			}
+			return View::make('_partials/ajax-games')
+				->with('country', $country)
+				->with(compact('games'));
 		}
 	}
 
@@ -55,14 +51,19 @@ class ListingController extends \BaseController {
 
 		$category = Category::find($id);
 
+		$country = Country::find(Session::get('country_id'));
+
 		$games = Category::find($id)->games->take(3);
 
-		$count = count($games);
+		$games_all = Category::find($id)->games;
+
+		$count = count($games_all);
 
 		return View::make('category')
 			->with('page_title', $category->category)
 			->with('page_id', 'game-listing')
 			->with('count', $count)
+			->with('country', $country)
 			->with(compact('category'))
 			->with(compact('games'))
 			->with(compact('languages'));
@@ -75,45 +76,12 @@ class ListingController extends \BaseController {
 
 		$games = Category::find($category_id)->games()->take(3)->skip($load)->get();
 		
-		if (Request::ajax()) {
-			foreach ($games as $game) {
-
-				echo '<div class="item">';
-					echo '<div class="thumb"><img src="/images/games/thumb-' . $game->slug . '.jpg" alt="' . $game->main_title . '"></div>';
-
-					echo '<div class="meta">';
-						echo '<p>' . $game->main_title . '</p>';
-						echo '<p>P' . $game->default_price . '.00</p>';
-					echo '</div>';
-
-					echo '<div class="button"><a href="#">Buy</a></div>';
-				echo '</div>';
-
-			}
-		}
-	}
-
-	public function showMoreGames($id) 
-	{
-		$load = Input::get('load') * 3;
-
-		$games = Category::find($id)->games()->take(3)->skip($load)->get();
+		$country = Country::find(Session::get('country_id'));
 		
 		if (Request::ajax()) {
-			foreach ($games as $game) {
-
-				echo '<div class="item">';
-					echo '<div class="thumb"><img src="/images/games/thumb-' . $game->slug . '.jpg" alt="' . $game->main_title . '"></div>';
-
-					echo '<div class="meta">';
-						echo '<p>' . $game->main_title . '</p>';
-						echo '<p>P' . $game->default_price . '.00</p>';
-					echo '</div>';
-
-					echo '<div class="button"><a href="#">Buy</a></div>';
-				echo '</div>';
-
-			}
+			return View::make('_partials/ajax-category')
+				->with('country', $country)
+				->with(compact('games'));
 		}
 	}
 
@@ -121,9 +89,10 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where('status', 2)->take(3)->get();
+		$news = News::where('status', 2)->orderBy('release_date', 'DESC')->take(3)->get();
+		$news_all = News::all();
 
-		$count = count($news);
+		$count = count($news_all);
 
 		return View::make('news_listing')
 			->with('page_title', 'Latest news')
@@ -140,34 +109,7 @@ class ListingController extends \BaseController {
 		$news = News::where('status', 2)->take(3)->skip($load)->get();
 		
 		if (Request::ajax()) {
-			foreach ($news as $item) {
-				foreach ($item->contents as $content) {
-
-					echo '<div class="item">';
-						echo '<div class="date">';
-							echo '<div class="vhparent">';
-								echo '<p class="vhcenter">' . Carbon::parse($item->release_date)->format('M j') . '</p>';
-							echo '</div>';
-						echo '</div>';
-
-						echo '<div class="details">';
-							echo '<div class="vparent">';
-								echo '<div class="vcenter">';
-									echo '<h3>' . $item->main_title . '</h3>';
-									echo '<p>' . $content->pivot->excerpt . '</p>';
-								echo '</div>';
-							echo '</div>';
-						echo '</div>';
-
-						echo '<div class="readmore">';
-							echo '<a href="news/' . $item->id . '">';
-								echo '<div class="vhcenter"><i class="fa fa-angle-right"></i></div>';
-							echo '</a>';
-						echo '</div>';
-					echo '</div>';
-
-				}
-			}
+			return View::make('_partials/ajax-news')->with(compact('news'));
 		}
 	}
 
@@ -175,9 +117,10 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->take(3)->get();
+		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->orderBy('release_date', 'DESC')->take(3)->get();
+		$news_all = News::all();
 
-		$count = count($news);
+		$count = count($news_all);
 
 		return View::make('year')
 			->with('page_title', $year)
@@ -196,37 +139,10 @@ class ListingController extends \BaseController {
 
 		$year = Input::get('year');
 
-		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->take(3)->skip($load)->get();
+		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->orderBy('release_date', 'DESC')->take(3)->skip($load)->get();
 
 		if (Request::ajax()) {
-			foreach ($news as $item) {
-				foreach ($item->contents as $content) {
-
-					echo '<div class="item">';
-						echo '<div class="date">';
-							echo '<div class="vhparent">';
-								echo '<p class="vhcenter">' . Carbon::parse($item->release_date)->format('M j') . '</p>';
-							echo '</div>';
-						echo '</div>';
-
-						echo '<div class="details">';
-							echo '<div class="vparent">';
-								echo '<div class="vcenter">';
-									echo '<h3>' . $item->main_title . '</h3>';
-									echo '<p>' . $content->pivot->excerpt . '</p>';
-								echo '</div>';
-							echo '</div>';
-						echo '</div>';
-
-						echo '<div class="readmore">';
-							echo '<div>';
-								echo '<a href="/news/' . $item->id . '" class="vhcenter"><i class="fa fa-angle-right"></i></a>';
-							echo '</div>';
-						echo '</div>';
-					echo '</div>';
-
-				}
-			}
+			return View::make('_partials/ajax-year')->with(compact('news'));
 		}
 	}
 
@@ -237,10 +153,13 @@ class ListingController extends \BaseController {
 		$games = Game::where('main_title', 'LIKE', Input::get('search') . "%")->take(3)->get();
 		$count = count($games);
 
+		$country = Country::find(Session::get('country_id'));
+
 		return View::make('search')
 			->with('page_title', 'Search results')
 			->with('page_id', 'game-listing')
 			->with('count', $count)
+			->with('country', $country)
 			->with(compact('games'))
 			->with(compact('languages'));
 	}
@@ -251,21 +170,12 @@ class ListingController extends \BaseController {
 
 		$games = Game::where('main_title', 'LIKE', Input::get('search') . "%")->take(3)->skip($load)->get();
 		
+		$country = Country::find(Session::get('country_id'));
+		
 		if (Request::ajax()) {
-			foreach ($games as $game) {
-
-				echo '<div class="item">';
-					echo '<div class="thumb"><img src="images/games/thumb-' . $game->slug . '.jpg" alt="' . $game->main_title . '"></div>';
-
-					echo '<div class="meta">';
-						echo '<p>' . $game->main_title . '</p>';
-						echo '<p>P' . $game->default_price . '.00</p>';
-					echo '</div>';
-
-					echo '<div class="button"><a href="#">Buy</a></div>';
-				echo '</div>';
-
-			}
+			return View::make('_partials/ajax-search')
+				->with('country', $country)
+				->with(compact('games'));
 		}
 	}
 

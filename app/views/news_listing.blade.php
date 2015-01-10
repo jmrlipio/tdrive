@@ -68,7 +68,7 @@
 			} else {
 
 				$.ajax({
-					url: "news/more",
+					url: "{{ url() }}/news/more",
 					type: "POST",
 					data: {
 						load: load,

@@ -153,14 +153,16 @@ img.auto, video.auto {
   display: block;
 }
 
-.captcha-correct {
+.form-success {
+  text-transform: none;
   background: #a0c82a;
   color: #fff;
   padding: 6px;
   margin-left: 1%;
 }
 
-.captcha-error {
+.form-error {
+  text-transform: none;
   background: #cc0001;
   color: #fff;
   padding: 6px;

@@ -9,7 +9,7 @@ Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingContro
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
 Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
-Route::post('news/year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
+Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
 
 Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 Route::post('game/{id}', array('as' => 'game.show.post', 'uses' => 'GamesController@show'));
@@ -17,11 +17,11 @@ Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingCon
 Route::post('category/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
 Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));
 Route::post('games/all/more', array('as' => 'games.all.more', 'uses' => 'ListingController@showAllMoreGames'));
-Route::post('games/more', array('as' => 'games.more.show', 'uses' => 'ListingController@showMoreGames'));
 
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
+Route::post('review/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
 
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));

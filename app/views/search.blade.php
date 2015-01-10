@@ -17,16 +17,31 @@
 					@foreach ($games as $game)
 
 						<div class="item">
-							<div class="thumb">
-								<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></a>
+							<div class="thumb relative">
+								@if ($game->default_price == 0)
+									<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
+								@endif
+
+								<img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}">
 							</div>
 
 							<div class="meta">
 								<p>{{ $game->main_title }}</p>
-								<p>P{{ $game->default_price }}.00</p>
+
+								@unless ($game->default_price == 0)
+									@foreach($game->prices as $price) 
+										@if($country->id == $price->pivot->country_id)
+											<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+										@endif
+									@endforeach
+								@endunless
 							</div>
 
-							<div class="button"><a href="#">Buy</a></div>
+							@if ($game->default_price == 0)
+								<div class="button center"><a href="#">Get</a></div>
+							@else
+								<div class="button center"><a href="#">Buy</a></div>
+							@endif
 						</div>
 
 					@endforeach
@@ -62,7 +77,7 @@
 			} else {
 
 				$.ajax({
-					url: "search/more",
+					url: "{{ url() }}/search/more",
 					type: "POST",
 					data: {
 						load: load,

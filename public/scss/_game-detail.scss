@@ -71,7 +71,7 @@
 		}
 
 		.downloads {
-			background: #ff89b7 url(../images/downloads.png) center -8px no-repeat;
+			background: #ff89b7 url(../images/downloads.png) -5px -8px no-repeat;
 			position: relative;
 			width: 100%;
 			font-weight: bold;
@@ -237,7 +237,8 @@
 			.count {
 				font-size: 32px;
 				float: left;
-				width: 50px;
+				width: auto;
+				padding-right: 10px;
 				padding-top: 24px;
 			}
 
@@ -324,18 +325,18 @@
 
 				.meter {
 					float: left;
-					width: 45%;
 					height: 14px;
 					position: relative;
 					padding-left: 10px;
+					width: 198px;
 					@include border-radius(4px);
 					@extend %box-sizing;
 
 					span {
 						margin-top: 2px;
-						display: block;
 						float: left;
 						height: 100%;
+						max-width: 96px;
 					}
 
 					.total {
@@ -388,6 +389,34 @@
 	#review {
 		margin: 10px 0;
 		text-align: center;
+
+		.rating-control {
+			border: 1px solid $pink;
+			@include border-radius(4px);
+
+			label {
+				padding: 5px 10px;
+				background: $pink;
+				color: $white;
+				float: left;
+				width: 20%;
+				@extend %box-sizing;
+			}
+
+			select {
+				height: 29px;
+				float: left;
+				width: 80%;
+			}
+		}
+
+		.form-success {
+			margin-left: 0;
+		}
+
+		.form-error {
+			margin-left: 0;
+		}
 
 		.button {
 			a {
@@ -496,7 +525,7 @@
 			@include border-radius(20px);
 			padding: 6px;
 			background: rgba(0, 0, 0, .1);
-			margin: 0 auto;
+			margin: 5px auto;
 			width: 100px;
 			height: 100px;
 
@@ -586,7 +615,6 @@
 				.count {
 					font-size: 40px;
 					float: left;
-					width: 65px;
 					padding-top: 18px;
 				}
 			}

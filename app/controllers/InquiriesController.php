@@ -36,10 +36,9 @@ class InquiriesController extends \BaseController {
 	 */
 	public function store()
 	{
-
 		$validator = Validator::make(Input::all(), Inquiry::$rules);
-		if($validator->passes()) 
-		{
+
+		if($validator->passes()) {
 
 			Inquiry::create(Input::all());
 
@@ -48,22 +47,19 @@ class InquiriesController extends \BaseController {
 			$data = array(
 			    'name' => Input::get('name'),
 			    'email' => Input::get('email'),
-			    'game' => Input::get('game'),
+			    'game_title' => Input::get('game_title'),
 			    'messages' => $message,
 			);
 
 			Mail::send('emails.inquiries.inquire', $data , function ($message) use ($data) {
-					$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
-				});
+				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
+			});
 
-
-			return Redirect::back()
-							->with('message', 'Inquiry Sent!');
+			return Redirect::back()->with('message', 'Your inquiry has been sent.');
 		}
+
 		//validator fails
-		return Redirect::back()
-						->withErrors($validator)
-						->withInput();
+		return Redirect::back()->withErrors($validator)->withInput();
 	}
 
 	/**
