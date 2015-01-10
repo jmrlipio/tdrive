@@ -3,11 +3,12 @@
 class Inquiry extends \Eloquent {
 
 	protected $table = 'inquiries';
-	protected $fillable = ['name', 'email', 'message'];
+	protected $fillable = ['name', 'email', 'game_title', 'message'];
 
 	public static $rules = [
 		'name' => 'required|min:3',
-		'email' => 'required|email|unique:inquiries',
+		'email' => 'required|email|min:3',
+		'game' => 'required',
 		'message' => 'required|min:3'
 	];
 

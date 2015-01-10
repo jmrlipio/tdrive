@@ -232,7 +232,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 .sub-nav li:hover > ul { display: block; }
 .sub-nav ul.dropdown  { display: none; }
-.sub-nav .dropdown li  { width: 100%; background-color: #888; }
+.sub-nav .dropdown li  { width: 100% !important; background-color: #888; }
 
 
 .delete-form { border: 0; padding: 0; margin: 0; }

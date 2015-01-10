@@ -4,13 +4,16 @@
 	<div class="item-listing" id="categories-list">
 		<h2>Inquiries</h2>
 		<br>
-		<table>
+		<table id="table">
+			<thead>
 			<tr>
 				<th><input type="checkbox"></th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Message</th>
 			</tr>
+			<thead>
+			<tbody>
 			@foreach($inquiries as $inquiry)
 				<tr>
 					<td><input type="checkbox"></td>
@@ -29,7 +32,15 @@
 					<td>{{ $inquiry->message }}</td>
 				</tr>
 			@endforeach
+		</tbody>
 		</table>
 	</div>
-	{{ HTML::script('js/form-functions.js') }}
+	{{ HTML::script('js/form-functions.js') }}	
+	{{ HTML::script('js/jquery.dataTables.js') }}
+	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+	<script>
+	$(document).ready(function(){
+	    $('#table').DataTable();
+		});
+	</script>
 @stop

@@ -9,6 +9,7 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
+		Session::forget('telco');
 		$languages = Language::all();
 
 		$user_location = GeoIP::getLocation();   
@@ -69,7 +70,8 @@ class HomeController extends BaseController {
 		foreach(Language::all() as $language) {
 			$languages[$language->id] = $language->language;
 		}
-
+		
+		/* TODO: check if session has carrier */
 		if (!Session::has('carrier')) {
 			Session::put('country_id', Input::get('country_id'));
 			Session::put('carrier', Input::get('selected_carrier'));
@@ -81,6 +83,18 @@ class HomeController extends BaseController {
 		$carrier = Carrier::find(Session::get('carrier'));
 		$countries = [];
 
+		foreach(Country::orderBy('full_name')->get() as $country) {
+			$countries[$country->id] = $country->full_name;
+		}
+		
+	
+		if(Session::get('telco') == NULL ) {
+
+			Session::put('telco', $carrier->carrier);		
+		} 
+
+		Session::put('user_country', $country->full_name);
+		
 		return View::make('index')
 			->with('page_title', 'Home')
 			->with('page_id', 'home')
@@ -92,6 +106,7 @@ class HomeController extends BaseController {
 			->with(compact('games'))
 			->with(compact('faqs'))
 			->with(compact('languages'));
+	
 	}
 
 }

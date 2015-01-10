@@ -5,9 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>TDrive</title>
 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
     {{ HTML::style('css/dataTables.bootstrap.css') }}
     {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans') }}
     {{ HTML::style('http://fonts.googleapis.com/css?family=Indie+Flower') }}
+    {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::style('css/jquery-ui.css') }}
     {{ HTML::style('css/jquery-ui.structure.css') }}
     {{ HTML::style('css/jquery.fancybox.css') }}
@@ -20,6 +23,7 @@
     {{ HTML::script('js/jquery-ui.js') }}
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
     {{ HTML::script('js/jquery.fancybox.js') }}
+
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -90,7 +94,7 @@
     <footer>
         
     </footer>
-    @yield('scripts')
+@yield('scripts')
     <script>
         $( "#options-link" ).click(function(e) {
             e.preventDefault();

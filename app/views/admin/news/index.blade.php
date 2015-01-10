@@ -28,9 +28,7 @@
 			</thead>
 
 			<tbody>
-
-				@foreach($news as $data)
-					
+				@foreach($news as $data)					
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>
@@ -57,10 +55,8 @@
 						</td>
 						<td>{{ $data->created_at }}</td>
 						
-					</tr>
-							
+					</tr>		
 				@endforeach
-
 			</tbody>
 		
 		</table>

@@ -7,7 +7,13 @@
 		</li>
 		<li><a href="{{ URL::route('admin.reports.downloads') }}">Downloads</a></li>
 		<li><a href="{{ URL::route('admin.reports.adminlogs') }}">Admin Logs</a></li>
-		<li><a href="{{ URL::route('admin.reports.visitorlogs') }}">Visitor Logs</a></li>
+		<li><a href="{{ URL::route('admin.reports.visitors.pageviews') }}">Visitor Logs</a>
+			<ul class="dropdown">
+				<li><a href="{{ URL::route('admin.reports.visitors.ratings') }}">Ratings</a></li>
+				<li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Game Statistics</a></li>
+				<li><a href="{{ URL::route('admin.reports.visitors.analytics') }}">Google Analytics</a></li>
+			</ul>
+		</li>
 		<li><a href="{{ URL::route('admin.reports.inquiries') }}">Inquiries</a>
 			<ul class="dropdown">
 				<li><a href="{{ URL::route('admin.reports.inquiries.settings') }}">settings</a></li>
