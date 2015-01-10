@@ -28,4 +28,5 @@ class GameSales extends Eloquent{
 	{
 		return $this->belongsTo('Country');
 	}
+
 }
