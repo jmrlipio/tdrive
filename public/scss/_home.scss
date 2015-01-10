@@ -13,83 +13,25 @@
 		text-transform: none;
 	}
 
-	.lSSlideOuter .lSPager.lSpg > li a {
-		background: $pear;
-		width: 12px;
-		height: 12px;
-	}
-
-	.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {
-		background: $orange;
-	}
-
-	.slider-item {
-		.details {
-			position: relative;
-		}
-
-		.date {
-			background: $orange;
-			position: absolute;
-			z-index: 3;
-			left: 0;
-			top: 0;
-			width: 50px;
-			text-align: center;
-			text-transform: lowercase;
-
-			> div {
-				height: 50px;
-			}
-		}
-
-		.description {
-			background: $pear;
-			z-index: 1;
-			padding-left: 60px;
-			padding-right: 30px;
-			text-transform: none;
-			font-size: 14px;
-
-			> div {
-				height: 50px;
-			}
-		}
-
-		.go {
-			background: orange url(../images/go.png) center center no-repeat;
-			position: absolute;
-			z-index: 2;
-			right: 0;
-			top: 0;
-			width: 10px;
-			padding: 0 5px 0 6px;
-			display: block;
-
-			> div {
-				height: 50px;
-			}
-		}
-	}
-
-	.lSSlideOuter .lSPager.lSpg {
-		padding: 5px 0 10px;
-	}
-
-	.lSSlideOuter .lSPager.lSpg > li a {
-		background: $pear;
-	}
-
-	.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {
-		background: $orange;
-	}
-	
 	.swiper-slide {
 		width: 110px;
 		@extend %box-sizing;
 		padding-right: 0;
 		text-align: left;
 		line-height: 1.3;
+	}
+
+	#slider {
+		padding: 0;
+
+		.swiper-slide {
+			width: 260px;
+			height: 153px;
+		}
+
+		img {
+			width: 100%;
+		}
 	}
 
 	.swiper-container {

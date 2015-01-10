@@ -8,36 +8,38 @@
 
 @section('content')
 
-	<div class="slider-container container">
-		<ul id="slider" class="content-slider">
+	<div id="slider" class="swiper-container featured container">
+		<div class="swiper-wrapper">
 
-			@foreach($games as $game)
-				@foreach($game->contents as $content)
+					<div class="swiper-slide">
+						<a href=""><img src="images/uploads/1.jpg"></a>
+					</div>
 
-					@if($game->featured == 1)
-						<li class="slider-item">
-							<img src="images/slider/{{ $game->slug }}.jpg" alt="{{ $game->main_title }}">
+					<div class="swiper-slide">
+						<a href=""><img src="images/uploads/2.jpg"></a>
+					</div>
 
-							<div class="details clearfix">
-								<div class="date">
-									<div class="vhparent"><p class="vhcenter">{{ Carbon::parse($game->release_date)->format('M j') }}</p></div>
-								</div>
+					<div class="swiper-slide">
+						<a href=""><img src="images/uploads/3.jpg"></a>
+					</div>
 
-								<div class="description">
-									<div class="vparent"><p class="vcenter">{{ $content->pivot->excerpt }}</p></div>
-								</div>
+					<div class="swiper-slide">
+						<a href=""><img src="images/uploads/4.jpg"></a>
+					</div>
 
-								<a href="{{ route('game.show', $game->id) }}" class="go">
-									<div class="vhparent"><p class="vhcenter hide-text">Go</p></div>
-								</a>
-							</div>
-						</li>
-					@endif
+					<div class="swiper-slide">
+						<a href=""><img src="images/uploads/5.jpg"></a>
+					</div>
 
-				@endforeach
-			@endforeach
+					<div class="swiper-slide">
+						<a href=""><img src="images/uploads/6.jpg"></a>
+					</div>
 
-		</ul><!-- end #slider -->
+					<div class="swiper-slide">
+						<a href=""><img src="images/uploads/7.jpg"></a>
+					</div>
+
+		</div>
 	</div>
 
 	<div id="latest-games" class="container">
@@ -307,20 +309,11 @@
 	<script>
 		FastClick.attach(document.body);
 
-		/*$('.menu a').click(function() {
-			$('body, html').animate({ scrollTop: $($(this).attr('href')).offset().top - $('#header').height() + 2 }, 1000);
-		});*/
-
-		$("#slider").lightSlider({
-			auto: true,
-			pause: 6000,
-			loop: true,
-			item: 1,
-			adaptiveHeight: true,
-			slideMargin: 0,
-			controls: false,
-			pager: false
-		});
+		$('.featured').swiper({
+			slidesPerView: 'auto',
+			centeredSlides:  false,
+			initialSlide: 7
+		})
 
 		$('.thumbs-container').each(function() {
 			$(this).swiper({
