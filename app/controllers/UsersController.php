@@ -147,7 +147,6 @@ class UsersController extends \BaseController {
         	if(Auth::check() && !empty($remember)){
         		Auth::login(Auth::user(), true);
         	}
-
         	//Audit log
             Event::fire('audit.login', Auth::user());
 
@@ -158,8 +157,12 @@ class UsersController extends \BaseController {
 
     public function getLogout(){
     	Event::fire('audit.logout', Auth::user());
+    	Session::forget('telco');
+
         Auth::logout();
-        return Redirect::route('users.login');
+
+        /*return Redirect::route('/');*/
+        return Redirect::intended('/');
     }
 
 /*    public function getForgotPassword(){

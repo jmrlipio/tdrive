@@ -94,7 +94,7 @@
     <footer>
         
     </footer>
-    @yield('scripts')
+@yield('scripts')
     <script>
         $( "#options-link" ).click(function(e) {
             e.preventDefault();
