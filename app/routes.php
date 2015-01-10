@@ -64,6 +64,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
     Route::resource('carriers', 'CarriersController');
+    Route::resource('discounts', 'DiscountsController');
 
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));
@@ -114,6 +115,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@getLanguageContent'));
     Route::post('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@updateLanguageContent'));
     Route::post('news/{id}/edit-media', array('as' => 'admin.news.update-media', 'uses' => 'NewsController@updateMedia'));
+    Route::get('faq/{id}/edit/content/{language}', array('as' => 'admin.faq.edit.content', 'uses' => 'FaqsController@getLanguageContent'));
     Route::resource('media', 'MediaController');
     Route::resource('faqs', 'FaqsController');
     
@@ -137,6 +139,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
         Route::get('visitors/statistics/{id?}/buy', array('as' => 'admin.reports.visitors.statistics.buy', 'uses' => 'ReportsController@visitorsBuyStatisticViews'));
         Route::get('visitors/statistics/{id?}/download', array('as' => 'admin.reports.visitors.statistics.download', 'uses' => 'ReportsController@visitorsDownloadStatisticViews'));
         Route::get('visitors/analytics', array('as' => 'admin.reports.visitors.analytics', 'uses' => 'ReportsController@visitorsGoolgeAnaylitcsViews'));
+        Route::get('visitors/activity', array('as' => 'admin.reports.visitors.activity', 'uses' => 'ReportsController@visitorActivityUsers'));
 
         Route::get('sales/lists', array('as' => 'admin.reports.sales.list', 'uses' => 'ReportsController@salesList'));
         Route::get('sales/chart', array('as' => 'admin.reports.sales.chart', 'uses' => 'ReportsController@salesChart'));

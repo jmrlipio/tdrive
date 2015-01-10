@@ -8,6 +8,7 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
+		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
 		<table>
 			<tr>
 				<th><input type="checkbox"></th>
@@ -17,7 +18,7 @@
 				<tr>
 					<td><input type="checkbox"></td>
 					<td>
-						<a href="#">{{ $faq->question }}</a>
+						<a href="#">{{ $faq->main_question }}</a>
 						<ul class="actions">
 							<li><a href="{{ URL::route('admin.faqs.edit', $faq->id) }}">Edit</a></li>
 							<li><a href="">View</a></li>
@@ -32,6 +33,6 @@
 			@endforeach
 		</table>
 		<br>
-		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
+		
 	</div>
 @stop

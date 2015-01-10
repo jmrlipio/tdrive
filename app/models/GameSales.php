@@ -7,10 +7,7 @@ class GameSales extends Eloquent{
 
     public function users() {
 
-		//return $this->belongsToMany('User', 'game_sales', 'id');
-
 		return $this->belongsToMany('User', 'prices');
-
 	}
 
 	public function sales() {

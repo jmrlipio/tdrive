@@ -236,14 +236,14 @@
 
 			<div class="control clearfix">
 				<label class="common" for="name">Name</label>
-				<input type="text" name="name" id="name">
+				<input type="text" name="name" id="name" required>
 
 				{{ $errors->first('name', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
 				<label class="common" for="email">Email</label>
-				<input type="email" name="email" id="email">
+				<input type="email" name="email" id="email" required>
 
 				{{ $errors->first('email', '<p class="form-error">:message</p>') }}
 			</div>
@@ -251,7 +251,7 @@
 			<div class="select clearfix">
 				<label for="game">Game Title</label>
 
-				<select name="game_title" class="clearfix" id="game">
+				<select name="game_title" class="clearfix" id="game" required>
 					<option value="General Inquiry">General Inquiry</option>
 
 					@foreach($games as $game)
@@ -265,14 +265,14 @@
 
 			<div class="captcha control clearfix">
 				{{ HTML::image(Captcha::img(), 'Captcha image') }}
-				{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...')) }}
+				{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
 
 				{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
 				<label class="common" for="message">Message</label>
-				<textarea name="message" id="message"></textarea>
+				<textarea name="message" id="message" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>

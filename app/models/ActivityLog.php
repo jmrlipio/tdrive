@@ -14,24 +14,13 @@ class ActivityLog extends \Eloquent {
 		$log = new ActivityLog;
      	$log->user_id = Auth::user()->id;
      	$log->activity = $_activity;
-     	$log->action = $_action;
-        $log->carrier = Session::get('telco'); 
-        $log->country = Session::get('user_country');    
+        $log->action = $_action;
+     	$log->carrier = Session::get('telco');
+        $log->country = Session::get('user_country');
 
       	$log->save();
 
       	return $log;
 	}
 
-	public static function addCarrierAndCountry($id) 
-    {
-
-    /*    $log = ActivityLog::whereUserId($id)->first();
-        $log->carrier = Session::get('telco'); 
-        $log->country = Session::get('user_country');     
-
-        $log->save();
-
-        return $log;*/
-    }
 }

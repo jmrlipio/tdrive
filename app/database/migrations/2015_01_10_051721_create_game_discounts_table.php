@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateSaleGamesTable extends Migration {
+class CreateGameDiscountsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,17 +12,13 @@ class CreateSaleGamesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sale_games', function(Blueprint $table)
+		Schema::create('game_discounts', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('game_id')->unsigned()->index();
             $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
-            $table->integer('carrier_id')->unsigned()->index();
-            $table->foreign('carrier_id')->references('id')->on('carriers')->onDelete('cascade');
-            $table->float('price');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->boolean('sale_active');
+            $table->integer('discount_id')->unsigned()->index();
+            $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}
@@ -35,7 +31,7 @@ class CreateSaleGamesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('sale_games');
+		Schema::drop('game_discounts');
 	}
 
 }

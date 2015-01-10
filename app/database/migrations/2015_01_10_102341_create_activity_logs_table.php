@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateActivityLogs extends Migration {
+class CreateActivityLogsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateActivityLogs extends Migration {
 	 */
 	public function up()
 	{
-	Schema::create('activity_logs', function(Blueprint $table)
+		Schema::create('activity_logs', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
@@ -22,7 +22,6 @@ class CreateActivityLogs extends Migration {
 			$table->text('activity');
 			$table->text('action');
 			$table->timestamps();
-
 		});
 	}
 

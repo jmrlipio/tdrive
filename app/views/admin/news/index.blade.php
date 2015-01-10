@@ -69,6 +69,7 @@
 
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+	{{ HTML::script('js/form-functions.js') }}
 
 	<script>
 	$(document).ready(function(){

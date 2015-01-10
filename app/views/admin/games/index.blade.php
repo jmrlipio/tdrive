@@ -6,7 +6,7 @@
 		<h2>Games</h2>
 		
 		@if(Auth::user()->role != 'admin')
-			<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">New Game</a>
+			<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">Create Game</a>
 		@endif
 
 		@if(Session::has('message'))
@@ -61,7 +61,7 @@
 					
 					</tr>
 				
-			@endforeach
+				@endforeach
 
 			</tbody>
 		</table>
@@ -77,6 +77,7 @@
 
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+	{{ HTML::script('js/form-functions.js') }}
 
 	<script>
 	$(document).ready(function(){
