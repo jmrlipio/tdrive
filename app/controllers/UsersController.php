@@ -150,15 +150,19 @@ class UsersController extends \BaseController {
         	//Audit log
             Event::fire('audit.login', Auth::user());
 
-            return Redirect::intended('/');
+
+            return Redirect::intended('/home');
         }
         return Redirect::to('login')->with('message','Your email/password was incorrect');
     }
 
     public function getLogout(){
     	Event::fire('audit.logout', Auth::user());
+    	Session::forget('telco');
         Auth::logout();
-        return Redirect::route('users.login');
+
+        /*return Redirect::route('/');*/
+        return Redirect::intended('/');
     }
 
 /*    public function getForgotPassword(){

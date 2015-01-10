@@ -11,19 +11,20 @@ class AuditLogHandler
           $_activity = sprintf(Constant::LOGS_USER_LOGIN, $user->username, Carbon::now()->toDayDateTimeString());
           $_action = Constant::LOGS_USER_LOGIN_ACTION;
           $log = ActivityLog::createLogs($_activity, $_action);
+          
+          //Event::fire('audit.user.carrier', Auth::user());
        }
     }
 
-    public function onUserSelectCarrier($data)
-    {
-      
+   /* public function onUserSelectCarrier($user)
+    {      
+     
        if(Auth::user()->role == 'member'){
-         // $_activity = sprintf(Constant::LOGS_USER_LOGIN, $user->username, Carbon::now()->toDayDateTimeString());
-         // $_action = Constant::LOGS_USER_LOGIN_ACTION;
 
-          $log = ActivityLog::addCarrier($data['id'], $data['carrier']);
+         $log = ActivityLog::addCarrierAndCountry($user->id);
+
        }
-    }
+    }*/
 
     public function onLastLoginUser($user)
     {
@@ -34,6 +35,7 @@ class AuditLogHandler
 
     public function onLogout($user)
     {
+
        $_activity = sprintf(Constant::LOGS_ADMIN_LOGOUT, $user->username, Carbon::now()->toDayDateTimeString());
        $log = AdminLog::createLogs($_activity);
 
@@ -134,7 +136,7 @@ class AuditLogHandler
         $events->listen('audit.faqs.create', 'AuditLogHandler@onFAQSCreate');
         $events->listen('audit.faqs.update', 'AuditLogHandler@onFAQSUpdate');
         $events->listen('audit.faqs.delete', 'AuditLogHandler@onFAQSDelete');
-        $events->listen('audit.user.carrier', 'AuditLogHandler@onUserSelectCarrier');
+        /*$events->listen('audit.user.carrier', 'AuditLogHandler@onUserSelectCarrier');*/
 
     }
 }
