@@ -64,10 +64,13 @@ class GamesController extends \BaseController {
 		foreach($game->categories as $cat) {
 			$categories[] = $cat->id;
 		}
+
 		$reviews = [];
+
 		foreach($game->review as $review) {
 			$reviews[] = $review;
 		}
+
 		$games = Game::all();
 		$related_games = [];
 		foreach($games as $gm) {

@@ -70,12 +70,12 @@
                         <ul id="site-options">
                             <li><a href="{{ URL::route('admin.general-settings') }}">General Settings</a></li>
                             <li><a href="{{ URL::route('admin.form-messages') }}">Success/Error Messages</a></li>
-                            <li><a href="#">Emails</a></li>
+                            <!--<li><a href="#">Emails</a></li>-->
                             <li><a href="{{ URL::route('admin.game-slideshow') }}">Game Slideshow</a></li>
                             <li><a href="{{ URL::route('admin.game-settings') }}">Game Page</a></li>
-                            <li><a href="#">News Page</a></li>
+                            <!--<li><a href="#">News Page</a></li>-->
                             <li><a href="{{ URL::route('admin.variables') }}">Site Variables</a></li>
-                            <li><a href="#">Maintenance</a></li>
+                            <!--<li><a href="#">Maintenance</a></li>-->
                         </ul>
                     </li>
                     <li><a href="{{ URL::route('admin.faqs.index') }}">FAQ</a></li>

@@ -72,8 +72,8 @@ class Review extends Eloquent {
 
 	public static function getRatingsPerUser($user_id) 
 	{
-		$ratings = Review::where('user_id', $user_id)->first();
-
+		$ratings = Review::where('user_id', $user_id)
+						->first();
 		if($ratings) 
 		{
 			return $ratings->rating;
