@@ -61,7 +61,26 @@ class GamesController extends \BaseController {
 
 		$game = Game::find($id);
 
-		$related_games = Game::all();
+		$categories = [];
+
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+		$games = Game::all();
+		$related_games = [];
+
+		foreach($games as $gm) {
+			$included = false;
+			foreach($gm->categories as $rgm) {
+				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
+			}
+		}
 
 		$visitor = Tracker::currentSession();
 
