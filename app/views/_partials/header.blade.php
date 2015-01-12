@@ -51,6 +51,68 @@ $game_settings = GameSetting::all();
 
 	@section('stylesheets')
 	@show
+	
+	<style>
+		#news-detail .social div.like {
+			display: block;
+		  	float: left;
+		  	text-align: center;
+		  	padding: 6px 32px 6px 8px;
+		  	margin-right: 10px;
+		  	-webkit-border-radius: 2px;
+		  	border-radius: 2px;
+		  	background-clip: padding-box;
+		}
+		#news-detail .social div.like {
+		  background: #0086dd url(../images/like.png) 40px center no-repeat;
+		  color: #fff;
+		  padding: 6px 0 6px 10px;
+		}
+		div#news_like {
+			right: 15px;
+			opacity: 0;
+		}
+		#game-detail #statistics .top .social div.likes {
+		  -webkit-border-radius: 4px;
+		  border-radius: 4px;
+		  background-clip: padding-box;
+		  display: block;
+		  width: 66px;
+		  float: left;
+		  text-align: center;
+		  margin-right: 5px;
+		  padding: 2px 0 4px;
+		  margin-top: 10px;
+		}
+		#game-detail #statistics .top .social div.likes span {
+		  display: block;
+		}
+		#game-detail #statistics .top .social div.likes {
+		  background: #fff;
+		  margin-right: 0;
+		}
+		#game-detail #statistics .top .social div.likes span {
+		  padding-top: 5px;
+		  font-size: 12px;
+		  color: #0086dd;
+		}
+		#game_like{
+			position: absolute;
+			right: 20px;
+			margin-top: 2px;
+			opacity: 0;
+		}
+		#news-detail .social {
+			margin-top: -10px;
+		}
+		#news-detail .container {
+			padding: 0;
+		}
+		#news-detail #header .container {
+			padding: 0 10px;
+		}
+		
+	</style>
 
 	{{ HTML::style("css/base.css"); }}
 	{{ HTML::style("css/style.css"); }}

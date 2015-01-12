@@ -87,11 +87,9 @@
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-<<<<<<< HEAD
+
 			{{ htmlspecialchars_decode($item->pivot->content) }}
-=======
-			{{{ $item->pivot->content }}}
->>>>>>> aea6b5ba383b9f80060e561c9f678c9c04d924ec
+
 		@endforeach
 
 		<!--<p>Stack as many cats as possible. All kinds of cats will appear. Fat cats, kittens, even cats with top hats!</p>	
@@ -146,15 +144,28 @@
 			@endif
 
 			<div class="social clearfix">
-				<a href="#" class="share">
+				<a href="#share" id="inline" class="share" >
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
 					<span>Share</span>
 				</a>
+				<div style="display:none">
+					<div id="share" style="text-align:center;">
+						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
+						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}'>
+							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
+						</a>
+						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}'>
+							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
+						</a>
+						<!-- <a href="mailto:support@tdrive.co" target="_blank">Email</a> -->
+					</div>
+				</div>
 
-				<a href="#" class="likes">
+				<div class="likes">
+					<div id="game_like" class="fb-like" data-href="{{ url() }}/game/{{ $game->id }}" data-width="150px" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
 					{{ HTML::image('images/likes.png', 'Likes', array('class' => 'auto')) }}
 					<span>10,000,000 liked this</span>
-				</a>
+				</div>
 			</div>
 		</div>
 
@@ -382,6 +393,7 @@
 	{{ HTML::script("js/jquery.fancybox.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
@@ -440,7 +452,12 @@
 				calculateHeight: true
 			})
 		});
-
+		$("#inline").fancybox({
+            'titlePosition'     : 'inside',
+            'transitionIn'      : 'none',
+            'transitionOut'     : 'none'
+        });
+        $("#share a").jqSocialSharer();
 		$('.fancybox').fancybox({ padding: 0 });
 	</script>
 @stop

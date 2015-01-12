@@ -39,7 +39,7 @@
 			<div>
 				<a href="#share" id="inline" class="share">Share</a>
 				<div href="#" class="like">Like 
-					<div id="news_like" class="fb-like" data-href="{{ url() }}/game/{{ $news->id }}" data-width="150px" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+					<div id="news_like" class="fb-like" data-href="{{ url() }}/news/{{ $news->id }}" data-width="150px" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>
 			</div>
 			<div style="display:none">
