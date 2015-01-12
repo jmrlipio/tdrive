@@ -141,10 +141,7 @@
 
 				<div id="token">{{ Form::token() }}</div>
 
-				<select name="year">
-					<option value="">select year</option>
-					<option value="2015">2015</option>
-				</select>
+				 {{ Form::select('year', $year, null, array('class' => 'select-year', 'id' => 'select-year')) }}
 			</form>
 		</div>
 
