@@ -85,11 +85,89 @@ class ListingController extends \BaseController {
 		}
 	}
 
+	public function showRelatedGames($id) 
+	{
+		$languages = Language::all();
+
+		$country = Country::find(Session::get('country_id'));
+
+		$game = Game::find($id);
+
+		$categories = [];
+
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+		$games = Game::all();
+
+		$related_games = [];
+
+		foreach($games as $gm) {
+			$included = false;
+			foreach($gm->categories as $rgm) {
+				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
+			}
+		}
+
+		$count = count($related_games);
+
+		return View::make('related')
+			->with('page_title', 'Related games')
+			->with('page_id', 'game-listing')
+			->with('country', $country)
+			->with('count', $count)
+			->with('game_id', $game->id)
+			->with(compact('related_games'))
+			->with(compact('languages'));
+	}
+
+	public function showMoreRelatedGames() 
+	{
+		$load = Input::get('load') * 3;
+		$game_id = Input::get('game_id');
+
+		$game = Game::find($game_id);
+
+		$categories = [];
+
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+		$games = Game::all();
+
+		$related_games = [];
+
+		foreach($games as $gm) {
+			$included = false;
+			foreach($gm->categories as $rgm) {
+				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
+			}
+		}
+		
+		if (Request::ajax()) {
+			return View::make('_partials/ajax-related')
+				->with('country', $country)
+				->with(compact('games'));
+		}
+	}
+
 	public function showNews() 
 	{
 		$languages = Language::all();
 
-		$news = News::where('status', 2)->orderBy('release_date', 'DESC')->take(3)->get();
+		$news = News::where('status', 2)->orderBy('created_at', 'DESC')->take(3)->get();
 		$news_all = News::all();
 
 		$count = count($news_all);
@@ -117,7 +195,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->orderBy('release_date', 'DESC')->take(3)->get();
+		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->where('status', 2)->orderBy('created_at', 'DESC')->take(3)->get();
 		$news_all = News::all();
 
 		$count = count($news_all);
@@ -139,7 +217,7 @@ class ListingController extends \BaseController {
 
 		$year = Input::get('year');
 
-		$news = News::where(DB::raw('YEAR(release_date)'), '=', $year)->where('status', 2)->orderBy('release_date', 'DESC')->take(3)->skip($load)->get();
+		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->where('status', 2)->orderBy('created_at', 'DESC')->take(3)->skip($load)->get();
 
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-year')->with(compact('news'));

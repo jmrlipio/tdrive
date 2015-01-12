@@ -6,7 +6,7 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">Search results</h1>
+		<h1 class="title">Related games</h1>
 
 		<div id="token">{{ Form::token() }}</div>
 
@@ -14,18 +14,17 @@
 			<div class="row">
 				<div id="scroll" class="clearfix">
 
-					@foreach ($games as $game)
+					@foreach ($related_games as $game)
 						@foreach ($game->media as $media)
 
 							@if($media->type == 'icons')
-
 								<div class="item">
 									<div class="thumb relative">
 										@if ($game->default_price == 0)
 											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
 										@endif
 
-										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
+										<img src="assets/games/icons/{{ $media->url }}" alt="{{ $game->main_title }}">
 									</div>
 
 									<div class="meta">
@@ -46,7 +45,6 @@
 										<div class="button center"><a href="#">Buy</a></div>
 									@endif
 								</div>
-
 							@endif
 
 						@endforeach
@@ -72,7 +70,7 @@
 		var load = 0;
 		var _token = $('#token input').val();
 		var num = {{ $count }};
-		var search = "{{ Input::get('search') }}";
+		var game_id = {{ $game_id }};
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
@@ -128,12 +126,11 @@
 			} else {
 
 				$.ajax({
-					url: "{{ url() }}/search/more",
+					url: "{{ url() }}/games/related/more",
 					type: "POST",
 					data: {
 						load: load,
-						_token: _token,
-						search: search
+						_token: _token
 					},
 					success: function(data) {
 						$('#scroll').append(data);

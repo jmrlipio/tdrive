@@ -12,7 +12,13 @@
 
 	<div id="top" class="clearfix container">
 		<div class="thumb">
-			{{ HTML::image("images/games/thumb-{$game->slug}.jpg", $game->main_title) }}
+
+			@foreach($game->media as $media)
+				@if($media->type == 'icons')
+					{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}
+				@endif
+			@endforeach
+
 		</div>
 
 		<div class="title">
@@ -78,7 +84,7 @@
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-			{{ $item->pivot->content }}
+			{{ htmlspecialchars_decode($item->pivot->content) }}
 		@endforeach
 
 		<!--<p>Stack as many cats as possible. All kinds of cats will appear. Fat cats, kittens, even cats with top hats!</p>	
@@ -91,17 +97,16 @@
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
 
-				@foreach($related_games as $game)
-					@foreach($game->categories as $category)
+				@foreach($game->media as $screenshots)
+					@if($screenshots->type == 'screenshots')
 
-						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc1.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc1.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc2.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc2.jpg', 'Mew Mew Tower') }}</a></div>
-						<div class="swiper-slide item"><a href="{{ url() }}/images/screenshots/mew-mew-tower-sc3.jpg" class="fancybox">{{ HTML::image('images/screenshots/mew-mew-tower-sc3.jpg', 'Mew Mew Tower') }}</a></div>
+						<div class="swiper-slide item">
+							<a href="{{ url() }}/assets/games/screenshots/{{ $game->image_orientation . '-' . $screenshots->url }}" class="fancybox">
+								{{ HTML::image('assets/games/screenshots/' . $game->image_orientation . '-' . $screenshots->url, $game->main_title) }}
+							</a>
+						</div>
 
-					@endforeach
+					@endif
 				@endforeach
 
 			</div>
@@ -309,31 +314,35 @@
 				<div class="swiper-wrapper">
 
 					@foreach($related_games as $game)
+						@foreach($game->media as $media)
 
-						<div class="swiper-slide item">
-							<div class="thumb relative">
-								@if ($game->default_price == 0)
-									{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
-								@endif
+							@if($media->type == 'icons')
+								<div class="swiper-slide item">
+									<div class="thumb relative">
+										@if ($game->default_price == 0)
+											{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+										@endif
 
-								<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image("images/games/thumb-{$game->slug}.jpg") }}</a>
-							</div>
+										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+									</div>
 
-							<div class="meta">
-								<p class="name">{{{ $game->main_title }}}</p>
+									<div class="meta">
+										<p class="name">{{{ $game->main_title }}}</p>
 
-								@unless ($game->default_price == 0)
-									<p class="price">P{{{ $game->default_price }}}.00</p>
-								@endunless
-							</div>
+										@unless ($game->default_price == 0)
+											<p class="price">P{{{ $game->default_price }}}.00</p>
+										@endunless
+									</div>
 
-							@if ($game->default_price == 0)
-								<div class="button center"><a href="#">Get</a></div>
-							@else
-								<div class="button center"><a href="#">Buy</a></div>
+									@if ($game->default_price == 0)
+										<div class="button center"><a href="#">Get</a></div>
+									@else
+										<div class="button center"><a href="#">Buy</a></div>
+									@endif
+								</div>
 							@endif
-						</div>
 
+						@endforeach
 					@endforeach
 
 				</div>
@@ -345,7 +354,7 @@
 
 		@endif
 
-		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
+		<div class="more"><a href="{{ route('games.related', $game->id) }}">More +</a></div>
 	</div><!-- end #related-games -->
 
 @stop
