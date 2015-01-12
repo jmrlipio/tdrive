@@ -750,7 +750,16 @@
 #game-detail #related-games .meta p {
   font-size: 14px;
 }
-
+div#game_like {
+  position: absolute;
+  display: block;
+  padding: 2px 8px;
+  opacity: 0;
+}
+div#news_like {
+  opacity: 0;
+  right: 15px;
+}
 @media only screen and (min-width: 320px) {
   #game-detail #buttons .downloads {
     float: left;
@@ -923,7 +932,7 @@
 #news-detail .social > div {
   float: right;
 }
-#news-detail .social a {
+#news-detail .social a, .social div.like {
   display: block;
   float: left;
   text-align: center;
@@ -937,9 +946,10 @@
   background: #e9548e url(../images/share2.png) 56px center no-repeat;
   color: #fff;
 }
-#news-detail .social a.like {
+#news-detail .social div.like {
   background: #0086dd url(../images/like.png) 40px center no-repeat;
   color: #fff;
+  padding-right: 0;
 }
 
 @media only screen and (min-width: 600px) {
