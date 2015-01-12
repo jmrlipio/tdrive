@@ -64,10 +64,6 @@ class HomeController extends BaseController {
 		
 		/* END */
 
-		$previous_news = News::take(3)->skip(2)->get();
-		$faqs = Faq::all();
-		$languages = [];
-
 		$user_location = GeoIP::getLocation();
 
 		$categories = [];

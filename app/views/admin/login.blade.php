@@ -1,17 +1,10 @@
 @include('admin._partials.header2')
     <div id="login">
         {{ Form::open(array('route' => 'admin.login.post', 'class' => 'login')) }}
-
-
-        @if (Session::has('message') ) 
-            
-            <h2>{{ Session::get('message') }}</h2>              
-
-        @else
-
-           <h2>Please login</h2>
-
-        @endif     
+            <h2>Please login</h2>
+            @if (Session::has('message') ) 
+                <center><p class="error">{{ Session::get('message') }}</p></center>       
+            @endif 
             <ul>
                 <li>
                     {{ Form::label('username', 'Username') }}

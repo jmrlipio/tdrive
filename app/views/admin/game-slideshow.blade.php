@@ -1,8 +1,9 @@
 @extends('admin._layouts.admin')
 
 @section('content')
+	@include('admin._partials.options-nav')
 	<div class="item-listing" id="featured-games">
-		<h2>Game Listing</h2>
+		<h2>Slideshow Listing</h2>
 		<p>Please select the games you want to feature on the homepage slideshow.</p>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover"  id="game_table">

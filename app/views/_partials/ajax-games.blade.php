@@ -25,9 +25,9 @@
 				</div>
 
 				@if ($game->default_price == 0)
-					<div class="button center"><a href="#">Get</a></div>
+					<!--<div class="button center"><a href="#">Get</a></div>-->
 				@else
-					<div class="button center"><a href="#">Buy</a></div>
+					<!--<div class="button center"><a href="#">Buy</a></div>-->
 				@endif
 			</div>
 

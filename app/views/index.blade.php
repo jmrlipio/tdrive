@@ -64,9 +64,9 @@
 								</div>
 
 								@if ($game->default_price == 0)
-									<div class="button center"><a href="#">Get</a></div>
+									<!--<div class="button center"><a href="#">Get</a></div>-->
 								@else
-									<div class="button center"><a href="#">Buy</a></div>
+									<!--<div class="button center"><a href="#">Buy</a></div>-->
 								@endif
 							</div>
 
@@ -131,6 +131,13 @@
 											@endif
 										</div>
 
+<<<<<<< HEAD
+=======
+									@if ($game->default_price == 0)
+										<div class="button center"><a href="#" style="display:none">Get</a></div>
+									@else
+										<div class="button center"><a href="#" style="display:none">Buy</a></div>
+>>>>>>> aea6b5ba383b9f80060e561c9f678c9c04d924ec
 									@endif
 
 								@endif

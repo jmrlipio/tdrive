@@ -69,7 +69,7 @@
 				{{ Form::close() }}
 			</ul>
 			<ul id="news-content">
-				<h3>Th has content for the following languages:</h3>
+				<h3>The has content for the following languages:</h3>
 				<br>
 				@if($selected_languages)
 				<ul>

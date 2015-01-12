@@ -23,6 +23,9 @@ class CreateUsersTable extends Migration {
 			$table->string('remember_token', 100)->nullable();
 			$table->dateTime('last_login');
 			$table->string('role');
+			$table->string('prof_pic');
+			$table->string('code');
+			$table->integer('active')->default(0);
 			$table->timestamps();
 		});
 	}

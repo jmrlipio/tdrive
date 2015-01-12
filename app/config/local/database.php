@@ -34,7 +34,7 @@ return array(
 				    'driver'   => 'mysql',
 				    'host'     => 'localhost',
 				    'database' => 'tdrive',
-				    'username' =>'root',
+				    'username' => 'root',
 				    'password' => '',
 				    'charset'  => 'utf8',
 				    'prefix'   => '',

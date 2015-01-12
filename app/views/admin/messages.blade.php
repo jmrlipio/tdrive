@@ -1,6 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
+	@include('admin._partials.options-nav')
 	{{ Form::open(array('route' => array('admin.form-messages.update'), 'method' => 'post', 'class' => 'small-form', 'id' => 'form-messages')) }}
 		<h2>Form Messages</h2>
 		

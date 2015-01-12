@@ -34,6 +34,8 @@
 			@endforeach
 		</tbody>
 		</table>
+
+		<a href="{{ URL::route('admin.reports.inquiries.settings') }}" class="mgmt-link" id="asettings">Autoresponder Settings</a>
 	</div>
 	{{ HTML::script('js/form-functions.js') }}	
 	{{ HTML::script('js/jquery.dataTables.js') }}

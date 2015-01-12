@@ -177,7 +177,7 @@ class AdminUsersController extends \BaseController {
             return Redirect::intended('admin/dashboard');
         }
 
-        return Redirect::route('admin.login');
+        return Redirect::route('admin.login')->with('message', 'Incorrect username or password.');
     }
 
     public function getLogout()

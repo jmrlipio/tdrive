@@ -22,8 +22,8 @@
 
 		<div class="control-group clearfix">
 			<div class="control-item fl">
-				{{ Form::checkbox('remember', 1 , null, ['id'=>'remember']); }}
-			   <label for="remember">Remember me</label>
+				{{-- Form::checkbox('remember', 1 , null, ['id'=>'remember']); --}}
+			   <!-- <label for="remember">Remember me</label> -->
 			</div>
 
 			<div class="control-item fr">
