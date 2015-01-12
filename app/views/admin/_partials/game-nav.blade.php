@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function($){
     var url = String(window.location).split('/');
-    url.splice(5);
+    url.splice(7);
 
     var newurl = url.join('/');
 

@@ -81,7 +81,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 
     //added for admin reviews - transfer later on
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));
-    Route::get('reviews', array('as' => 'admin.reviews.index', 'uses' => 'ReviewsCOntroller@admin_index'));
+    Route::get('reviews', array('as' => 'admin.reviews.index', 'uses' => 'ReviewsController@admin_index'));
    
 /** 
 * Added by: Jone   
