@@ -279,7 +279,7 @@ img.auto, video.auto {
 }
 
 #side-menu {
-  padding: 10px;
+  padding: 60px 10px 10px 10px;
 }
 #side-menu .top {
   background: #57d9cd;
@@ -462,7 +462,7 @@ img.auto, video.auto {
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 10;
+  z-index: 99999;
 }
 
 #content {
