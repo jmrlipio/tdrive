@@ -22,7 +22,7 @@ class CreateNewsTable extends Migration {
 			$table->string('main_title');
 			$table->string('slug');
 			$table->string('status');
-			$table->boolean('featured')
+			$table->boolean('featured');
 			$table->string('featured_image');
 			$table->timestamps();
 		});

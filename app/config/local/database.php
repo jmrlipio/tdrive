@@ -23,7 +23,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'tdrive',
+			'database'  => 'tdrive2',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
@@ -33,7 +33,7 @@ return array(
 		'tracker' => [
 				    'driver'   => 'mysql',
 				    'host'     => 'localhost',
-				    'database' => 'tdrive',
+				    'database' => 'tdrive2',
 				    'username' => 'root',
 				    'password' => '',
 				    'charset'  => 'utf8',
