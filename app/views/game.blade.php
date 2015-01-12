@@ -162,9 +162,7 @@
 				</div>
 
 				<div class="likes">
-					<div id="game_like" class="fb-like" data-href="{{ url() }}/game/{{ $game->id }}" data-width="150px" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
-					{{ HTML::image('images/likes.png', 'Likes', array('class' => 'auto')) }}
-					<span>10,000,000 liked this</span>
+					<div id="game_like" class="fb-like" data-href="{{ url() }}/game/{{ $game->id }}" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>
 			</div>
 		</div>
@@ -325,7 +323,7 @@
 				</div>
 			</div>
 		@empty
-			<p>be the first one to add a review!</p>
+			<!-- <p>be the first one to add a review!</p> -->
 		@endforelse
 		
 	<?php if($ctr != 0) { ?>	

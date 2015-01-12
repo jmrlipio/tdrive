@@ -65,13 +65,9 @@ $game_settings = GameSetting::all();
 		  	background-clip: padding-box;
 		}
 		#news-detail .social div.like {
-		  background: #0086dd url(../images/like.png) 40px center no-repeat;
+		  background: #0086dd;
 		  color: #fff;
-		  padding: 6px 0 6px 10px;
-		}
-		div#news_like {
-			right: 15px;
-			opacity: 0;
+		  padding: 6px 10px 6px 10px;
 		}
 		#game-detail #statistics .top .social div.likes {
 		  -webkit-border-radius: 4px;
@@ -97,11 +93,8 @@ $game_settings = GameSetting::all();
 		  font-size: 12px;
 		  color: #0086dd;
 		}
-		#game_like{
-			position: absolute;
-			right: 20px;
-			margin-top: 2px;
-			opacity: 0;
+		html#facebook div._56zz, div._56zz {
+			display: none !important;
 		}
 		#news-detail .social {
 			margin-top: -10px;
