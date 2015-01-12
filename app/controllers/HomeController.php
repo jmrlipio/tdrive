@@ -54,13 +54,12 @@ class HomeController extends BaseController {
 		/* For displaying year dynamically in select form */
 
 		$year = News::all();
-		$arr_yrs = ['select_year' => 'select year'];	
+		$arr_yrs = [];	
 		
 		foreach ($year as $yrs) {
 			$year = date('Y', strtotime($yrs->release_date)); 
 			$arr_yrs[$year] = $year;
 			$year = array_unique($arr_yrs);
-			
 		}
 		
 		/* END */

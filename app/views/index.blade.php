@@ -141,7 +141,7 @@
 
 				<div id="token">{{ Form::token() }}</div>
 
-				 {{ Form::select('year', $year, null, array('class' => 'select-year', 'id' => 'select-year')) }}
+				 {{ Form::select('year', array('default' => 'Please select') + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
 			</form>
 		</div>
 
@@ -157,7 +157,7 @@
 						</div>
 					</div>
 
-					<img src="images/news/{{ $item->slug }}.jpg" alt="{{ $item->main_title }}">
+					<img src="assets/news/{{ $item->featured_image }}" alt="{{ $item->main_title }}">
 
 					<div class="details">
 						<h3>{{ $item->main_title }}</h3>
