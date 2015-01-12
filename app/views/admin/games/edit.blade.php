@@ -219,21 +219,21 @@
 	    var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    checkDimensions('promo', control,this.files[0]);
+	    //checkDimensions('promo', control,this.files[0]);
 	});
 
 	$("#media").on('change', '#icon-img', function(e) {
 		var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    checkDimensions('icon', control,this.files[0]);
+	    //checkDimensions('icon', control,this.files[0]);
 	});
 
 	$("#media").on('change', '.screenshot', function(e) {
 	    var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    checkDimensions('screenshot', control,this.files[0]);
+	    //checkDimensions('screenshot', control,this.files[0]);
 	});
 
 	function checkDimensions(type, control,first) {

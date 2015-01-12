@@ -12,19 +12,22 @@
 		<div class="swiper-wrapper">
 
 			@foreach($featured_games as $featured_game)
+				@foreach($featured_game->media as $media)
 
 				@if ($featured_game->featured == 1)
-					<div class="swiper-slide">
 
-						@if(File::exists(public_path() . '/assets/featured/'. $featured_game->slug . '.jpg'))
-							<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/featured/{{ $featured_game->slug }}.jpg" alt="{{ $featured_game->main_title }}"></a>
-						@else
-							<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/featured/placeholder.jpg" alt="{{ $featured_game->main_title }}"></a>
-						@endif
-
-					</div>
+					@if ($media->type == 'promos')
+						<div class="swiper-slide">
+							@if(File::exists(public_path() . '/assets/games/promos/'. $media->url))
+								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/games/promos/{{ $media->url }}" alt="{{ $featured_game->main_title }}"></a>
+							@else
+								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/featured/placeholder.jpg" alt="{{ $featured_game->main_title }}"></a>
+							@endif
+						</div>
+					@endif
 				@endif
 
+				@endforeach
 			@endforeach
 
 		</div>
@@ -37,35 +40,38 @@
 			<div class="swiper-wrapper">
 
 				@foreach($games as $game)
+					@foreach($game->media as $media)
+						@if($media->type == 'icons')
 
-					<div class="swiper-slide item">
-						<div class="thumb relative">
-							@if ($game->default_price == 0)
-								<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
-							@endif
-
-							<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
-						</div>
-
-						<div class="meta">
-							<p class="name">{{{ $game->main_title }}}</p>
-
-							@unless ($game->default_price == 0)
-								@foreach($game->prices as $price) 
-									@if($country->id == $price->pivot->country_id)
-										<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+							<div class="swiper-slide item">
+								<div class="thumb relative">
+									@if ($game->default_price == 0)
+										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
 									@endif
-								@endforeach
-							@endunless
-						</div>
 
-						@if ($game->default_price == 0)
-							<div class="button center"><a href="#" style="display:none">Get</a></div>
-						@else
-							<div class="button center"><a href="#" style="display:none">Buy</a></div>
+									<a href="{{ URL::route('game.show', $game->id) }}"><img src="assets/games/icons/{{ $media->url }}"></a>
+								</div>
+								<div class="meta">
+									<p class="name">{{{ $game->main_title }}}</p>
+
+									@unless ($game->default_price == 0)
+										@foreach($game->prices as $price) 
+											@if($country->id == $price->pivot->country_id)
+												<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+											@endif
+										@endforeach
+									@endunless
+								</div>
+
+								@if ($game->default_price == 0)
+									<!--<div class="button center"><a href="#">Get</a></div>-->
+								@else
+									<!--<div class="button center"><a href="#">Buy</a></div>-->
+								@endif
+							</div>
+
 						@endif
-					</div>
-
+					@endforeach
 				@endforeach
 
 			</div>
@@ -91,39 +97,45 @@
 
 					@foreach($games as $game)
 						@foreach($game->categories as $gcat)
+							@foreach($game->media as $media)
 
-							@if($gcat->id == $cat->id)
-		
-								<div class="swiper-slide item">
-									<div class="thumb relative">
-										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
-										@endif
+								@if($media->type == 'icons')
 
-										<a href="{{ URL::route('game.show', $game->id) }}"><img src="images/games/thumb-{{ $game->slug }}.jpg" alt=""></a>
-									</div>
-
-									<div class="meta">
-										<p class="name">{{{ $game->main_title }}}</p>
-
-										@unless ($game->default_price == 0)
-											@foreach($game->prices as $price) 
-												@if($country->id == $price->pivot->country_id)
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									@if($gcat->id == $cat->id)
+				
+										<div class="swiper-slide item">
+											<div class="thumb relative">
+												@if ($game->default_price == 0)
+													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
 												@endif
-											@endforeach
-										@endunless
-									</div>
 
-									@if ($game->default_price == 0)
-										<div class="button center"><a href="#" style="display:none">Get</a></div>
-									@else
-										<div class="button center"><a href="#" style="display:none">Buy</a></div>
+												<a href="{{ URL::route('game.show', $game->id) }}"><img src="assets/games/icons/{{ $media->url }}"></a>
+											</div>
+
+											<div class="meta">
+												<p class="name">{{{ $game->main_title }}}</p>
+
+												@unless ($game->default_price == 0)
+													@foreach($game->prices as $price) 
+														@if($country->id == $price->pivot->country_id)
+															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+														@endif
+													@endforeach
+												@endunless
+											</div>
+
+											@if ($game->default_price == 0)
+												<!-- <div class="button center"><a href="#">Get</a></div> -->
+											@else
+												<!-- <div class="button center"><a href="#">Buy</a></div> -->
+											@endif
+										</div>
+
 									@endif
-								</div>
+									
+								@endif
 
-							@endif
-
+							@endforeach
 						@endforeach
 					@endforeach
 
@@ -141,7 +153,7 @@
 
 				<div id="token">{{ Form::token() }}</div>
 
-				 {{ Form::select('year', $year, null, array('class' => 'select-year', 'id' => 'select-year')) }}
+				 {{ Form::select('year', array('default' => 'Please select') + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
 			</form>
 		</div>
 
@@ -157,7 +169,7 @@
 						</div>
 					</div>
 
-					<img src="images/news/{{ $item->slug }}.jpg" alt="{{ $item->main_title }}">
+					<img src="assets/news/{{ $item->featured_image }}" alt="{{ $item->main_title }}">
 
 					<div class="details">
 						<h3>{{ $item->main_title }}</h3>

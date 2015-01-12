@@ -73,6 +73,7 @@ class GamesController extends \BaseController {
 
 		$games = Game::all();
 		$related_games = [];
+
 		foreach($games as $gm) {
 			$included = false;
 			foreach($gm->categories as $rgm) {
@@ -84,9 +85,11 @@ class GamesController extends \BaseController {
 				}
 			}
 		}
+
 		$ratings = Review::getRatings($game->id);
 		$visitor = Tracker::currentSession();
 		$country = Country::find(Session::get('country_id'));
+
 		return View::make('game')
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')

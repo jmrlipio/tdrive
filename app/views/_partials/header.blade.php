@@ -22,18 +22,24 @@ $game_settings = GameSetting::all();
 
 	@if(isset($game))
 		@foreach($game->contents as $item)
-			<meta property="og:url" content="http://localhost/tdrive/public/game/{{ $game->id }}" />
-			<meta property="og:title" content="{{ $game->main_title }}" />
+			<meta property="og:url" content="{{ url() }}/game/{{ $item->id }}" />
+			<meta property="og:title" content="{{ $item->main_title }}" />
 			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
-			<meta property="og:image" content="{{ url() }}/images/games/{{ $game->slug}}.jpg" />
+			<meta property="og:image" content="{{ url() }}/images/games/{{ $item->slug}}.jpg" />
 		@endforeach
-	@elseif(isset($news))
-		@foreach($news->contents as $item)
-			<meta property="og:url" content="http://localhost/tdrive/public/news/{{ $news->id }}" />
-			<meta property="og:title" content="{{ $news->main_title }}" />
-			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
-			<meta property="og:image" content="{{ url() }}/images/news/{{ $news->slug}}.jpg" />
-		@endforeach
+
+	@endif
+
+	@if(isset($news))
+		@if(!Request::segment(3))
+			@foreach($news->contents as $item)
+				<meta property="og:url" content="{{ url() }}news/{{ $item->id }}" />
+				<meta property="og:title" content="{{ $item->main_title }}" />
+				<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
+				<meta property="og:image" content="{{ url() }}/images/news/{{ $item->slug}}.jpg" />
+			@endforeach
+		@endif
+
 	@endif
 
 	<link rel="shortcut icon" href="favicon.ico">

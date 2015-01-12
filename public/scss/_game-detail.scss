@@ -457,7 +457,20 @@
 
 		.captcha {
 			img {
-				top: 7px;
+				width: 29%;
+				height: 34px;
+				float: left;
+				margin-right: 1%;
+			}
+
+			input {
+				width: auto;
+				display: block;
+				float: left;
+				margin: 0 !important;
+				padding: 8px 6px !important;
+				width: 70% !important;
+				@extend %box-sizing;
 			}
 		}
 

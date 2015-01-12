@@ -7,7 +7,7 @@
 @section('content')
 
 	<div id="featured" class="container">
-		{{ HTML::image('images/news/' . $news->slug . '.jpg', $news->main_title) }}
+		{{ HTML::image('assets/news/' . $news->featured_image, $news->main_title) }}
 	</div>
 
 	<div id="token">{{ Form::token() }}</div>
@@ -16,7 +16,7 @@
 		<div class="details">
 			<div class="date">
 				<div class="vhparent">
-					<p class="vhcenter">03 jul</p>
+					<p class="vhcenter">{{ Carbon::parse($news->release_date)->format('M j') }}</p>
 				</div>
 			</div>
 
@@ -30,7 +30,7 @@
 		<div class="description">
 
 			@foreach($news->contents as $item)
-				{{ $item->pivot->content }}
+				{{ htmlspecialchars_decode($item->pivot->content) }}
 			@endforeach
 
 		</div>

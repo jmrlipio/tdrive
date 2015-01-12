@@ -93,4 +93,5 @@ class Review extends Eloquent {
 
 		return false;				
 	}
+
 }
