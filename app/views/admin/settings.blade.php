@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	{{ Form::open(array('route' => array('admin.general-settings.update'), 'method' => 'put', 'class' => 'small-form', 'id' => 'general-settings')) }}
+	{{ Form::open(array('route' => array('admin.general-settings.update'), 'method' => 'post', 'class' => 'small-form', 'id' => 'general-settings')) }}
 	<h2>General Settings</h2>
 		@if(Session::has('message'))
 		    <div class="flash-success">

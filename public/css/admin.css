@@ -73,7 +73,7 @@ footer { min-height: 50px; background-color: #ccc; }
 article { width: 80%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; } 
 form h2 { text-align: center; }
 form li { list-style-type: none; }
-form li .error { display: inline-block; color: red; line-height: 30px; }
+form .error { display: inline-block; color: red; line-height: 30px; }
 form label { display: block; font-weight: bold; line-height: 30px; }
 input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 95%; }
 input[type="text"], input[type="email"], input[type="password"] { padding: 5px 10px; }
@@ -85,8 +85,9 @@ form.destroy { display: inline-block; padding: 0; border: none; width: auto; }
 form.destroy input[type="submit"] { margin-left: 10px; background: #999; display: inline-block; height: auto; padding: 0.2em; line-height: 1.2em; }
 form.destroy input[type="submit"]:hover { background: red; }
 form.login { width: 30%; }
-#login form { margin: 0 auto 0; padding: 20px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 textarea { padding: 5px 10px; }
+#login form { margin: 0 auto 0; padding: 20px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.login p.error { text-align: center; }
 
 /* Smaller Forms */
 .small-form { width: 40%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
