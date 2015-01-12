@@ -14,9 +14,26 @@ $game_settings = GameSetting::all();
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{{ $page_title }}} | TDrive</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:site_name" content="TDrive" />
 
 	@if (isset($general_settings[2]) || !empty($general_settings[2]))
 		{{ $general_settings[2]->value }}
+	@endif
+
+	@if(isset($game))
+		@foreach($game->contents as $item)
+			<meta property="og:url" content="http://localhost/tdrive/public/game/{{ $game->id }}" />
+			<meta property="og:title" content="{{ $game->main_title }}" />
+			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
+			<meta property="og:image" content="{{ url() }}/images/games/{{ $game->slug}}.jpg" />
+		@endforeach
+	@elseif(isset($news))
+		@foreach($news->contents as $item)
+			<meta property="og:url" content="http://localhost/tdrive/public/news/{{ $news->id }}" />
+			<meta property="og:title" content="{{ $news->main_title }}" />
+			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
+			<meta property="og:image" content="{{ url() }}/images/news/{{ $news->slug}}.jpg" />
+		@endforeach
 	@endif
 
 	<link rel="shortcut icon" href="favicon.ico">
@@ -35,6 +52,15 @@ $game_settings = GameSetting::all();
 </head>
 
 <body id="{{ $page_id }}" class="{{ $page_class or '' }}">
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=199491936915697&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 	@include('_partials/side_menu')
 
