@@ -33,9 +33,9 @@ return array(
 		'tracker' => [
 				    'driver'   => 'mysql',
 				    'host'     => 'localhost',
-				    'database' => 'tdrive3-ebranch',
+				    'database' => 'tdrive',
 				    'username' =>'root',
-				    'password' => '1234aA',
+				    'password' => '',
 				    'charset'  => 'utf8',
 				    'prefix'   => '',
 				    'collation' => 'utf8_unicode_ci',

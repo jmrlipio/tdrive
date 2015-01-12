@@ -459,3 +459,7 @@ a#back {
 }
 .purchased_cont{width: 90%;}
 .purchased_games{width:100%;}
+
+#options-nav li {
+	width: 16.5%;
+}

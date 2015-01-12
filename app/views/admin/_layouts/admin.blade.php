@@ -65,19 +65,7 @@
                     <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>               
                     <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>        
                     <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>               
-                    <li>
-                        <a href="#" id="options-link">Site Options</a>
-                        <ul id="site-options">
-                            <li><a href="{{ URL::route('admin.general-settings') }}">General Settings</a></li>
-                            <li><a href="{{ URL::route('admin.form-messages') }}">Success/Error Messages</a></li>
-                            <!--<li><a href="#">Emails</a></li>-->
-                            <li><a href="{{ URL::route('admin.game-slideshow') }}">Homepage Slideshow</a></li>
-                            <li><a href="{{ URL::route('admin.game-settings') }}">Game Page</a></li>
-                            <!--<li><a href="#">News Page</a></li>-->
-                            <li><a href="{{ URL::route('admin.variables') }}">Site Variables</a></li>
-                            <!--<li><a href="#">Maintenance</a></li>-->
-                        </ul>
-                    </li>
+                    <li><a href="{{ URL::route('admin.general-settings') }}">Site Options</a></li>
                     <li><a href="{{ URL::route('admin.faqs.index') }}">FAQ</a></li>
                 @endif
 
