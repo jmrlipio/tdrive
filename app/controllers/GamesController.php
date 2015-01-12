@@ -58,18 +58,21 @@ class GamesController extends \BaseController {
 	public function show($id)
 	{
 		$languages = Language::all();
-
 		$game = Game::find($id);
-
+		$current_game = Game::find($id);
 		$categories = [];
-
 		foreach($game->categories as $cat) {
 			$categories[] = $cat->id;
 		}
 
+		$reviews = [];
+
+		foreach($game->review as $review) {
+			$reviews[] = $review;
+		}
+
 		$games = Game::all();
 		$related_games = [];
-
 		foreach($games as $gm) {
 			$included = false;
 			foreach($gm->categories as $rgm) {
@@ -81,12 +84,16 @@ class GamesController extends \BaseController {
 				}
 			}
 		}
-
+		$ratings = Review::getRatings($game->id);
 		$visitor = Tracker::currentSession();
-
+		$country = Country::find(Session::get('country_id'));
 		return View::make('game')
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')
+			->with('reviews', $reviews)
+			->with('ratings', $ratings)
+			->with('current_game', $current_game)
+			->with('country', $country)
 			->with(compact('languages'))
 			->with(compact('related_games'))
 			->with(compact('game'));

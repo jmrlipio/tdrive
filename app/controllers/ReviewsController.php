@@ -39,5 +39,19 @@ class ReviewsController extends \BaseController {
         }
 	}
 
+	public function postReview()
+	{
+		$validator = Validator::make(Input::all(), Review::$rules);
+
+		if ($validator->passes()) {
+			Review::create(Input::all());
+
+			return Redirect::back()->with('message', 'Your review has been added.');
+		}
+
+		//validator fails
+		return Redirect::back()->withErrors($validator)->withInput();
+	}
+
 
 }

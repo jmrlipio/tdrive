@@ -49,7 +49,22 @@ class HomeController extends BaseController {
 
 	public function home()
 	{		
-		$latest_news = News::all()->take(2);
+		$latest_news = News::all();
+		
+		/* For displaying year dynamically in select form */
+
+		$year = News::all();
+		$arr_yrs = ['select_year' => 'select year'];	
+		
+		foreach ($year as $yrs) {
+			$year = date('Y', strtotime($yrs->release_date)); 
+			$arr_yrs[$year] = $year;
+			$year = array_unique($arr_yrs);
+			
+		}
+		
+		/* END */
+
 		$previous_news = News::take(3)->skip(2)->get();
 		$faqs = Faq::all();
 		$languages = [];
@@ -59,6 +74,8 @@ class HomeController extends BaseController {
 		$categories = [];
 
 		$game_settings = GameSetting::all();
+
+		$featured_games = Game::where('featured', 1)->orderBy('created_at', 'DESC')->get();
 
 		$games = Game::all()->take($game_settings[0]->game_thumbnails);
 
@@ -93,9 +110,11 @@ class HomeController extends BaseController {
 			->with('page_id', 'home')
 			->with('previous_news', $previous_news)
 			->with('latest_news', $latest_news)
+			->with('year', $year)
 			->with('carrier', $carrier)
 			->with('country', $country)
 			->with('categories', $categories)
+			->with(compact('featured_games'))
 			->with(compact('games'))
 			->with(compact('faqs'))
 			->with(compact('languages'));

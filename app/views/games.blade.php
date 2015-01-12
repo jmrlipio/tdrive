@@ -19,7 +19,7 @@
 						<div class="item">
 							<div class="thumb relative">
 								@if ($game->default_price == 0)
-									{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+									<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
 								@endif
 
 								<img src="images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}">
@@ -29,7 +29,11 @@
 								<p>{{ $game->main_title }}</p>
 
 								@unless ($game->default_price == 0)
-									<p class="price">P{{{ $game->default_price }}}.00</p>
+									@foreach($game->prices as $price) 
+										@if($country->id == $price->pivot->country_id)
+											<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+										@endif
+									@endforeach
 								@endunless
 							</div>
 
@@ -54,6 +58,7 @@
 
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
@@ -61,6 +66,50 @@
 		var load = 0;
 		var _token = $('#token input').val();
 		var num = {{ $count }};
+
+		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
+
+		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
 
 		$(window).scroll(function() {
 			$('.ajax-loader').show();
@@ -72,7 +121,7 @@
 			} else {
 
 				$.ajax({
-					url: "games/all/more",
+					url: "{{ url() }}/games/all/more",
 					type: "POST",
 					data: {
 						load: load,

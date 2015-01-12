@@ -463,3 +463,8 @@ a#back {
 #options-nav li {
 	width: 16.5%;
 }
+
+#asettings {
+	float: none !important;
+	width: auto;
+}

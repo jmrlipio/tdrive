@@ -6,19 +6,11 @@
 
 @section('content')
                          
+	<h3 class="title center">Sign In</h3>
 
-        @if (Session::has('message') ) 
-            
-            <h3 class="title center">{{ Session::get('message') }}</h3>              
+	{{ Form::open(array('route' => 'login.post', 'class' => 'login', 'id' => 'login-form')) }}
 
-        @else
-
-            <h3 class="title center">Sign In</h3>
-
-        @endif    
-         
-
-   {{ Form::open(array('route' => 'login.post', 'class' => 'login', 'id' => 'login-form')) }}
+		<div id="token">{{ Form::token() }}</div>
 
 		<div class="control">
 			{{ Form::text('username', null, array('placeholder'=>'username')) }}                   
@@ -39,7 +31,13 @@
 			</div>
 		</div>
 
-	{{ Form::close() }}
+		{{ Form::close() }}
+
+        @if (Session::has('message') ) 
+            
+            <h3 class="title center">{{ Session::get('message') }}</h3>              
+
+        @endif
 
 	<div class="button">
 		<a href="{{ route('password.remind') }}">Forgot your password?</a>
@@ -54,4 +52,55 @@
 @stop
 
 @section('javascripts')
+
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+
+	<script>
+		var _token = $('#token input').val();
+
+		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
+
+		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
+	</script>
+
 @stop
