@@ -23,13 +23,7 @@ class FaqsController extends \BaseController {
 	 */
 	public function create()
 	{
-		$languages = [];
-
-		foreach(Language::orderBy('language')->get() as $language) {
-			$languages[$language->id] = $language->language;
-		}
-
-		return View::make('admin.faqs.create')->with('languages', $languages);
+		return View::make('admin.faqs.create');
 	}
 
 	/**
@@ -47,13 +41,10 @@ class FaqsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$faq = Faq::create($data);
-
-		$faq->languages()->sync(Input::get('language_id'));
-
+		Faq::create($data);
 		Event::fire('audit.faqs.create', Auth::user());
 
-		return Redirect::route('admin.faqs.create')->with('message', 'You have successfully added a question.');
+		return Redirect::route('admin.faqs.create')->with('message', 'You have successfully added a question and answer.');
 	}
 
 	/**
@@ -79,21 +70,7 @@ class FaqsController extends \BaseController {
 	{
 		$faq = Faq::findOrFail($id);
 
-		$languages = [];
-		$selected_languages = [];
-
-		foreach($faq->languages as $language) {
-			$selected_languages[] = $language->id;
-		}
-
-		foreach(Language::orderBy('language')->get() as $language) {
-			$languages[$language->id] = $language->language;
-		}
-
-		return View::make('admin.faqs.edit')
-			->with('faq', $faq)
-			->with('languages', $languages)
-			->with('selected_languages', $selected_languages);
+		return View::make('admin.faqs.edit')->with('faq', $faq);
 	}
 
 	/**
@@ -144,28 +121,6 @@ class FaqsController extends \BaseController {
 		return Redirect::route('admin.faqs.index')
 			->with('message', 'Something went wrong. Try again.')
 			->with('sof', 'success');
-	}
-
-	public function getLanguageContent($id, $language_id) {
-		$faq = Faq::find($id);
-		$language = Language::find($language_id);
-
-		$question = '';
-		$answer = '';
-
-		foreach($faq->languages as $faq_content) {
-			if($faq_content->pivot->language_id == $language_id) {
-				$question = $faq_content->pivot->question;
-				$answer = $faq_content->pivot->answer;
-			}
-	    }
-
-		return View::make('admin.faqs.content')
-			->with('faq', $faq)
-			->with('language_id', $language_id)
-			->with('language', $language)
-			->with('question', $question)
-			->with('answer', $answer);
 	}
 
 }

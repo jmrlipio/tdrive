@@ -2,7 +2,7 @@
 @section('content')
 	@include('admin._partials.reports-nav')
 	<div class="item-listing" id="categories-list">
-		<h2>Game Sales</h2>
+		<h2>Total Game Ratings</h2>
 		<br>
 		<table id="table">
 			<thead>
@@ -32,7 +32,7 @@
 								<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
 							@endif
 						@else
-							<p>No reviews.</p>
+							<p>N/A</p>
 						@endif
 					</td>
 					<td style="width: 300px;">{{ $ratings['count'] }}</td>

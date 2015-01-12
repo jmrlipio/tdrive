@@ -1,6 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
+	@include('admin._partials.options-nav')
 	{{ Form::open(array('route' => array('admin.variables.update'), 'method' => 'post', 'class' => 'small-form', 'id' => 'variables')) }}
 	<h2>Site Variables</h2>
 		@if(Session::has('message'))

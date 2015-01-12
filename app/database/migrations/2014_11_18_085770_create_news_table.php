@@ -22,8 +22,7 @@ class CreateNewsTable extends Migration {
 			$table->string('main_title');
 			$table->string('slug');
 			$table->string('status');
-			// $table->date('release_date');
-			$table->boolean('comment_enabled');
+			$table->boolean('featured')
 			$table->string('featured_image');
 			$table->timestamps();
 		});

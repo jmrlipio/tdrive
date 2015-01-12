@@ -11,7 +11,7 @@
 		</div> -->
 
 		<br>
-		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
+		<!--<a href="{{-- URL::route('admin.users.create') --}}" class="mgmt-link">Create User</a>-->
 		{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
 			{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
 		{{ Form::close() }}

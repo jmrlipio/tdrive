@@ -27,7 +27,7 @@ return [
 	/**
 	 * Robots should be tracked?
 	 */
-	'do_not_track_robots' => true,
+	'do_not_track_robots' => false,
 
 	/**
 	 * Which environments are not trackable?
@@ -41,9 +41,6 @@ return [
 	 */
 	'do_not_track_routes' => [
 		'tracker.stats.*',
-		'admin.*',
-		'home.show',
-
 	],
 
 	/**
@@ -59,7 +56,7 @@ return [
 	 *     '172.17.0.0/255.255.0.0'
 	 */
 	'do_not_track_ips' => [
-		'' /// range 127.0.0.1 - 127.0.0.255
+		'127.0.0.0/24' /// range 127.0.0.1 - 127.0.0.255
 	],
 
 	/**
@@ -74,7 +71,7 @@ return [
 	 *    - Error log
 	 *    - URL queries (including values)
 	 */
-	'log_enabled' => true,
+	'log_enabled' => false,
 
 	/**
 	 * Log SQL queries?
@@ -173,12 +170,12 @@ return [
 	/**
 	 * Do you wish to log your users?
 	 */
-	'log_users' => true,
+	'log_users' => false,
 
 	/**
 	 * Do you wish to log devices?
 	 */
-	'log_devices' => true,
+	'log_devices' => false,
 
 	/**
 	 * Do you wish to log HTTP referers?
@@ -198,7 +195,7 @@ return [
 	/**
 	 * Do you wish to log routes and route parameters?
 	 */
-	'log_routes' => true,
+	'log_routes' => false,
 
 	/**
 	 * Log errors and exceptions?

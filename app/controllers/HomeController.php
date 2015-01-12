@@ -49,15 +49,17 @@ class HomeController extends BaseController {
 
 	public function home()
 	{		
+
 		$latest_news = News::all()->take(2);
 		//$latest_news = News::orderby('release_date', 'desc')->get()->take(2);
 		$previous_news = News::take(3)->skip(2)->get();
 		$faqs = Faq::all();
 		$languages = [];
+
+		$years = News::all();
+
 		
 		/* For displaying year dynamically in select form */
-
-		$year = News::all();
 
 		$arr_yrs = array();
 		
