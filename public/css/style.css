@@ -187,7 +187,6 @@
 }
 #home #faqs {
   background: #a1c82a;
-  border-bottom: 4px solid #e9548e;
   color: #fff;
 }
 #home #faqs #questions {
@@ -219,7 +218,6 @@
   font-size: 30px;
 }
 #home #contact {
-  border-bottom: 4px solid #e9548e;
   background: #e47564;
   color: #fff;
 }

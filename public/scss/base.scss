@@ -283,6 +283,18 @@ img, video {
 	margin: 10px 0;
 }
 
+#polyglotLanguageSwitcher1, #polyglotLanguageSwitcher2 {
+	a {
+		width: auto;
+		text-transform: none;
+	}
+
+	.dropdown {
+		width: 100%;
+		@extend %box-sizing;
+	}
+}
+
 #side-menu {
 	@extend %box-sizing;
 	padding: 10px;
@@ -346,6 +358,10 @@ img, video {
 				color: $black;
 			}
 		}
+	}
+
+	#polyglotLanguageSwitcher2 {
+		margin-top: 10px;
 	}
 
 	.language {
@@ -714,7 +730,7 @@ img, video {
 		}
 
 		.top {
-			margin: 10px 0 5px;
+			margin: 6px 0 5px;
 
 			ul {
 				display: inline-block;
