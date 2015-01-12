@@ -56,7 +56,7 @@ class HomeController extends BaseController {
 		$faqs = Faq::all();
 		$languages = [];
 
-		$years = News::all();
+		$year = News::all();
 
 		
 		/* For displaying year dynamically in select form */
@@ -64,7 +64,7 @@ class HomeController extends BaseController {
 		$arr_yrs = array();
 		
 		foreach ($year as $yrs) {
-			$year = date('Y', strtotime($yrs->release_date)); 
+			$year = date('Y', strtotime($yrs->created_at)); 
 			$arr_yrs[$year] = $year;
 			$year = array_unique($arr_yrs);
 			
