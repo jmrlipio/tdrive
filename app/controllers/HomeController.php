@@ -105,7 +105,7 @@ class HomeController extends BaseController {
 
 		Session::put('user_country', $country->full_name);
 		
-		/*return View::make('index')
+		return View::make('index')
 			->with('page_title', 'Home')
 			->with('page_id', 'home')
 			->with('previous_news', $previous_news)
@@ -117,7 +117,7 @@ class HomeController extends BaseController {
 			->with(compact('featured_games'))
 			->with(compact('games'))
 			->with(compact('faqs'))
-			->with(compact('languages'));*/
+			->with(compact('languages'));
 	
 	}
 
