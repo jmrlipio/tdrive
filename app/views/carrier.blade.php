@@ -5,6 +5,9 @@
 @stop
 
 @section('content')
+<div id="logo-container">
+	{{ HTML::image("images/tdrive.png", null, array('class' => 'auto')) }}
+</div>
 
 	<h1 class="title center">Select Carrier</h1>
 

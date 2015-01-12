@@ -27,13 +27,7 @@ $game_settings = GameSetting::all();
 			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
 			<meta property="og:image" content="{{ url() }}/images/games/{{ $game->slug}}.jpg" />
 		@endforeach
-	@elseif(isset($news))
-		@foreach($news->contents as $item)
-			<meta property="og:url" content="http://localhost/tdrive/public/news/{{ $news->id }}" />
-			<meta property="og:title" content="{{ $news->main_title }}" />
-			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
-			<meta property="og:image" content="{{ url() }}/images/news/{{ $news->slug}}.jpg" />
-		@endforeach
+	
 	@endif
 
 	<link rel="shortcut icon" href="favicon.ico">

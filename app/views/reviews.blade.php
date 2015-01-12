@@ -9,61 +9,29 @@
 	<div id="token">{{ Form::token() }}</div>
 
 	<div id="scroll" class="container">
-		<div class="entry clearfix">
-			{{ HTML::image('images/avatars/jaypee-onza.jpg', 'Jaypee Onza') }}
-			
-			<div>
-				<p class="name">Jaypee Onza</p>
+	
+		@foreach($reviews as $data)
+			<div class="entry clearfix">
+				{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
 
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
+				{{-- dd($data->toArray())  --}}
+				<div>
+					<p class="name">{{ $data->first_name }}</p>
+
+					<div class="stars">
+						@for ($i=1; $i <= 5 ; $i++)
+		                    <i class="fa fa-star{{ ($i <= Review::getRatingsPerUser($data->id)) ? '' : '-empty'}}"></i>
+		                 @endfor    
+					</div>
+
+					<p class="date">{{  Carbon::parse($data->created_at)->format('M j') }}</p>
+
+					<p class="message">{{{ Review::getReviewPerUser($data->id) }}}</p>
 				</div>
-
-				<p class="date">August 8, 2014</p>
-
-				<p class="message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
 			</div>
-		</div>
 
-		<div class="entry clearfix">
-			{{ HTML::image('images/avatars/julius-caluminga.jpg', 'Julius Caluminga') }}
-			
-			<div>
-				<p class="name">Julius Caluminga</p>
-
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<p class="date">August 8, 2014</p>
-
-				<p class="message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-			</div>
-		</div>
-
-		<div class="entry clearfix">
-			{{ HTML::image('images/avatars/michelle-yang.jpg', 'Michelle Yang') }}
-			
-			<div>
-				<p class="name">Michelle Yang</p>
-
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<p class="date">August 8, 2014</p>
-
-				<p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-			</div>
-		</div>
-	</div>
-
+		@endforeach
+	
 @stop
 
 @section('javascripts')

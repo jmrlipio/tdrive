@@ -41,16 +41,19 @@
 		<div class="ratings">
 			<div class="vcenter">
 				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
-
+				<?php $ctr = $ratings['average'] ? $ratings['average'] : 0; ?>
 				<div class="stars">
-					<a href="#"><i class="fa fa-star active"></i></a>
-					<a href="#"><i class="fa fa-star active"></i></a>
-					<a href="#"><i class="fa fa-star active"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
+	
+					@for ($i=1; $i <= 5; $i++)						
+						@if($i <= $ctr)
+							<a href="#"><i class="fa fa-star active"></i></a>									
+						@else
+							<a href="#"><i class="fa fa-star"></i></a>
+						@endif
+					@endfor  
+					
+					
 				</div>
-
-				<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
 			</div>
 		</div>
 
@@ -78,7 +81,7 @@
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-			{{ $item->pivot->content }}
+			{{{ $item->pivot->content }}}
 		@endforeach
 
 		<!--<p>Stack as many cats as possible. All kinds of cats will appear. Fat cats, kittens, even cats with top hats!</p>	
@@ -109,40 +112,37 @@
 	</div>
 
 	<div id="statistics" class="container">
-		<div class="top clearfix">
-			<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
+		<div class="top clearfix">			
 
-			<div class="stars-container">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star active"></i></a>
-					<a href="#"><i class="fa fa-star active"></i></a>
-					<a href="#"><i class="fa fa-star active"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
+			<?php $ctr = 0; ?>
+			@foreach($reviews as $data)
+				
+				<?php $ctr++; ?>
+			
+			@endforeach
+			
+			@if($ctr != 0)
+				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
+					<div class="stars-container">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star active"></i></a>
+							<a href="#"><i class="fa fa-star active"></i></a>
+							<a href="#"><i class="fa fa-star active"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
 
-				<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
-			</div>
+						<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
+					</div>
+			@endif
 
 			<div class="social clearfix">
-				<a href="#share" id="inline" class="share" >
+				<a href="#" class="share">
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
 					<span>Share</span>
 				</a>
-				<div style="display:none">
-					<div id="share" style="text-align:center;">
-						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}'>
-							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
-						</a>
-						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}'>
-							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
-						</a>
-						<!-- <a href="mailto:support@tdrive.co" target="_blank">Email</a> -->
-					</div>
-				</div>
+
 				<a href="#" class="likes">
-					<div id="game_like" class="fb-like" data-href="{{ url() }}/game/{{ $game->id }}" data-width="150px" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
 					{{ HTML::image('images/likes.png', 'Likes', array('class' => 'auto')) }}
 					<span>10,000,000 liked this</span>
 				</a>
@@ -151,6 +151,14 @@
 
 		<div class="bottom">
 			<div class="five clearfix">
+			<?php $ctr = 0; ?>
+			@foreach($reviews as $data)
+				
+				<?php $ctr++; ?>
+			
+			@endforeach
+			
+			@if($ctr !=0 ) 
 				<div class="stars">
 					<a href="#"><i class="fa fa-star"></i></a>
 					<a href="#"><i class="fa fa-star"></i></a>
@@ -164,6 +172,7 @@
 
 					<p class="total">{{ $ratings['five'] }}</p>
 				</div>
+			
 			</div>
 
 			<div class="four clearfix">
@@ -219,6 +228,7 @@
 					<p class="total">{{ $ratings['one'] }}</p>
 				</div>
 			</div>
+			@endif	
 		</div>
 	</div><!-- end #statistics -->
 
@@ -273,10 +283,11 @@
 	</div><!-- end #review -->
 
 	<div id="reviews" class="container">
-		
+		<?php $ctr = 0; ?>
 		@forelse($reviews as $data)
+		<?php $ctr++; ?>
 			<div class="entry clearfix">
-				{{-- HTML::image('images/avatars/jaypee-onza.jpg', 'Jaypee Onza') --}}
+				{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
 
 				{{-- dd($data->toArray())  --}}
 				<div>
@@ -290,19 +301,21 @@
 
 					<p class="date">{{  Carbon::parse($data->created_at)->format('M j') }}</p>
 
-					<p class="message">{{ Review::getReviewPerUser($data->id) }}</p>
+					<p class="message">{{{ Review::getReviewPerUser($data->id) }}}</p>
 				</div>
 			</div>
 		@empty
-			<p>No reviews yet.</p>
+			<p>be the first one to add a review!</p>
 		@endforelse
-
+		
+	<?php if($ctr != 0) { ?>	
 		<div class="link center"><a href="{{ route('reviews', $game->id) }}">See all reviews &raquo;</a></div>
+	<?php } ?>
 	</div><!-- end #reviews -->
 
 	<div id="related-games" class="container">
 		<h1 class="title">Related games</h1>
-
+		
 		@if(!empty($related_games))
 
 			<div class="swiper-container thumbs-container">
@@ -328,9 +341,9 @@
 							</div>
 
 							@if ($game->default_price == 0)
-								<div class="button center"><a href="#">Get</a></div>
+								<div class="button center"><a href="#" style="display:none">Get</a></div>
 							@else
-								<div class="button center"><a href="#">Buy</a></div>
+								<div class="button center"><a href="#" style="display:none">Buy</a></div>
 							@endif
 						</div>
 
@@ -356,7 +369,6 @@
 	{{ HTML::script("js/jquery.fancybox.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
-	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
@@ -415,14 +427,6 @@
 				calculateHeight: true
 			})
 		});
-
-		$("#inline").fancybox({
-            'titlePosition'     : 'inside',
-            'transitionIn'      : 'none',
-            'transitionOut'     : 'none'
-        });
-
-        $("#share a").jqSocialSharer();
 
 		$('.fancybox').fancybox({ padding: 0 });
 	</script>
