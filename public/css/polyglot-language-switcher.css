@@ -68,7 +68,6 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 	position: relative; /* sets the initial position for the trigger arrow */
 	background-color: #FFF;
 	border: 1px solid #E5E5E5;
-	border-radius: 3px;
 	height: 1.25em; /* 15px */
 }
 
@@ -79,7 +78,6 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 
 .polyglotLanguageSwitcher a.active { /* This style is applied as long as the drop-down menu is visible. */
 	border-bottom: none !important;
-	border-radius: 3px 3px 0 0 !important;
 }
 
 .polyglotLanguageSwitcher span.trigger {
@@ -110,7 +108,6 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 	background-color: #FFF;
 	border: 1px solid #E5E5E5;
 	border-top: none !important;
-	border-radius: 0 0 3px 3px;
 }
 
 .polyglotLanguageSwitcher ul.dropdown li { 
@@ -118,7 +115,6 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 }
 
 .polyglotLanguageSwitcher ul.dropdown li:last-child { 
-	border-radius: 0 0 3px 3px;
 }
 
 /* Flags */
