@@ -23,7 +23,11 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
+<<<<<<< HEAD
 			'database'  => 'tdrive2',
+=======
+			'database'  => 'tdrive4',
+>>>>>>> 7ca8563952f0c0f4aa4a7209bd59e9011cba3da4
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
@@ -33,7 +37,11 @@ return array(
 		'tracker' => [
 				    'driver'   => 'mysql',
 				    'host'     => 'localhost',
+<<<<<<< HEAD
 				    'database' => 'tdrive2',
+=======
+				    'database' => 'tdrive4',
+>>>>>>> 7ca8563952f0c0f4aa4a7209bd59e9011cba3da4
 				    'username' => 'root',
 				    'password' => '',
 				    'charset'  => 'utf8',
