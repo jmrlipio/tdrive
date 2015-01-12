@@ -236,9 +236,6 @@
 #home #contact .control:last-child {
   margin-top: 10px;
 }
-#home #contact .captcha img {
-  top: 4px;
-}
 #home #contact input[type="text"], #home #contact input[type="email"] {
   padding: 12px 6px;
   height: 34px;

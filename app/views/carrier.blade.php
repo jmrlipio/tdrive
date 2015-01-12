@@ -40,4 +40,5 @@
 @stop
 
 @section('javascripts')
+
 @stop

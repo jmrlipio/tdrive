@@ -20,6 +20,8 @@
 		<div class="container">
 			<h1 class="title">Downloaded games</h1>
 
+			<div id="token">{{ Form::token() }}</div>
+
 			<div class="grid">
 				<div class="row">
 					<div class="clearfix">
@@ -51,8 +53,55 @@
 
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
+
+		var _token = $('#token input').val();
+
+		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
+
+		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
 	</script>
 @stop

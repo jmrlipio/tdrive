@@ -290,9 +290,56 @@
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery-ui.min.js"); }}
 	{{ HTML::script("js/jquery.ddslick.min.js"); }}
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
+
+		var token = $('#token input').val();
+
+		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
+
+		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
 
 		$('.featured').swiper({
 			slidesPerView: 'auto',

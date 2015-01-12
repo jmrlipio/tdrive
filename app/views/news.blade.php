@@ -10,6 +10,8 @@
 		{{ HTML::image('images/news/' . $news->slug . '.jpg', $news->main_title) }}
 	</div>
 
+	<div id="token">{{ Form::token() }}</div>
+
 	<div class="container">
 		<div class="details">
 			<div class="date">
@@ -58,11 +60,58 @@
 
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 	{{ HTML::script("js/jquery.fancybox.js"); }}
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
+
+		var _token = $('#token input').val();
+
+		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
+
+		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
 
 		$("#inline").fancybox({
             'titlePosition'     : 'inside',

@@ -6,6 +6,8 @@
 		<h3 class="title">All reviews for {{{ $game->main_title }}}</h3>
 	</div>
 
+	<div id="token">{{ Form::token() }}</div>
+
 	<div id="scroll" class="container">
 		<div class="entry clearfix">
 			{{ HTML::image('images/avatars/jaypee-onza.jpg', 'Jaypee Onza') }}
@@ -66,8 +68,55 @@
 
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
+
+		var _token = $('#token input').val();
+
+		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
+
+		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
+			effect: 'fade',
+			paramName: 'locale', 
+			websiteType: 'dynamic',
+
+			onChange: function(evt){
+
+				$.ajax({
+					url: "language",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: _token
+					},
+					success: function(data) {
+					}
+				});
+
+				return true;
+			}
+		});
 	</script>
 @stop
