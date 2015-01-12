@@ -141,16 +141,16 @@ img.auto, video.auto {
   position: relative;
 }
 .captcha img {
-  position: absolute;
-  left: 2px;
-  top: 5px;
-  width: auto;
-  height: 26px;
+  width: 30%;
+  height: 34px;
+  float: left;
 }
 .captcha input {
-  width: 100%;
-  padding-left: 126px !important;
+  width: auto;
   display: block;
+  float: left;
+  padding: 8px 6px !important;
+  width: 70% !important;
 }
 
 .form-success {

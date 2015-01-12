@@ -34,68 +34,19 @@ $game_settings = GameSetting::all();
 {{ HTML::script("//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"); }}
 <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
 {{ HTML::script("js/pushy.min.js"); }}
-{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
-
-<script>
-
-	var _token = $('#token input').val();
-
-	$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-		effect: 'fade',
-		paramName: 'locale', 
-		websiteType: 'dynamic',
-
-		onChange: function(evt){
-
-			$.ajax({
-				url: "language",
-				type: "POST",
-				data: {
-					locale: evt.selectedItem,
-					_token: _token
-				},
-				success: function(data) {
-					alert(evt.selectedItem);
-				}
-			});
-
-            return true;
-        }
-	});
-
-	$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-		effect: 'fade',
-		paramName: 'locale', 
-		websiteType: 'dynamic',
-
-		onChange: function(evt){
-
-			$.ajax({
-				url: "language",
-				type: "POST",
-				data: {
-					locale: evt.selectedItem,
-					_token: _token
-				},
-				success: function(data) {
-					alert(evt.selectedItem);
-				}
-			});
-
-            return true;
-        }
-	});
-
-	(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-	function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-	e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-	e.src='//www.google-analytics.com/analytics.js';
-	r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-	ga('create','(UA-58420474-1','auto');ga('send','pageview');
-
-</script>
 
 @section('javascripts')
+
+	<script>
+
+		(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+		function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+		e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+		e.src='//www.google-analytics.com/analytics.js';
+		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+		ga('create','(UA-58420474-1','auto');ga('send','pageview');
+
+	</script>
 
 @show
 

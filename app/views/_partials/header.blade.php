@@ -103,5 +103,7 @@ $game_settings = GameSetting::all();
 
 	</div><!-- end #header -->
 
+	<div class="site-overlay"></div>
+
 	<div id="container">
 
