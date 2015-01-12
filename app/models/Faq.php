@@ -1,14 +1,11 @@
 <?php
 
 class Faq extends \Eloquent {
-	protected $fillable = ['main_question','order'];
+	protected $fillable = ['question', 'answer','order'];
 
 	public static $rules = [
-        'main_question' => 'required|min:3|max:255',
+        'question' => 'required|min:3|max:255',
+        'answer' => 'required|min:3',
         'order'	=> 'integer'
     ];
-
-    public function languages() {
-    	return $this->belongsToMany('Language', 'faq_languages')->withPivot('question', 'answer');
-    }
 }
