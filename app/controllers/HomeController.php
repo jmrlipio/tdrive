@@ -63,7 +63,7 @@ class HomeController extends BaseController {
 
 		$arr_yrs = array();
 		
-		foreach ($year as $yrs) {
+		foreach ($years as $yrs) {
 			$year = date('Y', strtotime($yrs->release_date)); 
 			$arr_yrs[$year] = $year;
 			$year = array_unique($arr_yrs);
