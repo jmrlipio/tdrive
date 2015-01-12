@@ -196,6 +196,7 @@ class ListingController extends \BaseController {
 		$languages = Language::all();
 
 		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->where('status', 2)->orderBy('created_at', 'DESC')->take(3)->get();
+
 		$news_all = News::all();
 
 		$count = count($news_all);
