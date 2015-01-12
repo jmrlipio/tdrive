@@ -150,7 +150,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$games = Game::where('main_title', 'LIKE', Input::get('search') . "%")->take(3)->get();
+		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(3)->get();
 		$count = count($games);
 
 		$country = Country::find(Session::get('country_id'));
@@ -168,7 +168,7 @@ class ListingController extends \BaseController {
 	{
 		$load = Input::get('load') * 3;
 
-		$games = Game::where('main_title', 'LIKE', Input::get('search') . "%")->take(3)->skip($load)->get();
+		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(3)->skip($load)->get();
 		
 		$country = Country::find(Session::get('country_id'));
 		
