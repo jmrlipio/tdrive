@@ -39,7 +39,6 @@ $game_settings = GameSetting::all();
 			{{ Form::token() }}
 
 			<select name="locale" id="polyglot-language-options">
-				<option value="" selected>Select Language</option>
 				<option id="en" value="en" {{ (strtolower($user_location['isoCode']) == 'us' || Lang::locale() == 'us') ? ' selected' : '' }}>English</option>
 				<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Lang::locale() == 'th') ? ' selected' : '' }}>Thai</option>
 				<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Lang::locale() == 'id') ? ' selected' : '' }}>Bahasa Indonesia</option>
