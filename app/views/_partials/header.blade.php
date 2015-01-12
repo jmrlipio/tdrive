@@ -105,7 +105,14 @@ $game_settings = GameSetting::all();
 		#news-detail #header .container {
 			padding: 0 10px;
 		}
-		
+		div#game_like {
+			overflow: hidden;
+			height: 65px;
+		}
+		div#news_like {
+			overflow: hidden;
+			height: auto;
+		}
 	</style>
 
 	{{ HTML::style("css/base.css"); }}
