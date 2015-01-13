@@ -74,7 +74,7 @@
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
 
-					@foreach($game->prices as $price) 
+					@foreach($game->prices as $price)
 						@if($country->id == $price->pivot->country_id)
 							<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 						@endif
@@ -358,7 +358,11 @@
 										<p class="name">{{{ $game->main_title }}}</p>
 
 										@unless ($game->default_price == 0)
-											<p class="price">P{{{ $game->default_price }}}.00</p>
+											@foreach($game->prices as $price) 
+												@if($country->id == $price->pivot->country_id)
+													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+												@endif
+											@endforeach
 										@endunless
 									</div>
 

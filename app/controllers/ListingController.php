@@ -167,7 +167,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where('status', 2)->orderBy('created_at', 'DESC')->take(3)->get();
+		$news = News::where('status', 'live')->orderBy('created_at', 'DESC')->take(3)->get();
 		$news_all = News::all();
 
 		$count = count($news_all);
@@ -184,7 +184,7 @@ class ListingController extends \BaseController {
 	{
 		$load = Input::get('load') * 3;
 
-		$news = News::where('status', 2)->take(3)->skip($load)->get();
+		$news = News::where('status', 'live')->take(3)->skip($load)->get();
 		
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-news')->with(compact('news'));
@@ -195,7 +195,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->whereStatus(2)->orderBy('created_at', 'DESC')->take(3)->get();
+		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->whereStatus('live')->orderBy('created_at', 'DESC')->take(3)->get();
 
 		$news_all = News::all();
 
@@ -218,7 +218,7 @@ class ListingController extends \BaseController {
 
 		$year = Input::get('year');
 
-		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->where('status', 2)->orderBy('created_at', 'DESC')->take(3)->skip($load)->get();
+		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->where('status', 'live')->orderBy('created_at', 'DESC')->take(3)->skip($load)->get();
 
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-year')->with(compact('news'));

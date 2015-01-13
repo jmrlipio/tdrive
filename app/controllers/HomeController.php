@@ -49,8 +49,8 @@ class HomeController extends BaseController {
 
 	public function home()
 	{		
-		$latest_news = News::orderby('created_at', 'desc')->get()->take(2);
-		$previous_news = News::take(3)->skip(2)->get();
+		$latest_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(2)->get();
+		$previous_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(3)->skip(2)->get();
 		$faqs = Faq::all();
 
 		$languages = [];

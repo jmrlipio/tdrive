@@ -97,6 +97,7 @@
 
 					@foreach($games as $game)
 						@foreach($game->categories as $gcat)
+							.
 							@foreach($game->media as $media)
 
 								@if($media->type == 'icons')
@@ -117,7 +118,7 @@
 
 												@unless ($game->default_price == 0)
 													@foreach($game->prices as $price) 
-														@if($country->id == $price->pivot->country_id)
+														@if(Session::get('country_id') == $price->pivot->country_id)
 															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 														@endif
 													@endforeach
@@ -165,7 +166,7 @@
 				<div>
 					<div class="date">
 						<div class="vhparent">
-							<p class="vhcenter">{{ Carbon::parse($item->release_date)->format('M j') }}</p>
+							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
 						</div>
 					</div>
 
@@ -192,7 +193,7 @@
 				<div>
 					<div class="date">
 						<div class="vhparent">
-							<p class="vhcenter">{{ Carbon::parse($item->release_date)->format('M j') }}</p>
+							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
 						</div>	
 					</div>	
 
