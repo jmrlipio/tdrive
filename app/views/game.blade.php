@@ -356,11 +356,9 @@
 
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
-<<<<<<< HEAD
-												@if($country->id == $price->pivot->country_id)
-=======
+
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
->>>>>>> 4b22dc197be4160c4d4a3dba71ef11da165716af
+
 													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 												@endif
 											@endforeach

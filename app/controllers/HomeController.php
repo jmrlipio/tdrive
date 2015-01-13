@@ -53,6 +53,14 @@ class HomeController extends BaseController {
 		$previous_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(3)->skip(2)->get();
 		$faqs = Faq::all();
 
+		$dt = new DateTime();
+
+
+		$discounts = Discount::where('start_date', '<=', $dt)
+			->whereActive(1)
+			->orWhere('end_date', '<=', $dt)
+			->get();
+
 		$languages = [];
 
 		$year = News::all();
@@ -114,6 +122,7 @@ class HomeController extends BaseController {
 			->with('carrier', $carrier)
 			->with('country', $country)
 			->with('categories', $categories)
+			->with('discounts', $discounts)
 			->with(compact('featured_games'))
 			->with(compact('games'))
 			->with(compact('faqs'))
