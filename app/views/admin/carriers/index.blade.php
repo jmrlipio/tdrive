@@ -15,30 +15,32 @@
 		    </div>
 		@endif
 		<br>
-		<table>
+		<table class="table table-striped table-bordered table-hover">
 			<tr>
-				<th><input type="checkbox"></th>
 				<th>Carrier Name</th>
 			</tr>
-			@foreach($carriers as $carrier)
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<a href="#">{{ $carrier->carrier }}</a>
-						@if(Auth::user()->role != 'admin')
-							<ul class="actions">
-								<li><a href="{{ URL::route('admin.carriers.edit', $carrier->id) }}">Edit</a></li>
-								<li><a href="">View</a></li>
-								<li>
-									{{ Form::open(array('route' => array('admin.carriers.destroy', $carrier->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-									{{ Form::close() }}
-								</li>
-							</ul>
-						@endif
-					</td>
-				</tr>
-			@endforeach
+			@if(!$carriers->isEmpty())
+				@foreach($carriers as $carrier)
+					<tr>
+						<td>
+							<a href="#">{{ $carrier->carrier }}</a>
+							@if(Auth::user()->role != 'admin')
+								<ul class="actions">
+									<li><a href="{{ URL::route('admin.carriers.edit', $carrier->id) }}">Edit</a></li>
+									<li><a href="">View</a></li>
+									<li>
+										{{ Form::open(array('route' => array('admin.carriers.destroy', $carrier->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+										{{ Form::close() }}
+									</li>
+								</ul>
+							@endif
+						</td>
+					</tr>
+				@endforeach
+			@else
+				<td><center>You haven't created any carriers yet.</center></td>
+			@endif
 		</table>
 		<br>
 		

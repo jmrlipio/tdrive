@@ -152,7 +152,8 @@ textarea { width: 95%; resize: none; height: 150px; }
 .review-listing td:first-child, .review-listing th:first-child { width: 20px; }
 .review-listing td:nth-child(2), .review-listing th:nth-child(2), .review-listing td:nth-child(3){ width: 15%; }
 
-#categories-list, #languages-list, #faq-list, #platforms-list, #countries-list, #carriers-list { width: 80%; }
+#categories-list, #faq-list, #platforms-list, #countries-list { width: 80%; }
+#languages-list, #carriers-list { width: 60%;}
 #categories-list td:nth-child(2), #categories-list th:nth-child(2), #platforms-list td:nth-child(2), #platforms-list th:nth-child(2){ width: 60%; }
 
 #languages-list td:last-child, #languages-list th:last-child, #faq-list td:last-child, #faq-list th:last-child, #countries-list th:last-child, #carriers-list th:last-child { width: 90%; }
