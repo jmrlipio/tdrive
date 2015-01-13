@@ -1,10 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-<<<<<<< HEAD
 	@include('admin._partials.options-nav')
-=======
->>>>>>> dfe58a90fcfe0dbc7cde841831a6886d07a052c7
 	{{ Form::open(array('route' => array('admin.general-settings.update'), 'method' => 'post', 'class' => 'small-form', 'id' => 'general-settings')) }}
 	<h2>General Settings</h2>
 		@if(Session::has('message'))

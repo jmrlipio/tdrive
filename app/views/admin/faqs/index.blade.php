@@ -8,6 +8,7 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
+		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
 		<table>
 			<tr>
 				<th><input type="checkbox"></th>
@@ -32,6 +33,6 @@
 			@endforeach
 		</table>
 		<br>
-		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
+		
 	</div>
 @stop

@@ -108,7 +108,7 @@
 
 			load++;
 
-			if (load * 3 > num) {
+			if (load * 6 > num) {
 				$('.ajax-loader').hide();
 			} else {
 

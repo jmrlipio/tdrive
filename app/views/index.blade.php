@@ -56,7 +56,7 @@
 
 									@unless ($game->default_price == 0)
 										@foreach($game->prices as $price) 
-											@if($country->id == $price->pivot->country_id)
+											@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
 												<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 											@endif
 										@endforeach
@@ -97,12 +97,12 @@
 
 					@foreach($games as $game)
 						@foreach($game->categories as $gcat)
-							.
 							@foreach($game->media as $media)
+							@if($gcat->id == $cat->id)
 
-								@if($media->type == 'icons')
 
-									@if($gcat->id == $cat->id)
+
+									@if($media->type == 'icons')
 				
 										<div class="swiper-slide item">
 											<div class="thumb relative">
@@ -118,7 +118,10 @@
 
 												@unless ($game->default_price == 0)
 													@foreach($game->prices as $price) 
-														@if(Session::get('country_id') == $price->pivot->country_id)
+
+
+														@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
+
 															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 														@endif
 													@endforeach
@@ -133,10 +136,8 @@
 										</div>
 
 									@endif
-									
-								@endif
-
-							@endforeach
+								@endforeach
+							@endif
 						@endforeach
 					@endforeach
 

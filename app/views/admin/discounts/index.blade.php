@@ -1,6 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
+	@include('admin._partials.game-nav')
 	<div class="item-listing" id="faq-list">
 		<h2>Discounts</h2>
 		@if(Session::has('message'))

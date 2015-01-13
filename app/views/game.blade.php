@@ -74,11 +74,14 @@
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
 
-					@foreach($game->prices as $price)
-						@if($country->id == $price->pivot->country_id)
-							<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-						@endif
-					@endforeach
+					@unless ($game->default_price == 0)
+						@foreach($game->prices as $price) 
+							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
+								<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+							@endif
+						@endforeach
+					@endunless
+
 				</div>
 			</a>
 		@endif
@@ -92,10 +95,6 @@
 
 		@endforeach
 
-		<!--<p>Stack as many cats as possible. All kinds of cats will appear. Fat cats, kittens, even cats with top hats!</p>	
-		<p>Touch and tilt, but be careful. The tower may fall apart!</p>	
-		<p>Mew Mew Tower Premium is a simple and exciting game enjoyed by all ages.</p>	
-		<p>Test you skills and luck with friends in 2 player mode! Cute backgrounds are also unlockable wallpapers!</p>	-->
 	</div><!-- end #description -->
 
 	<div id="screenshots" class="container">
@@ -162,9 +161,7 @@
 				</div>
 
 				<div class="likes">
-					<div id="game_like" class="fb-like" data-href="{{ url() }}/game/{{ $game->id }}" data-width="150px" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
-					{{ HTML::image('images/likes.png', 'Likes', array('class' => 'auto')) }}
-					<span>10,000,000 liked this</span>
+					<div id="game_like" class="fb-like" data-href="{{ url() }}/game/{{ $game->id }}" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>
 			</div>
 		</div>
@@ -325,7 +322,7 @@
 				</div>
 			</div>
 		@empty
-			<p>be the first one to add a review!</p>
+			<!-- <p>be the first one to add a review!</p> -->
 		@endforelse
 		
 	<?php if($ctr != 0) { ?>	
@@ -359,7 +356,11 @@
 
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
+<<<<<<< HEAD
 												@if($country->id == $price->pivot->country_id)
+=======
+												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
+>>>>>>> 4b22dc197be4160c4d4a3dba71ef11da165716af
 													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 												@endif
 											@endforeach
