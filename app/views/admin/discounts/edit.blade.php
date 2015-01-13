@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-
+	@include('admin._partials.game-nav')
 	<article>
 		{{ Form::model($discount, array('route' => array('admin.discounts.update', $discount->id), 'method' => 'put', 'enctype'=> 'multipart/form-data', 'files' => true, 'id' => 'tab-container', 'class' => 'large-form tab-container')) }}
 			<h2>Edit Discount</h2>

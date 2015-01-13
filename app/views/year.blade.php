@@ -19,7 +19,7 @@
 					<div class="item">
 						<div class="date">
 							<div class="vhparent">
-								<p class="vhcenter">{{ Carbon::parse($item->release_date)->format('M j') }}</p>
+								<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
 							</div>	
 						</div>	
 
@@ -110,7 +110,7 @@
 
 			load++;
 
-			if (load * 3 > num) {
+			if (load * 6 > num) {
 				$('.ajax-loader').hide();
 			} else {
 

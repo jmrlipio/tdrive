@@ -34,7 +34,7 @@ class ListingController extends \BaseController {
 	{
 		$load = Input::get('load') * 6;
 
-		$games = Game::take(3)->skip($load)->get();
+		$games = Game::take(6)->skip($load)->get();
 
 		$country = Country::find(Session::get('country_id'));
 		
@@ -53,7 +53,7 @@ class ListingController extends \BaseController {
 
 		$country = Country::find(Session::get('country_id'));
 
-		$games = Category::find($id)->games->take(3);
+		$games = Category::find($id)->games->take(6);
 
 		$games_all = Category::find($id)->games;
 
@@ -71,10 +71,10 @@ class ListingController extends \BaseController {
 
 	public function showMoreGamesByCategory() 
 	{
-		$load = Input::get('load') * 3;
+		$load = Input::get('load') * 6;
 		$category_id = Input::get('category_id');
 
-		$games = Category::find($category_id)->games()->take(3)->skip($load)->get();
+		$games = Category::find($category_id)->games()->take(6)->skip($load)->get();
 		
 		$country = Country::find(Session::get('country_id'));
 		
@@ -129,7 +129,7 @@ class ListingController extends \BaseController {
 
 	public function showMoreRelatedGames() 
 	{
-		$load = Input::get('load') * 3;
+		$load = Input::get('load') * 6;
 		$game_id = Input::get('game_id');
 
 		$game = Game::find($game_id);
@@ -167,7 +167,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where('status', 2)->orderBy('created_at', 'DESC')->take(3)->get();
+		$news = News::where('status', 'live')->orderBy('created_at', 'DESC')->take(6)->get();
 		$news_all = News::all();
 
 		$count = count($news_all);
@@ -182,9 +182,9 @@ class ListingController extends \BaseController {
 
 	public function showMoreNews() 
 	{
-		$load = Input::get('load') * 3;
+		$load = Input::get('load') * 6;
 
-		$news = News::where('status', 2)->take(3)->skip($load)->get();
+		$news = News::where('status', 'live')->take(6)->skip($load)->get();
 		
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-news')->with(compact('news'));
@@ -195,7 +195,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->whereStatus(2)->orderBy('created_at', 'DESC')->take(3)->get();
+		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->whereStatus('live')->orderBy('created_at', 'DESC')->take(6)->get();
 
 		$news_all = News::all();
 
@@ -214,11 +214,11 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$load = Input::get('load') * 3;
+		$load = Input::get('load') * 6;
 
 		$year = Input::get('year');
 
-		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->where('status', 2)->orderBy('created_at', 'DESC')->take(3)->skip($load)->get();
+		$news = News::where(DB::raw('YEAR(created_at)'), '=', $year)->where('status', 'live')->orderBy('created_at', 'DESC')->take(6)->skip($load)->get();
 
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-year')->with(compact('news'));
@@ -229,7 +229,7 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(3)->get();
+		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(6)->get();
 		$count = count($games);
 
 		$country = Country::find(Session::get('country_id'));
@@ -245,9 +245,9 @@ class ListingController extends \BaseController {
 
 	public function searchMoreGames() 
 	{
-		$load = Input::get('load') * 3;
+		$load = Input::get('load') * 6;
 
-		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(3)->skip($load)->get();
+		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(6)->skip($load)->get();
 		
 		$country = Country::find(Session::get('country_id'));
 		

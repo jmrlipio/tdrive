@@ -16,7 +16,7 @@
 		<div class="details">
 			<div class="date">
 				<div class="vhparent">
-					<p class="vhcenter">{{ Carbon::parse($news->release_date)->format('M j') }}</p>
+					<p class="vhcenter">{{ Carbon::parse($news->created_at)->format('M j') }}</p>
 				</div>
 			</div>
 
