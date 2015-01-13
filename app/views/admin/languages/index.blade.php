@@ -10,30 +10,31 @@
 		@endif
 
 		<br>
-		<table>
+		<table class="table table-striped table-bordered table-hover">
 			<tr>
-				<th><input type="checkbox"></th>
 				<th>Language</th>
 			</tr>
-			@foreach($languages as $language)
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<a href="#">{{ $language->language }}</a>
-						@if(Auth::user()->role != 'admin')
-							<ul class="actions">
-								<li><a href="{{ URL::route('admin.languages.edit', $language->id) }}">Edit</a></li>
-								<li><a href="">View</a></li>
-								<li>
-									{{ Form::open(array('route' => array('admin.languages.destroy', $language->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-									{{ Form::close() }}
-								</li>
-							</ul>
-						@endif
-					</td>
-				</tr>
-			@endforeach
+			@if(!$languages->isEmpty())
+				@foreach($languages as $language)
+					<tr>
+						<td>
+							<a href="#">{{ $language->language }}</a>
+							@if(Auth::user()->role != 'admin')
+								<ul class="actions">
+									<li><a href="{{ URL::route('admin.languages.edit', $language->id) }}">Edit</a></li>
+									<li>
+										{{ Form::open(array('route' => array('admin.languages.destroy', $language->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+										{{ Form::close() }}
+									</li>
+								</ul>
+							@endif
+						</td>
+					</tr>
+				@endforeach
+			@else
+				<td><center>You haven't created any languages yet.</center></td>
+			@endif
 		</table>
 		<br>
 		

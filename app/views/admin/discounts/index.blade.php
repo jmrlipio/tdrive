@@ -13,33 +13,33 @@
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
 			<thead>
 				<tr>
-					<th><input type="checkbox"></th>
 					<th>Discount Name</th>
 				</tr>
 			</thead>
 
 			<tbody>
-
-				@foreach($discounts as $discount)	
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>
-							<a href="#">{{ $discount->title }}</a>
-							@if(Auth::user()->role != 'admin')
-								<ul class="actions">							
-									<li><a href="{{ URL::route('admin.discounts.edit', $discount->id) }}">Edit</a></li>		
-									<li>
-										{{ Form::open(array('route' => array('admin.discounts.destroy', $discount->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-										{{ Form::close() }}
-									</li>
-								</ul>
-							@endif
-						</td>
-					</tr>
-				
-				@endforeach
-
+				@if(!$discounts->isEmpty())
+					@foreach($discounts as $discount)	
+						<tr>
+							<td>
+								<a href="#">{{ $discount->title }}</a>
+								@if(Auth::user()->role != 'admin')
+									<ul class="actions">							
+										<li><a href="{{ URL::route('admin.discounts.edit', $discount->id) }}">Edit</a></li>		
+										<li>
+											{{ Form::open(array('route' => array('admin.discounts.destroy', $discount->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+												{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+											{{ Form::close() }}
+										</li>
+									</ul>
+								@endif
+							</td>
+						</tr>
+					
+					@endforeach
+				@else
+					<td><center>You haven't created any discounts yet.</center></td>
+				@endif
 			</tbody>
 		</table>
 	</div>

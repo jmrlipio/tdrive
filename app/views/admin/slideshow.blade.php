@@ -4,28 +4,28 @@
 	@include('admin._partials.options-nav')
 	<div class="item-listing" id="featured-games">
 		<h2>Slideshow Listing</h2>
-		<p>Please select the games you want to feature on the homepage slideshow.</p>
+		<p>Please select the news you want to feature on the homepage slideshow.</p>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover"  id="game_table">
 				<thead>
 					<tr>
-						<th>Game Name</th>
+						<th>News Title</th>
 						<th>Featured</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					@foreach($games as $game)
+					@foreach($news as $n)
 						<tr>
 							<td>
-								{{ $game->main_title }}
+								{{ $n->main_title }}
 							</td>
 							<td>
 								<center>
-									@if($game->featured == 1)
-										<input type="checkbox" class="featured" name="featured[]" value="{{ $game->featured }}" checked id="{{ $game->id }}"/>
+									@if($n->featured == 1)
+										<input type="checkbox" class="featured" name="featured[]" value="{{ $n->featured }}" checked id="{{ $n->id }}"/>
 									@else
-										<input type="checkbox" class="featured" name="featured[]" value="{{ $game->featured }}" id="{{ $game->id }}" />
+										<input type="checkbox" class="featured" name="featured[]" value="{{ $n->featured }}" id="{{ $n->id }}" />
 									@endif
 								</center>
 							</td>
@@ -34,7 +34,7 @@
 				</tbody>
 			</table>
 		</div>
-		{{ $games->links() }}
+		{{ $news->links() }}
 		<br>
 	</div>
 	<script>
@@ -45,7 +45,7 @@
 
 	            $.ajax({
 	                type: "POST",
-	                url : "{{ URL::route('admin.games.featured') }}",
+	                url : "{{ URL::route('admin.featured') }}",
 	                data :{
 	                	"featured": checked,
 	                	"id": id

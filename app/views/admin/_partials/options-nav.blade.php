@@ -2,7 +2,7 @@
 	<ul>
 		<li><a href="{{ URL::route('admin.general-settings') }}">General Settings</a></li>
 		<li><a href="{{ URL::route('admin.form-messages') }}">Success/Error Messages</a></li>
-		<li><a href="{{ URL::route('admin.game-slideshow') }}">Homepage Slideshow</a></li>
+		<li><a href="{{ URL::route('admin.slideshow') }}">Homepage Slideshow</a></li>
 		<li><a href="{{ URL::route('admin.game-settings') }}">Game Page</a></li>
 		<li><a href="{{ URL::route('admin.variables') }}">Site Variables</a></li>
 	</ul>
