@@ -22,7 +22,6 @@
 							@if(Auth::user()->role != 'admin')
 								<ul class="actions">
 									<li><a href="{{ URL::route('admin.languages.edit', $language->id) }}">Edit</a></li>
-									<li><a href="">View</a></li>
 									<li>
 										{{ Form::open(array('route' => array('admin.languages.destroy', $language->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}

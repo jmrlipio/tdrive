@@ -27,7 +27,6 @@
 							@if(Auth::user()->role != 'admin')
 								<ul class="actions">
 									<li><a href="{{ URL::route('admin.carriers.edit', $carrier->id) }}">Edit</a></li>
-									<li><a href="">View</a></li>
 									<li>
 										{{ Form::open(array('route' => array('admin.carriers.destroy', $carrier->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
