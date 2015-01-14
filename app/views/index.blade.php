@@ -1,9 +1,25 @@
 @extends('_layouts/default')
 
 @section('stylesheets')
+	{{ HTML::style("css/bootstrap.min.css"); }}
 	{{ HTML::style("css/lightSlider.css"); }}
+	{{ HTML::style("css/jquery.fancybox.css"); }}
 	{{ HTML::style("css/jquery-ui.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
+
+	<style>
+
+		.modal-body img{
+			width: 40% !important;
+			margin-right: 10px;
+		}
+
+		div.modal-dialog{
+			margin-top:60px;
+		}
+
+	</style>
+
 @stop
 
 @section('content')
@@ -294,11 +310,98 @@
 		{{ Form::close() }}
 
 	</div><!-- end #contact -->
+		
+
+@if($first_visit)
+
+<?php $ctr = 0; ?>
+
+	@if(count($discounts) != 0)		
+
+		@foreach($discounts as $data)
+		<!-- Modal -->
+		<?php $ctr++; ?>
+			<div class="modal fade" id="myModal{{ $ctr }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					
+					<div class="modal-content">
+					
+					  <div class="modal-header">					  
+					   
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    
+					    <h4 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->title) }}}</h4>		   			    					 
+					  </div>
+					  
+					  <div class="modal-body">
+					  	{{ HTML::image("assets/discounts/$data->featured_image", null, array('class' => 'auto pull-left', 'id' => 'discount-img')) }}
+					    <p class="pull-right"> {{ ucfirst($data->description) }} </p>
+					    
+					    <div class="clearfix"></div>
+					  
+					  </div>
+					 
+					</div>
+
+				</div>
+
+			</div>
+
+		@endforeach
+
+		<input type="hidden" id="ctr" value="{{ $ctr }}">
+
+	@endif
+
+<?php $ctr2 = 0; ?>
+
+	@if(count($news_alert) != 0)		
+
+		@foreach($news_alert as $data)
+		<!-- Modal -->
+		<?php $ctr2++; ?>
+			<div class="modal fade" id="newsAlert{{ $ctr2 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					
+					<div class="modal-content">
+					
+					  <div class="modal-header">					  
+					   
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    
+					    <h4 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->main_title) }}}</h4>		   			    					 
+					  </div>
+					  
+					  <div class="modal-body">
+					  	{{ HTML::image("assets/news/$data->featured_image", null, array('class' => 'auto pull-left', 'id' => 'discount-img')) }}
+						
+						@foreach($data->contents as $row)
+					  		<p class="pull-right"> {{{ $row->pivot->content }}} </p>					    
+					    @endforeach
+					  
+					    <div class="clearfix"></div>
+				
+					  </div>
+					 
+					</div>
+
+				</div>
+
+			</div>
+
+		@endforeach
+
+		<input type="hidden" id="ctr2" value="{{ $ctr2 }}">
+
+	@endif
+
+@endif
 
 @stop
 
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
+	{{ HTML::script("js/bootstrap.min.js"); }}
 	{{ HTML::script("js/jquery.lightSlider.min.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery-ui.min.js"); }}
@@ -307,6 +410,23 @@
 
 	<script>
 		FastClick.attach(document.body);
+
+		var ctr = $('#ctr').val();
+		var ctr2 = $('#ctr2').val();
+
+		$(window).load(function(){
+			
+			for(var i=0; i<ctr; i++){
+	        	
+	        	$('#myModal'+ (i+1)).modal('show');
+	        }
+
+	        for(var i=0; i<ctr2; i++){
+	        	
+	        	$('#newsAlert'+ (i+1)).modal('show');
+	        }
+
+	    });
 
 		var token = $('#token input').val();
 

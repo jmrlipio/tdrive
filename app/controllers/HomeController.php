@@ -52,12 +52,29 @@ class HomeController extends BaseController {
 		$latest_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(2)->get();
 		$previous_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(3)->skip(2)->get();
 		$faqs = Faq::all();
-
-		$languages = [];
-
 		$year = News::all();
 
-		/* For displaying year dynamically in select form */
+	/* For displaying game discount alert */
+
+		$dt = Carbon::now();
+
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())		
+			->get();
+
+	/* END */
+
+	/* For displaying news alert */	
+
+		$news_alert = News::whereNewsCategoryId(2)
+			->whereStatus('live')
+			->get();
+
+
+	/* END */
+
+	/* For displaying year dynamically in select form */
 
 		$arr_yrs = [];	
 		
@@ -67,7 +84,9 @@ class HomeController extends BaseController {
 			$year = array_unique($arr_yrs);
 		}
 		
-		/* END */
+	/* END */
+
+		$languages = [];
 
 		$user_location = GeoIP::getLocation();
 
@@ -94,8 +113,10 @@ class HomeController extends BaseController {
 			Session::put('country_id', Input::get('country_id'));
 			Session::put('carrier', Input::get('selected_carrier'));
 			$country = Country::find(Input::get('country_id'));
+			$first_visit = true;
 		} else {			
 			$country = Country::find(Session::get('country_id'));
+			$first_visit = false;
 		}
 
 		$carrier = Carrier::find(Session::get('carrier'));
@@ -111,9 +132,12 @@ class HomeController extends BaseController {
 			->with('previous_news', $previous_news)
 			->with('latest_news', $latest_news)
 			->with('year', $year)
+			->with('news_alert', $news_alert)
+			->with('first_visit', $first_visit)
 			->with('carrier', $carrier)
 			->with('country', $country)
 			->with('categories', $categories)
+			->with('discounts', $discounts)
 			->with(compact('featured_games'))
 			->with(compact('games'))
 			->with(compact('faqs'))
