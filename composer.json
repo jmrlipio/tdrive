@@ -16,7 +16,7 @@
 		"zofe/rapyd": "1.3.*",
 		"pragmarx/tracker": "0.7.*",
 		"mews/captcha": "dev-master",
-		"guzzle/guzzle": "3.9.2"
+		"guzzlehttp/guzzle": "~4.0"
 	},
 	"autoload": {
 		"classmap": [
