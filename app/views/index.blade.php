@@ -350,6 +350,48 @@
 
 	@endif
 
+<?php $ctr2 = 0; ?>
+
+	@if(count($news_alert) != 0)		
+
+		@foreach($news_alert as $data)
+		<!-- Modal -->
+		<?php $ctr2++; ?>
+			<div class="modal fade" id="newsAlert{{ $ctr2 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					
+					<div class="modal-content">
+					
+					  <div class="modal-header">					  
+					   
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    
+					    <h4 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->main_title) }}}</h4>		   			    					 
+					  </div>
+					  
+					  <div class="modal-body">
+					  	{{ HTML::image("assets/news/$data->featured_image", null, array('class' => 'auto pull-left', 'id' => 'discount-img')) }}
+						
+						@foreach($data->contents as $row)
+					  		<p class="pull-right"> {{{ $row->pivot->content }}} </p>					    
+					    @endforeach
+					  
+					    <div class="clearfix"></div>
+				
+					  </div>
+					 
+					</div>
+
+				</div>
+
+			</div>
+
+		@endforeach
+
+		<input type="hidden" id="ctr2" value="{{ $ctr2 }}">
+
+	@endif
+
 @stop
 
 @section('javascripts')
@@ -365,12 +407,18 @@
 		FastClick.attach(document.body);
 
 		var ctr = $('#ctr').val();
+		var ctr2 = $('#ctr2').val();
 
 		$(window).load(function(){
 			
 			for(var i=0; i<ctr; i++){
 	        	
 	        	$('#myModal'+ (i+1)).modal('show');
+	        }
+
+	        for(var i=0; i<ctr2; i++){
+	        	
+	        	$('#newsAlert'+ (i+1)).modal('show');
 	        }
 
 	    });

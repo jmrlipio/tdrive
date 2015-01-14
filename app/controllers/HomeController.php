@@ -52,20 +52,31 @@ class HomeController extends BaseController {
 		$latest_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(2)->get();
 		$previous_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(3)->skip(2)->get();
 		$faqs = Faq::all();
-
-		$dt = new DateTime();
-
-
-		$discounts = Discount::where('start_date', '<=', $dt)
-			->whereActive(1)
-			->orWhere('end_date', '<=', $dt)
-			->get();
-
-		$languages = [];
-
 		$year = News::all();
 
-		/* For displaying year dynamically in select form */
+	/* For displaying game discount alert */
+
+		$dt = Carbon::now();
+
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())		
+			->get();
+
+	/* END */
+
+	/* For displaying news alert */	
+
+
+		
+		$news_alert = News::whereNewsCategoryId(2)
+			->whereStatus('live')
+			->get();
+
+
+	/* END */
+
+	/* For displaying year dynamically in select form */
 
 		$arr_yrs = [];	
 		
@@ -75,7 +86,9 @@ class HomeController extends BaseController {
 			$year = array_unique($arr_yrs);
 		}
 		
-		/* END */
+	/* END */
+
+		$languages = [];
 
 		$user_location = GeoIP::getLocation();
 
@@ -119,6 +132,7 @@ class HomeController extends BaseController {
 			->with('previous_news', $previous_news)
 			->with('latest_news', $latest_news)
 			->with('year', $year)
+			->with('news_alert', $news_alert)
 			->with('carrier', $carrier)
 			->with('country', $country)
 			->with('categories', $categories)
