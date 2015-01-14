@@ -312,7 +312,10 @@
 	</div><!-- end #contact -->
 		
 
+@if($first_visit)
+
 <?php $ctr = 0; ?>
+
 	@if(count($discounts) != 0)		
 
 		@foreach($discounts as $data)
@@ -391,6 +394,8 @@
 		<input type="hidden" id="ctr2" value="{{ $ctr2 }}">
 
 	@endif
+
+@endif
 
 @stop
 

@@ -67,8 +67,6 @@ class HomeController extends BaseController {
 
 	/* For displaying news alert */	
 
-
-		
 		$news_alert = News::whereNewsCategoryId(2)
 			->whereStatus('live')
 			->get();
@@ -115,8 +113,10 @@ class HomeController extends BaseController {
 			Session::put('country_id', Input::get('country_id'));
 			Session::put('carrier', Input::get('selected_carrier'));
 			$country = Country::find(Input::get('country_id'));
+			$first_visit = true;
 		} else {			
 			$country = Country::find(Session::get('country_id'));
+			$first_visit = false;
 		}
 
 		$carrier = Carrier::find(Session::get('carrier'));
@@ -133,6 +133,7 @@ class HomeController extends BaseController {
 			->with('latest_news', $latest_news)
 			->with('year', $year)
 			->with('news_alert', $news_alert)
+			->with('first_visit', $first_visit)
 			->with('carrier', $carrier)
 			->with('country', $country)
 			->with('categories', $categories)
