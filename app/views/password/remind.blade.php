@@ -7,19 +7,19 @@
 @section('content')
 
 	
-	@if (Session::has('error'))
+	@if (Session::has('fail'))
 
-	  <p>{{ trans(Session::get('reason')) }}</p>
-
-	@endif
-
-	@if(Session::has('message'))
-
-	  <h3 class="center">{{ Session::get('message') }}</h3>
+	  <p class="flash-fail">{{ trans(Session::get('reason')) }}</p>
 
 	@endif
 
-	<h3>reset password</h3>
+	@if(Session::has('success'))
+
+	  <h3 class="center flash-success">{{ Session::get('success') }}</h3>
+
+	@endif
+
+	<h3 class="center">reset password</h3>
 	 
 	{{ Form::open(array('route' => 'password.request', 'class' => 'forgot-password', 'id' => 'forgot-password-form')) }}  
 

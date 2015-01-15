@@ -31,11 +31,11 @@ class RemindersController extends Controller {
 		
 		{
 			case Password::INVALID_USER:
-				return Redirect::back()->with('error', Lang::get($response));
+				return Redirect::back()->with('fail', Lang::get($response));
 
 			case Password::REMINDER_SENT:
 				//return Redirect::back()->with('status', Lang::get($response));
-				return Redirect::back()->with('message', 'Email sent to reset password');
+				return Redirect::back()->with('success', 'Email sent to reset password');
 		}
 
 	}
@@ -55,7 +55,6 @@ class RemindersController extends Controller {
 		return View::make('password.reset')->with('token', $token)
 			->with('page_title', 'Reset Password')
 			->with('page_id', 'form')
-/*			->with('message', 'Password reset sent to your email')*/
 			->with(compact('languages'));
 
 	}
@@ -83,10 +82,10 @@ class RemindersController extends Controller {
 			case Password::INVALID_PASSWORD:
 			case Password::INVALID_TOKEN:
 			case Password::INVALID_USER:
-				return Redirect::back()->with('error', Lang::get($response));
+				return Redirect::back()->with('fail', Lang::get($response));
 
 			case Password::PASSWORD_RESET:
-				return Redirect::to('/')->with('message','Password reset successful');
+				return Redirect::to('/')->with('success','Password reset successful');
 		}
 	}
 

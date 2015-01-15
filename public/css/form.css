@@ -46,3 +46,5 @@
 #logo-container {
   text-align: center;
 }
+.flash-success { color: green; line-height: 40px; }
+.flash-fail { color: red; line-height: 40px; }
