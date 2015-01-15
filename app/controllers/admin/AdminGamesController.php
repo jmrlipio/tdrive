@@ -437,4 +437,12 @@ class AdminGamesController extends \BaseController {
 			->with('categories', $categories)
 			->with('selected', $selected_cat);
     }
+
+    public function getGameReviews($id) {
+    	$game = Game::find($id);
+
+    	return View::make('admin.games.reviews')
+    		->with('game', $game);
+    	
+    }
 }

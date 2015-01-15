@@ -18,8 +18,8 @@
 		<li><a href="{{ URL::route('admin.reports.inquiries') }}">Website</a>
 			<ul class="dropdown">
 				<li><a href="{{ URL::route('admin.reports.inquiries') }}">Inquiries</a></li>
-				<!--<li><a href="{{-- URL::route('admin.reports.visitors.statistics') --}}">Game Statistics</a></li>-->
-				<!--<li><a href="{{-- URL::route('admin.reports.visitors.analytics') --}}">Google Analytics</a></li>-->
+				<li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Game Statistics</a></li>
+				<li><a href="{{ URL::route('admin.reports.visitors.analytics') }}">Google Analytics</a></li>
 				
 			</ul>
 		</li>

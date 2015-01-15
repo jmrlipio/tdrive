@@ -35,7 +35,7 @@
 							<p>N/A</p>
 						@endif
 					</td>
-					<td style="width: 300px;">{{ $ratings['count'] }}</td>
+					<td style="width: 300px;"><a href="{{ URL::route('admin.game.reviews', $game->id) }}">{{ $ratings['count'] }}</a></td>
 				</tr>
 				@endforeach
 		</tbody>

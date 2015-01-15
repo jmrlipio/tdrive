@@ -160,8 +160,11 @@ class ReportsController extends \BaseController {
 	public function adminlogs()
 	{
 		$logs = AdminLog::orderBy('created_at', 'DESC')->get();
+		$users = User::all();
+
 		return View::make('admin.reports.adminLogs.index')
-					->with('logs', $logs);
+					->with('logs', $logs)
+					->with('users', $users);
 	}
 
 	public function visitorlogs()
