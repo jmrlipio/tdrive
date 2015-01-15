@@ -153,6 +153,7 @@ class UsersController extends \BaseController {
             return Redirect::intended('/home');
         }
 
+
         elseif(Auth::attempt($credentials) && Auth::user()->active == 0) {
         	return Redirect::to('login')->with('fail','Please check your email to verify your account');
         }
@@ -225,12 +226,20 @@ class UsersController extends \BaseController {
     		if($user->save()){
     			
     		return Redirect::route('users.login')
+<<<<<<< HEAD
     			->with('success', 'Account activated, you can now rate/comment a game');    			
+=======
+    			->with('activate', 'Account activated, you can now rate/comment a game');    			
+>>>>>>> ad6e26a8865bcf97ce759b02509ccb054e12128b
     		}
     	}
 
     	return Redirect::route('users.login')    		
+<<<<<<< HEAD
     		->with('fail', 'We could not activate your account. Try again later.');   	
+=======
+    		->with('activate', 'We could not activate your account. Try again later.');   	
+>>>>>>> ad6e26a8865bcf97ce759b02509ccb054e12128b
     }
 
 }
