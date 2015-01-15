@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'jigzen.test@gmail.com', 'name' => 'Awesome Laravel 4 TDRIVE App'),
+	'from' => array('address' => 'jigzen.test@gmail.com', 'name' => 'TDRIVE'),
 
 	/*
 	|--------------------------------------------------------------------------

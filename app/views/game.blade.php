@@ -328,7 +328,9 @@
 		
 		<div class="link center"><a href="{{ route('reviews', $game->id) }}">See all reviews &raquo;</a></div>
 	@else
+
 		<br>
+		
 	@endif
 	
 	</div><!-- end #reviews -->

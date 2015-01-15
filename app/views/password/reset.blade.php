@@ -1,9 +1,14 @@
-@extends('_layouts.login')
+@extends('_layouts.form')
+
+@section('stylesheets')
+	{{ HTML::style("css/form.css"); }}
+@stop
+
 @section('content')
 
 <div id="forgot-password">
 		
-	<h3 class="center">Reset password</h3>
+	<h3 class="center">Please fill up this form to reset your password</h3>
 	
 	<div class="center">
 		@if (Session::has('error'))
