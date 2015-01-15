@@ -118,7 +118,7 @@ class UsersController extends \BaseController {
 
 			$response = Event::fire('user.registered', array($user));	
 
-			return Redirect::route('users.login')->with('message', 'Registration successful. Please sign in.');			
+			return Redirect::route('users.login')->with('message', 'Registration successful. Please check your email to verify your account.');			
 		}
 
 		if ($validator->fails())

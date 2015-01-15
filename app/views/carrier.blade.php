@@ -9,6 +9,12 @@
 	{{ HTML::image("images/tdrive.png", null, array('class' => 'auto')) }}
 </div>
 
+	@if (Session::has('message') ) 
+            
+        <h3 class="title center">{{ Session::get('message') }}</h3>              
+
+    @endif
+
 	<h1 class="title center">Select Carrier</h1>
 
 	{{ Form::open(array('action' => 'HomeController@home')) }}

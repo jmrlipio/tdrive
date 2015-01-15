@@ -5,6 +5,12 @@
 @stop
 
 @section('content')
+
+	@if (Session::has('message') ) 
+            
+        <h3 class="center">{{ Session::get('message') }}</h3>              
+
+    @endif
                          
 	<h3 class="title center">Sign In</h3>
 
@@ -32,12 +38,6 @@
 		</div>
 
 		{{ Form::close() }}
-
-        @if (Session::has('message') ) 
-            
-            <h3 class="title center">{{ Session::get('message') }}</h3>              
-
-        @endif
 
 	<div class="button">
 		<a href="{{ route('password.remind') }}">Forgot your password?</a>

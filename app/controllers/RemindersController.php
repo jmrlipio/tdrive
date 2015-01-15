@@ -34,7 +34,8 @@ class RemindersController extends Controller {
 				return Redirect::back()->with('error', Lang::get($response));
 
 			case Password::REMINDER_SENT:
-				return Redirect::back()->with('status', Lang::get($response));
+				//return Redirect::back()->with('status', Lang::get($response));
+				return Redirect::back()->with('message', 'Email sent to reset password');
 		}
 
 	}
@@ -54,6 +55,7 @@ class RemindersController extends Controller {
 		return View::make('password.reset')->with('token', $token)
 			->with('page_title', 'Reset Password')
 			->with('page_id', 'form')
+/*			->with('message', 'Password reset sent to your email')*/
 			->with(compact('languages'));
 
 	}
@@ -84,7 +86,7 @@ class RemindersController extends Controller {
 				return Redirect::back()->with('error', Lang::get($response));
 
 			case Password::PASSWORD_RESET:
-				return Redirect::to('/');
+				return Redirect::to('/')->with('message','Password reset successful');
 		}
 	}
 
