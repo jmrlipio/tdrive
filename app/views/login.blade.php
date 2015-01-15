@@ -8,7 +8,15 @@
 
 	@if (Session::has('message') ) 
             
-        <h3 class="center">{{ Session::get('message') }}</h3>              
+        <h3 class="center flash-fail">{{ Session::get('message') }}</h3> 
+
+    @elseif(Session::has('activate') )   
+
+    	<h3 class="center flash-fail">{{ Session::get('activate') }}</h3> 
+
+     @elseif(Session::has('fail') )   
+
+    	<h3 class="center flash-fail">{{ Session::get('fail') }}</h3>           
 
     @endif
                          
@@ -27,10 +35,10 @@
 		</div>
 
 		<div class="control-group clearfix">
-			<div class="control-item fl">
+			<!-- <div class="control-item fl">
 				{{-- Form::checkbox('remember', 1 , null, ['id'=>'remember']); --}}
-			   <!-- <label for="remember">Remember me</label> -->
-			</div>
+				 <label for="remember">Remember me</label>
+			</div> -->
 
 			<div class="control-item fr">
 				 {{ Form::submit('login') }}

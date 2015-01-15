@@ -55,7 +55,6 @@ class RemindersController extends Controller {
 		return View::make('password.reset')->with('token', $token)
 			->with('page_title', 'Reset Password')
 			->with('page_id', 'form')
-/*			->with('message', 'Password reset sent to your email')*/
 			->with(compact('languages'));
 
 	}

@@ -142,7 +142,7 @@ class UsersController extends \BaseController {
        
         $remember = Input::get('remember');
 
-        if (Auth::attempt($credentials)){
+        if (Auth::attempt($credentials) && Auth::user()->active == 1 ){
 
         	if(Auth::check() && !empty($remember)){
         		Auth::login(Auth::user(), true);
@@ -152,7 +152,12 @@ class UsersController extends \BaseController {
 
             return Redirect::intended('/home');
         }
-        return Redirect::to('login')->with('message','Your email/password was incorrect');
+
+        if(Auth::user()->active == 0) {
+        	return Redirect::to('login')->with('fail','Please check your email to verify your account');
+        }
+        
+        return Redirect::to('login')->with('fail','Your email/password was incorrect');
     }
 
     public function getLogout(){
@@ -220,12 +225,12 @@ class UsersController extends \BaseController {
     		if($user->save()){
     			
     		return Redirect::route('users.login')
-    			->with('message', 'Account activated, you can now rate/comment a game');    			
+    			->with('activate', 'Account activated, you can now rate/comment a game');    			
     		}
     	}
 
     	return Redirect::route('users.login')    		
-    		->with('message', 'We could not activate your account. Try again later.');   	
+    		->with('activate', 'We could not activate your account. Try again later.');   	
     }
 
 }
