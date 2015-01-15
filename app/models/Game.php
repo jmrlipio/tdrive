@@ -58,7 +58,7 @@ class Game extends \Eloquent {
     }
 
     public function review() {
-    	return $this->belongsToMany('User', 'game_reviews')->withPivot('created_at', 'review', 'rating');
+    	return $this->belongsToMany('User', 'game_reviews')->withPivot('created_at', 'review', 'rating')->orderBy('created_at', 'ASC');
     }
 
     public function discounts() {

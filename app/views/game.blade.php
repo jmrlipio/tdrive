@@ -121,7 +121,7 @@
 		<div class="top clearfix">			
 
 			<?php $ctr = 0; ?>
-			@foreach($reviews as $data)
+			@foreach($game->review as $data)
 				
 				<?php $ctr++; ?>
 			
@@ -169,7 +169,7 @@
 		<div class="bottom">
 			<div class="five clearfix">
 			<?php $ctr = 0; ?>
-			@foreach($reviews as $data)
+			@foreach($game->review as $data)
 				
 				<?php $ctr++; ?>
 			
@@ -301,12 +301,11 @@
 
 	<div id="reviews" class="container">
 		<?php $ctr = 0; ?>
-		@forelse($reviews as $data)
+		@forelse($game->review as $data)
 		<?php $ctr++; ?>
 			<div class="entry clearfix">
 				{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
 
-				{{-- dd($data->toArray())  --}}
 				<div>
 					<p class="name">{{ $data->first_name }}</p>
 
@@ -325,9 +324,13 @@
 			<!-- <p>be the first one to add a review!</p> -->
 		@endforelse
 		
-	<?php if($ctr != 0) { ?>	
+	@if($ctr > 4)	
+		
 		<div class="link center"><a href="{{ route('reviews', $game->id) }}">See all reviews &raquo;</a></div>
-	<?php } ?>
+	@else
+		<br>
+	@endif
+	
 	</div><!-- end #reviews -->
 
 	<div id="related-games" class="container">
