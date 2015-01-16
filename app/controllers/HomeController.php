@@ -77,6 +77,15 @@ class HomeController extends BaseController {
 			->where('end_date', '>=',  $dt->toDateString())		
 			->get();
 
+
+		/*foreach($discounts as $discount){
+			foreach ($discount->games as $data) {
+				echo '<pre>';
+				dd($data);
+				echo '</pre>';
+			}			
+		}*/
+
 	/* END */
 
 	/* For displaying news alert */	
