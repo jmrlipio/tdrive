@@ -37,6 +37,20 @@ class HomeController extends BaseController {
 			$carrier_all[$crr->id] = $crr->carrier;
 		}
 
+		/** 
+			* Added by: Jone   
+			* Purpose: For detecting users device
+			* Date: 01/16/2015
+		*/
+
+		if( Agent::isDesktop() ){
+
+			return View::make('desktop.index')
+				->with('page_title', 'Desktop')
+				->with('page_id', 'form');
+		}
+		/* END */
+
 		return View::make('carrier')
 			->with('page_title', 'Select carrier')
 			->with('selected_carriers', $selected_carriers)

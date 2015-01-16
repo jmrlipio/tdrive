@@ -129,7 +129,8 @@ return array(
 		'Intervention\Image\ImageServiceProvider',
 		'Zofe\Rapyd\RapydServiceProvider',
 		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
-		'Mews\Captcha\CaptchaServiceProvider'
+		'Mews\Captcha\CaptchaServiceProvider',
+		'Jenssegers\Agent\AgentServiceProvider'
 
 	),
 
@@ -204,7 +205,8 @@ return array(
 		'Analytics' 	  => 'Thujohn\Analytics\AnalyticsFacade',
 		'Image' 		  => 'Intervention\Image\Facades\Image',
 		'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
-		'Captcha'		  => 'Mews\Captcha\Facades\Captcha'
+		'Captcha'		  => 'Mews\Captcha\Facades\Captcha',
+		'Agent'            => 'Jenssegers\Agent\Facades\Agent'
 	),
 
 );
