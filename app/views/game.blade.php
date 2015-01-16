@@ -303,23 +303,25 @@
 		<?php $ctr = 0; ?>
 		@forelse($game->review as $data)
 		<?php $ctr++; ?>
-			<div class="entry clearfix">
-				{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
+			@if($ctr <= 4)
+				<div class="entry clearfix">
+					{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
 
-				<div>
-					<p class="name">{{ $data->first_name }}</p>
+					<div>
+						<p class="name">{{ $data->first_name }}</p>
 
-					<div class="stars">
-						@for ($i=1; $i <= 5 ; $i++)
-		                    <i class="fa fa-star{{ ($i <= Review::getRatingsPerUser($data->id)) ? '' : '-empty'}}"></i>
-		                 @endfor    
+						<div class="stars">
+							@for ($i=1; $i <= 5 ; $i++)
+			                    <i class="fa fa-star{{ ($i <= Review::getRatingsPerUser($data->id)) ? '' : '-empty'}}"></i>
+			                 @endfor    
+						</div>
+
+						<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j H:m:s') }}</p>
+
+						<p class="message">{{{ Review::getReviewPerUser($data->id) }}}</p>
 					</div>
-
-					<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
-
-					<p class="message">{{{ Review::getReviewPerUser($data->id) }}}</p>
 				</div>
-			</div>
+			@endif
 		@empty
 			<!-- <p>be the first one to add a review!</p> -->
 		@endforelse
@@ -327,6 +329,7 @@
 	@if($ctr > 4)	
 		
 		<div class="link center"><a href="{{ route('reviews', $game->id) }}">See all reviews &raquo;</a></div>
+
 	@else
 
 		<br>

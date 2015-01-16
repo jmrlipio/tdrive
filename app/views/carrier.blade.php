@@ -9,9 +9,9 @@
 	{{ HTML::image("images/tdrive.png", null, array('class' => 'auto')) }}
 </div>
 
-	@if (Session::has('message') ) 
+	@if (Session::has('success') ) 
             
-        <h3 class="title center">{{ Session::get('message') }}</h3>              
+        <h3 class="title center">{{ Session::get('success') }}</h3>              
 
     @endif
 

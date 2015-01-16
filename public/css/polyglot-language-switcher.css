@@ -68,7 +68,7 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 	position: relative; /* sets the initial position for the trigger arrow */
 	background-color: #FFF;
 	border: 1px solid #E5E5E5;
-	height: 1.25em; /* 15px */
+	/* height: 1.25em; 15px */
 }
 
 .polyglotLanguageSwitcher a.current:hover, 
