@@ -340,28 +340,34 @@
 			<div class="modal fade" id="myModal{{ $ctr }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					
-					<div class="modal-content">
-					
-					  
-					  <div class="modal-body">
-					  	<div id="image-container">
-					  		{{ HTML::image("assets/discounts/$data->featured_image", null, array('class' => 'auto', 'id' => 'discount-img')) }}
-					  
-					  	</div>
-					  	
-					  	<div class="clearfix"></div>
+					<div class="modal-content">	
 
-					  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->title) }}}</h2>	
-					   
-					    <p> {{ ucfirst($data->description) }} </p>
+						<div class="modal-header">
+						        
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>					      
+					    </div>				
+					  
+						<div class="modal-body">
+						  	
+						  	<div id="image-container">
+						  		
+						  		{{ HTML::image("assets/discounts/$data->featured_image", null, array('class' => 'auto', 'id' => 'discount-img')) }}
+						  
+						  	</div>
+						  	
+						  	<div class="clearfix"></div>
 
-					    <div id="btn-link">
-							<!-- <a href="{{ 'news/'. $data->id }}">View</a> -->
-							<a href="{{ URL::route('game.show', $data->id) }}">View</a>
+						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->title) }}}</h2>	
+						   
+						    <p> {{ ucfirst($data->description) }} </p>
+
+						    <div id="btn-link">
+
+								<a href="{{ URL::route('game.show', $data->game_id) }}">View</a>
+
+							</div>						    
+						  
 						</div>
-					    
-					  
-					  </div>
 					 
 					</div>
 
@@ -386,10 +392,18 @@
 				<div class="modal-dialog">
 					
 					<div class="modal-content">
+
+						<div class="modal-header">
+					        
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>					      
+					    </div>
 									  
 						<div class="modal-body">
+
 						  	<div id="image-container">
+						  		
 						  		{{ HTML::image("assets/news/$data->featured_image", null, array('class' => 'auto', 'id' => 'discount-img')) }}
+						  	
 						  	</div>
 						  	
 						  	<div class="clearfix"></div>
@@ -397,11 +411,15 @@
 						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->main_title) }}}</h2>	
 							
 							@foreach($data->contents as $row)
-						  		<p> {{{ $row->pivot->content }}} </p>					    
+
+						  		<p> {{{ $row->pivot->content }}} </p>	
+						  						    
 						    @endforeach	
 							
 							<div id="btn-link">
+
 								<a href="{{ 'news/'. $data->id }}">View</a>
+
 							</div>
 						   		  										
 						</div>
