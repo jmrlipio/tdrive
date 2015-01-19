@@ -226,13 +226,12 @@ class UsersController extends \BaseController {
     		if($user->save()){
     			
     		return Redirect::route('users.login')
-    			->with('success', 'Account activated, you can now rate/comment a game');  			
+    			->with('success', 'Account activated, you can now rate/comment a game');    			
     		}
     	}
 
-    	return Redirect::route('users.login')   		
-    		->with('fail', 'We could not activate your account. Try again later.');	
-
+    	return Redirect::route('users.login')  		
+    		->with('fail', 'We could not activate your account. Try again later.');
     }
 
 }
