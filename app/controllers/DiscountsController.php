@@ -59,7 +59,6 @@ class DiscountsController extends \BaseController {
 		}
 		
 		$discount = Discount::create($data);
-		$discount->games()->sync(Input::get('game_id'));
 		
 		return Redirect::route('admin.discounts.edit',$discount->id)->with('message', 'You have successfully added a discount.');
 	}
@@ -88,11 +87,6 @@ class DiscountsController extends \BaseController {
 		$discount = Discount::find($id);
 
 		$games = [];
-		$selected_games = [];
-		
-		foreach($discount->games as $game) {
-			$selected_games[] = $game->id;
-		}
 
 		foreach(Game::all() as $game) {
 			$games[$game->id] = $game->main_title;
@@ -100,8 +94,7 @@ class DiscountsController extends \BaseController {
 
 		return View::make('admin.discounts.edit')
 			->with('discount', $discount)
-			->with('games', $games)
-			->with('selected_games', $selected_games);
+			->with('games', $games);
 	}
 
 	/**

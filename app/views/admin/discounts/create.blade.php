@@ -54,7 +54,7 @@
 					</li>
 					<li>
 						{{ Form::label('game_id', 'Games: ') }}
-						{{ Form::select('game_id[]', $games, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose game(s)...'))  }}
+						{{ Form::select('game_id', $games, null)  }}
 						{{ $errors->first('game_id', '<p class="error">:message</p>') }}
 					</li>
 					<li>
