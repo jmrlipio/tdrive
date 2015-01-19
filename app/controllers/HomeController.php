@@ -9,7 +9,7 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		Session::forget('telco');
+		Session::forget('carrier_name');
 		Session::forget('carrier');
 		$languages = Language::all();
 
@@ -136,7 +136,7 @@ class HomeController extends BaseController {
 		$carrier = Carrier::find(Session::get('carrier'));
 		$countries = [];
 		
-		Session::put('telco', $carrier->carrier);		
+		Session::put('carrier_name', $carrier->carrier);		
 
 		Session::put('user_country', $country->full_name);
 		
@@ -152,10 +152,10 @@ class HomeController extends BaseController {
 			->with('country', $country)
 			->with('categories', $categories)
 			->with('discounts', $discounts)
-			->with(compact('featured_games'))
-			->with(compact('games'))
-			->with(compact('faqs'))
-			->with(compact('languages'));
+			/*->with(compact('featured_games'))*/
+			->with(compact('games','featured_games', 'faqs', 'languages'));
+			/*->with(compact('faqs'))
+			->with(compact('languages'));*/
 	
 	}
 

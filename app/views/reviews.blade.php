@@ -10,7 +10,7 @@
 
 	<div id="scroll" class="container">
 	
-		@foreach($reviews as $data)
+		@foreach($game->review as $data)
 			<div class="entry clearfix">
 				{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
 
@@ -20,13 +20,13 @@
 
 					<div class="stars">
 						@for ($i=1; $i <= 5 ; $i++)
-		                    <i class="fa fa-star{{ ($i <= Review::getRatingsPerUser($data->id)) ? '' : '-empty'}}"></i>
+		                    <i class="fa fa-star{{ ($i <= $data->pivot->rating) ? '' : '-empty'}}"></i>
 		                 @endfor    
 					</div>
 
-					<p class="date">{{  Carbon::parse($data->created_at)->format('M j') }}</p>
+					<p class="date">{{  Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
 
-					<p class="message">{{{ Review::getReviewPerUser($data->id) }}}</p>
+					<p class="message">{{{ $data->pivot->review }}}</p>
 				</div>
 			</div>
 

@@ -15,7 +15,7 @@ class ActivityLog extends \Eloquent {
      	$log->user_id = Auth::user()->id;
      	$log->activity = $_activity;
         $log->action = $_action;
-     	$log->carrier = Session::get('telco');
+     	$log->carrier = Session::get('carrier_name');
         $log->country = Session::get('user_country');
 
       	$log->save();

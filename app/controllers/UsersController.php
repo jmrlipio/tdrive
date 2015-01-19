@@ -163,7 +163,7 @@ class UsersController extends \BaseController {
 
     public function getLogout(){
     	Event::fire('audit.logout', Auth::user());
-    	Session::forget('telco');
+    	Session::forget('carrier_name');
 
         Auth::logout();
 
