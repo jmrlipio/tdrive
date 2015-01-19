@@ -12,8 +12,7 @@
 
     @elseif(Session::has('fail') )   
 
-    	<h3 class="center flash-fail">{{ Session::get('fail') }}</h3>   
-     
+    	<h3 class="center flash-fail">{{ Session::get('fail') }}</h3>    
 
     @endif
                          

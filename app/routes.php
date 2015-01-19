@@ -137,13 +137,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 * Purpose: For admin news creation
 * Date: 12/04/2014
 */
-/*Route::get('games', array('as' => 'games', 'uses' => 'GamesController@index'));
-Route::get('games/{id}', array('as' => 'games.show', 'uses' => 'GamesController@show'));
-Route::get('news', array('as' => 'news', 'uses' => 'NewsController@usersindex'));
-Route::get('news/show/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getSingleNews'));
-/*Route::get('news/year/{id}', array('as' => 'news.show', 'uses' => 'NewsController@getNewsByYear'));
-/*Route::controller('news/show', 'NewsController');*/
-//Route::get('news/year', array('as' => 'news.year', 'uses' => 'NewsController@getNewsByYear'));
 Route::get('users/activate/{code}', array('as' => 'account.activate', 'uses' => 'UsersController@getActivate'));
 
 //Password Reminder & Reset
@@ -154,9 +147,7 @@ Route::post('password/reset/{token}', array('as' => 'password.update', 'uses' =>
 //END
 
 //Search route for admin
-
 Route::post('admin/users/search', array('as' => 'admin.users.search', 'uses' => 'AdminUsersController@postSearch'));
-
 //END
 
 /*END*/
