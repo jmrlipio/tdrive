@@ -64,7 +64,7 @@ class Game extends \Eloquent {
     }
 
     public function discounts() {
-    	return $this->belongsToMany('Discount', 'game_discounts');
+    	return $this->hasMany('Discount');
     }
 
 }

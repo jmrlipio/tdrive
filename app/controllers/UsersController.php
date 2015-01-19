@@ -231,7 +231,7 @@ class UsersController extends \BaseController {
     	}
 
     	return Redirect::route('users.login')  		
-    		->with('fail', 'We could not activate your account. Try again later.');   	
+    		->with('fail', 'We could not activate your account. Try again later.');
     }
 
 }

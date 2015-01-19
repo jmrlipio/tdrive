@@ -1,7 +1,7 @@
 <?php
 
 class Discount extends \Eloquent {
-	protected $fillable = ['title', 'description', 'discount_percentage', 'start_date', 'end_date', 'featured_image', 'active'];
+	protected $fillable = ['title', 'description', 'discount_percentage', 'start_date', 'end_date', 'featured_image', 'active', 'game_id'];
 
 	public static $rules = [
 		'title' => 'required|min:2',
@@ -14,6 +14,6 @@ class Discount extends \Eloquent {
 	];
 
 	public function games() {
-		return $this->belongsToMany('Game', 'game_discounts');
+		return $this->belongsTo('Game');
 	}
 }
