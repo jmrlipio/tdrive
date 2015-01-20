@@ -18,6 +18,10 @@
 			height: 205px;
 		}
 
+		div.modal-content {
+			top:60px;
+		}
+
 		.modal-title {
 			margin: 20px 0;
 		}
@@ -28,6 +32,7 @@
 			text-align: center;
 			margin: 0 auto;
 			padding: 3px;
+			margin-top:10px;
 		}
 		div#btn-link a {
 			color: #fff;
@@ -359,7 +364,9 @@
 
 						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->title) }}}</h2>	
 						   
-						    <p> {{ ucfirst($data->description) }} </p>
+						    <p> {{ str_limit($data->description, $limit = 200, $end = '...') }} </p>
+
+
 
 						    <div id="btn-link">
 
@@ -412,7 +419,7 @@
 							
 							@foreach($data->contents as $row)
 
-						  		<p> {{{ $row->pivot->content }}} </p>	
+						  		<p> {{{ str_limit($row->pivot->content, $limit = 200, $end = '...') }}} </p>	
 						  						    
 						    @endforeach	
 							

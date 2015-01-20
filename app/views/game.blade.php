@@ -316,7 +316,7 @@
 			                 @endfor    
 						</div>
 
-						<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j H:m:s') }}</p>
+						<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
 
 						<p class="message">{{{ $data->pivot->review }}}</p>
 					</div>
