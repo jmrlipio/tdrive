@@ -131,6 +131,10 @@ class UsersController extends \BaseController {
 	public function getLogin(){
 		$languages = Language::all();
 
+		if(Auth::check()){
+			return Redirect::intended('/');
+		}
+
 		return View::make('login')
 			->with('page_title', 'Login')
 			->with('page_id', 'form')
@@ -163,7 +167,7 @@ class UsersController extends \BaseController {
 
     public function getLogout(){
     	Event::fire('audit.logout', Auth::user());
-    	Session::forget('telco');
+    	Session::forget('carrier_name');
 
         Auth::logout();
 

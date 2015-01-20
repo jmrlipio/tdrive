@@ -8,16 +8,15 @@ class ReviewsController extends \BaseController {
 
 		$game = Game::find($id);
 		
-		$reviews = [];
+/*		$reviews = [];
 
 		foreach($game->review as $review) {
 			$reviews[] = $review;
-		}
+		}*/
 
 		return View::make('reviews')
 			->with('page_title', 'Reviews | ' . $game->main_title)
 			->with('page_id', 'reviews')
-			->with('reviews', $reviews)
 			->with(compact('game'))
 			->with(compact('languages'));
 	}

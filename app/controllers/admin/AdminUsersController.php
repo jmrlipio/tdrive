@@ -156,6 +156,11 @@ class AdminUsersController extends \BaseController {
 	}
 
 	public function getLogin(){
+
+		if(Auth::check()){
+			return Redirect::intended('admin/dashboard');
+		}
+		
         return View::make('admin.login');
     }
 

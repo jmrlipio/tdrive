@@ -70,7 +70,7 @@ class Review extends Eloquent {
 		);
 	}
 
-	public static function getRatingsPerUser($user_id) 
+	/*public static function getRatingsPerUser($user_id) 
 	{
 		$ratings = Review::where('user_id', $user_id)
 						->first();
@@ -92,5 +92,5 @@ class Review extends Eloquent {
 		}
 
 		return false;				
-	}
+	}*/
 }
