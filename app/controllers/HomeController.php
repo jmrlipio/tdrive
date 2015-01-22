@@ -43,12 +43,12 @@ class HomeController extends BaseController {
 			* Date: 01/16/2015
 		*/
 
-		if( Agent::isDesktop() ){
+		/*if( Agent::isDesktop() ){
 
 			return View::make('desktop.index')
 				->with('page_title', 'Desktop')
 				->with('page_id', 'form');
-		}
+		}*/
 		/* END */
 
 		return View::make('carrier')
