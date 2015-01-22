@@ -84,8 +84,20 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function(){
-		    $('#review_table').DataTable();
+		   /* $('#review_table').DataTable();*/
+		   /** 
+				* Added by: Jone   
+				* Purpose: Disables sorting on the rating column
+				* Date: 01/22/2015
+			*/
+		   $('#review_table').dataTable( {
+		      "aoColumnDefs": [
+		          { 'bSortable': false, 'aTargets': [ 5 ] }
+		       ]
+			});
+
 		});
+
 	</script>
 
 @stop

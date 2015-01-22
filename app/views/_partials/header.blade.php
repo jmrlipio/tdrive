@@ -140,7 +140,7 @@ $game_settings = GameSetting::all();
 
 			<?php $tdrive = $general_settings[0]->value ?>
 
-			<a href="{{ route('home.show') }}" id="tdrive">{{ HTML::image("images/tdrive.png", "$tdrive", array('class' => 'auto')) }}</a>
+			<div id="tdrive"><a href="{{ route('home.show') }}">{{ HTML::image("images/tdrive.png", "$tdrive") }}</a></div>
 
 			<div class="tablet fl clearfix">
 				<ul class="menu fl">
@@ -192,7 +192,7 @@ $game_settings = GameSetting::all();
 				</div>
 			</div>
 
-			<a href="http://tose.com.ph" id="tose" target="_blank">{{ HTML::image('images/tose.png', 'TOSE') }}</a>
+			<div id="tose"><a href="http://tose.com.ph" target="_blank">{{ HTML::image('images/tose.png', 'TOSE') }}</a></div>
 		</div>
 
 	</div><!-- end #header -->

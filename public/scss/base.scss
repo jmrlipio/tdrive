@@ -185,12 +185,27 @@ img, video {
 	color: $white;
 }
 
-.free {
+.free-back {
 	position: absolute;
 	width: 80px;
 	height: 80px;
 	left: -4px;
 	top: -5px;
+	z-index: 20;
+}
+
+.thumb-image {
+	position: relative;
+	z-index: 30;
+}
+
+.free-front {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	left: -4px;
+	top: -5px;
+	z-index: 40;
 }
 
 .ajax-loader {
@@ -502,13 +517,26 @@ img, video {
 
 #tdrive {
 	float: left;
-	padding: 4px 0;
+	padding: 7px 0;
+	width: 111px;
+	height: 51px;
+	
+	a {
+		display: block;
+		width: 100%;
+	}
 }
 
 #tose {
 	float: right;
-	padding-top: 2px;
-	display: block;
+	padding-top: 0;
+	width: 57px;
+	height: 46px;
+
+	a {
+		display: block;
+		width: 100%;
+	}
 }
 
 #back {
@@ -784,7 +812,7 @@ img, video {
 	}
 
 	#tose {
-		padding-top: 12px;
+		padding-top: 9px;
 	}
 
 	#content {
