@@ -17,7 +17,8 @@
 		"pragmarx/tracker": "0.7.*",
 		"mews/captcha": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
-		"jenssegers/agent": "~2.1"
+		"jenssegers/agent": "~2.1",
+		"Nathanmac/Parser": "2.*"
 	},
 	"autoload": {
 		"classmap": [

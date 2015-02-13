@@ -10,6 +10,8 @@
 
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
 
+	<div style="display:none"><div id="carrier-form"><h1>This is a test</h1></div></div>
+
 	<div id="top" class="clearfix container">
 		<div class="thumb">
 
@@ -70,7 +72,8 @@
 				</div>
 			</a>
 		@else
-			<a href="#" class="buy">
+			<!-- <a href="{{ URL::route('games.carrier', $game->id) }}" class="buy"> -->
+			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
 
@@ -84,6 +87,15 @@
 
 				</div>
 			</a>
+
+			<div style="display:none">
+				<div class="carrier-container" id="carrier-select-container">
+					{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
+						<h3>Select Carrier</h3>
+						<input type="submit" id="submit-carrier" value="choose">
+					{{ Form::close() }}
+				</div>
+			</div>
 		@endif
 	</div><!-- end #buttons -->
 
@@ -410,6 +422,7 @@
 		FastClick.attach(document.body);
 
 		var _token = $('#token input').val();
+		var carrier_form = '';
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
@@ -470,5 +483,64 @@
         });
         $("#share a").jqSocialSharer();
 		$('.fancybox').fancybox({ padding: 0 });
+
+
+
+		$("#buy").on('click',function() {
+			
+
+			 $.ajax({
+			 	type: "get",
+			 	url: "{{ URL::route('games.carrier', $game->id) }}",
+			 	complete:function(data) {
+					var append = '<select id="carrier-select">';
+
+					JSON.parse(data['responseText'], function (id, carrier) {		    
+					    append += '<option value="' + id + '">' + carrier + '</option>';
+					});
+
+					append += '</select><br>';
+					
+					// if($("#carrier-container:has(#carrier-select)").length == 0) {
+						$('#submit-carrier').before(append);
+					// }
+
+                }
+            });
+
+			$('#buy').fancybox({
+				'titlePosition'     : 'inside',
+	            'transitionIn'      : 'none',
+	            'transitionOut'     : 'none',
+	            afterClose: function() {
+	            	$.fancybox({
+			            'width': '80%',
+			            'height': '80%',
+			            'autoScale': true,
+			            'transitionIn': 'fade',
+			            'transitionOut': 'fade',
+			            'type': 'iframe',
+			            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1'
+			        });
+	            }
+			});
+        });
+
+		$('#carrier').on('submit', function(e){
+			e.preventDefault();
+
+			$.fancybox.close();
+
+			// var carrier_id = $('#carrier option:selected').val();
+			// var uuid = '{{ Auth::user()->id }}';
+			
+			// var iframe = $('#carrier-form');
+			// iframe.attr('src', 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1'); 
+
+			// $('.carrier-container').css('display', 'none');
+			// $('#carrier-form-container').css('display', 'block');
+
+		});
+		
 	</script>
 @stop

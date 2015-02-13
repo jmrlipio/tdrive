@@ -1,5 +1,7 @@
 <?php
 
+use Nathanmac\Utilities\Parser\Parser;
+
 class GamesController extends \BaseController {
 
 	/**
@@ -136,4 +138,64 @@ class GamesController extends \BaseController {
 
 		return $games->toJson();
 	}
+
+	public function getAPICarrier($id) {
+
+		// $url = 'http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id' . $id;
+
+		$response = file_get_contents('http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id=1');
+
+		$response = '<carriers><carrier id="1">test carrier 1</carrier><carrier id="2">test carrier 2</carrier></carriers>';
+
+		$xml = simplexml_load_string($response);
+
+		$values = $this->object2array($xml);
+
+		$carrier_ids = [];
+
+		foreach($xml as $crr) {
+			$carrier_ids[] = intval($crr->attributes()->id);
+		}
+
+		$carriers = [];
+
+		for($i = 0; $i < count($values['carrier']); $i++) {
+			$carriers[$carrier_ids[$i]] = $values['carrier'][$i];
+		}
+
+		// return Redirect::back()
+		// 	->with('page_title', 'Select carrier')
+		// 	->with(compact('carriers'))
+		// 	->with('page_id', 'form')
+		// 	->with('app_id', $id);
+
+		return json_encode($carriers);
+
+	}
+
+	public function getCarrierDetails($id) {	
+		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=' . $id . '&carrier_id=' . Input::get('carrier_id') . '&uuid=' . Auth::user()->id;
+		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
+		$response = file_get_contents($url);
+
+		return $response;
+
+		// return Redirect::to($url);
+
+		// echo '<pre>';
+		// print_r($response);
+		// echo '</pre>';
+	}
+
+	private function object2array($object) { 
+		return @json_decode(@json_encode($object),1); 
+	}
+
+	public function getPaymentInfo($id) {
+		return View::make('payment')
+			->with('page_title', 'Payment')
+			->with('page_id', 'form')
+			->with('app_id', $id);
+	}
+
 }

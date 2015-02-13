@@ -15,11 +15,11 @@ App::before(function($request)
 {
 	Lang::setLocale(Session::get('locale'));
 
-	if(Agent::isDesktop() && Request::segment(1) != 'admin' ){
-		return View::make('desktop.index')
-			->with('page_title', 'Desktop')
-			->with('page_id', 'form');
-	}
+	// if(Agent::isDesktop() && Request::segment(1) != 'admin' ){
+	// 	return View::make('desktop.index')
+	// 		->with('page_title', 'Desktop')
+	// 		->with('page_id', 'form');
+	// }
 });
 
 

@@ -92,9 +92,14 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@getLanguageContent'));
     Route::post('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@updateLanguageContent'));
     Route::post('news/{id}/edit-media', array('as' => 'admin.news.update-media', 'uses' => 'NewsController@updateMedia'));
-    Route::get('faq/{id}/edit/content/{language}', array('as' => 'admin.faq.edit.content', 'uses' => 'FaqsController@getLanguageContent'));
+    Route::get('faq/{id}/variant', array('as' => 'admin.faqs.variant', 'uses' => 'FaqsController@addVariant'));
     Route::resource('media', 'MediaController');
     Route::resource('faqs', 'FaqsController');
+    Route::get('faq/{id}/edit/variant/{language}', array('as' => 'admin.faqs.variant.edit', 'uses' => 'FaqsController@editVariant'));
+    Route::get('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.create', 'uses' => 'FaqsController@addVariant'));
+    Route::post('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.store', 'uses' => 'FaqsController@storeVariant'));
+    Route::put('faq/{id}/update/variant/{language}', array('as' => 'admin.faqs.variant.update', 'uses' => 'FaqsController@updateVariant'));
+    Route::delete('faq/{id}/delete/variant/{language}', array('as' => 'admin.faqs.variant.delete', 'uses' => 'FaqsController@deleteVariant'));
     
     Route::resource('siteoptions', 'SiteOptionsController');
     Route::get('reports', array('as' => 'admin.reports.index', 'uses' => 'ReportsController@index'));
@@ -159,7 +164,13 @@ Route::post('register', array('as' => 'users.register.post', 'uses' => 'UsersCon
 
 Route::group(array('before' => 'auth'), function(){
 	Route::resource('users', 'UsersController');
+    
 });
+
+Route::get('games/{id}/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getAPICarrier'));
+Route::get('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
+
+Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'GamesController@getPaymentInfo'));
 
 /*Route::get('allnews', function() {    
     $year = 2013;  
