@@ -1301,16 +1301,12 @@
   width: 80%;
 }
 
-/*.carrier-container {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 500;
-  background-color: rgba(0,0,0,0.9);
+
+
+#carrier-select-container {
+  width: 80% !important;
 }
+/*
 
 .carrier-container #carrier {
   position: relative;
