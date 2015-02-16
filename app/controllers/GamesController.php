@@ -92,9 +92,9 @@ class GamesController extends \BaseController {
 			->with('ratings', $ratings)
 			->with('current_game', $current_game)
 			->with('country', $country)
-			->with(compact('languages'))
-			->with(compact('related_games'))
-			->with(compact('game'));
+			->with(compact('languages','related_games', 'game'));
+			/*->with(compact('related_games'))
+			->with(compact('game'));*/
 	}
 
 	/**

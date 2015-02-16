@@ -4,9 +4,17 @@
 	{{ HTML::style("css/form.css"); }}
 @stop
 
+<style>
+	
+	#logo-container {
+		margin-top: -30px;
+		margin-bottom: 10px;
+	}
+</style>
+
 @section('content')
 <div id="logo-container">
-	{{ HTML::image("images/tdrive.png", null, array('class' => 'auto')) }}
+	{{ HTML::image("images/tdrive.png", null) }}
 </div>
 
 	@if (Session::has('success') ) 
@@ -16,6 +24,8 @@
     @endif
 
 	<h1 class="title center">Select Carrier</h1>
+
+	<br>
 
 	{{ Form::open(array('action' => 'HomeController@home')) }}
 		{{ Form::token() }}
@@ -36,12 +46,13 @@
 
 			</select>
 		</div>
+		<br>
 		
 
 		{{ Form::hidden('country_id', $country_id) }}
 
-		<div class="control-item fr">
-			 {{ Form::submit('choose') }}
+		<div class="control-item center">
+			 {{ Form::submit('choose', array('class' => 'carrier-submit')) }}
 		</div>
 
 	{{ Form::close() }}

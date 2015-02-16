@@ -83,10 +83,14 @@
 							<div class="swiper-slide item">
 								<div class="thumb relative">
 									@if ($game->default_price == 0)
-										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
+										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 									@endif
 
-									<a href="{{ URL::route('game.show', $game->id) }}"><img src="assets/games/icons/{{ $media->url }}"></a>
+									<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+
+									@if ($game->default_price == 0)
+										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+									@endif
 								</div>
 								<div class="meta">
 									<p class="name">{{{ $game->main_title }}}</p>
@@ -144,10 +148,14 @@
 										<div class="swiper-slide item">
 											<div class="thumb relative">
 												@if ($game->default_price == 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
+													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 
-												<a href="{{ URL::route('game.show', $game->id) }}"><img src="assets/games/icons/{{ $media->url }}"></a>
+												<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+
+												@if ($game->default_price == 0)
+													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
 											</div>
 
 											<div class="meta">
@@ -348,8 +356,8 @@
 					<div class="modal-content">	
 
 						<div class="modal-header">
-						        
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>					      
+						        <a title="Close" class="fancybox-item fancybox-close" data-dismiss="modal" aria-label="Close"></a>
+					        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>		 -->			      
 					    </div>				
 					  
 						<div class="modal-body">
@@ -365,8 +373,6 @@
 						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->title) }}}</h2>	
 						   
 						    <p> {{ str_limit($data->description, $limit = 200, $end = '...') }} </p>
-
-
 
 						    <div id="btn-link">
 
@@ -401,8 +407,8 @@
 					<div class="modal-content">
 
 						<div class="modal-header">
-					        
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>					      
+					        <a title="Close" class="fancybox-item fancybox-close" data-dismiss="modal" aria-label="Close"></a>
+					       					      
 					    </div>
 									  
 						<div class="modal-body">
@@ -448,13 +454,14 @@
 @stop
 
 @section('javascripts')
-	{{ HTML::script("js/fastclick.js"); }}
-	{{ HTML::script("js/bootstrap.min.js"); }}
-	{{ HTML::script("js/jquery.lightSlider.min.js"); }}
-	{{ HTML::script("js/idangerous.swiper.min.js"); }}
-	{{ HTML::script("js/jquery-ui.min.js"); }}
-	{{ HTML::script("js/jquery.ddslick.min.js"); }}
-	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+	{{ HTML::script("js/fastclick.js") }}
+	{{ HTML::script("js/bootstrap.min.js") }}
+	{{ HTML::script("js/jquery.lightSlider.min.js") }}
+	{{ HTML::script("js/jquery.fancybox.js") }}
+	{{ HTML::script("js/idangerous.swiper.min.js") }}
+	{{ HTML::script("js/jquery-ui.min.js") }}
+	{{ HTML::script("js/jquery.ddslick.min.js") }}
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
 
 	<script>
 		FastClick.attach(document.body);
