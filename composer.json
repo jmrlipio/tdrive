@@ -10,7 +10,7 @@
 		"nesbot/Carbon": "*",
 		"webpatser/laravel-countries": "dev-master",
 		"jarektkaczyk/eloquent-triple-pivot": "dev-master",
-		"torann/geoip": "dev-master",
+		"torann/geoip": "0.1.*@dev",
 		"thujohn/analytics": "dev-master",
 		"intervention/image": "dev-master",
 		"zofe/rapyd": "1.3.*",
