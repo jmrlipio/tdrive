@@ -134,6 +134,18 @@ class NewsController extends \BaseController {
 			Image::make($featured->getRealPath())->save($path);
 
 			$data['featured_image'] = $filename;
+
+			switch($data['status']){
+
+				case 1:
+					$data['status'] = 'draft';
+					break;
+
+				case 2:
+					$data['status'] = 'live';
+					break;
+
+			}
 		}
 
 		if ($validator->fails())

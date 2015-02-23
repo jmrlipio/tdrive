@@ -125,18 +125,6 @@ class HomeController extends BaseController {
 		Session::put('carrier_name', $carrier->carrier);		
 
 		Session::put('user_country', $country->full_name);
-
-		// echo '<pre>';
-		// dd($latest_news->toArray());
-		// echo '<pre>';
-
-		// foreach($latest_news as $c) {
-		// 	foreach($c->contents as $item) {
-		// 		print_r($item->toArray());
-		// 	}	
-		// }
-
-		// die();
 		
 		return View::make('index')
 			->with('page_title', 'Home')
