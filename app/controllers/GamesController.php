@@ -185,13 +185,23 @@ class GamesController extends \BaseController {
 
 	public function getPurchaseStatus($id) {
 		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
-		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
+		$url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
 
-		// $response = file_get_contents($url);
+		$response = file_get_contents($url);
 
-		// $xml = simplexml_load_string($response);
+		$xml = simplexml_load_string($response);
 
-		// $status = 0;
+		$values = $this->object2array($xml);
+
+		$purchased = [];
+		// // $attr = $x->test[0]->a[0]->attributes();
+		// $purchased['transaction_id'] = $values['transaction'][0]->attributes();
+		// $purchased['receipt'] = $values['transaction'][0]['receipt'];
+		// $purchased['status'] = $values['transaction'][0]['status'];
+
+		$purchased['transaction_id'] = (string) $xml->transaction[2]->attributes()->id;
+		$purchased['receipt'] = $values['transaction'][2]['receipt'];
+		$purchased['status'] = $values['transaction'][2]['status'];
 
 		// foreach($xml as $purchase) {
 		// 	if($purchase->app_id == $id) {
@@ -199,8 +209,9 @@ class GamesController extends \BaseController {
 		// 	}
 		// }
 
-		// return $status;
-		return 1;
+		return $purchased;
+
+		// return $values;
 	}
 
 }

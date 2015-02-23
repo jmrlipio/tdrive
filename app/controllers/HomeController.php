@@ -13,7 +13,7 @@ class HomeController extends BaseController {
 		Session::forget('carrier');
 		$languages = Language::all();
 
-		$user_location = GeoIP::getLocation();   
+		$user_location = GeoIP::getLocation();
 
 		$country = Country::where('name', $user_location['country'])->get();
 		$country_id = '';

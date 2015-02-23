@@ -208,7 +208,7 @@ class FaqsController extends \BaseController {
 		$new_language_id = Input::get('language_id');
 		$question = Input::get('question');
 		$answer = Input::get('answer');
-		$default = (!empty(Input::get('default'))) ? 1 : 0;
+		$default = Input::get('default', 0);
 
 		if($default) {
 			foreach($faq->languages as $fq) {

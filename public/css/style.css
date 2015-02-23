@@ -447,7 +447,7 @@
 #game-detail #buttons .download {
   background: #e9548e url(../images/download2.png) center center no-repeat;
   position: relative;
-  display: block;
+  display: none;
   height: 62px;
   text-align: center;
   color: #fff;
@@ -1298,72 +1298,21 @@
 }
 
 #carrier-select-container {
-  width: 80%;
-}
-
-
-
-#carrier-select-container {
-  width: 80% !important;
-}
-/*
-
-.carrier-container #carrier {
-  position: relative;
-  width: 75%;
-  height: 110px;
-  left: 12%;
-  top: 40%;
-  background-color: #465a65;
-  border: 5px solid rgba(0,0,0,0.5);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  /*transform: translate(-50%, -50%);*/
-
-}
-/*
-.carrier-container #carrier h3 {
-  margin: 10px 0;
-  color: #fff;
+  width: 220px;
+  height: 100px;
   text-align: center;
+  /*background-color: #465a65;*/
 }
 
-#carrier-select {
-  width: 60%;
-  left: 20%;
-  position: relative;
+#carrier-select-container h3 {
+  text-align: center;
   margin-bottom: 10px;
-}*/
+}
 
-/*.carrier-container img {
-  height: 12px;
-  width: 12px;
-  position: absolute;
-  top: 60px;
-  right: 0px;
-  z-index: 999;
-}*/
-
-/*#submit-carrier {
-  background-color: #e9548e;
+#carrier-select-container input[type="submit"] {
+  background: #e9548e;
   color: #fff;
-  position: relative;
-  width: 40%;
-  left: 30%;
-
+  padding: 4px 6px;
+  text-transform: lowercase;
+  margin-top: 10px;
 }
-
-#carrier-form {
-  position: relative;
-  width: 75%;
-  height: 150px;
-  left: 12%;
-  top: 40%;
-  background-color: #465a65;
-  border: 5px solid rgba(0,0,0,0.5);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-*/

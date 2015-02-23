@@ -97,7 +97,7 @@
 				<div class="carrier-container" id="carrier-select-container">
 					{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
 						<h3>Select Carrier</h3>
-						<input type="submit" id="submit-carrier" value="choose">
+						<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
 					{{ Form::close() }}
 				</div>
 			</div>
@@ -514,6 +514,7 @@
 						$('#submit-carrier').before(append);
 					}
 
+					$('#carrier-select option:last').remove();
                 }
             });
 
@@ -521,56 +522,64 @@
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none',
-	        //     afterClose: function() {
-	        //     	$.fancybox({
-			      //       'width': '80%',
-			      //       'height': '80%',
-			      //       'autoScale': true,
-			      //       'transitionIn': 'fade',
-			      //       'transitionOut': 'fade',
-			      //       'type': 'iframe',
-			      //       'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-			      //       afterClose: function() {
+	            afterClose: function() {
+	            	$.fancybox({
+			            'width': '80%',
+			            'height': '80%',
+			            'autoScale': true,
+			            'transitionIn': 'fade',
+			            'transitionOut': 'fade',
+			            'type': 'iframe',
+			            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
+			            afterClose: function() {
 
-			      //       	$.ajax({
-							 	// type: "get",
-							 	// url: "{{ URL::route('games.status', $game->id) }}",
-							 	// complete:function(data) {
-									// if(data['responseText'] == 1) {
-									// 	$('#game-download').css('display', 'none');
-									// }
-				     //            }
-				     //        });
-			      //       }
-			      //   });
-	        //     }
+			            	$.ajax({
+							 	type: "get",
+							 	url: "{{ URL::route('games.status', $game->id) }}",
+							 	complete:function(data) {
+							 		var response = JSON.parse(data['responseText']);
+							 		console.log(response.status);
+									if(response.status == 1) {
+										$('#game-download').css('display', 'block');
+										$('#buy').css('display', 'none');
+
+										var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
+										$('#game-download').attr('href', url);
+									}
+				                }
+				            });
+			            }
+			        });
+	            }
 			});
         });
 
 		$('#carrier').on('submit', function(e){
 			e.preventDefault();
 
-			$.fancybox({
-	            'width': '80%',
-	            'height': '80%',
-	            'autoScale': true,
-	            'transitionIn': 'fade',
-	            'transitionOut': 'fade',
-	            'type': 'iframe',
-	            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-	            afterClose: function() {
+			$.fancybox.close();
 
-	            	$.ajax({
-					 	type: "get",
-					 	url: "{{ URL::route('games.status', $game->id) }}",
-					 	complete:function(data) {
-							if(data['responseText'] == 1) {
-								$('#game-download').css('display', 'none');
-							}
-		                }
-		            });
-	            }
-	        });
+			// $.fancybox({
+	  //           'width': '80%',
+	  //           'height': '80%',
+	  //           'autoScale': true,
+	  //           'transitionIn': 'fade',
+	  //           'transitionOut': 'fade',
+	  //           'type': 'iframe',
+	  //           'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
+	  //           afterClose: function() {
+
+	  //           	$.ajax({
+			// 		 	type: "get",
+			// 		 	url: "{{ URL::route('games.status', $game->id) }}",
+			// 		 	complete:function(data) {
+			// 				if(data['responseText'] == 1) {
+			// 					$('#game-download').css('display', 'none');
+			// 				}
+		 //                }
+		 //            });
+	  //           }
+	  //       });
 
 		});
 		
