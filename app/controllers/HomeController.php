@@ -130,12 +130,13 @@ class HomeController extends BaseController {
 		// dd($latest_news->toArray());
 		// echo '<pre>';
 
-		foreach($latest_news as $content) {
-			foreach($content->contents as $item) {
-				print_r($item);
-			}
-			
-		}
+		// foreach($latest_news as $c) {
+		// 	foreach($c->contents as $item) {
+		// 		print_r($item->toArray());
+		// 	}	
+		// }
+
+		// die();
 		
 		return View::make('index')
 			->with('page_title', 'Home')

@@ -95,8 +95,6 @@ class NewsController extends \BaseController {
 			$categories[$nc->id] = ucfirst($nc->category);
 		}
 
-		dd($news);
-
 		return View::make('admin.news.index')
 			->with('news', $news)
 			->with('categories', $categories)
