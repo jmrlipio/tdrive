@@ -10,6 +10,7 @@
 		margin-top: -30px;
 		margin-bottom: 10px;
 	}
+	
 </style>
 
 @section('content')
