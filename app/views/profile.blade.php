@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="relative">
 			<div class="thumb">
-				<img src="/images/avatars/placeholder.jpg">
+				<img src="{{ Request::root() . '/images/avatars/placeholder.jpg' }}">
 			</div>
 
 			<div class="details">
@@ -27,9 +27,8 @@
 					<div class="clearfix">
 
 						@foreach ($games as $game)
-
 							<div class="item">
-								<div class="image"><img src="/images/games/thumb-{{ $game->slug }}.jpg" alt="{{ $game->main_title }}"></div>
+								<div class="image"><img src="{{ Request::root() . '/images/games/thumb-' . $game->slug . '.jpg' }}" alt="{{ $game->main_title }}"></div>
 
 								<div class="meta">
 									<p>{{ $game->main_title }}</p>

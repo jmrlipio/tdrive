@@ -281,6 +281,10 @@ img.auto, video.auto {
   color: transparent;
 }
 
+.flash-success, .flash-fail {
+  text-transform: none;
+}
+
 #end {
   margin: 10px 0;
 }
@@ -709,3 +713,5 @@ img.auto, video.auto {
     padding-top: 0;
   }
 }
+
+
