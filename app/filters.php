@@ -21,12 +21,12 @@ App::before(function($request)
 		* Date: 01/16/2015
 	*/
 
-	if(Agent::isDesktop() && Request::segment(1) != 'admin' ){
-		return View::make('desktop.index')
-			->with('page_title', 'Desktop')
-			->with('page_id', 'form');
-	}
-	
+	// if(Agent::isDesktop() && Request::segment(1) != 'admin' ){
+	// 	return View::make('desktop.index')
+	// 		->with('page_title', 'Desktop')
+	// 		->with('page_id', 'form');
+	// }
+
 });
 
 

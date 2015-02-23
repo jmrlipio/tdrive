@@ -274,10 +274,12 @@
 		<div id="questions">
 
 			@foreach($faqs as $faq)
-
-				<h3>{{{ $faq->question }}}</h3>
-				<div><p>{{{ $faq->answer }}}</p></div>
-
+				@foreach($faq->languages as $fq)
+					@if($fq->pivot->language_id == $carrier->language_id)
+						<h3>{{{ $fq->pivot->question }}}</h3>
+						<div><p>{{{ $fq->pivot->answer }}}</p></div>
+					@endif
+				@endforeach
 			@endforeach
 
 		</div>

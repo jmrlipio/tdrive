@@ -130,8 +130,8 @@ return array(
 		'Zofe\Rapyd\RapydServiceProvider',
 		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
-		'Jenssegers\Agent\AgentServiceProvider'
-
+		'Jenssegers\Agent\AgentServiceProvider',
+		'Nathanmac\Utilities\Parser\ParserServiceProvider'
 	),
 
 	/*

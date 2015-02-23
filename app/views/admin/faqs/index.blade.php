@@ -11,28 +11,38 @@
 		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
 		<table>
 			<tr>
-				<th><input type="checkbox"></th>
 				<th>Question</th>
+				<th>Variants</th>
 			</tr>
 			@foreach($faqs as $faq)
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>
-						<a href="#">{{ $faq->question }}</a>
-						<ul class="actions">
-							<li><a href="{{ URL::route('admin.faqs.edit', $faq->id) }}">Edit</a></li>
-							<li><a href="">View</a></li>
-							<li>
-								{{ Form::open(array('route' => array('admin.faqs.destroy', $faq->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-								{{ Form::close() }}
-							</li>
-						</ul>
-					</td>
-				</tr>
+				
+					<tr>
+						<td>
+							<a href="#">{{ $faq->main_question }}</a>
+							<ul class="actions">
+								
+								<li><a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">Add Variant</a></li>
+								<li>
+									{{ Form::open(array('route' => array('admin.faqs.destroy', $faq->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+									{{ Form::close() }}
+								</li>
+							</ul>
+						</td>
+						<td>
+							@foreach($faq->languages as $fq)
+								<a href="{{ URL::route('admin.faqs.variant.edit', array('faq_id' => $faq->id, 'language_id' => $fq->id)) }}">{{ $fq->language }}</a>
+								
+							@endforeach
+						</td>
+					</tr>
 			@endforeach
 		</table>
 		<br>
 		
 	</div>
+@stop
+
+@section('scripts')
+	{{ HTML::script('js/form-functions.js') }}
 @stop

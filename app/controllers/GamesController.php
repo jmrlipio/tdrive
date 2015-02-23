@@ -1,5 +1,7 @@
 <?php
 
+use Nathanmac\Utilities\Parser\Parser;
+
 class GamesController extends \BaseController {
 
 	/**
@@ -136,4 +138,80 @@ class GamesController extends \BaseController {
 
 		return $games->toJson();
 	}
+
+	public function getAPICarrier($id) {
+
+		// $url = 'http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id' . $id;
+
+		$response = file_get_contents('http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id=1');
+
+		$xml = simplexml_load_string($response);
+
+		$values = $this->object2array($xml);
+
+		$carrier_ids = [];
+
+		foreach($xml as $crr) {
+			$carrier_ids[] = intval($crr->attributes()->id);
+		}
+
+		$carriers = [];
+
+		for($i = 0; $i < count($values['carrier']); $i++) {
+			$carriers[$carrier_ids[$i]] = $values['carrier'][$i];
+		}
+
+		return json_encode($carriers);
+	}
+
+	public function getCarrierDetails($id) {	
+		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=' . $id . '&carrier_id=' . Input::get('carrier_id') . '&uuid=' . Auth::user()->id;
+		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
+		$response = file_get_contents($url);
+
+		return $response;
+	}
+
+	private function object2array($object) { 
+		return @json_decode(@json_encode($object),1); 
+	}
+
+	public function getPaymentInfo($id) {
+		return View::make('payment')
+			->with('page_title', 'Payment')
+			->with('page_id', 'form')
+			->with('app_id', $id);
+	}
+
+	public function getPurchaseStatus($id) {
+		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
+		$url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
+
+		$response = file_get_contents($url);
+
+		$xml = simplexml_load_string($response);
+
+		$values = $this->object2array($xml);
+
+		$purchased = [];
+		// // $attr = $x->test[0]->a[0]->attributes();
+		// $purchased['transaction_id'] = $values['transaction'][0]->attributes();
+		// $purchased['receipt'] = $values['transaction'][0]['receipt'];
+		// $purchased['status'] = $values['transaction'][0]['status'];
+
+		$purchased['transaction_id'] = (string) $xml->transaction[2]->attributes()->id;
+		$purchased['receipt'] = $values['transaction'][2]['receipt'];
+		$purchased['status'] = $values['transaction'][2]['status'];
+
+		// foreach($xml as $purchase) {
+		// 	if($purchase->app_id == $id) {
+		// 		$status = $purchase->status;
+		// 	}
+		// }
+
+		return $purchased;
+
+		// return $values;
+	}
+
 }

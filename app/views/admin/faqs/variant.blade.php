@@ -1,8 +1,8 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	{{ Form::open(array('route' => 'admin.faqs.store', 'class' => 'medium-form')) }}
-		<h2>Create New FAQ</h2>
+	{{ Form::model($faq, array('route' => array('admin.faqs.variant.store', $faq->id), 'method' => 'post', 'class' => 'medium-form')) }}
+		<h2>Add Variant</h2>
 		@if(Session::has('message'))
 		    <div class="flash-success">
 		        <p>{{ Session::get('message') }}</p>
@@ -10,21 +10,14 @@
 		@endif
 		<ul>
 			<li>
-				{{ Form::label('main_question', 'Default Question: ') }}
-				{{ Form::text('main_question') }}
+				{{ Form::label('main_question', 'Main Question: ') }}
+				<p>{{ $faq->main_question }}</p>
 				{{ $errors->first('main_question', '<p class="error">:message</p>') }}
 			</li>
-			<li>
-				{{ Form::label('order', 'Order: ') }}
-				{{ Form::text('order', null, array('id' => 'faq-order')) }}
-				{{ $errors->first('order', '<p class="error">:message</p>') }}
-			</li>
 			<br>
-			<br>
-			<h3>Default Variant:</h3>
 			<li>
 				{{ Form::label('language', 'Language:') }}
-		  		{{ Form::select('language_id', $languages, null) }}				
+		  		{{ Form::select('language_id', $languages) }}				
 				{{ $errors->first('language', '<p class="error">:message</p>') }}
 			</li>
 			<li>
@@ -38,11 +31,13 @@
 				{{ $errors->first('answer', '<p class="error">:message</p>') }}
 			</li>
 			<li>
+				{{ Form::label('default', 'Set as Default:')}}
+				{{ Form::checkbox('default', 'default') }}
+			</li>
+			<li>
 				{{ Form::submit('Save') }}
 			</li>
 		</ul>
 
 	{{ Form::close() }}
-	{{ HTML::script('js/form-functions.js') }}
-
 @stop
