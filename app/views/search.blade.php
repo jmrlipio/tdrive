@@ -13,8 +13,8 @@
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-
-					@foreach ($games as $game)
+				@if(!$games->isEmpty())
+					@foreach($games as $game)
 						@foreach ($game->media as $media)
 
 							@if($media->type == 'icons')
@@ -55,7 +55,10 @@
 
 						@endforeach
 					@endforeach
+				@else
+					<p>Sorry, there are no games matching that description.</p>
 
+				@endif
 				</div>
 			</div>
 		</div>

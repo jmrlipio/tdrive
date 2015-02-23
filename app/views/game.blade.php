@@ -319,25 +319,27 @@
 	<div id="reviews" class="container">
 		<?php $ctr = 0; ?>
 		@forelse($game->review as $data)
-		<?php $ctr++; ?>
-			@if($ctr <= 4)
-				<div class="entry clearfix">
-					{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
+			@if($data->pivot->status == 1)
+				<?php $ctr++; ?>
+				@if($ctr <= 4)
+					<div class="entry clearfix">
+						{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
+			
+						<div>
+							<p class="name">{{ $data->first_name }}</p>
 
-					<div>
-						<p class="name">{{ $data->first_name }}</p>
+							<div class="stars">
+								@for ($i=1; $i <= 5 ; $i++)
+				                    <i class="fa fa-star{{ ($i <= $data->pivot->rating) ? '' : '-empty'}}"></i>
+				                 @endfor    
+							</div>
 
-						<div class="stars">
-							@for ($i=1; $i <= 5 ; $i++)
-			                    <i class="fa fa-star{{ ($i <= $data->pivot->rating) ? '' : '-empty'}}"></i>
-			                 @endfor    
+							<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
+
+							<p class="message">{{{ $data->pivot->review }}}</p>
 						</div>
-
-						<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
-
-						<p class="message">{{{ $data->pivot->review }}}</p>
 					</div>
-				</div>
+				@endif
 			@endif
 		@empty
 			<!-- <p>be the first one to add a review!</p> -->
@@ -582,6 +584,7 @@
 	  //       });
 
 		});
-		
+	
 	</script>
+
 @stop
