@@ -39,7 +39,19 @@ $game_settings = GameSetting::all();
 				<meta property="og:image" content="{{ url() }}/images/news/{{ $item->slug}}.jpg" />
 			@endforeach
 		@endif
+	@endif
 
+	@if(isset($live_news))
+		@if(!Request::segment(3))
+			@foreach($live_news as $single_news)
+				@foreach($single_news->contents as $item)
+					<meta property="og:url" content="{{ url() }}news/{{ $item->id }}" />
+					<meta property="og:title" content="{{ $item->main_title }}" />
+					<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
+					<meta property="og:image" content="{{ url() }}/images/news/{{ $item->slug}}.jpg" />
+				@endforeach
+			@endforeach
+		@endif
 	@endif
 
 	<link rel="shortcut icon" href="favicon.ico">
