@@ -103,11 +103,11 @@
 			</div>
 		@endif
 	</div><!-- end #buttons -->
-
+	{{ dd($_GET['locale']) }}
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-
+			{{-- @if($item->language) --}}
 			{{ htmlspecialchars_decode($item->pivot->content) }}
 
 		@endforeach

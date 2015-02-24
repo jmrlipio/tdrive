@@ -9,5 +9,7 @@ return array(
 	'login' => 'Sign in',
 	'register' => 'Join now',
 
-	'logout' => 'Logout'
+	'logout' => 'Logout',
+
+	'test' => ':content'
 );
