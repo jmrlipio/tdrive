@@ -1316,3 +1316,8 @@
   text-transform: lowercase;
   margin-top: 10px;
 }
+
+.tb-link {
+  color: #0059C5;
+  text-decoration: underline;
+}
