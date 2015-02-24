@@ -178,6 +178,7 @@
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
 						<!-- <a href="mailto:support@tdrive.co" target="_blank">Email</a> -->
+						
 					</div>
 				</div>
 
