@@ -25,8 +25,11 @@
 										@endif
 
 										<img src="{{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}">
-							
+							<!-- If image url can't be located, change the url to -->
+							<!--  {{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}  -->
 										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
+
+
 									</div>
 
 									<div class="meta">

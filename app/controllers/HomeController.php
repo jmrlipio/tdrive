@@ -110,11 +110,14 @@ class HomeController extends BaseController {
 		
 		/* TODO: check if session has carrier */
 		if (!Session::has('carrier')) {
+			
 			Session::put('country_id', Input::get('country_id'));
 			Session::put('carrier', Input::get('selected_carrier'));
 			$country = Country::find(Input::get('country_id'));
 			$first_visit = true;
+					
 		} else {			
+			
 			$country = Country::find(Session::get('country_id'));
 			$first_visit = false;
 		}
