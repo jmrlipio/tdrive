@@ -427,8 +427,8 @@
 							
 							@foreach($data->contents as $row)
 
-						  		<p> {{{ str_limit($row->pivot->content, $limit = 200, $end = '...') }}} </p>	
-						  						    
+						  		<p> {{ htmlspecialchars_decode(str_limit($row->pivot->content, $limit = 200, $end = '...')) }}</p>
+
 						    @endforeach	
 							
 							<div id="btn-link">
