@@ -23,8 +23,8 @@
 										@if ($game->default_price == 0)
 											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
 										@endif
-
-										<img src="assets/games/icons/{{ $media->url }}" alt="{{ $game->main_title }}">
+										
+										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
 									</div>
 
 									<div class="meta">
