@@ -24,7 +24,7 @@
 											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
 										@endif
 
-										<img src="assets/games/icons/{{ $media->url }}" alt="{{ $game->main_title }}">
+										<img src="{{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}">
 									</div>
 
 									<div class="meta">
