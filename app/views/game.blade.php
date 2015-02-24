@@ -167,9 +167,13 @@
 				<div style="display:none">
 					<div id="share" style="text-align:center;">
 						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
+						
+					<!-- FACEBOOK SHARE -->
 						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}'>
 							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 						</a>
+
+					<!-- TWITTER SHARE -->
 						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "Hey! Checkout this new game named {{ $game->main_title }} at \n"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
