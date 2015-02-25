@@ -39,7 +39,19 @@ $game_settings = GameSetting::all();
 				<meta property="og:image" content="{{ url() }}/images/news/{{ $item->slug}}.jpg" />
 			@endforeach
 		@endif
+	@endif
 
+	@if(isset($live_news))
+		@if(!Request::segment(3))
+			@foreach($live_news as $single_news)
+				@foreach($single_news->contents as $item)
+					<meta property="og:url" content="{{ url() }}news/{{ $item->id }}" />
+					<meta property="og:title" content="{{ $item->main_title }}" />
+					<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
+					<meta property="og:image" content="{{ url() }}/images/news/{{ $item->slug}}.jpg" />
+				@endforeach
+			@endforeach
+		@endif
 	@endif
 
 	<link rel="shortcut icon" href="favicon.ico">
@@ -140,7 +152,7 @@ $game_settings = GameSetting::all();
 
 			<?php $tdrive = $general_settings[0]->value ?>
 
-			<a href="{{ route('home.show') }}" id="tdrive">{{ HTML::image("images/tdrive.png", "$tdrive", array('class' => 'auto')) }}</a>
+			<div id="tdrive"><a href="{{ route('home.show') }}">{{ HTML::image("images/tdrive.png", "$tdrive") }}</a></div>
 
 			<div class="tablet fl clearfix">
 				<ul class="menu fl">
@@ -192,7 +204,7 @@ $game_settings = GameSetting::all();
 				</div>
 			</div>
 
-			<a href="http://tose.com.ph" id="tose" target="_blank">{{ HTML::image('images/tose.png', 'TOSE') }}</a>
+			<div id="tose"><a href="http://tose.com.ph" target="_blank">{{ HTML::image('images/tose.png', 'TOSE') }}</a></div>
 		</div>
 
 	</div><!-- end #header -->

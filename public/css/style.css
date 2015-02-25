@@ -1298,5 +1298,26 @@
 }
 
 #carrier-select-container {
-  width: 80% !important;
+  width: 220px;
+  height: 100px;
+  text-align: center;
+  /*background-color: #465a65;*/
+}
+
+#carrier-select-container h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#carrier-select-container input[type="submit"] {
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+  text-transform: lowercase;
+  margin-top: 10px;
+}
+
+.tb-link {
+  color: #0059C5;
+  text-decoration: underline;
 }

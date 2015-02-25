@@ -97,17 +97,17 @@
 				<div class="carrier-container" id="carrier-select-container" style="width: 600px;">
 					{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
 						<h3>Select Carrier</h3>
-						<input type="submit" id="submit-carrier" value="choose">
+						<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
 					{{ Form::close() }}
 				</div>
 			</div>
 		@endif
 	</div><!-- end #buttons -->
-
+	{{ dd($_GET['locale']) }}
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-
+			{{-- @if($item->language) --}}
 			{{ htmlspecialchars_decode($item->pivot->content) }}
 
 		@endforeach
@@ -167,13 +167,18 @@
 				<div style="display:none">
 					<div id="share" style="text-align:center;">
 						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}'>
+						
+					<!-- FACEBOOK SHARE -->
+						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 						</a>
-						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}'>
+
+					<!-- TWITTER SHARE -->
+						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "Hey! Checkout this new game named {{ $game->main_title }} at \n"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
 						<!-- <a href="mailto:support@tdrive.co" target="_blank">Email</a> -->
+
 					</div>
 				</div>
 
@@ -319,25 +324,27 @@
 	<div id="reviews" class="container">
 		<?php $ctr = 0; ?>
 		@forelse($game->review as $data)
-		<?php $ctr++; ?>
-			@if($ctr <= 4)
-				<div class="entry clearfix">
-					{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
+			@if($data->pivot->status == 1)
+				<?php $ctr++; ?>
+				@if($ctr <= 4)
+					<div class="entry clearfix">
+						{{ HTML::image('images/avatars/placeholder.jpg', 'placeholder') }}
+			
+						<div>
+							<p class="name">{{ $data->first_name }}</p>
 
-					<div>
-						<p class="name">{{ $data->first_name }}</p>
+							<div class="stars">
+								@for ($i=1; $i <= 5 ; $i++)
+				                    <i class="fa fa-star{{ ($i <= $data->pivot->rating) ? '' : '-empty'}}"></i>
+				                 @endfor    
+							</div>
 
-						<div class="stars">
-							@for ($i=1; $i <= 5 ; $i++)
-			                    <i class="fa fa-star{{ ($i <= $data->pivot->rating) ? '' : '-empty'}}"></i>
-			                 @endfor    
+							<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
+
+							<p class="message">{{{ $data->pivot->review }}}</p>
 						</div>
-
-						<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
-
-						<p class="message">{{{ $data->pivot->review }}}</p>
 					</div>
-				</div>
+				@endif
 			@endif
 		@empty
 			<!-- <p>be the first one to add a review!</p> -->
@@ -369,11 +376,19 @@
 							@if($media->type == 'icons')
 								<div class="swiper-slide item">
 									<div class="thumb relative">
+
 										@if ($game->default_price == 0)
-											{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}
+												<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											@endif
+										
+										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+
+
+										@if ($game->default_price == 0)
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
-										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+
 									</div>
 
 									<div class="meta">
@@ -506,6 +521,7 @@
 						$('#submit-carrier').before(append);
 					}
 
+					$('#carrier-select option:last').remove();
                 }
             });
 
@@ -527,9 +543,15 @@
 							 	type: "get",
 							 	url: "{{ URL::route('games.status', $game->id) }}",
 							 	complete:function(data) {
-									if(data['responseText'] == 1) {
+
+							 		var response = JSON.parse(data['responseText']);
+							 		console.log(response.status);
+									if(response.status == 1) {
 										$('#game-download').css('display', 'block');
 										$('#buy').css('display', 'none');
+
+										var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
+										$('#game-download').attr('href', url);
 									}
 				                }
 				            });
@@ -567,6 +589,7 @@
 	  //       });
 
 		});
-		
+	
 	</script>
+
 @stop

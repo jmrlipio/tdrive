@@ -174,11 +174,13 @@ class ListingController extends \BaseController {
 
 		$count = count($news_all);
 
+		// dd($news->toArray());
+
 		return View::make('news_listing')
 			->with('page_title', 'Latest news')
 			->with('page_id', 'news-listing')
 			->with('count', $count)
-			->with(compact('news'))
+			->with('live_news', $news)
 			->with(compact('languages'));
 	}
 

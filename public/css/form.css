@@ -29,6 +29,11 @@
   padding: 4px 6px;
   text-transform: lowercase;
 }
+#form #content .carrier-submit {
+  padding: 5px 20px !important;
+  font-size: 20px !important;
+  margin-top: 10px;
+}
 #form #content .link {
   color: #e9548e;
 }
@@ -43,8 +48,3 @@
 .select_carrier #header {
   display: none !important;
 }
-#logo-container {
-  text-align: center;
-}
-.flash-success { color: green; line-height: 40px; }
-.flash-fail { color: red; line-height: 40px; }

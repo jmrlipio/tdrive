@@ -12,7 +12,7 @@
 
 		<div id="scroll">
 
-			@foreach ($news as $item)
+			@foreach ($live_news as $item)
 				@foreach ($item->contents as $content)
 
 					<div class="item">

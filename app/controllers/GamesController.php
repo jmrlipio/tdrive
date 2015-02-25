@@ -92,9 +92,9 @@ class GamesController extends \BaseController {
 			->with('ratings', $ratings)
 			->with('current_game', $current_game)
 			->with('country', $country)
-			->with(compact('languages'))
-			->with(compact('related_games'))
-			->with(compact('game'));
+			->with(compact('languages','related_games', 'game'));
+			/*->with(compact('related_games'))
+			->with(compact('game'));*/
 	}
 
 	/**
@@ -185,13 +185,25 @@ class GamesController extends \BaseController {
 
 	public function getPurchaseStatus($id) {
 		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
-		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
 
-		// $response = file_get_contents($url);
+		$url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
 
-		// $xml = simplexml_load_string($response);
+		$response = file_get_contents($url);
 
-		// $status = 0;
+		$xml = simplexml_load_string($response);
+
+		$values = $this->object2array($xml);
+
+		$purchased = [];
+		// // $attr = $x->test[0]->a[0]->attributes();
+		// $purchased['transaction_id'] = $values['transaction'][0]->attributes();
+		// $purchased['receipt'] = $values['transaction'][0]['receipt'];
+		// $purchased['status'] = $values['transaction'][0]['status'];
+
+		$purchased['transaction_id'] = (string) $xml->transaction[2]->attributes()->id;
+		$purchased['receipt'] = $values['transaction'][2]['receipt'];
+		$purchased['status'] = $values['transaction'][2]['status'];
+
 
 		// foreach($xml as $purchase) {
 		// 	if($purchase->app_id == $id) {
@@ -199,8 +211,9 @@ class GamesController extends \BaseController {
 		// 	}
 		// }
 
-		// return $status;
-		return 1;
+		return $purchased;
+
+		// return $values;
 	}
 
 }

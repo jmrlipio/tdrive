@@ -25,11 +25,11 @@
 			{{ Form::text('game_reviews') }}
 			{{ $errors->first('game_reviews', '<p class="error">:message</p>') }}
 		</li>
-		<li>
-			{{ Form::label('review_rows', 'Displayed Number of Reviews:') }}
-			{{ Form::text('review_rows') }}
-			{{ $errors->first('game_reviews', '<p class="error">:message</p>') }}
-		</li>
+		<!--<li>
+			{{-- Form::label('review_rows', 'Displayed Number of Reviews:') --}}
+			{{-- Form::text('review_rows') --}}
+			{{-- $errors->first('game_reviews', '<p class="error">:message</p>') --}}
+		</li>-->
 		<li>
 			<div class="media-box" id="ribbon">
 				{{ HTML::image(Request::root() . '/assets/site/' . $settings->ribbon_url, null) }}
