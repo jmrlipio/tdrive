@@ -54,6 +54,8 @@ class HomeController extends BaseController {
 		$faqs = Faq::all();
 		$year = News::all();
 
+		// print_r(Session::all());
+
 	/* For displaying game discount alert */
 
 		$dt = Carbon::now();

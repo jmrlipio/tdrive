@@ -500,8 +500,6 @@
 					data: {
 						locale: evt.selectedItem,
 						_token: token
-					},
-					success: function(data) {
 					}
 				});
 
@@ -522,8 +520,6 @@
 					data: {
 						locale: evt.selectedItem,
 						_token: token
-					},
-					success: function(data) {
 					}
 				});
 

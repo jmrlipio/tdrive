@@ -13,7 +13,7 @@
 
 App::before(function($request)
 {
-	Lang::setLocale(Session::get('locale'));
+	// Lang::setLocale(Session::get('locale'));
 	
 	/** 
 		* Added by: Jone   

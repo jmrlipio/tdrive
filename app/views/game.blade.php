@@ -103,13 +103,15 @@
 			</div>
 		@endif
 	</div><!-- end #buttons -->
-	{{ dd($_GET['locale']) }}
+	<?php
+		print_r(Session::get('locale'));
+	?>
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-			{{-- @if($item->language) --}}
-			{{ htmlspecialchars_decode($item->pivot->content) }}
-
+			@if(Session::get('locale') == strtolower($item->iso_code))
+				{{ htmlspecialchars_decode($item->pivot->content) }}
+			@endif
 		@endforeach
 
 	</div><!-- end #description -->
@@ -450,17 +452,16 @@
 			websiteType: 'dynamic',
 
 			onChange: function(evt){
-
 				$.ajax({
 					url: "language",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
 						_token: _token
-					},
-					success: function(data) {
 					}
 				});
+
+				e.preventDefault();
 
 				return true;
 			}
@@ -472,17 +473,17 @@
 			websiteType: 'dynamic',
 
 			onChange: function(evt){
-
+				e.preventDefault();
 				$.ajax({
 					url: "language",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
 						_token: _token
-					},
-					success: function(data) {
 					}
 				});
+
+				e.preventDefault();
 
 				return true;
 			}
@@ -519,7 +520,7 @@
 					
 					if($('#carrier-container').find('#carrier-select').length == 0) {
 						$('#submit-carrier').before(append);
-					}
+						}
 
 					$('#carrier-select option:last').remove();
                 }
