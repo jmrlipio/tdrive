@@ -73,6 +73,11 @@
 			</a>
 		@else
 			<!-- <a href="{{ URL::route('games.carrier', $game->id) }}" class="buy"> -->
+			<a href="#" class="download" id="game-download">
+				<div>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+				</div>
+			</a>
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
@@ -89,7 +94,7 @@
 			</a>
 
 			<div style="display:none">
-				<div class="carrier-container" id="carrier-select-container">
+				<div class="carrier-container" id="carrier-select-container" style="width: 600px;">
 					{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
 						<h3>Select Carrier</h3>
 						<input type="submit" id="submit-carrier" value="choose">
@@ -484,11 +489,7 @@
         $("#share a").jqSocialSharer();
 		$('.fancybox').fancybox({ padding: 0 });
 
-
-
 		$("#buy").on('click',function() {
-			
-
 			 $.ajax({
 			 	type: "get",
 			 	url: "{{ URL::route('games.carrier', $game->id) }}",
@@ -501,9 +502,9 @@
 
 					append += '</select><br>';
 					
-					// if($("#carrier-container:has(#carrier-select)").length == 0) {
+					if($('#carrier-container').find('#carrier-select').length == 0) {
 						$('#submit-carrier').before(append);
-					// }
+					}
 
                 }
             });
@@ -515,12 +516,24 @@
 	            afterClose: function() {
 	            	$.fancybox({
 			            'width': '80%',
-			            'height': '80%',
+			            'height': '60%',
 			            'autoScale': true,
 			            'transitionIn': 'fade',
 			            'transitionOut': 'fade',
 			            'type': 'iframe',
-			            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1'
+			            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
+			            afterClose: function() {
+			            	$.ajax({
+							 	type: "get",
+							 	url: "{{ URL::route('games.status', $game->id) }}",
+							 	complete:function(data) {
+									if(data['responseText'] == 1) {
+										$('#game-download').css('display', 'block');
+										$('#buy').css('display', 'none');
+									}
+				                }
+				            });
+			            }
 			        });
 	            }
 			});
@@ -531,14 +544,27 @@
 
 			$.fancybox.close();
 
-			// var carrier_id = $('#carrier option:selected').val();
-			// var uuid = '{{ Auth::user()->id }}';
-			
-			// var iframe = $('#carrier-form');
-			// iframe.attr('src', 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1'); 
+			// $.fancybox({
+	  //           'width': '80%',
+	  //           'height': '80%',
+	  //           'autoScale': true,
+	  //           'transitionIn': 'fade',
+	  //           'transitionOut': 'fade',
+	  //           'type': 'iframe',
+	  //           'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
+	  //           afterClose: function() {
 
-			// $('.carrier-container').css('display', 'none');
-			// $('#carrier-form-container').css('display', 'block');
+	  //           	$.ajax({
+			// 		 	type: "get",
+			// 		 	url: "{{ URL::route('games.status', $game->id) }}",
+			// 		 	complete:function(data) {
+			// 				if(data['responseText'] == 1) {
+			// 					$('#game-download').css('display', 'none');
+			// 				}
+		 //                }
+		 //            });
+	  //           }
+	  //       });
 
 		});
 		
