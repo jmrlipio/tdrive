@@ -94,7 +94,7 @@
 			</a>
 
 			<div style="display:none">
-				<div class="carrier-container" id="carrier-select-container" style="width: 600px;">
+				<div class="carrier-container" id="carrier-select-container">
 					{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
 						<h3>Select Carrier</h3>
 						<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
@@ -103,9 +103,7 @@
 			</div>
 		@endif
 	</div><!-- end #buttons -->
-	<?php
-		print_r(Session::get('locale'));
-	?>
+
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
@@ -171,7 +169,7 @@
 						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
 						
 					<!-- FACEBOOK SHARE -->
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}&amp;p[images][0]={{ url() }}/images/games/azukitap.jpg" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 						</a>
 
@@ -509,7 +507,9 @@
 			 $.ajax({
 			 	type: "get",
 			 	url: "{{ URL::route('games.carrier', $game->id) }}",
+			 	dataType: "json",
 			 	complete:function(data) {
+			 		console.log(data['responseText']);
 					var append = '<select id="carrier-select">';
 
 					JSON.parse(data['responseText'], function (id, carrier) {		    
