@@ -144,7 +144,12 @@ $game_settings = GameSetting::all();
 
 	@include('_partials/side_menu')
 
-	<div id="header">	
+	<div id="header">
+
+		<?php
+			$lang = (isset($_GET['locale'])) ? $_GET['locale'] : 'us'; 
+			// Session::set('locale', $lang);
+		?>
 
 		<div class="container clearfix">
 			<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
@@ -156,10 +161,23 @@ $game_settings = GameSetting::all();
 
 			<div class="tablet fl clearfix">
 				<ul class="menu fl">
-					<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
-					<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
-					<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
-					<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
+
+					@if($lang == 'th')
+
+						<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">เกม</a></li>
+						<li><a href="{{ route('home.show') }}#news" class="menu-news">ข่าว</a></li>
+						<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">คำถาม</a></li>
+						<li><a href="{{ route('home.show') }}#contact" class="menu-contact">ติดต่อ</a></li>
+
+					@else
+
+						<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">Games</a></li>
+						<li><a href="{{ route('home.show') }}#news" class="menu-news">News</a></li>
+						<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">FAQs</a></li>
+						<li><a href="{{ route('home.show') }}#contact" class="menu-contact">Contact</a></li>
+
+					@endif
+
 				</ul>
 
 				<div class="fl">
@@ -179,11 +197,7 @@ $game_settings = GameSetting::all();
 						@endif
 
 					</div>
-					<?php
-						$lang = (isset($_GET['locale'])) ? $_GET['locale'] : 'us'; 
-						// Session::set('locale', $lang);
-						
-					?>
+					
 					<div id="polyglotLanguageSwitcher1" class="polyglotLanguageSwitcher">
 						<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
