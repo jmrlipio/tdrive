@@ -181,7 +181,8 @@ $game_settings = GameSetting::all();
 					</div>
 					<?php
 						$lang = (isset($_GET['locale'])) ? $_GET['locale'] : 'us'; 
-						Session::set('locale', $lang);	
+						// Session::set('locale', $lang);
+						
 					?>
 					<div id="polyglotLanguageSwitcher1" class="polyglotLanguageSwitcher">
 						<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
@@ -189,7 +190,7 @@ $game_settings = GameSetting::all();
 							{{ Form::token() }}
 
 							<select name="locale" id="polyglot-language-options">
-								<option id="en" value="en" {{ (strtolower($user_location['isoCode']) == 'us' || $lang == 'us' ) ? ' selected' : '' }}>English</option>
+								<option id="en" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || $lang == 'us' ) ? ' selected' : '' }}>English</option>
 								<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || $lang == 'th' ) ? ' selected' : '' }}>Thai</option>
 								<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || $lang == 'id' ) ? ' selected' : '' }}>Bahasa Indonesia</option>
 								<option id="my" value="my" {{ (strtolower($user_location['isoCode']) == 'my' || $lang == 'my' ) ? ' selected' : '' }}>Bahasa Malaysia</option>

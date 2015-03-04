@@ -34,7 +34,7 @@ class InquiriesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function storeInquiry()
 	{
 		$validator = Validator::make(Input::all(), Inquiry::$rules);
 

@@ -45,19 +45,19 @@ class ReviewsController extends \BaseController {
         }
 	}
 
-	public function postReview()
+	public function postReview($id)
 	{
 		$validator = Validator::make(Input::all(), Review::$rules);
+		$url = URL::route('game.show', $id) . '#review';
 
 		if ($validator->passes()) {
 			Review::create(Input::all());
 
-			return Redirect::back()->with('message', 'Your review has been added.');
+			return Redirect::to($url)->with('message', 'Your review has been added.');
 		}
 
 		//validator fails
-		return Redirect::back()->withErrors($validator)->withInput();
+		return Redirect::to($url)->withErrors($validator)->withInput();
 	}
-
 
 }

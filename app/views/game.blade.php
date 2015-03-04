@@ -107,8 +107,14 @@
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-			@if(Session::get('locale') == strtolower($item->iso_code))
-				{{ htmlspecialchars_decode($item->pivot->content) }}
+			@if(isset($_GET['locale']))
+				@if($_GET['locale'] == strtolower($item->iso_code))
+					{{ htmlspecialchars_decode($item->pivot->content) }}
+				@endif
+			@else
+				@if(strtolower($item->iso_code) == 'us')
+					{{ htmlspecialchars_decode($item->pivot->content) }}
+				@endif
 			@endif
 		@endforeach
 
@@ -278,8 +284,7 @@
 				<p class="form-success">{{ Session::get('message') }}</p>
 			@endif
 
-			{{ Form::open(array('route'=>'review.post', 'method' => 'post')) }}
-
+			{{ Form::open(array('route' => array('review.post', $current_game->id), 'method' => 'post')) }}
 				{{ Form::hidden('status', 1) }}
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
@@ -448,7 +453,7 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: false,
 			onChange: function(evt){
 				$.ajax({
 					url: "language",
@@ -458,10 +463,6 @@
 						_token: _token
 					}
 				});
-
-				e.preventDefault();
-
-				return true;
 			}
 		});
 
@@ -480,8 +481,6 @@
 						_token: _token
 					}
 				});
-
-				e.preventDefault();
 
 				return true;
 			}

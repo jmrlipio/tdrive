@@ -24,7 +24,7 @@ Route::post('games/related/more', array('as' => 'games.related.more', 'uses' => 
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
-Route::post('review/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
+Route::post('review/{id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
 
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
@@ -131,7 +131,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
         Route::get('inquiries/settings', array('as' => 'admin.reports.inquiries.settings', 'uses' => 'InquiriesController@settings'));
         Route::post('inquiries/settings/save', array('as' => 'admin.reports.inquiries.save-settings', 'uses' => 'InquiriesController@saveSettings'));
         Route::get('inquiries/links', array('as' => 'admin.reports.inquiries.links', 'uses' => 'InquiriesController@linkTo'));
-        Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit')));
+        Route::resource('inquiries', 'InquiriesController', array('except' => array('create', 'update', 'edit', 'store')));
     
     });
 
@@ -164,9 +164,9 @@ Route::post('register', array('as' => 'users.register.post', 'uses' => 'UsersCon
 
 Route::group(array('before' => 'auth'), function(){
 	Route::resource('users', 'UsersController');
-    
 });
 
+Route::post('reports/inquiries', array('as' => 'reports.inquiries.store-inquiry', 'uses' => 'InquiriesController@storeInquiry'));
 Route::get('games/{id}/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getAPICarrier'));
 Route::get('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
 Route::get('games/{id}/status', array('as' => 'games.status', 'uses' => 'GamesController@getPurchaseStatus'));

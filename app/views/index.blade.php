@@ -289,7 +289,7 @@
 		<h1 class="title">Contact us</h1>
 		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
 
-		{{ Form::open(array('route'=>'admin.reports.inquiries.store', 'method' => 'post')) }}
+		{{ Form::open(array('route'=>'reports.inquiries.store-inquiry', 'method' => 'post')) }}
 
 			@if(Session::has('message'))
 				<br>
