@@ -98,7 +98,9 @@ class HomeController extends BaseController {
 
 		$featured_games = Game::where('featured', 1)->orderBy('created_at', 'DESC')->get();
 
-		$games = Game::all()->take($game_settings[0]->game_thumbnails);
+		// $games = Game::all()->take($game_settings[0]->game_thumbnails);
+		$games = Game::all();
+		$limit = $game_settings[0]->game_thumbnails;
 
 		foreach(Category::all() as $cat) {
 			if ($cat->featured == 1) {
@@ -143,6 +145,7 @@ class HomeController extends BaseController {
 			->with('country', $country)
 			->with('categories', $categories)
 			->with('discounts', $discounts)
+			->with('limit', $limit)
 			/*->with(compact('featured_games'))*/
 			->with(compact('games','featured_games', 'faqs', 'languages'));
 			/*->with(compact('faqs'))

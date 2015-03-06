@@ -455,14 +455,15 @@
 			websiteType: 'dynamic',
 			testMode: false,
 			onChange: function(evt){
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					}
-				});
+				evt.preventDefault();
+				// $.ajax({
+				// 	url: "language",
+				// 	type: "POST",
+				// 	data: {
+				// 		locale: evt.selectedItem,
+				// 		_token: _token
+				// 	}
+				// });
 			}
 		});
 
@@ -470,19 +471,16 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
 			onChange: function(evt){
-				e.preventDefault();
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					}
-				});
-
-				return true;
+				evt.preventDefault();
+				// $.ajax({
+				// 	url: "language",
+				// 	type: "POST",
+				// 	data: {
+				// 		locale: evt.selectedItem,
+				// 		_token: _token
+				// 	}
+				// });
 			}
 		});
 
@@ -521,6 +519,7 @@
 						$('#submit-carrier').before(append);
 						}
 
+					$('#carrier-select option:last').remove();
 					$('#carrier-select option:last').remove();
                 }
             });

@@ -245,7 +245,8 @@ class ListingController extends \BaseController {
 			->with('count', $count)
 			->with('country', $country)
 			->with(compact('games'))
-			->with(compact('languages'));
+			->with(compact('languages'))
+			->with('search', Input::get('search'));
 	}
 
 	public function searchMoreGames() 

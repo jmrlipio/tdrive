@@ -132,15 +132,24 @@ class AdminUsersController extends \BaseController {
 	{
 		$user = User::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), User::$rules);
+		$edit_rules = User::$update_rules;
+
+		$edit_rules['email'] = 'required|email|unique:users,email,' . $id;
+
+		$validator = Validator::make($data = Input::all(), $edit_rules);
+
 		if ($validator->fails())
 		{
-			return Redirect::back()->withErrors($validator)->withInput();
+			return Redirect::back()->withErrors($validator)->withInput()
+				->with('message', 'Something went wrong. Try again.')
+				->with('sof', 'fail');
 		}
 
 		$user->update($data);
 
-		return Redirect::route('admin.users.show', $user->id);
+		return Redirect::route('admin.users.edit', $user->id)
+			->with('message', 'User successfully updated.')
+			->with('sof', 'success');
 	}
 
 	/**
@@ -152,7 +161,18 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$user = User::find($id);
+
+		if($user) {
+			$user->delete();
+			return Redirect::route('admin.users.index')
+				->with('message', 'User deleted')
+				->with('sof', 'success');
+		}
+
+		return Redirect::route('admin.users.index')
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'fail');
 	}
 
 	public function getLogin(){
