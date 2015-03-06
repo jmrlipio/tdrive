@@ -36,7 +36,7 @@
   -webkit-border-radius: 20px;
   border-radius: 20px;
   background-clip: padding-box;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   margin: 5px auto;
   width: 100px;
@@ -192,6 +192,9 @@
 #home #faqs #questions {
   padding: 10px 0;
 }
+#questions h3 {
+  border-radius: 0 !important;
+}
 #home #faqs .ui-accordion .ui-accordion-header {
   font-size: 16px !important;
   color: #fff;
@@ -331,7 +334,7 @@
   float: left;
   width: 80px;
   height: 80px;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   -webkit-border-radius: 20px;
   border-radius: 20px;
@@ -736,7 +739,7 @@
   -webkit-border-radius: 20px;
   border-radius: 20px;
   background-clip: padding-box;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   margin: 5px auto;
   width: 100px;
@@ -991,7 +994,7 @@
   -webkit-border-radius: 20px;
   border-radius: 20px;
   background-clip: padding-box;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   margin: 0;
 }
