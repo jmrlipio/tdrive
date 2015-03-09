@@ -162,9 +162,9 @@ $game_settings = GameSetting::all();
 			<div class="tablet fl clearfix">
 				<ul class="menu fl">
 					<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
-					<li><a href="{{ route('home.show') }}#news" class="menu-news">News</a></li>
-					<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">FAQs</a></li>
-					<li><a href="{{ route('home.show') }}#contact" class="menu-contact">Contact</a></li>
+					<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
+					<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
+					<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
 				</ul>
 
 				<div class="fl">
@@ -189,7 +189,7 @@ $game_settings = GameSetting::all();
 						<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
 							<select name="locale" id="polyglot-language-options">
-								<option id="en" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Session::get('locale') == 'us' ) ? ' selected' : '' }}>English</option>
+								<option id="us" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Session::get('locale') == 'us' ) ? ' selected' : '' }}>English</option>
 								<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Session::get('locale') == 'th' ) ? ' selected' : '' }}>Thai</option>
 								<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Session::get('locale') == 'id' ) ? ' selected' : '' }}>Bahasa Indonesia</option>
 								<option id="my" value="my" {{ (strtolower($user_location['isoCode']) == 'my' || Session::get('locale') == 'my' ) ? ' selected' : '' }}>Bahasa Malaysia</option>
