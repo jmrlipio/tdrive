@@ -120,7 +120,8 @@ class LanguagesController extends \BaseController {
 
 	public function chooseLanguage()
 	{
-		Session::set('locale', Input::get('locale'));
+		Session::forget('locale');
+		Session::put('locale', Input::get('locale'));
 	}
 
 }

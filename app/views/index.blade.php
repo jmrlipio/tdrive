@@ -44,7 +44,6 @@
 @stop
 
 @section('content')
-
 	<div id="slider" class="swiper-container featured container">
 		<div class="swiper-wrapper">
 
@@ -69,6 +68,8 @@
 
 		</div>
 	</div>
+
+	{{ Form::token() }}
 
 	<div id="latest-games" class="container">
 		<h1 class="title">New and updated games</h1>
@@ -262,7 +263,7 @@
 			@endforeach
 
 		</div>
-
+		<br>
 		<div class="more"><a href="{{ route('news.all') }}">More +</a></div>
 	</div><!-- end #news -->
 
@@ -491,19 +492,19 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
 					url: "language",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
 						_token: token
+					},
+					success: function() {
+						location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 
@@ -511,19 +512,19 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
 					url: "language",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
 						_token: token
+					},
+					success: function() {
+						location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 

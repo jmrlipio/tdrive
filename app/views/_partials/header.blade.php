@@ -161,23 +161,10 @@ $game_settings = GameSetting::all();
 
 			<div class="tablet fl clearfix">
 				<ul class="menu fl">
-
-					@if($lang == 'th')
-
-						<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">เกม</a></li>
-						<li><a href="{{ route('home.show') }}#news" class="menu-news">ข่าว</a></li>
-						<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">คำถาม</a></li>
-						<li><a href="{{ route('home.show') }}#contact" class="menu-contact">ติดต่อ</a></li>
-
-					@else
-
-						<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">Games</a></li>
-						<li><a href="{{ route('home.show') }}#news" class="menu-news">News</a></li>
-						<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">FAQs</a></li>
-						<li><a href="{{ route('home.show') }}#contact" class="menu-contact">Contact</a></li>
-
-					@endif
-
+					<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
+					<li><a href="{{ route('home.show') }}#news" class="menu-news">News</a></li>
+					<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">FAQs</a></li>
+					<li><a href="{{ route('home.show') }}#contact" class="menu-contact">Contact</a></li>
 				</ul>
 
 				<div class="fl">
@@ -199,20 +186,18 @@ $game_settings = GameSetting::all();
 					</div>
 					
 					<div id="polyglotLanguageSwitcher1" class="polyglotLanguageSwitcher">
-						<form action="{{-- URL::route('choose_language') --}}" id="locale" class="language" method="post">
-
-							{{ Form::token() }}
+						<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
 							<select name="locale" id="polyglot-language-options">
-								<option id="en" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Lang::locale() == 'us' ) ? ' selected' : '' }}>English</option>
-								<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Lang::locale() == 'th' ) ? ' selected' : '' }}>Thai</option>
-								<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Lang::locale() == 'id' ) ? ' selected' : '' }}>Bahasa Indonesia</option>
-								<option id="my" value="my" {{ (strtolower($user_location['isoCode']) == 'my' || Lang::locale() == 'my' ) ? ' selected' : '' }}>Bahasa Malaysia</option>
-								<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Lang::locale() == 'cn' ) ? ' selected' : '' }}>Traditional Chinese</option>
-								<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Lang::locale() == 'cn' ) ? ' selected' : '' }}>Simplified Chinese</option>
-								<option id="vn" value="vn" {{ (strtolower($user_location['isoCode']) == 'vn' || Lang::locale() == 'vn' ) ? ' selected' : '' }}>Vietnamese</option>
-								<option id="jp" value="jp" {{ (strtolower($user_location['isoCode']) == 'jp' || Lang::locale() == 'jp' ) ? ' selected' : '' }}>Japanese</option>
-								<option id="hi" value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || Lang::locale() == 'hi' ) ? ' selected' : '' }}>Hindi</option>
+								<option id="en" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Session::get('locale') == 'us' ) ? ' selected' : '' }}>English</option>
+								<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Session::get('locale') == 'th' ) ? ' selected' : '' }}>Thai</option>
+								<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Session::get('locale') == 'id' ) ? ' selected' : '' }}>Bahasa Indonesia</option>
+								<option id="my" value="my" {{ (strtolower($user_location['isoCode']) == 'my' || Session::get('locale') == 'my' ) ? ' selected' : '' }}>Bahasa Malaysia</option>
+								<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Session::get('locale') == 'cn' ) ? ' selected' : '' }}>Traditional Chinese</option>
+								<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Session::get('locale') == 'cn' ) ? ' selected' : '' }}>Simplified Chinese</option>
+								<option id="vn" value="vn" {{ (strtolower($user_location['isoCode']) == 'vn' || Session::get('locale') == 'vn' ) ? ' selected' : '' }}>Vietnamese</option>
+								<option id="jp" value="jp" {{ (strtolower($user_location['isoCode']) == 'jp' || Session::get('locale') == 'jp' ) ? ' selected' : '' }}>Japanese</option>
+								<option id="hi" value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || Session::get('locale') == 'hi' ) ? ' selected' : '' }}>Hindi</option>
 							</select>
 
 							<input type="submit" value="select">

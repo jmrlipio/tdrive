@@ -6,9 +6,10 @@ class Game extends \Eloquent {
 
 	use TriplePivotTrait;
 
-	protected $fillable = ['user_id','main_title','slug','status','featured','release_date','default_price','downloads','default_price','category_id','image_orientation'];
+	protected $fillable = ['id','user_id','main_title','slug','status','featured','release_date','default_price','downloads','default_price','category_id','image_orientation'];
 
 	public static $rules = [
+		'id' => 'required|integer|unique:games',
 		'user_id' => 'required|integer',
 		'main_title' => 'required|min:2|unique:games',
 		'slug' => 'required|min:2',

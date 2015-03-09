@@ -7,9 +7,9 @@
 @stop
 
 @section('content')
-
+	{{ Form::token() }}
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
-
+	
 	<div style="display:none"><div id="carrier-form"><h1>This is a test</h1></div></div>
 
 	<div id="top" class="clearfix container">
@@ -37,7 +37,7 @@
 			<p>Release: {{{ $game->release_date }}}</p>
 		</div>
 	</div><!-- end #top -->
-
+	{{ Session::get('locale') }}
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
@@ -446,24 +446,29 @@
 	<script>
 		FastClick.attach(document.body);
 
-		var _token = $('#token input').val();
+		var token = $('input[name="_token"]').val();
+
 		var carrier_form = '';
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-			testMode: false,
+			testMode: true,
 			onChange: function(evt){
-				evt.preventDefault();
-				// $.ajax({
-				// 	url: "language",
-				// 	type: "POST",
-				// 	data: {
-				// 		locale: evt.selectedItem,
-				// 		_token: _token
-				// 	}
-				// });
+
+				$.ajax({
+					url: "{{ URL::route('choose_language') }}",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: token
+					},
+					success: function(data) {
+						// location.reload();
+						console.log('success');
+					}
+				});
 			}
 		});
 
@@ -472,15 +477,17 @@
 			paramName: 'locale', 
 			websiteType: 'dynamic',
 			onChange: function(evt){
-				evt.preventDefault();
-				// $.ajax({
-				// 	url: "language",
-				// 	type: "POST",
-				// 	data: {
-				// 		locale: evt.selectedItem,
-				// 		_token: _token
-				// 	}
-				// });
+				$.ajax({
+					url: "{{ URL::route('choose_language') }}",
+					type: "POST",
+					data: {
+						locale: evt.selectedItem,
+						_token: token
+					},
+					success: function(data) {
+						// location.reload();
+					}
+				});
 			}
 		});
 

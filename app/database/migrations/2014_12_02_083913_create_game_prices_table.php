@@ -16,7 +16,7 @@ class CreateGamePricesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('game_id')->unsigned()->index();
-			$table->foreign('game_id')->references('id')->on('games');
+			$table->foreign('game_id')->references('id')->on('games')->onUpdate('cascade')->onDelete('cascade');
 			$table->integer('country_id')->index();
 			$table->foreign('country_id')->references('id')->on('countries');
 			$table->integer('carrier_id')->unsigned()->index();

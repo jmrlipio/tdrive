@@ -16,7 +16,7 @@ class CreateGameMediaTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('game_id')->unsigned()->index();
-            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
+            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('media_id')->unsigned()->index();
             $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
 			$table->timestamps();

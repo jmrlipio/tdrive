@@ -23,6 +23,11 @@
 				<ul id="details">
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
+							{{ Form::label('id', 'Game ID: ') }}
+							{{ Form::text('id', null) }}
+							{{ $errors->first('id', '<p class="error">:message</p>') }}
+						</li>
+						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
 							{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 							{{ $errors->first('title', '<p class="error">:message</p>') }}

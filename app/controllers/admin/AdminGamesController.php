@@ -58,7 +58,7 @@ class AdminGamesController extends \BaseController {
 		$game = Game::create($data);
 		Event::fire('audit.games.create', Auth::user());
 
-		return Redirect::route('admin.games.edit',$game->id)->with('message', 'You have successfully added a game.');
+		return Redirect::route('admin.games.edit', Input::get('id'))->with('message', 'You have successfully added a game.');
 	}
 	/**
 	 * Display the specified resource.
@@ -95,6 +95,7 @@ class AdminGamesController extends \BaseController {
 
 		$edit_rules = Game::$rules;
 
+		$edit_rules['id'] = 'required|integer|unique:games,id,' . $id;
 		$edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
@@ -105,9 +106,12 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$game->update($data);
+		$new_id = $game->id;
 		Event::fire('audit.games.update', Auth::user());
 
-		return Redirect::back()->with('message', 'You have successfully updated the game details.');
+		$url = URL::route('admin.games.edit', $new_id);
+
+		return Redirect::to($url)->with('message', 'You have successfully updated the game details.');
 	}
 
 	/**

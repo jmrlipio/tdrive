@@ -16,7 +16,7 @@ class CreateGameCarriersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('game_id')->unsigned()->index();
-            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
+            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('carrier_id')->unsigned()->index();
             $table->foreign('carrier_id')->references('id')->on('carriers')->onDelete('cascade');
 			$table->timestamps();
