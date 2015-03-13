@@ -147,7 +147,8 @@ class FaqsController extends \BaseController {
 
 		$question = Input::get('question');
 		$answer = Input::get('answer');
-		$default = (!empty(Input::get('default'))) ? 1 : 0;
+		// $default = (!empty(Input::get('default'))) ? 1 : 0;
+		$default = Input::get('default', 0);
 
 		$faq->languages()->attach($language_id, array('question' => $question, 'answer' => $answer, 'default' => $default));
 

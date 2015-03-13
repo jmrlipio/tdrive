@@ -80,7 +80,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('form-messages', array('as' => 'admin.form-messages.update', 'uses' => 'SiteOptionsController@updateFormMessages'));
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
-    Route::get('slideshow', array('as' => 'admin.slideshow', 'uses' => 'SiteOptionsController@showNews'));
+    Route::get('slideshow', array('as' => 'admin.slideshow', 'uses' => 'SiteOptionsController@showGames'));
     Route::post('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@updateFeatured'));
 
     //added for admin reviews - transfer later on

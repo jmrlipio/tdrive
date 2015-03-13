@@ -160,6 +160,14 @@ class SiteOptionsController extends \BaseController {
 
 	}
 
+	public function showGames() {
+
+		$games = Game::orderBy('created_at')->paginate(10);
+
+		return View::make('admin.slideshow')->with('games', $games);
+
+	}
+
 	public function updateFeatured()
 	{
 		$data = Input::all();
@@ -167,9 +175,9 @@ class SiteOptionsController extends \BaseController {
         if(Request::ajax())
         {
             $id = $data['id'];
-            $news = News::where('id', $id)->first();
-            $news->featured = $data['featured'];
-            $news->update();
+            $game = Game::where('id', $id)->first();
+            $game->featured = $data['featured'];
+            $game->update();
         }
 	}
 
