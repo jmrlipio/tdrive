@@ -18,6 +18,8 @@ class CreateGamesTable extends Migration {
 			$table->primary('id');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('carrier_id')->unsigned();
+			$table->foreign('carrier_id')->references('id')->on('carriers')
 			$table->string('main_title');
 			$table->string('slug');
 			$table->float('default_price');

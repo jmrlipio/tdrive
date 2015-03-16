@@ -24,6 +24,7 @@ class CreateNewsTable extends Migration {
 			$table->string('status');
 			$table->boolean('featured');
 			$table->string('featured_image');
+			$table->string('screenshot');
 			$table->timestamps();
 		});
 	}

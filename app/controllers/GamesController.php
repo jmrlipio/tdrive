@@ -199,8 +199,8 @@ class GamesController extends \BaseController {
 	public function getPurchaseStatus($id) {
 		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
 
-		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
-		$url = 'http://106.186.24.12/tdrive_api/select_carrier.php?app_id=1';
+		// $url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
+		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
 
 		$response = file_get_contents($url);
 
