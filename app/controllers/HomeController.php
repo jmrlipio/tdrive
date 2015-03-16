@@ -111,6 +111,8 @@ class HomeController extends BaseController {
 		foreach(Language::all() as $language) {
 			$languages[$language->id] = $language->language;
 		}
+
+		/*BaseController::test(Input::get('country_id'));*/
 		
 		/* TODO: check if session has carrier */
 		if (!Session::has('carrier')) {
