@@ -20,7 +20,7 @@ class CreateGamePricesTable extends Migration {
 			$table->integer('country_id')->index();
 			$table->foreign('country_id')->references('id')->on('countries');
 			$table->integer('carrier_id')->unsigned()->index();
-			$table->foreign('carrier_id')->references('id')->on('carriers');
+			$table->foreign('carrier_id')->references('id')->on('carriers')->onDelete('cascade')->onUpdate('cascade');
 			$table->float('price');
 			$table->timestamps();
 		});

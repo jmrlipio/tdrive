@@ -14,7 +14,8 @@ class CreateCarriersTable extends Migration {
 	{
 		Schema::create('carriers', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->integer('id')->unsigned();
+			$table->primary('id');
 			$table->string('carrier');
 			$table->integer('language_id')->unsigned();
 			$table->foreign('language_id')->references('id')->on('languages');
