@@ -284,7 +284,6 @@ class AdminUsersController extends \BaseController {
 		            $row->setFontSize(15);
 		        });
 
-		        // putting users users as next rows
 		        foreach ($data as $row) {
 		            $sheet->appendRow($row);
 		        }
