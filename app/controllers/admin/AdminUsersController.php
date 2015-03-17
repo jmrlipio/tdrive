@@ -230,4 +230,47 @@ class AdminUsersController extends \BaseController {
 			->with('roles', $roles)
 			->with('selected', $selected_role);
     }
+
+    public function exportDB(){
+
+    $file_type = Input::get('file_type');     	
+    
+     	Excel::create('Users DB', function($excel) {     		   		
+
+            $excel->sheet('Users', function($sheet) {                     
+            	$data = Input::get('data');
+
+            	switch($data){
+
+            		case 'user':
+            			$data = User::get()->toArray();
+            		break;
+
+            		case 'reports':
+            			$data = "Insert model here"; 
+            		break;
+
+            		default:
+            			$data = "It needs an entity";
+            		break;
+
+            	}
+
+                $sheet->appendRow(array_keys($data[0])); // column names
+
+		        // getting last row number (the one we already filled and setting it to bold
+		        $sheet->row($sheet->getHighestRow(), function ($row) {
+		            $row->setFontWeight('bold');
+		            $row->setFontSize(15);
+		        });
+
+		        // putting users users as next rows
+		        foreach ($data as $row) {
+		            $sheet->appendRow($row);
+		        }
+                
+            });
+
+        })->export($file_type);
+    }
 }

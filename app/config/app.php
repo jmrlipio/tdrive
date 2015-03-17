@@ -131,7 +131,8 @@ return array(
 		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
-		'Nathanmac\Utilities\Parser\ParserServiceProvider'
+		'Nathanmac\Utilities\Parser\ParserServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider'
 	),
 
 	/*
@@ -206,7 +207,8 @@ return array(
 		'Image' 		  => 'Intervention\Image\Facades\Image',
 		'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
 		'Captcha'		  => 'Mews\Captcha\Facades\Captcha',
-		'Agent'            => 'Jenssegers\Agent\Facades\Agent'
+		'Agent'            => 'Jenssegers\Agent\Facades\Agent',
+		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 	),
 
 );

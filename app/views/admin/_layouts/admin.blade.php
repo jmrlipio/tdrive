@@ -21,6 +21,8 @@
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
     {{ HTML::script('js/jquery.fancybox.js') }}
 
+    @section('stylesheets')
+    @show
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
