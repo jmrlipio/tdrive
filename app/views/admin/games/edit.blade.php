@@ -38,6 +38,11 @@
 							{{ $errors->first('slug', '<p class="error">:message</p>') }}
 						</li>
 						<li>
+							{{ Form::label('carrier_id', 'Carrier:') }}
+					  		{{ Form::select('carrier_id', $carriers, null) }}				
+							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
+						</li>
+						<li>
 							{{ Form::label('status', 'Status: ') }}
 							{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 							{{ $errors->first('status', '<p class="error">:message</p>') }}
@@ -95,8 +100,8 @@
 						<p>Please select one or more languages to add content to this game.</p>
 					@endif
 					<br>
-					<h3>The game has prices for the following carriers:</h3>
-					<br>
+					<h3>Prices:</h3>
+					{{-- 
 					@if($selected_carriers)
 					<ul>
 						@foreach($carriers as $carrier_id => $carrier)
@@ -108,6 +113,31 @@
 					@else
 						<p>Please select one or more carriers to add prices to this game.</p>
 					@endif
+					--}}
+					{{ Form::open(array('route' => array('admin.games.edit.prices', $game->id, $game->carrier_id), 'method' => 'post', 'id' => 'prices-form')) }}
+						<br>
+						@foreach($countries as $country)
+							@foreach($selected_countries as $scid => $sc)
+								@if($scid == $country->id)
+									<?php $cprice = null; ?>
+									@foreach($prices as $country_id => $price)
+										@if($country_id == $scid)
+											<?php $cprice = $price; ?>
+										@endif
+									@endforeach
+									<li>
+										<p>{{ $country->full_name }}</p>
+										<p>
+											{{ Form::label($scid, $sc.': ') }}
+											{{ Form::text('prices['.$scid.']', $cprice, array('id' => $scid, 'class' => 'small-text')) }}
+										</p>
+										<br>
+									</li>
+								@endif
+							@endforeach
+						@endforeach
+						{{ Form::submit('Update Prices') }}
+					{{ Form::close() }}
 				</ul>
 				<ul id="media">
 					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}

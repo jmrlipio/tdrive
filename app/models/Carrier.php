@@ -18,7 +18,7 @@ class Carrier extends \Eloquent {
 	}
 
 	public function games() {
-		return $this->belongsToMany('Game', 'game_carriers');
+		return $this->hasMany('Game');
 	}
 
 	/**

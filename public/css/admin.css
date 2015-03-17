@@ -344,9 +344,6 @@ p#generated-password {
 }
 
 #prices-form, #faq-content {
-	width: 40%;
-	margin-top: 30px !important;
-	padding: 20px;
 	border: 1px solid #fff;
 	margin: 0 auto;
 	-webkit-border-radius: 5px;
@@ -355,7 +352,6 @@ p#generated-password {
 }
 
 #prices-form h3, #prices-form h4 {
-	text-align: center;
 	padding: 5px;
 }
 

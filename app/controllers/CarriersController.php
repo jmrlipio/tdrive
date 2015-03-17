@@ -127,6 +127,7 @@ class CarriersController extends \BaseController {
 
 		$edit_rules = Carrier::$rules;
 
+		$edit_rules['id'] = 'required|integer|unique:carriers,id,' . $id;
 		$edit_rules['carrier'] = 'required|min:3|unique:carriers,carrier,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
