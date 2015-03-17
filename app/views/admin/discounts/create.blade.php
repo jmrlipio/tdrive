@@ -24,6 +24,11 @@
 						{{ $errors->first('description', '<p class="error">:message</p>') }}
 					</li>
 					<li>
+						{{ Form::label('carrier_id', 'Carrier:') }}
+				  		{{ Form::select('carrier_id', $carriers, null) }}				
+						{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
+					</li>
+					<li>
 						{{ Form::label('discount_percentage', 'Discount Percentage: ') }}
 						{{ Form::text('discount_percentage', null, array('id' => 'discount-percent')) }}
 						{{ $errors->first('discount_percentage', '<p class="error">:message</p>') }}
