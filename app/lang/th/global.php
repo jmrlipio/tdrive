@@ -9,5 +9,7 @@ return array(
 	'login' => 'การเข้าสู่ระบบ',
 	'register' => 'ทะเบียน',
 
-	'logout' => 'ออกจากระบบ'
+	'logout' => 'ออกจากระบบ',
+
+	'test' => ':content'
 );

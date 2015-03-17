@@ -29,7 +29,7 @@
 
 									<div class="meta">
 										<p>{{ $game->main_title }}</p>
-
+										
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)

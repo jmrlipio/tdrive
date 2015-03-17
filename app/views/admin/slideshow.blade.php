@@ -4,7 +4,7 @@
 	@include('admin._partials.options-nav')
 	<div class="item-listing" id="featured-games">
 		<h2>Slideshow Listing</h2>
-		<p>Please select the news you want to feature on the homepage slideshow.</p>
+		<p>Please select the games you want to feature on the homepage slideshow.</p>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover"  id="game_table">
 				<thead>
@@ -15,17 +15,17 @@
 				</thead>
 
 				<tbody>
-					@foreach($news as $n)
+					@foreach($games as $game)
 						<tr>
 							<td>
-								{{ $n->main_title }}
+								{{ $game->main_title }}
 							</td>
 							<td>
 								<center>
-									@if($n->featured == 1)
-										<input type="checkbox" class="featured" name="featured[]" value="{{ $n->featured }}" checked id="{{ $n->id }}"/>
+									@if($game->featured == 1)
+										<input type="checkbox" class="featured" name="featured[]" value="{{ $game->featured }}" checked id="{{ $game->id }}"/>
 									@else
-										<input type="checkbox" class="featured" name="featured[]" value="{{ $n->featured }}" id="{{ $n->id }}" />
+										<input type="checkbox" class="featured" name="featured[]" value="{{ $game->featured }}" id="{{ $game->id }}" />
 									@endif
 								</center>
 							</td>
@@ -34,7 +34,7 @@
 				</tbody>
 			</table>
 		</div>
-		{{ $news->links() }}
+		{{ $games->links() }}
 		<br>
 	</div>
 	<script>

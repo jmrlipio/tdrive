@@ -6,9 +6,10 @@ class Carrier extends \Eloquent {
 
 	use TriplePivotTrait;
 	
-	protected $fillable = ['carrier','language_id'];
+	protected $fillable = ['id','carrier','language_id'];
 
 	public static $rules = [
+		'id' => 'required|integer|unique:carriers',
         'carrier' => 'required|min:3|unique:carriers'
     ];
 
@@ -17,7 +18,7 @@ class Carrier extends \Eloquent {
 	}
 
 	public function games() {
-		return $this->belongsToMany('Game', 'game_carriers');
+		return $this->hasMany('Game');
 	}
 
 	/**

@@ -111,7 +111,7 @@ textarea { padding: 5px 10px; }
 /* general classes */
 .clear { clear: both; }
 
-#user-account, .item-listing, .review-listing { padding: 20px 10px; width: 100%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+#user-account, .item-listing, .review-listing { padding: 20px 10px 35px; width: 100%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 #user-account table { border-collapse: inherit !important; border-spacing: 2px !important;}
 #user-account td, #user-account th { padding: 5px; }
 #user-account tr:nth-child(even) {background: #E1E1E1}
@@ -344,9 +344,6 @@ p#generated-password {
 }
 
 #prices-form, #faq-content {
-	width: 40%;
-	margin-top: 30px !important;
-	padding: 20px;
 	border: 1px solid #fff;
 	margin: 0 auto;
 	-webkit-border-radius: 5px;
@@ -355,7 +352,6 @@ p#generated-password {
 }
 
 #prices-form h3, #prices-form h4 {
-	text-align: center;
 	padding: 5px;
 }
 

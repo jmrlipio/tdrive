@@ -23,6 +23,11 @@
 				<ul id="details">
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
+							{{ Form::label('id', 'Game ID: ') }}
+							{{ Form::text('id', null) }}
+							{{ $errors->first('id', '<p class="error">:message</p>') }}
+						</li>
+						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
 							{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 							{{ $errors->first('title', '<p class="error">:message</p>') }}
@@ -31,6 +36,11 @@
 							{{ Form::label('slug', 'Slug: ') }}
 							{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug')) }}
 							{{ $errors->first('slug', '<p class="error">:message</p>') }}
+						</li>
+						<li>
+							{{ Form::label('carrier_id', 'Carrier:') }}
+					  		{{ Form::select('carrier_id', $carriers, null) }}				
+							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
 							{{ Form::label('status', 'Status: ') }}
@@ -72,11 +82,6 @@
 							{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
 							{{ $errors->first('language_id', '<p class="error">:message</p>') }}
 						</li>
-						<li>
-							{{ Form::label('carrier_id', 'Carriers: ') }}
-							{{ Form::select('carrier_id[]', $carriers, $selected_carriers, array('multiple' => 'multiple', 'id' => 'carriers', 'class' => 'chosen-select', 'data-placeholder'=>'Choose carriers(s)...'))  }}
-							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
-						</li>
 						{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
 					{{ Form::close() }}
 				</ul>
@@ -95,8 +100,8 @@
 						<p>Please select one or more languages to add content to this game.</p>
 					@endif
 					<br>
-					<h3>The game has prices for the following carriers:</h3>
-					<br>
+					<h3>Prices:</h3>
+					{{-- 
 					@if($selected_carriers)
 					<ul>
 						@foreach($carriers as $carrier_id => $carrier)
@@ -108,6 +113,31 @@
 					@else
 						<p>Please select one or more carriers to add prices to this game.</p>
 					@endif
+					--}}
+					{{ Form::open(array('route' => array('admin.games.edit.prices', $game->id, $game->carrier_id), 'method' => 'post', 'id' => 'prices-form')) }}
+						<br>
+						@foreach($countries as $country)
+							@foreach($selected_countries as $scid => $sc)
+								@if($scid == $country->id)
+									<?php $cprice = null; ?>
+									@foreach($prices as $country_id => $price)
+										@if($country_id == $scid)
+											<?php $cprice = $price; ?>
+										@endif
+									@endforeach
+									<li>
+										<p>{{ $country->full_name }}</p>
+										<p>
+											{{ Form::label($scid, $sc.': ') }}
+											{{ Form::text('prices['.$scid.']', $cprice, array('id' => $scid, 'class' => 'small-text')) }}
+										</p>
+										<br>
+									</li>
+								@endif
+							@endforeach
+						@endforeach
+						{{ Form::submit('Update Prices') }}
+					{{ Form::close() }}
 				</ul>
 				<ul id="media">
 					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}

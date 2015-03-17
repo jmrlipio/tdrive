@@ -7,9 +7,9 @@
 @stop
 
 @section('content')
-
+	{{ Form::token() }}
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
-
+	
 	<div style="display:none"><div id="carrier-form"><h1>This is a test</h1></div></div>
 
 	<div id="top" class="clearfix container">
@@ -37,7 +37,7 @@
 			<p>Release: {{{ $game->release_date }}}</p>
 		</div>
 	</div><!-- end #top -->
-
+	{{ Session::get('locale') }}
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
@@ -107,9 +107,15 @@
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-
-			{{ htmlspecialchars_decode($item->pivot->content) }}
-
+			@if(isset($_GET['locale']))
+				@if($_GET['locale'] == strtolower($item->iso_code))
+					{{ htmlspecialchars_decode($item->pivot->content) }}
+				@endif
+			@else
+				@if(strtolower($item->iso_code) == 'us')
+					{{ htmlspecialchars_decode($item->pivot->content) }}
+				@endif
+			@endif
 		@endforeach
 
 	</div><!-- end #description -->
@@ -169,7 +175,7 @@
 						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
 						
 					<!-- FACEBOOK SHARE -->
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}&amp;p[images][0]={{ url() }}/images/games/azukitap.jpg" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 						</a>
 
@@ -278,8 +284,7 @@
 				<p class="form-success">{{ Session::get('message') }}</p>
 			@endif
 
-			{{ Form::open(array('route'=>'review.post', 'method' => 'post')) }}
-
+			{{ Form::open(array('route' => array('review.post', $current_game->id), 'method' => 'post')) }}
 				{{ Form::hidden('status', 1) }}
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
@@ -441,28 +446,29 @@
 	<script>
 		FastClick.attach(document.body);
 
-		var _token = $('#token input').val();
+		var token = $('input[name="_token"]').val();
+
 		var carrier_form = '';
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
 
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
-						_token: _token
+						_token: token
 					},
 					success: function(data) {
+						// location.reload();
+						console.log('success');
 					}
 				});
-
-				return true;
 			}
 		});
 
@@ -470,21 +476,18 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
 			onChange: function(evt){
-
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
-						_token: _token
+						_token: token
 					},
 					success: function(data) {
+						// location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 
@@ -508,7 +511,9 @@
 			 $.ajax({
 			 	type: "get",
 			 	url: "{{ URL::route('games.carrier', $game->id) }}",
+			 	dataType: "json",
 			 	complete:function(data) {
+			 		console.log(data['responseText']);
 					var append = '<select id="carrier-select">';
 
 					JSON.parse(data['responseText'], function (id, carrier) {		    
@@ -519,8 +524,9 @@
 					
 					if($('#carrier-container').find('#carrier-select').length == 0) {
 						$('#submit-carrier').before(append);
-					}
+						}
 
+					$('#carrier-select option:last').remove();
 					$('#carrier-select option:last').remove();
                 }
             });
@@ -532,18 +538,18 @@
 	            afterClose: function() {
 	            	$.fancybox({
 			            'width': '80%',
-			            'height': '80%',
+			            'height': '60%',
 			            'autoScale': true,
 			            'transitionIn': 'fade',
 			            'transitionOut': 'fade',
 			            'type': 'iframe',
 			            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
 			            afterClose: function() {
-
 			            	$.ajax({
 							 	type: "get",
 							 	url: "{{ URL::route('games.status', $game->id) }}",
 							 	complete:function(data) {
+
 							 		var response = JSON.parse(data['responseText']);
 							 		console.log(response.status);
 									if(response.status == 1) {

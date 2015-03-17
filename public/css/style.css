@@ -30,13 +30,13 @@
   width: 100%;
 }
 #home .swiper-container {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 #home .thumb {
   -webkit-border-radius: 20px;
   border-radius: 20px;
   background-clip: padding-box;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   margin: 5px auto;
   width: 100px;
@@ -50,7 +50,7 @@
 #home .meta {
   text-align: center;
   margin: 10px 0;
-  height: 57px;
+  /*height: 57px;*/
 }
 #home .meta p {
   font-size: 14px;
@@ -63,8 +63,8 @@
 #home #games-heading {
   background: #61ded0;
 }
-#home #games-heading h1.title {
-  padding-bottom: 0;
+#home #games-heading h1.title, h1.title {
+  padding-bottom: 5px;
   color: #fff;
 }
 #home .game-category, #home #news {
@@ -191,6 +191,9 @@
 }
 #home #faqs #questions {
   padding: 10px 0;
+}
+#questions h3 {
+  border-radius: 0 !important;
 }
 #home #faqs .ui-accordion .ui-accordion-header {
   font-size: 16px !important;
@@ -331,7 +334,7 @@
   float: left;
   width: 80px;
   height: 80px;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   -webkit-border-radius: 20px;
   border-radius: 20px;
@@ -510,7 +513,7 @@
 }
 #game-detail #statistics .top .stars {
   margin-top: 5px;
-}
+.item}
 #game-detail #statistics .top .stars i {
   color: #fff;
 }
@@ -736,7 +739,7 @@
   -webkit-border-radius: 20px;
   border-radius: 20px;
   background-clip: padding-box;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   margin: 5px auto;
   width: 100px;
@@ -982,15 +985,16 @@
   width: 33.3333333%;
   float: left;
   padding: 0 5px;
-  padding-bottom: 40px;
-  margin-bottom: 20px;
+  /*padding-bottom: 40px;*/
+  padding-bottom: 0;
+  /*margin-bottom: 20px;*/
   position: relative;
 }
 #game-listing .grid .thumb {
   -webkit-border-radius: 20px;
   border-radius: 20px;
   background-clip: padding-box;
-  padding: 6px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
   margin: 0;
 }
@@ -1320,4 +1324,8 @@
 .tb-link {
   color: #0059C5;
   text-decoration: underline;
+}
+
+.news-title {
+  padding-left: 10px;
 }

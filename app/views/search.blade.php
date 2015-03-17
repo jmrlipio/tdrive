@@ -56,7 +56,7 @@
 						@endforeach
 					@endforeach
 				@else
-					<p>Sorry, there are no games matching that description.</p>
+					<p>Sorry, there are no results for {{ $search }}.</p>
 
 				@endif
 				</div>

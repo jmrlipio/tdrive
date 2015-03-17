@@ -12,6 +12,11 @@
 		@endif
 		<ul>
 			<li>
+				{{ Form::label('id', 'Carrier ID:') }}
+				{{ Form::text('id', null) }}
+				{{ $errors->first('id', '<p class="error">:message</p>') }}
+			</li>
+			<li>
 				{{ Form::label('carrier', 'Carrier: ') }}
 				{{ Form::text('carrier') }}
 				{{ $errors->first('carrier', '<p class="error">:message</p>') }}

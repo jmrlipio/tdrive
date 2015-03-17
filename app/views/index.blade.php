@@ -44,7 +44,6 @@
 @stop
 
 @section('content')
-
 	<div id="slider" class="swiper-container featured container">
 		<div class="swiper-wrapper">
 
@@ -70,49 +69,51 @@
 		</div>
 	</div>
 
+	{{ Form::token() }}
+
 	<div id="latest-games" class="container">
 		<h1 class="title">New and updated games</h1>
-
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
-
+				<?php $ctr = 0; ?>
 				@foreach($games as $game)
-					@foreach($game->media as $media)
-						@if($media->type == 'icons')
+					@if($ctr < $limit)
+						<?php $ctr++; ?>
+						@foreach($game->media as $media)
+							@if($media->type == 'icons')
+								<div class="swiper-slide item">
+									<div class="thumb relative">
+										@if ($game->default_price == 0)
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
 
-							<div class="swiper-slide item">
-								<div class="thumb relative">
+										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+
+										@if ($game->default_price == 0)
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+									</div>
+									<div class="meta">
+										<p class="name">{{{ $game->main_title }}}</p>
+
+										@unless ($game->default_price == 0)
+											@foreach($game->prices as $price) 
+												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
+													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+												@endif
+											@endforeach
+										@endunless
+									</div>
+
 									@if ($game->default_price == 0)
-										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-									@endif
-
-									<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
-
-									@if ($game->default_price == 0)
-										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										<!--<div class="button center"><a href="#">Get</a></div>-->
+									@else
+										<!--<div class="button center"><a href="#">Buy</a></div>-->
 									@endif
 								</div>
-								<div class="meta">
-									<p class="name">{{{ $game->main_title }}}</p>
-
-									@unless ($game->default_price == 0)
-										@foreach($game->prices as $price) 
-											@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-												<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-											@endif
-										@endforeach
-									@endunless
-								</div>
-
-								@if ($game->default_price == 0)
-									<!--<div class="button center"><a href="#">Get</a></div>-->
-								@else
-									<!--<div class="button center"><a href="#">Buy</a></div>-->
-								@endif
-							</div>
-
-						@endif
-					@endforeach
+							@endif
+						@endforeach
+					@endif
 				@endforeach
 
 			</div>
@@ -135,7 +136,7 @@
 
 			<div class="swiper-container thumbs-container">
 				<div class="swiper-wrapper">
-
+					<?php $ctr = 0; ?>
 					@foreach($games as $game)
 						@foreach($game->categories as $gcat)
 							
@@ -143,8 +144,8 @@
 
 								@if($media->type == 'icons')
 
-									@if($gcat->id == $cat->id)
-				
+									@if($gcat->id == $cat->id && $ctr < $limit)
+										<?php $ctr++; ?>
 										<div class="swiper-slide item">
 											<div class="thumb relative">
 												@if ($game->default_price == 0)
@@ -262,7 +263,7 @@
 			@endforeach
 
 		</div>
-
+		<br>
 		<div class="more"><a href="{{ route('news.all') }}">More +</a></div>
 	</div><!-- end #news -->
 
@@ -289,7 +290,7 @@
 		<h1 class="title">Contact us</h1>
 		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
 
-		{{ Form::open(array('route'=>'admin.reports.inquiries.store', 'method' => 'post')) }}
+		{{ Form::open(array('route'=>'reports.inquiries.store-inquiry', 'method' => 'post')) }}
 
 			@if(Session::has('message'))
 				<br>
@@ -323,7 +324,7 @@
 
 			<div class="captcha control clearfix">
 				{{ HTML::image(Captcha::img(), 'Captcha image') }}
-				{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
+				{{ Form::text('captcha', null, array('placeholder' => 'type what you see...', 'required' => 'required')) }}
 
 				{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 			</div>
@@ -491,9 +492,8 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
 					url: "language",
 					type: "POST",
@@ -501,11 +501,10 @@
 						locale: evt.selectedItem,
 						_token: token
 					},
-					success: function(data) {
+					success: function() {
+						location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 
@@ -513,9 +512,8 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
 					url: "language",
 					type: "POST",
@@ -523,11 +521,10 @@
 						locale: evt.selectedItem,
 						_token: token
 					},
-					success: function(data) {
+					success: function() {
+						location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 

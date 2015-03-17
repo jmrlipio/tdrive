@@ -29,9 +29,14 @@
 				{{-- Form::text('keyword', Input::old('keyword'), array('placeholder' => 'Search user..')) --}}
 			{{-- Form::close() --}}
 		</div> -->
-
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
 		<br>
-		<!--<a href="{{-- URL::route('admin.users.create') --}}" class="mgmt-link">Create User</a>-->
+
+		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
 		{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
 			{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
 		{{ Form::close() }}
@@ -58,9 +63,13 @@
 						<td>
 							<a href="{{ URL::route('admin.users.show', $user->id) }}">{{ $user->first_name . ' ' . $user->last_name }}</a>
 							<ul class="actions">
-								<li><a href="">Edit</a></li>
+								<li><a href="{{ URL::route('admin.users.edit', $user->id) }}">Edit</a></li>
 								<li><a href="{{ URL::route('admin.users.show', $user->id) }}">View</a></li>
-								<li><a href="">Delete</a></li>
+								<li>
+									{{ Form::open(array('route' => array('admin.users.destroy', $user->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+										{{ Form::close() }}	
+								</li>
 							</ul>
 						</td>
 						<td>{{ $user->username }}</td>
@@ -136,7 +145,7 @@
 @stop
 
 @section('scripts')
-
+	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 

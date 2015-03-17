@@ -55,7 +55,9 @@ class CarriersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$carrier = Carrier::create($data);
+		Carrier::create($data);
+
+		$carrier = Carrier::find(Input::get('id'));
 
 		$countries = Input::get('country_id');
 
@@ -125,6 +127,7 @@ class CarriersController extends \BaseController {
 
 		$edit_rules = Carrier::$rules;
 
+		$edit_rules['id'] = 'required|integer|unique:carriers,id,' . $id;
 		$edit_rules['carrier'] = 'required|min:3|unique:carriers,carrier,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);

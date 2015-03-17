@@ -34,7 +34,7 @@ class InquiriesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function storeInquiry()
 	{
 		$validator = Validator::make(Input::all(), Inquiry::$rules);
 
@@ -55,11 +55,13 @@ class InquiriesController extends \BaseController {
 				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
 			});
 
-			return Redirect::back()->with('message', 'Your inquiry has been sent.');
+			return Redirect::to(URL::previous() . '#contact')
+                    ->with('message', 'Your inquiry has been sent.');
 		}
 
 		//validator fails
-		return Redirect::back()->withErrors($validator)->withInput();
+		return Redirect::to(URL::previous() . '#contact')
+                    ->with('message', 'Something went wrong.');
 	}
 
 	/**

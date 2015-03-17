@@ -38,7 +38,14 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin.games.create');
+		$carriers = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+
+		return View::make('admin.games.create')
+			->with(compact('carriers'));
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -58,7 +65,7 @@ class AdminGamesController extends \BaseController {
 		$game = Game::create($data);
 		Event::fire('audit.games.create', Auth::user());
 
-		return Redirect::route('admin.games.edit',$game->id)->with('message', 'You have successfully added a game.');
+		return Redirect::route('admin.games.edit', Input::get('id'))->with('message', 'You have successfully added a game.');
 	}
 	/**
 	 * Display the specified resource.
@@ -95,6 +102,7 @@ class AdminGamesController extends \BaseController {
 
 		$edit_rules = Game::$rules;
 
+		$edit_rules['id'] = 'required|integer|unique:games,id,' . $id;
 		$edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
@@ -105,9 +113,12 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$game->update($data);
+		$new_id = $game->id;
 		Event::fire('audit.games.update', Auth::user());
 
-		return Redirect::back()->with('message', 'You have successfully updated the game details.');
+		$url = URL::route('admin.games.edit', $new_id);
+
+		return Redirect::to($url)->with('message', 'You have successfully updated the game details.');
 	}
 
 	/**
@@ -172,7 +183,6 @@ class AdminGamesController extends \BaseController {
 			return Redirect::to($url)->withErrors($validator)->withInput();
 		}
 
-		$game->carriers()->sync(Input::get('carrier_id'));
 		$game->categories()->sync(Input::get('category_id'));
 		$game->languages()->sync(Input::get('language_id'));
 
@@ -260,10 +270,11 @@ class AdminGamesController extends \BaseController {
 	public function loadGameValues($id) {
 		$game = Game::find($id);
 
+		$carrier = Carrier::find($game->carrier_id);
+
 		$selected_categories = [];
 		$selected_languages = [];
 		$selected_media = [];
-		$selected_carriers = [];
 		$selected_countries = [];
 
 		foreach($game->categories as $category) {
@@ -287,17 +298,16 @@ class AdminGamesController extends \BaseController {
 			$count++;
 		}
 
-		// echo '<pre>';
-		// dd($game->image_orientation);
-		// echo '</pre>';
-
-		foreach($game->carriers as $carrier) {
-			$selected_carriers[] = $carrier->id;
-		}
-
 		$categories = [];
 		$languages = [];
+		$selected_countries = [];
+		$prices = [];
+		$countries = Country::all();
 		$carriers = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
 
 		foreach(Category::orderBy('category')->get() as $category) {
 			$categories[$category->id] = $category->category;
@@ -307,18 +317,26 @@ class AdminGamesController extends \BaseController {
 			$languages[$language->id] = $language->language;
 		}
 
-		foreach(Carrier::orderBy('carrier')->get() as $carrier) {
-			$carriers[$carrier->id] = $carrier->carrier;
+		foreach($carrier->countries as $country) {
+			$selected_countries[$country->id] = $country->currency_code;
 		}
+
+		foreach($game->prices as $price) {
+			if($price->pivot->carrier_id == $game->carrier_id) {
+				$prices[$price->pivot->country_id] = $price->pivot->price;
+			}
+	    }
 
 		return View::make('admin.games.edit')
 			->with('game', $game)
 			->with('selected_categories', $selected_categories)
 			->with('selected_languages', $selected_languages)
 			->with('selected_media', $selected_media)
-			->with('selected_carriers', $selected_carriers)
 			->with('categories', $categories)
 			->with('languages', $languages)
+			->with('countries', $countries)
+			->with('selected_countries', $selected_countries)
+			->with('prices', $prices)
 			->with('carriers', $carriers);
 	}
 

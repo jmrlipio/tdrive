@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration {
 			$table->string('category');
 			$table->string('slug');
 			$table->boolean('featured');
+			$table->integer('order');
 			$table->timestamps();
 		});
 	}

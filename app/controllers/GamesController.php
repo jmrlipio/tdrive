@@ -143,7 +143,20 @@ class GamesController extends \BaseController {
 
 		// $url = 'http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id' . $id;
 
-		$response = file_get_contents('http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id=1');
+		$ch = curl_init();
+		// curl_setopt($ch, CURLOPT_URL,'http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id=1');
+		curl_setopt($ch, CURLOPT_URL,'http://106.186.24.12/tdrive_api/select_carrier.php?app_id=1');
+		curl_setopt($ch, CURLOPT_FAILONERROR,1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+		curl_setopt($ch, CURLOPT_SSLVERSION, 3);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+		$response = curl_exec($ch);    
+		curl_close($ch);
+
+		// $response = file_get_contents('http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id=1');
 
 		$xml = simplexml_load_string($response);
 
@@ -185,7 +198,9 @@ class GamesController extends \BaseController {
 
 	public function getPurchaseStatus($id) {
 		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
-		$url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
+
+		// $url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
+		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
 
 		$response = file_get_contents($url);
 
@@ -194,14 +209,10 @@ class GamesController extends \BaseController {
 		$values = $this->object2array($xml);
 
 		$purchased = [];
-		// // $attr = $x->test[0]->a[0]->attributes();
-		// $purchased['transaction_id'] = $values['transaction'][0]->attributes();
-		// $purchased['receipt'] = $values['transaction'][0]['receipt'];
-		// $purchased['status'] = $values['transaction'][0]['status'];
-
 		$purchased['transaction_id'] = (string) $xml->transaction[2]->attributes()->id;
 		$purchased['receipt'] = $values['transaction'][2]['receipt'];
 		$purchased['status'] = $values['transaction'][2]['status'];
+
 
 		// foreach($xml as $purchase) {
 		// 	if($purchase->app_id == $id) {
@@ -210,8 +221,6 @@ class GamesController extends \BaseController {
 		// }
 
 		return $purchased;
-
-		// return $values;
 	}
 
 }

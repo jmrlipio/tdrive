@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	{{ Form::open(array('route' => 'admin.users.store')) }}
+	{{ Form::open(array('route' => 'admin.users.store', 'class' => 'small-form')) }}
 		<ul>
 			<li>
 				{{ Form::label('username', 'Username:') }}

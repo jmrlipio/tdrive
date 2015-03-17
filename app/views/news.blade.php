@@ -6,6 +6,7 @@
 
 @section('content')
 
+	<h1 class="title news-title">News</h1>
 	<div id="featured" class="container">
 		{{ HTML::image('assets/news/' . $news->featured_image, $news->main_title) }}
 	</div>
