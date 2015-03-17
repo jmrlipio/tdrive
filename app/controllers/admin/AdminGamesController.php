@@ -38,7 +38,14 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin.games.create');
+		$carriers = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+		
+		return View::make('admin.games.create')
+			->with(compact('carriers'));
 	}
 	/**
 	 * Store a newly created resource in storage.

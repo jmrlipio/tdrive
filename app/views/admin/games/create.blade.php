@@ -29,6 +29,11 @@
 							{{ $errors->first('slug', '<p class="error">:message</p>') }}
 						</li>
 						<li>
+							{{ Form::label('carrier_id', 'Carrier:') }}
+					  		{{ Form::select('carrier_id', $carriers, null) }}				
+							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
+						</li>
+						<li>
 							{{ Form::label('status', 'Status: ') }}
 							{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 							{{ $errors->first('status', '<p class="error">:message</p>') }}

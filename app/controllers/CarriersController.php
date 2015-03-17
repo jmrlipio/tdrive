@@ -55,7 +55,9 @@ class CarriersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$carrier = Carrier::create($data);
+		Carrier::create($data);
+
+		$carrier = Carrier::find(Input::get('id'));
 
 		$countries = Input::get('country_id');
 

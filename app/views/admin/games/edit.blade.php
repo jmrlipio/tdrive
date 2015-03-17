@@ -77,11 +77,6 @@
 							{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
 							{{ $errors->first('language_id', '<p class="error">:message</p>') }}
 						</li>
-						<li>
-							{{ Form::label('carrier_id', 'Carriers: ') }}
-							{{ Form::select('carrier_id[]', $carriers, $selected_carriers, array('multiple' => 'multiple', 'id' => 'carriers', 'class' => 'chosen-select', 'data-placeholder'=>'Choose carriers(s)...'))  }}
-							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
-						</li>
 						{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
 					{{ Form::close() }}
 				</ul>

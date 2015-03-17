@@ -19,7 +19,7 @@ class CreateGamesTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('carrier_id')->unsigned();
-			$table->foreign('carrier_id')->references('id')->on('carriers')->onDelete('cascade')->onUpdate('cascade');;
+			$table->foreign('carrier_id')->references('id')->on('carriers')->onDelete('cascade')->onUpdate('cascade');
 			$table->string('main_title');
 			$table->string('slug');
 			$table->float('default_price');
