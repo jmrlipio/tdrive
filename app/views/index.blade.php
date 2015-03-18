@@ -188,9 +188,11 @@
 
 				</div>
 			</div>
-		</div>
 
+		</div>
+		
 	@endforeach
+	<div class="more"><a href="{{ route('categories.all') }}">View all category</a></div>
 
 	<div id="news" class="container">
 		<div class="clearfix">
