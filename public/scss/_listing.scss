@@ -11,7 +11,11 @@
 
 	#back {
 		display: block;
-		margin-top: 10px;
+		margin-top: 12px;
+	}
+
+	.title {
+		padding: 20px 0 15px;
 	}
 
 	.grid {
@@ -21,8 +25,7 @@
 				width: 33.3333333%;
 				float: left;
 				padding: 0 5px;
-				padding-bottom: 40px;
-				margin-bottom: 20px;
+				padding-bottom: 30px;
 				position: relative;
 			}
 		}
@@ -71,7 +74,7 @@
 
 	#back {
 		display: block;
-		margin-top: 10px;
+		margin-top: 12px;
 	}
 
 	.item {
@@ -158,12 +161,6 @@
 }
 
 @media only screen and (min-width: 600px) {
-
-	#game-listing, #news-listing {
-		#back {
-			margin-top: 12px;
-		}
-	}
 
 	#news-listing {
 		.item {
