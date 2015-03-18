@@ -2,7 +2,9 @@
 
 @section('stylesheets')
 	{{ HTML::style("css/jquery.fancybox.css"); }}
-
+	<style>
+		a.category-link { font-size: 15px;}
+	</style>
 @stop
 
 @section('content')
@@ -17,7 +19,7 @@
 
 			@forelse($categories as $cat)
 
-				<a href="{{ route('category.show', $cat->id) }}">{{ $cat->category }}</a> <br>
+				<a class="category-link" href="{{ route('category.show', $cat->id) }}">{{ $cat->category }}</a> <br>
 
 			@empty
 
