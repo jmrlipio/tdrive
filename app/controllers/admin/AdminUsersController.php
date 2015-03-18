@@ -253,27 +253,51 @@ class AdminUsersController extends \BaseController {
 
     public function exportDB(){
 
-    $file_type = Input::get('file_type');     	
+    $file_type = Input::get('file_type');  
+    $data_type = Input::get('data_type'); 
+    $db_title = "";
+    $sheet_name = "";
+
+    switch($data_type){
+
+		case 'user':			
+			$db_title = "Users DB";
+			$sheet_name = "Users";
+			$data = User::get()->toArray();
+		break;
+
+		case 'reports':
+			$db_title = "Reports"; 
+			$sheet_name = "Reports";
+		break;
+
+		default:
+			$db_title = "Database";
+		break;
+
+	}
     
-     	Excel::create('Users DB', function($excel) {     		   		
+     	Excel::create($db_title, function($excel) use ($file_type, $data, $sheet_name) {     		   		
 
-            $excel->sheet('Users', function($sheet) {                     
-            	$data = Input::get('data');
+            $excel->sheet($sheet_name, function($sheet) use ($file_type, $data) {                              	
 
-            	switch($data){
-
-            		case 'user':
-            			$data = User::get()->toArray();
-            		break;
-
-            		case 'reports':
-            			$data = "Insert model here"; 
+            	switch($file_type){
+            		
+            		case 'pdf':
+            		    $sheet->setOrientation('landscape');
+            		    $sheet->row($sheet->getHighestRow(), function ($row) {
+				            $row->setFontWeight('bold');
+				            $row->setFontSize(12);
+				        });
             		break;
 
             		default:
-            			$data = "It needs an entity";
+            			 $sheet->row($sheet->getHighestRow(), function ($row) {
+				            $row->setFontWeight('bold');
+				            $row->setFontSize(15);
+				        });
+            			$sheet->setOrientation('portrait');
             		break;
-
             	}
 
                 $sheet->appendRow(array_keys($data[0])); // column names

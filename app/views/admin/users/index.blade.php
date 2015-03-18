@@ -98,7 +98,7 @@
 	
 			<div class="control-item submit-btn">
 				<input type="hidden" name="file_type" value="xls" />
-				<input type="hidden" name="data" value="user" />
+				<input type="hidden" name="data_type" value="user" />
 				{{ Form::submit('Export as Excel') }}
 			</div>
 	
@@ -112,7 +112,7 @@
 	
 			<div class="control-item submit-btn">
 				<input type="hidden" name="file_type" value="csv" />
-				<input type="hidden" name="data" value="user" />
+				<input type="hidden" name="data_type" value="user" />
 				{{ Form::submit('Export as Csv') }}
 			</div>
 	
@@ -126,7 +126,7 @@
 	
 			<div class="control-item submit-btn">
 				<input type="hidden" name="file_type" value="pdf" />
-				<input type="hidden" name="data" value="user" />
+				<input type="hidden" name="data_type" value="user" />
 				{{ Form::submit('Export as Pdf') }}
 			</div>
 	
@@ -135,7 +135,7 @@
 		<!-- End -->
 	
 		<div class="clear"></div>
-			
+
 	</div>
 	
 		<br>
