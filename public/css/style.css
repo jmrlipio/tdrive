@@ -315,7 +315,7 @@
 }
 #game-detail #back {
   display: block;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 #game-detail #featured {
   max-width: 1024px;
@@ -812,9 +812,6 @@
   }
 }
 @media only screen and (min-width: 600px) {
-  #game-detail #back {
-    margin-top: 12px;
-  }
   #game-detail #featured {
     margin-top: 10px;
     padding-left: 10px;
@@ -981,7 +978,7 @@
 }
 #game-listing #back {
   display: block;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 #game-listing .title {
   padding: 20px 0 15px;
@@ -1033,7 +1030,7 @@
 }
 #news-listing #back {
   display: block;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 #news-listing .item {
   position: relative;
@@ -1099,10 +1096,6 @@
   }
 }
 @media only screen and (min-width: 600px) {
-  #game-listing #back, #news-listing #back {
-    margin-top: 12px;
-  }
-
   #news-listing .item .details h3 {
     font-size: 18px;
   }

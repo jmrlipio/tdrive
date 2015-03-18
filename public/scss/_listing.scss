@@ -11,7 +11,7 @@
 
 	#back {
 		display: block;
-		margin-top: 10px;
+		margin-top: 12px;
 	}
 
 	.title {
@@ -74,7 +74,7 @@
 
 	#back {
 		display: block;
-		margin-top: 10px;
+		margin-top: 12px;
 	}
 
 	.item {
@@ -161,12 +161,6 @@
 }
 
 @media only screen and (min-width: 600px) {
-
-	#game-listing, #news-listing {
-		#back {
-			margin-top: 12px;
-		}
-	}
 
 	#news-listing {
 		.item {
