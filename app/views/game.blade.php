@@ -38,8 +38,6 @@
 		</div>
 	</div><!-- end #top -->
 
-	{{ Session::get('locale') }}
-
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
@@ -113,8 +111,9 @@
 	<div id="description" class="container">
 
 		@foreach($game->contents as $item)
-			@if(isset($_GET['locale']))
-				@if($_GET['locale'] == strtolower($item->iso_code))
+			@if(Session::has('locale'))
+
+				@if(Session::get('locale') == strtolower($item->iso_code))
 					{{ htmlspecialchars_decode($item->pivot->content) }}
 				@endif
 			@else
@@ -468,7 +467,6 @@
 			websiteType: 'dynamic',
 			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
 					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
@@ -477,8 +475,7 @@
 						_token: token
 					},
 					success: function(data) {
-						// location.reload();
-						console.log('success');
+						location.reload();
 					}
 				});
 			}
@@ -488,6 +485,7 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
+			testMode: true,
 			onChange: function(evt){
 				$.ajax({
 					url: "{{ URL::route('choose_language') }}",
@@ -497,7 +495,7 @@
 						_token: token
 					},
 					success: function(data) {
-						// location.reload();
+						location.reload();
 					}
 				});
 			}
