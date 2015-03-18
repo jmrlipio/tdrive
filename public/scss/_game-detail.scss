@@ -8,7 +8,7 @@
 
 	#back {
 		display: block;
-		margin-top: 10px;
+		margin-top: 12px;
 	}
 
 	#featured {
@@ -147,13 +147,14 @@
 				img {
 					float: left;
 					margin-right: 5px;
+					padding-top: 8px;
 				}
 
 				span {
 					float: left;
 					font-size: 18px;
 					font-weight: bold;
-					padding-top: 10px;
+					padding-top: 12px;
 				}
 			}
 
@@ -168,7 +169,7 @@
 		.download {
 			background: #e9548e url(../images/download2.png) center center no-repeat;
 			position: relative;
-			display: block;
+			display: none;
 			height: 62px;
 			text-align: center;
 			color: $white;
@@ -268,12 +269,13 @@
 
 				a {
 					@include border-radius(4px);
+					@extend %box-sizing;
 					display: block;
 					width: 66px;
 					float: left;
 					text-align: center;
 					margin-right: 5px;
-					padding: 2px 0 4px;
+					padding: 0 0 4px;
 					margin-top: 10px;
 
 					span {
@@ -296,7 +298,7 @@
 					}
 
 					&.likes {
-						background: $white;
+						background: transparent;
 						margin-right: 0;
 						
 						span {
@@ -306,6 +308,15 @@
 						}
 					}
 				}
+
+				#game_like {
+					span {
+						margin: auto;
+						padding-top: 2px;
+					}
+				}
+
+				div.likes { background: none; }
 			}
 		}
 
@@ -639,10 +650,6 @@
 @media only screen and (min-width: 600px) {
 
 	#game-detail {
-		#back {
-			margin-top: 12px;
-		}
-
 		#featured {
 			margin-top: 10px;
 			padding-left: 10px;
