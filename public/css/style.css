@@ -429,12 +429,13 @@
 #game-detail #buttons .buy .image img {
   float: left;
   margin-right: 5px;
+  padding-top: 8px;
 }
 #game-detail #buttons .buy .image span {
   float: left;
   font-size: 18px;
   font-weight: bold;
-  padding-top: 10px;
+  padding-top: 12px;
 }
 #game-detail #buttons .buy .price {
   text-align: left;

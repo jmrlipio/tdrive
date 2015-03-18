@@ -65,19 +65,16 @@
 			</div>
 		</div>
 
-		@if ($game->default_price == 0)
+		@if ($game->default_price < 1)
+
 			<a href="#" class="download">
 				<div>
 					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
 				</div>
 			</a>
+
 		@else
-			<!-- <a href="{{ URL::route('games.carrier', $game->id) }}" class="buy"> -->
-			<a href="#" class="download" id="game-download">
-				<div>
-					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
-				</div>
-			</a>
+
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
@@ -101,6 +98,7 @@
 					{{ Form::close() }}
 				</div>
 			</div>
+
 		@endif
 	</div><!-- end #buttons -->
 
