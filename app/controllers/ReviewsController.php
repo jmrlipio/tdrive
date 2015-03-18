@@ -53,7 +53,7 @@ class ReviewsController extends \BaseController {
 		if ($validator->passes()) {
 			Review::create(Input::all());
 
-			return Redirect::to($url)->with('message', 'Your review has been added.');
+			return Redirect::to($url)->with('message', 'Your review will be submitted for approval.');
 		}
 
 		//validator fails
