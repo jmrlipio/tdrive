@@ -446,7 +446,7 @@
 #game-detail #buttons .download {
   background: #e9548e url(../images/download2.png) center center no-repeat;
   position: relative;
-  display: block;
+  display: none;
   height: 62px;
   text-align: center;
   color: #fff;

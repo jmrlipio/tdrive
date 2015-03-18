@@ -37,7 +37,9 @@
 			<p>Release: {{{ $game->release_date }}}</p>
 		</div>
 	</div><!-- end #top -->
+
 	{{ Session::get('locale') }}
+
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
@@ -74,6 +76,12 @@
 			</a>
 
 		@else
+
+			<a href="#" class="download" id="game-download">
+				<div>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+				</div>
+			</a>
 
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
