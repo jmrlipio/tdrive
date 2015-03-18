@@ -41,7 +41,13 @@
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
-				<p class="count">{{ number_format($game->downloads, 0) }}</p>
+				<p class="count">
+					@if($game->downloads == 0 )
+						{{ number_format($game->actual_downloads, 0) }}
+					@else
+						{{ number_format($game->downloads, 0) }}
+					@endif
+				</p>
 				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
 			</div>
 		</div>
