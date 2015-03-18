@@ -41,13 +41,7 @@
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
-				<p class="count">
-					@if($game->downloads == 0 )
-						{{ number_format($game->actual_downloads, 0) }}
-					@else
-						{{ number_format($game->downloads, 0) }}
-					@endif
-				</p>
+				<p class="count">{{ number_format($game->downloads, 0) }}</p>
 				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
 			</div>
 		</div>
@@ -134,9 +128,15 @@
 					@if($screenshots->type == 'screenshots')
 
 						<div class="swiper-slide item">
-							<a href="{{ url() }}/assets/games/screenshots/{{ $game->image_orientation . '-' . $screenshots->url }}" class="fancybox">
+							<a href="{{ url() }}/assets/games/screenshots/{{ $game->image_orientation . '-' . $screenshots->url }}" rel="group" class="fancybox-media">
 								{{ HTML::image('assets/games/screenshots/' . $game->image_orientation . '-' . $screenshots->url, $game->main_title) }}
 							</a>
+						</div>
+
+					@elseif($screenshots->type == 'video')
+
+						<div class="swiper-slide item">
+							<a href="{{ $screenshots->url }}" rel="group" class="fancybox-media">{{ HTML::image('images/video.png') }}</a>
 						</div>
 
 					@endif
@@ -389,16 +389,14 @@
 									<div class="thumb relative">
 
 										@if ($game->default_price == 0)
-												<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-											@endif
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
 										
 										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
-
 
 										@if ($game->default_price == 0)
 											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
-
 
 									</div>
 
@@ -407,9 +405,7 @@
 
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
-
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-
 													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 												@endif
 											@endforeach
@@ -445,6 +441,7 @@
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/slick.min.js"); }}
 	{{ HTML::script("js/jquery.fancybox.js"); }}
+	{{ HTML::script("js/jquery.fancybox-media.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
@@ -497,6 +494,15 @@
 			}
 		});
 
+		$('.fancybox').fancybox({ 
+			padding: 0 
+		});
+
+		$('.fancybox-media').fancybox({ 
+			padding: 0, 
+			helpers: { media: true }
+		});
+
 		$('.thumbs-container').each(function() {
 			$(this).swiper({
 				slidesPerView: 'auto',
@@ -505,13 +511,14 @@
 				calculateHeight: true
 			})
 		});
+
 		$("#inline").fancybox({
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',
             'transitionOut'     : 'none'
         });
+
         $("#share a").jqSocialSharer();
-		$('.fancybox').fancybox({ padding: 0 });
 
 		$("#buy").on('click',function() {
 			 $.ajax({
@@ -578,27 +585,27 @@
 
 			$.fancybox.close();
 
-			// $.fancybox({
-	  //           'width': '80%',
-	  //           'height': '80%',
-	  //           'autoScale': true,
-	  //           'transitionIn': 'fade',
-	  //           'transitionOut': 'fade',
-	  //           'type': 'iframe',
-	  //           'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-	  //           afterClose: function() {
+			$.fancybox({
+	             'width': '80%',
+	             'height': '80%',
+	             'autoScale': true,
+	             'transitionIn': 'fade',
+	             'transitionOut': 'fade',
+	             'type': 'iframe',
+	             'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
+	             afterClose: function() {
 
-	  //           	$.ajax({
-			// 		 	type: "get",
-			// 		 	url: "{{ URL::route('games.status', $game->id) }}",
-			// 		 	complete:function(data) {
-			// 				if(data['responseText'] == 1) {
-			// 					$('#game-download').css('display', 'none');
-			// 				}
-		 //                }
-		 //            });
-	  //           }
-	  //       });
+	             	$.ajax({
+			 		 	type: "get",
+			 		 	url: "{{ URL::route('games.status', $game->id) }}",
+			 		 	complete:function(data) {
+			 				if(data['responseText'] == 1) {
+			 					$('#game-download').css('display', 'none');
+			 				}
+		                 }
+		             });
+	             }
+	        });
 
 		});
 	
