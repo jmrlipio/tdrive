@@ -16,7 +16,7 @@ class CreateGameCategoriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('game_id')->unsigned()->index();
-            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
+            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('category_id')->unsigned()->index();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 			$table->timestamps();

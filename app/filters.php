@@ -13,7 +13,20 @@
 
 App::before(function($request)
 {
-	//
+	Lang::setLocale(Session::get('locale'));
+	
+	/** 
+		* Added by: Jone   
+		* Purpose: For detecting users device
+		* Date: 01/16/2015
+	*/
+
+	// if(Agent::isDesktop() && Request::segment(1) != 'admin' ){
+	// 	return View::make('desktop.index')
+	// 		->with('page_title', 'Desktop')
+	// 		->with('page_id', 'form');
+	// }
+
 });
 
 
@@ -45,7 +58,7 @@ Route::filter('admin', function($route, $request)
 		{
 			return Redirect::guest('login');
 		}
-	} else if (Auth::user()->role != 'superadmin') {
+	} else if (Auth::user()->role == 'member' ) {
 		return Response::make('Unauthorized', 401);
 	}
 });
@@ -69,6 +82,14 @@ Route::filter('auth.basic', function()
 {
 	return Auth::basic();
 });
+
+Route::filter('role', function()
+{ 
+  if ( Auth::user()->role !== 'superadmin') {
+     // do something
+    return Response::make('Unauthorized', 401);
+   }
+}); 
 
 /*
 |--------------------------------------------------------------------------

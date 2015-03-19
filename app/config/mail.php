@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'smtp',
+	'driver' => 'mandrill',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.gmail.com',
+	'host' => 'smtp.mandrillapp.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'jigzen.test@gmail.com', 'name' => 'Awesome Laravel 4 TDRIVE App'),
+	'from' => array('address' => 'jigzen.test@gmail.com', 'name' => 'TDRIVE'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => '_12345aA_',
+	'password' => 'xnlnzcpteyumntme',
 
 	/*
 	|--------------------------------------------------------------------------

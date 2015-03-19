@@ -16,11 +16,12 @@ class CreateGameReviewsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('game_id')->unsigned();
-			$table->foreign('game_id')->references('id')->on('games');
+			$table->foreign('game_id')->references('id')->on('games')->onUpdate('cascade');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->text('review');
 			$table->boolean('status');
+			$table->integer('rating');
 			$table->timestamps();
 		});
 	}

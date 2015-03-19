@@ -8,15 +8,12 @@ class CarriersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
 	public function index()
 	{
 		$carriers = Carrier::orderBy('carrier')->paginate(10);
 
 		return View::make('admin.carriers.index')->with('carriers', $carriers);
-
-		// $countries = Country::all();
-
-		// dd($countries);
 	}
 
 	/**
@@ -28,12 +25,19 @@ class CarriersController extends \BaseController {
 	public function create()
 	{
 		$countries = [];
+		$languages = [];
+
+		foreach(Language::orderBy('language')->get() as $language) {
+			$languages[$language->id] = $language->language;
+		}
 
 		foreach(Country::orderBy('full_name')->get() as $country) {
 			$countries[$country->id] = $country->full_name;
 		}
 
-		return View::make('admin.carriers.create')->with('countries', $countries);
+		return View::make('admin.carriers.create')
+			->with('countries', $countries)
+			->with('languages', $languages);
 	}
 
 	/**
@@ -51,7 +55,9 @@ class CarriersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$carrier = Carrier::create($data);
+		Carrier::create($data);
+
+		$carrier = Carrier::find(Input::get('id'));
 
 		$countries = Input::get('country_id');
 
@@ -121,6 +127,7 @@ class CarriersController extends \BaseController {
 
 		$edit_rules = Carrier::$rules;
 
+		$edit_rules['id'] = 'required|integer|unique:carriers,id,' . $id;
 		$edit_rules['carrier'] = 'required|min:3|unique:carriers,carrier,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);

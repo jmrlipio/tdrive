@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'class' => 'large-form tab-container','id' => 'tab-container')) }}
+	<article>
 	<h2>Edit News</h2>
 	@if(Session::has('message'))
         <div class="flash-success">
@@ -10,94 +10,83 @@
     @endif
 
 	<br>
-	<ul class='etabs'>
-		<li class='tab'><a href="#content">Content</a></li>
-		<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
-		<li class='tab'><a href="#feature-image">Feature Image</a></li>
-	</ul>
-<div class='panel-container'>
-		
-	<ul id="content">
-			<li>
-				{{ Form::label('title', 'Title: ') }}
-				{{ Form::text('title', $news->title , array('id' => 'title', 'class' => 'slug-reference')) }}
-				{{ $errors->first('title', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('slug', 'Slug: ') }}
-				{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
-				{{ $errors->first('slug', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('news_category', 'Category:') }}
-		  		{{ Form::select('news_category_id', $news_categories, $news->news_category_id) }}				
-				{{ $errors->first('news_category', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('status', 'Status: ') }}
-				{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
-				{{ $errors->first('status', '<p class="error">:message</p>') }}
-			</li>
-			<li>
-				{{ Form::label('release_date', 'Release Date:') }}
-				{{ Form::text('release_date', null, array('id' => 'release_date')) }}
-				{{ $errors->first('release_date', '<p class="error">:message</p>') }}
-			</li>
-			
-			<li>
-				{{ Form::label('content', 'Content:') }}
-				{{ Form::textarea('content', $news->content, array('id' => 'text-content')) }}
-				{{ $errors->first('content', '<p class="error">:message</p>') }}
-			</li>
-			
+	<div class='large-form tab-container' id='tab-container'>
+		<ul class='etabs'>
+			<li class='tab'><a href="#content">Content</a></li>
+			<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
+			<li class='tab'><a href="#news-content">News Content</a></li>
 		</ul>
-		
-		<ul id="custom-fields">
-			<li>
-				{{ Form::label('excerpt', 'Excerpt:') }}
-				{{ Form::textarea('excerpt', null, array('id' => 'text-excerpt')) }}
-				{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
-			</li>
-		</ul>
-		
-		<ul id="feature-image">
-			<li>
-
-			{{ Form::label('featured-img', 'Featured Image:') }}
-				<?php $featured = false; ?>
-				@foreach($selected_media as $media)					
-					@if($media['type'] == 'featured')
-						<?php $featured = true; ?>
-						<div class="img-holder">
-							<img src="{{ $media['media_url'] }}">
+		<div class='panel-container'>
+			<ul id="content">
+				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
+					<li>
+						{{ Form::label('main_title', 'Title: ') }}
+						{{ Form::text('main_title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}
+						{{ $errors->first('title', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('slug', 'Slug: ') }}
+						{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
+						{{ $errors->first('slug', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('news_category', 'Category:') }}
+				  		{{ Form::select('news_category_id', $news_categories, $news->news_category_id) }}				
+						{{ $errors->first('news_category', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('status', 'Status: ') }}
+						{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
+						{{ $errors->first('status', '<p class="error">:message</p>') }}
+					</li>
+					<!--
+					<li>
+						{{-- Form::label('release_date', 'Release Date:') --}}
+						{{-- Form::text('release_date', null, array('id' => 'release_date')) --}}
+						{{-- $errors->first('release_date', '<p class="error">:message</p>') --}}
+					</li>
+					-->
+					<li>
+						<div class="media-box">
+							{{ HTML::image(Request::root() . '/assets/news/' . $news->featured_image, null) }}
 						</div>
-						<p>
-							{{ Form::text('featured-img', $media['media_url'], array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-							{{ Form::hidden('featured_img_id', $media['media_id'], array('class' => 'hidden_id')) }}
-							{{ Form::button('Select', array('class' => 'select-img')) }}
-						</p>
-					@endif
-				@endforeach
-				@if(!$featured)
-					<div class="img-holder"></div>
-					<p>
-						{{ Form::text('featured-img', null, array('id' => 'featured-img', 'class' => 'img-url', 'disabled')) }}
-						{{ Form::hidden('featured_img_id', null, array('class' => 'hidden_id')) }}
-						{{ Form::button('Select', array('class' => 'select-img')) }}
-					</p>	
-				@endif
-			</li>
-			
-		</ul>
 
-		<li>
-			{{ Form::submit('Update', array('id' => 'update-news')) }}
-		</li>
-</div>
+						{{ Form::label('featured_image', 'Featured Image:') }}
+						{{ Form::file('featured_image') }}
+					</li>
+					{{ Form::hidden('user_id', Auth::user()->id) }}
+					{{ Form::submit('Save') }}
+				{{ Form::close() }}
+			</ul>
+			<ul id="custom-fields">
+				{{ Form::open(array('route' => array('admin.news.update-fields', $news->id), 'method' => 'post')) }}
+					<li>
+						{{ Form::label('language_id', 'Languages: ') }}
+						{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
+						{{ $errors->first('language_id', '<p class="error">:message</p>') }}
+					</li>
+					{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
+				{{ Form::close() }}
+			</ul>
+			<ul id="news-content">
+				<h3>The has content for the following languages:</h3>
+				<br>
+				@if($selected_languages)
+				<ul>
+					@foreach($languages as $language_id => $language)
+						@if(in_array($language_id, $selected_languages))
+							<li><a href="{{ URL::route('admin.news.edit.content', array('news_id' => $news->id, 'language_id' => $language_id)) }}">{{ $language }}</a></li>
+						@endif
+					@endforeach
+				</ul>
+				@else
+					<p>Please select one or more languages to add content to this news.
+				@endif
+			</ul>
+		</div>
 		
-		{{ Form::hidden('news_id', $news->id) }}
-		{{ Form::hidden('user_id', Auth::user()->id) }}
-	{{ Form::close() }}
+		
+	</article>
 
 	@include('admin._partials.image-select')
 	{{ HTML::script('js/tinymce/tinymce.min.js') }}

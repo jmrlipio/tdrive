@@ -14,6 +14,11 @@
 				{{ Form::open(array('route' => 'admin.games.store')) }}
 					<ul id="custom-fields">
 						<li>
+							{{ Form::label('id', 'Game ID:') }}
+							{{ Form::text('id', null) }}
+							{{ $errors->first('id', '<p class="error">:message</p>') }}
+						</li>
+						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
 							{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 							{{ $errors->first('title', '<p class="error">:message</p>') }}
@@ -24,8 +29,13 @@
 							{{ $errors->first('slug', '<p class="error">:message</p>') }}
 						</li>
 						<li>
+							{{ Form::label('carrier_id', 'Carrier:') }}
+					  		{{ Form::select('carrier_id', $carriers, null) }}				
+							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
+						</li>
+						<li>
 							{{ Form::label('status', 'Status: ') }}
-							{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
+							{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 							{{ $errors->first('status', '<p class="error">:message</p>') }}
 						</li>
 						<li>

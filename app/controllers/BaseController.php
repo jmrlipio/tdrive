@@ -15,11 +15,23 @@ class BaseController extends Controller {
 		}
 	}
 
-  public function __construct()
-  {       
-    $user_location = GeoIP::getLocation();   
-    View::share('user_location', $user_location); // Share $user with all views
-  }
+	public function __construct()
+	{       
+		$user_location = GeoIP::getLocation();   
+		$site_variables = SiteVariable::all();
+		$general_settings = GeneralSetting::all();
+		$game_settings = GameSetting::all();
+
+		View::share('user_location', $user_location);
+		View::share('site_variables', $site_variables);
+		View::share('general_settings', $general_settings);
+	}
+
+	/*public function test($telco){
+
+		View::share('telco', $telco);
+
+	}*/
 
 
 }

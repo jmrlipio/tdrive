@@ -1,17 +1,21 @@
 <?php
 
 class News extends \Eloquent {
-	protected $fillable = ['user_id','title','excerpt','status','content','news_category_id'];
+	protected $fillable = ['user_id','main_title','slug','status','news_category_id', 'featured_image'];
 
-	public static $rules = array(
+	public static $rules = [
 		'user_id' => 'required|integer',
-		'title' => 'required|min:2',
-		'excerpt' => 'required|min:20',
-		'status' => 'required|boolean',
-		'content' => 'required|min:20',
-		'release_date' => 'required|date',
-		'news_category_id' => 'required|integer'
-	);
+		'main_title' => 'required|min:2',
+		'slug' => 'required|min:2',
+		'status' => 'required',
+		// 'release_date' => 'required|date',
+		'news_category_id' => 'required|integer',
+		'featured_image' => 'required'
+	];
+
+	public static $fieldRules = [
+		'language_id' 	=> 'required'
+	];
 
 	public function keywords() {
 		return $this->morphToMany('Keyword', 'keywordable');
@@ -21,10 +25,6 @@ class News extends \Eloquent {
 		return $this->morphToMany('Language', 'languagable');
 	}
 
-	public function media() {
-		return $this->morphToMany('Media', 'mediable')->withPivot('type');
-	}
-
 	public function comments() {
 		return $this->belongsToMany('Comment', 'news_comments');
 	}
@@ -32,4 +32,8 @@ class News extends \Eloquent {
 	public function newsCategory() {
 		return $this->belongsTo('NewsCategory');
 	}
+
+    public function contents() {
+    	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
+    }
 }

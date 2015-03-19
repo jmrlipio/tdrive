@@ -3,7 +3,7 @@
 class Media extends \Eloquent {
 	protected $table = 'media';
 
-	protected $fillable = ['media_url'];
+	protected $fillable = ['url', 'type'];
 
 	public static $rules = [
 		'media_url' => 'required|image|mimes:jpeg,jpg,bmp,png,gif'
@@ -11,11 +11,7 @@ class Media extends \Eloquent {
 
 	public function games()
     {
-        return $this->morphedByMany('Game', 'mediable');
+        return $this->belongsToMany('Game', 'game_media');
     }
 
-    public function news()
-    {
-        return $this->morphedByMany('News', 'mediable');
-    }
 }

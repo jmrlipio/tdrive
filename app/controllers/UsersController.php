@@ -90,8 +90,13 @@ class UsersController extends \BaseController {
 * Date: 12/04/2014
 */
 
-	public function getSignup() {
-		return View::make('users.signup');
+	public function getRegister() {
+		$languages = Language::all();
+
+		return View::make('register')
+			->with('page_title', 'Register')
+			->with('page_id', 'form')
+			->with(compact('languages'));
 	}
 
 	public function postRegister(){
@@ -108,14 +113,13 @@ class UsersController extends \BaseController {
 			$user->last_name= Input::get('last_name');
 			$user->password=  Hash::make(Input::get('password'));			
 			$user->code = $code;
+			$user->role = "member";
 
-			$user->save();	
+			$user->save();
 
-			Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $code), 'username' => $username), function ($message) use ($user){
-				$message->to($user->email, $user->username)->subject('Activate your Account');
-			});
+			$response = Event::fire('user.registered', array($user));	
 
-			return Redirect::route('users.login')->with('message', 'Registration successful. Please sign in.');			
+			return Redirect::route('users.login')->with('success', 'Registration successful. Please check your email to verify your account.');			
 		}
 
 		if ($validator->fails())
@@ -126,41 +130,69 @@ class UsersController extends \BaseController {
 
 /* END */
 	public function getLogin(){
-        return View::make('users.login');
+		$languages = Language::all();
+
+		if(Auth::check()){
+			return Redirect::intended('/');
+		}
+
+		return View::make('login')
+			->with('page_title', 'Login')
+			->with('page_id', 'form')
+			->with(compact('languages'));
     }
 
     public function postLogin(){
+    	
         $credentials = array('username' => Input::get('username'), 'password' => Input::get('password')); 		
        
         $remember = Input::get('remember');
 
-        if (Auth::attempt($credentials)){
+        try {
 
-        	if(Auth::check() && !empty($remember)){
-        		Auth::login(Auth::user(), true);
-        	}
-            return Redirect::intended('/');
+        	$user = User::where('username', '=', Input::get('username'))->firstOrFail();
+
+        } catch(Exception $e) {
+
+        	return Redirect::to('login')->with('fail','Your email/password was incorrect');
+
         }
-        //return Redirect::route('users.login')->withErrors('Your email/password was incorrect');
-        return Redirect::to('login')->withErrors('Your email/password was incorrect');
-        //return Redirect::back()->withErrors('Your username/password was incorrect');
 
-        //return Redirect::to('/login')->withErrors('Your email/password was incorrect');
-        
-       /* if (Auth::attempt($credentials)){        	
-        	
-        	if(!empty($remember)){
-        		Auth::login(Auth::user(), true);
-        	}
-        	return Redirect::intended('/');
-        }*/
+        if($user->active == 1) {
 
-        //return View::make('users.login');
+			if (Auth::attempt($credentials)) {
+
+			  	if(Auth::check() && !empty($remember)){
+
+					Auth::login(Auth::user(), true);
+				}
+				//Audit log
+			    Event::fire('audit.login', Auth::user());
+
+			    return Redirect::intended('/home');
+
+			} else {
+
+				return Redirect::to('login')->with('fail','Your email/password was incorrect');
+
+			}
+
+        } else {
+
+        	return Redirect::to('login')->with('fail','Please check your email to verify your account');
+
+        }
+
     }
 
     public function getLogout(){
+    	Event::fire('audit.logout', Auth::user());
+    	Session::forget('carrier_name');
+
         Auth::logout();
-        return Redirect::route('users.login');
+
+        /*return Redirect::route('/');*/
+        return Redirect::intended('/');
     }
 
 /*    public function getForgotPassword(){
@@ -205,6 +237,7 @@ class UsersController extends \BaseController {
     }*/
 
     public function getActivate($code){
+
     	$user = User::where('code', '=', $code)->where('active', '=', 0);
 
     	if($user->count()){
@@ -215,14 +248,20 @@ class UsersController extends \BaseController {
     		$user->code = '';
 
     		if($user->save()){
-    			
-    		return Redirect::route('users.login')
-    			->with('message', 'Account activated, you can now rate/comment a game');    			
+	    		return Redirect::route('users.login')
+	    			->with('success', 'Account activated, you can now rate/comment a game');    			
     		}
     	}
 
-    	return Redirect::route('users.login')    		
-    		->with('message', 'We could not activate your account. Try again later.');   	
+    	return Redirect::route('users.login')  		
+    		->with('fail', 'We could not activate your account. Try again later.');
+    }
+
+    public function sendActivation($username) {
+        
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+    	$response = Event::fire('user.registered', array($user));	
     }
 
 }

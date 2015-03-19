@@ -10,7 +10,8 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function index($role = NULL)
 	{
-		$users = User::orderBy('id')->paginate(5);
+
+		$users = User::all();
 
 		$roles = ['all' => 'All'];
 
@@ -65,8 +66,45 @@ class AdminUsersController extends \BaseController {
 	public function show($id)
 	{
 		$user = User::find($id);
+		$games = Game::all();
+		$carriers = Carrier::all();
+		$countries = Country::all();
+		$histories = DB::table('login_history')->where('user_id', $id)->get();	
+		$activities = DB::table('activity_logs')->where('user_id', $id)->get();	
 
-		return View::make('admin.users.view')->with('user', $user);
+		$selected_games = [];
+
+		$count = 0;
+		foreach($user->sales as $gm) {
+			
+			foreach($games as $game) {
+				if($game->id == $gm->game_id) {
+					$selected_games[$count]['game_title'] = $game->main_title;
+				}
+			}
+
+			foreach($carriers as $carrier) {
+				if($carrier->id == $gm->carrier_id) {
+					$selected_games[$count]['carrier'] = $carrier->carrier;
+				}
+			}
+
+			foreach($countries as $country) {
+				if($country->id == $gm->country_id) {
+					$selected_games[$count]['country'] = $country->full_name;
+					$selected_games[$count]['currency'] = $country->currency_code;
+					$selected_games[$count]['price'] = $gm->price;
+				}
+			}
+			$count++;
+		}
+
+
+		return View::make('admin.users.view')
+			->with('user', $user)
+			->with('games', $selected_games)
+			->with('histories', $histories)
+			->with('activities', $activities);
 	}
 
 	/**
@@ -94,15 +132,24 @@ class AdminUsersController extends \BaseController {
 	{
 		$user = User::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), User::$rules);
+		$edit_rules = User::$update_rules;
+
+		$edit_rules['email'] = 'required|email|unique:users,email,' . $id;
+
+		$validator = Validator::make($data = Input::all(), $edit_rules);
+
 		if ($validator->fails())
 		{
-			return Redirect::back()->withErrors($validator)->withInput();
+			return Redirect::back()->withErrors($validator)->withInput()
+				->with('message', 'Something went wrong. Try again.')
+				->with('sof', 'fail');
 		}
 
 		$user->update($data);
 
-		return Redirect::route('admin.users.show', $user->id);
+		return Redirect::route('admin.users.edit', $user->id)
+			->with('message', 'User successfully updated.')
+			->with('sof', 'success');
 	}
 
 	/**
@@ -114,14 +161,31 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$user = User::find($id);
+
+		if($user) {
+			$user->delete();
+			return Redirect::route('admin.users.index')
+				->with('message', 'User deleted')
+				->with('sof', 'success');
+		}
+
+		return Redirect::route('admin.users.index')
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'fail');
 	}
 
 	public function getLogin(){
+
+		if(Auth::check()){
+			return Redirect::intended('admin/dashboard');
+		}
+		
         return View::make('admin.login');
     }
 
-    public function postLogin(){
+    public function postLogin()
+    {
         $data = Input::all();
 
         $validator = Validator::make($data, User::$auth_rules);
@@ -130,23 +194,32 @@ class AdminUsersController extends \BaseController {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))){
+        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password'))))
+        {
+            //Audit log
+            Event::fire('audit.login', Auth::user());
+            
             return Redirect::intended('admin/dashboard');
         }
 
-        return Redirect::route('admin.login');
+        return Redirect::route('admin.login')->with('message', 'Incorrect username or password.');
     }
 
-    public function getLogout(){
+    public function getLogout()
+    {
+
+    	Event::fire('audit.logout', Auth::user());
         Auth::logout();
         return Redirect::route('admin.login');
     }
 
-    public function getDashboard(){
+    public function getDashboard()
+    {
     	return View::make('admin.dashboard.index');
     }
 
-    public function postSearch(){
+    public function postSearch()
+    {
 
     	if (!Request::ajax()) {
 		        return null;
@@ -158,15 +231,17 @@ class AdminUsersController extends \BaseController {
 		return $user;
 	}
 
-    public function getUsersByRole() {
+    public function getUsersByRole() 
+    {
     	$selected_role = Input::get('role');
 
-    	if($selected_role == 'all') $users = User::orderBy('id')->paginate(5);
+    	if($selected_role == 'all') $users = User::all();
     	else $users = User::where('role', '=', Input::get('role'))->paginate(5);
 
     	$roles = ['all' => 'All'];
 
-		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) {
+		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) 
+		{
 			$roles[$role->role] = ucfirst($role->role);
 		}
 
@@ -174,5 +249,71 @@ class AdminUsersController extends \BaseController {
 			->with('users', $users)
 			->with('roles', $roles)
 			->with('selected', $selected_role);
+    }
+
+    public function exportDB(){
+
+    $file_type = Input::get('file_type');  
+    $data_type = Input::get('data_type'); 
+    $db_title = "";
+    $sheet_name = "";
+
+    switch($data_type){
+
+		case 'user':			
+			$db_title = "Users DB";
+			$sheet_name = "Users";
+			$data = User::get()->toArray();
+		break;
+
+		case 'reports':
+			$db_title = "Reports"; 
+			$sheet_name = "Reports";
+		break;
+
+		default:
+			$db_title = "Database";
+		break;
+
+	}
+    
+     	Excel::create($db_title, function($excel) use ($file_type, $data, $sheet_name) {     		   		
+
+            $excel->sheet($sheet_name, function($sheet) use ($file_type, $data) {                              	
+
+            	switch($file_type){
+            		
+            		case 'pdf':
+            		    $sheet->setOrientation('landscape');
+            		    $sheet->row($sheet->getHighestRow(), function ($row) {
+				            $row->setFontWeight('bold');
+				            $row->setFontSize(12);
+				        });
+            		break;
+
+            		default:
+            			 $sheet->row($sheet->getHighestRow(), function ($row) {
+				            $row->setFontWeight('bold');
+				            $row->setFontSize(15);
+				        });
+            			$sheet->setOrientation('portrait');
+            		break;
+            	}
+
+                $sheet->appendRow(array_keys($data[0])); // column names
+
+		        // getting last row number (the one we already filled and setting it to bold
+		        $sheet->row($sheet->getHighestRow(), function ($row) {
+		            $row->setFontWeight('bold');
+		            $row->setFontSize(15);
+		        });
+
+		        foreach ($data as $row) {
+		            $sheet->appendRow($row);
+		        }
+                
+            });
+
+        })->export($file_type);
     }
 }

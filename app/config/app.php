@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -125,7 +125,14 @@ return array(
 		'Webpatser\Countries\CountriesServiceProvider',
 		'Jarektkaczyk\TriplePivot\TriplePivotServiceProvider',
 		'Torann\GeoIP\GeoIPServiceProvider',
-		'Thujohn\Analytics\AnalyticsServiceProvider'
+		'Thujohn\Analytics\AnalyticsServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
+		'Zofe\Rapyd\RapydServiceProvider',
+		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
+		'Mews\Captcha\CaptchaServiceProvider',
+		'Jenssegers\Agent\AgentServiceProvider',
+		'Nathanmac\Utilities\Parser\ParserServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider'
 	),
 
 	/*
@@ -193,9 +200,15 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Carbon' 		  => 'Carbon\Carbon',
+		'Constant' 		  => 'Constantine\Constant',
 		'Countries' 	  => 'Webpatser\Countries\CountriesFacade',
 		'GeoIP' 		  => 'Torann\GeoIP\GeoIPFacade',
-		'Analytics' 	  => 'Thujohn\Analytics\AnalyticsFacade'
+		'Analytics' 	  => 'Thujohn\Analytics\AnalyticsFacade',
+		'Image' 		  => 'Intervention\Image\Facades\Image',
+		'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
+		'Captcha'		  => 'Mews\Captcha\Facades\Captcha',
+		'Agent'            => 'Jenssegers\Agent\Facades\Agent',
+		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 	),
 
 );

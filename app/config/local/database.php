@@ -23,13 +23,25 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'tdrive',
+			'database'  => 'tdrive_initial',
 			'username'  => 'root',
-			'password'  => '1234aA',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
+		'tracker' => [
+				    'driver'   => 'mysql',
+				    'host'     => 'localhost',
+				    'database' => 'tdrive_initial',
+				    'username' => 'root',
+				    'password' => '',
+				    'charset'  => 'utf8',
+				    'prefix'   => '',
+				    'collation' => 'utf8_unicode_ci',
+				    'schema'   => 'public',
+				],
+
 	),
 
 );

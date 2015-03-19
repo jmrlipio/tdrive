@@ -10,8 +10,17 @@
 		"nesbot/Carbon": "*",
 		"webpatser/laravel-countries": "dev-master",
 		"jarektkaczyk/eloquent-triple-pivot": "dev-master",
-		"torann/geoip": "dev-master",
-		"thujohn/analytics": "dev-master"
+		"torann/geoip": "0.1.*@dev",
+		"thujohn/analytics": "dev-master",
+		"intervention/image": "dev-master",
+		"zofe/rapyd": "1.3.*",
+		"pragmarx/tracker": "0.7.*",
+		"mews/captcha": "dev-master",
+		"guzzlehttp/guzzle": "~4.0",
+		"jenssegers/agent": "~2.1",
+		"Nathanmac/Parser": "2.*",
+		"maatwebsite/excel": "~1.3.0",
+		"dompdf/dompdf" : "0.6.*"
 	},
 	"autoload": {
 		"classmap": [

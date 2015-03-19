@@ -1,0 +1,160 @@
+@import "utilities";
+@import "config";
+
+#profile {
+	#nav-toggle, #side-menu {
+		display: none;
+	}
+
+	#back {
+		display: block;
+		margin-top: 10px;
+	}
+
+	.thumb {
+		margin: 10px 0;
+		@include border-radius(8px);
+		@extend %box-sizing;
+		padding: 8px;
+		background: rgba(0, 0, 0, .1);
+		width: 124px;
+		height: 124px;
+		position: absolute;
+		left: 0;
+		top: 0;
+
+		img {
+			@include border-radius(8px);
+		}
+	}
+
+	.details {
+		margin: 10px 0;
+		text-transform: none;
+		padding-left: 136px;
+		padding-top: 35px;
+		width: 100%;
+		@extend %box-sizing;
+
+		> div {
+			margin-bottom: 10px;
+		}
+
+		.change_password {
+			a {
+				color: $pink;
+			}
+		}
+	}
+
+	.grid {
+		> .row {
+			.item {
+				@extend %box-sizing;
+				width: 33.3333333%;
+				float: left;
+				padding: 0 5px;
+				padding-bottom: 40px;
+				margin-bottom: 20px;
+				position: relative;
+			}
+		}
+
+		.image {
+			@extend %box-sizing;
+			@include border-radius(16px);
+			padding: 6px;
+			background: rgba(0, 0, 0, .1);
+			margin: 0 5px;
+
+			img {
+				@include border-radius(16px);
+			}
+		}
+
+		.meta {
+			margin: 10px 0 0;
+			font-size: 14px;
+			height: 38px;
+			text-align: center;
+			text-transform: none;
+		}
+
+		.button {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			-webkit-transform: translateX(-50%);
+			transform: translateX(-50%);
+		}
+	}
+
+	#downloads {
+		margin-top: 36px;
+		background: #f4f4f4;
+	}
+}
+
+@media only screen and (min-width: 415px) {
+
+	#profile {
+		.grid {
+			> .row {
+				.item {
+					width: 25%;
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 600px) {
+
+	#profile {
+		#back {
+			margin-top: 12px;
+		}
+
+		#downloads {
+			margin-top: 42px;
+		}
+	}
+
+}
+
+@media only screen and (min-width: 640px) {
+
+	#profile {
+		.grid {
+			> .row {
+				.item {
+					width: 20%;
+				}
+			}
+		}
+	}
+
+}
+
+
+@media only screen and (min-width: 800px) {
+
+	#profile {
+		#back {
+			margin-top: 15px;
+		}
+
+		.grid {
+			.image {
+				@include border-radius(22px);
+				padding: 10px;
+
+				img {
+					@include border-radius(22px);
+				}
+			}
+		}
+	}
+
+}

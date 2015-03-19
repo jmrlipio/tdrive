@@ -1,0 +1,50 @@
+#form #content input[type="text"], #form #content input[type="email"], #form #content input[type="password"], #form #content select {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#form {
+  background: #465a65;
+}
+#form #content {
+  color: #fff;
+  width: 300px;
+  margin: auto;
+}
+#form #content .control {
+  margin: 10px 0;
+  width: 100%;
+}
+#form #content .control-group {
+  margin: 10px 0;
+}
+#form #content input[type="text"], #form #content input[type="email"], #form #content input[type="password"], #form #content select {
+  width: 100%;
+  padding: 4px 6px;
+}
+#form #content input[type="submit"] {
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+  text-transform: lowercase;
+}
+#form #content .carrier-submit {
+  padding: 5px 20px !important;
+  font-size: 20px !important;
+  margin-top: 10px;
+}
+#form #content .link {
+  color: #e9548e;
+}
+#form #content #register label {
+  display: block;
+  margin-bottom: 5px;
+}
+#form #content #register input[type="submit"] {
+  margin: 15px 0 10px;
+}
+
+.select_carrier #header {
+  display: none !important;
+}

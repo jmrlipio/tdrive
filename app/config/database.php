@@ -49,14 +49,31 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'forge',
-			'username'  => 'forge',
-			'password'  => '',
+			// 'database'  => 'jigzenco_tdrive-fin',
+			// 'username'  => 'jigzenco_tdrive',
+			// 'password'  => '1234aA',
+			'database'  => 'jigzenco_tdrive',
+			'username'  => 'jigzenco_tdrive',
+			'password'  => '1234aA',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-
+		'tracker' => [
+				    'driver'   => 'mysql',
+				    'host'     => 'localhost',
+				    'database'  => 'jigzenco_tdrive',
+					'username'  => 'jigzenco_tdrive',
+					'password'  => '1234aA',
+				    // 'database' => 'jigzenco_tdrive-fin',
+				    // 'username' =>'jigzenco_tdrive',
+				    // 'password' => '1234aA',
+				    'charset'  => 'utf8',
+				    'prefix'   => '',
+				    'collation' => 'utf8_unicode_ci',
+				    'schema'   => 'public',
+				],
+		
 	),
 
 	/*
