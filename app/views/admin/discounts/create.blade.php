@@ -29,6 +29,11 @@
 						{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 					</li>
 					<li>
+						{{ Form::label('game_id', 'Games: ') }}
+						{{ Form::select('game_id[]', $games, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose game(s)...'))  }}
+						{{ $errors->first('game_id', '<p class="error">:message</p>') }}
+					</li>
+					<li>
 						{{ Form::label('discount_percentage', 'Discount Percentage: ') }}
 						{{ Form::text('discount_percentage', null, array('id' => 'discount-percent')) }}
 						{{ $errors->first('discount_percentage', '<p class="error">:message</p>') }}
@@ -53,14 +58,9 @@
 						{{ $errors->first('end_date', '<p class="error">:message</p>') }}
 					</li>
 					<li>
-						{{ Form::label('featured_image', 'Choose an image') }}
+						{{ Form::label('featured_image', 'Featured Image:') }}
 						{{ Form::file('featured_image') }}
 						{{ $errors->first('featured_image', '<p class="error">:message</p>') }}
-					</li>
-					<li>
-						{{ Form::label('game_id', 'Games: ') }}
-						{{ Form::select('game_id', $games, null)  }}
-						{{ $errors->first('game_id', '<p class="error">:message</p>') }}
 					</li>
 					<li>
 						{{ Form::submit('Save') }}
