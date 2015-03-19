@@ -463,4 +463,6 @@ class AdminGamesController extends \BaseController {
     		->with('game', $game);
     	
     }
+
+    
 }

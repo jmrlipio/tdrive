@@ -53,11 +53,57 @@ class ReviewsController extends \BaseController {
 		if ($validator->passes()) {
 			Review::create(Input::all());
 
+			$data = Review::whereViewed(0)->count();
+
+			Event::fire('user.post.review',array($data));
+
 			return Redirect::to($url)->with('message', 'Your review has been added.');
 		}
 
 		//validator fails
 		return Redirect::to($url)->withErrors($validator)->withInput();
+	}
+
+	public function getNotifications($id){
+
+    	$review = Review::find($id);
+    	$viewed = Review::whereId($id);
+    	$viewed->update(array('viewed' => 1));
+
+    	return View::make('admin.notifications.index')
+    		->with('review', $review);
+					
+    }
+
+    public function apprroveReview(){
+
+    	$review = Review::whereId(Input::get('id'));
+        $review->update(array('status' => 1));
+
+    	return Redirect::back()->with('success','Review approved!');  
+					
+    }
+
+    public function destroy($id)
+	{
+		$review = Review::find($id);
+		
+		if($review)
+		{
+			$review->delete();
+			
+			$reviews = Review::orderBy('id')->paginate(10);
+
+			return View::make('admin.reviews.index')
+				->with('page_title', 'Reviews - Admin')
+				->with('page_id', 'reviews')
+				->with(compact('reviews'));	
+		}
+
+		return View::make('admin.reviews.index')
+			->with('page_title', 'Reviews - Admin')
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'failed');
 	}
 
 }

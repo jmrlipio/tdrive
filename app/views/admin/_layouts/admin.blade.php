@@ -37,7 +37,10 @@
                 <p>
                     Welcome, 
                     <a href="{{ URL::route('admin.users.show', Auth::user()->id) }}">{{ Auth::user()->first_name }}</a> | 
-                    {{ link_to_route('admin.logout', 'Sign Out') }}
+                    {{ link_to_route('admin.logout', 'Sign Out') }}                    
+                </p>
+                <p> 
+                    <a href="{{ URL::route('admin.reviews.index')}}">{{ 'You have '. Review::whereViewed(0)->count() .' new notification'}}</a>                   
                 </p>
             @else
                 <p>     

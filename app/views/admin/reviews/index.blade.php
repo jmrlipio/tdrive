@@ -27,7 +27,20 @@
 			<tbody>
 				@foreach($reviews as $review)
 					<tr>
-						<td>{{ $review->game->main_title }}</td>
+						<td>
+							
+							<a href="{{ URL::route('admin.notifications.show', $review->id) }}">{{ $review->game->main_title }}</a>
+							<ul class="actions">							
+								<li><a href="{{ URL::route('admin.notifications.show', $review->id) }}">View</a></li>
+								<li>
+									{{-- Form::open(array('route' => array('admin.notifications.destroy', $review->id), 'method' => 'delete', 'class' => 'delete-form')) --}}
+										{{-- Form::submit('Delete', array('class' => 'delete-btn')) --}}
+									{{-- Form::close() --}}
+								</li>
+							</ul>
+							
+						</td>
+
 						<td>{{ $review->user->first_name }}</td>
 						<td>{{ $review->user->last_name }}</td>
 						<td>{{ $review->review }}</td>
