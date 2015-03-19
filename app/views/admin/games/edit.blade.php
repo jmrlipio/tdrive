@@ -101,19 +101,6 @@
 					@endif
 					<br>
 					<h3>Prices:</h3>
-					{{-- 
-					@if($selected_carriers)
-					<ul>
-						@foreach($carriers as $carrier_id => $carrier)
-							@if(in_array($carrier_id, $selected_carriers))
-								<li><a href="{{ URL::route('admin.games.edit.prices', array('game_id' => $game->id, 'carrier_id' => $carrier_id)) }}">{{ $carrier }}</a></li>
-							@endif
-						@endforeach
-					</ul>
-					@else
-						<p>Please select one or more carriers to add prices to this game.</p>
-					@endif
-					--}}
 					{{ Form::open(array('route' => array('admin.games.edit.prices', $game->id, $game->carrier_id), 'method' => 'post', 'id' => 'prices-form')) }}
 						<br>
 						@foreach($countries as $country)
@@ -147,7 +134,7 @@
 							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('promo', 'Featured Image:', array('class' => 'image-label')) }}
+							{{ Form::label('promo', 'Promo Image:', array('class' => 'image-label')) }}
 							@foreach($selected_media as $media)
 								@if($media['type'] == 'promos')
 									<div class="media-box">
@@ -167,6 +154,27 @@
 								@endif
 							@endforeach
 							{{ Form::file('icon', array('id' => 'icon-img')) }}
+						</li>
+						<li>
+							{{ Form::label('homepage', 'Homepage Image:', array('class' => 'image-label')) }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'homepage')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+								@endif
+							@endforeach
+							{{ Form::file('homepage', array('id' => 'homepage-img')) }}
+						</li>
+						<li>
+							{{ Form::label('video', 'Video URL: ') }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'video')
+									<?php $video = $media['media_url']; ?>
+								@endif
+							@endforeach
+							<?php if(!isset($video)) $video = null; ?>
+							{{ Form::text('video', $video) }}
 						</li>
 						<h3>Screenshots:</h3>
 						<br>

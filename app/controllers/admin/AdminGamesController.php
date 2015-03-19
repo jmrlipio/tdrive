@@ -205,6 +205,17 @@ class AdminGamesController extends \BaseController {
 			$this->syncMedia($game, 'icons', $icon_name);
 		}
 
+		if(Input::get('video') != '') {
+			$video = Input::get('video');
+			$this->syncMedia($game, 'video', $video);
+		}
+
+		if(Input::hasFile('homepage')) {
+			$homepage = Input::file('homepage');
+			$homepage_name = $this->saveMedia($homepage, 'homepage');
+			$this->syncMedia($game, 'homepage', $homepage_name);
+		}
+
 		$orientation = Input::get('image_orientation');
 
 		$game->update(array('image_orientation' => $orientation));
@@ -292,8 +303,11 @@ class AdminGamesController extends \BaseController {
 			$orientation = '';
 			if($media->type == 'screenshots') $orientation = $game->image_orientation . '-';
 
+			if($media->type == 'video') $media_url = $media->url;
+			else $media_url = $root . '/assets/games/' . $media->type . '/' . $orientation . $media->url;
+
 			$selected_media[$count]['media_id'] = $media->id;
-			$selected_media[$count]['media_url'] = $root . '/assets/games/' . $media->type . '/' . $orientation . $media->url;
+			$selected_media[$count]['media_url'] = $media_url;
 			$selected_media[$count]['type'] = $media->type;
 			$count++;
 		}
@@ -412,13 +426,15 @@ class AdminGamesController extends \BaseController {
 		$game = Game::find($id);
 		$carrier = Carrier::find($carrier_id);
 
+		$url = URL::route('admin.games.edit', $game->id) . '#game-content';
+
 		$game->prices()->detach($carrier_id);
 
 		foreach(Input::get('prices') as $country_id => $price) {
 			$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
 		}
 
-		return Redirect::back()->with('message', 'You have successfully updated this game content');
+		return Redirect::to($url)->with('message', 'You have successfully updated this game content');
 	}
 
 	public function getGameByCategory() 
