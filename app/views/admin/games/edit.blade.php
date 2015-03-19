@@ -257,21 +257,28 @@
 	    var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    //checkDimensions('promo', control,this.files[0]);
+	    //checkDimensions('promo', control, this.files[0]);
 	});
 
 	$("#media").on('change', '#icon-img', function(e) {
 		var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    //checkDimensions('icon', control,this.files[0]);
+	    //checkDimensions('icon', control, this.files[0]);
+	});
+
+	$("#media").on('change', '#homepage-img', function(e) {
+		var control = $(this),
+			orientation = 'landscape';
+
+		// checkDimensions('homepage', control, this.files[0]);
 	});
 
 	$("#media").on('change', '.screenshot', function(e) {
 	    var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    //checkDimensions('screenshot', control,this.files[0]);
+	    //checkDimensions('screenshot', control, this.files[0]);
 	});
 
 	function checkDimensions(type, control,first) {
@@ -288,6 +295,9 @@
 	    } else if(type == 'icon') {
 	    	width = 512;
 	    	height = 512;
+	    } else if(type == 'homepage') {
+	    	width = 1024;
+	    	height = 768;
 	    } else {
 	    	if(orientation == 'landscape') {
 	    		width = 800;
@@ -302,7 +312,7 @@
 	        image = new Image();
 
 	        image.onload = function() {
-	            if(!(this.width == width && this.height == height) || (this.width == width && this.height == height)) {
+	            if(!((this.width == width && this.height == height) || (this.width == width && this.height == height))) {
 	            	alert('Please upload an image with a ' + width + ' x ' + height +' dimension. You have uploaded a ' + this.width + ' x ' + this.height + ' image');
 	            	control.replaceWith(control = control.clone(true));
 	            }

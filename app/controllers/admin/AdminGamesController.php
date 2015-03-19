@@ -208,6 +208,12 @@ class AdminGamesController extends \BaseController {
 		if(Input::get('video') != '') {
 			$video = Input::get('video');
 			$this->syncMedia($game, 'video', $video);
+		} else {
+			foreach($game->media as $media) {
+				if($media->type == 'video') {
+					$game->media()->detach($media->id);
+				}
+			}
 		}
 
 		if(Input::hasFile('homepage')) {
