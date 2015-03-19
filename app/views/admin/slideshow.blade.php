@@ -2,56 +2,81 @@
 
 @section('content')
 	@include('admin._partials.options-nav')
-	<div class="item-listing" id="featured-games">
-		<h2>Slideshow Listing</h2>
-		<p>Please select the games you want to feature on the homepage slideshow.</p>
-		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-hover"  id="game_table">
-				<thead>
-					<tr>
-						<th>News Title</th>
-						<th>Featured</th>
-					</tr>
-				</thead>
+	<article>
+		<h2>Homepage</h2>
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
 
-				<tbody>
-					@foreach($games as $game)
-						<tr>
-							<td>
-								{{ $game->main_title }}
-							</td>
-							<td>
-								<center>
-									@if($game->featured == 1)
-										<input type="checkbox" class="featured" name="featured[]" value="{{ $game->featured }}" checked id="{{ $game->id }}"/>
-									@else
-										<input type="checkbox" class="featured" name="featured[]" value="{{ $game->featured }}" id="{{ $game->id }}" />
-									@endif
-								</center>
-							</td>
-						</tr>
-					@endforeach
-				</tbody>
-			</table>
-		</div>
-		{{ $games->links() }}
 		<br>
-	</div>
+		<div class='large-form tab-container' id='tab-container'>
+			<ul class='etabs'>
+				<li class='tab'><a href="#slider">Slider</a></li>
+				<li class='tab'><a href="#categories">Categories</a></li>
+			</ul>
+			<div class='panel-container'>
+				<ul id="slider">
+					<div class="option-select">
+						<li>
+							{{ Form::label('game_id', 'Games: ') }} <br><br>
+							{{ Form::select('game_id[]', $games, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'games', 'data-placeholder'=>'Choose game(s)...'))  }}
+							{{ $errors->first('game_id', '<p class="error">:message</p>') }}
+						</li>
+						<li>
+							{{ Form::label('news_id', 'News: ') }} <br><br>
+							{{ Form::select('news_id[]', $news, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'news','data-placeholder'=>'Choose game(s)...'))  }}
+							{{ $errors->first('news_id', '<p class="error">:message</p>') }}
+						</li>
+					</div>
+					{{ Form::open(array('route' => 'admin.featured.store')) }}
+						<ul class="sortable-items" id="sortables">
+							
+						</ul>
+					{{ Form::close() }}
+					<div class="clear"></div>
+				</ul>
+				<ul id="categories">
+					
+				</ul>
+			</div>
+		</div>
+	</article>
+	{{ HTML::script('js/jquery.easytabs.min.js') }}
+	{{ HTML::script('js/chosen.jquery.js') }}
 	<script>
 		$("document").ready(function(){
-	        $('.featured').on('click', function() {
-	        	var id = $(this).attr('id');
-	        	var checked = ($(this).is(':checked')) ? 1 : 0;
+			$('.tab-container').easytabs();
+			$(".chosen-select").chosen();
 
-	            $.ajax({
-	                type: "POST",
-	                url : "{{ URL::route('admin.featured') }}",
-	                data :{
-	                	"featured": checked,
-	                	"id": id
-	                }
-	            });
-	    	});
+			$('.chosen-select').on('change', function(evt, selected) {
+				var selector = $(this),
+					type = $(this).attr('id'),
+					sortables = $('#sortables');
+
+				if(selected.selected != null) {
+					var options = selector.children(":selected");
+
+					options.each(function(){
+						if($(this).val() == selected.selected) {
+
+							var append = '<li> \
+											<div class="item-title"> ' + $(this).text() + '</div> \
+											<div class="item-type"> ' + type + '</div> \
+										  </li>';
+
+							sortables.append(append);
+						}
+					});
+				} else {
+					alert(selected.deselected);
+				}
+			});
+
+			// $('.chosen-select option').on('click', function() {
+			// 	alert('test');
+			// });
 		});
 	</script>
 @stop
