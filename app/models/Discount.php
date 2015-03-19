@@ -14,10 +14,6 @@ class Discount extends \Eloquent {
 		'featured_image' => 'required'
 	];
 
-	public function games() {
-		return $this->belongsTo('Game');
-	}
-
 	public function carrier() {
 		return $this->belongsTo('Carrier');
 	}
