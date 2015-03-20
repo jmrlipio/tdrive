@@ -28,6 +28,10 @@ class Carrier extends \Eloquent {
         return $this->tripleBelongsToMany('Game', 'Country', 'game_prices' )->withPivot('price');
     }
 
+    public function discounts() {
+    	return $this->hasMany('Discounts');
+    }
+
 	// public function sales() {
 	// 	return $this->belongsToMany('Game', 'sale_games');
 	// }

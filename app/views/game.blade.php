@@ -38,8 +38,6 @@
 		</div>
 	</div><!-- end #top -->
 
-	{{ Session::get('locale') }}
-
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
@@ -111,18 +109,18 @@
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-
+		
 		@foreach($game->contents as $item)
-			@if(isset($_GET['locale']))
-				@if($_GET['locale'] == strtolower($item->iso_code))
-					{{ htmlspecialchars_decode($item->pivot->content) }}
+			@if(Session::has('locale'))
+				@if(Session::get('locale') == strtolower($item->iso_code))
+				 {{ htmlspecialchars_decode($item->pivot->content) }}
 				@endif
 			@else
 				@if(strtolower($item->iso_code) == 'us')
-					{{ htmlspecialchars_decode($item->pivot->content) }}
+				 {{ htmlspecialchars_decode($item->pivot->content) }}
 				@endif
 			@endif
-		@endforeach
+  		@endforeach
 
 	</div><!-- end #description -->
 
@@ -182,10 +180,22 @@
 			@endif
 
 			<div class="social clearfix">
+				<?php  $excerpt = ""; ?>
+				@foreach($game->contents as $item)
+					@if(Session::has('locale'))
+						@if(Session::get('locale') == strtolower($item->iso_code))
+						<?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
+						@endif
+					@else
+						@if(strtolower($item->iso_code) == 'us')
+						 <?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
+						@endif
+					@endif
+		  		@endforeach
 
 				<a href="#share" id="inline" class="share" >
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
-					<span>Share</span>
+					<span>Share </span>
 				</a>
 
 				<div style="display:none">
@@ -193,7 +203,7 @@
 						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
 						
 						<!-- TWITTER SHARE -->
-						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "Hey! Checkout this new game named {{ $game->main_title }} at \n"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{$excerpt}} \n"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
 
@@ -478,8 +488,7 @@
 						_token: token
 					},
 					success: function(data) {
-						// location.reload();
-						console.log('success');
+						location.reload();
 					}
 				});
 			}
@@ -498,7 +507,7 @@
 						_token: token
 					},
 					success: function(data) {
-						// location.reload();
+					    location.reload();
 					}
 				});
 			}

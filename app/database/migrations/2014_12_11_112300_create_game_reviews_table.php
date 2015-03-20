@@ -22,6 +22,7 @@ class CreateGameReviewsTable extends Migration {
 			$table->text('review');
 			$table->boolean('status');
 			$table->integer('rating');
+			$table->boolean('viewed');
 			$table->timestamps();
 		});
 	}

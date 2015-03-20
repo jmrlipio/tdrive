@@ -25,13 +25,19 @@ class DiscountsController extends \BaseController {
 	public function create()
 	{
 		$games = [];
+		$carriers = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
 
 		foreach(Game::all() as $game) {
 			$games[$game->id] = $game->main_title;
 		}
 
 		return View::make('admin.discounts.create')
-			->with('games', $games);
+			->with('games', $games)
+			->with('carriers', $carriers);
 	}
 
 	/**

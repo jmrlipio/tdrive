@@ -33,3 +33,5 @@ class CreateSlidersTable extends Migration {
 	}
 
 }
+
+
