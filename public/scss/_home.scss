@@ -30,6 +30,10 @@
 		img { width: 100%; }
 	}
 
+	.thumbs-container {
+		display: none;
+	}
+
 	.thumb {
 		@extend %box-sizing;
 		@include border-radius(20px);

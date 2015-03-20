@@ -30,6 +30,9 @@
 #home #slider img {
   width: 100%;
 }
+#home .thumbs-container {
+  display: none;
+}
 #home .thumb {
   -webkit-border-radius: 20px;
   border-radius: 20px;

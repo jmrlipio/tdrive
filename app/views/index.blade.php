@@ -478,6 +478,10 @@
 
 			$('#slider').show();
 
+			$('.thumbs-container').each(function() {
+				$(this).show();
+			});
+
 			for(var i = 0; i < ctr; i++) {
 	        	$('#myModal' + (i + 1)).modal('show');
 	        }
@@ -491,6 +495,15 @@
 				centeredSlides: true,
 				calculateHeight: true,
 				initialSlide: 2
+			});
+
+			$('.thumbs-container').each(function() {
+				$(this).swiper({
+					slidesPerView: 'auto',
+					offsetPxBefore: 0,
+					offsetPxAfter: 10,
+					calculateHeight: true
+				});
 			});
 
 	    });
@@ -535,15 +548,6 @@
 					}
 				});
 			}
-		});
-
-		$('.thumbs-container').each(function() {
-			$(this).swiper({
-				slidesPerView: 'auto',
-				offsetPxBefore: 0,
-				offsetPxAfter: 10,
-				calculateHeight: true
-			});
 		});
 
 		$("#questions").accordion({ 
