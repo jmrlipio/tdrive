@@ -127,7 +127,7 @@
 			*/
 		   $('#review_table').dataTable( {
 		      "aoColumnDefs": [
-		          { 'bSortable': true, 'aTargets': [ 4 ], "sType": "formatted-num" }
+		          { 'bSortable': true, 'aTargets': [ 5 ], "sType": "formatted-num" }
 		        
 		       ]
 			});
