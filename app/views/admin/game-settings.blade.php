@@ -35,8 +35,16 @@
 				{{ HTML::image(Request::root() . '/assets/site/' . $settings->ribbon_url, null) }}
 			</div>
 
-			{{ Form::label('ribbon_url', 'Ribbon:') }}
+			{{ Form::label('ribbon_url', 'Free Ribbon:') }}
 			{{ Form::file('ribbon_url') }}
+		</li>
+		<li>
+			<div class="media-box" id="sale">
+				{{ HTML::image(Request::root() . '/assets/site/' . $settings->sale_url, null) }}
+			</div>
+
+			{{ Form::label('sale_url', 'On Sale Ribbon:') }}
+			{{ Form::file('sale_url') }}
 		</li>
 		{{ Form::submit('Update Settings') }}
 	{{ Form::close() }}

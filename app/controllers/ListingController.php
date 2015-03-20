@@ -249,6 +249,30 @@ class ListingController extends \BaseController {
 			->with('search', Input::get('search'));
 	}
 
+	public function searchGamesByCategory() 
+	{
+		$id = Input::get('id');
+
+		$languages = Language::all();
+
+		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(6)->get();
+
+		//$games = Category::find($id)->games->take(6);
+
+		$count = count($games);
+
+		$country = Country::find(Session::get('country_id'));
+
+		return View::make('search')
+			->with('page_title', 'Search results')
+			->with('page_id', 'game-listing')
+			->with('count', $count)
+			->with('country', $country)
+			->with(compact('games'))
+			->with(compact('languages'))
+			->with('search', Input::get('search'));
+	}
+
 	public function searchMoreGames() 
 	{
 		$load = Input::get('load') * 6;

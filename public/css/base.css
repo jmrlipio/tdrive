@@ -264,6 +264,10 @@ img.auto, video.auto {
   display: block;
 }
 
+.clear {
+  clear: both;
+}
+
 .clearfix {
   *zoom: 1;
 }
@@ -279,10 +283,6 @@ img.auto, video.auto {
   font: 0 / 0 a;
   text-shadow: none;
   color: transparent;
-}
-
-.flash-success, .flash-fail {
-  text-transform: none;
 }
 
 #end {
@@ -451,7 +451,7 @@ img.auto, video.auto {
 }
 
 #nav-toggle, #back {
-  margin-top: 12px;
+  margin-top: 13px;
   margin-right: 12px;
   display: block;
   float: left;
@@ -476,7 +476,7 @@ img.auto, video.auto {
   float: right;
   padding-top: 0;
   width: 57px;
-  height: 50px;
+  height: 46px;
 }
 #tose a {
   display: block;
@@ -495,12 +495,8 @@ img.auto, video.auto {
   z-index: 99999;
 }
 
-#header .container {
-  padding: 0 10px;
-}
-
 #content {
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
 #footer {
@@ -620,9 +616,6 @@ img.auto, video.auto {
   #footer .copyright p {
     clear: both;
   }
-  #tose {
-    height: 50px;
-  }
 }
 @media only screen and (min-width: 800px) {
   .mobile, #nav-toggle, #side-menu {
@@ -709,7 +702,7 @@ img.auto, video.auto {
   }
 
   #tdrive {
-    padding: 13px 0;
+    padding: 16px 0;
   }
 
   #tose {
@@ -720,5 +713,3 @@ img.auto, video.auto {
     padding-top: 0;
   }
 }
-
-

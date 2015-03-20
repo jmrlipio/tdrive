@@ -19,6 +19,7 @@ class CreateGameDiscountsTable extends Migration {
             $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('discount_id')->unsigned()->index();
             $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('cascade');
+            $table->integer('user_count')->unsigned();
 			$table->timestamps();
 		});
 	}

@@ -96,17 +96,23 @@ class DiscountsController extends \BaseController {
 
 		$games = [];
 		$selected_games = [];
-
-		foreach(Game::all() as $game) {
-			$games[$game->id] = $game->main_title;
-		}
+		$carriers = [];
 
 		foreach($discount->games as $game) {
 			$selected_games[] = $game->id;
 		}
 
+		foreach(Game::all() as $game) {
+			$games[$game->id] = $game->main_title;
+		}
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+
 		return View::make('admin.discounts.edit')
 			->with('discount', $discount)
+			->with('carriers', $carriers)
 			->with('games', $games)
 			->with('selected_games', $selected_games);
 	}
