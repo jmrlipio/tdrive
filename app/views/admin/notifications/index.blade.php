@@ -32,6 +32,7 @@
 
  		<p><strong>Review:</strong> {{ $review->review }}</p> <br>
 
+
  		{{ Form::open(array('route' => 'review.approve', 'class' => 'login fl' )) }}
 
 			@if($review->status == '1')			
