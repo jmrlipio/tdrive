@@ -16,8 +16,7 @@
 			<thead>
 				<tr>
 					<th>Game Title</th>
-					<th>First Name</th>
-					<th>Last Name</th>
+					<th>Name</th>
 					<th>Review</th>
 					<th>Approve</th>
 					<th>Rating</th>
@@ -52,9 +51,8 @@
 							
 						</td>
 
-						<td>{{ $review->user->first_name }}</td>
-						<td>{{ $review->user->last_name }}</td>
-
+						<td>{{ $review->user->first_name . ' ' . $review->user->last_name }}</td>
+						
 						<td>{{ str_limit($review->review, $limit = 200, $end = '...') }}</td>
 
 						<td>
@@ -118,7 +116,7 @@
 			*/
 		   $('#review_table').dataTable( {
 		      "aoColumnDefs": [
-		          { 'bSortable': false, 'aTargets': [ 5 ] }
+		          { 'bSortable': false, 'aTargets': [ 4 ] }
 		       ]
 			});
 
