@@ -194,13 +194,7 @@ class SiteOptionsController extends \BaseController {
 	{
 		$data = Input::all();
         
-        if(Request::ajax())
-        {
-            $id = $data['id'];
-            $game = Game::where('id', $id)->first();
-            $game->featured = $data['featured'];
-            $game->update();
-        }
+        dd($data);
 	}
 
 }

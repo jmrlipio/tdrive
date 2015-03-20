@@ -511,3 +511,15 @@ a#back {
 	float: right;
 	padding-right: 10px;
 }
+
+.grab {
+    cursor: move;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.grabbing {
+	cursor: move;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}

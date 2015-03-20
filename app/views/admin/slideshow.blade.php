@@ -30,10 +30,11 @@
 							{{ $errors->first('news_id', '<p class="error">:message</p>') }}
 						</li>
 					</div>
-					{{ Form::open(array('route' => 'admin.featured.store')) }}
+					{{ Form::open(array('route' => 'admin.featured.update')) }}
 						<ul class="sortable-items" id="sortables">
 							
 						</ul>
+						{{ Form::submit('Save Order') }}
 					{{ Form::close() }}
 					<div class="clear"></div>
 				</ul>
@@ -50,6 +51,8 @@
 			$('.tab-container').easytabs();
 			$(".chosen-select").chosen();
 
+			$('#sortables').sortable();
+
 			$('.chosen-select').on('change', function(evt, selected) {
 				var selector = $(this),
 					type = $(this).attr('id'),
@@ -61,9 +64,10 @@
 					options.each(function(){
 						if($(this).val() == selected.selected) {
 
-							var append = '<li> \
+							var append = '<li class="grab"> \
 											<div class="item-title"> ' + $(this).text() + '</div> \
 											<div class="item-type"> ' + type + '</div> \
+											<input type="hidden" name="item[' + selected.selected + ']" value="' + type +'"> \
 										  </li>';
 
 							sortables.append(append);
@@ -74,9 +78,27 @@
 				}
 			});
 
+			
+
+			// $('.chosen-select option:selected').each(function(){
+			// 	alert($(this).val());
+			// });
+
+			// $('#sortables li').each(function() {
+			// 	var item = $(this);
+			// 	item.mousedown(function() { item.removeClass('grab'); item.addClass('grabbing'); });
+				
+			// });
+
 			// $('.chosen-select option').on('click', function() {
 			// 	alert('test');
 			// });
+		});
+
+		$('#sortables').on('li',function(){
+			var item = $(this);
+
+			item.mouseup(function(){ alert('test'); });
 		});
 	</script>
 @stop
