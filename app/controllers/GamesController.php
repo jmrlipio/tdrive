@@ -133,7 +133,17 @@ class GamesController extends \BaseController {
 		//
 	}
 
-	public function loadGames() {
+	public function loadGameContent() 
+	{
+		$game = Game::find(Input::get('id'));
+
+		foreach($game->contents as $g) {
+			echo $g->pivot->content;
+		}
+	}
+
+	public function loadGames() 
+	{
 		$games = Game::with('media')->get();
 
 		return $games->toJson();

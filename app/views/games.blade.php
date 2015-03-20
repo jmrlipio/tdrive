@@ -6,7 +6,9 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">New and updated games</h1>
+		<h1 class="title">All categories</h1>
+
+		<div class="clear"></div>	
 
 		<div id="token">{{ Form::token() }}</div>
 
