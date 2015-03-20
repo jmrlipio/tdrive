@@ -40,28 +40,33 @@
 
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
-			<div class="vcenter">
+			<div class="vhcenter">
 				<p class="count">{{ number_format($game->downloads, 0) }}</p>
-				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
+				<p class="words">Downloads</p>
 			</div>
 		</div>
 
 		<div class="ratings">
-			<div class="vcenter">
+			<div class="vhcenter">
+
 				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
+
 				<?php $ctr = $ratings['average'] ? $ratings['average'] : 0; ?>
+
 				<div class="stars">
 	
-					@for ($i=1; $i <= 5; $i++)						
+					@for ($i = 1; $i <= 5; $i++)						
+
 						@if($i <= $ctr)
 							<a href="#"><i class="fa fa-star active"></i></a>									
 						@else
 							<a href="#"><i class="fa fa-star"></i></a>
 						@endif
+
 					@endfor  
 					
-					
 				</div>
+
 			</div>
 		</div>
 
