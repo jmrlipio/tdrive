@@ -321,6 +321,7 @@
 
 		.bottom {
 			padding: 10px 0;
+			display: inline-block;
 
 			> div {
 				.stars {
@@ -354,6 +355,7 @@
 						padding-left: 10px;
 						width: 20%;
 						font-size: 14px;
+						margin-top: 2px;
 						@extend %box-sizing;
 					}
 				}
