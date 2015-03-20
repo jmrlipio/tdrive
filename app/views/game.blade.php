@@ -114,18 +114,22 @@
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-		
+
 		@foreach($game->contents as $item)
+
 			@if(Session::has('locale'))
+
 				@if(Session::get('locale') == strtolower($item->iso_code))
-				 {{ htmlspecialchars_decode($item->pivot->content) }}
+					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
-			@else
-				@if(strtolower($item->iso_code) == 'us')
-				 {{ htmlspecialchars_decode($item->pivot->content) }}
+
+				@else
+					@if(strtolower($item->iso_code) == 'us')
+						<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
 			@endif
-  		@endforeach
+
+		@endforeach
 
 	</div><!-- end #description -->
 
@@ -701,6 +705,23 @@
 	            }
 			});
         });
+
+		$('#description .readmore').click(function(e) {
+			e.preventDefault();
+
+			$.ajax({
+				type: 'POST',
+				url: "<?php echo URL::route('games.content.load'); ?>",
+				data: { 
+					id: <?php echo Request::segment(2); ?>,
+					_token: token
+				},
+
+				success: function(data) {
+					$('#description .content').html(data);
+				}
+			});
+		});
 
 		$('#carrier').on('submit', function(e){
 			e.preventDefault();

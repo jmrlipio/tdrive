@@ -45,6 +45,8 @@ Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@
 Route::get('carrier/load', array('as' => 'carrier.load', 'uses' => 'CarriersController@loadCarrier'));
 Route::get('games/load', array('as' => 'games.load', 'uses' => 'GamesController@loadGames'));
 
+Route::post('games/load/content/{id}', array('as' => 'games.content.load', 'uses' => 'GamesController@loadGameContent'));
+
 Route::group(array('prefix' => 'admin'), function() {
 	Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
     Route::post('login', array('as' => 'admin.login.post', 'uses' => 'AdminUsersController@postLogin'));
