@@ -6,7 +6,7 @@
 		.fl { float: left; }
 		.clear { clear:both; }
 		form.login { width: 15%; }
-		input:disabled:hover { background: #5cb85c; }
+		input:disabled:hover { background: #5cb85c; cursor: not-allowed;}
 		input:disabled { background: #5cb85c; }
   		h3.flash-success { color: green !important; line-height: 40px; }
 	</style>
@@ -24,13 +24,13 @@
 
         @endif
 		
+		<br>
 
-		<p>Game Title: {{ $review->game->main_title }}</p>
+		<p>Game Title: {{ $review->game->main_title }}</p>	<br>	
 		
-		
- 		<p>Review by: {{ $review->user->first_name  }}</p>
+ 		<p>Review by: {{ $review->user->first_name  }}</p> <br>
 
- 		<p>Review: {{ $review->review }}</p>
+ 		<p>Review: {{ $review->review }}</p> <br>
 
  		{{ Form::open(array('route' => 'review.approve', 'class' => 'login fl' )) }}
 
