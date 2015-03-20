@@ -29,6 +29,8 @@ Route::post('review/{id}/post', array('as' => 'review.post', 'uses' => 'ReviewsC
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
 
+Route::post('category/search', array('as' => 'search', 'uses' => 'ListingController@searchGamesByCategory'));
+
 Route::post('language', array(
 	'before' => 'csrf',
 	'as' => 'choose_language',

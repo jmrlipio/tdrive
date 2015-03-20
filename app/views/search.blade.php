@@ -8,6 +8,8 @@
 	<div class="container">
 		<h1 class="title">Search results</h1>
 
+		<div class="clear"></div>	
+
 		<div id="token">{{ Form::token() }}</div>
 
 		<div class="grid">
