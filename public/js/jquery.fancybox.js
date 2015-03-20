@@ -1389,6 +1389,14 @@
 			if (!iframe && current.autoHeight && height > minHeight && height < maxHeight && !canExpand) {
 				inner.height('auto');
 			}
+
+			$(F.outer).on('swipeleft', function() {
+				F.next();
+			});
+
+			$(F.outer).on('swiperight', function() {
+				F.prev();
+			})
 		},
 
 		_getPosition: function (onlyAbsolute) {
