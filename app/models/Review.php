@@ -11,8 +11,7 @@ class Review extends Eloquent {
 		'user_id' => 'required|integer',
 		'review' => 'required',
 		'rating' => 'required',
-		'captcha' => 'required|captcha',
-		'status' => 'required|boolean'
+		'captcha' => 'required|captcha'
 	];
 
 	public function user() {

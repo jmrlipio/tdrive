@@ -57,7 +57,7 @@ class ReviewsController extends \BaseController {
 
 			Event::fire('user.post.review',array($data));*/
 
-			return Redirect::to($url)->with('message', 'Your review has been added.');
+			return Redirect::to($url)->with('message', 'Your review has been submitted for approval.');
 		}
 
 		//validator fails
