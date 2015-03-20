@@ -47,19 +47,20 @@
 		</div>
 
 		<div class="ratings">
-			<div class="vcenter">
+			<div class="vhcenter">
 				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
+
 				<?php $ctr = $ratings['average'] ? $ratings['average'] : 0; ?>
+
 				<div class="stars">
 	
 					@for ($i=1; $i <= 5; $i++)						
 						@if($i <= $ctr)
-							<a href="#"><i class="fa fa-star active"></i></a>									
+							<i class="fa fa-star active"></i>
 						@else
-							<a href="#"><i class="fa fa-star"></i></a>
+							<i class="fa fa-star"></i>
 						@endif
 					@endfor  
-					
 					
 				</div>
 			</div>
@@ -113,11 +114,11 @@
 		@foreach($game->contents as $item)
 			@if(Session::has('locale'))
 				@if(Session::get('locale') == strtolower($item->iso_code))
-				 {{ htmlspecialchars_decode($item->pivot->content) }}
+					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
 			@else
 				@if(strtolower($item->iso_code) == 'us')
-				 {{ htmlspecialchars_decode($item->pivot->content) }}
+					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
 			@endif
   		@endforeach
@@ -167,14 +168,30 @@
 
 				<div class="stars-container">
 					<div class="stars">
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star"></i></a>
-						<a href="#"><i class="fa fa-star"></i></a>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
 					</div>
 
 					<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
+				</div>
+
+			@else
+
+				<p class="count">0</p>
+
+				<div class="stars-container">
+					<div class="stars">
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					</div>
+
+					<p class="total">0 total</p>
 				</div>
 
 			@endif
@@ -221,85 +238,167 @@
 		</div>
 
 		<div class="bottom">
-			<div class="five clearfix">
-			<?php $ctr = 0; ?>
-			@foreach($game->review as $data)
-				
-				<?php $ctr++; ?>
-			
-			@endforeach
-			
-			@if($ctr !=0 ) 
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
 
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+			<div class="center">
 
-					<p class="total">{{ $ratings['five'] }}</p>
-				</div>
-			
+				<?php $ctr = 0; ?>
+
+				@foreach($game->review as $data)
+					<?php $ctr++; ?>
+				@endforeach
+
+				@if($ctr !=0 ) 
+
+					<div class="five clearfix">
+
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['five'] }}</p>
+						</div>
+					
+					</div>
+
+					<div class="four clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['four'] }}</p>
+						</div>
+					</div>
+
+					<div class="three clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['three'] }}</p>
+						</div>
+					</div>
+
+					<div class="two clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['two'] }}</p>
+						</div>
+					</div>
+
+					<div class="one clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['one'] }}</p>
+						</div>
+					</div>
+
+				@else
+
+					<div class="five clearfix">
+
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					
+					</div>
+
+					<div class="four clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+					<div class="three clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+					<div class="two clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+					<div class="one clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+				@endif	
+
 			</div>
 
-			<div class="four clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['four'] }}</p>
-				</div>
-			</div>
-
-			<div class="three clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['three'] }}</p>
-				</div>
-			</div>
-
-			<div class="two clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['two'] }}</p>
-				</div>
-			</div>
-
-			<div class="one clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['one'] }}</p>
-				</div>
-			</div>
-			@endif	
 		</div>
 	</div><!-- end #statistics -->
 
@@ -600,6 +699,23 @@
 	            }
 			});
         });
+
+		$('#description .readmore').click(function(e) {
+			e.preventDefault();
+
+			$.ajax({
+				type: 'POST',
+				url: "<?php echo URL::route('games.content.load'); ?>",
+				data: { 
+					id: <?php echo Request::segment(2); ?>,
+					_token: token
+				},
+
+				success: function(data) {
+					$('#description .content').html(data);
+				}
+			});
+		});
 
 		$('#carrier').on('submit', function(e){
 			e.preventDefault();

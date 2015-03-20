@@ -376,13 +376,13 @@
 #game-detail #buttons .downloads .count {
   display: block;
   float: left;
-  padding-left: 45px;
+  padding-left: 50px;
   color: #fff;
   font-size: 20px;
 }
 #game-detail #buttons .downloads .words {
   float: left;
-  padding: 4px 0 0 45px;
+  padding: 4px 0 0 50px;
   color: #fff;
 }
 #game-detail #buttons .downloads .words span {
