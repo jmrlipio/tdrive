@@ -264,6 +264,10 @@ img.auto, video.auto {
   display: block;
 }
 
+.clear {
+  clear: both;
+}
+
 .clearfix {
   *zoom: 1;
 }

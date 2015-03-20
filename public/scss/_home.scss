@@ -23,17 +23,11 @@
 
 	#slider {
 		padding: 0;
+		display: none;
 
-		.swiper-slide {
-			width: 260px;
-		}
+		.swiper-slide { width: 260px; }
 
-		img {
-			width: 100%;
-		}
-	}
-
-	.swiper-container {
+		img { width: 100%; }
 	}
 
 	.thumb {

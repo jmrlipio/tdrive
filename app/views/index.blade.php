@@ -457,6 +457,7 @@
 @stop
 
 @section('javascripts')
+
 	{{ HTML::script("js/fastclick.js") }}
 	{{ HTML::script("js/bootstrap.min.js") }}
 	{{ HTML::script("js/jquery.lightSlider.min.js") }}
@@ -467,22 +468,30 @@
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
 
 	<script>
+
 		FastClick.attach(document.body);
 
 		var ctr = $('#ctr').val();
 		var ctr2 = $('#ctr2').val();
 
-		$(window).load(function(){
-			
-			for(var i=0; i<ctr; i++){
-	        	
-	        	$('#myModal'+ (i+1)).modal('show');
+		$(window).load(function() {
+
+			$('#slider').show();
+
+			for(var i = 0; i < ctr; i++) {
+	        	$('#myModal' + (i + 1)).modal('show');
 	        }
 
-	        for(var i=0; i<ctr2; i++){
-	        	
-	        	$('#newsAlert'+ (i+1)).modal('show');
+	        for(var i = 0; i < ctr2; i++) {
+	        	$('#newsAlert' + (i + 1)).modal('show');
 	        }
+
+			$('.featured').swiper({
+				slidesPerView: 2,
+				centeredSlides: true,
+				calculateHeight: true,
+				initialSlide: 2
+			});
 
 	    });
 
@@ -528,21 +537,14 @@
 			}
 		});
 
-		$('.featured').swiper({
-			slidesPerView: 'auto',
-			centeredSlides: true,
-			calculateHeight: true,
-			initialSlide: 2
-		})
-
 		$('.thumbs-container').each(function() {
 			$(this).swiper({
 				slidesPerView: 'auto',
 				offsetPxBefore: 0,
 				offsetPxAfter: 10,
 				calculateHeight: true
-			})
-		})
+			});
+		});
 
 		$("#questions").accordion({ 
 			heightStyle: 'panel', 
@@ -557,4 +559,5 @@
 		});
 
 	</script>
+
 @stop
