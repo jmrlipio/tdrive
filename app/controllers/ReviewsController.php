@@ -92,7 +92,7 @@ class ReviewsController extends \BaseController {
 
 			$review->delete();
 			
-			$reviews = Review::orderBy('id')->paginate(10);
+			$reviews = Review::orderBy('viewed')->paginate(10);
 	
 		}
 
@@ -102,5 +102,19 @@ class ReviewsController extends \BaseController {
 			->with(compact('reviews'));
 
 	}
+
+	 public function handleDestroy() {
+	    $checked = Input::only('checked')['checked'];
+        
+
+			Review::whereIn('id', $checked)->delete();
+			$reviews = Review::orderBy('viewed')->paginate(10);
+
+			return View::make('admin.reviews.index')
+				->with('page_title', 'Reviews - Admin')
+				->with('page_id', 'reviews')
+				->with(compact('reviews'));
+
+    }
 
 }

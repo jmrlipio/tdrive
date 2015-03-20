@@ -1,5 +1,12 @@
 @extends('admin._layouts.admin')
 
+@section('stylesheets')
+	<style>
+		button{ background: #4288CE !important; }
+		button:hover {background: #333333 !important; }
+	</style>
+@stop
+
 @section('content')
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
@@ -12,9 +19,12 @@
 		@endif
 		<br>
 	<div class="table-responsive">
+	<form method="POST" action="/admin/destroy/review">
+		{{ Form::token() }}
 		<table class="table table-striped table-bordered table-hover"  id="review_table">
 			<thead>
 				<tr>
+					<th><input id="select-all" type="checkbox"></th>
 					<th>Game Title</th>
 					<th>Name</th>
 					<th>Review</th>
@@ -23,9 +33,10 @@
 				</tr>
 			</thead>
 
-			<tbody>
+			<tbody>			
 				@foreach($reviews as $review)
 					<tr>
+						<td><input class="chckbox" type="checkbox" name="checked[]" value="{{ $review->id }}"></td>
 						<td>
 							
 							<a href="{{ URL::route('review.show', $review->id) }}">
@@ -40,13 +51,10 @@
 								@endif
 
 							</a>
-							<ul class="actions">							
+							<ul class="actions">	
+
 								<li><a href="{{ URL::route('review.show', $review->id) }}">View</a></li>
-								<li>
-									{{ Form::open(array('route' => array('review.destroy', $review->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-									{{ Form::close() }}
-								</li>
+
 							</ul>
 							
 						</td>
@@ -72,9 +80,10 @@
 													
 						</td>
 					</tr>
-				@endforeach
+				@endforeach				
 			</tbody>
 		</table>
+		<button id="delete-btn" type="submit">Delete</button>
 	</div>
 		{{ $reviews->links() }}
 		<br>
@@ -108,7 +117,9 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function(){
-		   /* $('#review_table').DataTable();*/
+			$('#delete-btn').on('click', function(e) {
+				if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
+			});
 		   /** 
 				* Added by: Jone   
 				* Purpose: Disables sorting on the rating column
@@ -120,6 +131,27 @@
 		        
 		       ]
 			});
+
+		   $('#select-all').click(function(){			   
+		
+				if(this.checked) { // check select status
+
+					$('.chckbox').each(function() { //loop through each checkbox
+
+				   		this.checked = true;  //select all checkboxes with class "chckbox"   
+
+					});
+
+				} else {
+
+					$('.chckbox').each(function() { //loop through each checkbox
+
+					    this.checked = false; //deselect all checkboxes with class "chckbox"  
+
+					});  
+				}    
+			      
+			}); 
 
 		});
 
