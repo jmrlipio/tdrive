@@ -23,7 +23,7 @@ class ReviewsController extends \BaseController {
 
 	public function admin_index()
 	{
-		$reviews = Review::orderBy('id')->paginate(10);
+		$reviews = Review::orderBy('viewed')->paginate(10);
 
 		return View::make('admin.reviews.index')
 			->with('page_title', 'Reviews - Admin')
@@ -34,7 +34,7 @@ class ReviewsController extends \BaseController {
 
 	public function update_status()
 	{
-		$data = Input::all();
+		/*$data = Input::all();
         
         if(Request::ajax())
         {
@@ -42,7 +42,7 @@ class ReviewsController extends \BaseController {
             $status = Review::where('id', $id)->first();
             $status->status = $data['status'];
             $status->update();
-        }
+        }*/
 	}
 
 	public function postReview($id)
@@ -53,9 +53,9 @@ class ReviewsController extends \BaseController {
 		if ($validator->passes()) {
 			Review::create(Input::all());
 
-			$data = Review::whereViewed(0)->count();
+			/*$data = Review::whereViewed(0)->count();
 
-			Event::fire('user.post.review',array($data));
+			Event::fire('user.post.review',array($data));*/
 
 			return Redirect::to($url)->with('message', 'Your review has been added.');
 		}
@@ -88,22 +88,19 @@ class ReviewsController extends \BaseController {
 	{
 		$review = Review::find($id);
 		
-		if($review)
-		{
+		if($review) {
+
 			$review->delete();
 			
 			$reviews = Review::orderBy('id')->paginate(10);
-
-			return View::make('admin.reviews.index')
-				->with('page_title', 'Reviews - Admin')
-				->with('page_id', 'reviews')
-				->with(compact('reviews'));	
+	
 		}
 
 		return View::make('admin.reviews.index')
 			->with('page_title', 'Reviews - Admin')
-			->with('message', 'Something went wrong. Try again.')
-			->with('sof', 'failed');
+			->with('page_id', 'reviews')
+			->with(compact('reviews'));
+
 	}
 
 }

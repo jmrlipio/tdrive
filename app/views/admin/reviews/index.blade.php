@@ -29,13 +29,24 @@
 					<tr>
 						<td>
 							
-							<a href="{{ URL::route('admin.notifications.show', $review->id) }}">{{ $review->game->main_title }}</a>
+							<a href="{{ URL::route('admin.notifications.show', $review->id) }}">
+								@if($review->viewed == 0 )
+
+									{{ '<i class="fa fa-envelope"></i>  '. $review->game->main_title }}
+
+								@else
+
+									{{ $review->game->main_title }}
+
+								@endif
+
+							</a>
 							<ul class="actions">							
 								<li><a href="{{ URL::route('admin.notifications.show', $review->id) }}">View</a></li>
 								<li>
-									{{-- Form::open(array('route' => array('admin.notifications.destroy', $review->id), 'method' => 'delete', 'class' => 'delete-form')) --}}
-										{{-- Form::submit('Delete', array('class' => 'delete-btn')) --}}
-									{{-- Form::close() --}}
+									{{ Form::open(array('route' => array('review.destroy', $review->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+									{{ Form::close() }}
 								</li>
 							</ul>
 							
