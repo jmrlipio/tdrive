@@ -183,9 +183,7 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
 });*/
 
 Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
-Route::get('admin/notifications/{id}', array('as' => 'admin.notifications.show', 'uses' => 'ReviewsController@getNotifications'));
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
-/*Route::post('delete/review', array('as' => 'admin.delete.review', 'uses' => 'ReviewsController@destroy'));*/
 route::resource('review', 'ReviewsController');
 
 

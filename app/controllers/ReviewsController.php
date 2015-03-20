@@ -64,7 +64,7 @@ class ReviewsController extends \BaseController {
 		return Redirect::to($url)->withErrors($validator)->withInput();
 	}
 
-	public function getNotifications($id){
+	public function show($id){
 
     	$review = Review::find($id);
     	$viewed = Review::whereId($id);
