@@ -117,12 +117,21 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			$('#delete-btn').on('click', function(e) {
-				if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
+			$('#delete-btn').on('click', function(e) {				
+			    
+			    if($("input[type='checkbox'].chckbox")){
+			      
+			       alert("Please select the box that you want to delete");
+
+			    } else {
+
+			    	if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
+			    }								
+				
 			});
 		   /** 
 				* Added by: Jone   
-				* Purpose: Disables sorting on the rating column
+				* Purpose: Fixed sorting on the rating column
 				* Date: 01/22/2015
 			*/
 		   $('#review_table').dataTable( {
