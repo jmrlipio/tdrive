@@ -34,16 +34,15 @@
 			padding: 3px;
 			margin-top:10px;
 		}
+
 		div#btn-link a {
 			color: #fff;
 			display: block;
 		}
 
-		a#category-link {
-			position: relative;
- 			left: 75%;
- 			float: none;
-		}
+		.view-all {
+			background: #61ded0;
+		}	
 
 	</style>
 
@@ -198,7 +197,10 @@
 		</div>
 		
 	@endforeach
-	<div class="more"><a id="category-link" href="{{ route('categories.all') }}">View all category</a></div>
+
+	<div class="view-all container clearfix">
+		<div class="more fr"><a href="{{ route('categories.all') }}">View all category</a></div>
+	</div>
 
 	<div id="news" class="container">
 		<div class="clearfix">
