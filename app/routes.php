@@ -45,6 +45,8 @@ Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@
 Route::get('carrier/load', array('as' => 'carrier.load', 'uses' => 'CarriersController@loadCarrier'));
 Route::get('games/load', array('as' => 'games.load', 'uses' => 'GamesController@loadGames'));
 
+Route::post('games/load/content/{id}', array('as' => 'games.content.load', 'uses' => 'GamesController@loadGameContent'));
+
 Route::group(array('prefix' => 'admin'), function() {
 	Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
     Route::post('login', array('as' => 'admin.login.post', 'uses' => 'AdminUsersController@postLogin'));
@@ -82,8 +84,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('form-messages', array('as' => 'admin.form-messages.update', 'uses' => 'SiteOptionsController@updateFormMessages'));
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
-    Route::get('slideshow', array('as' => 'admin.slideshow', 'uses' => 'SiteOptionsController@showGames'));
-    Route::post('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@updateFeatured'));
+    Route::get('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@showFeatured'));
+    Route::post('featured', array('as' => 'admin.featured.update', 'uses' => 'SiteOptionsController@updateFeatured'));
 
     //added for admin reviews - transfer later on
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));

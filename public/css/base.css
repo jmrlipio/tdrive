@@ -114,6 +114,10 @@ img.auto, video.auto {
   color: #e9548e;
 }
 
+.readmore {
+  color: #e9548e;
+}
+
 .button {
   text-align: center;
   text-transform: lowercase;

@@ -99,6 +99,17 @@ class SiteOptionsController extends \BaseController {
 		} else {
 			$data['ribbon_url'] = $game_settings->ribbon_url;
 		}
+
+		if(Input::hasFile('sale_url')) {
+			$sale_ribbon = Input::file('sale_url');
+			$sale_ribbon_name = time() . "_" . $sale_ribbon->getClientOriginalName();
+			$sale_ribbon_path = public_path('assets/site/' . $sale_ribbon_name);
+			Image::make($sale_ribbon->getRealPath())->save($sale_ribbon_path);
+			
+			$data['sale_url'] = $sale_ribbon_name;
+		} else {
+			$data['sale_url'] = $game_settings->sale_url;
+		}
 		
 		if ($validator->fails())
 		{
@@ -160,11 +171,22 @@ class SiteOptionsController extends \BaseController {
 
 	}
 
-	public function showGames() {
+	public function showFeatured() {
 
-		$games = Game::orderBy('created_at')->paginate(10);
+		$games = [];
+		$news = [];
 
-		return View::make('admin.slideshow')->with('games', $games);
+		foreach(Game::all() as $game) {
+			$games[$game->id] = $game->main_title;
+		}
+
+		foreach(News::all() as $nw) {
+			$news[$nw->id] = $nw->main_title;
+		}
+
+		return View::make('admin.slideshow')
+			->with('games', $games)
+			->with('news', $news);
 
 	}
 
@@ -172,13 +194,7 @@ class SiteOptionsController extends \BaseController {
 	{
 		$data = Input::all();
         
-        if(Request::ajax())
-        {
-            $id = $data['id'];
-            $game = Game::where('id', $id)->first();
-            $game->featured = $data['featured'];
-            $game->update();
-        }
+        dd($data);
 	}
 
 }
