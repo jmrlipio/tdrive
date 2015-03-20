@@ -39,6 +39,12 @@
 			display: block;
 		}
 
+		a#category-link {
+			position: relative;
+ 			left: 75%;
+ 			float: none;
+		}
+
 	</style>
 
 @stop
@@ -188,9 +194,11 @@
 
 				</div>
 			</div>
-		</div>
 
+		</div>
+		
 	@endforeach
+	<div class="more"><a id="category-link" href="{{ route('categories.all') }}">View all category</a></div>
 
 	<div id="news" class="container">
 		<div class="clearfix">

@@ -1036,11 +1036,11 @@
   transform: translateX(-50%);
 }
 
-#news-listing {
+#news-listing, #category-listing {
   background: #eecf3f;
   color: #fff;
 }
-#news-listing #nav-toggle, #news-listing #side-menu {
+#news-listing #nav-toggle, #news-listing #side-menu, #category-listing #side-menu{
   display: none;
 }
 #news-listing #back {

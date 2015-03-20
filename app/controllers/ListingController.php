@@ -288,4 +288,14 @@ class ListingController extends \BaseController {
 		}
 	}
 
+	public function showGameCategories() 
+	{
+		$categories = Category::all();
+
+		return View::make('category_listing')
+			->with('page_title', 'Category List')
+			->with('page_id', 'category-listing')		
+			->with(compact('categories'));
+	}
+
 }
