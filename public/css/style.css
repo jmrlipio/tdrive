@@ -568,6 +568,7 @@
 }
 #game-detail #statistics .bottom {
   padding: 10px 0;
+  display: inline-block;
 }
 #game-detail #statistics .bottom > div .stars {
   float: left;
@@ -598,6 +599,7 @@
   padding-left: 10px;
   width: 20%;
   font-size: 14px;
+  margin-top: 2px;
 }
 #game-detail #statistics .bottom .five span {
   background: #64ac36;
