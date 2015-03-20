@@ -54,14 +54,16 @@
 
 						<td>{{ $review->user->first_name }}</td>
 						<td>{{ $review->user->last_name }}</td>
+
 						<td>{{ str_limit($review->review, $limit = 200, $end = '...') }}</td>
+
 						<td>
-						@if($review->status == 1)
-							<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/>
-						@else
-							<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" />
-						@endif
-					</td>
+							@if($review->status == 1)
+								<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/>
+							@else
+								<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" />
+							@endif
+						</td>
 						<td>
 												
 						<!-- UPDATED BY: Jone -->
