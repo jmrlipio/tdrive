@@ -15,7 +15,7 @@
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-				@if(!$games->isEmpty())
+				@if( ! empty($games))
 					@foreach($games as $game)
 						@foreach ($game->media as $media)
 
