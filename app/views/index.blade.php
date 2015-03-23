@@ -34,10 +34,15 @@
 			padding: 3px;
 			margin-top:10px;
 		}
+
 		div#btn-link a {
 			color: #fff;
 			display: block;
 		}
+
+		.view-all {
+			background: #61ded0;
+		}	
 
 	</style>
 
@@ -188,9 +193,14 @@
 
 				</div>
 			</div>
-		</div>
 
+		</div>
+		
 	@endforeach
+
+	<div class="view-all container clearfix">
+		<div class="more fr"><a href="{{ route('categories.all') }}">View all category</a></div>
+	</div>
 
 	<div id="news" class="container">
 		<div class="clearfix">
@@ -478,6 +488,10 @@
 
 			$('#slider').show();
 
+			$('.thumbs-container').each(function() {
+				$(this).show();
+			});
+
 			for(var i = 0; i < ctr; i++) {
 	        	$('#myModal' + (i + 1)).modal('show');
 	        }
@@ -491,6 +505,15 @@
 				centeredSlides: true,
 				calculateHeight: true,
 				initialSlide: 2
+			});
+
+			$('.thumbs-container').each(function() {
+				$(this).swiper({
+					slidesPerView: 'auto',
+					offsetPxBefore: 0,
+					offsetPxAfter: 10,
+					calculateHeight: true
+				});
 			});
 
 	    });
@@ -535,15 +558,6 @@
 					}
 				});
 			}
-		});
-
-		$('.thumbs-container').each(function() {
-			$(this).swiper({
-				slidesPerView: 'auto',
-				offsetPxBefore: 0,
-				offsetPxAfter: 10,
-				calculateHeight: true
-			});
 		});
 
 		$("#questions").accordion({ 

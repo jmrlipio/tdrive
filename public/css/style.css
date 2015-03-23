@@ -30,6 +30,9 @@
 #home #slider img {
   width: 100%;
 }
+#home .thumbs-container {
+  display: none;
+}
 #home .thumb {
   -webkit-border-radius: 20px;
   border-radius: 20px;
@@ -373,13 +376,13 @@
 #game-detail #buttons .downloads .count {
   display: block;
   float: left;
-  padding-left: 45px;
+  padding-left: 50px;
   color: #fff;
   font-size: 20px;
 }
 #game-detail #buttons .downloads .words {
   float: left;
-  padding: 4px 0 0 45px;
+  padding: 4px 0 0 50px;
   color: #fff;
 }
 #game-detail #buttons .downloads .words span {
@@ -1033,11 +1036,11 @@
   transform: translateX(-50%);
 }
 
-#news-listing {
+#news-listing, #category-listing {
   background: #eecf3f;
   color: #fff;
 }
-#news-listing #nav-toggle, #news-listing #side-menu {
+#news-listing #nav-toggle, #news-listing #side-menu, #category-listing #side-menu{
   display: none;
 }
 #news-listing #back {

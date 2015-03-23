@@ -188,4 +188,5 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
 });*/
 
 Route::post('export', array('as' => 'admin.export.userDB', 'uses' => 'AdminUsersController@exportDB'));
+Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
 

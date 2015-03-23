@@ -40,33 +40,29 @@
 
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
-			<div class="vhcenter">
+			<div class="vcenter">
 				<p class="count">{{ number_format($game->downloads, 0) }}</p>
-				<p class="words">Downloads</p>
+				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
 			</div>
 		</div>
 
 		<div class="ratings">
 			<div class="vhcenter">
-
 				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
 
 				<?php $ctr = $ratings['average'] ? $ratings['average'] : 0; ?>
 
 				<div class="stars">
 	
-					@for ($i = 1; $i <= 5; $i++)						
-
+					@for ($i=1; $i <= 5; $i++)						
 						@if($i <= $ctr)
 							<i class="fa fa-star active"></i>
 						@else
 							<i class="fa fa-star"></i>
 						@endif
-
 					@endfor  
 					
 				</div>
-
 			</div>
 		</div>
 
@@ -114,22 +110,18 @@
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-
+		
 		@foreach($game->contents as $item)
-
 			@if(Session::has('locale'))
-
 				@if(Session::get('locale') == strtolower($item->iso_code))
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
-
-				@else
-					@if(strtolower($item->iso_code) == 'us')
-						<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+			@else
+				@if(strtolower($item->iso_code) == 'us')
+					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
 			@endif
-
-		@endforeach
+  		@endforeach
 
 	</div><!-- end #description -->
 
@@ -176,11 +168,11 @@
 
 				<div class="stars-container">
 					<div class="stars">
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star"></i></a>
-						<a href="#"><i class="fa fa-star"></i></a>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
 					</div>
 
 					<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
@@ -192,11 +184,11 @@
 
 				<div class="stars-container">
 					<div class="stars">
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star active"></i></a>
-						<a href="#"><i class="fa fa-star"></i></a>
-						<a href="#"><i class="fa fa-star"></i></a>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
 					</div>
 
 					<p class="total">0 total</p>
@@ -205,17 +197,15 @@
 			@endif
 
 			<div class="social clearfix">
-
 				<?php  $excerpt = ""; ?>
-
 				@foreach($game->contents as $item)
 					@if(Session::has('locale'))
 						@if(Session::get('locale') == strtolower($item->iso_code))
-							<?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
+						<?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
 						@endif
 					@else
 						@if(strtolower($item->iso_code) == 'us')
-							 <?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
+						 <?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
 						@endif
 					@endif
 		  		@endforeach
@@ -248,6 +238,7 @@
 		</div>
 
 		<div class="bottom">
+
 			<div class="center">
 
 				<?php $ctr = 0; ?>
@@ -407,6 +398,7 @@
 				@endif	
 
 			</div>
+
 		</div>
 	</div><!-- end #statistics -->
 
@@ -572,6 +564,8 @@
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
+	{{ HTML::script("js/jquery.event.move.js"); }}
+	{{ HTML::script("js/jquery.event.swipe.js"); }}
 
 	<script>
 		FastClick.attach(document.body);

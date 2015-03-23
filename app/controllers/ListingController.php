@@ -255,9 +255,17 @@ class ListingController extends \BaseController {
 
 		$languages = Language::all();
 
-		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(6)->get();
+		$searched_games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->get();
+		
+		$games = [];
 
-		//$games = Category::find($id)->games->take(6);
+		foreach($searched_games as $game) {
+			foreach($game->categories as $category) {
+				if($category->id == $id) {
+					$games[] = $game;
+				}
+			}
+		}
 
 		$count = count($games);
 
@@ -286,6 +294,16 @@ class ListingController extends \BaseController {
 				->with('country', $country)
 				->with(compact('games'));
 		}
+	}
+
+	public function showGameCategories() 
+	{
+		$categories = Category::all();
+
+		return View::make('category_listing')
+			->with('page_title', 'Category List')
+			->with('page_id', 'category-listing')		
+			->with(compact('categories'));
 	}
 
 }
