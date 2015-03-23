@@ -66,16 +66,17 @@
 					<div class="option-select">
 						<li>
 							{{ Form::label('categories', 'Featured Categories: ') }} <br><br>
-							{{ Form::select('categories[]', $categories, $selected_categories, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'categories', 'data-placeholder'=>'Choose categories(s)...'))  }}
+							{{ Form::select('categories[]', $categories, $selected_categories, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'select-categories', 'data-placeholder'=>'Choose categories(s)...'))  }}
 							{{ $errors->first('categories', '<p class="error">:message</p>') }}
 						</li>
 					</div>
 					{{ Form::open(array('route' => 'admin.featured.categories.update')) }}
 						<ul class="sortable-items" id="sortable-categories">
-							@foreach($categories as $key => $category)
-								@if(in_array($key, $selected_categories))
-									<li class="grab">{{ $category }}</li>
-								@endif
+							@foreach($featured_categories as $category)
+								<li class="grab">
+									<p>{{ $category->category }}</p>
+									<input type="hidden" name="item[]" value="{{ $category->id }}">
+								</li>
 							@endforeach
 						</ul>
 						{{ Form::submit('Save Order') }}
@@ -143,18 +144,35 @@
 							$(this).remove();
 						}
 					});
-					
+
 				}
 			});
 
-			$('#categories').on('change', function(evt, selected) {
+			$('#select-categories').on('change', function(evt, selected) {
 				var selector = $(this),
 					sortables = $('#sortable-categories');
 
 				if(selected.selected != null) {
+					var options = selector.children(":selected");
 
+					options.each(function(){
+						if($(this).val() == selected.selected) {
+							var append = '<li class="grab"> \
+											<p>' + $(this).text() + '</p> \
+								  		  	<input type="hidden" name="item[]" value="' + selected.selected + '"> \
+								  		  </li>';
+
+							sortables.append(append);
+						} 
+					});
 				} else {
-
+					$('#sortable-categories li').each(function(){
+						var item_id = $(this).find('input[type=hidden]').val();
+						
+						if(item_id == selected.deselected) {
+							$(this).remove();
+						}
+					});
 				}
 
 			});

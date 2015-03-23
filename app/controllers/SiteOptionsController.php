@@ -200,8 +200,10 @@ class SiteOptionsController extends \BaseController {
 			if($category->featured) $selected_categories[] = $category->id;
 		}
 
+		$featured_categories = Category::where('featured', '=', 1)->orderBy('order')->get();
+
 		return View::make('admin.slideshow')
-			->with(compact('games','news','sliders','selected_news','selected_games','categories','selected_categories'));
+			->with(compact('games','news','sliders','selected_news','selected_games','categories','selected_categories','featured_categories'));
 
 	}
 
@@ -227,7 +229,35 @@ class SiteOptionsController extends \BaseController {
 	}
 
 	public function updateCategories() {
-		
+		$featured = Input::get('item');
+
+		$count = 1;
+
+		foreach($featured as $fc) {
+			$ctg = Category::find($fc);
+
+			$data = [
+				'featured' => 1,
+				'order' => $count
+			];
+
+			$ctg->update($data);
+
+			$count++;
+		}
+
+		foreach(Category::all() as $category) {
+			if(!in_array($category->id, $featured)) {
+				$data = [
+					'featured' => 0,
+					'order' => 0
+				];
+
+				$category->update($data);
+			}
+		}
+
+		return Redirect::back()->with('message', 'You have successfully updated the featured categories.');
 	}
 
 }
