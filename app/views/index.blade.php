@@ -39,11 +39,14 @@
 			display: block;
 		}
 
+		.discounted { text-decoration: line-through; }
+
 	</style>
 
 @stop
 
 @section('content')
+
 	<div id="slider" class="swiper-container featured container">
 		<div class="swiper-wrapper">
 
@@ -92,6 +95,15 @@
 										@if ($game->default_price == 0)
 											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
+								
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
+
 									</div>
 									<div class="meta">
 										<p class="name">{{{ $game->main_title }}}</p>
@@ -99,7 +111,16 @@
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+														$sale_price = $price->pivot->price * (1 - ($dc/100));
+													 ?>
+													@if($dc != 0)
+														<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+														 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+													@else														 
+														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@endif
+
 												@endif
 											@endforeach
 										@endunless
@@ -157,6 +178,14 @@
 												@if ($game->default_price == 0)
 													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 												@endif
+
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+												@endif
 											</div>
 
 											<div class="meta">
@@ -165,7 +194,20 @@
 												@unless ($game->default_price == 0)
 													@foreach($game->prices as $price) 
 														@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+															<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
+															@if($dc != 0)
+																<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+																<?php 
+																	$sale_price = $price->pivot->price * (1 - ($dc/100));
+																 ?>
+
+																 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+
+																 @else	
+
+																	<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
+																
+															@endif
 														@endif
 													@endforeach
 												@endunless
