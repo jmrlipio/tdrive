@@ -21,25 +21,66 @@
 					<div class="option-select">
 						<li>
 							{{ Form::label('game_id', 'Games: ') }} <br><br>
-							{{ Form::select('game_id[]', $games, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'games', 'data-placeholder'=>'Choose game(s)...'))  }}
+							{{ Form::select('game_id[]', $games, $selected_games, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'game', 'data-placeholder'=>'Choose game(s)...'))  }}
 							{{ $errors->first('game_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
 							{{ Form::label('news_id', 'News: ') }} <br><br>
-							{{ Form::select('news_id[]', $news, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'news','data-placeholder'=>'Choose game(s)...'))  }}
+							{{ Form::select('news_id[]', $news, $selected_news, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'news','data-placeholder'=>'Choose game(s)...'))  }}
 							{{ $errors->first('news_id', '<p class="error">:message</p>') }}
 						</li>
 					</div>
 					{{ Form::open(array('route' => 'admin.featured.update')) }}
 						<ul class="sortable-items" id="sortables">
-							
+							@foreach($sliders as $slider)
+								<li class="grab">
+									@if($slider->slideable_type == 'Game')
+										@foreach($games as $key => $game)
+											@if($key == $slider->slideable_id)
+												<div class="item-title">{{ $game }}</div>
+												<div class="item-type">game</div>
+												<input type="hidden" name="item[][game]" value="{{ $slider->slideable_id }}">
+											@endif
+										@endforeach
+										
+									@elseif($slider->slideable_type == 'News')
+										@foreach($news as $key => $nw)
+											@if($key == $slider->slideable_id)
+												<div class="item-title">{{ $nw }}</div>
+												<div class="item-type">news</div>
+												<input type="hidden" name="item[][news]" value="{{ $slider->slideable_id }}">
+											@endif
+										@endforeach
+										
+									@endif
+
+
+								</li>
+							@endforeach
 						</ul>
 						{{ Form::submit('Save Order') }}
 					{{ Form::close() }}
 					<div class="clear"></div>
 				</ul>
 				<ul id="categories">
-					
+					<div class="option-select">
+						<li>
+							{{ Form::label('categories', 'Featured Categories: ') }} <br><br>
+							{{ Form::select('categories[]', $categories, $selected_categories, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'categories', 'data-placeholder'=>'Choose categories(s)...'))  }}
+							{{ $errors->first('categories', '<p class="error">:message</p>') }}
+						</li>
+					</div>
+					{{ Form::open(array('route' => 'admin.featured.categories.update')) }}
+						<ul class="sortable-items" id="sortable-categories">
+							@foreach($categories as $key => $category)
+								@if(in_array($key, $selected_categories))
+									<li class="grab">{{ $category }}</li>
+								@endif
+							@endforeach
+						</ul>
+						{{ Form::submit('Save Order') }}
+					{{ Form::close() }}
+					<div class="clear"></div>
 				</ul>
 			</div>
 		</div>
@@ -51,12 +92,31 @@
 			$('.tab-container').easytabs();
 			$(".chosen-select").chosen();
 
-			$('#sortables').sortable();
+			$('.sortable-items').sortable();
 
-			$('.chosen-select').on('change', function(evt, selected) {
+			$('.sortable-items li').each(function() {
+				var item = $(this);
+				item.mousedown(function() {
+					item.removeClass('grab');
+					item.addClass('grabbing');
+				});
+
+				item.mouseup(function() {
+					item.removeClass('grabbing');
+					item.addClass('grab');
+				});
+				
+			});
+
+			$('#game, #news').on('change', function(evt, selected) {
 				var selector = $(this),
 					type = $(this).attr('id'),
-					sortables = $('#sortables');
+					sortables = $('#sortables'),
+					count = 0;
+
+				$('#sortables li').each(function(){
+					count++;
+				});
 
 				if(selected.selected != null) {
 					var options = selector.children(":selected");
@@ -67,38 +127,40 @@
 							var append = '<li class="grab"> \
 											<div class="item-title"> ' + $(this).text() + '</div> \
 											<div class="item-type"> ' + type + '</div> \
-											<input type="hidden" name="item[' + selected.selected + ']" value="' + type +'"> \
+											<input type="hidden" name="item[][' + type + ']" value="' + selected.selected +'"> \
 										  </li>';
 
 							sortables.append(append);
 						}
 					});
 				} else {
-					alert(selected.deselected);
+
+					$('#sortables li').each(function(){
+						var item_type = $(this).find('.item-type').text();
+						var item_id = $(this).find('input[type=hidden]').val();
+
+						if(item_type == type && item_id == selected.deselected) {
+							$(this).remove();
+						}
+					});
+					
 				}
 			});
 
+			$('#categories').on('change', function(evt, selected) {
+				var selector = $(this),
+					sortables = $('#sortable-categories');
+
+				if(selected.selected != null) {
+
+				} else {
+
+				}
+
+			});
+
 			
-
-			// $('.chosen-select option:selected').each(function(){
-			// 	alert($(this).val());
-			// });
-
-			// $('#sortables li').each(function() {
-			// 	var item = $(this);
-			// 	item.mousedown(function() { item.removeClass('grab'); item.addClass('grabbing'); });
-				
-			// });
-
-			// $('.chosen-select option').on('click', function() {
-			// 	alert('test');
-			// });
 		});
 
-		$('#sortables').on('li',function(){
-			var item = $(this);
-
-			item.mouseup(function(){ alert('test'); });
-		});
 	</script>
 @stop

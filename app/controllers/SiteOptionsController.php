@@ -175,6 +175,17 @@ class SiteOptionsController extends \BaseController {
 
 		$games = [];
 		$news = [];
+		$categories = [];
+		$selected_games = [];
+		$selected_news = [];
+		$selected_categories = [];
+
+		$sliders = Slider::all();
+
+		foreach($sliders as $slider) {
+			if($slider->slideable_type == 'Game') $selected_games[] = $slider->slideable_id;
+			else if($slider->slideable_type == 'News') $selected_news[] = $slider->slideable_id;
+		}
 
 		foreach(Game::all() as $game) {
 			$games[$game->id] = $game->main_title;
@@ -184,17 +195,39 @@ class SiteOptionsController extends \BaseController {
 			$news[$nw->id] = $nw->main_title;
 		}
 
+		foreach(Category::all() as $category) {
+			$categories[$category->id] = $category->category;
+			if($category->featured) $selected_categories[] = $category->id;
+		}
+
 		return View::make('admin.slideshow')
-			->with('games', $games)
-			->with('news', $news);
+			->with(compact('games','news','sliders','selected_news','selected_games','categories','selected_categories'));
 
 	}
 
 	public function updateFeatured()
 	{
-		$data = Input::all();
+		$data = Input::get('item');
+
+		Slider::truncate();
         
-        dd($data);
+        $count = 1;
+        foreach($data as $item) {
+        	foreach($item as $type => $id) {
+        		if($type == 'game') $slider = Game::find($id);
+        		else $slider = News::find($id);
+
+        		$slider->sliders()->create(['order' => $count]);
+        	}
+        	
+        	$count++;
+        }
+
+        return Redirect::back()->with('message', 'You have successfully update the homepage slider items.');
+	}
+
+	public function updateCategories() {
+		
 	}
 
 }

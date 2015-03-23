@@ -66,4 +66,8 @@ class Game extends \Eloquent {
     	return $this->belongsToMany('Discount', 'game_discounts');
     }
 
+    public function sliders() {
+    	return $this->morphMany('Slider', 'slideable');
+    }
+
 }

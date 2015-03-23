@@ -488,19 +488,19 @@ a#back {
 	width: 50%;
 	float: right;
 	border: 1px solid #ccc;
-	height: 300px;
+	min-height: 300px;
 	background-color: rgb(199, 255, 199);
-	-webkit-box-shadow:inset 1px 1px 1px 1px #A1A1A1;
-	box-shadow:inset 1px 1px 1px 1px #A1A1A1;
+
 }
 
 .sortable-items li {
-	width: 98%;
+	width: 97%;
 	height: 30px;
 	background-color: #fff;
 	padding: 5px 0 5px 10px;
 	line-height: 30px;
 	margin-top: 5px;
+	border: 1px solid #ccc;
 }
 
 .sortable-items .item-title {
