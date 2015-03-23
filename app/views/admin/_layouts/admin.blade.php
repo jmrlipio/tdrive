@@ -40,7 +40,13 @@
                     {{ link_to_route('admin.logout', 'Sign Out') }}                    
                 </p>
                 <p> 
-                    <a href="{{ URL::route('admin.reviews.index')}}">{{ 'You have '. Review::whereViewed(0)->count() .' new notification'}}</a>                   
+                    @if( Review::whereViewed(0)->count() >= 1 )
+                        <a href="{{ URL::route('admin.reviews.index')}}">{{ 'You have '. Review::whereViewed(0)->count() .' new notification'}}</a>
+                    @else
+
+                        <a style="display:none" href="{{ URL::route('admin.reviews.index')}}"></a>
+
+                    @endif                   
                 </p>
             @else
                 <p>     
