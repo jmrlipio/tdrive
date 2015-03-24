@@ -23,7 +23,7 @@ class ReviewsController extends \BaseController {
 
 	public function admin_index()
 	{
-		$reviews = Review::orderBy('id')->paginate(10);
+		$reviews = Review::orderBy('viewed')->paginate(10);
 
 		return View::make('admin.reviews.index')
 			->with('page_title', 'Reviews - Admin')
@@ -34,7 +34,7 @@ class ReviewsController extends \BaseController {
 
 	public function update_status()
 	{
-		$data = Input::all();
+		/*$data = Input::all();
         
         if(Request::ajax())
         {
@@ -42,7 +42,7 @@ class ReviewsController extends \BaseController {
             $status = Review::where('id', $id)->first();
             $status->status = $data['status'];
             $status->update();
-        }
+        }*/
 	}
 
 	public function postReview($id)
@@ -53,11 +53,68 @@ class ReviewsController extends \BaseController {
 		if ($validator->passes()) {
 			Review::create(Input::all());
 
-			return Redirect::to($url)->with('message', 'Your review will be submitted for approval.');
+			/*$data = Review::whereViewed(0)->count();
+
+			Event::fire('user.post.review',array($data));*/
+
+			return Redirect::to($url)->with('message', 'Your review has been submitted for approval.');
 		}
 
 		//validator fails
 		return Redirect::to($url)->withErrors($validator)->withInput();
 	}
+
+	public function show($id){
+
+    	$review = Review::find($id);
+    	$viewed = Review::whereId($id);
+    	$viewed->update(array('viewed' => 1));
+
+    	return View::make('admin.notifications.index')
+    		->with('review', $review);
+					
+    }
+
+    public function apprroveReview(){
+
+    	$review = Review::whereId(Input::get('id'));
+        $review->update(array('status' => 1));
+
+    	return Redirect::back()->with('success','Review approved!');  
+					
+    }
+
+    public function destroy($id)
+	{
+		$review = Review::find($id);
+		
+		if($review) {
+
+			$review->delete();
+			
+			$reviews = Review::orderBy('viewed')->paginate(10);
+	
+		}
+
+		return View::make('admin.reviews.index')
+			->with('page_title', 'Reviews - Admin')
+			->with('page_id', 'reviews')
+			->with(compact('reviews'));
+
+	}
+
+	 public function handleDestroy() {
+	    $checked = Input::only('checked')['checked'];
+        
+
+			Review::whereIn('id', $checked)->delete();
+			$reviews = Review::orderBy('viewed')->paginate(10);
+
+			return View::make('admin.reviews.index')
+				->with('page_title', 'Reviews - Admin')
+				->with('page_id', 'reviews')
+				->with(compact('reviews'));
+
+    }
 
 }
