@@ -4,6 +4,20 @@
 	{{ HTML::style("css/slick.css"); }}
 	{{ HTML::style("css/jquery.fancybox.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
+	<style>
+		
+		.discounted { 
+			text-decoration: line-through; 
+			position: relative;
+  			top: -10;
+  			font-size: 14px;
+		}
+		#game-detail #buttons .buy .image span{
+			padding-top: 0 !important;
+		}
+		.repo { position: relative;	top: -10;}
+
+	</style>
 @stop
 
 @section('content')
@@ -89,7 +103,16 @@
 					@unless ($game->default_price == 0)
 						@foreach($game->prices as $price) 
 							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-								<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+								<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+									$sale_price = $price->pivot->price * (1 - ($dc/100));
+								 ?>
+								@if($dc != 0)
+									<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									<p class="price repo">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+								@else														 
+									<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+								@endif								
+
 							@endif
 						@endforeach
 					@endunless
@@ -517,6 +540,14 @@
 											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
+
 									</div>
 
 									<div class="meta">
@@ -524,8 +555,15 @@
 
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
+											<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+												$sale_price = $price->pivot->price * (1 - ($dc/100));
+											 ?>
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@if($dc != 0)														
+														<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+													@else														 
+														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@endif
 												@endif
 											@endforeach
 										@endunless

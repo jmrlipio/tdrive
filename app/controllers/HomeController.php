@@ -66,6 +66,14 @@ class HomeController extends BaseController {
 			->get();
 
 	/* END */
+	$ctr = 0;
+	/* For getting discounts */
+	$discounted_games = [];
+	foreach ($discounts as $data) {
+		foreach($data->games as $game ) {
+			$discounted_games[$data->id][] = $game->id; 
+		}
+	}
 
 	/* For displaying news alert */	
 
@@ -149,7 +157,7 @@ class HomeController extends BaseController {
 			->with('discounts', $discounts)
 			->with('limit', $limit)
 			/*->with(compact('featured_games'))*/
-			->with(compact('games','featured_games', 'faqs', 'languages'));
+			->with(compact('games','featured_games', 'faqs', 'languages', 'discounted_games'));
 			/*->with(compact('faqs'))
 			->with(compact('languages'));*/
 	
