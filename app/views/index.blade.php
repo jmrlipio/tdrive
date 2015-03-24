@@ -80,7 +80,7 @@
 	{{ Form::token() }}
 
 	<div id="latest-games" class="container">
-		<h1 class="title">New and updated games</h1>
+		<h1 class="title">All games</h1>
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
 				<?php $ctr = 0; ?>
