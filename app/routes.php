@@ -80,8 +80,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('general-settings', array('as' => 'admin.general-settings.update', 'uses' => 'SiteOptionsController@updateGeneralSettings'));
     Route::get('variables', array('as' => 'admin.variables', 'uses' => 'SiteOptionsController@showVariables'));
     Route::post('variables', array('as' => 'admin.variables.update', 'uses' => 'SiteOptionsController@updateVariables'));
-    Route::get('form-messages', array('as' => 'admin.form-messages', 'uses' => 'SiteOptionsController@showFormMessages'));
-    Route::post('form-messages', array('as' => 'admin.form-messages.update', 'uses' => 'SiteOptionsController@updateFormMessages'));
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
     Route::get('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@showFeatured'));
@@ -193,5 +191,3 @@ Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminU
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
 route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'uses' => 'ReviewsController@handleDestroy'));
-
-

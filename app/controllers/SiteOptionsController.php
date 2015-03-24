@@ -122,47 +122,6 @@ class SiteOptionsController extends \BaseController {
 
 	}
 
-	public function showFormMessages() {
-
-		$messages = Message::all();
-
-		return View::make('admin.messages')->with('messages', $messages);
-
-	}
-
-	public function updateFormMessages() {
-
-		$messages = Message::all();
-
-		foreach(Input::get('messages') as $message) {
-
-			foreach($messages as $ms) {
-
-				if($message['id'] == $ms->id) {
-
-					$data = [
-						'success' => $message['success'],
-						'error' => $message['error']
-					];
-
-					$validator = Validator::make($data, Message::$rules);
-
-					if ($validator->fails())
-					{
-						return Redirect::back()->withErrors($validator)->withInput();
-					}
-
-					$ms->update($data);
-
-				}
-			}
-
-		}
-
-		return Redirect::back()->with('message', 'You have successfully updated these settings.');
-
-	}
-
 	public function showNews() {
 
 		$news = News::orderBy('created_at')->paginate(10);
