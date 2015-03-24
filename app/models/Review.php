@@ -4,15 +4,14 @@ class Review extends Eloquent {
 
 	protected $table = 'game_reviews';
 
-	protected $fillable = ['game_id', 'user_id', 'review', 'rating', 'status'];
+	protected $fillable = ['game_id', 'user_id', 'review', 'rating'];
 
 	public static $rules = [
 		'game_id' => 'required|integer',
 		'user_id' => 'required|integer',
 		'review' => 'required',
 		'rating' => 'required',
-		'captcha' => 'required|captcha',
-		'status' => 'required|boolean'
+		'captcha' => 'required|captcha'
 	];
 
 	public function user() {

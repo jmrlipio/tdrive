@@ -433,7 +433,6 @@
 			@endif
 
 			{{ Form::open(array('route' => array('review.post', $current_game->id), 'method' => 'post')) }}
-				{{ Form::hidden('status', 1) }}
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
 
@@ -618,7 +617,6 @@
 			websiteType: 'dynamic',
 			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
 					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
@@ -637,6 +635,7 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
+			testMode: true,
 			onChange: function(evt){
 				$.ajax({
 					url: "{{ URL::route('choose_language') }}",
