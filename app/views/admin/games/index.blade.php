@@ -37,7 +37,7 @@
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>
-							<a href="#">{{ $game->main_title }}</a>
+							<a href="{{ URL::route('admin.games.edit', $game->id) }}">{{ $game->main_title }}</a>
 							@if(Auth::user()->role != 'admin')
 								<ul class="actions">							
 									<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">Edit</a></li>							
