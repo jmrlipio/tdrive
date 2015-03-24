@@ -1,5 +1,12 @@
 @extends('admin._layouts.admin')
 
+@section('stylesheets')
+	<style>
+		button{ background: #4288CE !important; }
+		button:hover {background: #333333 !important; }
+	</style>
+@stop
+
 @section('content')
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
@@ -12,32 +19,57 @@
 		@endif
 		<br>
 	<div class="table-responsive">
+	<form method="POST" action="/admin/destroy/review">
+		{{ Form::token() }}
 		<table class="table table-striped table-bordered table-hover"  id="review_table">
 			<thead>
 				<tr>
+					<th><input id="select-all" type="checkbox"></th>
 					<th>Game Title</th>
-					<th>First Name</th>
-					<th>Last Name</th>
+					<th>Name</th>
 					<th>Review</th>
 					<th>Approve</th>
 					<th>Rating</th>
 				</tr>
 			</thead>
 
-			<tbody>
+			<tbody>			
 				@foreach($reviews as $review)
 					<tr>
-						<td>{{ $review->game->main_title }}</td>
-						<td>{{ $review->user->first_name }}</td>
-						<td>{{ $review->user->last_name }}</td>
-						<td>{{ $review->review }}</td>
+						<td><input class="chckbox" type="checkbox" name="checked[]" value="{{ $review->id }}"></td>
 						<td>
-						@if($review->status == 1)
-							<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/>
-						@else
-							<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" />
-						@endif
-					</td>
+							
+							<a href="{{ URL::route('review.show', $review->id) }}">
+								@if($review->viewed == 0 )
+
+									{{ '<i class="fa fa-envelope"></i>  '. $review->game->main_title }}
+
+								@else
+
+									{{ $review->game->main_title }}
+
+								@endif
+
+							</a>
+							<ul class="actions">	
+
+								<li><a href="{{ URL::route('review.show', $review->id) }}">View</a></li>
+
+							</ul>
+							
+						</td>
+
+						<td>{{ $review->user->first_name . ' ' . $review->user->last_name }}</td>
+						
+						<td>{{ str_limit($review->review, $limit = 200, $end = '...') }}</td>
+
+						<td>
+							@if($review->status == 1)
+								<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/>
+							@else
+								<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" />
+							@endif
+						</td>
 						<td>
 												
 						<!-- UPDATED BY: Jone -->
@@ -48,9 +80,10 @@
 													
 						</td>
 					</tr>
-				@endforeach
+				@endforeach				
 			</tbody>
 		</table>
+		<button id="delete-btn" type="submit">Delete</button>
 	</div>
 		{{ $reviews->links() }}
 		<br>
@@ -84,17 +117,50 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function(){
-		   /* $('#review_table').DataTable();*/
+			$('#delete-btn').on('click', function(e) {				
+			    
+			    if($("input[type='checkbox'].chckbox")){
+			      
+			       alert("Please select the box that you want to delete");
+
+			    } else {
+
+			    	if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
+			    }								
+				
+			});
 		   /** 
 				* Added by: Jone   
-				* Purpose: Disables sorting on the rating column
+				* Purpose: Fixed sorting on the rating column
 				* Date: 01/22/2015
 			*/
 		   $('#review_table').dataTable( {
 		      "aoColumnDefs": [
-		          { 'bSortable': false, 'aTargets': [ 5 ] }
+		          { 'bSortable': true, 'aTargets': [ 5 ], "sType": "formatted-num" }
+		        
 		       ]
 			});
+
+		   $('#select-all').click(function(){			   
+		
+				if(this.checked) { // check select status
+
+					$('.chckbox').each(function() { //loop through each checkbox
+
+				   		this.checked = true;  //select all checkboxes with class "chckbox"   
+
+					});
+
+				} else {
+
+					$('.chckbox').each(function() { //loop through each checkbox
+
+					    this.checked = false; //deselect all checkboxes with class "chckbox"  
+
+					});  
+				}    
+			      
+			}); 
 
 		});
 
