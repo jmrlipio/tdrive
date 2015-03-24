@@ -110,7 +110,7 @@ class HomeController extends BaseController {
 		$games = Game::all();
 		$limit = $game_settings[0]->game_thumbnails;
 
-		foreach(Category::all() as $cat) {
+		foreach(Category::orderby('order')->get() as $cat) {
 			if ($cat->featured == 1) {
 				$categories[] = $cat;
 			}
