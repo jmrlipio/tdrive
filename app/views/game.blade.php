@@ -530,21 +530,21 @@
 									<div class="thumb relative">
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 										
-										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
 										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
 										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
 									</div>

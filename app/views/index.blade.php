@@ -63,7 +63,7 @@
 					@if ($media->type == 'promos')
 						<div class="swiper-slide">
 							@if(File::exists(public_path() . '/assets/games/promos/'. $media->url))
-								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/games/promos/{{ $media->url }}" alt="{{ $featured_game->main_title }}"></a>
+								<a href="{{ URL::route('game.show', array('id' => $featured_game->id, 'slug' => $featured_game->slug)) }}"><img src="assets/games/promos/{{ $media->url }}" alt="{{ $featured_game->main_title }}"></a>
 							@else
 								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/featured/placeholder.jpg" alt="{{ $featured_game->main_title }}"></a>
 							@endif
@@ -92,21 +92,21 @@
 								<div class="swiper-slide item">
 									<div class="thumb relative">
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
-										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 								
 										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
 										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
 									</div>
@@ -175,21 +175,21 @@
 										<div class="swiper-slide item">
 											<div class="thumb relative">
 												@if ($game->default_price == 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 
-												<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+												<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
 
 												@if ($game->default_price == 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 												@endif
 
 												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 												@endif
 
 												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 											</div>
 
@@ -241,7 +241,7 @@
 	@endforeach
 
 	<div class="view-all container clearfix">
-		<div class="more fr"><a href="{{ route('categories.all') }}">View all category</a></div>
+		<div class="more fr"><a href="{{ route('categories.all') }}">View all categories</a></div>
 	</div>
 
 	<div id="news" class="container">

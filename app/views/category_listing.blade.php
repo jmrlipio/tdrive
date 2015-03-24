@@ -9,28 +9,19 @@
 
 @section('content')
 
-<div id="container">
+<div id="categories-container">
+	<h1 class="title">Category list</h1>
+	<ul id="categories-list">
+	@forelse($categories as $cat)
+		<li>
+			<a class="category-link" href="{{ route('category.show', $cat->id) }}">{{ $cat->category }}</a> <br>
+		</li>
+	@empty
 
-	<div id="content">
+		 <p>Categories not found.</p> 
 
-		<div class="container">
-
-			<h1 class="title">Category list</h1>
-
-			@forelse($categories as $cat)
-
-				<a class="category-link" href="{{ route('category.show', $cat->id) }}">{{ $cat->category }}</a> <br>
-
-			@empty
-
-				 <p>Categories not found.</p> 
-
-			@endforelse
-
-		</div>
-
-	</div>
-
+	@endforelse
+	</ul>
 </div>
 
 @stop

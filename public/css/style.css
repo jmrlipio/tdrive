@@ -1351,3 +1351,15 @@
     width: 93%;
   }
 }
+
+#categories-list li {
+  margin: 10px;
+}
+
+#categories-list li a {
+  font-size: 20px;
+}
+
+#categories-container {
+  padding: 20px;
+}

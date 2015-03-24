@@ -11,7 +11,7 @@ Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'Listin
 Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
 Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
 
-Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+Route::get('game/{id}/{slug}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 Route::post('game/{id}', array('as' => 'game.show.post', 'uses' => 'GamesController@show'));
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
 Route::post('category/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
