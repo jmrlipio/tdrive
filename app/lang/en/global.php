@@ -20,6 +20,8 @@ return array(
 	'password' => 'password',
 	'Sign In' => 'Sign In',
 	'submit' => 'submit',
+	'All games' => 'All games',
+	'All Categories' => 'All Categories',
 
 	//Categories
 	'Brain and Puzzle' => 'Brain and Puzzle',
