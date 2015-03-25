@@ -115,6 +115,15 @@ class ListingController extends \BaseController {
 			}
 		}
 
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
 		$count = count($related_games);
 
 		return View::make('related')
@@ -123,7 +132,7 @@ class ListingController extends \BaseController {
 			->with('country', $country)
 			->with('count', $count)
 			->with('game_id', $game->id)
-			->with(compact('related_games'))
+			->with(compact('related_games', 'discounted_games'))
 			->with(compact('languages'));
 	}
 
