@@ -23,17 +23,15 @@
 
 	#slider {
 		padding: 0;
+		display: none;
 
-		.swiper-slide {
-			width: 260px;
-		}
+		.swiper-slide { width: 260px; }
 
-		img {
-			width: 100%;
-		}
+		img { width: 100%; }
 	}
 
-	.swiper-container {
+	.thumbs-container {
+		display: none;
 	}
 
 	.thumb {

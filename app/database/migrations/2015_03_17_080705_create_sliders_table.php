@@ -12,7 +12,7 @@ class CreateSlidersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sliders', function(Blueprint $table)
+		Schema::create('slideables', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->morphs('slideable');
@@ -29,7 +29,7 @@ class CreateSlidersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('sliders');
+		Schema::drop('slideables');
 	}
 
 }

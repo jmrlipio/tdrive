@@ -72,6 +72,7 @@
 	
 	{{ HTML::script('js/chosen.jquery.js') }}
 	{{ HTML::script('js/form-functions.js') }}
+	{{ HTML::script('js/chosen.jquery.js') }}
 
 	<script>
 	(function(){
@@ -85,6 +86,8 @@
     	});
 
     	CKEDITOR.replace('content');
+
+    	$(".chosen-select").chosen();
 	})();
 	</script>
 

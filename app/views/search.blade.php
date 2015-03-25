@@ -8,12 +8,14 @@
 	<div class="container">
 		<h1 class="title">Search results</h1>
 
+		<div class="clear"></div>	
+
 		<div id="token">{{ Form::token() }}</div>
 
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-				@if(!$games->isEmpty())
+				@if( ! empty($games))
 					@foreach($games as $game)
 						@foreach ($game->media as $media)
 

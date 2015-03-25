@@ -114,6 +114,10 @@ img.auto, video.auto {
   color: #e9548e;
 }
 
+.readmore {
+  color: #e9548e;
+}
+
 .button {
   text-align: center;
   text-transform: lowercase;
@@ -262,6 +266,10 @@ img.auto, video.auto {
   color: #e9548e;
   padding: 4px 6px;
   display: block;
+}
+
+.clear {
+  clear: both;
 }
 
 .clearfix {

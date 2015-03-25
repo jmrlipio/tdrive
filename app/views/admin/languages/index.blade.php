@@ -18,7 +18,7 @@
 				@foreach($languages as $language)
 					<tr>
 						<td>
-							<a href="#">{{ $language->language }}</a>
+							<a href="{{ URL::route('admin.languages.edit', $language->id) }}">{{ $language->language }}</a>
 							@if(Auth::user()->role != 'admin')
 								<ul class="actions">
 									<li><a href="{{ URL::route('admin.languages.edit', $language->id) }}">Edit</a></li>

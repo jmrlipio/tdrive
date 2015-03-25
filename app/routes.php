@@ -11,7 +11,7 @@ Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'Listin
 Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
 Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
 
-Route::get('game/{id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+Route::get('game/{id}/{slug}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 Route::post('game/{id}', array('as' => 'game.show.post', 'uses' => 'GamesController@show'));
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
 Route::post('category/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
@@ -29,6 +29,8 @@ Route::post('review/{id}/post', array('as' => 'review.post', 'uses' => 'ReviewsC
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
 
+Route::post('category/search', array('as' => 'search', 'uses' => 'ListingController@searchGamesByCategory'));
+
 Route::post('language', array(
 	'before' => 'csrf',
 	'as' => 'choose_language',
@@ -42,6 +44,8 @@ Route::get('path', function(){
 Route::get('media/load', array('as' => 'media.load', 'uses' => 'MediaController@showAllMedia'));
 Route::get('carrier/load', array('as' => 'carrier.load', 'uses' => 'CarriersController@loadCarrier'));
 Route::get('games/load', array('as' => 'games.load', 'uses' => 'GamesController@loadGames'));
+
+Route::post('games/load/content/{id}', array('as' => 'games.content.load', 'uses' => 'GamesController@loadGameContent'));
 
 Route::group(array('prefix' => 'admin'), function() {
 	Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
@@ -76,12 +80,11 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('general-settings', array('as' => 'admin.general-settings.update', 'uses' => 'SiteOptionsController@updateGeneralSettings'));
     Route::get('variables', array('as' => 'admin.variables', 'uses' => 'SiteOptionsController@showVariables'));
     Route::post('variables', array('as' => 'admin.variables.update', 'uses' => 'SiteOptionsController@updateVariables'));
-    Route::get('form-messages', array('as' => 'admin.form-messages', 'uses' => 'SiteOptionsController@showFormMessages'));
-    Route::post('form-messages', array('as' => 'admin.form-messages.update', 'uses' => 'SiteOptionsController@updateFormMessages'));
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
-    Route::get('slideshow', array('as' => 'admin.slideshow', 'uses' => 'SiteOptionsController@showGames'));
-    Route::post('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@updateFeatured'));
+    Route::get('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@showFeatured'));
+    Route::post('featured', array('as' => 'admin.featured.update', 'uses' => 'SiteOptionsController@updateFeatured'));
+    Route::post('featured/categories', array('as' => 'admin.featured.categories.update', 'uses' => 'SiteOptionsController@updateCategories'));
 
     //added for admin reviews - transfer later on
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));
@@ -182,5 +185,9 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
     }
 });*/
 
-Route::post('export', array('as' => 'admin.export.userDB', 'uses' => 'AdminUsersController@exportDB'));
 
+Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
+Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
+Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
+route::resource('review', 'ReviewsController');
+Route::post('/admin/destroy/review', array('before' => 'csrf', 'uses' => 'ReviewsController@handleDestroy'));

@@ -81,6 +81,14 @@ class GamesController extends \BaseController {
 				}
 			}
 		}
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
 
 		$ratings = Review::getRatings($game->id);
 		$visitor = Tracker::currentSession();
@@ -92,7 +100,7 @@ class GamesController extends \BaseController {
 			->with('ratings', $ratings)
 			->with('current_game', $current_game)
 			->with('country', $country)
-			->with(compact('languages','related_games', 'game'));
+			->with(compact('languages','related_games', 'game', 'discounted_games'));
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/
 	}
@@ -133,7 +141,17 @@ class GamesController extends \BaseController {
 		//
 	}
 
-	public function loadGames() {
+	public function loadGameContent() 
+	{
+		$game = Game::find(Input::get('id'));
+
+		foreach($game->contents as $g) {
+			echo $g->pivot->content;
+		}
+	}
+
+	public function loadGames() 
+	{
 		$games = Game::with('media')->get();
 
 		return $games->toJson();

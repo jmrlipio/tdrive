@@ -19,6 +19,8 @@ return array(
 	'password' => 'รหัสผ่าน',
 	'Sign In' => 'เข้าสู่ระบบ',
 	'submit' => 'เสนอ',
+	'All games' => 'เกมทุกเกม',
+	'All Categories' => 'ทุกประเภท',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',

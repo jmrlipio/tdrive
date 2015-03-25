@@ -389,7 +389,7 @@ p#generated-password {
 	width: 16.5%;
 }
 
-#ribbon {
+#ribbon, #sale {
 	margin-top: 10px;
 	width: 100px;
 	height: 100px;
@@ -458,7 +458,7 @@ a#back {
 .purchased_games{width:100%;}
 
 #options-nav li {
-	width: 16.5%;
+	width: 20.5%;
 }
 
 #asettings {
@@ -477,4 +477,49 @@ a#back {
 
 .fleft {
 	float: left;
+}
+
+.option-select {
+	width: 40%;
+	float: left;
+}
+
+.sortable-items {
+	width: 50%;
+	float: right;
+	border: 1px solid #ccc;
+	min-height: 300px;
+	background-color: rgb(199, 255, 199);
+
+}
+
+.sortable-items li {
+	width: 97%;
+	height: 30px;
+	background-color: #fff;
+	padding: 5px 0 5px 10px;
+	line-height: 30px;
+	margin-top: 5px;
+	border: 1px solid #ccc;
+}
+
+.sortable-items .item-title {
+	float: left;
+}
+
+.sortable-items .item-type {
+	float: right;
+	padding-right: 10px;
+}
+
+.grab {
+    cursor: move;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.grabbing {
+	cursor: move;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }

@@ -99,6 +99,17 @@ class SiteOptionsController extends \BaseController {
 		} else {
 			$data['ribbon_url'] = $game_settings->ribbon_url;
 		}
+
+		if(Input::hasFile('sale_url')) {
+			$sale_ribbon = Input::file('sale_url');
+			$sale_ribbon_name = time() . "_" . $sale_ribbon->getClientOriginalName();
+			$sale_ribbon_path = public_path('assets/site/' . $sale_ribbon_name);
+			Image::make($sale_ribbon->getRealPath())->save($sale_ribbon_path);
+			
+			$data['sale_url'] = $sale_ribbon_name;
+		} else {
+			$data['sale_url'] = $game_settings->sale_url;
+		}
 		
 		if ($validator->fails())
 		{
@@ -111,47 +122,6 @@ class SiteOptionsController extends \BaseController {
 
 	}
 
-	public function showFormMessages() {
-
-		$messages = Message::all();
-
-		return View::make('admin.messages')->with('messages', $messages);
-
-	}
-
-	public function updateFormMessages() {
-
-		$messages = Message::all();
-
-		foreach(Input::get('messages') as $message) {
-
-			foreach($messages as $ms) {
-
-				if($message['id'] == $ms->id) {
-
-					$data = [
-						'success' => $message['success'],
-						'error' => $message['error']
-					];
-
-					$validator = Validator::make($data, Message::$rules);
-
-					if ($validator->fails())
-					{
-						return Redirect::back()->withErrors($validator)->withInput();
-					}
-
-					$ms->update($data);
-
-				}
-			}
-
-		}
-
-		return Redirect::back()->with('message', 'You have successfully updated these settings.');
-
-	}
-
 	public function showNews() {
 
 		$news = News::orderBy('created_at')->paginate(10);
@@ -160,25 +130,93 @@ class SiteOptionsController extends \BaseController {
 
 	}
 
-	public function showGames() {
+	public function showFeatured() {
 
-		$games = Game::orderBy('created_at')->paginate(10);
+		$games = [];
+		$news = [];
+		$categories = [];
+		$selected_games = [];
+		$selected_news = [];
+		$selected_categories = [];
 
-		return View::make('admin.slideshow')->with('games', $games);
+		$sliders = Slider::all();
+
+		foreach($sliders as $slider) {
+			if($slider->slideable_type == 'Game') $selected_games[] = $slider->slideable_id;
+			else if($slider->slideable_type == 'News') $selected_news[] = $slider->slideable_id;
+		}
+
+		foreach(Game::all() as $game) {
+			$games[$game->id] = $game->main_title;
+		}
+
+		foreach(News::all() as $nw) {
+			$news[$nw->id] = $nw->main_title;
+		}
+
+		foreach(Category::all() as $category) {
+			$categories[$category->id] = $category->category;
+			if($category->featured) $selected_categories[] = $category->id;
+		}
+
+		$featured_categories = Category::where('featured', '=', 1)->orderBy('order')->get();
+
+		return View::make('admin.slideshow')
+			->with(compact('games','news','sliders','selected_news','selected_games','categories','selected_categories','featured_categories'));
 
 	}
 
 	public function updateFeatured()
 	{
-		$data = Input::all();
+		$data = Input::get('item');
+
+		Slider::truncate();
         
-        if(Request::ajax())
-        {
-            $id = $data['id'];
-            $game = Game::where('id', $id)->first();
-            $game->featured = $data['featured'];
-            $game->update();
+        $count = 1;
+        foreach($data as $item) {
+        	foreach($item as $type => $id) {
+        		if($type == 'game') $slider = Game::find($id);
+        		else $slider = News::find($id);
+
+        		$slider->sliders()->create(['order' => $count]);
+        	}
+        	
+        	$count++;
         }
+
+        return Redirect::back()->with('message', 'You have successfully update the homepage slider items.');
+	}
+
+	public function updateCategories() {
+		$featured = Input::get('item');
+
+		$count = 1;
+
+		foreach($featured as $fc) {
+			$ctg = Category::find($fc);
+
+			$data = [
+				'featured' => 1,
+				'order' => $count
+			];
+
+			$ctg->update($data);
+
+			$count++;
+		}
+
+		foreach(Category::all() as $category) {
+			if(!in_array($category->id, $featured)) {
+				$data = [
+					'featured' => 0,
+					'order' => 0
+				];
+
+				$category->update($data);
+			}
+		}
+
+		return Redirect::back()->with('message', 'You have successfully updated the featured categories.');
 	}
 
 }

@@ -6,7 +6,23 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">{{{ trans('global.'.$category->category) }}}</h1>
+		
+		<div class="clearfix">
+			<h1 class="title">{{{ trans('global.'.$category->category) }}}</h1>
+
+			<div class="search-category">
+
+				{{ Form::open(array('action' => 'ListingController@searchGamesByCategory', 'id' => 'search_form_by_category', 'class' => 'clearfix')) }}
+					{{ Form::input('text', 'search', null, array('placeholder' => 'search games in this category')); }}
+					{{ Form::hidden('id', $category->id) }}
+
+					<a href="javascript:{}" onclick="document.getElementById('search_form_by_category').submit(); return false;"><i class="fa fa-search"></i></a>
+
+					{{ Form::token() }}
+				{{ Form::close() }}
+
+			</div>
+		</div>
 
 		<div id="token">{{ Form::token() }}</div>
 
@@ -23,13 +39,13 @@
 									<div class="thumb relative">
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
-										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="{{ URL::to('/') }}/assets/games/icons/{{ $media->url }}" alt="{{ $game->main_title }}"></a>
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}" class="thumb-image"><img src="{{ URL::to('/') }}/assets/games/icons/{{ $media->url }}" alt="{{ $game->main_title }}"></a>
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 										
 									</div>

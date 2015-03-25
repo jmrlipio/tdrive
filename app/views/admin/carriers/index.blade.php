@@ -23,7 +23,7 @@
 				@foreach($carriers as $carrier)
 					<tr>
 						<td>
-							<a href="#">{{ $carrier->carrier }}</a>
+							<a href="{{ URL::route('admin.carriers.edit', $carrier->id) }}">{{ $carrier->carrier }}</a>
 							@if(Auth::user()->role != 'admin')
 								<ul class="actions">
 									<li><a href="{{ URL::route('admin.carriers.edit', $carrier->id) }}">Edit</a></li>

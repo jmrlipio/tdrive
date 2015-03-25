@@ -32,7 +32,7 @@
 						<tr>
 							<!--<td><input type="checkbox"></td>-->
 							<td>
-								<a href="#">{{ $category->category }}</a>
+								<a href="{{ URL::route('admin.categories.edit', $category->id) }}">{{ $category->category }}</a>
 								@if(Auth::user()->role != 'admin')
 									<ul class="actions">
 										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>

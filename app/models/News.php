@@ -36,4 +36,8 @@ class News extends \Eloquent {
     public function contents() {
     	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
     }
+
+    public function sliders() {
+    	return $this->morphMany('Slider', 'slideable');
+    }
 }

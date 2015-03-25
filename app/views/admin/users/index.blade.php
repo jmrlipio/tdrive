@@ -94,7 +94,7 @@
 	
 		<!-- Export as xls or excel -->	
 
-		{{ Form::open(array('route' => 'admin.export.userDB', 'class' => 'login fl' )) }}
+		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
 	
 			<div class="control-item submit-btn">
 				<input type="hidden" name="file_type" value="xls" />
@@ -108,7 +108,7 @@
 
 		<!-- Export as csv -->	
 	
-		{{ Form::open(array('route' => 'admin.export.userDB', 'class' => 'login fl' )) }}
+		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
 	
 			<div class="control-item submit-btn">
 				<input type="hidden" name="file_type" value="csv" />
@@ -122,7 +122,7 @@
 
 		<!-- Export as pdf -->	
 	
-		{{ Form::open(array('route' => 'admin.export.userDB', 'class' => 'login fl' )) }}
+		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
 	
 			<div class="control-item submit-btn">
 				<input type="hidden" name="file_type" value="pdf" />

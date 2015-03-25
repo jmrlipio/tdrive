@@ -10,10 +10,7 @@ Event::listen('user.*', function($user) {
 			 ->subject('Activate your Account');
 		});
 
-	} /*elseif ( Event::firing() == 'user.login' ) {
-
-		
 	}
-*/
 	return false;
 });
+

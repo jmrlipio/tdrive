@@ -20,6 +20,7 @@ class CreateGameSettingsTable extends Migration {
 			$table->integer('game_reviews');
 			$table->integer('review_rows');
 			$table->string('ribbon_url');
+			$table->string('sale_url');
 			$table->timestamps();
 		});
 	}

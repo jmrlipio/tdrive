@@ -21,7 +21,7 @@
 								<div class="item">
 									<div class="thumb relative">
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
 										@endif
 
 
@@ -29,7 +29,7 @@
 
 							<!-- If image url can't be located, change the url to -->
 							<!--  {{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}  -->
-										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
 
 
 									</div>

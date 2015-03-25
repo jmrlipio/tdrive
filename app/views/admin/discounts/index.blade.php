@@ -14,6 +14,11 @@
 			<thead>
 				<tr>
 					<th>Discount Name</th>
+					<th>Carrier</th>
+					<th>Games</th>
+					<th>Discount</th>
+					<th>Start Date</th>
+					<th>End Date</th>
 				</tr>
 			</thead>
 
@@ -22,7 +27,7 @@
 					@foreach($discounts as $discount)	
 						<tr>
 							<td>
-								<a href="#">{{ $discount->title }}</a>
+								<a href="{{ URL::route('admin.discounts.edit', $discount->id) }}">{{ $discount->title }}</a>
 								@if(Auth::user()->role != 'admin')
 									<ul class="actions">							
 										<li><a href="{{ URL::route('admin.discounts.edit', $discount->id) }}">Edit</a></li>		
@@ -34,6 +39,15 @@
 									</ul>
 								@endif
 							</td>
+							<td>{{ $discount->carrier->carrier }}</td>
+							<td>
+								@foreach($discount->games as $game)
+									{{ $game->main_title }}
+								@endforeach
+							</td>
+							<td>{{ $discount->discount_percentage . '%' }}</td>
+							<td>{{ Carbon::createFromFormat('Y-m-d', $discount->start_date)->toFormattedDateString() }}</td>
+							<td>{{ Carbon::createFromFormat('Y-m-d', $discount->end_date)->toFormattedDateString() }}</td>
 						</tr>
 					
 					@endforeach

@@ -249,6 +249,38 @@ class ListingController extends \BaseController {
 			->with('search', Input::get('search'));
 	}
 
+	public function searchGamesByCategory() 
+	{
+		$id = Input::get('id');
+
+		$languages = Language::all();
+
+		$searched_games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->get();
+		
+		$games = [];
+
+		foreach($searched_games as $game) {
+			foreach($game->categories as $category) {
+				if($category->id == $id) {
+					$games[] = $game;
+				}
+			}
+		}
+
+		$count = count($games);
+
+		$country = Country::find(Session::get('country_id'));
+
+		return View::make('search')
+			->with('page_title', 'Search results')
+			->with('page_id', 'game-listing')
+			->with('count', $count)
+			->with('country', $country)
+			->with(compact('games'))
+			->with(compact('languages'))
+			->with('search', Input::get('search'));
+	}
+
 	public function searchMoreGames() 
 	{
 		$load = Input::get('load') * 6;
@@ -262,6 +294,16 @@ class ListingController extends \BaseController {
 				->with('country', $country)
 				->with(compact('games'));
 		}
+	}
+
+	public function showGameCategories() 
+	{
+		$categories = Category::all();
+
+		return View::make('category_listing')
+			->with('page_title', 'Category List')
+			->with('page_id', 'category-listing')		
+			->with(compact('categories'));
 	}
 
 }

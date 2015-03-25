@@ -65,6 +65,8 @@ class DiscountsController extends \BaseController {
 		}
 		
 		$discount = Discount::create($data);
+
+		$discount->games()->sync(Input::get('game_id'));
 		
 		return Redirect::route('admin.discounts.edit',$discount->id)->with('message', 'You have successfully added a discount.');
 	}

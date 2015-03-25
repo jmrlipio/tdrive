@@ -34,16 +34,24 @@
 			padding: 3px;
 			margin-top:10px;
 		}
+
 		div#btn-link a {
 			color: #fff;
 			display: block;
 		}
+
+		.view-all {
+			background: #61ded0;
+		}
+		
+		.discounted { text-decoration: line-through; }
 
 	</style>
 
 @stop
 
 @section('content')
+
 	<div id="slider" class="swiper-container featured container">
 		<div class="swiper-wrapper">
 
@@ -55,7 +63,7 @@
 					@if ($media->type == 'promos')
 						<div class="swiper-slide">
 							@if(File::exists(public_path() . '/assets/games/promos/'. $media->url))
-								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/games/promos/{{ $media->url }}" alt="{{ $featured_game->main_title }}"></a>
+								<a href="{{ URL::route('game.show', array('id' => $featured_game->id, 'slug' => $featured_game->slug)) }}"><img src="assets/games/promos/{{ $media->url }}" alt="{{ $featured_game->main_title }}"></a>
 							@else
 								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/featured/placeholder.jpg" alt="{{ $featured_game->main_title }}"></a>
 							@endif
@@ -72,7 +80,7 @@
 	{{ Form::token() }}
 
 	<div id="latest-games" class="container">
-		<h1 class="title">{{ trans('global.new and updated games') }}</h1>
+		<h1 class="title">{{ trans('global.All games') }}</h1>
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
 				<?php $ctr = 0; ?>
@@ -84,14 +92,23 @@
 								<div class="swiper-slide item">
 									<div class="thumb relative">
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
-										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
+								
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
+
 									</div>
 									<div class="meta">
 										<p class="name">{{{ $game->main_title }}}</p>
@@ -99,7 +116,16 @@
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+														$sale_price = $price->pivot->price * (1 - ($dc/100));
+													 ?>
+													@if($dc != 0)
+														<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+														 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+													@else														 
+														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@endif
+
 												@endif
 											@endforeach
 										@endunless
@@ -149,13 +175,21 @@
 										<div class="swiper-slide item">
 											<div class="thumb relative">
 												@if ($game->default_price == 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 
-												<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+												<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
 
 												@if ($game->default_price == 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 											</div>
 
@@ -165,7 +199,20 @@
 												@unless ($game->default_price == 0)
 													@foreach($game->prices as $price) 
 														@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+															<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
+															@if($dc != 0)
+																<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+																<?php 
+																	$sale_price = $price->pivot->price * (1 - ($dc/100));
+																 ?>
+
+																 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+
+																 @else	
+
+																	<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
+																
+															@endif
 														@endif
 													@endforeach
 												@endunless
@@ -188,9 +235,14 @@
 
 				</div>
 			</div>
-		</div>
 
+		</div>
+		
 	@endforeach
+
+	<div class="view-all container clearfix">
+		<div class="more fr"><a href="{{ route('categories.all') }}">View all categories</a></div>
+	</div>
 
 	<div id="news" class="container">
 		<div class="clearfix">
@@ -457,6 +509,7 @@
 @stop
 
 @section('javascripts')
+
 	{{ HTML::script("js/fastclick.js") }}
 	{{ HTML::script("js/bootstrap.min.js") }}
 	{{ HTML::script("js/jquery.lightSlider.min.js") }}
@@ -467,22 +520,43 @@
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
 
 	<script>
+
 		FastClick.attach(document.body);
 
 		var ctr = $('#ctr').val();
 		var ctr2 = $('#ctr2').val();
 
-		$(window).load(function(){
-			
-			for(var i=0; i<ctr; i++){
-	        	
-	        	$('#myModal'+ (i+1)).modal('show');
+		$(window).load(function() {
+
+			$('#slider').show();
+
+			$('.thumbs-container').each(function() {
+				$(this).show();
+			});
+
+			for(var i = 0; i < ctr; i++) {
+	        	$('#myModal' + (i + 1)).modal('show');
 	        }
 
-	        for(var i=0; i<ctr2; i++){
-	        	
-	        	$('#newsAlert'+ (i+1)).modal('show');
+	        for(var i = 0; i < ctr2; i++) {
+	        	$('#newsAlert' + (i + 1)).modal('show');
 	        }
+
+			$('.featured').swiper({
+				slidesPerView: 2,
+				centeredSlides: true,
+				calculateHeight: true,
+				initialSlide: 2
+			});
+
+			$('.thumbs-container').each(function() {
+				$(this).swiper({
+					slidesPerView: 'auto',
+					offsetPxBefore: 0,
+					offsetPxAfter: 10,
+					calculateHeight: true
+				});
+			});
 
 	    });
 
@@ -528,22 +602,6 @@
 			}
 		});
 
-		$('.featured').swiper({
-			slidesPerView: 'auto',
-			centeredSlides: true,
-			calculateHeight: true,
-			initialSlide: 2
-		})
-
-		$('.thumbs-container').each(function() {
-			$(this).swiper({
-				slidesPerView: 'auto',
-				offsetPxBefore: 0,
-				offsetPxAfter: 10,
-				calculateHeight: true
-			})
-		})
-
 		$("#questions").accordion({ 
 			heightStyle: 'panel', 
 			active: 'none' 
@@ -557,4 +615,5 @@
 		});
 
 	</script>
+
 @stop

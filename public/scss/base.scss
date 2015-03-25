@@ -115,6 +115,8 @@ img, video {
 	}
 }
 
+.readmore { color: $pink; }
+
 .button {
 	text-align: center;
 	text-transform: lowercase;
@@ -273,6 +275,8 @@ img, video {
 		display: block;
 	}
 }
+
+.clear { clear: both; }
 
 .clearfix {
 	*zoom: 1;
