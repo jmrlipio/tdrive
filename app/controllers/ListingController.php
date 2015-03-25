@@ -164,11 +164,20 @@ class ListingController extends \BaseController {
 				}
 			}
 		}
+
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
 		
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-related')
 				->with('country', $country)
-				->with(compact('games'));
+				->with(compact('games', 'discounted_games'));
 		}
 	}
 

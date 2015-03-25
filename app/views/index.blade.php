@@ -55,11 +55,37 @@
 	<div id="slider" class="swiper-container featured container swiper-container-horizontal">
 		<div class="swiper-wrapper">
 
-			@foreach($featured_games as $featured_game)
+			@foreach($sliders as $slider)
+				<div class="swiper-slide">
+					@if($slider->slideable_type == 'Game')
+
+						@foreach($games_slide as $key => $game)
+							
+							@if($key == $slider->slideable_id)							
+								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/games/promos/{{ $game['url'] }}" alt="$game['title']"></a>
+							@endif
+
+						@endforeach
+							
+					@elseif($slider->slideable_type == 'News') 
+
+						@foreach($news_slide as $key => $nw) 
+
+							@if($key == $slider->slideable_id) 
+								<a href="#"><img src="assets/news/{{ $nw }}" alt="news test"></a>					
+							@endif
+
+						@endforeach
+						
+					@endif
+				</div>		
+			@endforeach
+
+			<!-- @foreach($featured_games as $featured_game)
 				@foreach($featured_game->media as $media)
-
+			
 				@if ($featured_game->featured == 1)
-
+			
 					@if ($media->type == 'promos')
 						<div class="swiper-slide">
 							@if(File::exists(public_path() . '/assets/games/promos/'. $media->url))
@@ -70,9 +96,9 @@
 						</div>
 					@endif
 				@endif
-
+			
 				@endforeach
-			@endforeach
+			@endforeach -->
 
 		</div>
 		<div class="swiper-pagination swiper-pagination-clickable"></div>
@@ -123,8 +149,16 @@
 													@if($dc != 0)
 														<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 														 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-													@else														 
-														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													
+													@else
+														@if($price->pivot->price == 0)
+															
+															<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
+														@else													 
+															
+															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+														@endif
+
 													@endif
 
 												@endif
@@ -202,16 +236,17 @@
 														@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
 															<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
 															@if($dc != 0)
-																<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+															<!-- For adding strikethrough to the old price -->
+																<!-- <p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p> -->
 																<?php 
 																	$sale_price = $price->pivot->price * (1 - ($dc/100));
 																 ?>
 
-																 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+																<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
 
-																 @else	
+															@else	
 
-																	<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
+																<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
 																
 															@endif
 														@endif
