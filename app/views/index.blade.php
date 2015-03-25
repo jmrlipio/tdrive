@@ -80,7 +80,7 @@
 	{{ Form::token() }}
 
 	<div id="latest-games" class="container">
-		<h1 class="title">All games</h1>
+		<h1 class="title">{{ trans('global.All games') }}</h1>
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
 				<?php $ctr = 0; ?>
@@ -145,19 +145,19 @@
 			</div>
 		</div>
 
-		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
+		<div class="more"><a href="{{ route('games.all') }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #latest-games -->
 
 	<div id="games-heading" class="container">
-		<h1 class="title">Games</h1>
+		<h1 class="title">{{ trans('global.Games') }}</h1>
 	</div>
 
 	@foreach($categories as $cat)
 
 		<div class="game-category container">
 			<div class="clearfix">
-				<h2 class="title fl">{{ $cat->category }}</h2>
-				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">See all</a></div>
+				<h2 class="title fl">{{ trans('global.'.$cat->category) }}</h2>
+				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.See all') }}</a></div>
 			</div>
 
 			<div class="swiper-container thumbs-container">
@@ -246,7 +246,7 @@
 
 	<div id="news" class="container">
 		<div class="clearfix">
-			<h1 class="title">Latest news</h1>
+			<h1 class="title">{{ trans('global.latest news') }}</h1>
 
 			<form action="#" id="year" method="post">
 
@@ -275,7 +275,7 @@
 						<p>{{{ $content->pivot->excerpt }}}</p>
 					</div>	
 
-					<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">Read more <i class="fa fa-angle-right"></i></a></div>
+					<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">{{ trans('global.Read more') }} <i class="fa fa-angle-right"></i></a></div>
 				</div>
 
 				@endforeach
@@ -316,13 +316,13 @@
 
 		</div>
 		<br>
-		<div class="more"><a href="{{ route('news.all') }}">More +</a></div>
+		<div class="more"><a href="{{ route('news.all') }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #news -->
 
 	<div id="faqs" class="container">
-		<h1 class="title">FAQs</h1>
+		<h1 class="title">{{ trans('global.FAQs') }}</h1>
 
-		<p>Find answers to Frequently Asked Questions about TDrive and our services below.</p>
+		<p>{{ trans('global.Find answers to Frequently Asked Questions about TDrive and our services below.') }}</p>
 
 		<div id="questions">
 
@@ -339,8 +339,8 @@
 	</div><!-- end #faqs -->
 
 	<div id="contact" class="container">
-		<h1 class="title">Contact us</h1>
-		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
+		<h1 class="title">{{ trans('global.Contact us') }}</h1>
+		<p>{{ trans('global.Your comments and suggestions are important to us. You can reach us via the contact points below.') }}</p>
 
 		{{ Form::open(array('route'=>'reports.inquiries.store-inquiry', 'method' => 'post')) }}
 
@@ -350,20 +350,20 @@
 			@endif
 
 			<div class="control clearfix">
-				<input type="text" name="name" id="name" placeholder="name" required>
+				<input type="text" name="name" id="name" placeholder="{{ trans('global.name') }}" required>
 
 				{{ $errors->first('name', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
-				<input type="email" name="email" id="email" placeholder="email" required>
+				<input type="email" name="email" id="email" placeholder="{{ trans('global.email') }}" required>
 
 				{{ $errors->first('email', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="select clearfix">
 				<select name="game_title" class="clearfix" id="game" required>
-					<option value="General Inquiry">General Inquiry</option>
+					<option value="General Inquiry">{{ trans('global.General Inquiry') }}</option>
 
 					@foreach($games as $game)
 						<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
@@ -382,13 +382,13 @@
 			</div>
 
 			<div class="control clearfix">
-				<textarea name="message" id="message" placeholder="message" required></textarea>
+				<textarea name="message" id="message" placeholder="{{ trans('global.message') }}" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
-				<input type="submit" value="Submit &raquo;">
+				<input type="submit" value="{{ trans('global.submit') }} &raquo;">
 			</div>
 
 		{{ Form::close() }}

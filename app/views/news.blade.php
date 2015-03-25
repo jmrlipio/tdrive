@@ -37,14 +37,14 @@
 
 		<div class="social clearfix">
 			<div>
-				<a href="#share" id="inline" class="share">Share</a>
+				<a href="#share" id="inline" class="share">{{ trans('global.Share') }}</a>
 				<div href="#" class="like"> 
 					<div id="news_like" class="fb-like" data-href="{{ url() }}/news/{{ $news->id }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>
 			</div>
 			<div style="display:none">
 				<div id="share" style="text-align:center;">
-					<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
+					<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks.') }}</h4>
 					<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/news/{{ $news->id }}" data-social='{"type":"facebook", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->slug }}"}'>
 						{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 					</a>

@@ -43,12 +43,12 @@
 			<ul class="categories clearfix">
 
 				@foreach ($game->categories as $item)
-					<li><a href="{{ route('category.show', $item->id) }}">{{ $item->category }}</a></li>
+					<li><a href="{{ route('category.show', $item->id) }}">{{ trans('global.'.$item->category) }}</a></li>
 				@endforeach
 
 			</ul>
 
-			<p>Release: {{{ $game->release_date }}}</p>
+			<p>{{ trans('global.Release') }}: {{{ $game->release_date }}}</p>
 		</div>
 	</div><!-- end #top -->
 
@@ -56,7 +56,7 @@
 		<div class="downloads">
 			<div class="vcenter">
 				<p class="count">{{ number_format($game->downloads, 0) }}</p>
-				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
+				<p class="words"><!--<span>Thousand</span>--> {{ trans('global.Downloads') }}</p>
 			</div>
 		</div>
 
@@ -84,7 +84,7 @@
 
 			<a href="#" class="download">
 				<div>
-					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
 				</div>
 			</a>
 
@@ -92,13 +92,13 @@
 
 			<a href="#" class="download" id="game-download">
 				<div>
-					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
 				</div>
 			</a>
 
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
-					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
+					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
 
 					@unless ($game->default_price == 0)
 						@foreach($game->prices as $price) 
@@ -151,23 +151,27 @@
 	<div id="screenshots" class="container">
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
+				@foreach($game->media as $screenshots)
+
+					@if($screenshots->type == 'video')
+
+						<div class="swiper-slide item">
+							<a href="{{ $screenshots->url }}" rel="group" class="fancybox-media">{{ HTML::image('images/video.png') }}</a>
+						</div>
+					@endif	
+
+				@endforeach
 
 				@foreach($game->media as $screenshots)
-					@if($screenshots->type == 'screenshots')
 
+					@if($screenshots->type == 'screenshots')
 						<div class="swiper-slide item">
 							<a href="{{ url() }}/assets/games/screenshots/{{ $game->image_orientation . '-' . $screenshots->url }}" rel="group" class="fancybox-media">
 								{{ HTML::image('assets/games/screenshots/' . $game->image_orientation . '-' . $screenshots->url, $game->main_title) }}
 							</a>
 						</div>
-
-					@elseif($screenshots->type == 'video')
-
-						<div class="swiper-slide item">
-							<a href="{{ $screenshots->url }}" rel="group" class="fancybox-media">{{ HTML::image('images/video.png') }}</a>
-						</div>
-
-					@endif
+					@endif	
+					
 				@endforeach
 
 			</div>
@@ -198,7 +202,7 @@
 						<i class="fa fa-star"></i>
 					</div>
 
-					<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
+					<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} {{ trans('global.total') }}</p>
 				</div>
 
 			@else
@@ -235,12 +239,12 @@
 
 				<a href="#share" id="inline" class="share" >
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
-					<span>Share </span>
+					<span>{{ trans('global.Share') }}</span>
 				</a>
 
 				<div style="display:none">
 					<div id="share" style="text-align:center;">
-						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
+						<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks.') }}</h4>
 						
 						<!-- TWITTER SHARE -->
 						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{$excerpt}} \n"}' title="{{ $game->main_title }}">
@@ -466,7 +470,7 @@
 		@else
 
 			<div class="button">
-				<a href="{{ route('users.login') }}">Login to write a review <i class="fa fa-pencil"></i></a>
+				<a href="{{ route('users.login') }}">{{ trans('global.Login to write a review') }} <i class="fa fa-pencil"></i></a>
 			</div>
 
 		@endif
@@ -504,7 +508,7 @@
 		
 	@if($ctr > 4)	
 		
-		<div class="link center"><a href="{{ route('reviews', $game->id) }}">See all reviews &raquo;</a></div>
+		<div class="link center"><a href="{{ route('reviews', $game->id) }}">{{ trans('global.See all reviews') }} &raquo;</a></div>
 
 	@else
 
@@ -515,7 +519,7 @@
 	</div><!-- end #reviews -->
 
 	<div id="related-games" class="container">
-		<h1 class="title">Related games</h1>
+		<h1 class="title">{{ trans('global.Related games') }}</h1>
 		
 		@if(!empty($related_games))
 
@@ -584,11 +588,11 @@
 
 		@else
 
-			<p>No related games.</p>
+			<p>{{ trans('global.No related games.') }}</p>
 
 		@endif
 
-		<div class="more"><a href="{{ route('games.related', $game->id) }}">More +</a></div>
+		<div class="more"><a href="{{ route('games.related', $game->id) }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #related-games -->
 
 @stop

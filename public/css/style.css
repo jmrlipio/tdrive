@@ -768,7 +768,9 @@
 #game-detail #related-games .meta p {
   font-size: 14px;
 }
-
+.fancybox-opened {
+  z-index: 99999999;
+}
 @media only screen and (min-width: 320px) {
   #game-detail #buttons .downloads {
     float: left;

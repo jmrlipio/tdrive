@@ -6,9 +6,9 @@
 @section('content')
 
 	<div class="container">
-
+		
 		<div class="clearfix">
-			<h1 class="title">{{{ $category->category }}}</h1>
+			<h1 class="title">{{{ trans('global.'.$category->category) }}}</h1>
 
 			<div class="search-category">
 
