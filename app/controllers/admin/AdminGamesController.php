@@ -102,7 +102,6 @@ class AdminGamesController extends \BaseController {
 
 		$edit_rules = Game::$rules;
 
-		$edit_rules['id'] = 'required|integer|unique:games,id,' . $id;
 		$edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
@@ -486,5 +485,17 @@ class AdminGamesController extends \BaseController {
     	
     }
 
+    public function updateDefaultLanguage() {
+		$game = Game::find(Input::get('game_id'));
+		$language_id = Input::get('language_id');
+
+		foreach($game->contents as $content) {
+			if($content->pivot->language_id == $language_id) {
+				$game->contents()->updateExistingPivot($language_id, array('default' => 1), true);
+			} else {
+				$game->contents()->updateExistingPivot($content->pivot->language_id, array('default' => 0), true);
+			}
+		}
+	}
     
 }

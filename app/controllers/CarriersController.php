@@ -93,6 +93,12 @@ class CarriersController extends \BaseController {
 
 		$selected_countries = [];
 		$countries = [];
+		$languages = [];
+
+		foreach(Language::orderBy('language')->get() as $language) {
+			$languages[$language->id] = $language->language;
+		}
+
 
 		foreach($carrier->countries as $country) {
 			$selected_countries[] = $country->id;
@@ -105,7 +111,8 @@ class CarriersController extends \BaseController {
 		return View::make('admin.carriers.edit')
 			->with('carrier', $carrier)
 			->with('selected_countries', $selected_countries)
-			->with('countries', $countries);
+			->with('countries', $countries)
+			->with('languages', $languages);
 	}
 
 	/**

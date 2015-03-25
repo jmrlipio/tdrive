@@ -11,6 +11,11 @@
 		@endif
 		<ul>
 			<li>
+				{{ Form::label('id', 'Carrier ID:') }}
+				{{ Form::text('id', null) }}
+				{{ $errors->first('id', '<p class="error">:message</p>') }}
+			</li>
+			<li>
 				{{ Form::label('carrier', 'Carrier: ') }}
 				{{ Form::text('carrier') }}
 				{{ $errors->first('carrier', '<p class="error">:message</p>') }}
@@ -19,6 +24,11 @@
 				{{ Form::label('country_id', 'Countries: ') }}
 				{{ Form::select('country_id[]', $countries, $selected_countries, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose country(s)...'))  }}
 				{{ $errors->first('country_id', '<p class="error">:message</p>') }}
+			</li>
+			<li>
+				{{ Form::label('language_id', 'Default Language: ') }}
+				{{ Form::select('language_id', $languages, null, array('placeholder' => 'Choose default language...')) }}
+				{{ $errors->first('langauge_id', '<p class="error">:message</p>') }}
 			</li>
 			<li>
 				{{ Form::submit('Save') }}

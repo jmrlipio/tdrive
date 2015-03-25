@@ -14,9 +14,9 @@
 				{{ Form::open(array('route' => 'admin.games.store')) }}
 					<ul id="custom-fields">
 						<li>
-							{{ Form::label('id', 'Game ID:') }}
-							{{ Form::text('id', null) }}
-							{{ $errors->first('id', '<p class="error">:message</p>') }}
+							{{ Form::label('app_id', 'App ID:') }}
+							{{ Form::text('app_id', null) }}
+							{{ $errors->first('app_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}

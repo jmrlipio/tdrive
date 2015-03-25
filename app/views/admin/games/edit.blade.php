@@ -23,9 +23,9 @@
 				<ul id="details">
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
-							{{ Form::label('id', 'Game ID: ') }}
-							{{ Form::text('id', null) }}
-							{{ $errors->first('id', '<p class="error">:message</p>') }}
+							{{ Form::label('app_id', 'App ID: ') }}
+							{{ Form::text('app_id', null) }}
+							{{ $errors->first('app_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
@@ -89,13 +89,37 @@
 					<h3>The game has content for the following languages:</h3>
 					<br>
 					@if($selected_languages)
-					<ul>
-						@foreach($languages as $language_id => $language)
-							@if(in_array($language_id, $selected_languages))
-								<li><a href="{{ URL::route('admin.games.edit.content', array('game_id' => $game->id, 'language_id' => $language_id)) }}">{{ $language }}</a></li>
-							@endif
-						@endforeach
-					</ul>
+						<ul>
+							<table id="language-table">
+								<tr>
+									<th>Language</th>
+									<th>Default</th>
+								</tr>
+								@foreach($languages as $language_id => $language)
+									@if(in_array($language_id, $selected_languages))
+										<tr>
+											<td>
+												<li>
+													<a href="{{ URL::route('admin.games.edit.content', array('game_id' => $game->id, 'language_id' => $language_id)) }}">{{ $language }}</a>
+												</li>
+											</td>
+											<td>
+												<?php $checked = 0; ?>
+												@foreach($game->contents as $content)
+													@if($content->pivot->language_id == $language_id)
+														<?php 
+															$checked = $content->pivot->default;
+															break;
+														?>
+													@endif
+												@endforeach
+												{{ Form::radio('default', null, $checked, array('class' => 'default', 'id' => $language_id)) }}
+											</td>
+										</tr>
+									@endif
+								@endforeach
+							</table>
+						</ul>
 					@else
 						<p>Please select one or more languages to add content to this game.</p>
 					@endif
@@ -208,7 +232,8 @@
 	<script>
 	var gallery = $('#img-gallery ul'), 
 		img_li,
-		prices_list = $('#prices');
+		prices_list = $('#prices')
+		game_id = '{{ $game->id }}';
 
 	$(document).ready(function() {
 		// Initializes different tab sections
@@ -279,6 +304,19 @@
 	    	orientation = $('#orientation').val();
 
 	    //checkDimensions('screenshot', control, this.files[0]);
+	});
+
+	$('.default').on('click', function() {
+    	var id = $(this).attr('id');
+
+        $.ajax({
+            type: "POST",
+            url : "{{ URL::route('admin.game.languages.default') }}",
+            data :{
+            	"language_id": id,
+            	"game_id": game_id
+            }
+        });
 	});
 
 	function checkDimensions(type, control,first) {
