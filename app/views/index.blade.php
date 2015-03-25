@@ -55,11 +55,37 @@
 	<div id="slider" class="swiper-container featured container">
 		<div class="swiper-wrapper">
 
-			@foreach($featured_games as $featured_game)
+			@foreach($sliders as $slider)
+				<div class="swiper-slide">
+					@if($slider->slideable_type == 'Game')
+
+						@foreach($games_slide as $key => $game)
+							
+							@if($key == $slider->slideable_id)							
+								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/games/promos/{{ $game['url'] }}" alt="$game['title']"></a>
+							@endif
+
+						@endforeach
+							
+					@elseif($slider->slideable_type == 'News') 
+
+						@foreach($news_slide as $key => $nw) 
+
+							@if($key == $slider->slideable_id) 
+								<a href="#"><img src="assets/news/{{ $nw }}" alt="news test"></a>					
+							@endif
+
+						@endforeach
+						
+					@endif
+				</div>		
+			@endforeach
+
+			<!-- @foreach($featured_games as $featured_game)
 				@foreach($featured_game->media as $media)
-
+			
 				@if ($featured_game->featured == 1)
-
+			
 					@if ($media->type == 'promos')
 						<div class="swiper-slide">
 							@if(File::exists(public_path() . '/assets/games/promos/'. $media->url))
@@ -70,11 +96,12 @@
 						</div>
 					@endif
 				@endif
-
+			
 				@endforeach
-			@endforeach
+			@endforeach -->
 
 		</div>
+		
 	</div>
 
 	{{ Form::token() }}
@@ -122,8 +149,13 @@
 													@if($dc != 0)
 														<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 														 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-													@else														 
-														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													
+													@else
+																						 
+															
+															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													
+
 													@endif
 
 												@endif
