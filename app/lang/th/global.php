@@ -21,6 +21,10 @@ return array(
 	'submit' => 'เสนอ',
 	'All games' => 'เกมทุกเกม',
 	'All Categories' => 'ทุกประเภท',
+	'your email/password was incorrect' => 'อีเมลของคุณ / รหัสผ่านไม่ถูกต้อง',
+	'Please select' => 'กรุณาเลือก',
+	'search game' => 'เกมค้นหา',
+	'View all categories' => 'ดูทุกประเภท',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',
@@ -43,10 +47,17 @@ return array(
 	'Email not found' => 'ส่งอีเมล์หาไม่พบ',
 
 	//404 Error Blade (404.blade.php)
-	'Page Not Found!' => '',
-	'This page could not be found on the server.' => '',
-	'404 error!' => '',
-	'Return to homepage' => '',
+	'Page Not Found!' => 'ไม่พบหน้า!',
+	'This page could not be found on the server.' => 'หน้านี้ไม่สามารถพบได้บนเซิร์ฟเวอร์',
+	'404 error!' => '404 ข้อผิดพลาด!',
+	'Return to homepage' => 'กลับสู่หน้าแรก',
+
+	//Category Blade (category.blade.php)
+	'search games in this category' => 'เกมค้นหาในหมวดหมู่นี้',
+
+	//Category Listing Blade (category_listing.blade.php)
+	'Category list' => 'ประเภทรายการ',
+	'Categories not found.' => 'หมวดหมู่ไม่พบ',
 
 	//Game Blade (game.blade.php)
 	'Downloads' => 'ดาวน์โหลด',
@@ -75,7 +86,7 @@ return array(
 	'Your comments and suggestions are important to us. You can reach us via the contact points below.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง',
 	'General Inquiry' => 'สอบถามข้อมูลทั่วไป',
 	'View' => 'ดู',
-	'type what you see' => 'พิมพ์สิ่งที่คุณเห็น ...',
+	'type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
 	
 	//Login Blade (login.blade.php)
 	'Forgot your password?' => 'ลืมรหัสผ่าน?',
@@ -86,56 +97,51 @@ return array(
 	'Latest news' => 'ข่าวล่าสุด',
 
 	//Payment Blade (payment.blade.php)
-	'Payment Information' => '',
+	'Payment Information' => 'วิธีการชำระเงิน',
 
 	//Profile Blade (profile.blade.php)
-	'Change Password' => '',
-	'Downloaded games' => '',
-	'Buy' => '',
+	'Change Password' => 'เปลี่ยนรหัสผ่าน',
+	'Downloaded games' => 'เกมดาวน์โหลด',
+	'Buy' => 'ซื้อ',
 
 	//Register Blade (register.blade.php)
-	'Create new account' => '',
+	'Create new account' => 'สร้างบัญชีใหม่',
 
 	//Related Blade (related.blade.php)
-	'Related games' => '',
+	'Related games' => 'สร้างบัญชีใหม่',
 
 	//Reviews Blade (reviews.blade.php)
-	'All reviews for' => '',
+	'All reviews for' => 'สร้างบัญชีใหม่',
 
 	//Search Blade (search template.php)
-	'Search results' => '',
-	'Sorry, there are no results for' => '',
+	'Search results' => 'ผลการค้นหา',
+	'Sorry, there are no results for' => 'ขออภัยมีผลไม่',
 
 	//Footer (_partials/footer.blade.php)
 	'Copyright' => 'ลิขสิทธิ์',
 	'All rights reserved' => 'สงวนลิขสิทธิ์',
 
 	//Desktop (desktop/index.blade.php)
-	'Ooops, Desktop view is not available' => '',
-	'Please view this on mobile or tablet' => '',
+	'Ooops, Desktop view is not available' => 'Ooops มุมมองสก์ท็อปจะไม่สามารถใช้ได้',
+	'Please view this on mobile or tablet' => 'กรุณาดูนี้บนมือถือหรือแท็บเล็',
 
 	//Emails (auth/activate.blade.php)
-	'Hello' => '',
-	'Please activate your account using the following link' => '',
+	'Hello' => 'สวัสดี',
+	'Please activate your account using the following link' => 'กรุณาเปิดใช้งานบัญชีของคุณโดยใช้การเชื่อมโยงต่อไปนี้',
 
 	//Emails (auth/reminder.blade.php)
-	'Password Reset' => '',
-	'To reset your password, complete this form:' => '',
-	'This link will expire in' => '',
-	'minutes' => '',
+	'Password Reset' => 'การรีเซ็ตรหัสผ่าน',
+	'To reset your password, complete this form:' => 'ในการรีเซ็ตรหัสผ่านของคุณกรอกแบบฟอร์มนี้:',
+	'This link will expire in' => 'ลิงค์นี้จะหมดอายุใน',
+	'minutes' => 'นาที',
 
 	//Emails (inquiries/inquire.blade.php and replyto.blade.php)
-	'Inquiry' => '',
+	'Inquiry' => 'การสอบสวน',
 
 	//Password (remind.blade.php)
-	'reset password' => '',
+	'reset password' => 'รีเซ็ตรหัสผ่าน',
 
 	//Password (reset.blade.php)
-	'Please fill up this form to reset your password' => '',
+	'Please fill up this form to reset your password' => 'กรุณากรอกแบบฟอร์มเพื่อรีเซ็ตรหัสผ่านของคุณ',
 
-	//Admin (_layouts/admin.blade.php)
-	'Welcome to the TDrive Dashboard' => '',
-	'Welcome' => '',
-	'Reports' => '',
-	'Users' => ''
 );

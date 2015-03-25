@@ -22,6 +22,9 @@ return array(
 	'submit' => 'submit',
 	'All games' => 'All games',
 	'All Categories' => 'All Categories',
+	'Please select' => 'Please select',
+	'search game' => 'search game',
+	'View all categories' => 'View all categories',
 
 	//Categories
 	'Brain and Puzzle' => 'Brain and Puzzle',
@@ -48,6 +51,13 @@ return array(
 	'This page could not be found on the server.' => 'This page could not be found on the server.',
 	'404 error!' => '404 error!',
 	'Return to homepage' => 'Return to homepage',
+
+	//Category Blade (category.blade.php)
+	'search games in this category' => 'search games in this category',
+
+	//Category Listing Blade (category_listing.blade.php)
+	'Category list' => 'Category list',
+	'Categories not found.' => 'Categories not found.',
 
 	//Game Blade (game.blade.php)
 	'Downloads' => 'Downloads',
@@ -76,7 +86,7 @@ return array(
 	'Your comments and suggestions are important to us. You can reach us via the contact points below.' => 'Your comments and suggestions are important to us. You can reach us via the contact points below.',
 	'General Inquiry' => 'General Inquiry',
 	'View' => 'View',
-	'type what you see' => 'type what you see',
+	'type what you see...' => 'type what you see...',
 
 	//Login Blade (login.blade.php)
 	'Forgot your password?' => 'Forgot your password?',
@@ -87,56 +97,50 @@ return array(
 	'Latest news' => 'Latest news',
 
 	//Payment Blade (payment.blade.php)
-	'Payment Information' => '',
+	'Payment Information' => 'Payment Information',
 
 	//Profile Blade (profile.blade.php)
-	'Change Password' => '',
-	'Downloaded games' => '',
-	'Buy' => '',
+	'Change Password' => 'Change Password',
+	'Downloaded games' => 'Downloaded games',
+	'Buy' => 'Buy',
 
 	//Register Blade (register.blade.php)
-	'Create new account' => '',
+	'Create new account' => 'Create new account',
 
 	//Related Blade (related.blade.php)
-	'Related games' => '',
+	'Related games' => 'Related games',
 
 	//Reviews Blade (reviews.blade.php)
-	'All reviews for' => '',
+	'All reviews for' => 'All reviews for',
 
 	//Search Blade (search template.php)
-	'Search results' => '',
-	'Sorry, there are no results for' => '',
+	'Search results' => 'Search results',
+	'Sorry, there are no results for' => 'Sorry, there are no results for',
 
 	//Footer (_partials/footer.blade.php)
 	'Copyright' => 'Copyright',
 	'All rights reserved' => 'All rights reserved',
 
 	//Desktop (desktop/index.blade.php)
-	'Ooops, Desktop view is not available' => '',
-	'Please view this on mobile or tablet' => '',
+	'Ooops, Desktop view is not available' => 'Ooops, Desktop view is not available',
+	'Please view this on mobile or tablet' => 'Please view this on mobile or tablet',
 
 	//Emails (auth/activate.blade.php)
-	'Hello' => '',
-	'Please activate your account using the following link' => '',
+	'Hello' => 'Hello',
+	'Please activate your account using the following link' => 'Please activate your account using the following link',
 
 	//Emails (auth/reminder.blade.php)
-	'Password Reset' => '',
-	'To reset your password, complete this form:' => '',
-	'This link will expire in' => '',
-	'minutes' => '',
+	'Password Reset' => 'Password Reset',
+	'To reset your password, complete this form:' => 'To reset your password, complete this form:',
+	'This link will expire in' => 'This link will expire in',
+	'minutes' => 'minutes',
 
 	//Emails (inquiries/inquire.blade.php and replyto.blade.php)
-	'Inquiry' => '',
+	'Inquiry' => 'Inquiry',
 
 	//Password (remind.blade.php)
-	'reset password' => '',
+	'reset password' => 'reset password',
 
 	//Password (reset.blade.php)
-	'Please fill up this form to reset your password' => '',
-
-	//Admin (_layouts/admin.blade.php)
-	'Welcome to the TDrive Dashboard' => '',
-	'Welcome' => '',
-	'Reports' => '',
-	'Users' => ''
+	'Please fill up this form to reset your password' => 'Please fill up this form to reset your password',
 );

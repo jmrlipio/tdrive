@@ -10,15 +10,15 @@
 @section('content')
 
 <div id="categories-container">
-	<h1 class="title">Category list</h1>
+	<h1 class="title">{{ trans('global.Category list') }}</h1>
 	<ul id="categories-list">
 	@forelse($categories as $cat)
 		<li>
-			<a class="category-link" href="{{ route('category.show', $cat->id) }}">{{ $cat->category }}</a> <br>
+			<a class="category-link" href="{{ route('category.show', $cat->id) }}">{{ trans('global.'.$cat->category) }}</a> <br>
 		</li>
 	@empty
 
-		 <p>Categories not found.</p> 
+		 <p>{{ trans('global.Categories not found.') }}</p> 
 
 	@endforelse
 	</ul>

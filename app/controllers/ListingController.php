@@ -15,7 +15,7 @@ class ListingController extends \BaseController {
 
 		$country = Country::find(Session::get('country_id'));
 
-		$games = Game::all()->take(6);
+		$games = Game::all()->take(9);
 
 		$games_all = Game::all();
 

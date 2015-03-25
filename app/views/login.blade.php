@@ -21,13 +21,13 @@
 	{{ Form::open(array('route' => 'login.post', 'class' => 'login', 'id' => 'login-form')) }}
 
 		<div id="token">{{ Form::token() }}</div>
-		
+
 		<div class="control">
-			{{ Form::text('username', null, array('placeholder'=>'username')) }}                   
+			{{ Form::text('username', null, array('placeholder'=>trans('global.username'))) }}                   
 		</div>
 
 		<div class="control">
-			{{ Form::password('password', array('placeholder'=>'password')) }}                    
+			{{ Form::password('password', array('placeholder'=>trans('global.password'))) }}                    
 		</div>
 		
 		<div class="control-group clearfix">
@@ -37,7 +37,7 @@
 			</div> -->
 
 			<div class="control-item fr">
-				 {{ Form::submit('login') }}
+				 {{ Form::submit(trans('global.login')) }}
 			</div>
 		</div>
 

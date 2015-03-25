@@ -25,7 +25,7 @@ $game_settings = GameSetting::all();
 	<div class="search">
 
 		{{ Form::open(array('action' => 'ListingController@searchGames', 'id' => 'search_form')) }}
-			{{ Form::input('text', 'search', null, array('placeholder' => 'search game')); }}
+			{{ Form::input('text', 'search', null, array('placeholder' => trans('global.search game'))); }}
 			{{ Form::token() }}
 
 			<a href="javascript:{}" onclick="document.getElementById('search_form').submit(); return false;"><i class="fa fa-search"></i></a>
