@@ -6,7 +6,7 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">New and updated games</h1>
+		<h1 class="title">{{ trans('global.new and updated games') }}</h1>
 
 		<div id="token">{{ Form::token() }}</div>
 

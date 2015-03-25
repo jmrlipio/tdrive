@@ -6,7 +6,7 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">{{{ $category->category }}}</h1>
+		<h1 class="title">{{{ trans('global.'.$category->category) }}}</h1>
 
 		<div id="token">{{ Form::token() }}</div>
 
