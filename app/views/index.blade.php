@@ -158,7 +158,7 @@
 															
 															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 														@endif
-														
+
 													@endif
 
 												@endif
@@ -236,16 +236,17 @@
 														@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
 															<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
 															@if($dc != 0)
-																<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+															<!-- For adding strikethrough to the old price -->
+																<!-- <p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p> -->
 																<?php 
 																	$sale_price = $price->pivot->price * (1 - ($dc/100));
 																 ?>
 
-																 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+																<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
 
-																 @else	
+															@else	
 
-																	<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
+																<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
 																
 															@endif
 														@endif

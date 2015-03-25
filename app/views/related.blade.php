@@ -62,7 +62,7 @@
 
 													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
 														@if($dc != 0)
-															<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+
 															<?php 
 																$sale_price = $price->pivot->price * (1 - ($dc/100));
 															 ?>

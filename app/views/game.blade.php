@@ -110,7 +110,13 @@
 									<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
 									<p class="price repo">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
 								@else														 
-									<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									@if($price->pivot->price == 0)
+															
+										<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
+									@else													 
+										
+										<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									@endif
 								@endif								
 
 							@endif
