@@ -14,8 +14,8 @@ class CreateGamesTable extends Migration {
 	{
 		Schema::create('games', function(Blueprint $table)
 		{
-			$table->integer('id')->unsigned();
-			$table->primary('id');
+			$table->increments('id')->unsigned();
+			$table->integer('app_id');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('carrier_id')->unsigned();

@@ -523,3 +523,27 @@ a#back {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
 }
+
+#language-table {
+	border: 1px solid #ccc;
+	width: 250px;
+}
+
+#language-table tr {
+	padding: 3px;
+}
+
+#language-table th, #language-table td {
+	padding: 5px;
+	border: 1px solid #ccc;
+}
+
+#language-table td:nth-child(2) {
+	text-align: center;
+	width: 20%;
+}
+
+#language-table input[type=checkbox] {
+	margin: 0 auto;
+	text-align: center;
+}

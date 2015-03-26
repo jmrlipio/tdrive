@@ -106,6 +106,7 @@ return array(
 
 	//Register Blade (register.blade.php)
 	'Create new account' => 'สร้างบัญชีใหม่',
+	'password_confirmation' => 'ยืนยันรหัสผ่าน',
 
 	//Related Blade (related.blade.php)
 	'Related games' => 'สร้างบัญชีใหม่',

@@ -109,6 +109,7 @@ return array(
 
 	//Related Blade (related.blade.php)
 	'Related games' => 'Related games',
+	'password_confirmation' => 'password_confirmation',
 
 	//Reviews Blade (reviews.blade.php)
 	'All reviews for' => 'All reviews for',

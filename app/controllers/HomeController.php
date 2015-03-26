@@ -56,7 +56,7 @@ class HomeController extends BaseController {
 
 		// print_r(Session::all());
 
-	/* For displaying game discount alert */
+		/* For displaying game discount alert */
 
 		$dt = Carbon::now();
 
@@ -65,15 +65,15 @@ class HomeController extends BaseController {
 			->where('end_date', '>=',  $dt->toDateString())		
 			->get();
 
-	/* END */
-	$ctr = 0;
-	/* For getting discounts */
-	$discounted_games = [];
-	foreach ($discounts as $data) {
-		foreach($data->games as $game ) {
-			$discounted_games[$data->id][] = $game->id; 
+		/* END */
+		$ctr = 0;
+		/* For getting discounts */
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $game ) {
+				$discounted_games[$data->id][] = $game->id; 
+			}
 		}
-	}
 
 	/* For displaying news alert */	
 
@@ -145,7 +145,10 @@ class HomeController extends BaseController {
 		}
 
 		$carrier = Carrier::find(Session::get('carrier'));
+
 		$countries = [];
+
+		Session::put('locale', strtolower($carrier->language->iso_code));
 		
 		Session::put('carrier_name', $carrier->carrier);		
 

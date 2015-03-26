@@ -6,10 +6,10 @@ class Game extends \Eloquent {
 
 	use TriplePivotTrait;
 
-	protected $fillable = ['id','user_id','carrier_id','main_title','slug','status','featured','release_date','default_price','downloads','default_price','category_id','image_orientation'];
+	protected $fillable = ['app_id','user_id','carrier_id','main_title','slug','status','featured','release_date','default_price','downloads','default_price','category_id','image_orientation'];
 
 	public static $rules = [
-		'id' => 'required|integer|unique:games',
+		'app_id' => 'required|integer',
 		'user_id' => 'required|integer',
 		'carrier_id' => 'required|integer',
 		'main_title' => 'required|min:2|unique:games',
@@ -55,7 +55,7 @@ class Game extends \Eloquent {
     }
 
     public function contents() {
-    	return $this->morphToMany('Language', 'contentable')->withPivot('title', 'content', 'excerpt');
+    	return $this->morphToMany('Language', 'contentable')->withPivot('language_id','title', 'content', 'excerpt', 'default');
     }
 
     public function review() {

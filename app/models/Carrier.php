@@ -10,7 +10,8 @@ class Carrier extends \Eloquent {
 
 	public static $rules = [
 		'id' => 'required|integer|unique:carriers',
-        'carrier' => 'required|min:3|unique:carriers'
+        'carrier' => 'required|min:3|unique:carriers',
+        'language_id' => 'required'
     ];
 
 	public function countries() {
@@ -31,6 +32,11 @@ class Carrier extends \Eloquent {
     public function discounts() {
     	return $this->hasMany('Discounts');
     }
+
+    public function language() {
+    	return $this->belongsTo('Language');
+    }
+
 
 	// public function sales() {
 	// 	return $this->belongsToMany('Game', 'sale_games');
