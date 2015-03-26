@@ -6,7 +6,7 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">Search results</h1>
+		<h1 class="title">{{ trans('global.Search results') }}</h1>
 
 		<div class="clear"></div>	
 
@@ -58,14 +58,14 @@
 						@endforeach
 					@endforeach
 				@else
-					<p>Sorry, there are no results for {{ $search }}.</p>
+					<p>{{ trans('global.Sorry, there are no results for') }} {{ $search }}.</p>
 
 				@endif
 				</div>
 			</div>
 		</div>
 
-		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
+		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> {{ trans('global.loading') }}&hellip;</div>
 
 	</div>
 

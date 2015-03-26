@@ -1,6 +1,11 @@
 @extends('_layouts/listing')
 
 @section('stylesheets')
+<style>
+	
+	.discounted { text-decoration: line-through; }
+
+</style>
 @stop
 
 @section('content')
@@ -21,7 +26,21 @@
 								<div class="item">
 									<div class="thumb relative">
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
+
+											<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image" >{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
+
+										@if ($game->default_price == 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
 
@@ -29,7 +48,7 @@
 
 							<!-- If image url can't be located, change the url to -->
 							<!--  {{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}  -->
-										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug)) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
+									
 
 
 									</div>
@@ -40,7 +59,21 @@
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+
+													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
+														@if($dc != 0)
+
+															<?php 
+																$sale_price = $price->pivot->price * (1 - ($dc/100));
+															 ?>
+
+															 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+
+															 @else	
+
+																<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
+															
+														@endif
 												@endif
 											@endforeach
 										@endunless

@@ -5,20 +5,20 @@
 	<div class="container">
 		<div class="relative">
 			<div class="thumb">
-				<img src="{{ Request::root() . '/images/avatars/placeholder.jpg' }}">
+				<img src="{{ Request::root() . Auth::user()->prof_pic }}">
 			</div>
 
 			<div class="details">
 				<div class="name">{{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}}</div>
 				<div class="email">{{{ Auth::user()->email }}}</div>
-				<div class="change_password"><a href="{{ route('password.remind') }}">Change Password</a></div>
+				<div class="change_password"><a href="{{ route('password.remind') }}">{{ trans('global.Change Password') }}</a></div>
 			</div>
 		</div>
 	</div>
 
 	<div id="downloads">
 		<div class="container">
-			<h1 class="title">Downloaded games</h1>
+			<h1 class="title">{{ trans('global.Downloaded games') }}</h1>
 
 			<div id="token">{{ Form::token() }}</div>
 
@@ -35,7 +35,7 @@
 									<p>P{{ $game->default_price }}.00</p>
 								</div>
 
-								<div class="button"><a href="#">Buy</a></div>
+								<div class="button"><a href="#">{{ trans('global.Buy') }}</a></div>
 							</div>
 
 						@endforeach
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 
-			<div id="loadmore" class="button center"><a href="#">More +</a></div>
+			<div id="loadmore" class="button center"><a href="#">{{ trans('global.More') }} +</a></div>
 		</div>
 	</div>
 

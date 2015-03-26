@@ -15,7 +15,7 @@ class ListingController extends \BaseController {
 
 		$country = Country::find(Session::get('country_id'));
 
-		$games = Game::all()->take(6);
+		$games = Game::all()->take(9);
 
 		$games_all = Game::all();
 
@@ -115,6 +115,15 @@ class ListingController extends \BaseController {
 			}
 		}
 
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
 		$count = count($related_games);
 
 		return View::make('related')
@@ -123,7 +132,7 @@ class ListingController extends \BaseController {
 			->with('country', $country)
 			->with('count', $count)
 			->with('game_id', $game->id)
-			->with(compact('related_games'))
+			->with(compact('related_games', 'discounted_games'))
 			->with(compact('languages'));
 	}
 
@@ -155,11 +164,20 @@ class ListingController extends \BaseController {
 				}
 			}
 		}
+
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
 		
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-related')
 				->with('country', $country)
-				->with(compact('games'));
+				->with(compact('games', 'discounted_games'));
 		}
 	}
 

@@ -145,7 +145,42 @@ class HomeController extends BaseController {
 		Session::put('carrier_name', $carrier->carrier);		
 
 		Session::put('user_country', $country->full_name);
+
+
+		/* For displaying slider images dynamically ordered from database */
+
+		$games_slide = [];
+		$news_slide = [];
+
+		$sliders = Slider::all();
+
+		foreach($sliders as $slider) {
+			if($slider->slideable_type == 'Game') $selected_games[] = $slider->slideable_id;
+			else if($slider->slideable_type == 'News') $selected_news[] = $slider->slideable_id;
+		}		
 		
+		foreach(Game::all() as $game) {		
+
+			foreach ($game->media as $media) {
+				if($media->type == 'promos') {
+					
+					$games_slide[$game->id] = array(
+						'url' => $media->url, 
+						'title' => $game->main_title, 
+						'id' => $game->id,
+						'slug' => $game->slug);
+					
+				}
+			}
+		}
+
+		foreach(News::all() as $nw) {
+		
+			$news_slide[$nw->id] = $nw->featured_image;
+		}
+
+		/* END */
+
 		return View::make('index')
 			->with('page_title', 'Home')
 			->with('page_id', 'home')
@@ -160,7 +195,7 @@ class HomeController extends BaseController {
 			->with('discounts', $discounts)
 			->with('limit', $limit)
 			/*->with(compact('featured_games'))*/
-			->with(compact('games','featured_games', 'faqs', 'languages', 'discounted_games'));
+			->with(compact('games','featured_games', 'faqs', 'languages', 'discounted_games', 'games_slide','news_slide','sliders'));
 			/*->with(compact('faqs'))
 			->with(compact('languages'));*/
 	

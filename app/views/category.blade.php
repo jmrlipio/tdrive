@@ -6,14 +6,14 @@
 @section('content')
 
 	<div class="container">
-
+		
 		<div class="clearfix">
-			<h1 class="title">{{{ $category->category }}}</h1>
+			<h1 class="title">{{{ trans('global.'.$category->category) }}}</h1>
 
 			<div class="search-category">
 
 				{{ Form::open(array('action' => 'ListingController@searchGamesByCategory', 'id' => 'search_form_by_category', 'class' => 'clearfix')) }}
-					{{ Form::input('text', 'search', null, array('placeholder' => 'search games in this category')); }}
+					{{ Form::input('text', 'search', null, array('placeholder' => trans('global.search games in this category'))); }}
 					{{ Form::hidden('id', $category->id) }}
 
 					<a href="javascript:{}" onclick="document.getElementById('search_form_by_category').submit(); return false;"><i class="fa fa-search"></i></a>

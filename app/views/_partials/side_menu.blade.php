@@ -25,7 +25,7 @@ $game_settings = GameSetting::all();
 	<div class="search">
 
 		{{ Form::open(array('action' => 'ListingController@searchGames', 'id' => 'search_form')) }}
-			{{ Form::input('text', 'search', null, array('placeholder' => 'search game')); }}
+			{{ Form::input('text', 'search', null, array('placeholder' => trans('global.search game'))); }}
 			{{ Form::token() }}
 
 			<a href="javascript:{}" onclick="document.getElementById('search_form').submit(); return false;"><i class="fa fa-search"></i></a>
@@ -71,8 +71,8 @@ $game_settings = GameSetting::all();
 			<li><a href="{{ $site_variables[5]->variable_value }}">Philippines</a></li>
 		</ul>
 
-		<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">{{ $general_settings[0]->value }}</a>.</p>
-		<p>All rights reserved.</p>
+		<p>{{ trans('global.Copyright') }} &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">{{ $general_settings[0]->value }}</a>.</p>
+		<p>{{ trans('global.All rights reserved') }}.</p>
 	</div>
 
 </div><!-- end #side-menu -->

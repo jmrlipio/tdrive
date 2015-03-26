@@ -2,12 +2,12 @@
 @section('content')
 
 	<br>
-    <h2 class="center">Page Not Found!</h2><br>
+    <h2 class="center">{{ trans('global.Page Not Found!') }}</h2><br>
 
 	<div id="token">{{ Form::token() }}</div>
 
-    <p class="center">This page could not be found on the server. <br> 404 error! <br><br>
-    	{{ HTML::link('/','Return to homepage', array('class' => 'center')) }}
+    <p class="center">{{ trans('global.This page could not be found on the server.') }} <br> {{ trans('global.404 error!') }} <br><br>
+    	{{ HTML::link('/',trans('global.Return to homepage'), array('class' => 'center')) }}
     </p>  
 
 @stop

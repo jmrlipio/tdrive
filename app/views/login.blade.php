@@ -16,20 +16,20 @@
 
     @endif
                          
-	<h3 class="title center">Sign In</h3>
+	<h3 class="title center">{{ trans('global.Sign In') }}</h3>
 
 	{{ Form::open(array('route' => 'login.post', 'class' => 'login', 'id' => 'login-form')) }}
 
 		<div id="token">{{ Form::token() }}</div>
 
 		<div class="control">
-			{{ Form::text('username', null, array('placeholder'=>'username')) }}                   
+			{{ Form::text('username', null, array('placeholder'=>trans('global.username'))) }}                   
 		</div>
 
 		<div class="control">
-			{{ Form::password('password', array('placeholder'=>'password')) }}                    
+			{{ Form::password('password', array('placeholder'=>trans('global.password'))) }}                    
 		</div>
-
+		
 		<div class="control-group clearfix">
 			<!-- <div class="control-item fl">
 				{{-- Form::checkbox('remember', 1 , null, ['id'=>'remember']); --}}
@@ -37,20 +37,20 @@
 			</div> -->
 
 			<div class="control-item fr">
-				 {{ Form::submit('login') }}
+				 {{ Form::submit(trans('global.login')) }}
 			</div>
 		</div>
 
 		{{ Form::close() }}
 
 	<div class="button">
-		<a href="{{ route('password.remind') }}">Forgot your password?</a>
+		<a href="{{ route('password.remind') }}">{{ trans('global.Forgot your password?') }}</a>
 	</div>
 
 	<br>
 
 	<div class="center">
-		<h3>Not yet a member? <a href="{{ route('users.register') }}" class="link">Register</a></h3>
+		<h3>{{ trans('global.Not yet a member?') }} <a href="{{ route('users.register') }}" class="link">{{ trans('global.Register') }}</a></h3>
 	</div>
 
 @stop
