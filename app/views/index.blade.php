@@ -61,8 +61,17 @@
 
 						@foreach($games_slide as $key => $game)
 							
-							@if($key == $slider->slideable_id)							
-								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/games/promos/{{ $game['url'] }}" alt="$game['title']"></a>
+							@if($key == $slider->slideable_id)
+								@if(File::exists(public_path() . '/assets/games/promos/'. $game['url']))							
+									
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/games/promos/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
+								
+								@else
+
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/featured/placeholde.jpg" alt="{{$game['title']}}"></a>
+
+								@endif
+
 							@endif
 
 						@endforeach
