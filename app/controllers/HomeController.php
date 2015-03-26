@@ -104,10 +104,18 @@ class HomeController extends BaseController {
 
 		$game_settings = GameSetting::all();
 
-		$featured_games = Game::where('featured', 1)->orderBy('created_at', 'DESC')->get();
+		$featured_games = Game::where('featured', 1)
+			->whereCarrierId(Input::get('selected_carrier'))
+			->orderBy('created_at', 'DESC')			
+			->get();
 
 		// $games = Game::all()->take($game_settings[0]->game_thumbnails);
-		$games = Game::all();
+
+		/* Get all games by carrier id */
+
+		$games = Game::whereCarrierId(Input::get('selected_carrier'))->get();		
+
+		/* End */
 		$limit = $game_settings[0]->game_thumbnails;
 
 		foreach(Category::orderby('order')->get() as $cat) {
