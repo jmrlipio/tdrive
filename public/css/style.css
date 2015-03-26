@@ -771,6 +771,14 @@
 .fancybox-opened {
   z-index: 99999999;
 }
+.item .meta p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.fancybox-close {
+  display: block;
+}
 @media only screen and (min-width: 320px) {
   #game-detail #buttons .downloads {
     float: left;

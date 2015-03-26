@@ -52,7 +52,7 @@
 
 @section('content')
 
-	<div id="slider" class="swiper-container featured container">
+	<div id="slider" class="swiper-container featured container swiper-container-horizontal">
 		<div class="swiper-wrapper">
 
 			@foreach($sliders as $slider)
@@ -110,7 +110,7 @@
 			@endforeach -->
 
 		</div>
-		
+		<div class="swiper-pagination swiper-pagination-clickable"></div>
 	</div>
 
 	{{ Form::token() }}
@@ -286,7 +286,7 @@
 	@endforeach
 
 	<div class="view-all container clearfix">
-		<div class="more fr"><a href="{{ route('categories.all') }}">View all categories</a></div>
+		<div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div>
 	</div>
 
 	<div id="news" class="container">
@@ -297,7 +297,7 @@
 
 				<div id="token">{{ Form::token() }}</div>
 
-				 {{ Form::select('year', array('default' => 'Please select') + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
+				 {{ Form::select('year', array('default' => trans('global.Please select')) + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
 			</form>
 		</div>
 
@@ -421,7 +421,8 @@
 
 			<div class="captcha control clearfix">
 				{{ HTML::image(Captcha::img(), 'Captcha image') }}
-				{{ Form::text('captcha', null, array('placeholder' => 'type what you see...', 'required' => 'required')) }}
+				<?php $test = trans('global.type what you see...'); ?>
+				{{ Form::text('captcha', null, array('placeholder' => trans('global.type what you see...'), 'required' => 'required')) }}
 
 				{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 			</div>
@@ -591,7 +592,9 @@
 				slidesPerView: 2,
 				centeredSlides: true,
 				calculateHeight: true,
-				initialSlide: 2
+				initialSlide: 2,
+				pagination: '.swiper-pagination',
+        		paginationClickable: true
 			});
 
 			$('.thumbs-container').each(function() {

@@ -7,9 +7,7 @@
 
 	<div class="container">
 
-		{{-- <h1 class="title">{{ trans('global.new and updated games') }}</h1> --}}
-
-		<h1 class="title">{{ trans('global.All categories') }}</h1>
+		<h1 class="title">{{ trans('global.All Categories') }}</h1>
 
 		<div class="clear"></div>	
 
