@@ -169,12 +169,10 @@ class ListingController extends \BaseController {
 		$game = Game::find($id);
 
 		$categories = [];
-		// $categories2 = [];
 
 		foreach($game->categories as $cat) {
 			$categories[] = $cat->id;
 		}
-
 
 		$related_games = Game::whereHas('categories', function($q) use ($categories)
 		{
@@ -182,29 +180,6 @@ class ListingController extends \BaseController {
 
 		})->take(6)->skip($load)->get();
 
-
-
-			$categories = [];
-		
-		foreach($game->categories as $cat) {
-			$categories[] = $cat->id;
-		}
-
-
-		$related_games = [];
-		$test = [];
-
-		foreach($games as $gm) {
-			$included = false;
-			foreach($gm->categories as $rgm) {
-				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
-					if(!$included) {
-						$related_games[] = $gm;
-						$included = true;
-					}
-				}
-			}
-		}
 
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-related')
