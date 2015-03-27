@@ -172,7 +172,7 @@ class HomeController extends BaseController {
 		foreach(Game::all() as $game) {		
 
 			foreach ($game->media as $media) {
-				if($media->type == 'promos') {
+				if($media->type == 'homepage') {
 					
 					$games_slide[$game->id] = array(
 						'url' => $media->url, 

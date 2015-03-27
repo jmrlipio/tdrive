@@ -63,13 +63,13 @@
 						@foreach($games_slide as $key => $game)
 							
 							@if($key == $slider->slideable_id)
-								@if(File::exists(public_path() . '/assets/games/promos/'. $game['url']))							
+								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))							
 									
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug'], 'carrier' => strtolower($game['carrier']), 'language' => Session::get('locale')))}}"><img src="assets/games/promos/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug'], 'carrier' => strtolower($game['carrier']), 'language' => Session::get('locale')))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
 								
 								@else
 
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/featured/placeholde.jpg" alt="{{$game['title']}}"></a>
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/featured/placeholder.jpg" alt="{{$game['title']}}"></a>
 
 								@endif
 
