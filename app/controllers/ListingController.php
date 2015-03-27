@@ -186,7 +186,7 @@ class ListingController extends \BaseController {
 
 		foreach($games as $gm) {
 			// echo '<pre>';
-			print_r(count($gm->categories));
+			// print_r(count($gm->categories));
 			// echo '</pre>';
 			$included = false;
 			foreach($gm->categories as $rgm) {
@@ -194,12 +194,12 @@ class ListingController extends \BaseController {
 				// print_r(count($gm->categories));
 				// echo '</pre>';
 				// die();
-				// if(in_array($rgm->id, $categories2) && $gm->id != $game->id) {
-					// if(!$included) {
-						// $related_games[] = $gm;
-						// $included = true;
-					// }
-				// }
+				if(in_array($rgm->id, $categories2) && $gm->id != $game_id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
 			}
 		}
 		// echo '<pre>';
