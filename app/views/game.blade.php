@@ -606,7 +606,7 @@
 
 		@endif
 
-		<div class="more"><a href="{{ route('games.related', $game->id) }}">{{ trans('global.More') }} +</a></div>
+		<div class="more"><a href="{{ route('games.related', $game_id) }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #related-games -->
 
 @stop
