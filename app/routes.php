@@ -194,9 +194,3 @@ Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'Reviews
 route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'uses' => 'ReviewsController@handleDestroy'));
 Route::get('admin/games/preview/{id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));
-
-$games = Game::whereHas('categories', function($q) use ($categories)
-{
-    $q->whereIn('category_id', $categories);
-
-})->get();
