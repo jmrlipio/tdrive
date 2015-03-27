@@ -65,7 +65,7 @@ class AdminGamesController extends \BaseController {
 		$game = Game::create($data);
 		Event::fire('audit.games.create', Auth::user());
 
-		return Redirect::route('admin.games.edit', Input::get('id'))->with('message', 'You have successfully added a game.');
+		return Redirect::route('admin.games.edit', $game->id)->with('message', 'You have successfully added a game.');
 	}
 	/**
 	 * Display the specified resource.
@@ -102,7 +102,7 @@ class AdminGamesController extends \BaseController {
 
 		$edit_rules = Game::$rules;
 
-		$edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
+		// $edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
 
@@ -385,6 +385,13 @@ class AdminGamesController extends \BaseController {
 	}
 
 	public function updateLanguageContent($id, $language_id) {
+		$validator = Validator::make($data = Input::all(), Game::$content_rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
 		$game = Game::find($id);
 		$language = Language::find($language_id);
 
@@ -496,6 +503,51 @@ class AdminGamesController extends \BaseController {
 				$game->contents()->updateExistingPivot($content->pivot->language_id, array('default' => 0), true);
 			}
 		}
+	}
+
+	public function previewGame($id){
+		$languages = Language::all();
+		$game = Game::find($id);
+		$current_game = Game::find($id);
+		$categories = [];
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+		$games = Game::all();
+		$related_games = [];
+
+		foreach($games as $gm) {
+			$included = false;
+			foreach($gm->categories as $rgm) {
+				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
+			}
+		}
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
+		$country = Country::find(Session::get('country_id'));
+		$ratings = Review::getRatings($game->id);
+		$visitor = Tracker::currentSession();
+
+		return View::make('admin.games.preview')
+			->with('page_title', 'Preview | '.$game->main_title)
+			->with('page_id', 'game-detail')
+			->with('ratings', $ratings)
+			->with('current_game', $current_game)
+			->with('country', $country)
+			->with(compact('languages','related_games', 'game', 'discounted_games'));
 	}
     
 }

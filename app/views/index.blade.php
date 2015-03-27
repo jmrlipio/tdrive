@@ -51,7 +51,7 @@
 @stop
 
 @section('content')
-	{{ Session::get('locale') }}
+	{{-- Session::get('locale') --}}
 
 	<div id="slider" class="swiper-container featured container swiper-container-horizontal">
 		<div class="swiper-wrapper">
@@ -63,13 +63,13 @@
 						@foreach($games_slide as $key => $game)
 							
 							@if($key == $slider->slideable_id)
-								@if(File::exists(public_path() . '/assets/games/promos/'. $game['url']))							
+								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))							
 									
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/games/promos/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug'], 'carrier' => strtolower($game['carrier']), 'language' => Session::get('locale')))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
 								
 								@else
 
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/featured/placeholde.jpg" alt="{{$game['title']}}"></a>
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/featured/placeholder.jpg" alt="{{$game['title']}}"></a>
 
 								@endif
 
@@ -82,7 +82,7 @@
 						@foreach($news_slide as $key => $nw) 
 
 							@if($key == $slider->slideable_id) 
-								<a href="#"><img src="assets/news/{{ $nw }}" alt="news test"></a>					
+								<a href="{{ 'news/'. $nw['id'] }}"><img src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}"></a>					
 							@endif
 
 						@endforeach

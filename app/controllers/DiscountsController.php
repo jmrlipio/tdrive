@@ -152,6 +152,8 @@ class DiscountsController extends \BaseController {
 
 		$discount->update($data);
 
+		$discount->games()->sync(Input::get('game_id'));
+
 		return Redirect::back()->with('message', 'You have successfully updated this discount item.');
 	}
 

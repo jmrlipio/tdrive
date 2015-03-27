@@ -68,8 +68,9 @@
 						</li>
 						{{ Form::submit('Save', array('id' => 'save-game')) }}
 						{{ Form::hidden('user_id', Auth::user()->id) }}
-						<a href="#" id="preview-game">Preview</a>
-						{{-- {{ Form::button('Preview', array('id' => 'preview-game')) }} --}}
+
+						<a href="{{ URL::route('admin.games.preview', $game->id) }}" target='blank') id="preview">Preview</a>
+
 					{{ Form::close() }}
 				</ul>
 				<ul id="custom-fields">

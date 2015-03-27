@@ -44,6 +44,11 @@
 						{{ Form::file('featured_image') }}
 						{{ $errors->first('featured_image', '<p class="error">:message</p>') }}
 					</li>
+					<li>
+						{{ Form::label('homepage_image', 'Homepage Image:') }}
+						{{ Form::file('homepage_image') }}
+						{{ $errors->first('homepage_image', '<p class="error">:message</p>') }}
+					</li>
 				</ul>
 
 				{{ Form::submit('Save', array('id' => 'save-news')) }}

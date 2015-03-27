@@ -100,6 +100,7 @@ class ListingController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
+
 		// $test = Category::all();
 
 		// foreach ($test as  $asd) {

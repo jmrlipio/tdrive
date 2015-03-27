@@ -2,7 +2,7 @@
 
 @section('content')
 	@include('admin._partials.game-nav')
-	<div class="item-listing" id="games-list">
+	<div class="item-listing" id="categories-list">
 		<h2>Categories</h2>
 		
 		@if(Auth::user()->role != 'admin')
@@ -23,7 +23,7 @@
 						<!--<th><input type="checkbox"></th>-->
 						<th>Category Name</th>
 						<th>Slug</th>
-						<th>Featured</th>
+						{{-- <th>Featured</th> --}}
 					</tr>
 				</thead>
 
@@ -46,6 +46,7 @@
 								@endif
 							</td>
 							<td>{{ $category->slug }}</td>
+							{{--
 							<td>
 								@if($category->featured == 1)
 									<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" checked id="{{ $category->id }}"/>
@@ -53,6 +54,7 @@
 									<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" id="{{ $category->id }}" />
 								@endif
 							</td>
+							--}}
 						</tr>
 					@endforeach
 				</tbody>
@@ -63,25 +65,25 @@
 	</div>
 	<script>
 		$("document").ready(function(){
-	        $('.featured').on('click', function() {
+	     //    $('.featured').on('click', function() {
 
-	        	var id = $(this).attr('id');
-	        	var checked = ($(this).is(':checked')) ? 1 : 0;
+	     //    	var id = $(this).attr('id');
+	     //    	var checked = ($(this).is(':checked')) ? 1 : 0;
 
-	        	// alert(id + ' ' + checked)
+	     //    	// alert(id + ' ' + checked)
 
-	            $.ajax({
-	                type: "POST",
-	                url : "{{ URL::route('admin.categories.featured') }}",
-	                data :{
-	                	"featured": checked,
-	                	"id": id
-	                },
-	                success : function(data){
-	                    console.log('data');
-	                }
-	            });
-	    	});
+	     //        $.ajax({
+	     //            type: "POST",
+	     //            url : "{{ URL::route('admin.categories.featured') }}",
+	     //            data :{
+	     //            	"featured": checked,
+	     //            	"id": id
+	     //            },
+	     //            success : function(data){
+	     //                console.log('data');
+	     //            }
+	     //        });
+	    	// });
 		});
 	</script>
 	{{ HTML::script('js/form-functions.js') }}

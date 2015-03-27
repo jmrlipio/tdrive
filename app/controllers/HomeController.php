@@ -48,11 +48,31 @@ class HomeController extends BaseController {
 	}
 
 	public function home()
-	{		
+	{	
 		$latest_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(2)->get();
 		$previous_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(3)->skip(2)->get();
 		$faqs = Faq::all();
 		$year = News::all();
+
+		/* TODO: check if session has carrier */
+		if (!Session::has('carrier')) {
+			
+			Session::put('country_id', Input::get('country_id'));
+			Session::put('carrier', Input::get('selected_carrier'));
+			$country = Country::find(Input::get('country_id'));
+			$first_visit = true;
+					
+		} else {			
+			
+			$country = Country::find(Session::get('country_id'));
+			$first_visit = false;
+		}
+
+		$carrier = Carrier::find(Session::get('carrier'));
+
+		$countries = [];
+
+		Session::put('locale', strtolower($carrier->language->iso_code));
 
 		// print_r(Session::all());
 
@@ -104,10 +124,18 @@ class HomeController extends BaseController {
 
 		$game_settings = GameSetting::all();
 
-		$featured_games = Game::where('featured', 1)->orderBy('created_at', 'DESC')->get();
+		$featured_games = Game::where('featured', 1)
+			->whereCarrierId(Session::get('carrier'))
+			->orderBy('created_at', 'DESC')			
+			->get();
 
 		// $games = Game::all()->take($game_settings[0]->game_thumbnails);
-		$games = Game::all();
+
+		/* Get all games by carrier id */
+
+		$games = Game::whereCarrierId(Session::get('carrier'))->get();		
+
+		/* End */
 		$limit = $game_settings[0]->game_thumbnails;
 
 		foreach(Category::orderby('order')->get() as $cat) {
@@ -122,25 +150,7 @@ class HomeController extends BaseController {
 
 		/*BaseController::test(Input::get('country_id'));*/
 		
-		/* TODO: check if session has carrier */
-		if (!Session::has('carrier')) {
-			
-			Session::put('country_id', Input::get('country_id'));
-			Session::put('carrier', Input::get('selected_carrier'));
-			$country = Country::find(Input::get('country_id'));
-			$first_visit = true;
-					
-		} else {			
-			
-			$country = Country::find(Session::get('country_id'));
-			$first_visit = false;
-		}
-
-		$carrier = Carrier::find(Session::get('carrier'));
-
-		$countries = [];
-
-		Session::put('locale', strtolower($carrier->language->iso_code));
+		
 		
 		Session::put('carrier_name', $carrier->carrier);		
 
@@ -162,21 +172,28 @@ class HomeController extends BaseController {
 		foreach(Game::all() as $game) {		
 
 			foreach ($game->media as $media) {
-				if($media->type == 'promos') {
+				if($media->type == 'homepage') {
 					
 					$games_slide[$game->id] = array(
 						'url' => $media->url, 
 						'title' => $game->main_title, 
 						'id' => $game->id,
-						'slug' => $game->slug);
+						'slug' => $game->slug,
+						'carrier' => $game->carrier->carrier);
 					
 				}
 			}
 		}
 
 		foreach(News::all() as $nw) {
-		
-			$news_slide[$nw->id] = $nw->featured_image;
+			$news_slide[$nw->id] = $nw->homepage_image;
+
+			//$news_slide[$nw->id] = $nw->featured_image;
+			$news_slide[$nw->id] = array(
+				'image' => $nw->homepage_image,
+				'id' => $nw->id,
+				'title' => $nw->main_title
+			);
 		}
 
 		/* END */

@@ -1,4 +1,4 @@
-@extends('_layouts/single')
+@extends('_layouts/listing')
 
 @section('stylesheets')
 	{{ HTML::style("css/slick.css"); }}
@@ -21,7 +21,6 @@
 @stop
 
 @section('content')
-
 	{{ Form::token() }}
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
 	
@@ -44,7 +43,7 @@
 			<ul class="categories clearfix">
 
 				@foreach ($game->categories as $item)
-					<li><a href="{{ route('category.show', $item->id) }}">{{ trans('global.'.$item->category) }}</a></li>
+					<li><a href="#">{{ trans('global.'.$item->category) }}</a></li>
 				@endforeach
 
 			</ul>
@@ -56,14 +55,7 @@
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
-				<p class="count">
-				
-				@if($game->downloads == 0)
-					{{ number_format($game->actual_downloads, 0) }}
-				@else
-					{{ number_format($game->downloads, 0) }}
-				@endif
-				</p>
+				<p class="count">{{ number_format($game->downloads, 0) }}</p>
 				<p class="words"><!--<span>Thousand</span>--> {{ trans('global.Downloads') }}</p>
 			</div>
 		</div>
@@ -103,7 +95,7 @@
 					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
 				</div>
 			</a>
-		
+
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
@@ -255,25 +247,25 @@
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
 					<span>{{ trans('global.Share') }}</span>
 				</a>
-				
+
 				<div style="display:none">
 					<div id="share" style="text-align:center;">
 						<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks.') }}</h4>
 						
 						<!-- TWITTER SHARE -->
-						<a style="margin:0 2px;" href="https://twitter.com/share?url={{URL::current()}}" data-social='{"type":"twitter", "url":"{{URL::current()}}", "text": "{{$excerpt}} \n"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="#" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{$excerpt}} \n"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
 
 						<!-- FACEBOOK SHARE -->
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{URL::current()}}&amp;p[images][0]={{ url() }}/images/games/azukitap.jpg" data-social='{"type":"facebook", "url":"{{URL::current()}}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="#" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 						</a>
 					</div>
 				</div>
 
 				<div class="likes">
-					<div id="game_like" class="fb-like" data-href="{{URL::current()}}" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
+					<div id="game_like" class="fb-like" data-href="#" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>
 			</div>
 		</div>
@@ -450,10 +442,9 @@
 				<p class="form-success">{{ Session::get('message') }}</p>
 			@endif
 
-			{{ Form::open(array('route' => array('review.post', $current_game->id), 'method' => 'post')) }}
+			<form action="#">
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
-
 				<div class="rating-control clearfix control">
 					<label class="rating" for="rating">Rating</label>
 
@@ -484,7 +475,7 @@
 		@else
 
 			<div class="button">
-				<a href="{{ route('users.login') }}">{{ trans('global.Login to write a review') }} <i class="fa fa-pencil"></i></a>
+				<a href="#">{{ trans('global.Login to write a review') }} <i class="fa fa-pencil"></i></a>
 			</div>
 
 		@endif
@@ -522,7 +513,7 @@
 		
 	@if($ctr > 4)	
 		
-		<div class="link center"><a href="{{ route('reviews', $game->id) }}">{{ trans('global.See all reviews') }} &raquo;</a></div>
+		<div class="link center"><a href="#">{{ trans('global.See all reviews') }} &raquo;</a></div>
 
 	@else
 
@@ -531,7 +522,7 @@
 	@endif
 	
 	</div><!-- end #reviews -->
-	
+
 	<div id="related-games" class="container">
 		<h1 class="title">{{ trans('global.Related games') }}</h1>
 		
@@ -548,21 +539,21 @@
 									<div class="thumb relative">
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="#">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 										
-										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+										<a href="#" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="#">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
 										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale')))}}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="#">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
 										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="#">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
 									</div>
@@ -606,7 +597,7 @@
 
 		@endif
 
-		<div class="more"><a href="{{ route('games.related', $game->id) }}">{{ trans('global.More') }} +</a></div>
+		<div class="more"><a href="#">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #related-games -->
 
 @stop
@@ -693,7 +684,7 @@
             'transitionOut'     : 'none'
         });
 
-        $("#share a").jqSocialSharer();
+       /* $("#share a").jqSocialSharer();
 
 		$("#buy").on('click',function() {
 			 $.ajax({
@@ -799,7 +790,7 @@
 	             }
 	        });
 
-		});
+		});*/
 	
 	</script>
 
