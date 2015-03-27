@@ -172,7 +172,7 @@ class HomeController extends BaseController {
 		foreach(Game::all() as $game) {		
 
 			foreach ($game->media as $media) {
-				if($media->type == 'promos') {
+				if($media->type == 'homepage') {
 					
 					$games_slide[$game->id] = array(
 						'url' => $media->url, 
@@ -187,7 +187,7 @@ class HomeController extends BaseController {
 
 		foreach(News::all() as $nw) {
 		
-			$news_slide[$nw->id] = $nw->featured_image;
+			$news_slide[$nw->id] = $nw->homepage_image;
 		}
 
 		/* END */

@@ -20,6 +20,10 @@ class Game extends \Eloquent {
 		'default_price' => 'required|numeric'
 	];
 
+	public static $content_rules = [
+		'content' => 'max:1000'
+	];
+
 	public static $fieldRules = [
 		'language_id' 	=> 'required',
 		'category_id' => 'required'

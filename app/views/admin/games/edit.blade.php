@@ -70,11 +70,6 @@
 						{{ Form::hidden('user_id', Auth::user()->id) }}
 						<a href="{{ URL::route('admin.games.preview', $game->id) }}" target='blank') id="preview">Preview</a>
 					{{ Form::close() }}
-
-					
-					
-					
-				
 				</ul>
 				<ul id="custom-fields">
 					{{ Form::open(array('route' => array('admin.games.update-fields', $game->id), 'method' => 'post')) }}
