@@ -21,13 +21,22 @@ class ListingController extends \BaseController {
 
 		$count = count($games_all);
 
+			/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
 		return View::make('games')
 			->with('page_title', 'New and updated games')
 			->with('page_id', 'game-listing')
 			->with('count', $count)
 			->with('country', $country)
 			->with(compact('games'))
-			->with(compact('languages'));
+			->with(compact('languages', 'discounted_games'));
 	}
 
 	public function showAllMoreGames() 
@@ -100,72 +109,13 @@ class ListingController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
-		// $games = Game::all();
-		// $games = Category::find($cat->id)->games->take(6);
-		// $test = Category::whereIn('id', $categories)->get();
-// 		foreach($test as $data){
-// 			foreach($data->games as $new){
-// echo '<pre>';
-// 		print_r($new->slug);
-// 		echo '</pre>';
-// 			}
-				
-// 		}
-		// $games = Category::whereHas('games', function($q) use ($categories) 
-		// {
-		//     // $q->whereIn('id', $categories);
-
-		//     echo '<pre>';
-		// 	print_r($q);
-		// 	echo '</pre>';
-
-
-		// })->get();
-		
-		// $games = Game::
-
-		// die();
-
-		// echo '<pre>';
-		// dd($games);
-		// echo '</pre>';
-
 		$related_games = Game::whereHas('categories', function($q) use ($categories)
 		{
 		    $q->whereIn('category_id', $categories);
 
 		})->get()->take(6);
 
-		// echo '<pre>';
-		// dd($games);
-		// echo '</pre>';
-
-		// $related_games = [];
 		$test = [];
-
-		// foreach($games as $gm) {
-		// 	$included = false;
-		// 	// echo '<pre>';
-		// 	// print_r($gm->id);
-		// 	// echo '</pre>';
-		// 	foreach($gm->categories as $rgm) {
-		// 		// echo '<pre>';
-		// 		// print_r($rgm->id . ' '. $rgm->slug);
-		// 		// echo '</pre>';
-		// 		if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
-		// 			if(!$included) {
-		// 				$related_games[] = $gm;
-		// 				$included = true;
-		// 			}
-		// 		}
-		// 	}
-		// }
-		// foreach($related_games as $sample){
-		// echo '<pre>';
-		// print_r($sample->slug);
-		// echo '</pre>';
-		// }
-		// dd(count($related_games));
 
 		/* For getting discounts */
 		$discounts = Discount::all();
@@ -206,97 +156,41 @@ class ListingController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
-		// $categories = [];
-		// 	foreach($game->categories as $cat) {
-		// 		$categories[] = $cat->id;
-		// 	}
 
-		// $games = Game::take(6)->skip($load)->get();
-		// $news = News::where('status', 'live')->take(6)->skip($load)->get();
 		$related_games = Game::whereHas('categories', function($q) use ($categories)
 		{
 		    $q->whereIn('category_id', $categories);
 
 		})->take(6)->skip($load)->get();
 
-		// $games = Category::find(2)->games()->take(6)->skip($load)->get();
 
-		$test = Category::all();
 
-		foreach ($test as  $asd) {
-			$categories2[] = $asd->id;
+			$categories = [];
+		
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
 		}
 
-		// $related_games = [];
 
-		// foreach($games as $gm) {
-		// 	// echo '<pre>';
-		// 	// print_r(count($gm->categories));
-		// 	// echo '</pre>';
-		// 	$included = false;
-		// 	foreach($gm->categories as $rgm) {
-		// 		// echo '<pre>';
-		// 		// print_r(count($game->id));
-		// 		// echo '</pre>';
-		// 		// die();
-		// 		if(in_array($rgm->id, $categories2) && $gm->id != $game_id) {
-		// 			if(!$included) {
-		// 				$related_games[] = $gm;
-		// 				$included = true;
-		// 			}
-		// 		}
-		// 	}
-		// }
-		// echo '<pre>';
-		// print_r($related_games);
-		// echo '</pre>';
-		// dd($categories2);
+		$related_games = [];
+		$test = [];
+
+		foreach($games as $gm) {
+			$included = false;
+			foreach($gm->categories as $rgm) {
+				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
+			}
+		}
 
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-related')
 				->with('country', $country)
 				->with(compact('related_games'));
-		}
-		// $load = Input::get('load') * 6;
-		// $game_id = Input::get('game_id');
-
-		// $game = Game::find($game_id);
-
-		// $categories = [];
-
-		// foreach($game->categories as $cat) {
-		// 	$categories[] = $cat->id;
-		// }
-
-		// $games = Game::take(6)->skip($load)->get();
-
-		// $related_games = [];
-
-		// foreach($games as $gm) {
-		// 	$included = false;
-		// 	foreach($gm->categories as $rgm) {
-		// 		if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
-		// 			if(!$included) {
-		// 				$related_games[] = $gm;
-		// 				$included = true;
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		// /* For getting discounts */
-		// $discounts = Discount::all();
-		// $discounted_games = [];
-		// foreach ($discounts as $data) {
-		// 	foreach($data->games as $gm ) {
-		// 		$discounted_games[$data->id][] = $gm->id; 
-		// 	}
-		// }
-		
-		if (Request::ajax()) {
-			return View::make('_partials/ajax-related')
-				->with('country', $country)
-				->with(compact('related_games', 'discounted_games'));
 		}
 	}
 

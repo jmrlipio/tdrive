@@ -20,17 +20,18 @@
 				<ul id="slider">
 					<div class="option-select">
 						<li>
-							{{ Form::label('game_id', 'Games: ') }} <br><br>
+							{{ Form::label('game_id', 'Games: ') }} <br>
 							{{ Form::select('game_id[]', $games, $selected_games, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'game', 'data-placeholder'=>'Choose game(s)...'))  }}
 							{{ $errors->first('game_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('news_id', 'News: ') }} <br><br>
+							{{ Form::label('news_id', 'News: ') }} <br>
 							{{ Form::select('news_id[]', $news, $selected_news, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'news','data-placeholder'=>'Choose game(s)...'))  }}
 							{{ $errors->first('news_id', '<p class="error">:message</p>') }}
 						</li>
 					</div>
 					{{ Form::open(array('route' => 'admin.featured.update')) }}
+						<p class="sort-label">Drag and sort the items here and click "Save Order".</p><br>
 						<ul class="sortable-items" id="sortables">
 							@foreach($sliders as $slider)
 								<li class="grab">
@@ -54,7 +55,6 @@
 										
 									@endif
 
-
 								</li>
 							@endforeach
 						</ul>
@@ -71,6 +71,7 @@
 						</li>
 					</div>
 					{{ Form::open(array('route' => 'admin.featured.categories.update')) }}
+						<p class="sort-label">Drag and sort the items here and click "Save Order".</p><br>
 						<ul class="sortable-items" id="sortable-categories">
 							@foreach($featured_categories as $category)
 								<li class="grab">
@@ -90,6 +91,7 @@
 	{{ HTML::script('js/chosen.jquery.js') }}
 	<script>
 		$("document").ready(function(){
+
 			$('.tab-container').easytabs();
 			$(".chosen-select").chosen();
 
@@ -119,21 +121,36 @@
 					count++;
 				});
 
+				
 				if(selected.selected != null) {
 					var options = selector.children(":selected");
 
 					options.each(function(){
 						if($(this).val() == selected.selected) {
 
-							var append = '<li class="grab"> \
-											<div class="item-title"> ' + $(this).text() + '</div> \
-											<div class="item-type"> ' + type + '</div> \
-											<input type="hidden" name="item[][' + type + ']" value="' + selected.selected +'"> \
-										  </li>';
+							if(count != 5) {
+								var append = '<li class="grab"> \
+												<div class="item-title"> ' + $(this).text() + '</div> \
+												<div class="item-type"> ' + type + '</div> \
+												<input type="hidden" name="item[][' + type + ']" value="' + selected.selected +'"> \
+										  	  </li>';
 
-							sortables.append(append);
+								sortables.append(append);
+							} else {
+								$(this).removeAttr("selected");
+
+								var select_text = '#' + type + '_chosen span:contains(' + $(this).text() + ')';
+
+								$(select_text).parent().remove();
+
+								alert('There can only be a maximum of 5 items on the slider. Please deselect on or more of the items in order to add new items.');
+							}
+
+							
 						}
 					});
+
+					count++;
 				} else {
 
 					$('#sortables li').each(function(){
@@ -145,6 +162,7 @@
 						}
 					});
 
+					count--;
 				}
 			});
 
