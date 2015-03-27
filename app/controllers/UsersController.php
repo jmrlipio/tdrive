@@ -114,6 +114,7 @@ class UsersController extends \BaseController {
 			$user->password=  Hash::make(Input::get('password'));			
 			$user->code = $code;
 			$user->role = "member";
+			$user->mobile_no = Input::get('mobile_no');
 
 			$user->save();
 

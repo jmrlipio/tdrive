@@ -35,6 +35,12 @@
 			{{ Form::text('last_name', null, array('class'=> 'form-control', 'required' )) }}
 			{{ $errors->first('last_name', '<p class="error">:message</p>') }}
 		</div>
+
+		<div class="control">
+			{{ Form::label('mobile_no', 'Mobile No') }}
+			{{ Form::text('mobile_no') }}
+			{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
+		</div>
 		
 		<div class="control">
 			{{ Form::label('password') }}
