@@ -207,11 +207,11 @@ class ListingController extends \BaseController {
 		// echo '</pre>';
 		// dd($categories2);
 
-		if (Request::ajax()) {
+		/*if (Request::ajax()) {
 			return View::make('_partials/ajax-related')
 				->with('country', $country)
 				->with(compact('related_games'));
-		}
+		}*/
 		// $load = Input::get('load') * 6;
 		// $game_id = Input::get('game_id');
 
