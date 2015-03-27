@@ -29,8 +29,15 @@
 
 					@unless ($game->default_price == 0)
 						@foreach($game->prices as $price) 
+						<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+							$sale_price = $price->pivot->price * (1 - ($dc/100));
+						 ?>
 							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-								<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+								@if($dc != 0)														
+									<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+								@else														 
+									<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+								@endif
 							@endif
 						@endforeach
 					@endunless
