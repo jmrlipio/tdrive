@@ -178,7 +178,8 @@ class HomeController extends BaseController {
 						'url' => $media->url, 
 						'title' => $game->main_title, 
 						'id' => $game->id,
-						'slug' => $game->slug);
+						'slug' => $game->slug,
+						'carrier' => $game->carrier->carrier);
 					
 				}
 			}
