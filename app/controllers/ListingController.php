@@ -100,38 +100,66 @@ class ListingController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
+		// $games = Game::all();
+		// $games = Category::find($cat->id)->games->take(6);
+		// $test = Category::whereIn('id', $categories)->get();
+// 		foreach($test as $data){
+// 			foreach($data->games as $new){
+// echo '<pre>';
+// 		print_r($new->slug);
+// 		echo '</pre>';
+// 			}
+				
+// 		}
+		// $games = Category::whereHas('games', function($q) use ($categories) 
+		// {
+		//     // $q->whereIn('id', $categories);
+
+		//     echo '<pre>';
+		// 	print_r($q);
+		// 	echo '</pre>';
 
 
-		// $test = Category::all();
+		// })->get();
+		
+		// $games = Game::
 
-		// foreach ($test as  $asd) {
-		// 	$categories2[] = $asd->id;
-		// }
+		// die();
 
+		// echo '<pre>';
+		// dd($games);
+		// echo '</pre>';
 
-		$games = Game::all();
+		$related_games = Game::whereHas('categories', function($q) use ($categories)
+		{
+		    $q->whereIn('category_id', $categories);
 
+		})->get()->take(6);
 
-		$related_games = [];
+		// echo '<pre>';
+		// dd($games);
+		// echo '</pre>';
+
+		// $related_games = [];
 		$test = [];
 
-		foreach($games as $gm) {
-			$included = false;
-			// echo '<pre>';
-			// print_r($gm->id);
-			// echo '</pre>';
-			foreach($gm->categories as $rgm) {
-				// echo '<pre>';
-				// print_r($rgm->id . ' '. $rgm->slug);
-				// echo '</pre>';
-				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
-					if(!$included) {
-						$related_games[] = $gm;
-						$included = true;
-					}
-				}
-			}
-		}
+		// foreach($games as $gm) {
+		// 	$included = false;
+		// 	// echo '<pre>';
+		// 	// print_r($gm->id);
+		// 	// echo '</pre>';
+		// 	foreach($gm->categories as $rgm) {
+		// 		// echo '<pre>';
+		// 		// print_r($rgm->id . ' '. $rgm->slug);
+		// 		// echo '</pre>';
+		// 		if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+		// 			if(!$included) {
+		// 				$related_games[] = $gm;
+		// 				$included = true;
+		// 			}
+		// 		}
+		// 	}
+		// }
 		// foreach($related_games as $sample){
 		// echo '<pre>';
 		// print_r($sample->slug);
@@ -162,17 +190,36 @@ class ListingController extends \BaseController {
 			->with(compact('languages'));
 	}
 
-	public function showMoreRelatedGames() 
+	public function showMoreRelatedGames($id) 
 	{
-		$load = Input::get('load') * 6;
-		$game_id = Input::get('game_id');
+		$load = Input::get('load') + 1;
+		$game_id = $id;
 
 		$country = Country::find(Session::get('country_id'));
 
-		$game = Game::find(Session::get('game_id'));
+		$game = Game::find($id);
 
-		$games = Game::take(6)->skip($load)->get();
-		// $games = Category::find($category_id)->games()->take(6)->skip($load)->get();
+		$categories = [];
+		// $categories2 = [];
+
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+		// $categories = [];
+		// 	foreach($game->categories as $cat) {
+		// 		$categories[] = $cat->id;
+		// 	}
+
+		// $games = Game::take(6)->skip($load)->get();
+		// $news = News::where('status', 'live')->take(6)->skip($load)->get();
+		$related_games = Game::whereHas('categories', function($q) use ($categories)
+		{
+		    $q->whereIn('category_id', $categories);
+
+		})->take(6)->skip($load)->get();
+
+		// $games = Category::find(2)->games()->take(6)->skip($load)->get();
 
 		$test = Category::all();
 
@@ -180,30 +227,28 @@ class ListingController extends \BaseController {
 			$categories2[] = $asd->id;
 		}
 
-		$related_games = [];
+		// $related_games = [];
 
-		
-
-		foreach($games as $gm) {
-			// echo '<pre>';
-			// print_r(count($gm->categories));
-			// echo '</pre>';
-			$included = false;
-			foreach($gm->categories as $rgm) {
-				// echo '<pre>';
-				// print_r(count($gm->categories));
-				// echo '</pre>';
-				// die();
-				if(in_array($rgm->id, $categories2) && $gm->id != $game_id) {
-					if(!$included) {
-						$related_games[] = $gm;
-						$included = true;
-					}
-				}
-			}
-		}
+		// foreach($games as $gm) {
+		// 	// echo '<pre>';
+		// 	// print_r(count($gm->categories));
+		// 	// echo '</pre>';
+		// 	$included = false;
+		// 	foreach($gm->categories as $rgm) {
+		// 		// echo '<pre>';
+		// 		// print_r(count($game->id));
+		// 		// echo '</pre>';
+		// 		// die();
+		// 		if(in_array($rgm->id, $categories2) && $gm->id != $game_id) {
+		// 			if(!$included) {
+		// 				$related_games[] = $gm;
+		// 				$included = true;
+		// 			}
+		// 		}
+		// 	}
+		// }
 		// echo '<pre>';
-		// print_r($game->id);
+		// print_r($related_games);
 		// echo '</pre>';
 		// dd($categories2);
 
