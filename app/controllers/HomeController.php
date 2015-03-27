@@ -187,7 +187,11 @@ class HomeController extends BaseController {
 
 		foreach(News::all() as $nw) {
 		
-			$news_slide[$nw->id] = $nw->featured_image;
+			//$news_slide[$nw->id] = $nw->featured_image;
+			$news_slide[$nw->id] = array(
+				'image' => $nw->featured_image,
+				'id' => $nw->id
+				);
 		}
 
 		/* END */
