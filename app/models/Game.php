@@ -12,7 +12,7 @@ class Game extends \Eloquent {
 		'app_id' => 'required|integer',
 		'user_id' => 'required|integer',
 		'carrier_id' => 'required|integer',
-		'main_title' => 'required|min:2|unique:games',
+		'main_title' => 'required|min:2',
 		'slug' => 'required|min:2',
 		'featured' => 'required|boolean',
 		'release_date' => 'required|date',
