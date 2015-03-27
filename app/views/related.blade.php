@@ -18,6 +18,10 @@
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
+					
+					{{-- {{ '<pre>' }} --}}
+					{{-- {{ count($related_games) }} --}}
+					{{-- {{ '</pre>' }} --}}
 
 					@foreach ($related_games as $game)
 						@foreach ($game->media as $media)
@@ -56,24 +60,18 @@
 									<div class="meta">
 										<p>{{ $game->main_title }}</p>
 
+										
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
+											<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+												$sale_price = $price->pivot->price * (1 - ($dc/100));
+											 ?>
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-
-													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
-														@if($dc != 0)
-
-															<?php 
-																$sale_price = $price->pivot->price * (1 - ($dc/100));
-															 ?>
-
-															 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-
-															 @else	
-
-																<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
-															
-														@endif
+													@if($dc != 0)														
+														<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+													@else														 
+														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@endif
 												@endif
 											@endforeach
 										@endunless
@@ -107,7 +105,6 @@
 	<script>
 		FastClick.attach(document.body);
 
-		var load = 0;
 		var _token = $('#token input').val();
 		var num = {{ $count }};
 		var game_id = {{ $game_id }};
@@ -157,16 +154,20 @@
 		});
 
 		$(window).scroll(function() {
+		// $(document).on("scrollstart",function(){	
 			$('.ajax-loader').show();
-
-			load++;
 			
-			if (load * 6 > num) {
-				$('.ajax-loader').hide();
-			} else {
+			var load = $('.item').length;
+
+			// alert(load);
+
+			// if (load / 6 > num) {
+			// 	$('.ajax-loader').hide();
+			// } else {
 
 				$.ajax({
-					url: "{{ url() }}/games/related/more",
+					// url: "{{ url() }}/games/related/more",
+					url: "{{ URL::route('games.related.more', array('id' => $game_id)) }}",
 					type: "POST",
 					data: {
 						load: load,
@@ -178,7 +179,7 @@
 					}
 				});
 
-			}
+			// }
 		});
 	</script>
 @stop

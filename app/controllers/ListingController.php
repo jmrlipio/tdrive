@@ -128,43 +128,13 @@ class ListingController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
+		$related_games = Game::whereHas('categories', function($q) use ($categories)
+		{
+		    $q->whereIn('category_id', $categories);
 
-		// $test = Category::all();
+		})->get()->take(6);
 
-		// foreach ($test as  $asd) {
-		// 	$categories2[] = $asd->id;
-		// }
-
-
-		$games = Game::all();
-
-
-		$related_games = [];
 		$test = [];
-
-		foreach($games as $gm) {
-			$included = false;
-			// echo '<pre>';
-			// print_r($gm->id);
-			// echo '</pre>';
-			foreach($gm->categories as $rgm) {
-				// echo '<pre>';
-				// print_r($rgm->id . ' '. $rgm->slug);
-				// echo '</pre>';
-				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
-					if(!$included) {
-						$related_games[] = $gm;
-						$included = true;
-					}
-				}
-			}
-		}
-		// foreach($related_games as $sample){
-		// echo '<pre>';
-		// print_r($sample->slug);
-		// echo '</pre>';
-		// }
-		// dd(count($related_games));
 
 		/* For getting discounts */
 		$discounts = Discount::all();
@@ -189,17 +159,30 @@ class ListingController extends \BaseController {
 			->with(compact('languages'));
 	}
 
-	public function showMoreRelatedGames() 
+	public function showMoreRelatedGames($id) 
 	{
-		$load = Input::get('load') * 6;
-		$game_id = Input::get('game_id');
+		$load = Input::get('load') + 1;
+		$game_id = $id;
 
 		$country = Country::find(Session::get('country_id'));
 
-		$game = Game::find(Session::get('game_id'));
+		$game = Game::find($id);
 
-		$games = Game::take(6)->skip($load)->get();
-		// $games = Category::find($category_id)->games()->take(6)->skip($load)->get();
+		$categories = [];
+		// $categories2 = [];
+
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+
+		$related_games = Game::whereHas('categories', function($q) use ($categories)
+		{
+		    $q->whereIn('category_id', $categories);
+
+		})->take(6)->skip($load)->get();
+
+
 
 			$categories = [];
 		
@@ -213,13 +196,7 @@ class ListingController extends \BaseController {
 
 		foreach($games as $gm) {
 			$included = false;
-			// echo '<pre>';
-			// print_r($gm->id);
-			// echo '</pre>';
 			foreach($gm->categories as $rgm) {
-				// echo '<pre>';
-				// print_r($rgm->id . ' '. $rgm->slug);
-				// echo '</pre>';
 				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
 					if(!$included) {
 						$related_games[] = $gm;

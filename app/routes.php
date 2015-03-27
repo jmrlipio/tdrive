@@ -20,7 +20,7 @@ Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@show
 Route::post('games/all/more', array('as' => 'games.all.more', 'uses' => 'ListingController@showAllMoreGames'));
 
 Route::get('games/related/{id}', array('as' => 'games.related', 'uses' => 'ListingController@showRelatedGames'));
-Route::post('games/related/more', array('as' => 'games.related.more', 'uses' => 'ListingController@showMoreRelatedGames'));
+Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses' => 'ListingController@showMoreRelatedGames'));
 
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 
