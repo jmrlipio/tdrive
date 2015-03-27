@@ -18,13 +18,11 @@
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-<<<<<<< HEAD
+					
 					{{-- {{ '<pre>' }} --}}
 					{{-- {{ count($related_games) }} --}}
 					{{-- {{ '</pre>' }} --}}
-=======
 
->>>>>>> e5c33fc6c440dcc44e78575bd34b9188746b9677
 					@foreach ($related_games as $game)
 						@foreach ($game->media as $media)
 
