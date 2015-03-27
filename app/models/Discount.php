@@ -20,7 +20,7 @@ class Discount extends \Eloquent {
 	}
 
 	public function games() {
-		return $this->belongsToMany('Game', 'game_discounts');
+		return $this->belongsToMany('Game', 'game_discounts')->withPivot('user_count', 'game_id');
 	}
 
 }
