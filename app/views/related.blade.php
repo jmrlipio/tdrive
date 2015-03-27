@@ -166,7 +166,7 @@
 
 			// alert((load*6) + 'test' + num);
 
-			if (load * 6 < num) {
+			if (load * 6 > num) {
 				$('.ajax-loader').hide();
 			} else {
 
