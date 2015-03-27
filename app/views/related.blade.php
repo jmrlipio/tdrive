@@ -18,6 +18,9 @@
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
+					{{-- {{ '<pre>' }} --}}
+					{{-- {{ count($related_games) }} --}}
+					{{-- {{ '</pre>' }} --}}
 
 					@foreach ($related_games as $game)
 						@foreach ($game->media as $media)
@@ -161,7 +164,9 @@
 
 			load++;
 
-			if (load * 6 > num) {
+			// alert((load*6) + 'test' + num);
+
+			if (load * 6 < num) {
 				$('.ajax-loader').hide();
 			} else {
 
