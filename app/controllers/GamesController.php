@@ -67,7 +67,7 @@ class GamesController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
-		$games = Game::all();
+		$games = Game::whereCarrierId(Session::get('carrier'))->get();
 		$related_games = [];
 
 		foreach($games as $gm) {
