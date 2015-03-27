@@ -497,5 +497,50 @@ class AdminGamesController extends \BaseController {
 			}
 		}
 	}
+
+	public function previewGame($id){
+		$languages = Language::all();
+		$game = Game::find($id);
+		$current_game = Game::find($id);
+		$categories = [];
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+		$games = Game::all();
+		$related_games = [];
+
+		foreach($games as $gm) {
+			$included = false;
+			foreach($gm->categories as $rgm) {
+				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
+			}
+		}
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
+		$country = Country::find(Session::get('country_id'));
+		$ratings = Review::getRatings($game->id);
+		$visitor = Tracker::currentSession();
+
+		return View::make('admin.games.preview')
+			->with('page_title', 'Preview | '.$game->main_title)
+			->with('page_id', 'game-detail')
+			->with('ratings', $ratings)
+			->with('current_game', $current_game)
+			->with('country', $country)
+			->with(compact('languages','related_games', 'game', 'discounted_games'));
+	}
     
 }

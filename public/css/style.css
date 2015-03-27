@@ -25,7 +25,7 @@
   display: none;
 }
 #home #slider .swiper-slide {
-  width: 260px;
+  width: 260px !important;
 }
 #home #slider img {
   width: 100%;

@@ -6,15 +6,15 @@
 
 @section('content')
 
-	<h1 class="title">Create new account</h1>
+	<h1 class="title">{{ trans('global.Create new account') }}</h1>
 
 	{{ Form::open(array('route'=>'users.register', 'id' => 'register')) }}
 
 		<div id="token">{{ Form::token() }}</div>
 
 		<div class="control">
-			{{ Form::label('email') }}
-			{{ Form::text('email', null, array('class'=> 'form-control', 'required')) }}
+			{{ Form::label(trans('global.email')) }}
+			{{ Form::text(trans('global.email'), null, array('class'=> 'form-control', 'required')) }}
 			{{ $errors->first('email', '<p class="error">:message</p>') }}
 		</div>
 
@@ -46,11 +46,11 @@
 		{{ $errors->first('password', '<p class="error">:message</p>') }}
 
 		<div class="control">
-			{{ Form::label('password_confirmation') }}
+			{{ Form::label(trans('password_confirmation')) }}
 			{{ Form::password('password_confirmation') }}
 		</div>
 		
-		{{ Form::submit('Create new account') }}
+		{{ Form::submit(trans('global.Create new account')) }}
 
 	{{ Form::close() }}
 
