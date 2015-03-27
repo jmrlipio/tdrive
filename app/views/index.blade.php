@@ -82,7 +82,7 @@
 						@foreach($news_slide as $key => $nw) 
 
 							@if($key == $slider->slideable_id) 
-								<a href="{{ 'news/'. $nw['id'] }}"><img src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}"></a>					
+								<a href="{{ 'news/'. $nw['id'] }}"><img src="assets/homepage/{{ $nw['image'] }}" alt="{{ $nw['title'] }}"></a>					
 							@endif
 
 						@endforeach
