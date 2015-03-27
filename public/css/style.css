@@ -1388,5 +1388,6 @@
   z-index: 50;
   left: 0;
   overflow: scroll;
-  -webkit-overflow-scrolling: touch
+  -webkit-overflow-scrolling: touch;
+  padding-top: 60px;
 }
