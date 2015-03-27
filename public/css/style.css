@@ -22,10 +22,12 @@
 }
 #home #slider {
   padding: 0;
+  padding-bottom: 15px;
   display: none;
 }
 #home #slider .swiper-slide {
-  width: 260px !important;
+  /*width: 260px !important;*/
+  width: 260px;
 }
 #home #slider img {
   width: 100%;
@@ -1125,6 +1127,10 @@
   #game-listing .grid > .row .item {
     width: 25%;
   }
+/*   #scroll {
+    height: 420px;
+    overflow: hidden;
+  }*/
 }
 @media only screen and (min-width: 600px) {
   #game-listing .title {
@@ -1372,4 +1378,8 @@
 
 #categories-container {
   padding: 20px;
+}
+
+#scroll {
+  -webkit-overflow-scrolling: touch
 }
