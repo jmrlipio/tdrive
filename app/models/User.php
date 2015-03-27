@@ -23,7 +23,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      */
     protected $hidden = array('password', 'remember_token');
 
-    protected $fillable = ['username', 'first_name', 'last_name', 'email', 'password', 'code'];
+    protected $fillable = ['username', 'first_name', 'last_name', 'email', 'password', 'code', 'mobile_no', 'role'];
 
     public static $rules = [
         'username'              => 'required|unique:users|min:6',
@@ -31,13 +31,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password_confirmation' => 'required|alpha_num|between:8,12',
         'first_name'            => 'required|alpha|min:2',
         'last_name'             => 'required|alpha|min:2',
-        'email'                 => 'required|email|unique:users'
+        'email'                 => 'required|email|unique:users',
+        'mobile_no'             => 'required'
     ];
 
     public static $update_rules = [
         'first_name'            => 'required|alpha|min:2',
         'last_name'             => 'required|alpha|min:2',
-        'email'                 => 'required|email|unique:users'
+        'email'                 => 'required|email|unique:users',
+        'mobile_no'             => 'required'
     ];
 
     public static $auth_rules = [

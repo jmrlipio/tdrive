@@ -53,7 +53,7 @@ class AdminUsersController extends \BaseController {
 
 		User::create($data);
 
-		return Redirect::route('admin.users.index');
+		return Redirect::route('admin.users.edit')->with('message', 'You have successfully added this user');
 	}
 
 	/**
