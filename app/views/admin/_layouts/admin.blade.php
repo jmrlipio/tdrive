@@ -41,7 +41,7 @@
                 </p>
                 <p> 
                     @if( Review::whereViewed(0)->count() >= 1 )
-                        <a href="{{ URL::route('admin.reviews.index')}}">{{ 'You have '. Review::whereViewed(0)->count() .' new notification'}}</a>
+                        <a href="{{ URL::route('admin.reviews.index')}}">{{ 'You have '. Review::whereViewed(0)->count() .' new notification(s)'}}</a>
                     @else
 
                         <a style="display:none" href="{{ URL::route('admin.reviews.index')}}"></a>

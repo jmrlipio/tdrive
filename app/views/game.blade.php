@@ -531,7 +531,7 @@
 	@endif
 	
 	</div><!-- end #reviews -->
-
+	
 	<div id="related-games" class="container">
 		<h1 class="title">{{ trans('global.Related games') }}</h1>
 		
@@ -606,7 +606,7 @@
 
 		@endif
 
-		<div class="more"><a href="{{ route('games.related', $game->id) }}">{{ trans('global.More') }} +</a></div>
+		<div class="more"><a href="{{ route('games.related', $game_id) }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #related-games -->
 
 @stop

@@ -160,7 +160,7 @@
 			$('.ajax-loader').show();
 
 			load++;
-
+			
 			if (load * 6 > num) {
 				$('.ajax-loader').hide();
 			} else {

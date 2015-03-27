@@ -16,7 +16,9 @@
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-
+										{{-- {{ '<pre>' }} --}}
+					{{-- {{ count($games) }} --}}
+					{{-- {{ '</pre>' }} --}}
 					@foreach ($games as $game)
 						@foreach ($game->media as $media)
 
@@ -66,11 +68,11 @@
 	</div>
 
 @stop
-
+	
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
-
+	
 	<script>
 		FastClick.attach(document.body);
 
@@ -121,7 +123,7 @@
 				return true;
 			}
 		});
-
+		// alert(screen.height);
 		$(window).scroll(function() {
 			$('.ajax-loader').show();
 
