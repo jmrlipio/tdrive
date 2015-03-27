@@ -93,14 +93,14 @@ class GamesController extends \BaseController {
 		$ratings = Review::getRatings($game->id);
 		$visitor = Tracker::currentSession();
 		$country = Country::find(Session::get('country_id'));
-
+		$game_id = $game->id;
 		return View::make('game')
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')
 			->with('ratings', $ratings)
 			->with('current_game', $current_game)
 			->with('country', $country)
-			->with(compact('languages','related_games', 'game', 'discounted_games'));
+			->with(compact('languages','related_games', 'game', 'discounted_games', 'game_id'));
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/
 	}

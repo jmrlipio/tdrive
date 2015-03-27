@@ -101,11 +101,13 @@ class ListingController extends \BaseController {
 		}
 
 
+
 		// $test = Category::all();
 
 		// foreach ($test as  $asd) {
 		// 	$categories2[] = $asd->id;
 		// }
+
 
 		$games = Game::all();
 
