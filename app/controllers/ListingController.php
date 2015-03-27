@@ -99,6 +99,8 @@ class ListingController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
+		dd($categories);
+
 		$games = Game::all();
 
 		$related_games = [];

@@ -193,3 +193,4 @@ Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminU
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
 route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'uses' => 'ReviewsController@handleDestroy'));
+Route::get('admin/games/preview/{id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));

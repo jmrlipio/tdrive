@@ -51,7 +51,7 @@
 @stop
 
 @section('content')
-	{{ Session::get('locale') }}
+	{{-- Session::get('locale') --}}
 
 	<div id="slider" class="swiper-container featured container swiper-container-horizontal">
 		<div class="swiper-wrapper">
