@@ -1,7 +1,7 @@
 <?php
 
 class News extends \Eloquent {
-	protected $fillable = ['user_id','main_title','slug','status','news_category_id', 'featured_image'];
+	protected $fillable = ['user_id','main_title','slug','status','news_category_id', 'featured_image', 'homepage_image'];
 
 	public static $rules = [
 		'user_id' => 'required|integer',
@@ -10,7 +10,8 @@ class News extends \Eloquent {
 		'status' => 'required',
 		// 'release_date' => 'required|date',
 		'news_category_id' => 'required|integer',
-		'featured_image' => 'required'
+		'featured_image' => 'required',
+		'homepage_image' => 'required'
 	];
 
 	public static $fieldRules = [

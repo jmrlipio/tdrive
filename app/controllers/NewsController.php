@@ -233,6 +233,8 @@ class NewsController extends \BaseController {
 	{
 		$news = News::find($id);
 
+		// dd(Input::all());
+
 		$edit_rules = News::$rules;
 
 		$edit_rules['featured_image'] = '';
@@ -248,6 +250,17 @@ class NewsController extends \BaseController {
 			$data['featured_image'] = $filename;
 		} else {
 			$data['featured_image'] = $news->featured_image;
+		}
+
+		if(Input::hasFile('homepage_image')) {
+			$homepage = Input::file('homepage_image');
+			$filename = time() . "_" . $homepage->getClientOriginalName();
+			$path = public_path('assets/news/' . $filename);
+			Image::make($homepage->getRealPath())->save($path);
+
+			$data['homepage_image'] = $filename;
+		} else {
+			$data['homepage_image'] = $news->homepage_image;
 		}
 		
 		if ($validator->fails())

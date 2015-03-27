@@ -54,6 +54,14 @@
 						{{ Form::label('featured_image', 'Featured Image:') }}
 						{{ Form::file('featured_image') }}
 					</li>
+					<li>
+						<div class="media-box">
+							{{ HTML::image(Request::root() . '/assets/news/' . $news->homepage_image, null) }}
+						</div>
+
+						{{ Form::label('homepage_image', 'Homepage Image:') }}
+						{{ Form::file('homepage_image') }}
+					</li>
 					{{ Form::hidden('user_id', Auth::user()->id) }}
 					{{ Form::submit('Save') }}
 				{{ Form::close() }}

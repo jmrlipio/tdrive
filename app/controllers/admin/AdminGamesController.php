@@ -385,6 +385,13 @@ class AdminGamesController extends \BaseController {
 	}
 
 	public function updateLanguageContent($id, $language_id) {
+		$validator = Validator::make($data = Input::all(), Game::$content_rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
 		$game = Game::find($id);
 		$language = Language::find($language_id);
 

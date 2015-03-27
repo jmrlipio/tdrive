@@ -14,14 +14,17 @@
 		<li>
 			{{ Form::label('title', 'Title:') }}	
 			{{ Form::text('title', $title) }}
+			{{ $errors->first('title', '<p class="error">:message</p>') }}
 		</li>
 		<li>
 			{{ Form::label('content', 'Content:') }}	
 			{{ Form::textarea('content', $content, array('id' => 'content')) }}
+			{{ $errors->first('content', '<p class="error">:message</p>') }}
 		</li>
 		<li>
 			{{ Form::label('excerpt', 'Excerpt:') }}	
 			{{ Form::textarea('excerpt', $excerpt) }}
+			{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
 		</li>
 
 		{{ Form::submit('Update Content') }} <a href="{{ URL::route('admin.games.edit', $game->id) . '#game-content' }}">Back</a>
