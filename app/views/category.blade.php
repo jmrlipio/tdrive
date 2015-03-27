@@ -95,25 +95,25 @@
 		var category_id = {{ $category->id }};
 		var num = {{ $count }};
 
+		var token = $('input[name="_token"]').val();
+
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
-						_token: _token
+						_token: token
 					},
 					success: function(data) {
+						location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 
@@ -121,21 +121,19 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
-						_token: _token
+						_token: token
 					},
 					success: function(data) {
+					    location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 

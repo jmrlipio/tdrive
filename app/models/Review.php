@@ -24,7 +24,7 @@ class Review extends Eloquent {
 
 	public static function getRatings($game_id) 
 	{
-		$ratings = Review::where('game_id', '=', $game_id)->get();
+		$ratings = Review::where('game_id', '=', $game_id)->whereStatus(1)->get();
 
 		$five = 0;
 		$four = 0;

@@ -25,6 +25,10 @@ return array(
 	'Please select' => 'กรุณาเลือก',
 	'search game' => 'เกมค้นหา',
 	'View all categories' => 'ดูทุกประเภท',
+	'first_name' => 'ชื่อแรก',
+	'last_name' => 'นามสกุล',
+	'mobile_no' => 'หมายเลขโทรศัพท์มือถือ',
+	'password_confirmation' => 'ยืนยันรหัสผ่าน',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',
