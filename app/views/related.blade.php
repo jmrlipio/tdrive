@@ -22,10 +22,10 @@
 					{{-- {{ '<pre>' }} --}}
 					{{-- {{ count($related_games) }} --}}
 					{{-- {{ '</pre>' }} --}}
-
+					
 					@foreach ($related_games as $game)
 						@foreach ($game->media as $media)
-
+							
 							@if($media->type == 'icons')
 								<div class="item">
 									<div class="thumb relative">

@@ -161,7 +161,7 @@ class ListingController extends \BaseController {
 
 	public function showMoreRelatedGames($id) 
 	{
-		$load = Input::get('load') + 1;
+		$load = Input::get('load');
 		$game_id = $id;
 
 		$country = Country::find(Session::get('country_id'));

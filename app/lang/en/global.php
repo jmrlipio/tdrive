@@ -94,7 +94,7 @@ return array(
 	'Forgot your password?' => 'Forgot your password?',
 	'Not yet a member?' => 'Not yet a member?',
 	'Register' => 'Register',
-	'Mobile no' => 'Mobile no',
+	'mobile_no' => 'Mobile no',
 
 	//News Listing Blade (news_listing.blade.php)
 	'Latest news' => 'Latest news',
