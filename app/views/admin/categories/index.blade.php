@@ -2,8 +2,13 @@
 
 @section('content')
 	@include('admin._partials.game-nav')
-	<div class="item-listing" id="games-list">
+	<div class="item-listing" id="categories-list">
 		<h2>Categories</h2>
+		
+		@if(Auth::user()->role != 'admin')
+			<a href="{{ URL::route('admin.categories.create') }}" class="mgmt-link">Create Category</a>
+		@endif
+		<div class="clear"></div>
 
 		@if(Session::has('message'))
 		    <div class="flash-success">
@@ -11,72 +16,74 @@
 		    </div>
 		@endif
 		<br>
-	<div class="table-responsive">
-		<table class="table table-striped table-bordered table-hover"  id="game_table">
-			<thead>
-				<tr>
-					<!--<th><input type="checkbox"></th>-->
-					<th>Category Name</th>
-					<th>Slug</th>
-					<th>Featured</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				@foreach($categories as $category)
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered table-hover"  id="game_table">
+				<thead>
 					<tr>
-						<!--<td><input type="checkbox"></td>-->
-						<td>
-							<a href="#">{{ $category->category }}</a>
-							@if(Auth::user()->role != 'admin')
-								<ul class="actions">
-									<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>
-									<li><a href="">View</a></li>
-									<li>
-										{{ Form::open(array('route' => array('admin.categories.destroy', $category->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-										{{ Form::close() }}
-									</li>
-								</ul>
-							@endif
-						</td>
-						<td>{{ $category->slug }}</td>
-						<td>
-							@if($category->featured == 1)
-								<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" checked id="{{ $category->id }}"/>
-							@else
-								<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" id="{{ $category->id }}" />
-							@endif
-						</td>
+						<!--<th><input type="checkbox"></th>-->
+						<th>Category Name</th>
+						<th>Slug</th>
+						{{-- <th>Featured</th> --}}
 					</tr>
-				@endforeach
-			</tbody>
-		</table>
-	</div>
+				</thead>
+
+				<tbody>
+					@foreach($categories as $category)
+						<tr>
+							<!--<td><input type="checkbox"></td>-->
+							<td>
+								<a href="{{ URL::route('admin.categories.edit', $category->id) }}">{{ $category->category }}</a>
+								@if(Auth::user()->role != 'admin')
+									<ul class="actions">
+										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>
+										<li><a href="">View</a></li>
+										<li>
+											{{ Form::open(array('route' => array('admin.categories.destroy', $category->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+												{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+											{{ Form::close() }}
+										</li>
+									</ul>
+								@endif
+							</td>
+							<td>{{ $category->slug }}</td>
+							{{--
+							<td>
+								@if($category->featured == 1)
+									<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" checked id="{{ $category->id }}"/>
+								@else
+									<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" id="{{ $category->id }}" />
+								@endif
+							</td>
+							--}}
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
 		{{ $categories->links() }}
 		<br>
 	</div>
 	<script>
 		$("document").ready(function(){
-	        $('.featured').on('click', function() {
+	     //    $('.featured').on('click', function() {
 
-	        	var id = $(this).attr('id');
-	        	var checked = ($(this).is(':checked')) ? 1 : 0;
+	     //    	var id = $(this).attr('id');
+	     //    	var checked = ($(this).is(':checked')) ? 1 : 0;
 
-	        	// alert(id + ' ' + checked)
+	     //    	// alert(id + ' ' + checked)
 
-	            $.ajax({
-	                type: "POST",
-	                url : "{{ URL::route('admin.categories.featured') }}",
-	                data :{
-	                	"featured": checked,
-	                	"id": id
-	                },
-	                success : function(data){
-	                    console.log('data');
-	                }
-	            });
-	    	});
+	     //        $.ajax({
+	     //            type: "POST",
+	     //            url : "{{ URL::route('admin.categories.featured') }}",
+	     //            data :{
+	     //            	"featured": checked,
+	     //            	"id": id
+	     //            },
+	     //            success : function(data){
+	     //                console.log('data');
+	     //            }
+	     //        });
+	    	// });
 		});
 	</script>
 	{{ HTML::script('js/form-functions.js') }}

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMessagesTable extends Migration {
+class CreateSlidersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,11 @@ class CreateMessagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('messages', function(Blueprint $table)
+		Schema::create('slideables', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('form');
-			$table->string('success');
-			$table->string('error');
+			$table->morphs('slideable');
+			$table->integer('order');
 			$table->timestamps();
 		});
 	}
@@ -30,7 +29,9 @@ class CreateMessagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('messages');
+		Schema::drop('slideables');
 	}
 
 }
+
+

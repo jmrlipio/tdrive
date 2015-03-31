@@ -34,45 +34,90 @@
 			padding: 3px;
 			margin-top:10px;
 		}
+
 		div#btn-link a {
 			color: #fff;
 			display: block;
 		}
+
+		.view-all {
+			background: #61ded0;
+		}
+		
+		.discounted { text-decoration: line-through; }
 
 	</style>
 
 @stop
 
 @section('content')
-	<div id="slider" class="swiper-container featured container">
+	{{-- Session::get('locale') --}}
+
+	<div id="slider" class="swiper-container featured container swiper-container-horizontal">
 		<div class="swiper-wrapper">
 
-			@foreach($featured_games as $featured_game)
+			@foreach($sliders as $slider)
+				<div class="swiper-slide">
+					@if($slider->slideable_type == 'Game')
+
+						@foreach($games_slide as $key => $game)
+							
+							@if($key == $slider->slideable_id)
+								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))							
+									
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug'], 'carrier' => strtolower($game['carrier']), 'language' => Session::get('locale')))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
+								
+								@else
+
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/featured/placeholder.jpg" alt="{{$game['title']}}"></a>
+
+								@endif
+
+							@endif
+
+						@endforeach
+							
+					@elseif($slider->slideable_type == 'News') 
+
+						@foreach($news_slide as $key => $nw) 
+
+							@if($key == $slider->slideable_id) 
+								<a href="{{ 'news/'. $nw['id'] }}"><img src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}"></a>					
+							@endif
+
+						@endforeach
+						
+					@endif
+				</div>		
+			@endforeach
+
+			<!-- @foreach($featured_games as $featured_game)
 				@foreach($featured_game->media as $media)
-
+			
 				@if ($featured_game->featured == 1)
-
+			
 					@if ($media->type == 'promos')
 						<div class="swiper-slide">
 							@if(File::exists(public_path() . '/assets/games/promos/'. $media->url))
-								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/games/promos/{{ $media->url }}" alt="{{ $featured_game->main_title }}"></a>
+								<a href="{{ URL::route('game.show', array('id' => $featured_game->id, 'slug' => $featured_game->slug)) }}"><img src="assets/games/promos/{{ $media->url }}" alt="{{ $featured_game->main_title }}"></a>
 							@else
 								<a href="{{ URL::route('game.show', $featured_game->id) }}"><img src="assets/featured/placeholder.jpg" alt="{{ $featured_game->main_title }}"></a>
 							@endif
 						</div>
 					@endif
 				@endif
-
+			
 				@endforeach
-			@endforeach
+			@endforeach -->
 
 		</div>
+		<div class="swiper-pagination swiper-pagination-clickable"></div>
 	</div>
 
 	{{ Form::token() }}
 
 	<div id="latest-games" class="container">
-		<h1 class="title">New and updated games</h1>
+		<h1 class="title">{{ trans('global.All games') }}</h1>
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
 				<?php $ctr = 0; ?>
@@ -84,14 +129,23 @@
 								<div class="swiper-slide item">
 									<div class="thumb relative">
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 										@endif
 
-										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
+								
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
+
 									</div>
 									<div class="meta">
 										<p class="name">{{{ $game->main_title }}}</p>
@@ -99,7 +153,24 @@
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+														$sale_price = $price->pivot->price * (1 - ($dc/100));
+													 ?>
+													@if($dc != 0)
+														<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+														 <p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+													
+													@else
+														@if($price->pivot->price == 0)
+															
+															<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
+														@else													 
+															
+															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+														@endif
+
+													@endif
+
 												@endif
 											@endforeach
 										@endunless
@@ -119,19 +190,19 @@
 			</div>
 		</div>
 
-		<div class="more"><a href="{{ route('games.all') }}">More +</a></div>
+		<div class="more"><a href="{{ route('games.all') }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #latest-games -->
 
 	<div id="games-heading" class="container">
-		<h1 class="title">Games</h1>
+		<h1 class="title">{{ trans('global.Games') }}</h1>
 	</div>
 
 	@foreach($categories as $cat)
 
 		<div class="game-category container">
 			<div class="clearfix">
-				<h2 class="title fl">{{ $cat->category }}</h2>
-				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">See all</a></div>
+				<h2 class="title fl">{{ trans('global.'.$cat->category) }}</h2>
+				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.See all') }}</a></div>
 			</div>
 
 			<div class="swiper-container thumbs-container">
@@ -149,13 +220,21 @@
 										<div class="swiper-slide item">
 											<div class="thumb relative">
 												@if ($game->default_price == 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 
-												<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
+												<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
 
 												@if ($game->default_price == 0)
-													<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 											</div>
 
@@ -165,7 +244,21 @@
 												@unless ($game->default_price == 0)
 													@foreach($game->prices as $price) 
 														@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-															<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+															<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
+															@if($dc != 0)
+															<!-- For adding strikethrough to the old price -->
+																<!-- <p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p> -->
+																<?php 
+																	$sale_price = $price->pivot->price * (1 - ($dc/100));
+																 ?>
+
+																<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+
+															@else	
+
+																<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
+																
+															@endif
 														@endif
 													@endforeach
 												@endunless
@@ -188,19 +281,24 @@
 
 				</div>
 			</div>
-		</div>
 
+		</div>
+		
 	@endforeach
+
+	<div class="view-all container clearfix">
+		<div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div>
+	</div>
 
 	<div id="news" class="container">
 		<div class="clearfix">
-			<h1 class="title">Latest news</h1>
+			<h1 class="title">{{ trans('global.latest news') }}</h1>
 
 			<form action="#" id="year" method="post">
 
 				<div id="token">{{ Form::token() }}</div>
 
-				 {{ Form::select('year', array('default' => 'Please select') + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
+				 {{ Form::select('year', array('default' => trans('global.Please select')) + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
 			</form>
 		</div>
 
@@ -223,7 +321,7 @@
 						<p>{{{ $content->pivot->excerpt }}}</p>
 					</div>	
 
-					<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">Read more <i class="fa fa-angle-right"></i></a></div>
+					<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">{{ trans('global.Read more') }} <i class="fa fa-angle-right"></i></a></div>
 				</div>
 
 				@endforeach
@@ -264,13 +362,13 @@
 
 		</div>
 		<br>
-		<div class="more"><a href="{{ route('news.all') }}">More +</a></div>
+		<div class="more"><a href="{{ route('news.all') }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #news -->
 
 	<div id="faqs" class="container">
-		<h1 class="title">FAQs</h1>
+		<h1 class="title">{{ trans('global.FAQs') }}</h1>
 
-		<p>Find answers to Frequently Asked Questions about TDrive and our services below.</p>
+		<p>{{ trans('global.Find answers to Frequently Asked Questions about TDrive and our services below.') }}</p>
 
 		<div id="questions">
 
@@ -287,8 +385,8 @@
 	</div><!-- end #faqs -->
 
 	<div id="contact" class="container">
-		<h1 class="title">Contact us</h1>
-		<p>Your comments and suggestions are important to us. You can reach us via the contact points below.</p>
+		<h1 class="title">{{ trans('global.Contact us') }}</h1>
+		<p>{{ trans('global.Your comments and suggestions are important to us. You can reach us via the contact points below.') }}</p>
 
 		{{ Form::open(array('route'=>'reports.inquiries.store-inquiry', 'method' => 'post')) }}
 
@@ -298,20 +396,20 @@
 			@endif
 
 			<div class="control clearfix">
-				<input type="text" name="name" id="name" placeholder="name" required>
+				<input type="text" name="name" id="name" placeholder="{{ trans('global.name') }}" required>
 
 				{{ $errors->first('name', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
-				<input type="email" name="email" id="email" placeholder="email" required>
+				<input type="email" name="email" id="email" placeholder="{{ trans('global.email') }}" required>
 
 				{{ $errors->first('email', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="select clearfix">
 				<select name="game_title" class="clearfix" id="game" required>
-					<option value="General Inquiry">General Inquiry</option>
+					<option value="General Inquiry">{{ trans('global.General Inquiry') }}</option>
 
 					@foreach($games as $game)
 						<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
@@ -324,19 +422,20 @@
 
 			<div class="captcha control clearfix">
 				{{ HTML::image(Captcha::img(), 'Captcha image') }}
-				{{ Form::text('captcha', null, array('placeholder' => 'type what you see...', 'required' => 'required')) }}
+				<?php $test = trans('global.type what you see...'); ?>
+				{{ Form::text('captcha', null, array('placeholder' => trans('global.type what you see...'), 'required' => 'required')) }}
 
 				{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
-				<textarea name="message" id="message" placeholder="message" required></textarea>
+				<textarea name="message" id="message" placeholder="{{ trans('global.message') }}" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="control clearfix">
-				<input type="submit" value="Submit &raquo;">
+				<input type="submit" value="{{ trans('global.submit') }} &raquo;">
 			</div>
 
 		{{ Form::close() }}
@@ -457,6 +556,7 @@
 @stop
 
 @section('javascripts')
+
 	{{ HTML::script("js/fastclick.js") }}
 	{{ HTML::script("js/bootstrap.min.js") }}
 	{{ HTML::script("js/jquery.lightSlider.min.js") }}
@@ -467,22 +567,45 @@
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
 
 	<script>
+
 		FastClick.attach(document.body);
 
 		var ctr = $('#ctr').val();
 		var ctr2 = $('#ctr2').val();
 
-		$(window).load(function(){
-			
-			for(var i=0; i<ctr; i++){
-	        	
-	        	$('#myModal'+ (i+1)).modal('show');
+		$(window).load(function() {
+
+			$('#slider').show();
+
+			$('.thumbs-container').each(function() {
+				$(this).show();
+			});
+
+			for(var i = 0; i < ctr; i++) {
+	        	$('#myModal' + (i + 1)).modal('show');
 	        }
 
-	        for(var i=0; i<ctr2; i++){
-	        	
-	        	$('#newsAlert'+ (i+1)).modal('show');
+	        for(var i = 0; i < ctr2; i++) {
+	        	$('#newsAlert' + (i + 1)).modal('show');
 	        }
+
+			$('.featured').swiper({
+				slidesPerView: 2,
+				centeredSlides: true,
+				calculateHeight: true,
+				initialSlide: 2,
+				pagination: '.swiper-pagination',
+        		paginationClickable: true
+			});
+
+			$('.thumbs-container').each(function() {
+				$(this).swiper({
+					slidesPerView: 'auto',
+					offsetPxBefore: 0,
+					offsetPxAfter: 10,
+					calculateHeight: true
+				});
+			});
 
 	    });
 
@@ -495,13 +618,13 @@
 			testMode: true,
 			onChange: function(evt){
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
 						_token: token
 					},
-					success: function() {
+					success: function(data) {
 						location.reload();
 					}
 				});
@@ -515,34 +638,18 @@
 			testMode: true,
 			onChange: function(evt){
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
 						_token: token
 					},
-					success: function() {
-						location.reload();
+					success: function(data) {
+					    location.reload();
 					}
 				});
 			}
 		});
-
-		$('.featured').swiper({
-			slidesPerView: 'auto',
-			centeredSlides: true,
-			calculateHeight: true,
-			initialSlide: 2
-		})
-
-		$('.thumbs-container').each(function() {
-			$(this).swiper({
-				slidesPerView: 'auto',
-				offsetPxBefore: 0,
-				offsetPxAfter: 10,
-				calculateHeight: true
-			})
-		})
 
 		$("#questions").accordion({ 
 			heightStyle: 'panel', 
@@ -557,4 +664,5 @@
 		});
 
 	</script>
+
 @stop

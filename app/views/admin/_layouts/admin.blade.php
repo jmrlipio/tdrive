@@ -21,6 +21,8 @@
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
     {{ HTML::script('js/jquery.fancybox.js') }}
 
+    @section('stylesheets')
+    @show
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -35,7 +37,16 @@
                 <p>
                     Welcome, 
                     <a href="{{ URL::route('admin.users.show', Auth::user()->id) }}">{{ Auth::user()->first_name }}</a> | 
-                    {{ link_to_route('admin.logout', 'Sign Out') }}
+                    {{ link_to_route('admin.logout', 'Sign Out') }}                    
+                </p>
+                <p> 
+                    @if( Review::whereViewed(0)->count() >= 1 )
+                        <a href="{{ URL::route('admin.reviews.index')}}">{{ 'You have '. Review::whereViewed(0)->count() .' new notification(s)'}}</a>
+                    @else
+
+                        <a style="display:none" href="{{ URL::route('admin.reviews.index')}}"></a>
+
+                    @endif                   
                 </p>
             @else
                 <p>     

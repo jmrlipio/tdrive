@@ -25,29 +25,50 @@ $game_settings = GameSetting::all();
 	<div class="search">
 
 		{{ Form::open(array('action' => 'ListingController@searchGames', 'id' => 'search_form')) }}
-			{{ Form::input('text', 'search', null, array('placeholder' => 'search game')); }}
+			{{ Form::input('text', 'search', null, array('placeholder' => trans('global.search game'))); }}
 			{{ Form::token() }}
 
 			<a href="javascript:{}" onclick="document.getElementById('search_form').submit(); return false;"><i class="fa fa-search"></i></a>
 		{{ Form::close() }}
 
 	</div>
-	<?php $lang = (isset($_GET['locale'])) ? $_GET['locale'] : 'us'; ?>
+
 	<div id="polyglotLanguageSwitcher2" class="polyglotLanguageSwitcher">
+
+		<?php 
+			$games = Game::whereCarrierId(Session::get('carrier'))->get();	
+			$arr_id = [];
+
+			foreach($games as $game){								
+				foreach($game->contents as $content) {
+					$arr_id[] = $content->pivot->language_id;						
+				}
+			}
+
+			$lang_id = array_unique($arr_id);
+			$languages = Language::whereIn('id', $lang_id)->get();
+
+		?>
+		
 		<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
-			{{ Form::token() }}
-
 			<select name="locale" id="polyglot-language-options">
-				<option id="en" value="en" {{ (strtolower($user_location['isoCode']) == 'us' || $lang == 'us') ? ' selected' : '' }}>English</option>
-				<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || $lang == 'th') ? ' selected' : '' }}>Thai</option>
-				<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || $lang == 'id') ? ' selected' : '' }}>Bahasa Indonesia</option>
-				<option id="my" value="my" {{ (strtolower($user_location['isoCode']) == 'my' || $lang == 'my') ? ' selected' : '' }}>Bahasa Malaysia</option>
-				<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || $lang == 'cn') ? ' selected' : '' }}>Traditional Chinese</option>
-				<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || $lang == 'cn') ? ' selected' : '' }}>Simplified Chinese</option>
-				<option id="vn" value="vn" {{ (strtolower($user_location['isoCode']) == 'vn' || $lang == 'vn') ? ' selected' : '' }}>Vietnamese</option>
-				<option id="jp" value="jp" {{ (strtolower($user_location['isoCode']) == 'jp' || $lang == 'jp') ? ' selected' : '' }}>Japanese</option>
-				<option id="hi" value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || $lang == 'hi') ? ' selected' : '' }}>Hindi</option>
+
+				@foreach($languages as $lang)												
+									
+					<option id="{{strtolower($lang->iso_code)}}" value="{{strtolower($lang->iso_code)}}" {{-- (strtolower($lang->iso_code) == Session::get('locale') ) ? ' selected' : '' --}}>{{$lang->language}}</option>			
+					
+				@endforeach
+
+				<!-- <option id="us" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Session::get('locale') == 'us' ) ? ' selected' : '' }}>English</option>
+				<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Session::get('locale') == 'th' ) ? ' selected' : '' }}>Thai</option>
+				<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Session::get('locale') == 'id' ) ? ' selected' : '' }}>Bahasa Indonesia</option>
+				<option id="my" value="my" {{ (strtolower($user_location['isoCode']) == 'my' || Session::get('locale') == 'my' ) ? ' selected' : '' }}>Bahasa Malaysia</option>
+				<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Session::get('locale') == 'cn' ) ? ' selected' : '' }}>Traditional Chinese</option>
+				<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Session::get('locale') == 'cn' ) ? ' selected' : '' }}>Simplified Chinese</option>
+				<option id="vn" value="vn" {{ (strtolower($user_location['isoCode']) == 'vn' || Session::get('locale') == 'vn' ) ? ' selected' : '' }}>Vietnamese</option>
+				<option id="jp" value="jp" {{ (strtolower($user_location['isoCode']) == 'jp' || Session::get('locale') == 'jp' ) ? ' selected' : '' }}>Japanese</option>
+				<option id="hi" value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || Session::get('locale') == 'hi' ) ? ' selected' : '' }}>Hindi</option> -->
 			</select>
 
 			<input type="submit" value="select">
@@ -55,23 +76,10 @@ $game_settings = GameSetting::all();
 	</div>
 
 	<ul class="menu">
-
-		@if($lang == 'th')
-
-			<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">เกม</a></li>
-			<li><a href="{{ route('home.show') }}#news" class="menu-news">ข่าว</a></li>
-			<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">คำถาม</a></li>
-			<li><a href="{{ route('home.show') }}#contact" class="menu-contact">ติดต่อ</a></li>
-
-		@else
-
-			<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">Games</a></li>
-			<li><a href="{{ route('home.show') }}#news" class="menu-news">News</a></li>
-			<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">FAQs</a></li>
-			<li><a href="{{ route('home.show') }}#contact" class="menu-contact">Contact</a></li>
-
-		@endif
-		
+		<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
+		<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
+		<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
+		<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
 	</ul>
 
 	<ul class="social">
@@ -86,8 +94,8 @@ $game_settings = GameSetting::all();
 			<li><a href="{{ $site_variables[5]->variable_value }}">Philippines</a></li>
 		</ul>
 
-		<p>Copyright &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">{{ $general_settings[0]->value }}</a>.</p>
-		<p>All rights reserved.</p>
+		<p>{{ trans('global.Copyright') }} &copy; {{{ date('Y') }}} <a href="{{ route('home.show') }}">{{ $general_settings[0]->value }}</a>.</p>
+		<p>{{ trans('global.All rights reserved') }}.</p>
 	</div>
 
 </div><!-- end #side-menu -->

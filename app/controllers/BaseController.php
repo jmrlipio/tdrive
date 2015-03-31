@@ -27,5 +27,11 @@ class BaseController extends Controller {
 		View::share('general_settings', $general_settings);
 	}
 
+	/*public function test($telco){
+
+		View::share('telco', $telco);
+
+	}*/
+
 
 }

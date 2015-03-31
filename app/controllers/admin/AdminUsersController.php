@@ -53,7 +53,7 @@ class AdminUsersController extends \BaseController {
 
 		User::create($data);
 
-		return Redirect::route('admin.users.index');
+		return Redirect::route('admin.users.edit')->with('message', 'You have successfully added this user');
 	}
 
 	/**
@@ -249,5 +249,71 @@ class AdminUsersController extends \BaseController {
 			->with('users', $users)
 			->with('roles', $roles)
 			->with('selected', $selected_role);
+    }
+
+    public function exportDB(){
+
+    $file_type = Input::get('file_type');  
+    $data_type = Input::get('data_type'); 
+    $db_title = "";
+    $sheet_name = "";
+
+    switch($data_type){
+
+		case 'user':			
+			$db_title = "Users DB";
+			$sheet_name = "Users";
+			$data = User::get()->toArray();
+		break;
+
+		case 'reports':
+			$db_title = "Reports"; 
+			$sheet_name = "Reports";
+		break;
+
+		default:
+			$db_title = "Database";
+		break;
+
+	}
+    
+     	Excel::create($db_title, function($excel) use ($file_type, $data, $sheet_name) {     		   		
+
+            $excel->sheet($sheet_name, function($sheet) use ($file_type, $data) {                              	
+
+            	switch($file_type){
+            		
+            		case 'pdf':
+            		    $sheet->setOrientation('landscape');
+            		    $sheet->row($sheet->getHighestRow(), function ($row) {
+				            $row->setFontWeight('bold');
+				            $row->setFontSize(12);
+				        });
+            		break;
+
+            		default:
+            			 $sheet->row($sheet->getHighestRow(), function ($row) {
+				            $row->setFontWeight('bold');
+				            $row->setFontSize(15);
+				        });
+            			$sheet->setOrientation('portrait');
+            		break;
+            	}
+
+                $sheet->appendRow(array_keys($data[0])); // column names
+
+		        // getting last row number (the one we already filled and setting it to bold
+		        $sheet->row($sheet->getHighestRow(), function ($row) {
+		            $row->setFontWeight('bold');
+		            $row->setFontSize(15);
+		        });
+
+		        foreach ($data as $row) {
+		            $sheet->appendRow($row);
+		        }
+                
+            });
+
+        })->export($file_type);
     }
 }

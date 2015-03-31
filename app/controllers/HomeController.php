@@ -48,15 +48,35 @@ class HomeController extends BaseController {
 	}
 
 	public function home()
-	{		
+	{	
 		$latest_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(2)->get();
 		$previous_news = News::whereStatus('live')->orderby('created_at', 'desc')->take(3)->skip(2)->get();
 		$faqs = Faq::all();
 		$year = News::all();
 
+		/* TODO: check if session has carrier */
+		if (!Session::has('carrier')) {
+			
+			Session::put('country_id', Input::get('country_id'));
+			Session::put('carrier', Input::get('selected_carrier'));
+			$country = Country::find(Input::get('country_id'));
+			$first_visit = true;
+					
+		} else {			
+			
+			$country = Country::find(Session::get('country_id'));
+			$first_visit = false;
+		}
+
+		$carrier = Carrier::find(Session::get('carrier'));
+
+		$countries = [];
+
+		Session::put('locale', strtolower($carrier->language->iso_code));
+
 		// print_r(Session::all());
 
-	/* For displaying game discount alert */
+		/* For displaying game discount alert */
 
 		$dt = Carbon::now();
 
@@ -65,7 +85,15 @@ class HomeController extends BaseController {
 			->where('end_date', '>=',  $dt->toDateString())		
 			->get();
 
-	/* END */
+		/* END */
+		$ctr = 0;
+		/* For getting discounts */
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $game ) {
+				$discounted_games[$data->id][] = $game->id; 
+			}
+		}
 
 	/* For displaying news alert */	
 
@@ -96,13 +124,21 @@ class HomeController extends BaseController {
 
 		$game_settings = GameSetting::all();
 
-		$featured_games = Game::where('featured', 1)->orderBy('created_at', 'DESC')->get();
+		$featured_games = Game::where('featured', 1)
+			->whereCarrierId(Session::get('carrier'))
+			->orderBy('created_at', 'DESC')			
+			->get();
 
 		// $games = Game::all()->take($game_settings[0]->game_thumbnails);
-		$games = Game::all();
+
+		/* Get all games by carrier id */
+
+		$games = Game::whereCarrierId(Session::get('carrier'))->get();		
+
+		/* End */
 		$limit = $game_settings[0]->game_thumbnails;
 
-		foreach(Category::all() as $cat) {
+		foreach(Category::orderby('order')->get() as $cat) {
 			if ($cat->featured == 1) {
 				$categories[] = $cat;
 			}
@@ -111,28 +147,58 @@ class HomeController extends BaseController {
 		foreach(Language::all() as $language) {
 			$languages[$language->id] = $language->language;
 		}
-		
-		/* TODO: check if session has carrier */
-		if (!Session::has('carrier')) {
-			
-			Session::put('country_id', Input::get('country_id'));
-			Session::put('carrier', Input::get('selected_carrier'));
-			$country = Country::find(Input::get('country_id'));
-			$first_visit = true;
-					
-		} else {			
-			
-			$country = Country::find(Session::get('country_id'));
-			$first_visit = false;
-		}
 
-		$carrier = Carrier::find(Session::get('carrier'));
-		$countries = [];
+		/*BaseController::test(Input::get('country_id'));*/
+		
+		
 		
 		Session::put('carrier_name', $carrier->carrier);		
 
 		Session::put('user_country', $country->full_name);
+
+
+		/* For displaying slider images dynamically ordered from database */
+
+		$games_slide = [];
+		$news_slide = [];
+
+		$sliders = Slider::all();
+
+		foreach($sliders as $slider) {
+			if($slider->slideable_type == 'Game') $selected_games[] = $slider->slideable_id;
+			else if($slider->slideable_type == 'News') $selected_news[] = $slider->slideable_id;
+		}		
 		
+		foreach(Game::all() as $game) {		
+
+			foreach ($game->media as $media) {
+				if($media->type == 'homepage') {
+					
+					$games_slide[$game->id] = array(
+						'url' => $media->url, 
+						'title' => $game->main_title, 
+						'id' => $game->id,
+						'slug' => $game->slug,
+						'carrier' => $game->carrier->carrier);
+					
+				}
+			}
+		}
+
+		foreach(News::all() as $nw) {
+			//$news_slide[$nw->id] = $nw->homepage_image;
+
+			//$news_slide[$nw->id] = $nw->featured_image;
+			$news_slide[$nw->id] = array(
+				'image' => $nw->homepage_image,
+				'id' => $nw->id,
+				'title' => $nw->main_title
+			);
+
+		}
+
+		/* END */
+
 		return View::make('index')
 			->with('page_title', 'Home')
 			->with('page_id', 'home')
@@ -147,7 +213,7 @@ class HomeController extends BaseController {
 			->with('discounts', $discounts)
 			->with('limit', $limit)
 			/*->with(compact('featured_games'))*/
-			->with(compact('games','featured_games', 'faqs', 'languages'));
+			->with(compact('games','featured_games', 'faqs', 'languages', 'discounted_games', 'games_slide','news_slide','sliders'));
 			/*->with(compact('faqs'))
 			->with(compact('languages'));*/
 	

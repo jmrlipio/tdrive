@@ -22,12 +22,17 @@ $game_settings = GameSetting::all();
 
 	@if(isset($game))
 		@foreach($game->contents as $item)
-			<meta property="og:url" content="{{ url() }}/game/{{ $item->id }}" />
-			<meta property="og:title" content="{{ $item->main_title }}" />
+			<meta property="og:url" content="{{ url() }}/game/{{ $game->id }}/{{ $game->slug }}-{{ strtolower($game->carrier->carrier) }}-{{ Session::get('locale') }}" />
+			<meta property="og:title" content="{{ $item->pivot->title }}" />
 			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
-			<meta property="og:image" content="{{ url() }}/images/games/{{ $item->slug}}.jpg" />
+			<?php break; ?>
 		@endforeach
 
+		@foreach($game->media as $media)
+			@if($media->type == 'homepage')
+				<meta property="og:image" content="{{ url() }}/assets/games/homepage/{{ $media->url}}" />
+			@endif
+		@endforeach
 	@endif
 
 	@if(isset($news))
@@ -186,10 +191,35 @@ $game_settings = GameSetting::all();
 					</div>
 					
 					<div id="polyglotLanguageSwitcher1" class="polyglotLanguageSwitcher">
+
+						<?php 
+							$games = Game::whereCarrierId(Session::get('carrier'))->get();	
+							$arr_id = [];
+
+							foreach($games as $game){								
+								foreach($game->contents as $content) {
+									$arr_id[] = $content->pivot->language_id;						
+								}
+							}
+
+							$lang_id = array_unique($arr_id);
+							$languages = Language::whereIn('id', $lang_id)->get();
+
+
+						?>
+
 						<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
 							<select name="locale" id="polyglot-language-options">
-								<option id="us" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Session::get('locale') == 'us' ) ? ' selected' : '' }}>English</option>
+								
+								@foreach($languages as $lang)												
+									<?php $selected = (strtolower($lang->iso_code) == Session::get('locale')) ? ' selected' : ''; ?>
+									<option id="{{strtolower($lang->iso_code)}}" value="{{strtolower($lang->iso_code)}}" {{ $selected }}>{{$lang->language}}</option>			
+									
+								@endforeach
+
+
+								<!-- <option id="us" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Session::get('locale') == 'us' ) ? ' selected' : '' }}>English</option>
 								<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Session::get('locale') == 'th' ) ? ' selected' : '' }}>Thai</option>
 								<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Session::get('locale') == 'id' ) ? ' selected' : '' }}>Bahasa Indonesia</option>
 								<option id="my" value="my" {{ (strtolower($user_location['isoCode']) == 'my' || Session::get('locale') == 'my' ) ? ' selected' : '' }}>Bahasa Malaysia</option>
@@ -197,11 +227,14 @@ $game_settings = GameSetting::all();
 								<option id="cn" value="cn" {{ (strtolower($user_location['isoCode']) == 'cn' || Session::get('locale') == 'cn' ) ? ' selected' : '' }}>Simplified Chinese</option>
 								<option id="vn" value="vn" {{ (strtolower($user_location['isoCode']) == 'vn' || Session::get('locale') == 'vn' ) ? ' selected' : '' }}>Vietnamese</option>
 								<option id="jp" value="jp" {{ (strtolower($user_location['isoCode']) == 'jp' || Session::get('locale') == 'jp' ) ? ' selected' : '' }}>Japanese</option>
-								<option id="hi" value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || Session::get('locale') == 'hi' ) ? ' selected' : '' }}>Hindi</option>
+								<option id="hi" value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || Session::get('locale') == 'hi' ) ? ' selected' : '' }}>Hindi</option> -->
 							</select>
+
+							
 
 							<input type="submit" value="select">
 						</form>
+						
 					</div>
 
 				</div>
@@ -214,5 +247,5 @@ $game_settings = GameSetting::all();
 
 	<div class="site-overlay"></div>
 
-	<div id="container">
+	<div id="container">{{--Session::get('locale') --}}
 

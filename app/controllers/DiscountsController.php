@@ -25,13 +25,19 @@ class DiscountsController extends \BaseController {
 	public function create()
 	{
 		$games = [];
+		$carriers = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
 
 		foreach(Game::all() as $game) {
 			$games[$game->id] = $game->main_title;
 		}
 
 		return View::make('admin.discounts.create')
-			->with('games', $games);
+			->with('games', $games)
+			->with('carriers', $carriers);
 	}
 
 	/**
@@ -59,6 +65,8 @@ class DiscountsController extends \BaseController {
 		}
 		
 		$discount = Discount::create($data);
+
+		$discount->games()->sync(Input::get('game_id'));
 		
 		return Redirect::route('admin.discounts.edit',$discount->id)->with('message', 'You have successfully added a discount.');
 	}
@@ -87,14 +95,26 @@ class DiscountsController extends \BaseController {
 		$discount = Discount::find($id);
 
 		$games = [];
+		$selected_games = [];
+		$carriers = [];
+
+		foreach($discount->games as $game) {
+			$selected_games[] = $game->id;
+		}
 
 		foreach(Game::all() as $game) {
 			$games[$game->id] = $game->main_title;
 		}
 
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+
 		return View::make('admin.discounts.edit')
 			->with('discount', $discount)
-			->with('games', $games);
+			->with('carriers', $carriers)
+			->with('games', $games)
+			->with('selected_games', $selected_games);
 	}
 
 	/**
@@ -131,6 +151,8 @@ class DiscountsController extends \BaseController {
 		}		
 
 		$discount->update($data);
+
+		$discount->games()->sync(Input::get('game_id'));
 
 		return Redirect::back()->with('message', 'You have successfully updated this discount item.');
 	}

@@ -23,9 +23,9 @@
 				<ul id="details">
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
-							{{ Form::label('id', 'Game ID: ') }}
-							{{ Form::text('id', null) }}
-							{{ $errors->first('id', '<p class="error">:message</p>') }}
+							{{ Form::label('app_id', 'App ID: ') }}
+							{{ Form::text('app_id', null) }}
+							{{ $errors->first('app_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
@@ -36,6 +36,11 @@
 							{{ Form::label('slug', 'Slug: ') }}
 							{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug')) }}
 							{{ $errors->first('slug', '<p class="error">:message</p>') }}
+						</li>
+						<li>
+							{{ Form::label('carrier_id', 'Carrier:') }}
+					  		{{ Form::select('carrier_id', $carriers, null) }}				
+							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
 							{{ Form::label('status', 'Status: ') }}
@@ -63,6 +68,9 @@
 						</li>
 						{{ Form::submit('Save', array('id' => 'save-game')) }}
 						{{ Form::hidden('user_id', Auth::user()->id) }}
+
+						<a href="{{ URL::route('admin.games.preview', $game->id) }}" target='blank') id="preview">Preview</a>
+
 					{{ Form::close() }}
 				</ul>
 				<ul id="custom-fields">
@@ -77,11 +85,6 @@
 							{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
 							{{ $errors->first('language_id', '<p class="error">:message</p>') }}
 						</li>
-						<li>
-							{{ Form::label('carrier_id', 'Carriers: ') }}
-							{{ Form::select('carrier_id[]', $carriers, $selected_carriers, array('multiple' => 'multiple', 'id' => 'carriers', 'class' => 'chosen-select', 'data-placeholder'=>'Choose carriers(s)...'))  }}
-							{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
-						</li>
 						{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
 					{{ Form::close() }}
 				</ul>
@@ -89,30 +92,66 @@
 					<h3>The game has content for the following languages:</h3>
 					<br>
 					@if($selected_languages)
-					<ul>
-						@foreach($languages as $language_id => $language)
-							@if(in_array($language_id, $selected_languages))
-								<li><a href="{{ URL::route('admin.games.edit.content', array('game_id' => $game->id, 'language_id' => $language_id)) }}">{{ $language }}</a></li>
-							@endif
-						@endforeach
-					</ul>
+						<ul>
+							<table id="language-table">
+								<tr>
+									<th>Language</th>
+									<th>Default</th>
+								</tr>
+								@foreach($languages as $language_id => $language)
+									@if(in_array($language_id, $selected_languages))
+										<tr>
+											<td>
+												<li>
+													<a href="{{ URL::route('admin.games.edit.content', array('game_id' => $game->id, 'language_id' => $language_id)) }}">{{ $language }}</a>
+												</li>
+											</td>
+											<td>
+												<?php $checked = 0; ?>
+												@foreach($game->contents as $content)
+													@if($content->pivot->language_id == $language_id)
+														<?php 
+															$checked = $content->pivot->default;
+															break;
+														?>
+													@endif
+												@endforeach
+												{{ Form::radio('default', null, $checked, array('class' => 'default', 'id' => $language_id)) }}
+											</td>
+										</tr>
+									@endif
+								@endforeach
+							</table>
+						</ul>
 					@else
 						<p>Please select one or more languages to add content to this game.</p>
 					@endif
 					<br>
-					<h3>The game has prices for the following carriers:</h3>
-					<br>
-					@if($selected_carriers)
-					<ul>
-						@foreach($carriers as $carrier_id => $carrier)
-							@if(in_array($carrier_id, $selected_carriers))
-								<li><a href="{{ URL::route('admin.games.edit.prices', array('game_id' => $game->id, 'carrier_id' => $carrier_id)) }}">{{ $carrier }}</a></li>
-							@endif
+					<h3>Prices:</h3>
+					{{ Form::open(array('route' => array('admin.games.edit.prices', $game->id, $game->carrier_id), 'method' => 'post', 'id' => 'prices-form')) }}
+						<br>
+						@foreach($countries as $country)
+							@foreach($selected_countries as $scid => $sc)
+								@if($scid == $country->id)
+									<?php $cprice = null; ?>
+									@foreach($prices as $country_id => $price)
+										@if($country_id == $scid)
+											<?php $cprice = $price; ?>
+										@endif
+									@endforeach
+									<li>
+										<p>{{ $country->full_name }}</p>
+										<p>
+											{{ Form::label($scid, $sc.': ') }}
+											{{ Form::text('prices['.$scid.']', $cprice, array('id' => $scid, 'class' => 'small-text')) }}
+										</p>
+										<br>
+									</li>
+								@endif
+							@endforeach
 						@endforeach
-					</ul>
-					@else
-						<p>Please select one or more carriers to add prices to this game.</p>
-					@endif
+						{{ Form::submit('Update Prices') }}
+					{{ Form::close() }}
 				</ul>
 				<ul id="media">
 					{{ Form::open(array('route' => array('admin.games.update-media', $game->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
@@ -122,7 +161,7 @@
 							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('promo', 'Featured Image:', array('class' => 'image-label')) }}
+							{{ Form::label('promo', 'Promo Image:', array('class' => 'image-label')) }}
 							@foreach($selected_media as $media)
 								@if($media['type'] == 'promos')
 									<div class="media-box">
@@ -142,6 +181,27 @@
 								@endif
 							@endforeach
 							{{ Form::file('icon', array('id' => 'icon-img')) }}
+						</li>
+						<li>
+							{{ Form::label('homepage', 'Homepage Image:', array('class' => 'image-label')) }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'homepage')
+									<div class="media-box">
+										{{ HTML::image($media['media_url'], null) }}
+									</div>
+								@endif
+							@endforeach
+							{{ Form::file('homepage', array('id' => 'homepage-img')) }}
+						</li>
+						<li>
+							{{ Form::label('video', 'Video URL: ') }}
+							@foreach($selected_media as $media)
+								@if($media['type'] == 'video')
+									<?php $video = $media['media_url']; ?>
+								@endif
+							@endforeach
+							<?php if(!isset($video)) $video = null; ?>
+							{{ Form::text('video', $video) }}
 						</li>
 						<h3>Screenshots:</h3>
 						<br>
@@ -175,7 +235,8 @@
 	<script>
 	var gallery = $('#img-gallery ul'), 
 		img_li,
-		prices_list = $('#prices');
+		prices_list = $('#prices')
+		game_id = '{{ $game->id }}';
 
 	$(document).ready(function() {
 		// Initializes different tab sections
@@ -224,21 +285,41 @@
 	    var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    //checkDimensions('promo', control,this.files[0]);
+	    //checkDimensions('promo', control, this.files[0]);
 	});
 
 	$("#media").on('change', '#icon-img', function(e) {
 		var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    //checkDimensions('icon', control,this.files[0]);
+	    //checkDimensions('icon', control, this.files[0]);
+	});
+
+	$("#media").on('change', '#homepage-img', function(e) {
+		var control = $(this),
+			orientation = 'landscape';
+
+		// checkDimensions('homepage', control, this.files[0]);
 	});
 
 	$("#media").on('change', '.screenshot', function(e) {
 	    var control = $(this),
 	    	orientation = $('#orientation').val();
 
-	    //checkDimensions('screenshot', control,this.files[0]);
+	    //checkDimensions('screenshot', control, this.files[0]);
+	});
+
+	$('.default').on('click', function() {
+    	var id = $(this).attr('id');
+
+        $.ajax({
+            type: "POST",
+            url : "{{ URL::route('admin.game.languages.default') }}",
+            data :{
+            	"language_id": id,
+            	"game_id": game_id
+            }
+        });
 	});
 
 	function checkDimensions(type, control,first) {
@@ -255,6 +336,9 @@
 	    } else if(type == 'icon') {
 	    	width = 512;
 	    	height = 512;
+	    } else if(type == 'homepage') {
+	    	width = 1024;
+	    	height = 768;
 	    } else {
 	    	if(orientation == 'landscape') {
 	    		width = 800;
@@ -269,7 +353,7 @@
 	        image = new Image();
 
 	        image.onload = function() {
-	            if(!(this.width == width && this.height == height) || (this.width == width && this.height == height)) {
+	            if(!((this.width == width && this.height == height) || (this.width == width && this.height == height))) {
 	            	alert('Please upload an image with a ' + width + ' x ' + height +' dimension. You have uploaded a ' + this.width + ' x ' + this.height + ' image');
 	            	control.replaceWith(control = control.clone(true));
 	            }

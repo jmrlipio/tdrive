@@ -31,4 +31,8 @@ class Language extends \Eloquent {
         return $this->belongsToMany('Faq', 'faq_languages');
     }
 
+    public function carriers() {
+        return $this->hasMany('Carrier');
+    }
+
 }

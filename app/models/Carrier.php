@@ -6,10 +6,12 @@ class Carrier extends \Eloquent {
 
 	use TriplePivotTrait;
 	
-	protected $fillable = ['carrier','language_id'];
+	protected $fillable = ['id','carrier','language_id'];
 
 	public static $rules = [
-        'carrier' => 'required|min:3|unique:carriers'
+		'id' => 'required|integer|unique:carriers',
+        'carrier' => 'required|min:3|unique:carriers',
+        'language_id' => 'required'
     ];
 
 	public function countries() {
@@ -17,7 +19,7 @@ class Carrier extends \Eloquent {
 	}
 
 	public function games() {
-		return $this->belongsToMany('Game', 'game_carriers');
+		return $this->hasMany('Game');
 	}
 
 	/**
@@ -26,6 +28,15 @@ class Carrier extends \Eloquent {
     public function prices() {
         return $this->tripleBelongsToMany('Game', 'Country', 'game_prices' )->withPivot('price');
     }
+
+    public function discounts() {
+    	return $this->hasMany('Discounts');
+    }
+
+    public function language() {
+    	return $this->belongsTo('Language');
+    }
+
 
 	// public function sales() {
 	// 	return $this->belongsToMany('Game', 'sale_games');

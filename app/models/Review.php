@@ -4,15 +4,14 @@ class Review extends Eloquent {
 
 	protected $table = 'game_reviews';
 
-	protected $fillable = ['game_id', 'user_id', 'review', 'rating', 'status'];
+	protected $fillable = ['game_id', 'user_id', 'review', 'rating'];
 
 	public static $rules = [
 		'game_id' => 'required|integer',
 		'user_id' => 'required|integer',
 		'review' => 'required',
 		'rating' => 'required',
-		'captcha' => 'required|captcha',
-		'status' => 'required|boolean'
+		'captcha' => 'required|captcha'
 	];
 
 	public function user() {
@@ -25,7 +24,7 @@ class Review extends Eloquent {
 
 	public static function getRatings($game_id) 
 	{
-		$ratings = Review::where('game_id', '=', $game_id)->get();
+		$ratings = Review::where('game_id', '=', $game_id)->whereStatus(1)->get();
 
 		$five = 0;
 		$four = 0;

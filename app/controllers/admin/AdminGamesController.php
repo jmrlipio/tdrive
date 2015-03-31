@@ -38,7 +38,14 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin.games.create');
+		$carriers = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+
+		return View::make('admin.games.create')
+			->with(compact('carriers'));
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -58,7 +65,7 @@ class AdminGamesController extends \BaseController {
 		$game = Game::create($data);
 		Event::fire('audit.games.create', Auth::user());
 
-		return Redirect::route('admin.games.edit', Input::get('id'))->with('message', 'You have successfully added a game.');
+		return Redirect::route('admin.games.edit', $game->id)->with('message', 'You have successfully added a game.');
 	}
 	/**
 	 * Display the specified resource.
@@ -95,8 +102,7 @@ class AdminGamesController extends \BaseController {
 
 		$edit_rules = Game::$rules;
 
-		$edit_rules['id'] = 'required|integer|unique:games,id,' . $id;
-		$edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
+		// $edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
 
@@ -176,7 +182,6 @@ class AdminGamesController extends \BaseController {
 			return Redirect::to($url)->withErrors($validator)->withInput();
 		}
 
-		$game->carriers()->sync(Input::get('carrier_id'));
 		$game->categories()->sync(Input::get('category_id'));
 		$game->languages()->sync(Input::get('language_id'));
 
@@ -197,6 +202,23 @@ class AdminGamesController extends \BaseController {
 			$icon = Input::file('icon');
 			$icon_name = $this->saveMedia($icon, 'icons');
 			$this->syncMedia($game, 'icons', $icon_name);
+		}
+
+		if(Input::get('video') != '') {
+			$video = Input::get('video');
+			$this->syncMedia($game, 'video', $video);
+		} else {
+			foreach($game->media as $media) {
+				if($media->type == 'video') {
+					$game->media()->detach($media->id);
+				}
+			}
+		}
+
+		if(Input::hasFile('homepage')) {
+			$homepage = Input::file('homepage');
+			$homepage_name = $this->saveMedia($homepage, 'homepage');
+			$this->syncMedia($game, 'homepage', $homepage_name);
 		}
 
 		$orientation = Input::get('image_orientation');
@@ -264,10 +286,11 @@ class AdminGamesController extends \BaseController {
 	public function loadGameValues($id) {
 		$game = Game::find($id);
 
+		$carrier = Carrier::find($game->carrier_id);
+
 		$selected_categories = [];
 		$selected_languages = [];
 		$selected_media = [];
-		$selected_carriers = [];
 		$selected_countries = [];
 
 		foreach($game->categories as $category) {
@@ -285,23 +308,25 @@ class AdminGamesController extends \BaseController {
 			$orientation = '';
 			if($media->type == 'screenshots') $orientation = $game->image_orientation . '-';
 
+			if($media->type == 'video') $media_url = $media->url;
+			else $media_url = $root . '/assets/games/' . $media->type . '/' . $orientation . $media->url;
+
 			$selected_media[$count]['media_id'] = $media->id;
-			$selected_media[$count]['media_url'] = $root . '/assets/games/' . $media->type . '/' . $orientation . $media->url;
+			$selected_media[$count]['media_url'] = $media_url;
 			$selected_media[$count]['type'] = $media->type;
 			$count++;
 		}
 
-		// echo '<pre>';
-		// dd($game->image_orientation);
-		// echo '</pre>';
-
-		foreach($game->carriers as $carrier) {
-			$selected_carriers[] = $carrier->id;
-		}
-
 		$categories = [];
 		$languages = [];
+		$selected_countries = [];
+		$prices = [];
+		$countries = Country::all();
 		$carriers = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
 
 		foreach(Category::orderBy('category')->get() as $category) {
 			$categories[$category->id] = $category->category;
@@ -311,18 +336,26 @@ class AdminGamesController extends \BaseController {
 			$languages[$language->id] = $language->language;
 		}
 
-		foreach(Carrier::orderBy('carrier')->get() as $carrier) {
-			$carriers[$carrier->id] = $carrier->carrier;
+		foreach($carrier->countries as $country) {
+			$selected_countries[$country->id] = $country->currency_code;
 		}
+
+		foreach($game->prices as $price) {
+			if($price->pivot->carrier_id == $game->carrier_id) {
+				$prices[$price->pivot->country_id] = $price->pivot->price;
+			}
+	    }
 
 		return View::make('admin.games.edit')
 			->with('game', $game)
 			->with('selected_categories', $selected_categories)
 			->with('selected_languages', $selected_languages)
 			->with('selected_media', $selected_media)
-			->with('selected_carriers', $selected_carriers)
 			->with('categories', $categories)
 			->with('languages', $languages)
+			->with('countries', $countries)
+			->with('selected_countries', $selected_countries)
+			->with('prices', $prices)
 			->with('carriers', $carriers);
 	}
 
@@ -352,6 +385,13 @@ class AdminGamesController extends \BaseController {
 	}
 
 	public function updateLanguageContent($id, $language_id) {
+		$validator = Validator::make($data = Input::all(), Game::$content_rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
 		$game = Game::find($id);
 		$language = Language::find($language_id);
 
@@ -398,13 +438,15 @@ class AdminGamesController extends \BaseController {
 		$game = Game::find($id);
 		$carrier = Carrier::find($carrier_id);
 
+		$url = URL::route('admin.games.edit', $game->id) . '#game-content';
+
 		$game->prices()->detach($carrier_id);
 
 		foreach(Input::get('prices') as $country_id => $price) {
 			$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
 		}
 
-		return Redirect::back()->with('message', 'You have successfully updated this game content');
+		return Redirect::to($url)->with('message', 'You have successfully updated this game content');
 	}
 
 	public function getGameByCategory() 
@@ -449,4 +491,63 @@ class AdminGamesController extends \BaseController {
     		->with('game', $game);
     	
     }
+
+    public function updateDefaultLanguage() {
+		$game = Game::find(Input::get('game_id'));
+		$language_id = Input::get('language_id');
+
+		foreach($game->contents as $content) {
+			if($content->pivot->language_id == $language_id) {
+				$game->contents()->updateExistingPivot($language_id, array('default' => 1), true);
+			} else {
+				$game->contents()->updateExistingPivot($content->pivot->language_id, array('default' => 0), true);
+			}
+		}
+	}
+
+	public function previewGame($id){
+		$languages = Language::all();
+		$game = Game::find($id);
+		$current_game = Game::find($id);
+		$categories = [];
+		foreach($game->categories as $cat) {
+			$categories[] = $cat->id;
+		}
+
+		$games = Game::all();
+		$related_games = [];
+
+		foreach($games as $gm) {
+			$included = false;
+			foreach($gm->categories as $rgm) {
+				if(in_array($rgm->id, $categories) && $gm->id != $game->id) {
+					if(!$included) {
+						$related_games[] = $gm;
+						$included = true;
+					}
+				}
+			}
+		}
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
+		$country = Country::find(Session::get('country_id'));
+		$ratings = Review::getRatings($game->id);
+		$visitor = Tracker::currentSession();
+
+		return View::make('admin.games.preview')
+			->with('page_title', 'Preview | '.$game->main_title)
+			->with('page_id', 'game-detail')
+			->with('ratings', $ratings)
+			->with('current_game', $current_game)
+			->with('country', $country)
+			->with(compact('languages','related_games', 'game', 'discounted_games'));
+	}
+    
 }

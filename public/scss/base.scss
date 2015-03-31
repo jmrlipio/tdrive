@@ -115,6 +115,8 @@ img, video {
 	}
 }
 
+.readmore { color: $pink; }
+
 .button {
 	text-align: center;
 	text-transform: lowercase;
@@ -273,6 +275,8 @@ img, video {
 		display: block;
 	}
 }
+
+.clear { clear: both; }
 
 .clearfix {
 	*zoom: 1;
@@ -504,7 +508,7 @@ img, video {
 }
 
 #nav-toggle, #back {
-	margin-top: 12px;
+	margin-top: 13px;
 	margin-right: 12px;
 	display: block;
 	float: left;
@@ -519,7 +523,7 @@ img, video {
 	float: left;
 	padding: 7px 0;
 	width: 111px;
-	height: 51px;
+	height: 36px;
 	
 	a {
 		display: block;
@@ -552,7 +556,7 @@ img, video {
 }
 
 #content {
-	padding-top: 50px;
+	padding-top: 40px;
 }
 
 #footer {
@@ -808,7 +812,7 @@ img, video {
 	}
 
 	#tdrive {
-		padding: 13px 0;
+		padding: 16px 0;
 	}
 
 	#tose {

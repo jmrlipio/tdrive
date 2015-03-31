@@ -1,5 +1,25 @@
 @extends('admin._layouts.admin')
 
+@section('stylesheets')
+
+	<style>
+
+		div#btn-export {
+			/* background: #e9548e; */
+			width: 50%;
+			text-align: center;
+			/* margin: 0 auto; */
+			padding: 8px;
+			margin-top:10px;
+		}
+
+		.fl { float: left; }
+		.clear {clear: both;}
+
+	</style>
+
+@stop
+
 @section('content')
 
 	<div class="item-listing">
@@ -69,7 +89,55 @@
 	</table>
 		
 	</div>
-		{{-- $users->links() --}}
+
+	<div id="btn-export">
+	
+		<!-- Export as xls or excel -->	
+
+		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
+	
+			<div class="control-item submit-btn">
+				<input type="hidden" name="file_type" value="xls" />
+				<input type="hidden" name="data_type" value="user" />
+				{{ Form::submit('Export as Excel') }}
+			</div>
+	
+		{{ Form::close() }}
+
+		<!-- End -->
+
+		<!-- Export as csv -->	
+	
+		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
+	
+			<div class="control-item submit-btn">
+				<input type="hidden" name="file_type" value="csv" />
+				<input type="hidden" name="data_type" value="user" />
+				{{ Form::submit('Export as Csv') }}
+			</div>
+	
+		{{ Form::close() }}
+
+		<!-- End -->
+
+		<!-- Export as pdf -->	
+	
+		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
+	
+			<div class="control-item submit-btn">
+				<input type="hidden" name="file_type" value="pdf" />
+				<input type="hidden" name="data_type" value="user" />
+				{{ Form::submit('Export as Pdf') }}
+			</div>
+	
+		{{ Form::close() }}
+
+		<!-- End -->
+	
+		<div class="clear"></div>
+
+	</div>
+	
 		<br>
 		
 	</div>

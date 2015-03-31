@@ -1,15 +1,23 @@
-@foreach ($games as $game)
+{{-- {{ '<pre>' }} --}}
+{{-- {{ count($related_games) }} --}}
+{{-- {{ '</pre>' }} --}}
+@foreach ($related_games as $game)
 	@foreach ($game->media as $media)
 
-		@if ($media->type == 'icons')
+		@if($media->type == 'icons')
 
 			<div class="item">
 				<div class="thumb relative">
 					@if ($game->default_price == 0)
-						<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
+						<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+					@endif
+					
+					<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+
+					@if ($game->default_price == 0)
+						<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 					@endif
 
-					<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
 				</div>
 
 				<div class="meta">

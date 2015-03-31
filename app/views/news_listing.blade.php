@@ -6,7 +6,7 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">Latest news</h1>
+		<h1 class="title">{{ trans('global.Latest news') }}</h1>
 
 		<div id="token">{{ Form::token() }}</div>
 
@@ -43,7 +43,7 @@
 
 		</div>
 
-		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
+		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> {{ trans('global.loading') }}&hellip;</div>
 	</div>
 
 @stop

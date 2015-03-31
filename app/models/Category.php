@@ -1,7 +1,7 @@
 <?php
 
 class Category extends \Eloquent {
-	protected $fillable = ['category', 'slug', 'featured'];
+	protected $fillable = ['category', 'slug', 'featured','order'];
 
 	public static $rules = [
 		'category' => 'required|min:3|unique:categories',

@@ -6,14 +6,19 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">New and updated games</h1>
+
+		<h1 class="title">{{ trans('global.All Categories') }}</h1>
+
+		<div class="clear"></div>	
 
 		<div id="token">{{ Form::token() }}</div>
 
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-
+										{{-- {{ '<pre>' }} --}}
+					{{-- {{ count($games) }} --}}
+					{{-- {{ '</pre>' }} --}}
 					@foreach ($games as $game)
 						@foreach ($game->media as $media)
 
@@ -21,19 +26,38 @@
 								<div class="item">
 									<div class="thumb relative">
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon.png', 'Free', array('class' => 'free auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
+										
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+
+										@if ($game->default_price == 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
-										<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale')))}}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
 									</div>
 
 									<div class="meta">
 										<p>{{ $game->main_title }}</p>
-
+										
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
+											<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+												$sale_price = $price->pivot->price * (1 - ($dc/100));
+											 ?>
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@if($dc != 0)														
+														<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+													@else														 
+														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@endif
 												@endif
 											@endforeach
 										@endunless
@@ -59,11 +83,11 @@
 	</div>
 
 @stop
-
+	
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
-
+	
 	<script>
 		FastClick.attach(document.body);
 
@@ -114,7 +138,7 @@
 				return true;
 			}
 		});
-
+		// alert(screen.height);
 		$(window).scroll(function() {
 			$('.ajax-loader').show();
 

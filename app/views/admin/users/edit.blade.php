@@ -26,6 +26,11 @@
 				{{ $errors->first('email') }}
 			</li>
 			<li>
+				{{ Form::label('mobile_no', 'Mobile No.:') }}
+				{{ Form::text('mobile_no') }}
+				{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
+			</li>
+			<li>
 				{{ Form::submit('Save') }}
 			</li>
 		</ul>

@@ -15,6 +15,8 @@ class CreateDiscountsTable extends Migration {
 		Schema::create('discounts', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('carrier_id')->unsigned();
+			$table->foreign('carrier_id')->references('id')->on('carriers');
 			$table->string('title');
 			$table->text('description');
             $table->float('discount_percentage');

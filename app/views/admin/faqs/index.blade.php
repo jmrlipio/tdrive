@@ -18,7 +18,7 @@
 				
 					<tr>
 						<td>
-							<a href="#">{{ $faq->main_question }}</a>
+							<a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">{{ $faq->main_question }}</a>
 							<ul class="actions">
 								
 								<li><a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">Add Variant</a></li>

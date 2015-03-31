@@ -4,9 +4,24 @@
 	{{ HTML::style("css/slick.css"); }}
 	{{ HTML::style("css/jquery.fancybox.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
+	<style>
+		
+		.discounted { 
+			text-decoration: line-through; 
+			position: relative;
+  			top: -10;
+  			font-size: 14px;
+		}
+		#game-detail #buttons .buy .image span{
+			padding-top: 0 !important;
+		}
+		.repo { position: relative;	top: -10;}
+
+	</style>
 @stop
 
 @section('content')
+
 	{{ Form::token() }}
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
 	
@@ -29,63 +44,89 @@
 			<ul class="categories clearfix">
 
 				@foreach ($game->categories as $item)
-					<li><a href="{{ route('category.show', $item->id) }}">{{ $item->category }}</a></li>
+					<li><a href="{{ route('category.show', $item->id) }}">{{ trans('global.'.$item->category) }}</a></li>
 				@endforeach
 
 			</ul>
 
-			<p>Release: {{{ $game->release_date }}}</p>
+			<p>{{ trans('global.Release') }}: {{{ $game->release_date }}}</p>
 		</div>
 	</div><!-- end #top -->
-	{{ Session::get('locale') }}
+
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
-				<p class="count">{{ number_format($game->downloads, 0) }}</p>
-				<p class="words"><!--<span>Thousand</span>--> Downloads</p>
+				<p class="count">
+				
+				@if($game->downloads == 0)
+					{{ number_format($game->actual_downloads, 0) }}
+				@else
+					{{ number_format($game->downloads, 0) }}
+				@endif
+				</p>
+				<p class="words"><!--<span>Thousand</span>--> {{ trans('global.Downloads') }}</p>
 			</div>
 		</div>
 
 		<div class="ratings">
-			<div class="vcenter">
+			<div class="vhcenter">
 				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
+
 				<?php $ctr = $ratings['average'] ? $ratings['average'] : 0; ?>
+
 				<div class="stars">
 	
 					@for ($i=1; $i <= 5; $i++)						
 						@if($i <= $ctr)
-							<a href="#"><i class="fa fa-star active"></i></a>									
+							<i class="fa fa-star active"></i>
 						@else
-							<a href="#"><i class="fa fa-star"></i></a>
+							<i class="fa fa-star"></i>
 						@endif
 					@endfor  
-					
 					
 				</div>
 			</div>
 		</div>
 
-		@if ($game->default_price == 0)
+		@if ($game->default_price < 1)
+
 			<a href="#" class="download">
 				<div>
-					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
 				</div>
 			</a>
+
 		@else
-			<!-- <a href="{{ URL::route('games.carrier', $game->id) }}" class="buy"> -->
+
 			<a href="#" class="download" id="game-download">
 				<div>
-					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>Download</span></p>
+					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
 				</div>
 			</a>
+		
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
-					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>Buy Now</span></p>
+					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
 
 					@unless ($game->default_price == 0)
 						@foreach($game->prices as $price) 
 							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-								<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+								<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+									$sale_price = $price->pivot->price * (1 - ($dc/100));
+								 ?>
+								@if($dc != 0)
+									<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									<p class="price repo">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+								@else														 
+									@if($price->pivot->price == 0)
+															
+										<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
+									@else													 
+										
+										<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									@endif
+								@endif								
+
 							@endif
 						@endforeach
 					@endunless
@@ -101,39 +142,50 @@
 					{{ Form::close() }}
 				</div>
 			</div>
+
 		@endif
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-
+		
 		@foreach($game->contents as $item)
-			@if(isset($_GET['locale']))
-				@if($_GET['locale'] == strtolower($item->iso_code))
-					{{ htmlspecialchars_decode($item->pivot->content) }}
+			@if(Session::has('locale'))
+				@if(Session::get('locale') == strtolower($item->iso_code))
+					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
 			@else
 				@if(strtolower($item->iso_code) == 'us')
-					{{ htmlspecialchars_decode($item->pivot->content) }}
+					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
 			@endif
-		@endforeach
+  		@endforeach
 
 	</div><!-- end #description -->
 
 	<div id="screenshots" class="container">
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
-
 				@foreach($game->media as $screenshots)
-					@if($screenshots->type == 'screenshots')
+
+					@if($screenshots->type == 'video')
 
 						<div class="swiper-slide item">
-							<a href="{{ url() }}/assets/games/screenshots/{{ $game->image_orientation . '-' . $screenshots->url }}" class="fancybox">
+							<a href="{{ $screenshots->url }}" rel="group" class="fancybox-media">{{ HTML::image('images/video.png') }}</a>
+						</div>
+					@endif	
+
+				@endforeach
+
+				@foreach($game->media as $screenshots)
+
+					@if($screenshots->type == 'screenshots')
+						<div class="swiper-slide item">
+							<a href="{{ url() }}/assets/games/screenshots/{{ $game->image_orientation . '-' . $screenshots->url }}" rel="group" class="fancybox-media">
 								{{ HTML::image('assets/games/screenshots/' . $game->image_orientation . '-' . $screenshots->url, $game->main_title) }}
 							</a>
 						</div>
-
-					@endif
+					@endif	
+					
 				@endforeach
 
 			</div>
@@ -144,6 +196,7 @@
 		<div class="top clearfix">			
 
 			<?php $ctr = 0; ?>
+
 			@foreach($game->review as $data)
 				
 				<?php $ctr++; ?>
@@ -151,129 +204,242 @@
 			@endforeach
 			
 			@if($ctr != 0)
-				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
-					<div class="stars-container">
-						<div class="stars">
-							<a href="#"><i class="fa fa-star active"></i></a>
-							<a href="#"><i class="fa fa-star active"></i></a>
-							<a href="#"><i class="fa fa-star active"></i></a>
-							<a href="#"><i class="fa fa-star"></i></a>
-							<a href="#"><i class="fa fa-star"></i></a>
-						</div>
 
-						<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} total</p>
+				<p class="count">{{ $ratings['average'] ? $ratings['average'] : 0 }}</p>
+
+				<div class="stars-container">
+					<div class="stars">
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
 					</div>
+
+					<p class="total">{{ $ratings['count'] ? $ratings['count'] : 0 }} {{ trans('global.total') }}</p>
+				</div>
+
+			@else
+
+				<p class="count">0</p>
+
+				<div class="stars-container">
+					<div class="stars">
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star active"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					</div>
+
+					<p class="total">0 total</p>
+				</div>
+
 			@endif
 
 			<div class="social clearfix">
+				<?php  $excerpt = ""; ?>
+				@foreach($game->contents as $item)
+					@if(Session::has('locale'))
+						@if(Session::get('locale') == strtolower($item->iso_code))
+						<?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
+						@endif
+					@else
+						@if(strtolower($item->iso_code) == 'us')
+						 <?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
+						@endif
+					@endif
+		  		@endforeach
+
 				<a href="#share" id="inline" class="share" >
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
-					<span>Share</span>
+					<span>{{ trans('global.Share') }}</span>
 				</a>
+				
 				<div style="display:none">
 					<div id="share" style="text-align:center;">
-						<h4 style="margin: 10px 0;">Share the game to the following social networks.</h4>
+						<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks.') }}</h4>
 						
-					<!-- FACEBOOK SHARE -->
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ url() }}/game/{{ $game->id }}&amp;p[images][0]={{ url() }}/images/games/azukitap.jpg" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
-							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
-						</a>
-
-					<!-- TWITTER SHARE -->
-						<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/game/{{ $game->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "Hey! Checkout this new game named {{ $game->main_title }} at \n"}' title="{{ $game->main_title }}">
+						<!-- TWITTER SHARE -->
+						<a style="margin:0 2px;" href="https://twitter.com/share?url={{URL::current()}}" data-social='{"type":"twitter", "url":"{{URL::current()}}", "text": "{{$excerpt}} \n"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
-						<!-- <a href="mailto:support@tdrive.co" target="_blank">Email</a> -->
 
+						<!-- FACEBOOK SHARE -->
+						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{URL::current()}}&amp;p[images][0]={{ url() }}/images/games/azukitap.jpg" data-social='{"type":"facebook", "url":"{{URL::current()}}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
+							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
+						</a>
 					</div>
 				</div>
 
 				<div class="likes">
-					<div id="game_like" class="fb-like" data-href="{{ url() }}/game/{{ $game->id }}" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
+					<div id="game_like" class="fb-like" data-href="{{URL::current()}}" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>
 			</div>
 		</div>
 
 		<div class="bottom">
-			<div class="five clearfix">
-			<?php $ctr = 0; ?>
-			@foreach($game->review as $data)
-				
-				<?php $ctr++; ?>
-			
-			@endforeach
-			
-			@if($ctr !=0 ) 
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
 
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+			<div class="center">
 
-					<p class="total">{{ $ratings['five'] }}</p>
-				</div>
-			
+				<?php $ctr = 0; ?>
+
+				@foreach($game->review as $data)
+					<?php $ctr++; ?>
+				@endforeach
+
+				@if($ctr !=0 ) 
+
+					<div class="five clearfix">
+
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['five'] }}</p>
+						</div>
+					
+					</div>
+
+					<div class="four clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['four'] }}</p>
+						</div>
+					</div>
+
+					<div class="three clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['three'] }}</p>
+						</div>
+					</div>
+
+					<div class="two clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['two'] }}</p>
+						</div>
+					</div>
+
+					<div class="one clearfix">
+						<div class="stars">
+							<i class="fa fa-star"></i>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
+
+							<p class="total">{{ $ratings['one'] }}</p>
+						</div>
+					</div>
+
+				@else
+
+					<div class="five clearfix">
+
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					
+					</div>
+
+					<div class="four clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+					<div class="three clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+					<div class="two clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+					<div class="one clearfix">
+						<div class="stars">
+							<a href="#"><i class="fa fa-star"></i></a>
+						</div>
+
+						<div class="meter clearfix">
+							<span style="width: 0%"></span>
+
+							<p class="total">0</p>
+						</div>
+					</div>
+
+				@endif	
+
 			</div>
 
-			<div class="four clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['four'] }}</p>
-				</div>
-			</div>
-
-			<div class="three clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['three'] }}</p>
-				</div>
-			</div>
-
-			<div class="two clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['two'] }}</p>
-				</div>
-			</div>
-
-			<div class="one clearfix">
-				<div class="stars">
-					<a href="#"><i class="fa fa-star"></i></a>
-				</div>
-
-				<div class="meter clearfix">
-					<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
-
-					<p class="total">{{ $ratings['one'] }}</p>
-				</div>
-			</div>
-			@endif	
 		</div>
 	</div><!-- end #statistics -->
 
@@ -285,7 +451,6 @@
 			@endif
 
 			{{ Form::open(array('route' => array('review.post', $current_game->id), 'method' => 'post')) }}
-				{{ Form::hidden('status', 1) }}
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
 
@@ -319,7 +484,7 @@
 		@else
 
 			<div class="button">
-				<a href="{{ route('users.login') }}">Login to write a review <i class="fa fa-pencil"></i></a>
+				<a href="{{ route('users.login') }}">{{ trans('global.Login to write a review') }} <i class="fa fa-pencil"></i></a>
 			</div>
 
 		@endif
@@ -357,7 +522,7 @@
 		
 	@if($ctr > 4)	
 		
-		<div class="link center"><a href="{{ route('reviews', $game->id) }}">See all reviews &raquo;</a></div>
+		<div class="link center"><a href="{{ route('reviews', $game->id) }}">{{ trans('global.See all reviews') }} &raquo;</a></div>
 
 	@else
 
@@ -366,9 +531,9 @@
 	@endif
 	
 	</div><!-- end #reviews -->
-
+	
 	<div id="related-games" class="container">
-		<h1 class="title">Related games</h1>
+		<h1 class="title">{{ trans('global.Related games') }}</h1>
 		
 		@if(!empty($related_games))
 
@@ -383,16 +548,22 @@
 									<div class="thumb relative">
 
 										@if ($game->default_price == 0)
-												<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-											@endif
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
 										
-										<a href="{{ URL::route('game.show', $game->id) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
-
+										<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
 
 										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', $game->id) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 										@endif
 
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale')))}}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+										@endif
+
+										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										@endif
 
 									</div>
 
@@ -401,10 +572,15 @@
 
 										@unless ($game->default_price == 0)
 											@foreach($game->prices as $price) 
-
+											<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+												$sale_price = $price->pivot->price * (1 - ($dc/100));
+											 ?>
 												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-
-													<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@if($dc != 0)														
+														<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+													@else														 
+														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+													@endif
 												@endif
 											@endforeach
 										@endunless
@@ -426,11 +602,11 @@
 
 		@else
 
-			<p>No related games.</p>
+			<p>{{ trans('global.No related games.') }}</p>
 
 		@endif
 
-		<div class="more"><a href="{{ route('games.related', $game->id) }}">More +</a></div>
+		<div class="more"><a href="{{ route('games.related', $game_id) }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #related-games -->
 
 @stop
@@ -439,9 +615,12 @@
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/slick.min.js"); }}
 	{{ HTML::script("js/jquery.fancybox.js"); }}
+	{{ HTML::script("js/jquery.fancybox-media.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
+	{{ HTML::script("js/jquery.event.move.js"); }}
+	{{ HTML::script("js/jquery.event.swipe.js"); }}
 
 	<script>
 		FastClick.attach(document.body);
@@ -456,7 +635,6 @@
 			websiteType: 'dynamic',
 			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
 					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
@@ -465,8 +643,7 @@
 						_token: token
 					},
 					success: function(data) {
-						// location.reload();
-						console.log('success');
+						location.reload();
 					}
 				});
 			}
@@ -476,6 +653,7 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
+			testMode: true,
 			onChange: function(evt){
 				$.ajax({
 					url: "{{ URL::route('choose_language') }}",
@@ -485,10 +663,19 @@
 						_token: token
 					},
 					success: function(data) {
-						// location.reload();
+					    location.reload();
 					}
 				});
 			}
+		});
+
+		$('.fancybox').fancybox({ 
+			padding: 0 
+		});
+
+		$('.fancybox-media').fancybox({ 
+			padding: 0, 
+			helpers: { media: true }
 		});
 
 		$('.thumbs-container').each(function() {
@@ -499,13 +686,14 @@
 				calculateHeight: true
 			})
 		});
+
 		$("#inline").fancybox({
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',
             'transitionOut'     : 'none'
         });
+
         $("#share a").jqSocialSharer();
-		$('.fancybox').fancybox({ padding: 0 });
 
 		$("#buy").on('click',function() {
 			 $.ajax({
@@ -567,32 +755,49 @@
 			});
         });
 
+		$('#description .readmore').click(function(e) {
+			e.preventDefault();
+
+			$.ajax({
+				type: 'POST',
+				url: "<?php echo URL::route('games.content.load'); ?>",
+				data: { 
+					id: <?php echo Request::segment(2); ?>,
+					_token: token
+				},
+
+				success: function(data) {
+					$('#description .content').html(data);
+				}
+			});
+		});
+
 		$('#carrier').on('submit', function(e){
 			e.preventDefault();
 
 			$.fancybox.close();
 
-			// $.fancybox({
-	  //           'width': '80%',
-	  //           'height': '80%',
-	  //           'autoScale': true,
-	  //           'transitionIn': 'fade',
-	  //           'transitionOut': 'fade',
-	  //           'type': 'iframe',
-	  //           'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-	  //           afterClose: function() {
+			$.fancybox({
+	             'width': '80%',
+	             'height': '80%',
+	             'autoScale': true,
+	             'transitionIn': 'fade',
+	             'transitionOut': 'fade',
+	             'type': 'iframe',
+	             'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
+	             afterClose: function() {
 
-	  //           	$.ajax({
-			// 		 	type: "get",
-			// 		 	url: "{{ URL::route('games.status', $game->id) }}",
-			// 		 	complete:function(data) {
-			// 				if(data['responseText'] == 1) {
-			// 					$('#game-download').css('display', 'none');
-			// 				}
-		 //                }
-		 //            });
-	  //           }
-	  //       });
+	             	$.ajax({
+			 		 	type: "get",
+			 		 	url: "{{ URL::route('games.status', $game->id) }}",
+			 		 	complete:function(data) {
+			 				if(data['responseText'] == 1) {
+			 					$('#game-download').css('display', 'none');
+			 				}
+		                 }
+		             });
+	             }
+	        });
 
 		});
 	

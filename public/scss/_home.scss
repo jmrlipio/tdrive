@@ -23,18 +23,15 @@
 
 	#slider {
 		padding: 0;
+		display: none;
 
-		.swiper-slide {
-			width: 260px;
-		}
+		.swiper-slide { width: 260px; }
 
-		img {
-			width: 100%;
-		}
+		img { width: 100%; }
 	}
 
-	.swiper-container {
-		padding-bottom: 20px;
+	.thumbs-container {
+		display: none;
 	}
 
 	.thumb {
@@ -54,7 +51,7 @@
 	.meta {
 		text-align: center;
 		margin: 10px 0;
-		height: 57px;
+		height: auto;
 
 		p {
 			font-size: 14px;
@@ -107,6 +104,7 @@
 		select {
 			margin: 18px 0 0;
 			float: right;
+			font-size: 14px;
 		}
 
 		.top {

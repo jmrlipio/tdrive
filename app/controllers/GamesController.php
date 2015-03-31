@@ -67,7 +67,7 @@ class GamesController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
-		$games = Game::all();
+		$games = Game::whereCarrierId(Session::get('carrier'))->get();
 		$related_games = [];
 
 		foreach($games as $gm) {
@@ -81,18 +81,26 @@ class GamesController extends \BaseController {
 				}
 			}
 		}
+		/* For getting discounts */
+		$discounts = Discount::all();
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
 
 		$ratings = Review::getRatings($game->id);
 		$visitor = Tracker::currentSession();
 		$country = Country::find(Session::get('country_id'));
-
+		$game_id = $game->id;
 		return View::make('game')
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')
 			->with('ratings', $ratings)
 			->with('current_game', $current_game)
 			->with('country', $country)
-			->with(compact('languages','related_games', 'game'));
+			->with(compact('languages','related_games', 'game', 'discounted_games', 'game_id'));
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/
 	}
@@ -133,7 +141,17 @@ class GamesController extends \BaseController {
 		//
 	}
 
-	public function loadGames() {
+	public function loadGameContent() 
+	{
+		$game = Game::find(Input::get('id'));
+
+		foreach($game->contents as $g) {
+			echo $g->pivot->content;
+		}
+	}
+
+	public function loadGames() 
+	{
 		$games = Game::with('media')->get();
 
 		return $games->toJson();
@@ -199,8 +217,8 @@ class GamesController extends \BaseController {
 	public function getPurchaseStatus($id) {
 		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
 
-		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=1';
-		$url = 'http://106.186.24.12/tdrive_api/select_carrier.php?app_id=1';
+		// $url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
+		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
 
 		$response = file_get_contents($url);
 

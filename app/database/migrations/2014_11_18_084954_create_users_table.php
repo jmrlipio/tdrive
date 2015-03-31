@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration {
 			$table->string('role');
 			$table->string('prof_pic');
 			$table->string('code');
+			$table->string('mobile_no');
 			$table->integer('active')->default(0);
 			$table->timestamps();
 		});

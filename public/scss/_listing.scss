@@ -11,7 +11,23 @@
 
 	#back {
 		display: block;
-		margin-top: 10px;
+		margin-top: 12px;
+	}
+
+	.title {
+		padding: 20px 0 15px;
+		@extend %box-sizing;
+	}
+
+	.search-category {
+		padding: 0 0 20px;
+		@extend %box-sizing;
+
+		input {
+			padding: 6px;
+			margin-right: 5px;
+			width: 92%;
+		}
 	}
 
 	.grid {
@@ -21,8 +37,7 @@
 				width: 33.3333333%;
 				float: left;
 				padding: 0 5px;
-				padding-bottom: 40px;
-				margin-bottom: 20px;
+				padding-bottom: 30px;
 				position: relative;
 			}
 		}
@@ -71,7 +86,7 @@
 
 	#back {
 		display: block;
-		margin-top: 10px;
+		margin-top: 12px;
 	}
 
 	.item {
@@ -146,6 +161,12 @@
 @media only screen and (min-width: 415px) {
 
 	#game-listing {
+		.search-category {
+			input { width: 93%; }
+
+			a { width: 6%; }
+		}
+
 		.grid {
 			> .row {
 				.item {
@@ -156,12 +177,30 @@
 	}
 
 }
-
 @media only screen and (min-width: 600px) {
 
-	#game-listing, #news-listing {
-		#back {
-			margin-top: 12px;
+	#game-listing {
+		.title {
+			float: left;
+			padding: 20px 0 15px;
+			width: 54%;
+		}
+
+		.search-category {
+			float: right;
+			width: 46%;
+			margin-top: 20px;
+
+			input {
+				float: left;
+				width: 91%;
+			}
+
+			a {
+				float: right;
+				width: 6%;
+				margin-top: 8px;
+			}
 		}
 	}
 
@@ -201,12 +240,32 @@
 		#back {
 			margin-top: 15px;
 		}
+
+		.search-category {
+			input { width: 91%; }
+
+			a { width: 6%; }
+		}
+
 	}
 
 	#news-listing {
 		#back {
 			margin-top: 15px;
 		}
+	}
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+	#game-listing {
+		.search-category {
+			input { width: 94%; }
+
+			a { width: 4%; }
+		}
+
 	}
 
 }
