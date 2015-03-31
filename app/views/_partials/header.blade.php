@@ -20,6 +20,21 @@ $game_settings = GameSetting::all();
 		{{ $general_settings[2]->value }}
 	@endif
 
+	@if(isset($game))
+		@foreach($game->contents as $item)
+			<meta property="og:url" content="{{ url() }}/game/{{ $game->id }}/{{ $game->slug }}-{{ strtolower($game->carrier->carrier) }}-{{ Session::get('locale') }}" />
+			<meta property="og:title" content="{{ $item->pivot->title }}" />
+			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
+			<?php break; ?>
+		@endforeach
+
+		@foreach($game->media as $media)
+			@if($media->type == 'homepage')
+				<meta property="og:image" content="{{ url() }}/assets/games/homepage/{{ $media->url}}" />
+			@endif
+		@endforeach
+	@endif
+
 	@if(isset($news))
 		@if(!Request::segment(3))
 			@foreach($news->contents as $item)
