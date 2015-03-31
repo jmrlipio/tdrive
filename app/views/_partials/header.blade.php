@@ -192,14 +192,14 @@ $game_settings = GameSetting::all();
 
 
 						?>
-						
+
 						<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 
 							<select name="locale" id="polyglot-language-options">
 								
 								@foreach($languages as $lang)												
-									
-									<option id="{{strtolower($lang->iso_code)}}" value="{{strtolower($lang->iso_code)}}" {{-- (strtolower($lang->iso_code) == Session::get('locale') ) ? ' selected' : '' --}}>{{$lang->language}}</option>			
+									<?php $selected = (strtolower($lang->iso_code) == Session::get('locale')) ? ' selected' : ''; ?>
+									<option id="{{strtolower($lang->iso_code)}}" value="{{strtolower($lang->iso_code)}}" {{ $selected }}>{{$lang->language}}</option>			
 									
 								@endforeach
 

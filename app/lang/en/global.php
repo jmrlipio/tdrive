@@ -26,6 +26,8 @@ return array(
 	'search game' => 'search game',
 	'View all categories' => 'View all categories',
 
+
+
 	//Categories
 	'Brain and Puzzle' => 'Brain and Puzzle',
 	'Casual' => 'Casual',
@@ -92,6 +94,7 @@ return array(
 	'Forgot your password?' => 'Forgot your password?',
 	'Not yet a member?' => 'Not yet a member?',
 	'Register' => 'Register',
+	'mobile_no' => 'Mobile no',
 
 	//News Listing Blade (news_listing.blade.php)
 	'Latest news' => 'Latest news',
@@ -106,6 +109,8 @@ return array(
 
 	//Register Blade (register.blade.php)
 	'Create new account' => 'Create new account',
+	'first_name' => 'first name',
+	'last_name' => 'last name',
 
 	//Related Blade (related.blade.php)
 	'Related games' => 'Related games',
