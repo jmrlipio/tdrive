@@ -192,5 +192,5 @@ Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingContr
 Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
 route::resource('review', 'ReviewsController');
-Route::post('/admin/destroy/review', array('before' => 'csrf', 'uses' => 'ReviewsController@handleDestroy'));
+Route::post('/admin/destroy/review', array('before' => 'csrf', 'as' => 'admin.destroy.review','uses' => 'ReviewsController@handleDestroy'));
 Route::get('admin/games/preview/{id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));

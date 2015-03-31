@@ -25,8 +25,9 @@ class ListingController extends \BaseController {
 		$dt = Carbon::now();
 		$discounts = Discount::whereActive(1)
 			->where('start_date', '<=', $dt->toDateString())
-			->where('end_date', '>=',  $dt->toDateString())		
+			->where('end_date', '>=',  $dt->toDateString())  
 			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
@@ -55,8 +56,9 @@ class ListingController extends \BaseController {
 		$dt = Carbon::now();
 		$discounts = Discount::whereActive(1)
 			->where('start_date', '<=', $dt->toDateString())
-			->where('end_date', '>=',  $dt->toDateString())		
+			->where('end_date', '>=',  $dt->toDateString())
 			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
@@ -111,6 +113,7 @@ class ListingController extends \BaseController {
 			->where('start_date', '<=', $dt->toDateString())
 			->where('end_date', '>=',  $dt->toDateString())		
 			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
@@ -154,6 +157,7 @@ class ListingController extends \BaseController {
 			->where('start_date', '<=', $dt->toDateString())
 			->where('end_date', '>=',  $dt->toDateString())		
 			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
