@@ -6,7 +6,6 @@
 
 @section('content')
 
-	
 	@if (Session::has('fail'))
 
 	  <p class="flash-fail">{{ trans(Session::get('reason')) }}</p>
