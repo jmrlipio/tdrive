@@ -1,5 +1,7 @@
 <?php
 
+use Jarektkaczyk\TriplePivot\TriplePivotTrait;
+
 class Language extends \Eloquent {
 	protected $fillable = ['language'];
 
@@ -33,6 +35,10 @@ class Language extends \Eloquent {
 
     public function carriers() {
         return $this->hasMany('Carrier');
+    }
+
+    public function apps() {
+        return $this->tripleBelongsToMany('Game', 'Carrier', 'apps')->withPivot('price', 'title', 'content', 'excerpt');
     }
 
 }

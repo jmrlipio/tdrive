@@ -42,7 +42,7 @@
 							<td>{{ $discount->carrier->carrier }}</td>
 							<td>
 								@foreach($discount->games as $game)
-									{{ $game->main_title }}
+									{{ $game->main_title }},
 								@endforeach
 							</td>
 							<td>{{ $discount->discount_percentage . '%' }}</td>

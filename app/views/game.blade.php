@@ -104,6 +104,7 @@
 				</div>
 			</a>
 		
+		@if(Auth::check())
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
@@ -133,6 +134,41 @@
 
 				</div>
 			</a>
+			
+			@else 
+
+			<a href="{{ URL::route('users.login')}}" class="buy" id="buy">
+				<div>
+					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
+
+					@unless ($game->default_price == 0)
+						@foreach($game->prices as $price) 
+							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
+								<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+									$sale_price = $price->pivot->price * (1 - ($dc/100));
+								 ?>
+								@if($dc != 0)
+									<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									<p class="price repo">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
+								@else														 
+									@if($price->pivot->price == 0)
+															
+										<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
+									@else													 
+										
+										<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+									@endif
+								@endif								
+
+							@endif
+						@endforeach
+					@endunless
+
+				</div>
+			</a>
+
+
+			@endif
 
 			<div style="display:none">
 				<div class="carrier-container" id="carrier-select-container">
@@ -266,7 +302,7 @@
 						</a>
 
 						<!-- FACEBOOK SHARE -->
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{URL::current()}}&amp;p[images][0]={{ url() }}/images/games/azukitap.jpg" data-social='{"type":"facebook", "url":"{{URL::current()}}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{URL::current()}}&amp;p[images][0]={{ url() }}/images/games/{{$game->slug}}.jpg" data-social='{"type":"facebook", "url":"{{URL::current()}}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 						</a>
 					</div>

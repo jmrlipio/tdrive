@@ -21,8 +21,13 @@ class ListingController extends \BaseController {
 
 		$count = count($games_all);
 
-			/* For getting discounts */
-		$discounts = Discount::all();
+		/* For getting discounts */
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())  
+			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
@@ -48,7 +53,12 @@ class ListingController extends \BaseController {
 		$country = Country::find(Session::get('country_id'));
 		
 		/* For getting discounts */
-		$discounts = Discount::all();
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())
+			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
@@ -98,7 +108,12 @@ class ListingController extends \BaseController {
 		$country = Country::find(Session::get('country_id'));
 
 		/* For getting discounts */
-		$discounts = Discount::all();
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())		
+			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
@@ -137,7 +152,12 @@ class ListingController extends \BaseController {
 		$test = [];
 
 		/* For getting discounts */
-		$discounts = Discount::all();
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())		
+			->get();
+
 		$discounted_games = [];
 		foreach ($discounts as $data) {
 			foreach($data->games as $gm ) {
