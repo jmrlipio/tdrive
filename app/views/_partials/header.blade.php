@@ -36,7 +36,7 @@ $game_settings = GameSetting::all();
 	@endif
 
 	@if(isset($news))
-		@if(!Request::segment(3))
+		@if(!Request::segment(1))
 			@foreach($news->contents as $item)
 				<meta property="og:url" content="{{ url() }}news/{{ $item->id }}" />
 				<meta property="og:title" content="{{ $item->main_title }}" />
@@ -47,7 +47,7 @@ $game_settings = GameSetting::all();
 	@endif
 
 	@if(isset($live_news))
-		@if(!Request::segment(3))
+		@if(!Request::segment(1))
 			@foreach($live_news as $single_news)
 				@foreach($single_news->contents as $item)
 					<meta property="og:url" content="{{ url() }}news/{{ $item->id }}" />
