@@ -524,28 +524,18 @@ a#back {
     cursor: -webkit-grabbing;
 }
 
-#language-table {
+#app-table {
 	border: 1px solid #ccc;
-	width: 250px;
+	width: 100%;
 }
 
-#language-table tr {
+#app-table tr {
 	padding: 3px;
 }
 
-#language-table th, #language-table td {
+#app-table th, #app-table td {
 	padding: 5px;
 	border: 1px solid #ccc;
-}
-
-#language-table td:nth-child(2) {
-	text-align: center;
-	width: 20%;
-}
-
-#language-table input[type=checkbox] {
-	margin: 0 auto;
-	text-align: center;
 }
 
 #preview { margin-left: 5px; }
@@ -555,3 +545,5 @@ a#back {
 }
 
 .sort-label { max-width: 50%; float: right; margin-right: 50px; margin-bottom: 10px; }
+
+.center { text-align: center; }

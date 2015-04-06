@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateGamePricesTable extends Migration {
+class CreateAppsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,16 +12,21 @@ class CreateGamePricesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('game_prices', function(Blueprint $table)
+		Schema::create('apps', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('game_id')->unsigned()->index();
 			$table->foreign('game_id')->references('id')->on('games')->onUpdate('cascade')->onDelete('cascade');
-			$table->integer('country_id')->index();
-			$table->foreign('country_id')->references('id')->on('countries');
 			$table->integer('carrier_id')->unsigned()->index();
 			$table->foreign('carrier_id')->references('id')->on('carriers')->onDelete('cascade')->onUpdate('cascade');
+			$table->integer('language_id')->unsigned()->index();
+			$table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade')->onUpdate('cascade');
+			$table->string('app_id')->index();
+			$table->string('title');
+			$table->text('content');
+			$table->string('excerpt');
 			$table->float('price');
+			$table->string('currency_code');
 			$table->timestamps();
 		});
 	}
@@ -34,7 +39,7 @@ class CreateGamePricesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('game_prices');
+		Schema::drop('apps');
 	}
 
 }

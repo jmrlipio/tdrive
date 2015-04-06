@@ -67,7 +67,11 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('games/{id}/update-fields', array('as' => 'admin.games.update-fields', 'uses' => 'AdminGamesController@updateFields'));
     Route::get('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@getLanguageContent'));
     Route::post('games/{id}/edit/content/{language}', array('as' => 'admin.games.edit.content', 'uses' => 'AdminGamesController@updateLanguageContent'));
-    Route::get('games/{id}/edit/prices/{carrier}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@getPriceContent'));
+    Route::get('games/{id}/create/app', array('as' => 'admin.games.create.app', 'uses' => 'AdminGamesController@getCreateApp'));
+    Route::get('games/{id}/edit/{app}', array('as' => 'admin.games.edit.app', 'uses' => 'AdminGamesController@getEditApp'));
+    Route::post('games/{id}/edit/{app}', array('as' => 'admin.games.update.app', 'uses' => 'AdminGamesController@postUpdateApp'));
+    Route::delete('games/{id}/{app}/delete', array('as' => 'admin.games.delete.app', 'uses' => 'AdminGamesController@postDeleteApp'));
+    Route::post('games/{id}/create/app', array('as' => 'admin.games.store.app', 'uses' => 'AdminGamesController@postStoreApp'));
     Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
     Route::get('games/{id}/reviews', array('as' => 'admin.game.reviews', 'uses' => 'AdminGamesController@getGameReviews'));
     Route::post('games/{id}/languages/default', array('as' => 'admin.game.languages.default', 'uses' => 'AdminGamesController@updateDefaultLanguage'));

@@ -38,14 +38,14 @@ class AdminGamesController extends \BaseController {
 	 */
 	public function create()
 	{
-		$carriers = [];
+		$categories = [];
 
-		foreach(Carrier::all() as $carrier) {
-			$carriers[$carrier->id] = $carrier->carrier;
+		foreach(Category::all() as $category) {
+			$categories[$category->id] = $category->category;
 		}
 
 		return View::make('admin.games.create')
-			->with(compact('carriers'));
+			->with(compact('categories'));
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -63,6 +63,9 @@ class AdminGamesController extends \BaseController {
 		}
 		
 		$game = Game::create($data);
+
+		$game->categories()->sync(Input::get('category_id'));
+		
 		Event::fire('audit.games.create', Auth::user());
 
 		return Redirect::route('admin.games.edit', $game->id)->with('message', 'You have successfully added a game.');
@@ -99,10 +102,8 @@ class AdminGamesController extends \BaseController {
 	public function update($id)
 	{
 		$game = Game::find($id);
-
 		$edit_rules = Game::$rules;
-
-		// $edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
+		$edit_rules['main_title'] = 'required|min:2|unique:games,main_title,' . $id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
 
@@ -112,10 +113,12 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$game->update($data);
-		$new_id = $game->id;
+
+		$game->categories()->sync(Input::get('category_id'));
+
 		Event::fire('audit.games.update', Auth::user());
 
-		$url = URL::route('admin.games.edit', $new_id);
+		$url = URL::route('admin.games.edit', $game->id);
 
 		return Redirect::to($url)->with('message', 'You have successfully updated the game details.');
 	}
@@ -146,47 +149,47 @@ class AdminGamesController extends \BaseController {
 
 	}
 
-	public function updateContent($id)
-	{
-		$language_id = Input::get('language_id');
-		$titles = Input::get('titles');
-		$contents = Input::get('contents');
-		$excerpts = Input::get('excerpts');
-		$lid = Input::get('lid');
+	// public function updateContent($id)
+	// {
+	// 	$language_id = Input::get('language_id');
+	// 	$titles = Input::get('titles');
+	// 	$contents = Input::get('contents');
+	// 	$excerpts = Input::get('excerpts');
+	// 	$lid = Input::get('lid');
 
-		$game = Game::find($id);
+	// 	$game = Game::find($id);
 
-		$game->categories()->sync(Input::get('category_id'));
-		$game->languages()->sync($language_id);
+	// 	$game->categories()->sync(Input::get('category_id'));
+	// 	$game->languages()->sync($language_id);
 
-		foreach($game->contents as $content) {
-			$game->contents()->detach($content->pivot->language_id);
-		}
+	// 	foreach($game->contents as $content) {
+	// 		$game->contents()->detach($content->pivot->language_id);
+	// 	}
 
-		for($i = 0; $i < count($lid); $i++) {
-			$game->contents()->attach($lid[$i], array('title' => $titles[$i], 'content' => $contents[$i], 'excerpt' => $excerpts[$i]));
-		}
+	// 	for($i = 0; $i < count($lid); $i++) {
+	// 		$game->contents()->attach($lid[$i], array('title' => $titles[$i], 'content' => $contents[$i], 'excerpt' => $excerpts[$i]));
+	// 	}
 
-		return $this->loadGameValues($id);
-	}
+	// 	return $this->loadGameValues($id);
+	// }
 
-	public function updateFields($id)
-	{
-		$game = Game::find($id);
-		$url = URL::route('admin.games.edit', $game->id) . '#custom-fields';
+	// public function updateFields($id)
+	// {
+	// 	$game = Game::find($id);
+	// 	$url = URL::route('admin.games.edit', $game->id) . '#custom-fields';
 
-		$validator = Validator::make($data = Input::all(), Game::$fieldRules);
+	// 	$validator = Validator::make($data = Input::all(), Game::$fieldRules);
 
-		if ($validator->fails())
-		{
-			return Redirect::to($url)->withErrors($validator)->withInput();
-		}
+	// 	if ($validator->fails())
+	// 	{
+	// 		return Redirect::to($url)->withErrors($validator)->withInput();
+	// 	}
 
-		$game->categories()->sync(Input::get('category_id'));
-		$game->languages()->sync(Input::get('language_id'));
+	// 	$game->categories()->sync(Input::get('category_id'));
+	// 	$game->languages()->sync(Input::get('language_id'));
 
-		return Redirect::to($url)->with('message', 'You have successfully updated the game fields.');
-	}
+	// 	return Redirect::to($url)->with('message', 'You have successfully updated the game fields.');
+	// }
 
 	public function updateMedia($id)
 	{
@@ -259,17 +262,11 @@ class AdminGamesController extends \BaseController {
 		$new_media = Media::create($details);
 
 		foreach($game->media as $media) {
-
 			if($media->type == $type) {
-
 				if($type == 'screenshots') {
-
 					if(!in_array($media->id, $ssid)) $game->media()->detach($media->id);
-
 				} else $game->media()->detach($media->id);
-
 			}
-			
 		}
 
 		$game->media()->attach($new_media->id);
@@ -289,16 +286,10 @@ class AdminGamesController extends \BaseController {
 		$carrier = Carrier::find($game->carrier_id);
 
 		$selected_categories = [];
-		$selected_languages = [];
 		$selected_media = [];
-		$selected_countries = [];
 
 		foreach($game->categories as $category) {
 			$selected_categories[] = $category->id;
-		}
-
-		foreach($game->languages as $language) {
-			$selected_languages[] = $language->id;
 		}
 
 		$count = 0;
@@ -318,164 +309,124 @@ class AdminGamesController extends \BaseController {
 		}
 
 		$categories = [];
-		$languages = [];
-		$selected_countries = [];
-		$prices = [];
-		$countries = Country::all();
-		$carriers = [];
-
-		foreach(Carrier::all() as $carrier) {
-			$carriers[$carrier->id] = $carrier->carrier;
-		}
 
 		foreach(Category::orderBy('category')->get() as $category) {
 			$categories[$category->id] = $category->category;
 		}
 
-		foreach(Language::orderBy('language')->get() as $language) {
-			$languages[$language->id] = $language->language;
-		}
-
-		foreach($carrier->countries as $country) {
-			$selected_countries[$country->id] = $country->currency_code;
-		}
-
-		foreach($game->prices as $price) {
-			if($price->pivot->carrier_id == $game->carrier_id) {
-				$prices[$price->pivot->country_id] = $price->pivot->price;
-			}
-	    }
-
 		return View::make('admin.games.edit')
 			->with('game', $game)
 			->with('selected_categories', $selected_categories)
-			->with('selected_languages', $selected_languages)
 			->with('selected_media', $selected_media)
-			->with('categories', $categories)
-			->with('languages', $languages)
-			->with('countries', $countries)
-			->with('selected_countries', $selected_countries)
-			->with('prices', $prices)
-			->with('carriers', $carriers);
+			->with('categories', $categories);
 	}
 
-	public function getLanguageContent($id, $language_id) {
-		$game = Game::find($id);
-		$language = Language::find($language_id);
+	// public function getLanguageContent($id, $language_id) {
+	// 	$game = Game::find($id);
+	// 	$language = Language::find($language_id);
 
-		$title = '';
-		$content = '';
-		$excerpt = '';
+	// 	$title = '';
+	// 	$content = '';
+	// 	$excerpt = '';
 
-		foreach($game->contents as $game_content) {
-			if($game_content->pivot->language_id == $language_id) {
-				$excerpt = $game_content->pivot->excerpt;
-				$title = $game_content->pivot->title;
-		    	$content = $game_content->pivot->content;
-			}
-	    }
+	// 	foreach($game->contents as $game_content) {
+	// 		if($game_content->pivot->language_id == $language_id) {
+	// 			$excerpt = $game_content->pivot->excerpt;
+	// 			$title = $game_content->pivot->title;
+	// 	    	$content = $game_content->pivot->content;
+	// 		}
+	//     }
 
-		return View::make('admin.games.content')
-			->with('game', $game)
-			->with('language_id', $language_id)
-			->with('language', $language)
-			->with('content', $content)
-			->with('title', $title)
-			->with('excerpt', $excerpt);
-	}
+	// 	return View::make('admin.games.content')
+	// 		->with('game', $game)
+	// 		->with('language_id', $language_id)
+	// 		->with('language', $language)
+	// 		->with('content', $content)
+	// 		->with('title', $title)
+	// 		->with('excerpt', $excerpt);
+	// }
 
-	public function updateLanguageContent($id, $language_id) {
-		$validator = Validator::make($data = Input::all(), Game::$content_rules);
+	// public function updateLanguageContent($id, $language_id) {
+	// 	$validator = Validator::make($data = Input::all(), Game::$content_rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+	// 	if ($validator->fails())
+	// 	{
+	// 		return Redirect::back()->withErrors($validator)->withInput();
+	// 	}
 
-		$game = Game::find($id);
-		$language = Language::find($language_id);
+	// 	$game = Game::find($id);
+	// 	$language = Language::find($language_id);
 
-		foreach($game->contents as $content) {
-			if($content->pivot->language_id == $language_id) {
-				$game->contents()->detach($content->pivot->language_id);
-			}	
-		}
+	// 	foreach($game->contents as $content) {
+	// 		if($content->pivot->language_id == $language_id) {
+	// 			$game->contents()->detach($content->pivot->language_id);
+	// 		}	
+	// 	}
 
-		$game->contents()->attach($language_id, array('title' => Input::get('title'), 'content' => Input::get('content'), 'excerpt' => Input::get('excerpt')));
+	// 	$game->contents()->attach($language_id, array('title' => Input::get('title'), 'content' => Input::get('content'), 'excerpt' => Input::get('excerpt')));
 
-		return Redirect::back()->with('message', 'You have successfully updated this game content');
-	}
+	// 	return Redirect::back()->with('message', 'You have successfully updated this game content');
+	// }
 
-	public function getPriceContent($id, $carrier_id) {
-		$game = Game::find($id);
-		$carrier = Carrier::find($carrier_id);
-		$countries = Country::all();
-		$prices = [];
+	// public function getPriceContent($id, $carrier_id) {
+	// 	$game = Game::find($id);
+	// 	$carrier = Carrier::find($carrier_id);
+	// 	$countries = Country::all();
+	// 	$prices = [];
 
-		foreach($game->prices as $price) {
-			if($price->pivot->carrier_id == $carrier_id) {
-				$prices[$price->pivot->country_id] = $price->pivot->price;
-			}
-	    }
+	// 	foreach($game->prices as $price) {
+	// 		if($price->pivot->carrier_id == $carrier_id) {
+	// 			$prices[$price->pivot->country_id] = $price->pivot->price;
+	// 		}
+	//     }
 
-	    $carrier = Carrier::find($carrier_id);
+	//     $carrier = Carrier::find($carrier_id);
 
-		$selected_countries = [];
+	// 	$selected_countries = [];
 
-		foreach($carrier->countries as $country) {
-			$selected_countries[$country->id] = $country->currency_code;
-		}
+	// 	foreach($carrier->countries as $country) {
+	// 		$selected_countries[$country->id] = $country->currency_code;
+	// 	}
 
-	    return View::make('admin.games.price')
-	    	->with('game', $game)
-	    	->with('countries', $countries)
-	    	->with('selected_countries', $selected_countries)
-	    	->with('prices', $prices)
-	    	->with('carrier', $carrier);
-	}
+	//     return View::make('admin.games.price')
+	//     	->with('game', $game)
+	//     	->with('countries', $countries)
+	//     	->with('selected_countries', $selected_countries)
+	//     	->with('prices', $prices)
+	//     	->with('carrier', $carrier);
+	// }
 
-	public function updatePriceContent($id, $carrier_id) {
-		$game = Game::find($id);
-		$carrier = Carrier::find($carrier_id);
+	// public function updatePriceContent($id, $carrier_id) {
+	// 	$game = Game::find($id);
+	// 	$carrier = Carrier::find($carrier_id);
 
-		$url = URL::route('admin.games.edit', $game->id) . '#game-content';
+	// 	$url = URL::route('admin.games.edit', $game->id) . '#game-content';
 
-		$game->prices()->detach($carrier_id);
+	// 	$game->prices()->detach($carrier_id);
 
-		foreach(Input::get('prices') as $country_id => $price) {
-			$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
-		}
+	// 	foreach(Input::get('prices') as $country_id => $price) {
+	// 		$game->prices()->attach([$carrier_id, $country_id], array('price' => $price));
+	// 	}
 
-		return Redirect::to($url)->with('message', 'You have successfully updated this game content');
-	}
+	// 	return Redirect::to($url)->with('message', 'You have successfully updated this game content');
+	// }
 
 	public function getGameByCategory() 
     {
-    	
 		$selected_cat = Input::get('game_category');
-    	
     	$game_category = Category::all(); 
-    	
     	$categories = ['all' => 'All'];	
 
 		foreach ($game_category as $gc) {
-
 			$categories[$gc->id] = ucfirst($gc->category);		
-		
 		}
 
 		if($selected_cat != 'all'){
-
 	    	$games = Game::whereHas('categories', function($q) use($selected_cat) {
-	    		
 	    		$q->where('category_id', '=', $selected_cat);
-	    	
-	    	})->get();   
-    		
+	    	})->get();       		
     	} else {
-
     		$games = Game::all();
-
     	}
 
 		return View::make('admin.games.index')
@@ -491,19 +442,6 @@ class AdminGamesController extends \BaseController {
     		->with('game', $game);
     	
     }
-
-    public function updateDefaultLanguage() {
-		$game = Game::find(Input::get('game_id'));
-		$language_id = Input::get('language_id');
-
-		foreach($game->contents as $content) {
-			if($content->pivot->language_id == $language_id) {
-				$game->contents()->updateExistingPivot($language_id, array('default' => 1), true);
-			} else {
-				$game->contents()->updateExistingPivot($content->pivot->language_id, array('default' => 0), true);
-			}
-		}
-	}
 
 	public function previewGame($id){
 		$languages = Language::all();
@@ -548,6 +486,146 @@ class AdminGamesController extends \BaseController {
 			->with('current_game', $current_game)
 			->with('country', $country)
 			->with(compact('languages','related_games', 'game', 'discounted_games'));
+	}
+
+	public function getCreateApp($id) {
+		$game = Game::find($id);
+
+		$languages = Language::all();
+		$carriers = [];
+		$currencies = [];
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+
+		$cr = Country::distinct()->select('currency_code','name')->get();
+
+		foreach($cr as $currency) {
+			if($currency->currency_code != '') {
+				$currencies[$currency->currency_code] = $currency->currency_code . ' ('. $currency->name .')';
+			}
+		}
+
+		return View::make('admin.games.apps.create')
+			->with(compact('game','carriers','languages','currencies'));
+	}
+
+	public function postStoreApp($id) {
+		$game = Game::find($id);
+		$validator = Validator::make($data = Input::all(), Game::$app_rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$values = [
+			'carrier_id' => Input::get('carrier_id'),
+			'language_id' => Input::get('language_id'),
+			'app_id' => Input::get('app_id'),
+			'title' => Input::get('title'),
+			'content' => Input::get('content'),
+			'excerpt' => Input::get('excerpt'),
+			'currency_code' => Input::get('currency_code'),
+			'price' => Input::get('price')
+		];
+ 
+		$game->apps()->attach([Input::get('carrier_id'), Input::get('language_id')], $values);
+
+		return Redirect::route('admin.games.edit.app', array('game_id' => $game->id, 'app_id' => Input::get('app_id')))
+								->with('message', 'You have successfully added an app.');
+
+	}
+
+	public function getEditApp($id, $app_id) {
+		$game = Game::find($id);
+
+		$languages = Language::all();
+		$carriers = [];
+		$currencies = [];
+		$values = [];
+
+		foreach($game->apps as $app) {
+			if($app->pivot->app_id == $app_id) {
+				$values['carrier_id'] = $app->pivot->carrier_id;
+				$values['language_id'] = $app->pivot->language_id;
+				$values['title'] = $app->pivot->title;
+				$values['content'] = $app->pivot->content;
+				$values['excerpt'] = $app->pivot->excerpt;
+				$values['currency_code'] = $app->pivot->currency_code;
+				$values['price'] = $app->pivot->price;
+				$values['app_id'] = $app_id;
+			}
+		}
+
+		foreach(Carrier::all() as $carrier) {
+			$carriers[$carrier->id] = $carrier->carrier;
+		}
+
+		$cr = Country::distinct()->select('currency_code','name')->get();
+
+		foreach($cr as $currency) {
+			if($currency->currency_code != '') {
+				$currencies[$currency->currency_code] = $currency->currency_code . ' ('. $currency->name .')';
+			}
+		}
+
+		return View::make('admin.games.apps.edit')
+			->with(compact('game','carriers','languages','currencies', 'values', 'app_id'));
+
+	}
+
+	public function postUpdateApp($id, $app_id) {
+
+		$game = Game::find($id);
+		$app = GameApp::where('app_id', '=', $app_id)->get()->first();
+
+		$edit_rules = GameApp::$rules;
+
+		$edit_rules['app_id'] = 'required|unique:apps,app_id,' . $app->id;
+
+		$validator = Validator::make($data = Input::all(), $edit_rules, GameApp::$messages);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$values = [
+			'carrier_id' => Input::get('carrier_id'),
+			'language_id' => Input::get('language_id'),
+			'app_id' => Input::get('app_id'),
+			'title' => Input::get('title'),
+			'content' => Input::get('content'),
+			'excerpt' => Input::get('excerpt'),
+			'currency_code' => Input::get('currency_code'),
+			'price' => Input::get('price')
+		];
+
+		$app->update($values);
+
+		return Redirect::back()->with('message', 'You have successfully updated this app.');
+
+		// $game->apps()->updateExistingPivot([Input::get('carrier_id'), Input::get('language_id')], array('default' => 0));
+	}
+
+	public function postDeleteApp($game_id, $id) {
+
+		$app = GameApp::where('app_id', '=', $id)->get()->first();
+
+		$url = route('admin.games.edit', $game_id) . '#apps';
+
+		if($app) {
+			$app->delete();
+			return Redirect::to($url)
+				->with('message', 'App deleted')
+				->with('sof', 'success');
+		}
+
+		return Redirect::to($url)
+			->with('message', 'Something went wrong. Try again.')
+			->with('sof', 'failed');
 	}
     
 }

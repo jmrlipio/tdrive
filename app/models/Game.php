@@ -6,15 +6,12 @@ class Game extends \Eloquent {
 
 	use TriplePivotTrait;
 
-	protected $fillable = ['app_id','user_id','carrier_id','main_title','slug','status','featured','release_date','default_price','downloads','default_price','category_id','image_orientation'];
+	protected $fillable = ['user_id','main_title','slug','status','featured','release_date','default_price','downloads','image_orientation'];
 
 	public static $rules = [
-		'app_id' => 'required|integer',
 		'user_id' => 'required|integer',
-		'carrier_id' => 'required|integer',
 		'main_title' => 'required|min:2',
 		'slug' => 'required|min:2',
-		'featured' => 'required|boolean',
 		'release_date' => 'required|date',
 		'downloads' => 'required|numeric',
 		'default_price' => 'required|numeric'
@@ -27,6 +24,13 @@ class Game extends \Eloquent {
 	public static $fieldRules = [
 		'language_id' 	=> 'required',
 		'category_id' => 'required'
+	];
+
+	public static $app_rules = [
+		'title' => 'required',
+		'content' => 'required|max:1000',
+		'excerpt' => 'required',
+		'price' => 'required|numeric'
 	];
 
 	public function user() {
@@ -56,6 +60,10 @@ class Game extends \Eloquent {
 
 	public function prices() {
         return $this->tripleBelongsToMany('Carrier', 'Country', 'game_prices')->withPivot('price', 'carrier_id');
+    }
+
+    public function apps() {
+        return $this->tripleBelongsToMany('Carrier', 'Language', 'apps')->withPivot('carrier_id','language_id','app_id', 'price', 'title', 'content', 'excerpt', 'currency_code');
     }
 
     public function contents() {
