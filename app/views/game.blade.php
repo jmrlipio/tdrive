@@ -109,28 +109,31 @@
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
 
-					@unless ($game->default_price == 0)
-						@foreach($game->prices as $price) 
-							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-								<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
-									$sale_price = $price->pivot->price * (1 - ($dc/100));
-								 ?>
-								@if($dc != 0)
-									<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-									<p class="price repo">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-								@else														 
-									@if($price->pivot->price == 0)
-															
-										<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
-									@else													 
-										
-										<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-									@endif
-								@endif								
+						@foreach($game->apps as $apps)
+
+							@if($apps->pivot->app_id == $app_id)
+
+								@unless ($apps->pivot->price == 0)
+            
+					            	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+					              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
+					              	?>
+					             
+						            @if($dc != 0)
+						              
+						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
+
+						            @else
+						            
+						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
+
+						            @endif            
+					             
+					            @endunless
 
 							@endif
+
 						@endforeach
-					@endunless
 
 				</div>
 			</a>
@@ -141,28 +144,31 @@
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
 
-					@unless ($game->default_price == 0)
-						@foreach($game->prices as $price) 
-							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-								<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
-									$sale_price = $price->pivot->price * (1 - ($dc/100));
-								 ?>
-								@if($dc != 0)
-									<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-									<p class="price repo">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-								@else														 
-									@if($price->pivot->price == 0)
-															
-										<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
-									@else													 
-										
-										<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-									@endif
-								@endif								
+					@foreach($game->apps as $apps)
 
-							@endif
-						@endforeach
-					@endunless
+						@if($apps->pivot->app_id == $app_id)
+
+							@unless ($apps->pivot->price == 0)
+            
+				            	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+				              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
+				              	?>
+				             
+					            @if($dc != 0)
+					              
+					            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
+
+					            @else
+					            
+					            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
+
+					            @endif            
+				             
+				            @endunless
+
+						@endif
+
+					@endforeach
 
 				</div>
 			</a>
@@ -184,7 +190,7 @@
 
 	<div id="description" class="container">
 		
-		@foreach($game->contents as $item)
+		{{-- @foreach($game->contents as $item)
 			@if(Session::has('locale'))
 				@if(Session::get('locale') == strtolower($item->iso_code))
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
@@ -194,6 +200,15 @@
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
 				@endif
 			@endif
+  		@endforeach --}}
+  		@foreach($game->apps as $app)
+
+			@if($app->pivot->app_id == $app_id)
+				
+			<div class="content">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+
+			@endif
+
   		@endforeach
 
 	</div><!-- end #description -->
@@ -337,7 +352,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 2.5 }}%"></span>
+							<span style="width: {{ ($ratings['five'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['five'] }}</p>
 						</div>
@@ -353,7 +368,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 2.5 }}%"></span>
+							<span style="width: {{ ($ratings['four'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['four'] }}</p>
 						</div>
@@ -367,7 +382,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 2.5 }}%"></span>
+							<span style="width: {{ ($ratings['three'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['three'] }}</p>
 						</div>
@@ -380,7 +395,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 2.5 }}%"></span>
+							<span style="width: {{ ($ratings['two'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['two'] }}</p>
 						</div>
@@ -392,7 +407,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 2.5 }}%"></span>
+							<span style="width: {{ ($ratings['one'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['one'] }}</p>
 						</div>
@@ -799,6 +814,7 @@
 				url: "<?php echo URL::route('games.content.load'); ?>",
 				data: { 
 					id: <?php echo Request::segment(2); ?>,
+					app_id: '<?php echo Request::segment(3); ?>',
 					_token: token
 				},
 
