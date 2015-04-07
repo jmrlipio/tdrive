@@ -125,7 +125,7 @@ class HomeController extends BaseController {
 		$game_settings = GameSetting::all();
 
 		$featured_games = Game::where('featured', 1)
-			->whereCarrierId(Session::get('carrier'))
+			/*->whereCarrierId(Session::get('carrier'))*/
 			->orderBy('created_at', 'DESC')			
 			->get();
 
@@ -133,7 +133,8 @@ class HomeController extends BaseController {
 
 		/* Get all games by carrier id */
 
-		$games = Game::whereCarrierId(Session::get('carrier'))->get();		
+		//$games = Game::whereCarrierId(Session::get('carrier'))->get();
+		//$games = Game::all();		
 
 		/* End */
 		$limit = $game_settings[0]->game_thumbnails;
@@ -179,11 +180,19 @@ class HomeController extends BaseController {
 						'title' => $game->main_title, 
 						'id' => $game->id,
 						'slug' => $game->slug,
-						'carrier' => $game->carrier->carrier);
+						'carrier' =>'test');
 					
 				}
 			}
 		}
+		$cid = Session::get('carrier');
+	
+		$games = Game::whereHas('apps', function($q) use ($cid)
+		  {
+		      $q->where('carrier_id', '=', $cid);
+
+		  })->get();
+			
 
 		foreach(News::all() as $nw) {
 			//$news_slide[$nw->id] = $nw->homepage_image;
@@ -197,6 +206,7 @@ class HomeController extends BaseController {
 
 		}
 
+		
 		/* END */
 
 		return View::make('index')
