@@ -337,7 +337,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['five'] }}</p>
 						</div>
@@ -353,7 +353,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['four'] }}</p>
 						</div>
@@ -367,7 +367,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['three'] }}</p>
 						</div>
@@ -380,7 +380,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['two'] }}</p>
 						</div>
@@ -392,7 +392,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['one'] }}</p>
 						</div>
@@ -411,7 +411,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -427,7 +427,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -441,7 +441,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -454,7 +454,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -466,7 +466,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
