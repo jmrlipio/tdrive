@@ -19,70 +19,68 @@
 			<div class="row">
 				<div id="scroll" class="clearfix">
 					
-					{{-- {{ '<pre>' }} --}}
-					{{-- {{ $related_games }} --}}
-					{{-- {{ '</pre>' }} --}}
-					
 					@foreach ($related_games as $game)
 						@foreach ($game->media as $media)
 							
 							@if($media->type == 'icons')
-								<div class="item">
-									<div class="thumb relative">
-										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-										@endif
+								@foreach($game->apps as $app)
+									@if(strtolower($app->language->iso_code) == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))
 
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image" >{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
-
-										@if ($game->default_price == 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
-										@endif
-
-										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
-										@endif
-
-										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-										@endif
-
-
-							<!-- 	<img src="{{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}"> -->
-
-							<!-- If image url can't be located, change the url to -->
-							<!--  {{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}  -->
-									
-
-
-									</div>
-
-									<div class="meta">
-										<p>{{ $game->main_title }}</p>
-
-										
-										@unless ($game->default_price == 0)
-											@foreach($game->prices as $price) 
-											<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
-												$sale_price = $price->pivot->price * (1 - ($dc/100));
-											 ?>
-												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													@if($dc != 0)														
-														<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-													@else														 
-														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
+											<div class="item">
+												<div class="thumb relative">
+													@if ($game->default_price == 0)
+														<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 													@endif
-												@endif
-											@endforeach
-										@endunless
-									</div>
 
-									@if ($game->default_price == 0)
-										<!--<div class="button center"><a href="#">Get</a></div>-->
-									@else
-										<!--<div class="button center"><a href="#">Buy</a></div>-->
+														<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}" class="thumb-image" >{{ HTML::image('assets/games/icons/' . $media->url, $game->main_title) }}</a>
+
+													@if ($game->default_price == 0)
+														<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+													@endif
+
+													@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+														<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+													@endif
+
+													@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+														<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+													@endif
+
+
+										<!-- 	<img src="{{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}"> -->
+
+										<!-- If image url can't be located, change the url to -->
+										<!--  {{ Request::root() . '/assets/games/icons/'. $media->url }}" alt="{{ $game->main_title }}  -->
+												
+
+												</div>
+
+												<div class="meta">
+													<p>{{ $game->main_title }}</p>
+
+													
+													@unless ($app->pivot->price == 0)
+															
+														<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+															$sale_price = $app->pivot->price * (1 - ($dc/100));
+														 ?>
+														
+														@if($dc != 0)
+														
+															<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
+
+
+														@else
+															<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+
+														@endif										
+														
+													@endunless
+												</div>
+
+											</div>
 									@endif
-								</div>
+								@endforeach
 							@endif
 
 						@endforeach
