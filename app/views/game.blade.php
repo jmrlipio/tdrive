@@ -586,6 +586,7 @@
 											<div class="thumb relative">
 
 												@if ($game->default_price == 0)
+
 													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
 												
@@ -600,8 +601,9 @@
 												@endif
 
 												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-												@endif
+													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>													
+												@endif											
+												
 
 											</div>
 
