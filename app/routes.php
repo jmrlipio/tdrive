@@ -13,6 +13,8 @@ Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'Listing
 
 Route::get('game/{id}/{slug}-{carrier}-{language}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 // Route::get('game/{id}/{slug}/{carrier}/{language}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+// Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+
 Route::post('game/{id}', array('as' => 'game.show.post', 'uses' => 'GamesController@show'));
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
 Route::post('category/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
@@ -81,6 +83,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('carriers', 'CarriersController');
     Route::resource('discounts', 'DiscountsController');
 
+
+
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));
     Route::post('general-settings', array('as' => 'admin.general-settings.update', 'uses' => 'SiteOptionsController@updateGeneralSettings'));
@@ -96,17 +100,20 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));
     Route::get('reviews', array('as' => 'admin.reviews.index', 'uses' => 'ReviewsController@admin_index'));
    
+    Route::resource('media', 'MediaController');
     Route::resource('news', 'NewsController');
     Route::post('news/{id}/update-fields', array('as' => 'admin.news.update-fields', 'uses' => 'NewsController@updateFields'));
-    Route::get('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@getLanguageContent'));
-    Route::post('news/{id}/edit/content/{language}', array('as' => 'admin.news.edit.content', 'uses' => 'NewsController@updateLanguageContent'));
-    Route::post('news/{id}/edit-media', array('as' => 'admin.news.update-media', 'uses' => 'NewsController@updateMedia'));
-    Route::get('faq/{id}/variant', array('as' => 'admin.faqs.variant', 'uses' => 'FaqsController@addVariant'));
-    Route::resource('media', 'MediaController');
+    Route::get('news/{id}/create/variant', array('as' => 'admin.news.variant.create', 'uses' => 'NewsController@addVariant'));
+    Route::post('news/{id}/store/variant', array('as' => 'admin.news.variant.store', 'uses' => 'NewsController@storeVariant'));
+    Route::get('news/{id}/edit/variant/{language}', array('as' => 'admin.news.variant.edit', 'uses' => 'NewsController@editVariant'));
+    Route::put('news/{id}/update/variant/{language}', array('as' => 'admin.news.variant.update', 'uses' => 'NewsController@updateVariant'));
+    Route::delete('news/{id}/delete/variant/{language}', array('as' => 'admin.news.variant.delete', 'uses' => 'NewsController@deleteVariant'));
+    
     Route::resource('faqs', 'FaqsController');
-    Route::get('faq/{id}/edit/variant/{language}', array('as' => 'admin.faqs.variant.edit', 'uses' => 'FaqsController@editVariant'));
+    Route::get('faq/{id}/variant', array('as' => 'admin.faqs.variant', 'uses' => 'FaqsController@addVariant'));
     Route::get('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.create', 'uses' => 'FaqsController@addVariant'));
     Route::post('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.store', 'uses' => 'FaqsController@storeVariant'));
+    Route::get('faq/{id}/edit/variant/{language}', array('as' => 'admin.faqs.variant.edit', 'uses' => 'FaqsController@editVariant'));
     Route::put('faq/{id}/update/variant/{language}', array('as' => 'admin.faqs.variant.update', 'uses' => 'FaqsController@updateVariant'));
     Route::delete('faq/{id}/delete/variant/{language}', array('as' => 'admin.faqs.variant.delete', 'uses' => 'FaqsController@deleteVariant'));
     
