@@ -15,7 +15,13 @@ class ListingController extends \BaseController {
 
 		$country = Country::find(Session::get('country_id'));
 
-		$games = Game::all()->take(6);
+		$cid = Session::get('carrier');
+	
+		$games = Game::whereHas('apps', function($q) use ($cid)
+		  {
+		      $q->where('carrier_id', '=', $cid);
+
+		  })->get()->take(6);
 
 		$games_all = Game::all();
 
@@ -86,7 +92,7 @@ class ListingController extends \BaseController {
 
 		$games_all = Category::find($id)->games;
 
-		$count = count($games_all);
+		$count = count($games_all);		
 
 		return View::make('category')
 			->with('page_title', $category->category)
