@@ -420,7 +420,7 @@ class NewsController extends \BaseController {
 			$languages[$language->id] = $language->language;
 		}
 
-		return View::make('admin.news.variant.edit')
+		return Redirect::route('admin.news.variant.edit', array('id' => $id, 'language_id' => $language_id))
 			->with(compact('news', 'languages', 'data'))
 			->with('language_id', $language_id)
 			->with('message', 'You have successfully added a variant.');
@@ -446,8 +446,7 @@ class NewsController extends \BaseController {
 
 		return View::make('admin.news.variant.edit')
 			->with(compact('news', 'languages', 'data'))
-			->with('language_id', $language_id)
-			->with('message', 'You have successfully updated this variant.');
+			->with('language_id', $language_id);
     }
 
     public function updateVariant($id, $language_id) {
