@@ -20,7 +20,7 @@
 				<div id="scroll" class="clearfix">
 					
 					{{-- {{ '<pre>' }} --}}
-					{{-- {{ count($related_games) }} --}}
+					{{-- {{ $related_games }} --}}
 					{{-- {{ '</pre>' }} --}}
 					
 					@foreach ($related_games as $game)

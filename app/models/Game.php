@@ -18,7 +18,7 @@ class Game extends \Eloquent {
 	];
 
 	public static $content_rules = [
-		'content' => 'max:1000'
+		'content' => 'max:10000'
 	];
 
 	public static $fieldRules = [
