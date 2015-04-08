@@ -67,6 +67,12 @@ Route::filter('auth', function()
 {
 	if (Auth::guest())
 	{
+		// Save the attempted URL
+		// Session::put('pre_login_url', URL::current());
+
+		// // Redirect to login
+		// return Redirect::to('login');
+		
 		if (Request::ajax())
 		{
 			return Response::make('Unauthorized', 401);

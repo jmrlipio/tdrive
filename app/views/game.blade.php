@@ -139,7 +139,7 @@
 			</a>
 			
 			@else 
-
+			{{ Session::put('pre_login_url', Request::url()); }}
 			<a href="{{ URL::route('users.login')}}" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
