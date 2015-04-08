@@ -153,9 +153,11 @@ class HomeController extends BaseController {
 			}
 		}
 
-		foreach(Language::all() as $language) {
-			$languages[$language->id] = $language->language;
-		}
+		$languages = Language::all();
+
+		// foreach(Language::all() as $language) {
+		// 	$languages[$language->id] = $language->language;
+		// }
 
 		/*BaseController::test(Input::get('country_id'));*/
 		
@@ -213,7 +215,6 @@ class HomeController extends BaseController {
 			);
 
 		}
-
 		
 		/* END */
 
