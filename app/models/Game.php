@@ -41,29 +41,20 @@ class Game extends \Eloquent {
 		return $this->belongsToMany('Category', 'game_categories');
 	}
 
-	public function carrier() {
-		return $this->belongsTo('Carrier');
-	}
-
 	public function media() {
 		return $this->belongsToMany('Media', 'game_media')->withPivot('id');
 	}
-
-    public function languages()
-    {
-        return $this->morphToMany('Language', 'languagable');
-    }
 
     public function sales() {
 		return $this->belongsToMany('Carrier', 'sale_games');
 	}
 
-	public function prices() {
-        return $this->tripleBelongsToMany('Carrier', 'Country', 'game_prices')->withPivot('price', 'carrier_id');
-    }
-
     public function apps() {
         return $this->tripleBelongsToMany('Carrier', 'Language', 'apps')->withPivot('carrier_id','language_id','app_id', 'price', 'title', 'content', 'excerpt', 'currency_code');
+    }
+
+    public function prices() {
+        return $this->tripleBelongsToMany('Carrier', 'Country', 'game_prices')->withPivot('price', 'carrier_id');
     }
 
     public function contents() {

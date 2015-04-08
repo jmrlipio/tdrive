@@ -238,6 +238,7 @@ class NewsController extends \BaseController {
 		$edit_rules = News::$rules;
 
 		$edit_rules['featured_image'] = '';
+		$edit_rules['homepage_image'] = '';
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
 
@@ -389,5 +390,95 @@ class NewsController extends \BaseController {
 			->with('categories', $categories)
 			->with('selected', $selected_cat);
     }
+
+    public function addVariant($id) {
+    	$news = News::findOrFail($id);
+		$languages = [];
+
+		foreach(Language::all() as $language) {
+			$languages[$language->id] = $language->language;
+		}
+
+		return View::make('admin.news.variant.create')
+			->with(compact('news', 'languages'));
+    }
+
+    public function storeVariant($id) {
+    	$news = News::findOrFail($id);
+		$language_id = Input::get('language_id');
+		$languages = [];
+
+		$data = [
+			'title' => Input::get('title'),
+			'content' => Input::get('content'),
+			'excerpt' => Input::get('excerpt')
+		];
+
+		$news->languages()->attach($language_id, $data);
+
+		foreach(Language::all() as $language) {
+			$languages[$language->id] = $language->language;
+		}
+
+		return Redirect::route('admin.news.variant.edit', array('id' => $id, 'language_id' => $language_id))
+			->with(compact('news', 'languages', 'data'))
+			->with('language_id', $language_id)
+			->with('message', 'You have successfully added a variant.');
+    }
+
+    public function editVariant($news_id, $language_id) {
+    	$news = News::findOrFail($news_id);
+		$languages = [];
+		
+		$data = [];
+
+		foreach(Language::all() as $language) {
+			$languages[$language->id] = $language->language;
+		}
+
+		foreach($news->languages as $nw) {
+			if($nw->pivot->language_id == $language_id) {
+				$data['title'] = $nw->pivot->title;
+				$data['content'] = $nw->pivot->content;
+				$data['excerpt'] = $nw->pivot->excerpt;
+			}
+		}
+
+		return View::make('admin.news.variant.edit')
+			->with(compact('news', 'languages', 'data'))
+			->with('language_id', $language_id);
+    }
+
+    public function updateVariant($id, $language_id) {
+		$news = News::findOrFail($id);
+
+		$validator = Validator::make($data = Input::all(), News::$content_rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$data = [
+			'title' => Input::get('title'),
+			'content' => Input::get('content'),
+			'excerpt' => Input::get('excerpt')
+		];
+
+		$news->languages()->updateExistingPivot($language_id, $data);
+		
+		return Redirect::back()->with('message', 'You have successfully updated this variant.');
+	}
+
+	public function deleteVariant($id, $language_id) {
+		$news = News::findOrFail($id);
+
+		$news->languages()->detach($language_id);
+		$message = 'Successfully deleted variant.';
+
+		return Redirect::route('admin.news.index')
+			->with('message', $message);
+	}
+
 
 }

@@ -8,10 +8,15 @@ class News extends \Eloquent {
 		'main_title' => 'required|min:2',
 		'slug' => 'required|min:2',
 		'status' => 'required',
-		// 'release_date' => 'required|date',
 		'news_category_id' => 'required|integer',
 		'featured_image' => 'required',
 		'homepage_image' => 'required'
+	];
+
+	public static $content_rules = [
+		'title' => 'required|min:2',
+		'content' => 'required:max:2000',
+		'excerpt' => 'required'
 	];
 
 	public static $fieldRules = [
@@ -23,7 +28,7 @@ class News extends \Eloquent {
 	}
 
 	public function languages() {
-		return $this->morphToMany('Language', 'languagable');
+		return $this->BelongsToMany('Language', 'news_contents')->withPivot('language_id', 'title', 'content', 'excerpt');
 	}
 
 	public function comments() {

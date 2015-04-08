@@ -11,11 +11,6 @@
 
 	<br>
 	<div class='large-form tab-container' id='tab-container'>
-		<ul class='etabs'>
-			<li class='tab'><a href="#content">Content</a></li>
-			<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
-			<li class='tab'><a href="#news-content">News Content</a></li>
-		</ul>
 		<div class='panel-container'>
 			<ul id="content">
 				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
@@ -66,31 +61,6 @@
 					{{ Form::submit('Save') }}
 				{{ Form::close() }}
 			</ul>
-			<ul id="custom-fields">
-				{{ Form::open(array('route' => array('admin.news.update-fields', $news->id), 'method' => 'post')) }}
-					<li>
-						{{ Form::label('language_id', 'Languages: ') }}
-						{{ Form::select('language_id[]', $languages, $selected_languages, array('multiple' => 'multiple', 'class' => 'chosen-select', 'id' => 'languages', 'data-placeholder'=>'Choose language(s)...'))  }}
-						{{ $errors->first('language_id', '<p class="error">:message</p>') }}
-					</li>
-					{{ Form::submit('Update Fields', array('class' => 'update-content')) }}
-				{{ Form::close() }}
-			</ul>
-			<ul id="news-content">
-				<h3>The has content for the following languages:</h3>
-				<br>
-				@if($selected_languages)
-				<ul>
-					@foreach($languages as $language_id => $language)
-						@if(in_array($language_id, $selected_languages))
-							<li><a href="{{ URL::route('admin.news.edit.content', array('news_id' => $news->id, 'language_id' => $language_id)) }}">{{ $language }}</a></li>
-						@endif
-					@endforeach
-				</ul>
-				@else
-					<p>Please select one or more languages to add content to this news.
-				@endif
-			</ul>
 		</div>
 		
 		
@@ -107,8 +77,6 @@
 		img_li;
 
 	$(document).ready(function() {
-		// Initializes different tab sections
-		$('.tab-container').easytabs();
 
 		// Date picker for Release Date
         $("#release_date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
@@ -125,13 +93,6 @@
 			height : 300
 		});
 
-		$(".chosen-select").chosen();
-
-// Appends fields for adding screenshots on Images tab		
-
-		$('#tab-container > .etabs a').click(function() {
-			$('body').scrollTop(0);
-		});
 
 		// Opens media dialog for selecting featured and screenshots images
 		$("#feature-image").on('click', '.select-img',function(){

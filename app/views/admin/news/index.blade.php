@@ -19,7 +19,6 @@
 		<table class="table table-striped table-bordered table-hover"  id="news_table">
 			<thead>
 				<tr>
-					<th><input type="checkbox"></th>
 					<th>Title</th>
 					<th>Languages</th>
 					<th>Category</th>
@@ -30,31 +29,25 @@
 			<tbody>
 				@foreach($news as $data)					
 					<tr>
-						<td><input type="checkbox"></td>
 						<td>
 							<a href="{{ URL::route('admin.news.edit', $data->id) }}">{{ $data->main_title }}</a>
 							<ul class="actions">
 								<li><a href="{{ URL::route('admin.news.edit', $data->id) }}">Edit</a></li>
-								<li><a href="">View</a></li>
+								<li><a href="{{ URL::route('admin.news.variant.create', $data->id) }}">Add Variant</a></li>
 								<li>
-								{{ Form::open(array('route' => array('admin.news.destroy', $data->id), 'method' => 'delete', 'class' => 'delete-form')) }}
-									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-								{{ Form::close() }}
-
+									{{ Form::open(array('route' => array('admin.news.destroy', $data->id), 'method' => 'delete', 'class' => 'delete-form')) }}
+										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+									{{ Form::close() }}
 								</li>
 							</ul>
 						</td>
 						<td>
 							@foreach($data->languages as $row)
-								{{ $row->language }}
+								<a href="{{ URL::route('admin.news.variant.edit', array('news_id' => $data->id, 'variant_id' => $row->id)) }}">{{ $row->language }}</a>
 							@endforeach
 						</td>
-
-						<td>								
-							{{ $data->NewsCategory->category }}								
-						</td>
+						<td>{{ $data->NewsCategory->category }}</td>
 						<td>{{ $data->created_at }}</td>
-						
 					</tr>		
 				@endforeach
 			</tbody>

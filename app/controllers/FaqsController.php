@@ -190,8 +190,7 @@ class FaqsController extends \BaseController {
 			->with('question', $question)
 			->with('answer', $answer)
 			->with('default', $default)
-			->with('language_id', $language_id)
-			->with('message', 'You have successfully updated this variant.');
+			->with('language_id', $language_id);
 	}
 
 	public function updateVariant($id, $language_id) {

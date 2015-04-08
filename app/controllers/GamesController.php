@@ -66,12 +66,42 @@ class GamesController extends \BaseController {
 		foreach($game->categories as $cat) {
 			$categories[] = $cat->id;
 		}
+
+		$user_id = (Auth::check()) ? Auth::user()->id : 0;
+
+		if(!Session::has('carrier')) {
+			$uri = explode("/", "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+			end($uri);
+			$key = key($uri);
+
+			$app_id = $uri[$key];
+
+			$app_details = explode("-", $app_id);
+
+			end($app_details);
+			$locale = current($app_details);
+			$carrier_name = prev($app_details);
+
+			Session::forget('carrier_name');
+			Session::forget('carrier');
+			Session::forget('locale');
+
+			foreach(Carrier::all() as $carrier) {
+				if(strpos(strtolower($carrier->carrier), $carrier_name) !== false) {
+					Session::put('carrier', $carrier->id);
+					Session::put('carrier_name', $carrier->carrier);
+					break;
+				}
+			}
+
+			Session::put('locale', $locale);
+		}
+
 		$cid = Session::get('carrier');
 		$games = Game::whereHas('apps', function($q) use ($cid)
-		  {
-		      $q->where('carrier_id', '=', $cid);
-
-		  })->get();
+				 {
+				    $q->where('carrier_id', '=', $cid);
+				 })->get();
 		
 		$related_games = [];
 
@@ -111,6 +141,7 @@ class GamesController extends \BaseController {
 			->with('current_game', $current_game)
 			->with('country', $country)
 			->with('app_id', $app_id)
+			->with('user_id', $user_id)
 			->with(compact('languages','related_games', 'game', 'discounted_games', 'game_id'));
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/

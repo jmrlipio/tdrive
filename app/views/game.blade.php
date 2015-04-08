@@ -681,7 +681,8 @@
 		FastClick.attach(document.body);
 
 		var token = $('input[name="_token"]').val();
-
+		var app_id = '{{ $app_id }}';
+		var user_id = '{{ $user_id }}';
 		var carrier_form = '';
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
@@ -751,63 +752,91 @@
         $("#share a").jqSocialSharer();
 
 		$("#buy").on('click',function() {
-			 $.ajax({
-			 	type: "get",
-			 	url: "{{ URL::route('games.carrier', $game->id) }}",
-			 	dataType: "json",
-			 	complete:function(data) {
-			 		console.log(data['responseText']);
-					var append = '<select id="carrier-select">';
+			 // $.ajax({
+			 // 	type: "get",
+			 // 	url: "{{ URL::route('games.carrier', $game->id) }}",
+			 // 	dataType: "json",
+			 // 	complete:function(data) {
+			 // 		console.log(data['responseText']);
+				// 	var append = '<select id="carrier-select">';
 
-					JSON.parse(data['responseText'], function (id, carrier) {		    
-					    append += '<option value="' + id + '">' + carrier + '</option>';
-					});
+				// 	JSON.parse(data['responseText'], function (id, carrier) {		    
+				// 	    append += '<option value="' + id + '">' + carrier + '</option>';
+				// 	});
 
-					append += '</select><br>';
+				// 	append += '</select><br>';
 					
-					if($('#carrier-container').find('#carrier-select').length == 0) {
-						$('#submit-carrier').before(append);
-						}
+				// 	if($('#carrier-container').find('#carrier-select').length == 0) {
+				// 		$('#submit-carrier').before(append);
+				// 		}
 
-					$('#carrier-select option:last').remove();
-					$('#carrier-select option:last').remove();
-                }
-            });
+				// 	$('#carrier-select option:last').remove();
+				// 	$('#carrier-select option:last').remove();
+    //             }
+    //         });
 
-			$('#buy').fancybox({
-				'titlePosition'     : 'inside',
-	            'transitionIn'      : 'none',
-	            'transitionOut'     : 'none',
+			// $('#buy').fancybox({
+			// 	'titlePosition'     : 'inside',
+	  //           'transitionIn'      : 'none',
+	  //           'transitionOut'     : 'none',
+	  //           afterClose: function() {
+	  //           	$.fancybox({
+			//             'width': '80%',
+			//             'height': '60%',
+			//             'autoScale': true,
+			//             'transitionIn': 'fade',
+			//             'transitionOut': 'fade',
+			//             'type': 'iframe',
+			//             'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
+			//             afterClose: function() {
+			//             	$.ajax({
+			// 				 	type: "get",
+			// 				 	url: "{{ URL::route('games.status', $game->id) }}",
+			// 				 	complete:function(data) {
+
+			// 				 		var response = JSON.parse(data['responseText']);
+			// 				 		console.log(response.status);
+			// 						if(response.status == 1) {
+			// 							$('#game-download').css('display', 'block');
+			// 							$('#buy').css('display', 'none');
+
+			// 							var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
+			// 							$('#game-download').attr('href', url);
+			// 						}
+			// 	                }
+			// 	            });
+			//             }
+			//         });
+	  //           }
+			// });
+
+			$.fancybox({
+	            'width': '80%',
+	            'height': '60%',
+	            'autoScale': true,
+	            'transitionIn': 'fade',
+	            'transitionOut': 'fade',
+	            'type': 'iframe',
+	            'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
 	            afterClose: function() {
-	            	$.fancybox({
-			            'width': '80%',
-			            'height': '60%',
-			            'autoScale': true,
-			            'transitionIn': 'fade',
-			            'transitionOut': 'fade',
-			            'type': 'iframe',
-			            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-			            afterClose: function() {
-			            	$.ajax({
-							 	type: "get",
-							 	url: "{{ URL::route('games.status', $game->id) }}",
-							 	complete:function(data) {
+	            	$.ajax({
+					 	type: "get",
+					 	url: "{{ URL::route('games.status', $game->id) }}",
+					 	complete:function(data) {
 
-							 		var response = JSON.parse(data['responseText']);
-							 		console.log(response.status);
-									if(response.status == 1) {
-										$('#game-download').css('display', 'block');
-										$('#buy').css('display', 'none');
+					 		var response = JSON.parse(data['responseText']);
+	
+							if(response.status == 1) {
+								$('#game-download').css('display', 'block');
+								$('#buy').css('display', 'none');
 
-										var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
-										$('#game-download').attr('href', url);
-									}
-				                }
-				            });
-			            }
-			        });
+								var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
+								$('#game-download').attr('href', url);
+							}
+		                }
+		            });
 	            }
-			});
+	        });
         });
 
 		$('#description .readmore').click(function(e) {
