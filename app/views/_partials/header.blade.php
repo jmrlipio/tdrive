@@ -225,7 +225,6 @@ $game_settings = GameSetting::all();
 																	
 								@endforeach
 
-
 								<!-- <option id="us" value="us" {{ (strtolower($user_location['isoCode']) == 'us' || Session::get('locale') == 'us' ) ? ' selected' : '' }}>English</option>
 								<option id="th" value="th" {{ (strtolower($user_location['isoCode']) == 'th' || Session::get('locale') == 'th' ) ? ' selected' : '' }}>Thai</option>
 								<option id="id" value="id" {{ (strtolower($user_location['isoCode']) == 'id' || Session::get('locale') == 'id' ) ? ' selected' : '' }}>Bahasa Indonesia</option>
@@ -235,6 +234,7 @@ $game_settings = GameSetting::all();
 								<option id="vn" value="vn" {{ (strtolower($user_location['isoCode']) == 'vn' || Session::get('locale') == 'vn' ) ? ' selected' : '' }}>Vietnamese</option>
 								<option id="jp" value="jp" {{ (strtolower($user_location['isoCode']) == 'jp' || Session::get('locale') == 'jp' ) ? ' selected' : '' }}>Japanese</option>
 								<option id="hi" value="hi" {{ (strtolower($user_location['isoCode']) == 'hi' || Session::get('locale') == 'hi' ) ? ' selected' : '' }}>Hindi</option> -->
+								
 							</select>
 
 							
