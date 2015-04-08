@@ -72,7 +72,9 @@ class HomeController extends BaseController {
 
 		$countries = [];
 
-		Session::put('locale', strtolower($carrier->language->iso_code));
+		if(!Session::has('locale')) {
+			Session::put('locale', strtolower($carrier->language->iso_code));
+		}
 
 		// print_r(Session::all());
 

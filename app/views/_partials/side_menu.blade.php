@@ -62,8 +62,10 @@ $game_settings = GameSetting::all();
 
 			<select name="locale" id="polyglot-language-options">
 				
-				@foreach($languages as $lang)												
+				@foreach($languages as $lang)	
+															
 					<?php $selected = (strtolower($lang->iso_code) == Session::get('locale')) ? ' selected' : ''; ?>
+
 						<option id="{{strtolower($lang->iso_code)}}" value="{{strtolower($lang->iso_code)}}" {{ $selected }}>{{$lang->language}}</option>		
 													
 				@endforeach

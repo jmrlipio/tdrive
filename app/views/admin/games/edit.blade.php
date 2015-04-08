@@ -74,6 +74,7 @@
 						</tr>
 						@if(count($game->apps))
 							@foreach($game->apps as $app)
+								
 								<tr>
 									<td>
 										<a href="{{ URL::route('admin.games.edit.app', array('game_id' => $game->id, 'app_id' => $app->pivot->app_id)) }}">
