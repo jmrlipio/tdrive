@@ -187,8 +187,11 @@ class GamesController extends \BaseController {
 	{
 		$game = Game::find(Input::get('id'));
 
-		foreach($game->contents as $g) {
-			echo $g->pivot->content;
+		foreach($game->apps as $g) {
+			if($g->pivot->app_id == Input::get('app_id')){
+				echo $g->pivot->content;
+			}
+			
 		}
 	}
 

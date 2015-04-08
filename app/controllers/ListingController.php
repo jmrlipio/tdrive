@@ -15,7 +15,13 @@ class ListingController extends \BaseController {
 
 		$country = Country::find(Session::get('country_id'));
 
-		$games = Game::all()->take(6);
+		$cid = Session::get('carrier');
+	
+		$games = Game::whereHas('apps', function($q) use ($cid)
+		  {
+		      $q->where('carrier_id', '=', $cid);
+
+		  })->get()->take(6);
 
 		$games_all = Game::all();
 
@@ -82,18 +88,46 @@ class ListingController extends \BaseController {
 
 		$country = Country::find(Session::get('country_id'));
 
-		$games = Category::find($id)->games->take(6);
+		//$games = Category::find($id)->games->take(6);
+
+		$cid = Session::get('carrier');
+
+		$games = Game::whereHas('apps', function($q) use ($cid)
+		  {
+		      $q->where('carrier_id', '=', $cid);
+	
+		  })->whereHas('categories', function ( $query ) use ($id){
+              
+                $query->where('category_id','=', $id );
+         
+          })->get()->take(6);
+           	
 
 		$games_all = Category::find($id)->games;
 
-		$count = count($games_all);
+		$count = count($games_all);		
+
+		/* For getting discounts */
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())
+			->get();
+
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
 
 		return View::make('category')
 			->with('page_title', $category->category)
 			->with('page_id', 'game-listing')
 			->with('count', $count)
 			->with('country', $country)
-			->with(compact('category'))
+			->with(compact('category','discounted_games'))
 			->with(compact('games'))
 			->with(compact('languages'));
 	}
