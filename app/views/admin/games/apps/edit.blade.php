@@ -75,7 +75,7 @@
 	var app_id = slug + '-' + carrier.find('option:first').text().toLowerCase() + '-' + language.find('option:first').data('isocode');
 
 	$(document).ready(function() {
-		app_text.val(app_id);
+		app_text.val();
 	});
 
 	carrier.on('change', function() {
@@ -85,9 +85,11 @@
 	});
 
 	language.on('change', function() {
+		
 		app_id = slug + '-' + carrier.find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
 
 		app_text.val(app_id);
+
 	});
 
 	</script>

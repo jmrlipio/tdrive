@@ -72,8 +72,10 @@
 							<th>Language</th>
 							<th>Action</th>
 						</tr>
+
 						@if(count($game->apps))
 							@foreach($game->apps as $app)
+								
 								<tr>
 									<td>
 										<a href="{{ URL::route('admin.games.edit.app', array('game_id' => $game->id, 'app_id' => $app->pivot->app_id)) }}">
@@ -81,7 +83,13 @@
 										</a>
 									</td>
 									<td>{{ $app->carrier }}</td>
-									<td>{{ $app->language->language }}</td>
+									<td>
+										@foreach($languages as $language)
+											@if($language->id == $app->pivot->language_id)
+												{{ $language->language }}
+											@endif											
+										@endforeach
+									</td>
 									<td>
 										{{ Form::open(array('route' => array('admin.games.delete.app', $game->id, $app->pivot->app_id), 'method' => 'delete', 'class' => 'delete-form')) }}
 											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}

@@ -287,6 +287,7 @@ class AdminGamesController extends \BaseController {
 
 		$selected_categories = [];
 		$selected_media = [];
+		$languages = Language::all();
 
 		foreach($game->categories as $category) {
 			$selected_categories[] = $category->id;
@@ -318,7 +319,8 @@ class AdminGamesController extends \BaseController {
 			->with('game', $game)
 			->with('selected_categories', $selected_categories)
 			->with('selected_media', $selected_media)
-			->with('categories', $categories);
+			->with('categories', $categories)
+			->with('languages', $languages);
 	}
 
 	// public function getLanguageContent($id, $language_id) {
