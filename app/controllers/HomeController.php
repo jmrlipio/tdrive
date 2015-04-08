@@ -82,6 +82,8 @@ class HomeController extends BaseController {
 			Session::put('locale', strtolower($carrier->language->iso_code));
 		}
 
+		$locale = Language::where('iso_code', '=', strtoupper(Session::get('locale')))->first();
+
 		// print_r(Session::all());
 
 		/* For displaying game discount alert */
@@ -200,7 +202,6 @@ class HomeController extends BaseController {
 		$games = Game::whereHas('apps', function($q) use ($cid)
 		  {
 		      $q->where('carrier_id', '=', $cid);
-
 		  })->get();
 		
 
