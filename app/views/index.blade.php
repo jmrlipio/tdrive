@@ -222,7 +222,7 @@
 
 														<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}" class="thumb-image"><img src="assets/games/icons/{{ $media->url }}"></a>
 
-														@if ($game->default_price == 0)
+														@if ($app->pivot->price == 0)
 															<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 														@endif
 
@@ -239,25 +239,21 @@
 														<p class="name">{{{ $game->main_title }}}</p>
 
 														@unless ($app->pivot->price == 0)
-															@foreach($game->prices as $price) 
-																@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-																	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games); ?>
-																	@if($dc != 0)
-																	<!-- For adding strikethrough to the old price -->
-																		<!-- <p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p> -->
-																		<?php 
-																			$sale_price = $price->pivot->price * (1 - ($dc/100));
-																		 ?>
+												
+															<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+																$sale_price = $app->pivot->price * (1 - ($dc/100));
+															 ?>
+															
+															@if($dc != 0)
+																<p class="price discounted">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+																<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
 
-																		<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
 
-																	@else	
+															@else
+																<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
 
-																		<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>														 
-																		
-																	@endif
-																@endif
-															@endforeach
+															@endif												
+															
 														@endunless
 													</div>
 

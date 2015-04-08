@@ -192,7 +192,7 @@ class HomeController extends BaseController {
 		      $q->where('carrier_id', '=', $cid);
 
 		  })->get();
-			
+		
 
 		foreach(News::all() as $nw) {
 			//$news_slide[$nw->id] = $nw->homepage_image;
