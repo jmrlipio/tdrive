@@ -245,7 +245,7 @@
 															 ?>
 															
 															@if($dc != 0)
-																<p class="price discounted">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+																
 																<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
 
 
