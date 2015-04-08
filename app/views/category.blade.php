@@ -30,14 +30,19 @@
 			<div class="row">
 				<div id="scroll" class="clearfix">
 
-					@foreach ($games as $game)
-						@foreach ($game->media as $media)
-							
-							@if ($media->type == 'icons')
-								@foreach($game->apps as $app)
+					@foreach ($games as $game)												
+						@foreach($game->apps as $app)
+							<?php $iso_code = ''; ?>
+							@foreach($languages as $language)
+								@if($language->id == $app->pivot->language_id)
+									<?php $iso_code = strtolower($language->iso_code); ?>
+								@endif
+							@endforeach
 									
-									@if(strtolower($app->language->iso_code) == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))
-
+							@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))
+								
+								@foreach ($game->media as $media)
+									@if ($media->type == 'icons')
 										<div class="item">
 											<div class="thumb relative">
 
