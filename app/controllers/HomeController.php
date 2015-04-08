@@ -68,6 +68,12 @@ class HomeController extends BaseController {
 			$first_visit = false;
 		}
 
+		if(!Session::has('country_id')) {
+			$user_location = GeoIP::getLocation();
+			$country = Country::where('name', $user_location['country'])->first();
+			$country_id = $country->id;
+		}
+
 		$carrier = Carrier::find(Session::get('carrier'));
 
 		$countries = [];
