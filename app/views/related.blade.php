@@ -180,8 +180,8 @@
 							finished = 1;
 						}
 					}); // End of ajax call
-				}
-			 }
+				} // End of inner condition
+			 } // End of first condition
 		});
 	</script>
 @stop

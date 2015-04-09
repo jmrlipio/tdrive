@@ -273,7 +273,6 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 
-
 		$news = News::where('status', 'live')->orderBy('created_at', 'DESC')->take(6)->get();
 
 		$news_all = News::all();
