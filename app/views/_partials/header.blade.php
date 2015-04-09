@@ -24,7 +24,6 @@ $game_settings = GameSetting::all();
 		{{ $general_settings[2]->value }}
 	@endif
 
-
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -172,8 +171,8 @@ $game_settings = GameSetting::all();
 							$arr_id = [];
 
 							foreach($games as $game){								
-								foreach($game->contents as $content) {
-									$arr_id[] = $content->pivot->language_id;						
+								foreach($game->apps as $app) {
+									$arr_id[] = $app->pivot->language_id;						
 								}
 							}
 

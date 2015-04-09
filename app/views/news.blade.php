@@ -22,15 +22,38 @@
 
 			<div class="title">
 				<div class="vparent">
-					<h2 class="vcenter">{{ $news->main_title }}</h2>
+					<h2 class="vcenter">
+						
+						@foreach($news->languages as $content)
+							<?php $iso_code = ''; ?>
+							@foreach($languages as $language)
+								@if($language->id == $content->pivot->language_id)
+									<?php $iso_code = strtolower($language->iso_code); ?>
+								@endif
+							@endforeach
+							@if($iso_code == Session::get('locale'))
+								{{ htmlspecialchars_decode($content->pivot->title) }}
+							@endif
+						@endforeach
+					</h2>
+
 				</div>
 			</div>
 		</div>
 
 		<div class="description">
 
-			@foreach($news->contents as $item)
-				{{ htmlspecialchars_decode($item->pivot->content) }}
+			@foreach($news->languages as $content)
+				<?php $iso_code = ''; ?>
+					@foreach($languages as $language)
+						@if($language->id == $content->pivot->language_id)
+							<?php $iso_code = strtolower($language->iso_code); ?>
+						@endif
+					@endforeach
+
+					@if($iso_code == Session::get('locale'))
+						{{ htmlspecialchars_decode($content->pivot->content) }}
+					@endif	
 			@endforeach
 
 		</div>
@@ -85,27 +108,25 @@
 	<script>
 		FastClick.attach(document.body);
 
-		var _token = $('#token input').val();
+		var token = $('input[name="_token"]').val();
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
-						_token: _token
+						_token: token
 					},
 					success: function(data) {
+						location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 
@@ -113,21 +134,19 @@
 			effect: 'fade',
 			paramName: 'locale', 
 			websiteType: 'dynamic',
-
+			testMode: true,
 			onChange: function(evt){
-
 				$.ajax({
-					url: "language",
+					url: "{{ URL::route('choose_language') }}",
 					type: "POST",
 					data: {
 						locale: evt.selectedItem,
-						_token: _token
+						_token: token
 					},
 					success: function(data) {
+					    location.reload();
 					}
 				});
-
-				return true;
 			}
 		});
 
