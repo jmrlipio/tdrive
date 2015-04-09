@@ -52,9 +52,19 @@ class ListingController extends \BaseController {
 
 	public function showAllMoreGames() 
 	{
+		$languages = Language::all();
+
 		$load = Input::get('load') * 6;
 
-		$games = Game::take(6)->skip($load)->get();
+		//$games = Game::take(6)->skip($load)->get();
+
+		$cid = Session::get('carrier');
+
+		$games = Game::whereHas('apps', function($q) use ($cid)
+		  {
+		      $q->where('carrier_id', '=', $cid);
+
+		  })->take(6)->skip($load)->get();
 
 		$country = Country::find(Session::get('country_id'));
 		
@@ -76,7 +86,7 @@ class ListingController extends \BaseController {
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-games')
 				->with('country', $country)
-				->with(compact('games', 'discounted_games'));
+				->with(compact('games', 'discounted_games', 'languages'));
 		}
 	}
 
@@ -217,6 +227,7 @@ class ListingController extends \BaseController {
 	{
 		$load = Input::get('load');
 		$game_id = $id;
+		$languages = Language::all();
 
 		$country = Country::find(Session::get('country_id'));
 
@@ -228,17 +239,40 @@ class ListingController extends \BaseController {
 			$categories[] = $cat->id;
 		}
 
-		$related_games = Game::whereHas('categories', function($q) use ($categories)
+		$ids = Input::get('ids');
+
+		// echo '<pre>';
+		// print_r($ids);
+		// echo '</pre>';
+
+		$related_games = Game::whereHas('categories', function($q) use ($categories, $ids)
 		{
 		    $q->whereIn('category_id', $categories);
 
-		})->take(6)->skip($load)->get();
+		})->whereNotIn('id', $ids)->get();
+
+		// echo '<pre>';
+		// print_r($related_games->toArray());
+		// echo '</pre>';
+
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())		
+			->get();
+		
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
 
 
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-related')
 				->with('country', $country)
-				->with(compact('related_games'));
+				->with(compact('related_games', 'languages','discounted_games'));
 		}
 	}
 
