@@ -1,45 +1,61 @@
-{{-- {{ '<pre>' }} --}}
-{{-- {{ count($related_games) }} --}}
-{{-- {{ '</pre>' }} --}}
-@foreach ($related_games as $game)
-	@foreach ($game->media as $media)
+@foreach($related_games as $game)
+						@foreach($game->apps as $app)
+							<?php $iso_code = ''; ?>
+							@foreach($languages as $language)
+								@if($language->id == $app->pivot->language_id)
+									<?php $iso_code = strtolower($language->iso_code); ?>
+								@endif
+							@endforeach
 
-		@if($media->type == 'icons')
+							@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))													
+								@foreach($game->media as $media)
+									@if($media->type == 'icons')
+										<div class="swiper-slide item">
+											<input type="hidden" class="game-id" value="{{ $game->id }}">
+											<div class="thumb relative">
+												@if ($app->pivot->price == 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+												@endif
 
-			<div class="item">
-				<div class="thumb relative">
-					@if ($game->default_price == 0)
-						<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-					@endif
-					
-					<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+												<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
 
-					@if ($game->default_price == 0)
-						<a href="{{ URL::route('game.show', array('id' => $game->id, 'slug' => $game->slug, 'carrier' => strtolower($game->carrier->carrier), 'language' => Session::get('locale'))) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
-					@endif
+												@if ($app->pivot->price == 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+										
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
 
-				</div>
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+												@endif
+											</div>
+											
+											<div class="meta">
+												<p class="name">{{{ $game->main_title }}}</p>
 
-				<div class="meta">
-					<p>{{ $game->main_title }}</p>
+												@unless ($app->pivot->price == 0)
+												
+													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+														$sale_price = $app->pivot->price * (1 - ($dc/100));
+													 ?>
+													
+													@if($dc != 0)
+														
+													<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
 
-					@unless ($game->default_price == 0)
-						@foreach($game->prices as $price) 
-							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-								<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-							@endif
+
+													@else
+														<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+
+													@endif												
+													
+												@endunless
+											</div>
+										</div>
+									@endif
+								@endforeach
+							@endif						
 						@endforeach
-					@endunless
-				</div>
-
-				@if ($game->default_price == 0)
-					<!--<div class="button center"><a href="#">Get</a></div>-->
-				@else
-					<!--<div class="button center"><a href="#">Buy</a></div>-->
-				@endif
-			</div>
-
-		@endif
-
-	@endforeach
-@endforeach
+					@endforeach
