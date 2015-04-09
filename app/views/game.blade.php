@@ -289,8 +289,6 @@
 			@endif
 
 			<div class="social clearfix">
-			
-
 		  		@foreach($game->apps as $app)
 				    @if($app->pivot->app_id == $app_id)
 				     	<?php $iso_code = ''; ?>
@@ -319,6 +317,7 @@
 						
 						<!-- TWITTER SHARE -->
 						<a style="margin:0 2px;" href="https://twitter.com/share?url={{URL::current()}}" data-social='{"type":"twitter", "url":"{{URL::current()}}", "text": "{{{$excerpt}}}"}' title="\n{{ $game->main_title }}">
+
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
 
