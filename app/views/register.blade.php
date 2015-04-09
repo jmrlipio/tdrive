@@ -56,6 +56,14 @@
 			{{ Form::password('password_confirmation') }}
 		</div>
 		
+		{{--
+		<div class="control">
+			{{ Form::label('prof_pic', 'Profile Image:') }}
+			{{ Form::file('prof_pic') }}
+			{{ $errors->first('homepage_image', '<p class="error">:message</p>') }}
+		</div>
+		--}}
+		
 		{{ Form::submit(trans('global.Create new account')) }}
 
 	{{ Form::close() }}
