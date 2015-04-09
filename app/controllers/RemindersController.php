@@ -24,9 +24,11 @@ class RemindersController extends Controller {
 	 */
 	public function postRemind()
 	{
-		switch ($response = Password::remind(Input::only('email'), function($message)
+		$user = User::whereEmail(Input::only('email'));
+
+		switch ($response = Password::remind(Input::only('email'), function($message) use ($user)
 		{
-		    $message->subject('Password Reminder');
+		    $message->subject('Password Reminders');
 		}))
 		
 		{
