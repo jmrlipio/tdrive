@@ -18,7 +18,6 @@
 		<div class="grid">
 			<div class="row">
 				<div id="scroll" class="clearfix">
-					
 					@foreach ($related_games as $game)
 						@foreach($game->apps as $app)
 							<?php $iso_code = ''; ?>
@@ -28,10 +27,11 @@
 								@endif
 							@endforeach
 
-							@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))													
+							@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))									
 								@foreach($game->media as $media)
 									@if($media->type == 'icons')
 										<div class="swiper-slide item">
+											<input type="hidden" class="game-id" value="{{ $game->id }}">
 											<div class="thumb relative">
 												@if ($app->pivot->price == 0)
 													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
@@ -100,6 +100,7 @@
 		var _token = $('#token input').val();
 		var num = {{ $count }};
 		var game_id = {{ $game_id }};
+		var ids = [];
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
@@ -144,34 +145,43 @@
 				return true;
 			}
 		});
-
+		var finished=1;
 		$(window).scroll(function() {
 		// $(document).on("scrollstart",function(){	
 			$('.ajax-loader').show();
 			
 			var load = $('.item').length;
 
+			$('.game-id').each(function() {
+				ids.push($(this).val());
+			});
+
 			// alert(load);
 
 			// if (load / 6 > num) {
 			// 	$('.ajax-loader').hide();
 			// } else {
+			if ($(window).scrollTop() >= parseInt($(document).height() - $(window).height() - 150)) {   
+				 if (finished == 1) {
+              		finished = 0;   
 
-				$.ajax({
-					// url: "{{ url() }}/games/related/more",
-					url: "{{ URL::route('games.related.more', array('id' => $game_id)) }}",
-					type: "POST",
-					data: {
-						load: load,
-						_token: _token
-					},
-					success: function(data) {
-						$('#scroll').append(data);
-						$('.ajax-loader').hide();
-					}
-				});
-
-			// }
+					$.ajax({
+						// url: "{{ url() }}/games/related/more",
+						url: "{{ URL::route('games.related.more', array('id' => $game_id)) }}",
+						type: "POST",
+						data: {
+							load: load,
+							ids: ids,
+							_token: _token
+						},
+						success: function(data) {
+							$('#scroll').append(data);
+							$('.ajax-loader').hide();
+							finished = 1;
+						}
+					}); // End of ajax call
+				}
+			 }
 		});
 	</script>
 @stop

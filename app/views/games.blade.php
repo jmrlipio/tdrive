@@ -52,16 +52,21 @@
 											<div class="meta">
 												<p class="name">{{{ $game->main_title }}}</p>
 												@unless ($app->pivot->price == 0)
+							
 													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
 														$sale_price = $app->pivot->price * (1 - ($dc/100));
 													 ?>
 													
 													@if($dc != 0)
-														<p class="price discounted">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
-														<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
+														
+													<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
+
+
 													@else
 														<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+
 													@endif												
+													
 												@endunless
 											</div>
 										</div>

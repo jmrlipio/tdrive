@@ -289,18 +289,22 @@
 			@endif
 
 			<div class="social clearfix">
-				<?php  $excerpt = ""; ?>
-				@foreach($game->contents as $item)
-					@if(Session::has('locale'))
-						@if(Session::get('locale') == strtolower($item->iso_code))
-						<?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
-						@endif
-					@else
-						@if(strtolower($item->iso_code) == 'us')
-						 <?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
-						@endif
-					@endif
-		  		@endforeach
+		  		@foreach($game->apps as $app)
+				    @if($app->pivot->app_id == $app_id)
+				     	<?php $iso_code = ''; ?>
+				      @foreach($languages as $language)
+					       @if($language->id == $app->pivot->language_id)
+					        <?php $iso_code = strtolower($language->iso_code); ?>
+					       @endif
+				      @endforeach
+
+					    @if(Session::get('locale') == $iso_code)
+					       <?php $excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?> 
+					    @endif
+
+				     @endif
+
+			    @endforeach
 
 				<a href="#share" id="inline" class="share" >
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
@@ -312,7 +316,8 @@
 						<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks.') }}</h4>
 						
 						<!-- TWITTER SHARE -->
-						<a style="margin:0 2px;" href="https://twitter.com/share?url={{URL::current()}}" data-social='{"type":"twitter", "url":"{{URL::current()}}", "text": "{{$excerpt}} \n"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="https://twitter.com/share?url={{URL::current()}}" data-social='{"type":"twitter", "url":"{{URL::current()}}", "text": "{{{$excerpt}}}"}' title="\n{{ $game->main_title }}">
+
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
 
