@@ -281,26 +281,34 @@
 		</div>
 
 		<div class="top clearfix">
-
+			<?php $ctr = 0; ?>
 			@foreach($latest_news as $item)
-				@foreach($item->contents as $content)
+				@foreach($item->languages as $content)
+					<?php $iso_code = ''; ?>
+					@foreach($languages as $language)
+						@if($language->id == $content->pivot->language_id)
+							<?php $iso_code = strtolower($language->iso_code); ?>
+						@endif
+					@endforeach
 
-				<div>
-					<div class="date">
-						<div class="vhparent">
-							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+					@if($iso_code == Session::get('locale'))
+						<div>
+							<div class="date">
+								<div class="vhparent">
+									<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+								</div>
+							</div>
+
+							<img src="assets/news/{{ $item->featured_image }}" alt="{{ $item->main_title }}">
+
+							<div class="details">
+								<h3>{{ $content->pivot->title }}</h3>
+								<p>{{{ $content->pivot->excerpt }}}</p>
+							</div>	
+
+							<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">{{ trans('global.Read more') }} <i class="fa fa-angle-right"></i></a></div>
 						</div>
-					</div>
-
-					<img src="assets/news/{{ $item->featured_image }}" alt="{{ $item->main_title }}">
-
-					<div class="details">
-						<h3>{{ $item->main_title }}</h3>
-						<p>{{{ $content->pivot->excerpt }}}</p>
-					</div>	
-
-					<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">{{ trans('global.Read more') }} <i class="fa fa-angle-right"></i></a></div>
-				</div>
+					@endif		
 
 				@endforeach
 			@endforeach
@@ -308,32 +316,41 @@
 		</div>
 
 		<div class="bottom">
-
+			<?php $ctr = 0; ?>
 			@foreach($previous_news as $item)
-				@foreach($item->contents as $content)
+				@foreach($item->languages as $content)
 
-				<div>
-					<div class="date">
-						<div class="vhparent">
-							<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
-						</div>	
-					</div>	
+				<?php $iso_code = ''; ?>
+					@foreach($languages as $language)
+						@if($language->id == $content->pivot->language_id)
+							<?php $iso_code = strtolower($language->iso_code); ?>
+						@endif
+					@endforeach
 
-					<div class="details">
-						<div class="vparent">
-							<div class="vcenter">
-								<h3>{{{ $item->main_title }}}</h3>
-								<p>{{{ $content->pivot->excerpt }}}</p>
+				@if($iso_code == Session::get('locale'))
+					<div>
+						<div class="date">
+							<div class="vhparent">
+								<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
 							</div>	
-						</div>
-					</div>	
+						</div>	
 
-					<div class="readmore">
-						<a href="{{ 'news/'. $item->id }}">
-							<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
-						</a>
+						<div class="details">
+							<div class="vparent">
+								<div class="vcenter">
+									<h3>{{{ $content->pivot->title }}}</h3>
+									<p>{{{ $content->pivot->excerpt }}}</p>
+								</div>	
+							</div>
+						</div>	
+
+						<div class="readmore">
+							<a href="{{ 'news/'. $item->id }}">
+								<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
+							</a>
+						</div>
 					</div>
-				</div>
+				@endif	
 
 				@endforeach
 			@endforeach
