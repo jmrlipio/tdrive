@@ -14,50 +14,16 @@ $game_settings = GameSetting::all();
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{{ $page_title }}} | TDrive</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:site_name" content="TDrive" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:title" content="" />
+	<meta property="og:description" content="" />
+	<meta property="og:image" content="" />
 
 	@if (isset($general_settings[2]) || !empty($general_settings[2]))
 		{{ $general_settings[2]->value }}
 	@endif
 
-	@if(isset($game))
-		@foreach($game->contents as $item)
-			<meta property="og:url" content="{{ url() }}/game/{{ $game->id }}/{{ $game->slug }}--{{ Session::get('locale') }}" />
-			<meta property="og:title" content="{{ $item->pivot->title }}" />
-			<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
-			<?php break; ?>
-		@endforeach
-
-		@foreach($game->media as $media)
-			@if($media->type == 'homepage')
-				<meta property="og:image" content="{{ url() }}/assets/games/homepage/{{ $media->url}}" />
-			@endif
-		@endforeach
-	@endif
-
-	@if(isset($news))
-		@if(!Request::segment(1))
-			@foreach($news->contents as $item)
-				<meta property="og:url" content="{{ url() }}news/{{ $item->id }}" />
-				<meta property="og:title" content="{{ $item->main_title }}" />
-				<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
-				<meta property="og:image" content="{{ url() }}/images/news/{{ $item->slug}}.jpg" />
-			@endforeach
-		@endif
-	@endif
-
-	@if(isset($live_news))
-		@if(!Request::segment(1))
-			@foreach($live_news as $single_news)
-				@foreach($single_news->contents as $item)
-					<meta property="og:url" content="{{ url() }}news/{{ $item->id }}" />
-					<meta property="og:title" content="{{ $item->main_title }}" />
-					<meta property="og:description" content="{{ $item->pivot->excerpt }}" />
-					<meta property="og:image" content="{{ url() }}/images/news/{{ $item->slug}}.jpg" />
-				@endforeach
-			@endforeach
-		@endif
-	@endif
 
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -135,6 +101,7 @@ $game_settings = GameSetting::all();
 	{{ HTML::style("css/base.css"); }}
 	{{ HTML::style("css/style.css"); }}
 </head>
+
 
 <body id="{{ $page_id }}" class="{{ $page_class or '' }}">
 

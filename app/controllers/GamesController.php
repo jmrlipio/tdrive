@@ -243,13 +243,22 @@ class GamesController extends \BaseController {
 	public function getCarrier() 
 	{
 		$game = Game::find(1);
+		$languages = Language::all();
+
 		$carriers = [];	
 
 		foreach($game->apps as $app) 
 		{
+			$lang = '';
+			foreach($languages as $language) 
+			{
+				if($language->id == $app->pivot->language_id)
+					$lang = $language->language;
+
+			}
 			$carriers[] = array(
 						'id' =>  $app->pivot->app_id,
-						'carrier' => $app->carrier . ' - ' .$app->language->language,
+						'carrier' => $app->carrier . ' - ' . $lang,
 				);
 		}
 

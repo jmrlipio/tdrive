@@ -21,7 +21,7 @@
 @stop
 
 @section('content')
-
+	<?php $game_image = $game->slug;  ?>
 	{{ Form::token() }}
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
 	
@@ -189,24 +189,25 @@
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-		
+		<?php $excerpt = '';  ?>
 		{{-- @foreach($game->contents as $item)
 			@if(Session::has('locale'))
 				@if(Session::get('locale') == strtolower($item->iso_code))
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+					
 				@endif
 			@else
 				@if(strtolower($item->iso_code) == 'us')
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+					
 				@endif
 			@endif
   		@endforeach --}}
   		@foreach($game->apps as $app)
 
 			@if($app->pivot->app_id == $app_id)
-				
-			<div class="content">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
-
+			<div class="content hey">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+			<?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?>
 			@endif
 
   		@endforeach
@@ -676,7 +677,19 @@
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 	{{ HTML::script("js/jquery.event.move.js"); }}
 	{{ HTML::script("js/jquery.event.swipe.js"); }}
+	{{ HTML::script("js/share.js"); }}
 
+	<script>
+		$(document).ready(function() {			
+				$(document).fbshare({
+					'OG_name' : '{{ $game->main_title }}',
+					'OG_url' : '{{ url() }}',
+					'OG_title' : '{{ $game->main_title }}',
+					'OG_desc' : "{{ $game_excerpt }}",
+					'OG_image' : '{{ URL::asset('images/games/' . $game_image . '.jpg') }}'
+				});	
+		});
+	</script>	
 	<script>
 		FastClick.attach(document.body);
 
@@ -752,6 +765,7 @@
         $("#share a").jqSocialSharer();
 
 		$("#buy").on('click',function() {
+			$('#carrier-select').remove();
 			 $.ajax({
 			 	type: "get",
 			 	url: "{{ URL::route('games.carrier', $game->id) }}",
@@ -759,18 +773,19 @@
 			 	complete:function(data) {
 			 		
 			 		var carriers = $.parseJSON(data['responseText']);
-			 		console.log(carriers);
 					var append = '<select id="carrier-select">';
 
 					for(x = 0; x < carriers.length; x++ ) 
 					{
 						append += '<option value="' + carriers[x].id + '">' + carriers[x].carrier + '</option>';
 					}
-					append += '</select><br>';
+					append += '</select>';
 				
-					if($('#carrier-container').find('#carrier-select').length == 0) {
+					if($('#carrier-container').find('#carrier-select').length == 0) 
+					{
 						$('#submit-carrier').before(append);
-						}
+						append = '';
+					}
                 }
             });
 
@@ -790,6 +805,7 @@
 			            'type': 'iframe',
 			            'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
 			            afterClose: function() {
+
 			            	$.ajax({
 							 	type: "get",
 							 	url: "{{ URL::route('games.status', $game->id) }}",
