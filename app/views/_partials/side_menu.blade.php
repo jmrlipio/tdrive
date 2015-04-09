@@ -48,8 +48,8 @@ $game_settings = GameSetting::all();
 			$arr_id = [];
 
 			foreach($games as $game){								
-				foreach($game->contents as $content) {
-					$arr_id[] = $content->pivot->language_id;						
+				foreach($game->apps as $app) {
+					$arr_id[] = $app->pivot->language_id;						
 				}
 			}
 
