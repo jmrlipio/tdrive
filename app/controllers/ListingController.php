@@ -241,20 +241,13 @@ class ListingController extends \BaseController {
 
 		$ids = Input::get('ids');
 
-		// echo '<pre>';
-		// print_r($ids);
-		// echo '</pre>';
-
 		$related_games = Game::whereHas('categories', function($q) use ($categories, $ids)
 		{
 		    $q->whereIn('category_id', $categories);
 
-		})->whereNotIn('id', $ids)->get();
+		})->whereNotIn('id', $ids)->take(6)->get();
 
-		// echo '<pre>';
-		// print_r($related_games->toArray());
-		// echo '</pre>';
-
+		
 		$dt = Carbon::now();
 		$discounts = Discount::whereActive(1)
 			->where('start_date', '<=', $dt->toDateString())

@@ -145,7 +145,7 @@
 				return true;
 			}
 		});
-
+		var finished=1;
 		$(window).scroll(function() {
 		// $(document).on("scrollstart",function(){	
 			$('.ajax-loader').show();
@@ -161,23 +161,27 @@
 			// if (load / 6 > num) {
 			// 	$('.ajax-loader').hide();
 			// } else {
+			if ($(window).scrollTop() >= parseInt($(document).height() - $(window).height() - 150)) {   
+				 if (finished == 1) {
+              		finished = 0;   
 
-				$.ajax({
-					// url: "{{ url() }}/games/related/more",
-					url: "{{ URL::route('games.related.more', array('id' => $game_id)) }}",
-					type: "POST",
-					data: {
-						load: load,
-						ids: ids,
-						_token: _token
-					},
-					success: function(data) {
-						$('#scroll').append(data);
-						$('.ajax-loader').hide();
-					}
-				});
-
-			// }
+					$.ajax({
+						// url: "{{ url() }}/games/related/more",
+						url: "{{ URL::route('games.related.more', array('id' => $game_id)) }}",
+						type: "POST",
+						data: {
+							load: load,
+							ids: ids,
+							_token: _token
+						},
+						success: function(data) {
+							$('#scroll').append(data);
+							$('.ajax-loader').hide();
+							finished = 1;
+						}
+					}); // End of ajax call
+				}
+			 }
 		});
 	</script>
 @stop
