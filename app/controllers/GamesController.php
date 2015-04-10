@@ -240,6 +240,33 @@ class GamesController extends \BaseController {
 		return json_encode($carriers);
 	}
 
+	public function getCarrier() 
+	{
+		$game = Game::find(1);
+		$languages = Language::all();
+
+		$carriers = [];	
+
+		foreach($game->apps as $app) 
+		{
+			$lang = '';
+			foreach($languages as $language) 
+			{
+				if($language->id == $app->pivot->language_id)
+					$lang = $language->language;
+
+			}
+			$carriers[] = array(
+						'id' =>  $app->pivot->app_id,
+						'carrier' => $app->carrier . ' - ' . $lang,
+				);
+		}
+
+		return json_encode($carriers);
+
+	}
+
+
 	public function getCarrierDetails($id) {	
 		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=' . $id . '&carrier_id=' . Input::get('carrier_id') . '&uuid=' . Auth::user()->id;
 		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';

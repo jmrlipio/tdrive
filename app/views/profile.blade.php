@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="relative">
 			<div class="thumb">
-				<img src="{{ Request::root() . Auth::user()->prof_pic }}">
+				<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}.jpg">
 			</div>
 
 			<div class="details">

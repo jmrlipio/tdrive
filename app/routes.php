@@ -183,7 +183,8 @@ Route::group(array('before' => 'auth'), function(){
 });
 
 Route::post('reports/inquiries', array('as' => 'reports.inquiries.store-inquiry', 'uses' => 'InquiriesController@storeInquiry'));
-Route::get('games/{id}/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getAPICarrier'));
+//Route::get('games/{id}/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getAPICarrier'));
+Route::get('games/{id}/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getCarrier'));
 Route::get('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
 Route::get('games/{id}/status', array('as' => 'games.status', 'uses' => 'GamesController@getPurchaseStatus'));
 

@@ -21,7 +21,7 @@
 @stop
 
 @section('content')
-
+	<?php $game_image = $game->slug;  ?>
 	{{ Form::token() }}
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
 	
@@ -189,24 +189,25 @@
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-		
+		<?php $excerpt = '';  ?>
 		{{-- @foreach($game->contents as $item)
 			@if(Session::has('locale'))
 				@if(Session::get('locale') == strtolower($item->iso_code))
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+					
 				@endif
 			@else
 				@if(strtolower($item->iso_code) == 'us')
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+					
 				@endif
 			@endif
   		@endforeach --}}
   		@foreach($game->apps as $app)
 
 			@if($app->pivot->app_id == $app_id)
-				
-			<div class="content">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
-
+			<div class="content hey">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+			<?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?>
 			@endif
 
   		@endforeach
@@ -681,7 +682,19 @@
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 	{{ HTML::script("js/jquery.event.move.js"); }}
 	{{ HTML::script("js/jquery.event.swipe.js"); }}
+	{{ HTML::script("js/share.js"); }}
 
+	<script>
+		$(document).ready(function() {			
+				$(document).fbshare({
+					'OG_name' : '{{ $game->main_title }}',
+					'OG_url' : '{{ url() }}',
+					'OG_title' : '{{ $game->main_title }}',
+					'OG_desc' : "{{ $game_excerpt }}",
+					'OG_image' : '{{ URL::asset('images/games/' . $game_image . '.jpg') }}'
+				});	
+		});
+	</script>	
 	<script>
 		FastClick.attach(document.body);
 
@@ -757,91 +770,94 @@
         $("#share a").jqSocialSharer();
 
 		$("#buy").on('click',function() {
-			 // $.ajax({
-			 // 	type: "get",
-			 // 	url: "{{ URL::route('games.carrier', $game->id) }}",
-			 // 	dataType: "json",
-			 // 	complete:function(data) {
-			 // 		console.log(data['responseText']);
-				// 	var append = '<select id="carrier-select">';
+			$('#carrier-select').remove();
+			 $.ajax({
+			 	type: "get",
+			 	url: "{{ URL::route('games.carrier', $game->id) }}",
+			 	dataType: "json",
+			 	complete:function(data) {
+			 		
+			 		var carriers = $.parseJSON(data['responseText']);
+					var append = '<select id="carrier-select">';
 
-				// 	JSON.parse(data['responseText'], function (id, carrier) {		    
-				// 	    append += '<option value="' + id + '">' + carrier + '</option>';
-				// 	});
+					for(x = 0; x < carriers.length; x++ ) 
+					{
+						append += '<option value="' + carriers[x].id + '">' + carriers[x].carrier + '</option>';
+					}
+					append += '</select>';
+				
+					if($('#carrier-container').find('#carrier-select').length == 0) 
+					{
+						$('#submit-carrier').before(append);
+						append = '';
+					}
+                }
+            });
 
-				// 	append += '</select><br>';
-					
-				// 	if($('#carrier-container').find('#carrier-select').length == 0) {
-				// 		$('#submit-carrier').before(append);
-				// 		}
-
-				// 	$('#carrier-select option:last').remove();
-				// 	$('#carrier-select option:last').remove();
-    //             }
-    //         });
-
-			// $('#buy').fancybox({
-			// 	'titlePosition'     : 'inside',
-	  //           'transitionIn'      : 'none',
-	  //           'transitionOut'     : 'none',
-	  //           afterClose: function() {
-	  //           	$.fancybox({
-			//             'width': '80%',
-			//             'height': '60%',
-			//             'autoScale': true,
-			//             'transitionIn': 'fade',
-			//             'transitionOut': 'fade',
-			//             'type': 'iframe',
-			//             'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-			//             afterClose: function() {
-			//             	$.ajax({
-			// 				 	type: "get",
-			// 				 	url: "{{ URL::route('games.status', $game->id) }}",
-			// 				 	complete:function(data) {
-
-			// 				 		var response = JSON.parse(data['responseText']);
-			// 				 		console.log(response.status);
-			// 						if(response.status == 1) {
-			// 							$('#game-download').css('display', 'block');
-			// 							$('#buy').css('display', 'none');
-
-			// 							var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
-			// 							$('#game-download').attr('href', url);
-			// 						}
-			// 	                }
-			// 	            });
-			//             }
-			//         });
-	  //           }
-			// });
-
-			$.fancybox({
-	            'width': '80%',
-	            'height': '60%',
-	            'autoScale': true,
-	            'transitionIn': 'fade',
-	            'transitionOut': 'fade',
-	            'type': 'iframe',
-	            'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
+			$('#buy').fancybox({
+				'titlePosition'     : 'inside',
+	            'transitionIn'      : 'none',
+	            'transitionOut'     : 'none',
 	            afterClose: function() {
-	            	$.ajax({
-					 	type: "get",
-					 	url: "{{ URL::route('games.status', $game->id) }}",
-					 	complete:function(data) {
+	            	var app_id = 'blazing-dribble-globe-en';
+	            	var user_id = '';
+	            	$.fancybox({
+			            'width': '80%',
+			            'height': '60%',
+			            'autoScale': true,
+			            'transitionIn': 'fade',
+			            'transitionOut': 'fade',
+			            'type': 'iframe',
+			            'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
+			            afterClose: function() {
 
-					 		var response = JSON.parse(data['responseText']);
-	
-							if(response.status == 1) {
-								$('#game-download').css('display', 'block');
-								$('#buy').css('display', 'none');
+			            	$.ajax({
+							 	type: "get",
+							 	url: "{{ URL::route('games.status', $game->id) }}",
+							 	complete:function(data) {
 
-								var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
-								$('#game-download').attr('href', url);
-							}
-		                }
-		            });
+							 		var response = JSON.parse(data['responseText']);
+							 		console.log(response.status);
+									if(response.status == 1) {
+										$('#game-download').css('display', 'block');
+										$('#buy').css('display', 'none');
+
+										var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
+										$('#game-download').attr('href', url);
+									}
+				                }
+				            });
+			            }
+			        });
 	            }
-	        });
+			});
+			// $.fancybox({
+	  //           'width': '80%',
+	  //           'height': '60%',
+	  //           'autoScale': true,
+	  //           'transitionIn': 'fade',
+	  //           'transitionOut': 'fade',
+	  //           'type': 'iframe',
+	  //           'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
+	  //           afterClose: function() {
+	  //           	$.ajax({
+			// 		 	type: "get",
+			// 		 	url: "{{ URL::route('games.status', $game->id) }}",
+			// 		 	complete:function(data) {
+
+			// 		 		var response = JSON.parse(data['responseText']);
+	
+			// 				if(response.status == 1) {
+			// 					$('#game-download').css('display', 'block');
+			// 					$('#buy').css('display', 'none');
+
+			// 					var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
+			// 					$('#game-download').attr('href', url);
+			// 				}
+		 //                }
+		 //            });
+	  //           }
+	  //       });
         });
 
 		$('#description .readmore').click(function(e) {
@@ -866,7 +882,6 @@
 			e.preventDefault();
 
 			$.fancybox.close();
-
 			$.fancybox({
 	             'width': '80%',
 	             'height': '80%',
@@ -888,9 +903,7 @@
 		             });
 	             }
 	        });
-
 		});
 	
 	</script>
-
 @stop

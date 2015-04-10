@@ -14,13 +14,15 @@ $game_settings = GameSetting::all();
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{{ $page_title }}} | TDrive</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:site_name" content="TDrive" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:title" content="" />
+	<meta property="og:description" content="" />
+	<meta property="og:image" content="" />
 
 	@if (isset($general_settings[2]) || !empty($general_settings[2]))
 		{{ $general_settings[2]->value }}
 	@endif
-
-	
 
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -98,6 +100,7 @@ $game_settings = GameSetting::all();
 	{{ HTML::style("css/base.css"); }}
 	{{ HTML::style("css/style.css"); }}
 </head>
+
 
 <body id="{{ $page_id }}" class="{{ $page_class or '' }}">
 
