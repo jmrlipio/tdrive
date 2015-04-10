@@ -28,7 +28,7 @@
 					<select name="language_id" id="language">
 						@foreach($languages as $language)
 							<?php $selected = ($language->id == $values['language_id']) ? 'selected' : ''; ?>
-							<option value="{{ $language->id }}" data-isocode="{{ strtolower($language->iso_code) }}" {{ $selected }}>{{ $language->language }}</option>
+							<option value="{{ str_pad($language->id, 2, '0', STR_PAD_LEFT) }}" data-isocode="{{ strtolower($language->iso_code) }}" {{ $selected }}>{{ $language->language }}</option>
 						@endforeach
 					</select>
 				</li>
@@ -69,38 +69,29 @@
 		CKEDITOR.replace('content');
 	</script>
 	<script>
-	var slug = '{{ $game->slug }}',
+	var gid = '{{ str_pad($game->id, 4, "0", STR_PAD_LEFT) }}',
 		app_text = $('#app_id'),
 		carrier = $('#carrier'),
 		language = $('#language')
 		title = $('#title');
 
-	var app_id = slug + '-' + carrier.find('option:first').text().toLowerCase() + '-' + language.find('option:first').data('isocode');
+	var app_id = gid + carrier.find('option:first').val() + language.find('option:first').val();
 
 	$(document).ready(function() {
 		app_text.val();
 	});
 
 	carrier.on('change', function() {
-		app_id = slug + '-' + $(this).find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
+		app_id = gid + $(this).find('option:selected').val() + language.find('option:selected').val();
 
 		app_text.val(app_id);
 	});
 
 	language.on('change', function() {
-		
-		app_id = slug + '-' + carrier.find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
+		app_id = gid + carrier.find('option:selected').val() + language.find('option:selected').val();
 
 		app_text.val(app_id);
 
-	});
-
-	title.on('blur', function() {
-		slug = convertToSlug($('#title').val());
-
-		app_id = slug + '-' + carrier.find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
-
-		app_text.val(app_id);
 	});
 
 	</script>

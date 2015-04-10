@@ -76,25 +76,29 @@ class GamesController extends \BaseController {
 
 			$app_id = $uri[$key];
 
-			$app_details = explode("-", $app_id);
+			$digits = str_split($app_id, 4);
 
-			end($app_details);
-			$locale = current($app_details);
-			$carrier_name = prev($app_details);
+			$game_id = ltrim($digits[0], "0");
 
-			Session::forget('carrier_name');
-			Session::forget('carrier');
-			Session::forget('locale');
+			$cl = str_split($digits[1], 2);
+
+			$carrier_id = ltrim($cl[0], "0");
+			$language_id = ltrim($cl[1], "0");
 
 			foreach(Carrier::all() as $carrier) {
-				if(strpos(strtolower($carrier->carrier), $carrier_name) !== false) {
+				if($carrier->id == $carrier_id) {
 					Session::put('carrier', $carrier->id);
 					Session::put('carrier_name', $carrier->carrier);
 					break;
 				}
 			}
 
-			Session::put('locale', $locale);
+			foreach(Languages::all() as $language) {
+				if($language->id == $language_id) {
+					Session::put('locale', strtolower($language->iso_code));
+					break;
+				}
+			}
 		}
 
 		$cid = Session::get('carrier');
