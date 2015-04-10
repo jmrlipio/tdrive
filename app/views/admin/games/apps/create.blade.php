@@ -28,7 +28,7 @@
 					{{ Form::label('language_id', 'Language:') }}
 					<select name="language_id" id="language">
 						@foreach($languages as $language)
-							<option value="{{ $language->id }}" data-isocode="{{ strtolower($language->iso_code) }}">{{ $language->language }}</option>
+							<option value="{{ str_pad($language->id, 2, '0', STR_PAD_LEFT) }}" data-isocode="{{ strtolower($language->iso_code) }}">{{ $language->language }}</option>
 						@endforeach
 					</select>
 				</li>
@@ -63,11 +63,12 @@
 			{{ Form::submit('Save') }}
 		{{ Form::close() }}
 	</article>
+	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
 		CKEDITOR.replace('content');
 	</script>
 	<script>
-	var slug = '{{ $game->slug }}',
+	var slug = '{{ str_pad($game->id, 4, "0", STR_PAD_LEFT) }}',
 		app_text = $('#app_id'),
 		carrier = $('#carrier'),
 		language = $('#language');
