@@ -182,26 +182,42 @@ class HomeController extends BaseController {
 			else if($slider->slideable_type == 'News') $selected_news[] = $slider->slideable_id;
 		}		
 		
-		foreach(Game::all() as $game) {		
+		foreach(Game::all() as $game) {	
 
-			foreach ($game->media as $media) {
-				if($media->type == 'homepage') {
+			foreach($game->apps as $app) {
+
+				$iso_code = ''; 
+				
+				foreach($languages as $language){
+
+					if($language->id == $app->pivot->language_id){
+						$iso_code = strtolower($language->iso_code);
+					}
+				}						
+				
+				foreach ($game->media as $media) {
 					
-					$games_slide[$game->id] = array(
-						'url' => $media->url, 
-						'title' => $game->main_title, 
-						'id' => $game->id,
-						'slug' => $game->slug,
-						'carrier' =>'test');
-					
+					if($media->type == 'homepage') {
+
+						if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier')) {						
+							
+							$games_slide[$game->id] = array(
+								'url' => $media->url, 
+								'title' => $game->main_title, 
+								'id' => $game->id,
+								'slug' => $app->pivot->app_id);
+						}
+					}
 				}
 			}
 		}
-		$cid = Session::get('carrier');
+		
+		$cid = Session::get('carrier');		
 	
 		$games = Game::whereHas('apps', function($q) use ($cid)
 		  {
 		      $q->where('carrier_id', '=', $cid);
+
 		  })->get();
 		
 

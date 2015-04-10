@@ -65,7 +65,7 @@
 							@if($key == $slider->slideable_id)
 								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))							
 									
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug'], 'carrier' => strtolower($game['carrier']), 'language' => Session::get('locale')))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
 								
 								@else
 
