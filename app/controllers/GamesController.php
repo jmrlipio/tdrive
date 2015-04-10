@@ -93,7 +93,7 @@ class GamesController extends \BaseController {
 				}
 			}
 
-			foreach(Languages::all() as $language) {
+			foreach(Language::all() as $language) {
 				if($language->id == $language_id) {
 					Session::put('locale', strtolower($language->iso_code));
 					break;
