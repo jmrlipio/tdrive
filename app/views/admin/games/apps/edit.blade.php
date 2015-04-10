@@ -59,6 +59,7 @@
 				</li>
 				<br>
 				{{ Form::submit('Save') }} <a href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Back</a>
+				<a href="{{ URL::route('admin.games.preview', array($game->id, $values['app_id'])) }}" target='blank') id="preview">Preview</a>
 			</div>
 			
 		{{ Form::close() }}

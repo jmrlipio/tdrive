@@ -1,4 +1,4 @@
-@extends('_layouts/listing')
+@extends('_layouts/single')
 
 @section('stylesheets')
 	{{ HTML::style("css/slick.css"); }}
@@ -21,6 +21,7 @@
 @stop
 
 @section('content')
+	<?php $game_image = $game->slug;  ?>
 	{{ Form::token() }}
 	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
 	
@@ -55,7 +56,14 @@
 	<div id="buttons" class="container clearfix">
 		<div class="downloads">
 			<div class="vcenter">
-				<p class="count">{{ number_format($game->downloads, 0) }}</p>
+				<p class="count">
+				
+				@if($game->downloads == 0)
+					{{ number_format($game->actual_downloads, 0) }}
+				@else
+					{{ number_format($game->downloads, 0) }}
+				@endif
+				</p>
 				<p class="words"><!--<span>Thousand</span>--> {{ trans('global.Downloads') }}</p>
 			</div>
 		</div>
@@ -95,36 +103,78 @@
 					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
 				</div>
 			</a>
-
-			<a href="#carrier-select-container" class="buy" id="buy">
+		
+		@if(Auth::check())
+			<a href="#" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
 
-					@unless ($game->default_price == 0)
-						@foreach($game->prices as $price) 
-							@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-								<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
-									$sale_price = $price->pivot->price * (1 - ($dc/100));
-								 ?>
-								@if($dc != 0)
-									<p class="price discounted">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-									<p class="price repo">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-								@else														 
-									@if($price->pivot->price == 0)
-															
-										<p class="price">{{ $country->currency_code . ' ' . number_format($game->default_price, 2) }}</p>				
-									@else													 
-										
-										<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-									@endif
-								@endif								
+						@foreach($game->apps as $apps)
+
+							@if($apps->pivot->app_id == $app_id)
+
+								@unless ($apps->pivot->price == 0)
+            
+					            	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+					              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
+					              	?>
+					             
+						            @if($dc != 0)
+						              
+						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
+
+						            @else
+						            
+						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
+
+						            @endif            
+					             
+					            @endunless
 
 							@endif
+
 						@endforeach
-					@endunless
 
 				</div>
 			</a>
+			
+			@else 
+			{{ Session::put('pre_login_url', Request::url()); }}
+			<a href="#" class="buy" id="buy">
+				<div>
+					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
+
+					@foreach($game->apps as $apps)
+
+						@if($apps->pivot->app_id == $app_id)
+
+							@unless ($apps->pivot->price == 0)
+            
+				            	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+				              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
+				              	?>
+				             
+					            @if($dc != 0)
+					              
+					            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
+
+					            @else
+					            
+					            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
+
+					            @endif            
+				             
+				            @endunless
+
+						@endif
+
+					@endforeach
+
+				</div>
+			</a>
+
+
+			@endif
 
 			<div style="display:none">
 				<div class="carrier-container" id="carrier-select-container">
@@ -139,17 +189,27 @@
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">
-		
-		@foreach($game->contents as $item)
+		<?php $excerpt = '';  ?>
+		{{-- @foreach($game->contents as $item)
 			@if(Session::has('locale'))
 				@if(Session::get('locale') == strtolower($item->iso_code))
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+					
 				@endif
 			@else
 				@if(strtolower($item->iso_code) == 'us')
 					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+					
 				@endif
 			@endif
+  		@endforeach --}}
+  		@foreach($game->apps as $app)
+
+			@if($app->pivot->app_id == $app_id)
+			<div class="content hey">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+			<?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?>
+			@endif
+
   		@endforeach
 
 	</div><!-- end #description -->
@@ -230,42 +290,47 @@
 			@endif
 
 			<div class="social clearfix">
-				<?php  $excerpt = ""; ?>
-				@foreach($game->contents as $item)
-					@if(Session::has('locale'))
-						@if(Session::get('locale') == strtolower($item->iso_code))
-						<?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
-						@endif
-					@else
-						@if(strtolower($item->iso_code) == 'us')
-						 <?php $excerpt = htmlspecialchars_decode($item->pivot->excerpt);?>  
-						@endif
-					@endif
-		  		@endforeach
+		  		@foreach($game->apps as $app)
+				    @if($app->pivot->app_id == $app_id)
+				     	<?php $iso_code = ''; ?>
+				      @foreach($languages as $language)
+					       @if($language->id == $app->pivot->language_id)
+					        <?php $iso_code = strtolower($language->iso_code); ?>
+					       @endif
+				      @endforeach
+
+					    @if(Session::get('locale') == $iso_code)
+					       <?php $excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?> 
+					    @endif
+
+				     @endif
+
+			    @endforeach
 
 				<a href="#share" id="inline" class="share" >
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
 					<span>{{ trans('global.Share') }}</span>
 				</a>
-
+				
 				<div style="display:none">
 					<div id="share" style="text-align:center;">
 						<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks.') }}</h4>
 						
 						<!-- TWITTER SHARE -->
-						<a style="margin:0 2px;" href="#" data-social='{"type":"twitter", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{$excerpt}} \n"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="#" data-social='{"type":"twitter", "url":"{{URL::current()}}", "text": "{{{$excerpt}}}"}' title="\n{{ $game->main_title }}">
+
 							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 						</a>
 
 						<!-- FACEBOOK SHARE -->
-						<a style="margin:0 2px;" href="#" data-social='{"type":"facebook", "url":"{{ url() }}/game/{{ $game->id }}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
+						<a style="margin:0 2px;" href="#" data-social='{"type":"facebook", "url":"{{URL::current()}}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
 							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 						</a>
 					</div>
 				</div>
 
 				<div class="likes">
-					<div id="game_like" class="fb-like" data-href="#" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
+					<div id="game_like" class="fb-like" data-href="{{URL::current()}}" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>
 			</div>
 		</div>
@@ -293,7 +358,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['five'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['five'] }}</p>
 						</div>
@@ -309,7 +374,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['four'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['four'] }}</p>
 						</div>
@@ -323,7 +388,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['three'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['three'] }}</p>
 						</div>
@@ -336,7 +401,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['two'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['two'] }}</p>
 						</div>
@@ -348,7 +413,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['count'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['one'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 2.5 }}%"></span>
 
 							<p class="total">{{ $ratings['one'] }}</p>
 						</div>
@@ -367,7 +432,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -383,7 +448,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -397,7 +462,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -410,7 +475,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -422,7 +487,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: 0%"></span>
+							<span style="width: 5px;"></span>
 
 							<p class="total">0</p>
 						</div>
@@ -442,9 +507,8 @@
 				<p class="form-success">{{ Session::get('message') }}</p>
 			@endif
 
-			<form action="#">
-				{{ Form::hidden('game_id', $current_game->id) }}
-				{{ Form::hidden('user_id', Auth::id()) }}
+			<form>
+				
 				<div class="rating-control clearfix control">
 					<label class="rating" for="rating">Rating</label>
 
@@ -513,7 +577,7 @@
 		
 	@if($ctr > 4)	
 		
-		<div class="link center"><a href="#">{{ trans('global.See all reviews') }} &raquo;</a></div>
+		<div class="link center"><a href="{{ route('reviews', $game->id) }}">{{ trans('global.See all reviews') }} &raquo;</a></div>
 
 	@else
 
@@ -522,7 +586,7 @@
 	@endif
 	
 	</div><!-- end #reviews -->
-
+	
 	<div id="related-games" class="container">
 		<h1 class="title">{{ trans('global.Related games') }}</h1>
 		
@@ -532,59 +596,63 @@
 				<div class="swiper-wrapper">
 
 					@foreach($related_games as $game)
-						@foreach($game->media as $media)
+						@foreach($game->apps as $app)
+							<?php $iso_code = ''; ?>
+							@foreach($languages as $language)
+								@if($language->id == $app->pivot->language_id)
+									<?php $iso_code = strtolower($language->iso_code); ?>
+								@endif
+							@endforeach
 
-							@if($media->type == 'icons')
-								<div class="swiper-slide item">
-									<div class="thumb relative">
-
-										@if ($game->default_price == 0)
-											<a href="#">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-										@endif
-										
-										<a href="#" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
-
-										@if ($game->default_price == 0)
-											<a href="#">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
-										@endif
-
-										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="#">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
-										@endif
-
-										@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
-											<a href="#">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
-										@endif
-
-									</div>
-
-									<div class="meta">
-										<p class="name">{{{ $game->main_title }}}</p>
-
-										@unless ($game->default_price == 0)
-											@foreach($game->prices as $price) 
-											<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
-												$sale_price = $price->pivot->price * (1 - ($dc/100));
-											 ?>
-												@if(Session::get('country_id') == $price->pivot->country_id && Session::get('carrier') == $price->pivot->carrier_id)
-													@if($dc != 0)														
-														<p class="price">{{ $country->currency_code . ' ' . number_format($sale_price, 2) }}</p>
-													@else														 
-														<p class="price">{{ $country->currency_code . ' ' . number_format($price->pivot->price, 2) }}</p>
-													@endif
+							@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))													
+								@foreach($game->media as $media)
+									@if($media->type == 'icons')
+										<div class="swiper-slide item">
+											<div class="thumb relative">
+												@if ($app->pivot->price == 0)
+													<a href="# }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 												@endif
-											@endforeach
-										@endunless
-									</div>
 
-									@if ($game->default_price == 0)
-										<!--<div class="button center"><a href="#">Get</a></div>-->
-									@else
-										<!--<div class="button center"><a href="#">Buy</a></div>-->
+												<a href="#" class="thumb-image">{{ HTML::image('assets/games/icons/' . $media->url) }}</a>
+
+												@if ($app->pivot->price == 0)
+													<a href="#">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+										
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="#">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+												@endif
+
+												@if($dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games) != 0)
+													<a href="#">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+												@endif
+											</div>
+											
+											<div class="meta">
+												<p class="name">{{{ $game->main_title }}}</p>
+
+												@unless ($app->pivot->price == 0)
+												
+													<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+														$sale_price = $app->pivot->price * (1 - ($dc/100));
+													 ?>
+													
+													@if($dc != 0)
+														
+													<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
+
+
+													@else
+														<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+
+													@endif												
+													
+												@endunless
+											</div>
+										</div>
 									@endif
-								</div>
-							@endif
-
+								@endforeach
+							@endif						
 						@endforeach
 					@endforeach
 
@@ -612,13 +680,22 @@
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 	{{ HTML::script("js/jquery.event.move.js"); }}
 	{{ HTML::script("js/jquery.event.swipe.js"); }}
+	{{ HTML::script("js/share.js"); }}
 
+	<script>
+		$(document).ready(function() {			
+				$(document).fbshare({
+					'OG_name' : '{{ $game->main_title }}',
+					'OG_url' : '{{ url() }}',
+					'OG_title' : '{{ $game->main_title }}',
+					'OG_desc' : "{{ $game_excerpt }}",
+					'OG_image' : '{{ URL::asset('images/games/' . $game_image . '.jpg') }}'
+				});	
+		});
+	</script>	
 	<script>
 		FastClick.attach(document.body);
 
-		var token = $('input[name="_token"]').val();
-
-		var carrier_form = '';
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',
@@ -684,114 +761,6 @@
             'transitionOut'     : 'none'
         });
 
-       /* $("#share a").jqSocialSharer();
-
-		$("#buy").on('click',function() {
-			 $.ajax({
-			 	type: "get",
-			 	url: "{{ URL::route('games.carrier', $game->id) }}",
-			 	dataType: "json",
-			 	complete:function(data) {
-			 		console.log(data['responseText']);
-					var append = '<select id="carrier-select">';
-
-					JSON.parse(data['responseText'], function (id, carrier) {		    
-					    append += '<option value="' + id + '">' + carrier + '</option>';
-					});
-
-					append += '</select><br>';
-					
-					if($('#carrier-container').find('#carrier-select').length == 0) {
-						$('#submit-carrier').before(append);
-						}
-
-					$('#carrier-select option:last').remove();
-					$('#carrier-select option:last').remove();
-                }
-            });
-
-			$('#buy').fancybox({
-				'titlePosition'     : 'inside',
-	            'transitionIn'      : 'none',
-	            'transitionOut'     : 'none',
-	            afterClose: function() {
-	            	$.fancybox({
-			            'width': '80%',
-			            'height': '60%',
-			            'autoScale': true,
-			            'transitionIn': 'fade',
-			            'transitionOut': 'fade',
-			            'type': 'iframe',
-			            'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-			            afterClose: function() {
-			            	$.ajax({
-							 	type: "get",
-							 	url: "{{ URL::route('games.status', $game->id) }}",
-							 	complete:function(data) {
-
-							 		var response = JSON.parse(data['responseText']);
-							 		console.log(response.status);
-									if(response.status == 1) {
-										$('#game-download').css('display', 'block');
-										$('#buy').css('display', 'none');
-
-										var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
-										$('#game-download').attr('href', url);
-									}
-				                }
-				            });
-			            }
-			        });
-	            }
-			});
-        });
-
-		$('#description .readmore').click(function(e) {
-			e.preventDefault();
-
-			$.ajax({
-				type: 'POST',
-				url: "<?php echo URL::route('games.content.load'); ?>",
-				data: { 
-					id: <?php echo Request::segment(2); ?>,
-					_token: token
-				},
-
-				success: function(data) {
-					$('#description .content').html(data);
-				}
-			});
-		});
-
-		$('#carrier').on('submit', function(e){
-			e.preventDefault();
-
-			$.fancybox.close();
-
-			$.fancybox({
-	             'width': '80%',
-	             'height': '80%',
-	             'autoScale': true,
-	             'transitionIn': 'fade',
-	             'transitionOut': 'fade',
-	             'type': 'iframe',
-	             'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-	             afterClose: function() {
-
-	             	$.ajax({
-			 		 	type: "get",
-			 		 	url: "{{ URL::route('games.status', $game->id) }}",
-			 		 	complete:function(data) {
-			 				if(data['responseText'] == 1) {
-			 					$('#game-download').css('display', 'none');
-			 				}
-		                 }
-		             });
-	             }
-	        });
-
-		});*/
-	
+       
 	</script>
-
 @stop
