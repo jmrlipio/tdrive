@@ -1,6 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
+	@include('admin._scripts.scripts')
 	<article>
 		{{ Form::open(array('route' => array('admin.games.update.app', $game->id, $app_id), 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
 			<div class='panel-container'>
@@ -14,7 +15,7 @@
 
 				<li>
 					{{ Form::label('title', 'Title:') }}	
-					{{ Form::text('title', $values['title']) }}
+					{{ Form::text('title', $values['title'], array('id' => 'title')) }}
 					{{ $errors->first('title', '<p class="error">:message</p>') }}
 				</li>
 				<li>
@@ -63,6 +64,7 @@
 			
 		{{ Form::close() }}
 	</article>
+	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
 		CKEDITOR.replace('content');
 	</script>
@@ -70,7 +72,8 @@
 	var slug = '{{ $game->slug }}',
 		app_text = $('#app_id'),
 		carrier = $('#carrier'),
-		language = $('#language');
+		language = $('#language')
+		title = $('#title');
 
 	var app_id = slug + '-' + carrier.find('option:first').text().toLowerCase() + '-' + language.find('option:first').data('isocode');
 
@@ -90,6 +93,14 @@
 
 		app_text.val(app_id);
 
+	});
+
+	title.on('blur', function() {
+		slug = convertToSlug($('#title').val());
+
+		app_id = slug + '-' + carrier.find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
+
+		app_text.val(app_id);
 	});
 
 	</script>

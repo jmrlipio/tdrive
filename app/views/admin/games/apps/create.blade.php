@@ -63,6 +63,7 @@
 			{{ Form::submit('Save') }}
 		{{ Form::close() }}
 	</article>
+	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
 		CKEDITOR.replace('content');
 	</script>
@@ -85,6 +86,14 @@
 	});
 
 	language.on('change', function() {
+		app_id = slug + '-' + carrier.find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
+
+		app_text.val(app_id);
+	});
+
+	title.on('blur', function() {
+		slug = convertToSlug($('#title').val());
+
 		app_id = slug + '-' + carrier.find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
 
 		app_text.val(app_id);
