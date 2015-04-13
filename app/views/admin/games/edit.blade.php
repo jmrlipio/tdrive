@@ -23,7 +23,7 @@
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
 							{{ Form::label('id', 'Game ID:') }}
-							<p>{{ $game->id }}</p>
+							<p>{{ str_pad($game->id, 4, '0', STR_PAD_LEFT) }}</p>
 						</li>
 						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
