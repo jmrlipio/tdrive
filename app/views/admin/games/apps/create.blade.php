@@ -68,27 +68,29 @@
 		CKEDITOR.replace('content');
 	</script>
 	<script>
-	var slug = '{{ str_pad($game->id, 4, "0", STR_PAD_LEFT) }}',
+	var gid = '{{ str_pad($game->id, 4, "0", STR_PAD_LEFT) }}',
 		app_text = $('#app_id'),
 		carrier = $('#carrier'),
-		language = $('#language');
+		language = $('#language')
+		title = $('#title');
 
-	var app_id = slug + '-' + carrier.find('option:first').text().toLowerCase() + '-' + language.find('option:first').data('isocode');
+	var app_id = gid + carrier.find('option:first').val() + language.find('option:first').val();
 
 	$(document).ready(function() {
 		app_text.val(app_id);
 	});
 
 	carrier.on('change', function() {
-		app_id = slug + '-' + $(this).find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
+		app_id = gid + $(this).find('option:selected').val() + language.find('option:selected').val();
 
 		app_text.val(app_id);
 	});
 
 	language.on('change', function() {
-		app_id = slug + '-' + carrier.find('option:selected').text().toLowerCase() + '-' + language.find('option:selected').data('isocode');
+		app_id = gid + carrier.find('option:selected').val() + language.find('option:selected').val();
 
 		app_text.val(app_id);
+
 	});
 
 	</script>
