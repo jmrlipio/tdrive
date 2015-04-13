@@ -22,6 +22,10 @@
 				<ul id="details">
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
+							{{ Form::label('id', 'Game ID:') }}
+							<p>{{ $game->id }}</p>
+						</li>
+						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
 							{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 							{{ $errors->first('title', '<p class="error">:message</p>') }}
@@ -76,9 +80,9 @@
 								
 								<tr>
 									<td>
-										<a href="{{ URL::route('admin.games.edit.app', array('game_id' => $game->id, 'app_id' => $app->pivot->app_id)) }}">
+										<p>
 											{{ $app->pivot->app_id }}
-										</a>
+										</p>
 									</td>
 									<td>{{ $app->carrier }}</td>
 									<td>
@@ -89,6 +93,10 @@
 										@endforeach
 									</td>
 									<td>
+
+										<a href="{{ URL::route('admin.games.edit.app', array('game_id' => $game->id, 'app_id' => $app->pivot->app_id)) }}" class='edit-btn fleft'>
+											Edit
+										</a>
 										{{ Form::open(array('route' => array('admin.games.delete.app', $game->id, $app->pivot->app_id), 'method' => 'delete', 'class' => 'delete-form')) }}
 											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
 										{{ Form::close() }}

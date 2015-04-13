@@ -139,6 +139,7 @@ class GamesController extends \BaseController {
 		$country = Country::find(Session::get('country_id'));
 		$game_id = $game->id;
 		return View::make('game')
+			->with('game', $game)
 			->with('page_title', $game->main_title)
 			->with('page_id', 'game-detail')
 			->with('ratings', $ratings)
@@ -146,7 +147,7 @@ class GamesController extends \BaseController {
 			->with('country', $country)
 			->with('app_id', $app_id)
 			->with('user_id', $user_id)
-			->with(compact('languages','related_games', 'game', 'discounted_games', 'game_id'));
+			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games'));
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/
 	}
