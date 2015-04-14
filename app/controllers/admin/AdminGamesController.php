@@ -498,7 +498,7 @@ class AdminGamesController extends \BaseController {
 		$currencies = [];
 
 		foreach(Carrier::all() as $carrier) {
-			$carriers[str_pad($carrier->id, 2, "0", STR_PAD_LEFT)] = $carrier->carrier;
+			$carriers[$carrier->id] = $carrier->carrier;
 		}
 
 		$cr = Country::distinct()->select('currency_code','name')->get();
@@ -550,8 +550,8 @@ class AdminGamesController extends \BaseController {
 
 		foreach($game->apps as $app) {
 			if($app->pivot->app_id == $app_id) {
-				$values['carrier_id'] = str_pad($app->pivot->carrier_id, 2, "0", STR_PAD_LEFT);
-				$values['language_id'] = str_pad($app->pivot->language_id, 2, "0", STR_PAD_LEFT);
+				$values['carrier_id'] = $app->pivot->carrier_id;
+				$values['language_id'] = $app->pivot->language_id;
 				$values['title'] = $app->pivot->title;
 				$values['content'] = $app->pivot->content;
 				$values['excerpt'] = $app->pivot->excerpt;
@@ -562,7 +562,7 @@ class AdminGamesController extends \BaseController {
 		}
 
 		foreach(Carrier::all() as $carrier) {
-			$carriers[str_pad($carrier->id, 2, "0", STR_PAD_LEFT)] = $carrier->carrier;
+			$carriers[$carrier->id] = $carrier->carrier;
 		}
 
 		$cr = Country::distinct()->select('currency_code','name')->get();
