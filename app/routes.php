@@ -199,7 +199,6 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
     }
 });*/
 
-
 Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
 Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
@@ -207,3 +206,9 @@ route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'as' => 'admin.destroy.review','uses' => 'ReviewsController@handleDestroy'));
 Route::get('admin/games/preview/{id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));
 Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+
+/*API*/
+Route::get('authorize', array('as' => 'authorize.token', 'uses' => 'APIController@authorizeToken'));
+Route::get('authorize/login/{app_id?}', array('as' => 'authorize.login', 'uses' => 'APIController@authorizeLogin'));
+Route::post('authorize/userlogin', array('as' => 'authorize.login.post', 'uses' => 'APIController@authorizeLoginPost'));
+//Route::post('authorize/{appid}/{token}', array('as' => 'authorize.user', 'uses' => 'APIController@authorizeLoginPost'));

@@ -176,7 +176,6 @@ class UsersController extends \BaseController {
 			} else {
 
 				return Redirect::to('login')->with('fail','Your email/password was incorrect');
-
 			}
 
         } else {
