@@ -17,11 +17,13 @@
 		<br>
 		<table class="table table-striped table-bordered table-hover">
 			<tr>
+				<th>ID</th>
 				<th>Carrier Name</th>
 			</tr>
 			@if(!$carriers->isEmpty())
 				@foreach($carriers as $carrier)
 					<tr>
+						<td>{{ str_pad($carrier->id, 2, '0', STR_PAD_LEFT) }}</td>
 						<td>
 							<a href="{{ URL::route('admin.carriers.edit', $carrier->id) }}">{{ $carrier->carrier }}</a>
 							@if(Auth::user()->role != 'admin')

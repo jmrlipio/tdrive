@@ -78,10 +78,6 @@
 
 	var app_id = gid + carrier.find('option:first').val() + language.find('option:first').val();
 
-	$(document).ready(function() {
-		app_text.val();
-	});
-
 	carrier.on('change', function() {
 		app_id = gid + $(this).find('option:selected').val() + language.find('option:selected').val();
 
