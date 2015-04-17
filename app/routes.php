@@ -208,7 +208,9 @@ Route::get('admin/games/preview/{id}', array('as' => 'admin.games.preview', 'use
 Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 
 /*API*/
-Route::get('authorize', array('as' => 'authorize.token', 'uses' => 'APIController@authorizeToken'));
-Route::get('authorize/login/{app_id?}', array('as' => 'authorize.login', 'uses' => 'APIController@authorizeLogin'));
-Route::post('authorize/userlogin', array('as' => 'authorize.login.post', 'uses' => 'APIController@authorizeLoginPost'));
+//Route::get('auth/{appid?}/{token?}', array('as' => 'authorize.token', 'uses' => 'APIController@authorizeToken'));
+Route::get('auth/login/{app_id?}', array('as' => 'authorize.login', 'uses' => 'APIController@authLoginAPI'));
+Route::post('auth/login', array('as' => 'auth.login.post', 'uses' => 'APIController@authLoginPost'));
+Route::get('auth/logout/{token?}', array('as' => 'auth.logout.post', 'uses' => 'APIController@authLogoutAPI'));
+Route::get('auth/user/{token?}', array('as' => 'auth.logout.post', 'uses' => 'APIController@authorizeToken'));
 //Route::post('authorize/{appid}/{token}', array('as' => 'authorize.user', 'uses' => 'APIController@authorizeLoginPost'));

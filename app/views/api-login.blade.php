@@ -17,7 +17,8 @@
 </style>
 
 @section('content')
-    {{ Form::open(array('route' => 'authorize.login.post', 'class' => 'login')) }}
+
+    {{ Form::open(array('route' => 'auth.login.post', 'class' => 'login')) }}
         <h2>Please login</h2>
         @if (Session::has('message') ) 
             <center><p class="error">{{ Session::get('message') }}</p></center>       

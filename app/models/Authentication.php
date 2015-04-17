@@ -9,7 +9,7 @@ class Authentication extends \Eloquent {
 	{
 		return $this->belongsTo('User');
 	}
-
+	
 	public static function createToken($hash) 
 	{
 		return md5(uniqid(mt_rand(), true) . $hash);
@@ -48,4 +48,45 @@ class Authentication extends \Eloquent {
 
 		return $token;
 	}
+
+	public static function destroyToken($token) 
+	{
+		try 
+		{
+			$token = Authentication::where('authentication_token', '=', $token)
+									->firstOrFail();
+			if($token->delete()) 
+				return true;
+		}
+		catch (Exception $e) 
+		{
+			return false;
+		}
+
+	}
+
+	public static function getUser($token) 
+	{
+		$auth = Authentication::where('authentication_token', '=', $token)
+								->first();
+		if($auth) 
+		{
+			$user = User::find($auth->user_id);
+			
+			$user_data = array(
+				'id' => $user->id,
+				'username' => $user->username,
+				'email' => $user->email,
+				'first_name' => $user->first_name,
+				'last_name' => $user->last_name,
+				'mobile_no' => $user->mobile_no,
+			);
+
+			return $user_data;
+
+		}
+
+		return false;
+	}
+
 }

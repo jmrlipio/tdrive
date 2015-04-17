@@ -8,12 +8,28 @@ class APIController extends \BaseController {
 
 	}
 
-	public function createToken($data) 
+	public function authorizeToken($token) 
 	{
-		
+		$auth = Authentication::getUser($token);
+
+		if($auth) 
+		{
+			return Response::json(array(
+					'code' => 200,
+					'token' => $token,
+					'data' => array(
+								'user' => $auth 
+							)
+					));
+		}
+
+		return Response::json(array(
+				'code' => 404,
+				'message' => 'No token available',
+				));
 	}
 
-	public function authorizeLogin($app_id) 
+	public function authLoginAPI($app_id) 
 	{
 		return View::make('api-login')
 					->with('app_id', $app_id)
@@ -21,15 +37,21 @@ class APIController extends \BaseController {
 					->with('page_id', 'form');
 	}
 
-	public function authorizeLoginPost() 
+	public function authLoginPost() 
 	{
 		$credentials = array('username' => Input::get('username'), 'password' => Input::get('password')); 
-		//dd($credentials);
 		if (Auth::attempt($credentials)) 
 		{
 			Auth::login(Auth::user(), true);
 			$user = Authentication::getAuthorizeUser(Auth::user()->id, Input::get('app_id'));
-			//dd(Input::get('app_id'));
+			$user_data = array(
+							'id' => Auth::user()->id,
+							'username' => Auth::user()->username,
+							'email' => Auth::user()->email,
+							'first_name' => Auth::user()->first_name,
+							'last_name' => Auth::user()->last_name,
+							'mobile_no' => Auth::user()->mobile_no,
+						);
 			if($user)
 			{
 				//return user information
@@ -38,7 +60,7 @@ class APIController extends \BaseController {
 						'token' => $user->authentication_token,
 						'data' => array(
 									'appid' => Input::get('app_id'),
-									'user' => Auth::user()
+									'user' => $user_data 
 								)
 						));
 			}
@@ -52,13 +74,13 @@ class APIController extends \BaseController {
 							'authentication_token' => $token,
 							);
 				$auth = Authentication::storeToken($data);
-				
+
 				return Response::json(array(
 						'code' => 200,
 						'token' => $auth->authentication_token,
 						'data' => array(
 									'appid' => Input::get('app_id'),
-									'user' => Auth::user(),
+									'user' => $user_data ,
 								)
 						));
 			}
@@ -72,6 +94,22 @@ class APIController extends \BaseController {
 		}
 
 	}
+
+	public function authLogoutAPI($token) 
+	{
+		$user = Authentication::destroyToken($token);
+		if($user)
+			return Response::json(array(
+						'code' => 200,
+						'message' => 'Logout Successful',
+				));
+
+		return Response::json(array(
+						'code' => 500,
+						'message' => 'Internal Server Error',
+				));
+	}
 }
+
 
 ?>
