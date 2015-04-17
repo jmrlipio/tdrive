@@ -63,7 +63,7 @@
 						@foreach($games_slide as $key => $game)
 							
 							@if($key == $slider->slideable_id)
-								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))							
+								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))					
 									
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['slug']))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
 								
@@ -496,11 +496,11 @@
 						   
 						    <p> {{ str_limit($data->description, $limit = 200, $end = '...') }} </p>
 
-						    <div id="btn-link">
-
-								<a href="{{ URL::route('game.show', $data->game_id) }}">View</a>
-
-							</div>						    
+						   <!--  <div id="btn-link">
+						   		    
+						   		    								<a href="{{ URL::route('game.show', $data->game_id) }}">View</a>
+						   		    
+						   		    							</div>				 -->		    
 						  
 						</div>
 					 

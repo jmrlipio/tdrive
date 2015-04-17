@@ -3,7 +3,15 @@
 @section('stylesheets')
 	{{ HTML::style("css/jquery.fancybox.css"); }}
 	<style>
-		a.category-link { font-size: 15px;}
+	a.category-link { font-size: 15px;}
+	#nav-toggle, #side-menu {
+		display: none !important;
+	}
+
+	#back {
+		display: block !important;
+		margin-top: 12px !important;
+	}
 	</style>
 @stop
 

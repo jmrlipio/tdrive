@@ -88,22 +88,12 @@
 			</div>
 		</div>
 
-		@if ($game->default_price < 1)
+		<a href="#" class="download" id="game-download">
+			<div>
+				<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
+			</div>
+		</a>
 
-			<a href="#" class="download">
-				<div>
-					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
-				</div>
-			</a>
-
-		@else
-
-			<a href="#" class="download" id="game-download">
-				<div>
-					<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
-				</div>
-			</a>
-		
 		@if(Auth::check())
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
@@ -185,7 +175,6 @@
 				</div>
 			</div>
 
-		@endif
 	</div><!-- end #buttons -->
 
 	<div id="description" class="container">

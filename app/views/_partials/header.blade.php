@@ -14,14 +14,35 @@ $game_settings = GameSetting::all();
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{{ $page_title }}} | TDrive</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:site_name" content="" />
-	<meta property="og:url" content="" />
-	<meta property="og:title" content="" />
-	<meta property="og:description" content="" />
-	<meta property="og:image" content="" />
+
 
 	@if (isset($general_settings[2]) || !empty($general_settings[2]))
 		{{ $general_settings[2]->value }}
+	@endif
+
+	@if(isset($game_id))
+		@foreach($games as $game)
+			@if($game->id == $game_id)
+				@foreach($game->apps as $app)
+					@foreach($languages as $language)
+						@if($language->id == $app->pivot->language_id)
+							<?php $iso_code = strtolower($language->iso_code); ?>
+						@endif
+					@endforeach
+					@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))
+						<meta property="og:url" content="{{ url() }}/game/{{ $game->id }}/{{ $app->pivot->app_id }}" />
+						<meta property="og:title" content="{{ $app->pivot->title }}" />
+						<meta property="og:description" content="{{ $app->pivot->excerpt }}" />
+					@endif
+				@endforeach
+
+				@foreach($game->media as $media)
+					@if($media->type == 'homepage')
+						<meta property="og:image" content="{{ url() }}/assets/games/homepage/{{ $media->url}}" />
+					@endif
+				@endforeach
+			@endif
+		@endforeach
 	@endif
 
 	<link rel="shortcut icon" href="favicon.ico">

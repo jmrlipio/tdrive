@@ -12,11 +12,13 @@
 		<br>
 		<table class="table table-striped table-bordered table-hover">
 			<tr>
+				<th>ID</th>
 				<th>Language</th>
 			</tr>
 			@if(!$languages->isEmpty())
 				@foreach($languages as $language)
 					<tr>
+						<td>{{ str_pad($language->id, 2, '0', STR_PAD_LEFT) }}</td>
 						<td>
 							<a href="{{ URL::route('admin.languages.edit', $language->id) }}">{{ $language->language }}</a>
 							@if(Auth::user()->role != 'admin')

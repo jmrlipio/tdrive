@@ -445,7 +445,7 @@ class AdminGamesController extends \BaseController {
     	
     }
 
-	public function previewGame($id){
+	public function previewGame($id, $app_id){
 		$languages = Language::all();
 		$game = Game::find($id);
 		$current_game = Game::find($id);
@@ -487,7 +487,7 @@ class AdminGamesController extends \BaseController {
 			->with('ratings', $ratings)
 			->with('current_game', $current_game)
 			->with('country', $country)
-			->with(compact('languages','related_games', 'game', 'discounted_games'));
+			->with(compact('languages','related_games', 'game', 'discounted_games','app_id'));
 	}
 
 	public function getCreateApp($id) {
@@ -585,7 +585,7 @@ class AdminGamesController extends \BaseController {
 
 		$edit_rules = GameApp::$rules;
 
-		$edit_rules['app_id'] = 'required|unique:apps,app_id,' . $app->id;
+		$edit_rules['app_id'] = 'required|unique:apps,app_id,' . $game->id;
 
 		$validator = Validator::make($data = Input::all(), $edit_rules, GameApp::$messages);
 
@@ -607,9 +607,27 @@ class AdminGamesController extends \BaseController {
 
 		$app->update($values);
 
-		return Redirect::back()->with('message', 'You have successfully updated this app.');
+		$languages = Language::all();
+		$carriers = [];
+		$currencies = [];
 
-		// $game->apps()->updateExistingPivot([Input::get('carrier_id'), Input::get('language_id')], array('default' => 0));
+		foreach(Carrier::all() as $carrier) {
+			$carriers[str_pad($carrier->id, 2, "0", STR_PAD_LEFT)] = $carrier->carrier;
+		}
+
+		$cr = Country::distinct()->select('currency_code','name')->get();
+
+		foreach($cr as $currency) {
+			if($currency->currency_code != '') {
+				$currencies[$currency->currency_code] = $currency->currency_code . ' ('. $currency->name .')';
+			}
+		}
+
+		return Redirect::route('admin.games.edit.app', array('game_id' => $id, 'app_id' => $values['app_id']))
+				->with(compact('game','carriers','languages','currencies', 'values', 'app_id'))
+				->with('message', 'You have successfull updated this app.');
+
+		// return Redirect::back()->with('message', 'You have successfully updated this app.');
 	}
 
 	public function postDeleteApp($game_id, $id) {

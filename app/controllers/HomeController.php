@@ -105,6 +105,11 @@ class HomeController extends BaseController {
 			}
 		}
 
+		/*foreach ($discounts as $data) {
+			
+			dd($data);
+		}*/
+
 	/* For displaying news alert */	
 
 		$news_alert = News::whereNewsCategoryId(2)
@@ -187,7 +192,7 @@ class HomeController extends BaseController {
 			foreach($game->apps as $app) {
 
 				$iso_code = ''; 
-				
+
 				foreach($languages as $language){
 
 					if($language->id == $app->pivot->language_id){
