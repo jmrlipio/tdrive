@@ -218,6 +218,7 @@ class AdminGamesController extends \BaseController {
 			}
 		}
 
+
 		if(Input::hasFile('homepage')) {
 			$homepage = Input::file('homepage');
 			$homepage_name = $this->saveMedia($homepage, 'homepage');
@@ -229,13 +230,16 @@ class AdminGamesController extends \BaseController {
 		$game->update(array('image_orientation' => $orientation));
 
 		$screenshots = Input::file('screenshots');
+
 		$ssid = Input::get('ssid');
 
 		foreach($screenshots as $screenshot) {
+			$screenshot_name = '';
 			if($screenshot != null) {
 				$screenshot_name = $this->saveMedia($screenshot, 'screenshots', $orientation);
-				$this->syncMedia($game, 'screenshots', $screenshot_name, $ssid);
 			}
+
+			$this->syncMedia($game, 'screenshots', $screenshot_name, $ssid);
 		}
 
 		$url = URL::route('admin.games.edit', $game->id) . '#media';
@@ -259,7 +263,7 @@ class AdminGamesController extends \BaseController {
 			'type' => $type
 		];
 
-		$new_media = Media::create($details);
+		if($media_name != '') $new_media = Media::create($details);
 
 		foreach($game->media as $media) {
 			if($media->type == $type) {
@@ -269,7 +273,7 @@ class AdminGamesController extends \BaseController {
 			}
 		}
 
-		$game->media()->attach($new_media->id);
+		if($media_name != '') $game->media()->attach($new_media->id);
 	}
 
 	/**
@@ -542,14 +546,23 @@ class AdminGamesController extends \BaseController {
 
 	public function getEditApp($id, $app_id) {
 		$game = Game::find($id);
-
+		
 		$languages = Language::all();
 		$carriers = [];
 		$currencies = [];
 		$values = [];
 
+/*		echo '<pre>';
+		dd($game->apps->toArray());
+		echo '</pre>';*/
+
 		foreach($game->apps as $app) {
 			if($app->pivot->app_id == $app_id) {
+
+/*				echo '<pre>';
+				dd($app->pivot->status);
+				echo '</pre>';*/
+
 				$values['carrier_id'] = $app->pivot->carrier_id;
 				$values['language_id'] = $app->pivot->language_id;
 				$values['title'] = $app->pivot->title;
@@ -557,6 +570,7 @@ class AdminGamesController extends \BaseController {
 				$values['excerpt'] = $app->pivot->excerpt;
 				$values['currency_code'] = $app->pivot->currency_code;
 				$values['price'] = $app->pivot->price;
+				$values['status'] = $app->pivot->status;
 				$values['app_id'] = $app_id;
 			}
 		}
@@ -602,7 +616,8 @@ class AdminGamesController extends \BaseController {
 			'content' => Input::get('content'),
 			'excerpt' => Input::get('excerpt'),
 			'currency_code' => Input::get('currency_code'),
-			'price' => Input::get('price')
+			'price' => Input::get('price'),
+			'status' => Input::get('status')
 		];
 
 		$app->update($values);

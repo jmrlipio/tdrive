@@ -58,6 +58,16 @@
 					{{ Form::text('price', $values['price']) }}
 					{{ $errors->first('price', '<p class="error">:message</p>') }}
 				</li>
+				<li>
+					{{ Form::label('status', 'Status: ') }}
+					<select name="status" c="{{ $values['status'] }}">
+						@foreach(Constant::app_status() as $key => $value)
+							<option value="{{ $key }}" {{ ($values['status'] == $key) ? 'selected' : '' }}>{{ $value }}</option>
+						@endforeach
+						<option value=""></option>
+					</select>
+					{{ $errors->first('status', '<p class="error">:message</p>') }}
+				</li>
 				<br>
 				{{ Form::submit('Save') }} <a href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Back</a>
 				<a href="{{ URL::route('admin.games.preview', array($game->id, $values['app_id'])) }}" target='blank') id="preview">Preview</a>

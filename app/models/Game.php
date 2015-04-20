@@ -50,7 +50,7 @@ class Game extends \Eloquent {
 	}
 
     public function apps() {
-        return $this->tripleBelongsToMany('Carrier', 'Language', 'apps')->withPivot('carrier_id','language_id','app_id', 'price', 'title', 'content', 'excerpt', 'currency_code');
+        return $this->tripleBelongsToMany('Carrier', 'Language', 'apps')->withPivot('carrier_id','language_id','app_id', 'price', 'title', 'content', 'excerpt', 'currency_code', 'status');
     }
 
     // public function prices() {
