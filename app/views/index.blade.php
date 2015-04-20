@@ -217,6 +217,11 @@
 			<?php continue; ?>
 		@endif
 
+		@if(!Game::countPublishStatus($cat->id))
+			<?php continue; ?>
+		@endif
+
+
 		<div class="game-category container">
 			<div class="clearfix">
 				<h2 class="title fl">{{ trans('global.'.$cat->category) }}</h2>

@@ -73,4 +73,20 @@ class Game extends \Eloquent {
     	return $this->morphMany('Slider', 'slideable');
     }
 
+    public static function countPublishStatus($cat_id) 
+    {
+    	$games = Category::find($cat_id)->games;
+    	$count = 0;
+    	foreach($games as $game) 
+    	{
+    		foreach($game->apps as $app) 
+    		{
+    			if($app->pivot->status == Constant::PUBLISH) 
+    			{
+    				$count++;
+    			}
+    		}
+    	}
+    	return $count;
+    }
 }
