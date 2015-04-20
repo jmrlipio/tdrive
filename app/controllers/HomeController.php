@@ -23,6 +23,7 @@ class HomeController extends BaseController {
 		}
 
 		$carriers = Country::with('carriers')->where('country_code', '=', $country_id)->get();
+
 		$selected_carriers = [];
 
 		foreach($carriers as $c) {
@@ -30,6 +31,18 @@ class HomeController extends BaseController {
 				$selected_carriers[] = $i;
 			}
 		}
+
+		if(!$selected_carriers) 
+		{	
+
+			$carriers_all = Carrier::all();
+			foreach($carriers_all as $carrier)
+			{
+				$selected_carriers[] = $carrier;
+			}
+
+		}
+
 
 		$carrier_all = [];
 
@@ -237,7 +250,7 @@ class HomeController extends BaseController {
 			);
 
 		}
-		
+
 		/* END */
 
 		return View::make('index')

@@ -81,7 +81,10 @@ img, video {
 img.auto, video.auto {
   width: auto;
 }
-
+.no-games 
+{
+  padding: 10px;
+}
 .tablet {
   display: none;
 }
@@ -651,6 +654,7 @@ img.auto, video.auto {
     display: block;
     color: #fff;
     text-align: center;
+    min-height: 20px;
   }
   .tablet .menu a.menu-games {
     background: #57d9cd url(../images/tablet-games.png) 4px top no-repeat;
@@ -692,7 +696,7 @@ img.auto, video.auto {
   .tablet .top p a {
     display: inline;
   }
-
+  
   #header {
     position: static;
   }

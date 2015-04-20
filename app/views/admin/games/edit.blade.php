@@ -72,6 +72,7 @@
 							<th>App ID</th>
 							<th>Carrier</th>
 							<th>Language</th>
+							<th>Price</th>
 							<th>Action</th>
 						</tr>
 
@@ -91,6 +92,9 @@
 												{{ $language->language }}
 											@endif											
 										@endforeach
+									</td>
+									<td>
+										 {{ $app->pivot->currency_code }} {{ $app->pivot->price }}
 									</td>
 									<td>
 

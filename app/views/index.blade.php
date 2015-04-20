@@ -188,8 +188,22 @@
 	<div id="games-heading" class="container">
 		<h1 class="title">{{ trans('global.Games') }}</h1>
 	</div>
-
+	<?php $empty = 0; ?>
 	@foreach($categories as $cat)
+		
+		@if($cat->games()->isEmpty())
+			<?php $empty++; ?>
+			@if($empty >= count($categories))
+				<div class="game-category container">
+					<p class="no-games">no games, please choose another carrier or another language for the selected carrier</p>
+				</div>
+			@endif
+			<?php continue; ?>
+		@endif
+
+		
+
+		
 
 		<div class="game-category container">
 			<div class="clearfix">
@@ -683,6 +697,26 @@
 			$(this).submit();
 		});
 
+	</script>
+	<script>
+		$(document).ready(function() {
+			var resize = false;
+			$('.tablet ul.menu li').each(function() {
+				if($(this).height() > 70) 
+				{
+					resize = true;
+				} 
+				
+			})
+			if(resize) 
+			{
+				$('.tablet ul.menu li').find('a').css('font-size', '10px');
+				$('.tablet ul.menu li').find('a').css('padding', '50px 0 5px');
+				  
+			}
+				
+			
+		});
 	</script>
 
 @stop
