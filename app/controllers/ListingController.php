@@ -92,6 +92,7 @@ class ListingController extends \BaseController {
 
 	public function showGamesByCategory($id) 
 	{
+
 		$languages = Language::all();
 
 		$category = Category::find($id);
@@ -111,7 +112,6 @@ class ListingController extends \BaseController {
                 $query->where('category_id','=', $id );
          
           })->get()->take(6);
-           	
 
 		$games_all = Category::find($id)->games;
 
@@ -130,7 +130,6 @@ class ListingController extends \BaseController {
 				$discounted_games[$data->id][] = $gm->id; 
 			}
 		}
-
 
 		return View::make('category')
 			->with('page_title', $category->category)

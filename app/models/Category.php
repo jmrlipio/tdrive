@@ -10,9 +10,8 @@ class Category extends \Eloquent {
 	];
 
 	public function games() {
-		return $this->belongsToMany('Game', 'game_categories')->orderBy('id', 'DESC')->get();
+		return $this->belongsToMany('Game', 'game_categories')->orderBy('id', 'DESC');
 	}
-
 
 
 }

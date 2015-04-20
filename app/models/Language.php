@@ -41,4 +41,11 @@ class Language extends \Eloquent {
         return $this->tripleBelongsToMany('Game', 'Carrier', 'apps')->withPivot('price', 'title', 'content', 'excerpt');
     }
 
+    public static function getLangID($locale) 
+    {
+        $id = Language::where('iso_code', '=', $locale)
+                        ->first();
+        return $id->id;
+    }
+
 }

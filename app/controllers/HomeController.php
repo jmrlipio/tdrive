@@ -251,6 +251,23 @@ class HomeController extends BaseController {
 
 		}
 
+		//$cat = Category::find(2)->games;
+		//echo "<pre>";
+		//dd($cat->toArray());
+		//foreach($categories as $cat ) 
+		//{
+			foreach($cat->games() as $apps) 
+			{
+				//foreach($apps->media as $media) 
+				//{
+					echo "<pre>";
+					//dd($apps->media->toArray());
+					echo "</pre>";	
+				//}
+			}
+			
+		//}
+
 		/* END */
 
 		return View::make('index')

@@ -14,4 +14,20 @@ class Media extends \Eloquent {
         return $this->belongsToMany('Game', 'game_media');
     }
 
+
+    public static function getGameIcon($game_id) 
+	{
+		$game = Game::find($game_id);
+
+		foreach($game->media as $icon) 
+		{
+			if($icon->type == 'icons') 
+			{
+				return $icon->url;
+			}
+		}
+
+		return null;
+	}
+
 }
