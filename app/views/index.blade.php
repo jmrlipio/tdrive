@@ -125,6 +125,9 @@
 				<?php $ctr = 0; ?>
 				@foreach($games as $game)
 					@foreach($game->apps as $app)
+						@if($app->pivot->status != Constant::PUBLISH)
+							<?php continue; ?>
+						@endif
 						<?php $iso_code = ''; ?>
 						@foreach($languages as $language)
 							@if($language->id == $app->pivot->language_id)
@@ -188,8 +191,22 @@
 	<div id="games-heading" class="container">
 		<h1 class="title">{{ trans('global.Games') }}</h1>
 	</div>
-
+	<?php $empty = 0; ?>
 	@foreach($categories as $cat)
+		
+		@if($cat->games()->isEmpty())
+			<?php $empty++; ?>
+			@if($empty >= count($categories))
+				<div class="game-category container">
+					<p class="no-games">no games, please choose another carrier or another language for the selected carrier</p>
+				</div>
+			@endif
+			<?php continue; ?>
+		@endif
+
+		
+
+		
 
 		<div class="game-category container">
 			<div class="clearfix">
@@ -203,6 +220,9 @@
 					@foreach($games as $game)
 						@foreach($game->categories as $gcat)
 							@foreach($game->apps as $app)
+								@if($app->pivot->status != Constant::PUBLISH)
+									<?php continue; ?>
+								@endif
 								<?php $iso_code = ''; ?>
 								@foreach($languages as $language)
 									@if($language->id == $app->pivot->language_id)
@@ -683,6 +703,26 @@
 			$(this).submit();
 		});
 
+	</script>
+	<script>
+		$(document).ready(function() {
+			var resize = false;
+			$('.tablet ul.menu li').each(function() {
+				if($(this).height() > 70) 
+				{
+					resize = true;
+				} 
+				
+			})
+			if(resize) 
+			{
+				$('.tablet ul.menu li').find('a').css('font-size', '10px');
+				$('.tablet ul.menu li').find('a').css('padding', '50px 0 5px');
+				  
+			}
+				
+			
+		});
 	</script>
 
 @stop

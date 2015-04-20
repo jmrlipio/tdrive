@@ -17,17 +17,7 @@
 <div id="logo-container">
 	{{ HTML::image("images/tdrive.png", null) }}
 </div>
-
-	@if (Session::has('success') ) 
-            
-        <h3 class="title center">{{ Session::get('success') }}</h3>              
-
-    @endif
-
-	<h1 class="title center">Select Carrier</h1>
-
 	<br>
-
 	{{ Form::open(array('action' => 'HomeController@home')) }}
 		{{ Form::token() }}
 
