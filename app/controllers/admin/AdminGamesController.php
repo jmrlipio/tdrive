@@ -234,15 +234,12 @@ class AdminGamesController extends \BaseController {
 		$ssid = Input::get('ssid');
 
 		foreach($screenshots as $screenshot) {
+			$screenshot_name = '';
 			if($screenshot != null) {
 				$screenshot_name = $this->saveMedia($screenshot, 'screenshots', $orientation);
-				$this->syncMedia($game, 'screenshots', $screenshot_name, $ssid);
 			}
-			else
-			{
-				if(!in_array($media->id, $ssid)) 
-					$game->media()->detach($media->id);
-			}
+
+			$this->syncMedia($game, 'screenshots', $screenshot_name, $ssid);
 		}
 
 		$url = URL::route('admin.games.edit', $game->id) . '#media';
@@ -266,7 +263,7 @@ class AdminGamesController extends \BaseController {
 			'type' => $type
 		];
 
-		$new_media = Media::create($details);
+		if($media_name != '') $new_media = Media::create($details);
 
 		foreach($game->media as $media) {
 			if($media->type == $type) {
@@ -276,7 +273,7 @@ class AdminGamesController extends \BaseController {
 			}
 		}
 
-		$game->media()->attach($new_media->id);
+		if($media_name != '') $game->media()->attach($new_media->id);
 	}
 
 	/**
