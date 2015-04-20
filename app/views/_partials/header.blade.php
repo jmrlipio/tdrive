@@ -21,6 +21,7 @@ $game_settings = GameSetting::all();
 	@endif
 
 	@if(isset($game_id))
+	
 		@foreach($games as $game)
 			@if($game->id == $game_id)
 				@foreach($game->apps as $app)

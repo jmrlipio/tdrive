@@ -70,20 +70,21 @@
 					<table id="app-table">
 						<tr>
 							<th>App ID</th>
+							<th>Price</th>
 							<th>Carrier</th>
 							<th>Language</th>
 							<th>Action</th>
 						</tr>
 
 						@if(count($game->apps))
-							@foreach($game->apps as $app)
-								
+							@foreach($game->apps as $app)								
 								<tr>
 									<td>
 										<p>
 											{{ $app->pivot->app_id }}
 										</p>
 									</td>
+									<td>{{$app->pivot->currency_code}} {{$app->pivot->price}}</td>
 									<td>{{ $app->carrier }}</td>
 									<td>
 										@foreach($languages as $language)
@@ -166,6 +167,7 @@
 						@foreach($selected_media as $media)
 							@if($media['type'] == 'screenshots')
 								<li>
+									{{ $media['media_url']}}
 									<div class="media-box">
 										{{ HTML::image($media['media_url'], null) }}
 									</div>

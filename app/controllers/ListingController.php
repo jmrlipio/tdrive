@@ -195,6 +195,8 @@ class ListingController extends \BaseController {
 
 		$test = [];
 
+		$games = Game::all();
+
 		/* For getting discounts */
 		$dt = Carbon::now();
 		$discounts = Discount::whereActive(1)
@@ -219,7 +221,7 @@ class ListingController extends \BaseController {
 			->with('country', $country)
 			->with('count', $count)
 			->with('game_id', $game->id)
-			->with(compact('related_games', 'discounted_games'))
+			->with(compact('related_games', 'discounted_games','games'))
 			->with(compact('languages'));
 	}
 
