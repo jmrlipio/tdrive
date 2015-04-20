@@ -118,8 +118,14 @@
 
 
 
-	<div id="latest-games" class="container">
-		<h1 class="title">{{ trans('global.All games') }}</h1>
+	<div id="latest-games" class="bb container">
+		<h1 class="title fleft">{{ trans('global.Games') }}</h1>
+		<select name="game-category" id="game-category">
+			@foreach($categories as $cat)
+				<option value="{{ $cat->slug }}">{{ $cat->category }}</option>
+			@endforeach
+		</select>
+		<div class="clear"></div>
 		<div class="swiper-container thumbs-container">
 			<div class="swiper-wrapper">
 				<?php $ctr = 0; ?>
@@ -171,6 +177,13 @@
 													@endif												
 												@endunless
 											</div>
+											<div class="game-button">
+												@if ($app->pivot->price == 0)
+													<a href="#" class="game-free">Free</a>
+												@else
+													<a href="#" id="buy" class="game-buy buy">Buy</a>	
+												@endif
+											</div>
 										</div>
 									@endif
 								@endforeach
@@ -185,9 +198,9 @@
 		<div class="more"><a href="{{ route('games.all') }}">{{ trans('global.More') }} +</a></div>
 	</div><!-- end #latest-games -->
 
-	<div id="games-heading" class="container">
-		<h1 class="title">{{ trans('global.Games') }}</h1>
-	</div>
+	{{-- <div id="games-heading" class="container"> --}}
+		{{-- <h1 class="title">{{ trans('global.Games') }}</h1> --}}
+	{{-- </div> --}}
 	<?php $empty = 0; ?>
 	@foreach($categories as $cat)
 		
@@ -208,7 +221,7 @@
 		<div class="game-category container">
 			<div class="clearfix">
 				<h2 class="title fl">{{ trans('global.'.$cat->category) }}</h2>
-				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.See all') }}</a></div>
+				
 			</div>
 
 			<div class="swiper-container thumbs-container">
@@ -263,6 +276,13 @@
 															@endif												
 														@endunless
 													</div>
+													<div class="game-button">
+														@if ($app->pivot->price == 0)
+															<a href="#" class="game-free">Free</a>
+														@else
+															<a href="#" id="buy" class="buy game-buy">Buy</a>	
+														@endif
+													</div>
 												</div>
 											@endif <!-- End of limit condition -->
 										@endif <!-- End of icons condition -->
@@ -273,14 +293,15 @@
 					@endforeach <!-- End of game loop -->
 
 				</div>
+				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.More') }}+</a></div>
 			</div>
 		</div>
 		
 	@endforeach
 
-	<div class="view-all container clearfix">
-		<div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div>
-	</div>
+	{{-- <div class="view-all container clearfix"> --}}
+		{{-- <div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div> --}}
+	{{-- </div> --}}
 
 	<div id="news" class="container">
 		<div class="clearfix">
@@ -696,6 +717,70 @@
 			$(this).attr('action', 'news/year/' + year);
 			$(this).submit();
 		});
+
+		$("#buy").on('click',function() {
+			$('#carrier-select').remove();
+			 $.ajax({
+			 	type: "get",
+			 	url: "{{ URL::route('games.carrier', $game->id) }}",
+			 	dataType: "json",
+			 	complete:function(data) {
+			 		
+			 		var carriers = $.parseJSON(data['responseText']);
+					var append = '<select id="carrier-select">';
+
+					for(x = 0; x < carriers.length; x++ ) 
+					{
+						append += '<option value="' + carriers[x].id + '">' + carriers[x].carrier + '</option>';
+					}
+					append += '</select>';
+				
+					if($('#carrier-container').find('#carrier-select').length == 0) 
+					{
+						$('#submit-carrier').before(append);
+						append = '';
+					}
+                }
+            });
+
+			$('#buy').fancybox({
+				'titlePosition'     : 'inside',
+	            'transitionIn'      : 'none',
+	            'transitionOut'     : 'none',
+	            afterClose: function() {
+	            	var app_id = 'blazing-dribble-globe-en';
+	            	var user_id = '';
+	            	$.fancybox({
+			            'width': '80%',
+			            'height': '60%',
+			            'autoScale': true,
+			            'transitionIn': 'fade',
+			            'transitionOut': 'fade',
+			            'type': 'iframe',
+			            'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
+			            afterClose: function() {
+
+			            	$.ajax({
+							 	type: "get",
+							 	url: "{{ URL::route('games.status', $game->id) }}",
+							 	complete:function(data) {
+
+							 		var response = JSON.parse(data['responseText']);
+							 		console.log(response.status);
+									if(response.status == 1) {
+										$('#game-download').css('display', 'block');
+										$('#buy').css('display', 'none');
+
+										var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
+										$('#game-download').attr('href', url);
+									}
+				                }
+				            });
+			            }
+			        });
+	            }
+			});
+        });
 
 	</script>
 	<script>

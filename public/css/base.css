@@ -89,6 +89,16 @@ img.auto, video.auto {
   display: none;
 }
 
+#home #latest-games.bb {
+  background: #61ded0;
+  color: #fff;
+}
+
+#home .game-category:nth-child(even) {
+  background: #fff;
+  color: #465a65;
+}
+
 .container {
   max-width: 1024px;
   margin: 0 auto;
@@ -383,20 +393,24 @@ img.auto, video.auto {
   color: #fff;
   display: block;
   font-size: 20px;
-  padding: 40px 10px 5px 0;
+  padding: 20px 10px 5px 0;
   text-align: right;
 }
 #side-menu .menu a.menu-games {
   background: #57d9cd url(../images/mobile-games.png) -10px -10px no-repeat;
+  background-size: 60px;
 }
 #side-menu .menu a.menu-news {
   background: #ffdf00 url(../images/mobile-news.png) -5px -6px no-repeat;
+  background-size: 60px;
 }
 #side-menu .menu a.menu-faqs {
   background: #a0c82a url(../images/mobile-faqs.png) -5px -5px no-repeat;
+  /*background-size: 75px;*/
 }
 #side-menu .menu a.menu-contact {
   background: #ff8866 url(../images/mobile-contact.png) -18px -18px no-repeat;
+  /*background-size: 75px;*/
 }
 #side-menu .social {
   margin-top: 10px;

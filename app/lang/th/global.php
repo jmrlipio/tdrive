@@ -28,7 +28,7 @@ return array(
 	'first_name' => 'ชื่อแรก',
 	'last_name' => 'นามสกุล',
 	'mobile_no' => 'หมายเลขโทรศัพท์มือถือ',
-	'password_confirmation' => 'ยืนยันรหัสผ่าน',
+	'confirm password' => 'ยืนยันรหัสผ่าน',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',
