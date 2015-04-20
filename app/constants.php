@@ -36,7 +36,21 @@ class Constant {
 /* USER ACTIONS */
 	const LOGS_USER_LOGIN_ACTION = 'log in';
 	const LOGS_USER_LOGOUT_ACTION = 'log out';
+/* APPS STATUS*/
+	const PUBLISH = '1';
+	const DRAFT = '2';
 
-	public static $USER_ROLES = ['superadmin','admin','editor','member'];
+	private $constant;
+
+
+	public static function app_status() 
+	{
+		$_constants = array(
+						self::PUBLISH => _('Publish'),
+						self::DRAFT => _('Draft'),
+				);
+
+		return $_constants;
+	}
 
 }

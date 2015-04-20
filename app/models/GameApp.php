@@ -1,7 +1,7 @@
 <?php
 
 class GameApp extends \Eloquent {
-	protected $fillable = ['game_id', 'carrier_id', 'language_id', 'app_id', 'title', 'content', 'excerpt', 'price', 'currency_code'];
+	protected $fillable = ['game_id', 'carrier_id', 'language_id', 'app_id', 'title', 'content', 'excerpt', 'price', 'currency_code', 'status'];
 
 	protected $table = 'apps';
 

@@ -125,6 +125,9 @@
 				<?php $ctr = 0; ?>
 				@foreach($games as $game)
 					@foreach($game->apps as $app)
+						@if($app->pivot->status != Constant::PUBLISH)
+							<?php continue; ?>
+						@endif
 						<?php $iso_code = ''; ?>
 						@foreach($languages as $language)
 							@if($language->id == $app->pivot->language_id)
@@ -217,6 +220,9 @@
 					@foreach($games as $game)
 						@foreach($game->categories as $gcat)
 							@foreach($game->apps as $app)
+								@if($app->pivot->status != Constant::PUBLISH)
+									<?php continue; ?>
+								@endif
 								<?php $iso_code = ''; ?>
 								@foreach($languages as $language)
 									@if($language->id == $app->pivot->language_id)

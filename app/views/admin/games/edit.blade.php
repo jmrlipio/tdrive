@@ -69,6 +69,7 @@
 					<div class="clear"></div>
 					<table id="app-table">
 						<tr>
+							<th>Status</th>
 							<th>App ID</th>
 							<th>Carrier</th>
 							<th>Language</th>
@@ -80,6 +81,13 @@
 							@foreach($game->apps as $app)
 								
 								<tr>
+									<td>
+										<p>
+											@foreach(Constant::app_status() as $key => $value)
+												{{ ($app->pivot->status == $key) ? $value : '' }}
+											@endforeach
+										</p>
+									</td>
 									<td>
 										<p>
 											{{ $app->pivot->app_id }}
@@ -173,7 +181,7 @@
 									<div class="media-box">
 										{{ HTML::image($media['media_url'], null) }}
 									</div>
-									{{ Form::file('screenshots[]', null, array('class' => 'screenshot')) }}
+									{{ Form::file('screenshots[]', null , array('class' => 'screenshot')) }}
 									{{ Form::button('Remove', array('class' => 'remove-btn')) }}
 									{{ Form::hidden('ssid[]', $media['media_id'], array('class' => 'ssid')) }}
 								</li>
