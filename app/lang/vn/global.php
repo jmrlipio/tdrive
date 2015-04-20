@@ -28,7 +28,7 @@ return array(
 	'first_name' => 'tên',
 	'last_name' => 'last_name',
 	'mobile_no' => 'không có điện thoại di động',
-	'password_confirmation' => 'password_confirmation',
+	'confirm password' => 'xác nhận mật khẩu',
 
 	//Categories
 	'Brain and Puzzle' => 'Não và Puzzle',

@@ -174,7 +174,7 @@ Pagination Styles
 }
 
 .swiper-container-horizontal>.swiper-pagination {
-	bottom:0px;
+	bottom:3px;
 	left:0;
 	width:100%;
 }

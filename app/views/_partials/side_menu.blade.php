@@ -86,10 +86,10 @@ $game_settings = GameSetting::all();
 	</div>
 
 	<ul class="menu">
-		<li><a href="{{ route('home.show') }}#latest-games" class="menu-games">{{ trans('global.games') }}</a></li>
-		<li><a href="{{ route('home.show') }}#news" class="menu-news">{{ trans('global.news') }}</a></li>
-		<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs">{{ trans('global.faqs') }}</a></li>
-		<li><a href="{{ route('home.show') }}#contact" class="menu-contact">{{ trans('global.contact') }}</a></li>
+		<li><a href="{{ route('home.show') }}#latest-games" class="menu-games"><span>{{ trans('global.games') }}</span></a></li>
+		<li><a href="{{ route('home.show') }}#news" class="menu-news"><span>{{ trans('global.news') }}</span></a></li>
+		<li><a href="{{ route('home.show') }}#faqs" class="menu-faqs"><span>{{ trans('global.faqs') }}</span></a></li>
+		<li><a href="{{ route('home.show') }}#contact" class="menu-contact"><span>{{ trans('global.contact') }}</span></a></li>
 	</ul>
 
 	<ul class="social">

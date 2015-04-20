@@ -52,7 +52,7 @@
 		{{ $errors->first('password', '<p class="error">:message</p>') }}
 
 		<div class="control">
-			{{ Form::label('password_confirmation', trans('global.password_confirmation')) }}
+			{{ Form::label('confirm password', trans('global.confirm password')) }}
 			{{ Form::password('password_confirmation') }}
 		</div>
 		
