@@ -116,7 +116,7 @@
 		var _token = $('#token input').val();
 		var category_id = {{ $category->id }};
 		var num = {{ $count }};
-
+		var page = ({{ $page }} / 2);
 		var token = $('input[name="_token"]').val();
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
@@ -160,30 +160,30 @@
 		});
 
 		$(window).scroll(function() {
-			$('.ajax-loader').show();
+			var bottom = 50;
+			var scroll = true;
+				if ($(window).scrollTop() + $(window).height() > $(document).height() - bottom) 
+				{
+					$.ajax({
+						url: "{{ url() }}/category/load/more",
+						type: "POST",
+						data: {
+							page: page,
+							category_id: category_id,
+							_token: _token
+						},
+						success: function(data) {
+							console.log(data);
+							page++;
+							$('#scroll').append(data);
+							$('.ajax-loader').hide();
+						}
+					});
+				}
 
-			load++;
 
-			if (load * 6 > num) {
-				$('.ajax-loader').hide();
-			} else {
 
-				$.ajax({
-					url: "{{ url() }}/category/more",
-					type: "POST",
-					data: {
-						load: load,
-						category_id: category_id,
-						_token: _token
-					},
-
-					success: function(data) {
-						$('#scroll').append(data);
-						$('.ajax-loader').hide();
-					}
-				});
-
-			}
+			
 		});
 	</script>
 @stop
