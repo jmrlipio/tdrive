@@ -36,6 +36,8 @@ class Constant {
 /* USER ACTIONS */
 	const LOGS_USER_LOGIN_ACTION = 'log in';
 	const LOGS_USER_LOGOUT_ACTION = 'log out';
+	const CATEGORY_GAME_COUNT = 6;
+	const CATEGORY_GAME_PAGING = 3;
 /* APPS STATUS*/
 	const PUBLISH = '1';
 	const DRAFT = '2';
