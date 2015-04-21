@@ -278,6 +278,13 @@
 											@endif												
 										@endunless
 									</div>
+									<div class="game-button">
+										@if ($app->pivot->price == 0)
+											<a href="#" class="game-free">Free</a>
+										@else
+											<a href="#" id="buy" class="game-buy buy">Buy</a>	
+										@endif
+									</div>
 								</div>
 							@endif
 						@endforeach
@@ -634,14 +641,42 @@
 	        	$('#newsAlert' + (i + 1)).modal('show');
 	        }
 
-			$('.featured').swiper({
-				slidesPerView: 2,
-				centeredSlides: true,
-				calculateHeight: true,
-				initialSlide: 2,
-				pagination: '.swiper-pagination',
-        		paginationClickable: true
-			});
+	        if($(window).width() >= 321){
+	        	$('.featured').swiper({
+					slidesPerView: 2,
+					centeredSlides: true,
+					calculateHeight: true,
+					initialSlide: 2,
+					pagination: '.swiper-pagination',
+	        		paginationClickable: true
+				});
+	        } else {
+	        	 $('.featured').swiper({
+					slidesPerView: 1,
+					centeredSlides: true,
+					calculateHeight: true,
+					pagination: '.swiper-pagination',
+	        		paginationClickable: true
+				});
+	        }
+	       
+
+	        $(window).resize(function() {
+	        	var height = $(window).height();
+	        	var width = $(window).width();
+
+	        	if(width >= 321){
+	        		$('.featured').swiper({
+						slidesPerView: 2,
+						calculateHeight: true
+					});
+	        	} else if(width <= 320 ){
+	        		$('.featured').swiper({
+						slidesPerView: 1,
+						calculateHeight: true
+					});
+	        	}
+	        });
 
 			$('.thumbs-container').each(function() {
 				$(this).swiper({
