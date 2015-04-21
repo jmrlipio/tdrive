@@ -184,7 +184,7 @@
 												@if ($app->pivot->price == 0)
 													<a href="#" class="game-free">Free</a>
 												@else
-													<a href="#" id="buy" class="game-buy buy">Buy</a>	
+													<a href="#carrier-select-container" id="buy" class="game-buy buy">Buy</a>	
 												@endif
 											</div>
 										</div>
@@ -282,7 +282,7 @@
 										@if ($app->pivot->price == 0)
 											<a href="#" class="game-free">Free</a>
 										@else
-											<a href="#" id="buy" class="game-buy buy">Buy</a>	
+											<a href="#carrier-select-container" id="buy" class="game-buy buy">Buy</a>	
 										@endif
 									</div>
 								</div>
