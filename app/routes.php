@@ -17,7 +17,7 @@ Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'Listing
 
 Route::post('game/{id}', array('as' => 'game.show.post', 'uses' => 'GamesController@show'));
 Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
-Route::post('category/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
+Route::post('category/load/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
 Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));
 Route::post('games/all/more', array('as' => 'games.all.more', 'uses' => 'ListingController@showAllMoreGames'));
 
@@ -35,9 +35,9 @@ Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingContro
 Route::post('category/search', array('as' => 'search', 'uses' => 'ListingController@searchGamesByCategory'));
 
 Route::post('language', array(
-	'before' => 'csrf',
-	'as' => 'choose_language',
-	'uses' => 'LanguagesController@chooseLanguage'
+    'before' => 'csrf',
+    'as' => 'choose_language',
+    'uses' => 'LanguagesController@chooseLanguage'
 ));
 
 Route::get('path', function(){
@@ -51,7 +51,7 @@ Route::get('games/load', array('as' => 'games.load', 'uses' => 'GamesController@
 Route::post('games/load/content/{id}', array('as' => 'games.content.load', 'uses' => 'GamesController@loadGameContent'));
 
 Route::group(array('prefix' => 'admin'), function() {
-	Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
+    Route::get('login', array('as' => 'admin.login', 'uses' => 'AdminUsersController@getLogin'));
     Route::post('login', array('as' => 'admin.login.post', 'uses' => 'AdminUsersController@postLogin'));
     Route::get('logout', array('as' => 'admin.logout', 'uses' => 'AdminUsersController@getLogout'));
 });
@@ -95,6 +95,9 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@showFeatured'));
     Route::post('featured', array('as' => 'admin.featured.update', 'uses' => 'SiteOptionsController@updateFeatured'));
     Route::post('featured/categories', array('as' => 'admin.featured.categories.update', 'uses' => 'SiteOptionsController@updateCategories'));
+    Route::get('ip-filters', array('as' => 'admin.ip-filters', 'uses' => 'SiteOptionsController@getIPfilters'));
+    Route::post('ip-filters', array('as' => 'admin.ip-filters.create', 'uses' => 'SiteOptionsController@addIPfilters'));
+    Route::delete('ip-filters/{id}', array('as' => 'admin.ip-filters.delete', 'uses' => 'SiteOptionsController@deleteIPFilter'));
 
     //added for admin reviews - transfer later on
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));
@@ -179,7 +182,7 @@ Route::get('register', array('as' => 'users.register', 'uses' => 'UsersControlle
 Route::post('register', array('as' => 'users.register.post', 'uses' => 'UsersController@postRegister'));
 
 Route::group(array('before' => 'auth'), function(){
-	Route::resource('users', 'UsersController');
+    Route::resource('users', 'UsersController');
 });
 
 Route::post('reports/inquiries', array('as' => 'reports.inquiries.store-inquiry', 'uses' => 'InquiriesController@storeInquiry'));
@@ -199,6 +202,7 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
     }
 });*/
 
+
 Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
 Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
@@ -206,6 +210,7 @@ route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'as' => 'admin.destroy.review','uses' => 'ReviewsController@handleDestroy'));
 Route::get('admin/games/preview/{id}/{app_id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));
 Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+
 
 /*API*/
 //Route::get('auth/{appid?}/{token?}', array('as' => 'authorize.token', 'uses' => 'APIController@authorizeToken'));
