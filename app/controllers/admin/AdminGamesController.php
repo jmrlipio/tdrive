@@ -576,7 +576,7 @@ class AdminGamesController extends \BaseController {
 		}
 
 		foreach(Carrier::all() as $carrier) {
-			$carriers[$carrier->id] = $carrier->carrier;
+			$carriers[] = array("id" => $carrier->id, "carrier" => $carrier->carrier);
 		}
 
 		$cr = Country::distinct()->select('currency_code','name')->get();
@@ -599,7 +599,7 @@ class AdminGamesController extends \BaseController {
 
 		$edit_rules = GameApp::$rules;
 
-		$edit_rules['app_id'] = 'required|unique:apps,app_id,' . $game->id;
+		$edit_rules['app_id'] = 'required';
 
 		$validator = Validator::make($data = Input::all(), $edit_rules, GameApp::$messages);
 
