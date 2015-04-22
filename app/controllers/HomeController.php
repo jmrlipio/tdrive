@@ -95,6 +95,13 @@ class HomeController extends BaseController {
 			Session::put('locale', strtolower($carrier->language->iso_code));
 		}
 
+		//Redirects to / if carrier is null
+		if(Session::get('carrier') == '') {
+			
+			return Redirect::to('/');
+			
+		}
+
 		$locale = Language::where('iso_code', '=', strtoupper(Session::get('locale')))->first();
 
 		// print_r(Session::all());

@@ -27,7 +27,7 @@ Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
-Route::post('review/{id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
+Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
 
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));

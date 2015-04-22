@@ -45,10 +45,10 @@ class ReviewsController extends \BaseController {
         }*/
 	}
 
-	public function postReview($id)
+	public function postReview($id,$app_id)
 	{
 		$validator = Validator::make(Input::all(), Review::$rules);
-		$url = URL::route('game.show', $id) . '#review';
+		$url = URL::route('game.show', $id) . '/' . $app_id;
 
 		if ($validator->passes()) {
 			Review::create(Input::all());

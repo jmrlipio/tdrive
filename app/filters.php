@@ -14,9 +14,8 @@
 App::before(function($request)
 {
 	Lang::setLocale(Session::get('locale'));
-	
-	/** 
-		* Added by: Jone   
+
+	/** 		   
 		* Purpose: For detecting users device
 		* Date: 01/16/2015
 	*/
