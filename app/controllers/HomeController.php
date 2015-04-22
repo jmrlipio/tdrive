@@ -14,6 +14,14 @@ class HomeController extends BaseController {
 		$languages = Language::all();
 
 		$user_location = GeoIP::getLocation();
+		
+		//erick test
+		/* THAILAND TEST*/
+		//$user_location['country'] = 'Thailand';
+		//Session::put('locale', 'TH');
+
+		/*TEST FOR NO CARRIER FOR SPECIFIC COUNTRY */
+		//$user_location['country'] = 'Afghanistan';
 
 		$country = Country::where('name', $user_location['country'])->get();
 		$country_id = '';
@@ -81,6 +89,8 @@ class HomeController extends BaseController {
 			$first_visit = false;
 		}
 
+
+
 		if(!Session::has('country_id')) {
 			$user_location = GeoIP::getLocation();
 			$country = Country::where('name', $user_location['country'])->first();
@@ -90,6 +100,7 @@ class HomeController extends BaseController {
 		$carrier = Carrier::find(Session::get('carrier'));
 
 		$countries = [];
+
 
 		if(!Session::has('locale')) {
 			Session::put('locale', strtolower($carrier->language->iso_code));
@@ -184,9 +195,7 @@ class HomeController extends BaseController {
 		
 		
 		Session::put('carrier_name', $carrier->carrier);		
-
 		Session::put('user_country', $country->full_name);
-
 
 		/* For displaying slider images dynamically ordered from database */
 
@@ -201,35 +210,33 @@ class HomeController extends BaseController {
 		}		
 		
 		foreach(Game::all() as $game) {	
-
 			foreach($game->apps as $app) {
-
 				$iso_code = ''; 
-
 				foreach($languages as $language){
-
 					if($language->id == $app->pivot->language_id){
 						$iso_code = strtolower($language->iso_code);
 					}
-				}						
-				
-				foreach ($game->media as $media) {
-					
-					if($media->type == 'homepage') {
+				}		
 
+				/*THAI TEST*/
+				//$iso_code = 'TH';
+
+				foreach ($game->media as $media) {
+					if($media->type == 'homepage') {
 						if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier')) {						
-							
 							$games_slide[$game->id] = array(
 								'url' => $media->url, 
 								'title' => $game->main_title, 
 								'id' => $game->id,
-								'slug' => $app->pivot->app_id);
+								'price' => $app->pivot->price,
+								'currency_code' => $app->pivot->currency_code,
+								'app_id' => $app->pivot->app_id);
 						}
 					}
 				}
 			}
 		}
-		
+			
 		$cid = Session::get('carrier');		
 	
 		$games = Game::whereHas('apps', function($q) use ($cid)
@@ -250,23 +257,6 @@ class HomeController extends BaseController {
 			);
 
 		}
-
-		//$cat = Category::find(2)->games;
-		//echo "<pre>";
-		//dd($cat->toArray());
-		//foreach($categories as $cat ) 
-		//{
-			foreach($cat->games() as $apps) 
-			{
-				//foreach($apps->media as $media) 
-				//{
-					echo "<pre>";
-					//dd($apps->media->toArray());
-					echo "</pre>";	
-				//}
-			}
-			
-		//}
 
 		/* END */
 

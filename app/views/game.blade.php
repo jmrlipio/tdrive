@@ -337,7 +337,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['five'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['five'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 5 }}%"></span>
 
 							<p class="total">{{ ($ratings['five'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 0 }}</p>
 						</div>
@@ -353,7 +353,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['four'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['four'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 5 }}%"></span>
 
 							<p class="total">{{ ($ratings['four'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 0 }}</p>
 						</div>
@@ -367,7 +367,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['three'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['three'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 5 }}%"></span>
 
 							<p class="total">{{ ($ratings['three'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 0 }}</p>
 						</div>
@@ -380,7 +380,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['two'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['two'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 5}}%"></span>
 
 							<p class="total">{{ ($ratings['two'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 0 }}</p>
 						</div>
@@ -392,7 +392,7 @@
 						</div>
 
 						<div class="meter clearfix">
-							<span style="width: {{ ($ratings['one'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}%"></span>
+							<span style="width: {{ ($ratings['one'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 5 }}%"></span>
 
 							<p class="total">{{ ($ratings['one'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 0 }}</p>
 						</div>
