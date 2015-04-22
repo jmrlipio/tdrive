@@ -111,28 +111,32 @@
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 								@endif
 
-								@if($dc = GameDiscount::checkDiscountedGames($game['app_id'], $discounted_games) != 0)
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
-								@endif
-
-								@if($dc = GameDiscount::checkDiscountedGames($game['app_id'], $discounted_games) != 0)
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+								@if($discounts)
+									@foreach($discounts as $discount)
+										@if($discount['game_id'] == $game['id'])
+											<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										<?php break; ?>
+										@endif
+									@endforeach
 								@endif
 							</div>
 
 							<div class="meta">
 								<p class="name">{{{ $game['title'] }}}</p>
-								@unless ($game['price']) == 0)
-									<?php 
-										$dc = GameDiscount::checkDiscountedGames($game['id'], $discounted_games);
-										$sale_price = $game['price'] * (1 - ($dc/100));
-									?>
-									@if($dc != 0)
-										<p class="price">{{ $game['currency_code'] . ' ' . number_format($sale_price, 2) }}</p>	
-									@else
-										<p class="price">{{ $game['currency_code'] . ' ' . number_format($game['price'], 2) }}</p>
-									@endif												
-								@endunless
+								@if($discounts)
+									<?php $sale_price = ($game['price']) - (($discount['discount'] / 100) * $game['price'])  ?>
+									@foreach($discounts as $discount)
+										@if($discount['game_id'] == $game['id'])
+											<p class="price-original">{{ $game['currency_code'] . ' ' . number_format($sale_price, 2) }}</p>	
+											<p class="price">{{ $game['currency_code'] . ' ' . number_format($game['price'], 2) }}</p>
+											<?php break; ?>
+										@else
+											<p class="price">{{ $game['currency_code'] . ' ' . number_format($game['price'], 2) }}</p>
+											<?php break; ?>
+										@endif												
+									@endforeach
+								@endif
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
@@ -183,28 +187,32 @@
 									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 								@endif
 
-								@if($dc = GameDiscount::checkDiscountedGames($app->pivot->game_id, $discounted_games) != 0)
-									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
-								@endif
-
-								@if($dc = GameDiscount::checkDiscountedGames($app->pivot->game_id, $discounted_games) != 0)
-									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+								@if($discounts)
+									@foreach($discounts as $discount)
+										@if($discount['game_id'] == $app->pivot->game_id)
+											<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
+											<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
+										<?php break; ?>
+										@endif
+									@endforeach
 								@endif
 							</div>
 
 							<div class="meta">
 								<p class="name">{{{ $app->pivot->title }}}</p>
-								@unless ($app->pivot->price == 0)
-									<?php 
-										$dc = GameDiscount::checkDiscountedGames($app->pivot->game_id, $discounted_games);
-										$sale_price = $app->pivot->price * (1 - ($dc/100));
-									?>
-									@if($dc != 0)
-										<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
-									@else
-										<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
-									@endif												
-								@endunless
+								@if($discounts)
+									<?php $sale_price = ($app->pivot->price) - (($discount['discount'] / 100) * $app->pivot->price)  ?>
+									@foreach($discounts as $discount)
+										@if($discount['game_id'] == $app->pivot->game_id)
+											<p class="price-original">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+											<p class="price price">{{ $app->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p>	
+											<?php break; ?>
+										@else
+											<p class="price">{{ $app->pivot->currency_code . ' ' . number_format($app->pivot->price, 2) }}</p>
+											<?php break; ?>
+										@endif												
+									@endforeach
+								@endif
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
