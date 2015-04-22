@@ -219,4 +219,33 @@ class SiteOptionsController extends \BaseController {
 		return Redirect::back()->with('message', 'You have successfully updated the featured categories.');
 	}
 
+	public function getIPfilters() {
+		$filters = IPFilter::all();
+
+		return View::make('admin.ip-filters')
+				->with(compact('filters'));
+	}
+
+	public function addIPfilters() {
+
+		$validator = Validator::make($data = Input::all(), IPFilter::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+		
+		$filter = IPFilter::create($data);
+
+		return Redirect::back()->with('message', 'You have added an IP address.');
+	}
+
+	public function deleteIPFilter($id) {
+		$filter = IPFilter::find($id);
+
+		$filter->delete();
+		
+		return Redirect::back()->with('message', 'You have delete an IP address.');
+	}
+
 }

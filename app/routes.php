@@ -27,7 +27,7 @@ Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
-Route::post('review/{id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
+Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
 
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
@@ -95,6 +95,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@showFeatured'));
     Route::post('featured', array('as' => 'admin.featured.update', 'uses' => 'SiteOptionsController@updateFeatured'));
     Route::post('featured/categories', array('as' => 'admin.featured.categories.update', 'uses' => 'SiteOptionsController@updateCategories'));
+
     Route::get('ip-filters', array('as' => 'admin.ip-filters', 'uses' => 'SiteOptionsController@getIPfilters'));
     Route::post('ip-filters', array('as' => 'admin.ip-filters.create', 'uses' => 'SiteOptionsController@addIPfilters'));
     Route::delete('ip-filters/{id}', array('as' => 'admin.ip-filters.delete', 'uses' => 'SiteOptionsController@deleteIPFilter'));
@@ -168,6 +169,8 @@ Route::get('password/remind', array('as' => 'password.remind', 'uses' => 'Remind
 Route::post('password/request', array('as' => 'password.request', 'uses' => 'RemindersController@postRemind'));
 Route::get('password/reset/{token}', array('as' => 'password.reset', 'uses' => 'RemindersController@getReset'));
 Route::post('password/reset/{token}', array('as' => 'password.update', 'uses' => 'RemindersController@postReset'));
+Route::get('password/change', array('as' => 'password.change', 'uses' => 'RemindersController@getChangePassword'));
+Route::post('password/request/change', array('as' => 'password.request.change', 'uses' => 'RemindersController@postChangePassword'));
 //END
 
 //Search route for admin

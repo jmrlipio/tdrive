@@ -91,4 +91,37 @@ class RemindersController extends Controller {
 		}
 	}
 
+	public function getChangePassword()
+	{
+		$languages = Language::all();
+
+		return View::make('password.change')
+			->with('page_title', 'Change Password')
+			->with('page_id', 'form')
+			->with(compact('languages'));
+	}
+
+	public function postChangePassword()
+	{		
+		$id = Input::get('id');
+		$old_password  = Input::get('old_password');
+		$new_password = Input::get('confirm_password');
+		$user = User::find($id);
+
+		if( Hash::check(($old_password), $user->password) ) {
+
+			$user = $user->first();
+    		$user->password = $new_password;
+
+    		$user->save();
+			
+			return Redirect::back()->with('success', 'Password changed');
+
+		} else{
+			
+			return Redirect::back()->with('fail', 'old password incorrect');
+		}
+
+	}
+
 }

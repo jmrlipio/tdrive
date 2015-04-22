@@ -2,6 +2,9 @@
 
 @section('stylesheets')
 	{{ HTML::style("css/form.css"); }}
+	<style>
+		#btn_container {text-align: center !important;}
+	</style>
 @stop
 
 @section('content')
@@ -26,7 +29,7 @@
 			{{ Form::text('email', null, array('placeholder'=>'email','required')) }}
 		</div>
 
-		<div class="control-item">
+		<div class="control-item" id="btn_container">
 			 {{ Form::submit('Submit') }}
 		</div>
 	 
