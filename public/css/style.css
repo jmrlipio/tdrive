@@ -1400,9 +1400,9 @@
 #latest-games .swiper-wrapper {
   height: 190px !important;
 }
-#home .game-category:nth-child(even) .thumb {
+/*#home .game-category:nth-child(even) .thumb {
   background: #61ded0;
-}
+}*/
 #home .game-category:nth-child(even) .meta p {
   color: black;
 }
