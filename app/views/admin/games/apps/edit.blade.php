@@ -19,8 +19,16 @@
 					{{ $errors->first('title', '<p class="error">:message</p>') }}
 				</li>
 				<li>
+
 					{{ Form::label('carrier_id', 'Carrier:') }}
-			  		{{ Form::select('carrier_id', $carriers, $values['carrier_id'], array('id' => 'carrier')) }}				
+
+					<select name="carrier_id" id="carrier">
+						@foreach($carriers as $carrier)
+							<?php $selected = ($carrier["id"] == $values['carrier_id']) ? 'selected' : ''; ?>
+							<option value="{{ str_pad($carrier['id'], 2, '0', STR_PAD_LEFT) }}" {{ $selected }}>{{ $carrier['carrier'] }}</option>
+						@endforeach
+					</select>
+
 					{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 				</li>
 				<li>
@@ -74,6 +82,7 @@
 			</div>
 			
 		{{ Form::close() }}
+
 	</article>
 	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
@@ -89,9 +98,13 @@
 	var app_id = gid + carrier.find('option:first').val() + language.find('option:first').val();
 
 	carrier.on('change', function() {
-		app_id = gid + $(this).find('option:selected').val() + language.find('option:selected').val();
+
+		var cid= $(this).find('option:selected').val();
+
+		app_id = gid + cid + language.find('option:selected').val();
 
 		app_text.val(app_id);
+		
 	});
 
 	language.on('change', function() {
