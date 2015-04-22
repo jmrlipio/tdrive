@@ -29,6 +29,7 @@ return array(
 	'last_name' => 'nama terakhir',
 	'mobile_no' => 'tidak ada ponsel',
 	'confirm password' => 'konfirmasi kata sandi',
+	'Buy' => 'lepas',
 
 	//Categories
 	'Brain and Puzzle' => 'Otak dan Puzzle',

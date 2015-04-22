@@ -29,6 +29,7 @@ return array(
 	'last_name' => 'นามสกุล',
 	'mobile_no' => 'หมายเลขโทรศัพท์มือถือ',
 	'confirm password' => 'ยืนยันรหัสผ่าน',
+	'Buy' => 'ปล่อย',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',

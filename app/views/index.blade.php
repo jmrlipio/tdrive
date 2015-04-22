@@ -82,12 +82,12 @@
 	</div>
 	{{ Form::token() }}
 	<div id="latest-games" class="bb container">
-		<h1 class="title fleft">{{ trans('global.Games') }}</h1>
-		<select name="game-category" id="game-category">
-			@foreach($categories as $cat)
-				<option value="{{ $cat->slug }}">{{ $cat->category }}</option>
-			@endforeach
-		</select>
+		<h1 class="title fleft">{{ trans('global.All Games') }}</h1>
+		{{-- <select name="game-category" id="game-category"> --}}
+			{{-- @foreach($categories as $cat) --}}
+				{{-- <option value="{{ $cat->slug }}">{{ $cat->category }}</option> --}}
+			{{-- @endforeach --}}
+		{{-- </select> --}}
 		<div class="clear"></div>
 		<div class="swiper-container thumbs-container">
 			<?php $count = 0; ?>
@@ -103,7 +103,6 @@
 								@if ($game['price'] == 0)
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 								@endif
-
 
 								<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" class="thumb-image"><img src="assets/games/icons/{{ Media::getGameIcon($game['id']) }}"></a>
 
@@ -229,9 +228,9 @@
 		</div>
 	@endforeach
 
-	{{-- <div class="view-all container clearfix"> --}}
-		{{-- <div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div> --}}
-	{{-- </div> --}}
+	<div class="view-all container clearfix">
+		<div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div>
+	</div>
 
 	<div id="news" class="container">
 		<div class="clearfix">
@@ -456,6 +455,7 @@
 	{{ HTML::script("js/jquery.lightSlider.min.js") }}
 	{{ HTML::script("js/jquery.fancybox.js") }}
 	{{ HTML::script("js/idangerous.swiper.min.js") }}
+	{{-- {{ HTML::script("js/idangerous.swiper-2.0.min.js") }} --}}
 	{{ HTML::script("js/jquery-ui.min.js") }}
 	{{ HTML::script("js/jquery.ddslick.min.js") }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
@@ -491,20 +491,28 @@
 					calculateHeight: true
 				});
 			});
+		
+			var mySwiper;
 
-			if($(window).width() >= 321){
-	        	$('.featured').swiper({
-					slidesPerView: 2,
+			// console.log($( window ).width());
+			if($( window ).width() >= 321){
+				alert('weeeee');
+				// mySwiper.reInit();
+				mySwiper = new Swiper('.featured', {
+				    slidesPerView: 2,
+					loop: true,
 					centeredSlides: true,
 					calculateHeight: true,
-					initialSlide: 2,
+					// initialSlide: 2,
 					autoplay: 3000,
 					pagination: '.swiper-pagination',
 	        		paginationClickable: true
 				});
-	        } else if($(window).width() <= 320) {
-	        	 $('.featured').swiper({
-					slidesPerView: 'auto',
+	        } else if($( window ).width() <= 320) {
+	        	alert('waaaaa');
+	        	// mySwiper.reInit();
+	        	mySwiper = new Swiper('.featured', {
+				    slidesPerView: 'auto',
 					loop: true,
 					loopedSlides: 10,
 					centeredSlides: true,
@@ -514,28 +522,30 @@
 	        		paginationClickable: true
 				});
 	        }
-
-	        window.addEventListener("orientationchange", function() {
-	        	var height = $(window).height();
-	        	var width = $(window).width();
-
-	        	// alert(window.orientation);
-
-	        	if(window.orientation == 90){
-	        		// alert(window.orientation);
-	        		$('.featured').swiper({
-						slidesPerView: 2,
-						calculateHeight: false
-					});
-	        	} else if(window.orientation == 0 ){
-	        		alert('weee');
-	        		$('.featured').swiper({
-						slidesPerView: 1,
-						calculateHeight: false
-					});
-					// $('.featured').css('margin:', '20px 0');
-	        	}
-	        }, false);
+// console.log(mySwiper);
+	        // window.addEventListener("orientationchange", function() {
+	        $(window).on('resize',function(){
+	        	// console.log(mySwiper);
+	        	//alert(mySwiper);
+	        	// console.log(mySwiper);
+	        	// if($( window ).width() <= 320) {
+	        	// 	mySwiper.params.slidesPerView = 'auto';
+	        	// 	// mySwiper.params.calculateHeight = false;
+	        	// 	// mySwiper.params.centeredSlides = false;
+	        	// 	// $('#slider .swiper-slide').css('height', '127px !important');
+	        	// 	// myswiper.params.cssWidthAndHeight = true;
+	        	// } else if($( window ).width() >= 321){
+	        	// 	mySwiper.params.slidesPerView = 2;
+	        	// }
+	        	// console.log(mySwiper);
+	        	// console.log(typeof(mySwiper));
+	        	// mySwiper.destroy();
+	
+	        	// mySwiper.reInit();
+	        	// mySwiper2.update();
+	        	// console.log(mySwiper2);
+	        });		
+	        // }, false);
 
 	    });
 

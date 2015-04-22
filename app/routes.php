@@ -169,6 +169,8 @@ Route::get('password/remind', array('as' => 'password.remind', 'uses' => 'Remind
 Route::post('password/request', array('as' => 'password.request', 'uses' => 'RemindersController@postRemind'));
 Route::get('password/reset/{token}', array('as' => 'password.reset', 'uses' => 'RemindersController@getReset'));
 Route::post('password/reset/{token}', array('as' => 'password.update', 'uses' => 'RemindersController@postReset'));
+Route::get('password/change', array('as' => 'password.change', 'uses' => 'RemindersController@getChangePassword'));
+Route::post('password/request/change', array('as' => 'password.request.change', 'uses' => 'RemindersController@postChangePassword'));
 //END
 
 //Search route for admin

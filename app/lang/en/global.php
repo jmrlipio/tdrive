@@ -20,12 +20,12 @@ return array(
 	'password' => 'password',
 	'Sign In' => 'Sign In',
 	'submit' => 'submit',
-	'All games' => 'All games',
+	'All Games' => 'all games',
 	'All Categories' => 'All Categories',
 	'Please select' => 'Please select',
 	'search game' => 'search game',
 	'View all categories' => 'View all categories',
-
+	'Buy' => 'buy',
 
 
 	//Categories
@@ -105,7 +105,7 @@ return array(
 	//Profile Blade (profile.blade.php)
 	'Change Password' => 'Change Password',
 	'Downloaded games' => 'Downloaded games',
-	'Buy' => 'Buy',
+	// 'Buy' => 'Buy',
 
 	//Register Blade (register.blade.php)
 	'Create new account' => 'Create new account',
@@ -149,4 +149,8 @@ return array(
 
 	//Password (reset.blade.php)
 	'Please fill up this form to reset your password' => 'Please fill up this form to reset your password',
+
+	//Reset password
+	'old password' => 'old password',
+	'new password' => 'new password'
 );
