@@ -32,10 +32,10 @@
 
 								<div class="meta">
 									<p>{{ $game->main_title }}</p>
-									<p>P{{ $game->default_price }}.00</p>
+									<!-- <p>P{{-- $game->default_price --}}.00</p> -->
 								</div>
 
-								<div class="button"><a href="#">{{ trans('global.Buy') }}</a></div>
+								<!-- <div class="button"><a href="#">{{-- trans('global.Buy') --}}</a></div> -->
 							</div>
 
 						@endforeach
