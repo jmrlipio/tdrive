@@ -149,4 +149,8 @@ return array(
 
 	//Password (reset.blade.php)
 	'Please fill up this form to reset your password' => 'Please fill up this form to reset your password',
+
+	//Reset password
+	'old password' => 'old password',
+	'new password' => 'new password'
 );

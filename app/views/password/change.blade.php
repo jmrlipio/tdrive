@@ -2,6 +2,9 @@
 
 @section('stylesheets')
 	{{ HTML::style("css/form.css"); }}
+	<style>
+		#btn_container{text-align: center;}
+	</style>
 @stop
 
 @section('content')
@@ -39,7 +42,7 @@
 			<input type="password" required name="confirm_password" class="form-control" id="confirm_password" minlength="8">
 		</div>
 
-		<div class="control-item">
+		<div class="control-item" id="btn_container">
 			 {{ Form::submit('Change Password') }}
 		</div>
 	 
