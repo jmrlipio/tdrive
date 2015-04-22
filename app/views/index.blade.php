@@ -655,7 +655,7 @@
 
 			// console.log($( window ).width());
 			if($( window ).width() >= 321){
-				alert('weeeee');
+				
 				// mySwiper.reInit();
 				mySwiper = new Swiper('.featured', {
 				    slidesPerView: 2,
@@ -668,7 +668,7 @@
 	        		paginationClickable: true
 				});
 	        } else if($( window ).width() <= 320) {
-	        	alert('waaaaa');
+
 	        	// mySwiper.reInit();
 	        	mySwiper = new Swiper('.featured', {
 				    slidesPerView: 'auto',
