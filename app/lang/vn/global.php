@@ -29,6 +29,7 @@ return array(
 	'last_name' => 'last_name',
 	'mobile_no' => 'không có điện thoại di động',
 	'confirm password' => 'xác nhận mật khẩu',
+	'Buy' => 'tình',
 
 	//Categories
 	'Brain and Puzzle' => 'Não và Puzzle',
