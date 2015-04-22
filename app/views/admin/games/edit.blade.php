@@ -1,5 +1,10 @@
 @extends('admin._layouts.admin')
-
+@section('stylesheets')
+	<style>
+		p.published {color: green;}
+		p.draft {color: #555;}
+	</style>
+@stop
 @section('content')
 	@include('admin._partials.game-nav')
 	@include('admin._scripts.scripts')
@@ -71,7 +76,6 @@
 						<tr>
 							<th>Status</th>
 							<th>App ID</th>
-							<th>Price</th>
 							<th>Carrier</th>
 							<th>Language</th>
 							<th>Price</th>
@@ -84,7 +88,17 @@
 									<td>
 										<p>
 											@foreach(Constant::app_status() as $key => $value)
-												{{ ($app->pivot->status == $key) ? $value : '' }}
+												@if($app->pivot->status == $key)
+
+													<p class="published">{{ $value }}</p>
+													<?php break; ?>
+												
+												@else
+																									
+													<p class="draft">{{ 'Draft' }}</p> 
+													<?php break; ?>
+												@endif
+												
 											@endforeach
 										</p>
 									</td>
@@ -93,7 +107,7 @@
 											{{ $app->pivot->app_id }}
 										</p>
 									</td>
-									<td>{{$app->pivot->currency_code}} {{$app->pivot->price}}</td>
+									
 									<td>{{ $app->carrier }}</td>
 									<td>
 										@foreach($languages as $language)
@@ -118,7 +132,7 @@
 							@endforeach
 						@else
 							<tr>
-						    	<td colspan="4" class="center">You haven't created any apps yet.</td>
+						    	<td colspan="6" class="center">You haven't created any apps yet.</td>
 						    </tr>
 						@endif
 

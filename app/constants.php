@@ -48,7 +48,7 @@ class Constant {
 	public static function app_status() 
 	{
 		$_constants = array(
-						self::PUBLISH => _('Publish'),
+						self::PUBLISH => _('Published'),
 						self::DRAFT => _('Draft'),
 				);
 

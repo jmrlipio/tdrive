@@ -4,6 +4,7 @@
 		<li><a href="{{ URL::route('admin.featured') }}">Homepage</a></li>
 		<li><a href="{{ URL::route('admin.game-settings') }}">Game Page</a></li>
 		<li><a href="{{ URL::route('admin.variables') }}">Site Variables</a></li>
+		<li><a href="{{ URL::route('admin.ip-filters') }}">IP Filters</a></li>
 	</ul>
 </nav>
 <script>

@@ -410,7 +410,7 @@
 				<p class="form-success">{{ Session::get('message') }}</p>
 			@endif
 
-			{{ Form::open(array('route' => array('review.post', $current_game->id), 'method' => 'post')) }}
+			{{ Form::open(array('route' => array('review.post', $current_game->id, $app_id), 'method' => 'post')) }}
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
 

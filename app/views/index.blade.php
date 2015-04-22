@@ -104,6 +104,7 @@
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>
 								@endif
 
+
 								<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" class="thumb-image"><img src="assets/games/icons/{{ Media::getGameIcon($game['id']) }}"></a>
 
 								@if ($game['price'] == 0)
@@ -474,43 +475,6 @@
 	        	$('#newsAlert' + (i + 1)).modal('show');
 	        }
 
-	        if($(window).width() >= 321){
-	        	$('.featured').swiper({
-					slidesPerView: 2,
-					centeredSlides: true,
-					calculateHeight: true,
-					initialSlide: 2,
-					pagination: '.swiper-pagination',
-	        		paginationClickable: true
-				});
-	        } else {
-	        	 $('.featured').swiper({
-					slidesPerView: 1,
-					centeredSlides: true,
-					calculateHeight: true,
-					pagination: '.swiper-pagination',
-	        		paginationClickable: true
-				});
-	        }
-	       
-
-	        $(window).resize(function() {
-	        	var height = $(window).height();
-	        	var width = $(window).width();
-
-	        	if(width >= 321){
-	        		$('.featured').swiper({
-						slidesPerView: 2,
-						calculateHeight: true
-					});
-	        	} else if(width <= 320 ){
-	        		$('.featured').swiper({
-						slidesPerView: 1,
-						calculateHeight: true
-					});
-	        	}
-	        });
-
 			$('.thumbs-container').each(function() {
 				$(this).swiper({
 					slidesPerView: 'auto',
@@ -519,6 +483,51 @@
 					calculateHeight: true
 				});
 			});
+
+			if($(window).width() >= 321){
+	        	$('.featured').swiper({
+					slidesPerView: 2,
+					centeredSlides: true,
+					calculateHeight: true,
+					initialSlide: 2,
+					autoplay: 3000,
+					pagination: '.swiper-pagination',
+	        		paginationClickable: true
+				});
+	        } else if($(window).width() <= 320) {
+	        	 $('.featured').swiper({
+					slidesPerView: 'auto',
+					loop: true,
+					loopedSlides: 10,
+					centeredSlides: true,
+					calculateHeight: true,
+					autoplay: 3000,
+					pagination: '.swiper-pagination',
+	        		paginationClickable: true
+				});
+	        }
+
+	        window.addEventListener("orientationchange", function() {
+	        	var height = $(window).height();
+	        	var width = $(window).width();
+
+	        	// alert(window.orientation);
+
+	        	if(window.orientation == 90){
+	        		// alert(window.orientation);
+	        		$('.featured').swiper({
+						slidesPerView: 2,
+						calculateHeight: false
+					});
+	        	} else if(window.orientation == 0 ){
+	        		alert('weee');
+	        		$('.featured').swiper({
+						slidesPerView: 1,
+						calculateHeight: false
+					});
+					// $('.featured').css('margin:', '20px 0');
+	        	}
+	        }, false);
 
 	    });
 
@@ -657,8 +666,7 @@
 				$('.tablet ul.menu li').find('a').css('padding', '50px 0 5px');
 				  
 			}
-				
-			
+
 		});
 	</script>
 
