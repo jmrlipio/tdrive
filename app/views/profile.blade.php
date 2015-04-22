@@ -11,7 +11,7 @@
 			<div class="details">
 				<div class="name">{{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}}</div>
 				<div class="email">{{{ Auth::user()->email }}}</div>
-				<div class="change_password"><a href="{{ route('password.remind') }}">{{ trans('global.Change Password') }}</a></div>
+				<div class="change_password"><a href="{{ route('password.change') }}">{{ trans('global.Change Password') }}</a></div>
 			</div>
 		</div>
 	</div>

@@ -48,3 +48,7 @@
 .select_carrier #header {
   display: none !important;
 }
+
+.flash-success, .flash-fail { height: 40px; width: 100%; text-align: center; }
+.flash-success { color: green; line-height: 40px; }
+p.flash-fail { color: red; line-height: 40px; }
