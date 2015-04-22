@@ -6,7 +6,7 @@ class GameApp extends \Eloquent {
 	protected $table = 'apps';
 
 	public static $rules = [
-		'app_id' => 'required|unique:apps',
+		'app_id' => 'required',
 		'title' => 'required',
 		'content' => 'required|max:10000',
 		'excerpt' => 'required',

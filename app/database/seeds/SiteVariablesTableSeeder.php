@@ -40,7 +40,7 @@ class SiteVariablesTableSeeder extends Seeder {
 
 		SiteVariable::create([
 			'variable_name' => 'Support Link',
-			'variable_value' => 'support@tdrive.co'
+			'variable_value' => 'http://support@tdrive.co'
 		]);
 
 	}
