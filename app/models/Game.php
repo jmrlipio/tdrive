@@ -73,6 +73,10 @@ class Game extends \Eloquent {
     	return $this->morphMany('Slider', 'slideable');
     }
 
+    public function app() {
+        return $this->hasMany('GameApp');
+    }
+
     public static function countPublishStatus($cat_id) 
     {
     	$games = Category::find($cat_id)->games;
@@ -88,5 +92,23 @@ class Game extends \Eloquent {
     		}
     	}
     	return $count;
+    }
+
+    public static function getAppsPerCategory($cat_id, $limit = null) 
+    {
+        $category = Category::find($cat_id);
+        $apps = array();
+        foreach($category->games()->get() as $game) 
+        {
+            foreach($game->apps as $app) 
+            {
+                if(Language::getLangID(Session::get('locale')) == $app->pivot->language_id && $app->pivot->carrier_id == Session::get('carrier'))
+                {
+                    if($app->pivot->status == Constant::PUBLISH )
+                        $apps[] = $app;
+                }
+            }
+        }
+        return $apps;
     }
 }

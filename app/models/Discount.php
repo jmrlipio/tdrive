@@ -23,4 +23,29 @@ class Discount extends \Eloquent {
 		return $this->belongsToMany('Game', 'game_discounts')->withPivot('user_count', 'game_id');
 	}
 
+	public static function getDiscountedGames() 
+	{
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())	
+			->where('carrier_id', '=',  Session::get('carrier'))	
+			->get();
+
+		$discounted_games = [];
+			foreach ($discounts as $data) {
+				foreach($data->games as $game ) {
+					$discounted_games[] = array(
+								'game_id' => $game->id,
+								'discount' => $data->discount_percentage
+						);
+				}
+			
+		}
+		if($discounted_games)
+			return $discounted_games;
+
+		return null;
+	}
+
 }

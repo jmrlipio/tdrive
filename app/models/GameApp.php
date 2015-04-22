@@ -16,4 +16,5 @@ class GameApp extends \Eloquent {
 	public static $messages = [
 		'unique' => 'An app with the same ID already exists.'
 	];
+
 }

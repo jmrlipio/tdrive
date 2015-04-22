@@ -126,7 +126,9 @@ img.auto, video.auto {
   display: inline-block;
   color: #e9548e;
 }
-
+.price-original{
+  text-decoration:line-through;
+}
 .readmore {
   color: #e9548e;
 }
