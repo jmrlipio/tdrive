@@ -111,4 +111,38 @@ class Game extends \Eloquent {
         }
         return $apps;
     }
+
+    public static function getAllGames() 
+    {
+        $games_slide = [];
+        $languages = Language::all();
+        foreach(Game::all() as $game) { 
+            foreach($game->apps as $app) {
+                $iso_code = ''; 
+                foreach($languages as $language){
+                    if($language->id == $app->pivot->language_id){
+                        $iso_code = strtolower($language->iso_code);
+                    }
+                }       
+
+                /*THAI TEST*/
+                //$iso_code = 'TH';
+
+                foreach ($game->media as $media) {
+                    if($media->type == 'homepage') {
+                        if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier') && $app->pivot->status == Constant::PUBLISH) {                     
+                            $games_slide[$game->id] = array(
+                                'url' => $media->url, 
+                                'title' => $game->main_title, 
+                                'id' => $game->id,
+                                'price' => $app->pivot->price,
+                                'currency_code' => $app->pivot->currency_code,
+                                'app_id' => $app->pivot->app_id);
+                        }
+                    }
+                }
+            }
+        }
+        return $games_slide;
+    }
 }

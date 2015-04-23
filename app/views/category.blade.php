@@ -4,7 +4,7 @@
 @stop
 
 @section('content')
-
+	
 	<div class="container">
 		
 		<div class="clearfix">
@@ -113,9 +113,8 @@
 
 		var load = 0;
 		var category_id = {{ $category->id }};
-		var num = {{ $count }};
-		var page = ({{ $page }} / 2);
-		var _token = $('input[name="_token"]').val();
+		var page = ({{ $page }} / 1);
+		var token = $('input[name="_token"]').val();
 
 		$(window).scroll(function() {
 			var bottom = 50;

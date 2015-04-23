@@ -42,7 +42,9 @@
   margin-bottom: 5px;
 }
 #form #content #register input[type="submit"] {
-  margin: 15px 0 10px;
+  /*margin: 15px 0 10px;*/
+  display: block;
+  margin: 15px auto;
 }
 
 .select_carrier #header {

@@ -23,7 +23,11 @@
 @section('content')
 	<?php $game_image = $game->slug;  ?>
 	{{ Form::token() }}
-	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
+	@foreach($game->media as $media)	
+		@if($media->type == 'promos')
+			{{ HTML::image('assets/games/promos/' . $media->url, $game->main_title, array('id' => 'featured')) }}
+		@endif
+	@endforeach
 	
 	<div style="display:none"><div id="carrier-form"><h1>This is a test</h1></div></div>
 
@@ -203,14 +207,11 @@
 				@endif
 			@endif
   		@endforeach --}}
-  		@foreach($game->apps as $app)
-
-			@if($app->pivot->app_id == $app_id)
-			<div class="content hey">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
-			<?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?>
-			@endif
-
-  		@endforeach
+  		
+			<div class="content hey">{{ htmlspecialchars_decode($preview['excerpt']) }} <a href="#" class="readmore">Read more</a></div>
+			<?php $game_excerpt = htmlspecialchars_decode($preview['excerpt']); ?>
+			
+  		<input type="hidden" id="game_content" value="{{htmlspecialchars_decode($preview['content'])}}">
 
 	</div><!-- end #description -->
 
@@ -577,7 +578,7 @@
 		
 	@if($ctr > 4)	
 		
-		<div class="link center"><a href="{{ route('reviews', $game->id) }}">{{ trans('global.See all reviews') }} &raquo;</a></div>
+		<div class="link center"><a href="#">{{ trans('global.See all reviews') }} &raquo;</a></div>
 
 	@else
 
@@ -682,17 +683,7 @@
 	{{ HTML::script("js/jquery.event.swipe.js"); }}
 	{{ HTML::script("js/share.js"); }}
 
-	<script>
-		$(document).ready(function() {			
-				$(document).fbshare({
-					'OG_name' : '{{ $game->main_title }}',
-					'OG_url' : '{{ url() }}',
-					'OG_title' : '{{ $game->main_title }}',
-					'OG_desc' : "{{ $game_excerpt }}",
-					'OG_image' : '{{ URL::asset('images/games/' . $game_image . '.jpg') }}'
-				});	
-		});
-	</script>	
+
 	<script>
 		FastClick.attach(document.body);
 
@@ -720,5 +711,16 @@
             'transitionOut'     : 'none'
         });
        
+	</script>
+
+	<script>
+	$(document).ready(function(){
+	
+		$('#description .readmore').click(function(e) {
+			e.preventDefault();
+			
+			$('#description .content').html($('#game_content').val());
+		});
+	});
 	</script>
 @stop

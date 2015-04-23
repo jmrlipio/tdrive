@@ -29,14 +29,16 @@
 		<div class="control">
 			{{ Form::password('password', array('placeholder'=>trans('global.password'))) }}                    
 		</div>
-		<input type="hidden" value="{{ Input::get('url') }}" name="url" />
+
+		<input type="hidden" value="{{ Input::get('redirect_url') }}" name="redirect_url" />
 		<div class="control-group clearfix">
+
 			<!-- <div class="control-item fl">
 				{{-- Form::checkbox('remember', 1 , null, ['id'=>'remember']); --}}
 				 <label for="remember">Remember me</label>
 			</div> -->
 
-			<div class="control-item fr">
+			<div class="control-item">
 				 {{ Form::submit(trans('global.login')) }}
 			</div>
 		</div>

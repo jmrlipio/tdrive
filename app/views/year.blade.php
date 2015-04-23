@@ -1,8 +1,5 @@
 @extends('_layouts/listing')
 
-@section('stylesheets')
-@stop
-
 @section('content')
 
 	<div class="container">

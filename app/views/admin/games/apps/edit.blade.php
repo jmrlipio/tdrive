@@ -3,7 +3,7 @@
 @section('content')
 	@include('admin._scripts.scripts')
 	<article>
-		{{ Form::open(array('route' => array('admin.games.update.app', $game->id, $app_id), 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
+		{{ Form::open(array('route' => array('admin.games.update.app', $game->id, $app_id), 'class' => 'large-form tab-container game_form', 'target'=>'_self', 'id' => 'tab-container')) }}
 			<div class='panel-container'>
 				<h3 class="center">{{ $game->main_title }} App</h3>
 
@@ -53,7 +53,7 @@
 				</li>
 				<li>
 					{{ Form::label('excerpt', 'Excerpt:') }}	
-					{{ Form::textarea('excerpt', $values['excerpt']) }}
+					{{ Form::textarea('excerpt', $values['excerpt'], array('id' => 'excerpt')) }}
 					{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
 				</li>
 				<li>
@@ -77,12 +77,14 @@
 					{{ $errors->first('status', '<p class="error">:message</p>') }}
 				</li>
 				<br>
-				{{ Form::submit('Save') }} <a href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Back</a>
-				<a href="{{ URL::route('admin.games.preview', array($game->id, $values['app_id'])) }}" target='blank') id="preview">Preview</a>
+				{{ Form::submit('Save', array('id' => 'save')) }} <a href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Back</a>
+				
+				{{ Form::submit('Preview', array('id' => 'preview')) }}
+				<!-- <a href="{{ URL::route('admin.games.preview', array($game->id, $values['app_id'])) }}" target='blank') id="preview">Preview</a> -->
 			</div>
 			
-		{{ Form::close() }}
-
+		{{ Form::close() }}	
+		
 	</article>
 	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
@@ -113,6 +115,26 @@
 		app_text.val(app_id);
 
 	});
+
+	</script>
+	<script>
+		$(document).ready(function(){
+			var save_url = "{{ URL::route('admin.games.update.app', $game->id, $app_id) }}";
+			var preview_url = "{{ URL::route('admin.games.preview', array($game->id, $values['app_id']))}}";
+			var form = $('.game_form');	
+				
+			
+			$('#preview').click(function(e){
+
+				e.preventDefault();
+				form.attr('action',preview_url);
+				form.attr('target','_blank');
+				form.submit();
+				
+			});
+
+
+		});
 
 	</script>
 @stop

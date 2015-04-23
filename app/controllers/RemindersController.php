@@ -110,8 +110,7 @@ class RemindersController extends Controller {
 
 		if( Hash::check(($old_password), $user->password) ) {
 
-			$user = $user->first();
-    		$user->password = $new_password;
+    		$user->password = Hash::make($new_password);
 
     		$user->save();
 			

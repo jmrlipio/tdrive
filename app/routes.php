@@ -25,6 +25,8 @@ Route::get('games/related/{id}', array('as' => 'games.related', 'uses' => 'Listi
 Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses' => 'ListingController@showMoreRelatedGames'));
 
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
+Route::post('profile/{id}/change', array('as' => 'user.profile.change', 'uses' => 'ProfileController@changeProfile'));
+
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
 Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
@@ -211,7 +213,7 @@ Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminU
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
 route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'as' => 'admin.destroy.review','uses' => 'ReviewsController@handleDestroy'));
-Route::get('admin/games/preview/{id}/{app_id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));
+Route::post('admin/games/preview/{id}/{app_id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));
 Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 
 
