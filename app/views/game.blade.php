@@ -135,7 +135,7 @@
 				</div>
 			</a>
 			@else 
-			<a href="{{ URL::route('users.login')}}?url={{ Request::url() }}" class="buy" id="buy">
+			<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
 
@@ -409,6 +409,7 @@
 			@endif
 
 			{{ Form::open(array('route' => array('review.post', $current_game->id, $app_id), 'method' => 'post')) }}
+
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
 
@@ -442,7 +443,7 @@
 		@else
 
 			<div class="button">
-				<a href="{{ route('users.login') }}">{{ trans('global.Login to write a review') }} <i class="fa fa-pencil"></i></a>
+				<a href="{{ route('users.login')}}?redirect_url={{ Request::url() }}">{{ trans('global.Login to write a review') }} <i class="fa fa-pencil"></i></a>
 			</div>
 
 		@endif
