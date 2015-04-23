@@ -112,51 +112,10 @@
 		FastClick.attach(document.body);
 
 		var load = 0;
-		var _token = $('#token input').val();
 		var category_id = {{ $category->id }};
 		var num = {{ $count }};
 		var page = ({{ $page }} / 2);
-		var token = $('input[name="_token"]').val();
-
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-						location.reload();
-					}
-				});
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-					    location.reload();
-					}
-				});
-			}
-		});
+		var _token = $('input[name="_token"]').val();
 
 		$(window).scroll(function() {
 			var bottom = 50;

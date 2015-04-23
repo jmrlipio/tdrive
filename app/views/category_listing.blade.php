@@ -45,50 +45,6 @@
 
 		var _token = $('#token input').val();
 
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-		});
-
 		$("#inline").fancybox({
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',

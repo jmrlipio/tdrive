@@ -327,6 +327,15 @@ img.auto, video.auto {
 #side-menu .top ul {
   display: inline-block;
   overflow: hidden;
+  position: relative;
+  padding: 0 22px;
+}
+
+#side-menu .top ul > i{
+  color: #fff;
+  right: 0;
+  position: absolute;
+  top: 2px;
 }
 #side-menu .top li {
   float: left;
@@ -334,7 +343,7 @@ img.auto, video.auto {
 #side-menu .top li:first-child {
   margin-right: 10px;
 }
-#side-menu .top li:last-child {
+#side-menu .top li:last-of-type {
   border-left: 1px solid #fff;
   padding-left: 10px;
 }
@@ -369,6 +378,7 @@ img.auto, video.auto {
 }
 #side-menu #polyglotLanguageSwitcher2 {
   margin-top: 10px;
+  font-size: 16px;
 }
 #side-menu .language {
   margin-top: 10px;

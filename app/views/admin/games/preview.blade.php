@@ -696,47 +696,6 @@
 	<script>
 		FastClick.attach(document.body);
 
-
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-						location.reload();
-					}
-				});
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-					    location.reload();
-					}
-				});
-			}
-		});
-
 		$('.fancybox').fancybox({ 
 			padding: 0 
 		});
@@ -760,7 +719,6 @@
             'transitionIn'      : 'none',
             'transitionOut'     : 'none'
         });
-
        
 	</script>
 @stop

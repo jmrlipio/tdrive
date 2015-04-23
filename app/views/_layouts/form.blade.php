@@ -12,6 +12,7 @@
 <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
 {{ HTML::script("js/pushy.min.js"); }}
 
+
 @section('javascripts')
 
 	<script>
@@ -22,6 +23,8 @@
 		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
 		ga('create','(UA-58420474-1','auto');ga('send','pageview');
 	</script>
+
+@include('_partials/scripts')
 
 @show
 

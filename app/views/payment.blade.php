@@ -30,5 +30,7 @@
 
 
 	{{ Form::close() }}
+	
+	@include('_partials/scripts')
 
 @stop

@@ -16,7 +16,8 @@ $game_settings = GameSetting::all();
 		@else
 			<ul>
 				<li><a href="{{ route('users.login') }}" class="login">{{ trans('global.login') }}</a></li>
-				<li><a href="{{ route('users.register') }}" class="register">{{ trans('global.register') }} <i class="fa fa-user"></i></a></li>
+				<li><a href="{{ route('users.register') }}" class="register">{{ trans('global.register') }} </a></li>
+				<i class="fa fa-user"></i>
 			</ul>
 		@endif
 
