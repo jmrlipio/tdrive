@@ -31,6 +31,7 @@ $game_settings = GameSetting::all();
 						@endif
 					@endforeach
 					@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))
+						<meta property="og:site_name" content="TDRIVE" />
 						<meta property="og:url" content="{{ url() }}/game/{{ $game->id }}/{{ $app->pivot->app_id }}" />
 						<meta property="og:title" content="{{ $app->pivot->title }}" />
 						<meta property="og:description" content="{{ $app->pivot->excerpt }}" />

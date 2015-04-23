@@ -127,12 +127,6 @@ class HomeController extends BaseController {
 
 		/* END */
 		$ctr = 0;
-		/* For getting discounts */
-
-		/*foreach ($discounts as $data) {
-			
-			dd($data);
-		}*/
 
 	/* For displaying news alert */	
 

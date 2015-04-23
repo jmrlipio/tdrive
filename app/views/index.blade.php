@@ -139,9 +139,9 @@
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
-									<a href="#" class="game-free">Free</a>
+									<a href="#" data-id="{{ $game['id'] }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">Buy</a>	
 								@endif
 							</div>
 						</div>
@@ -219,9 +219,9 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="#" class="game-free">Free</a>
+									<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">Buy</a>	
 								@endif
 							</div>
 						</div>
@@ -392,6 +392,17 @@
 			</div>
 		{{ Form::close() }}
 	</div><!-- end #contact -->
+
+	<!-- CARRIER SELECT MODAL  -->
+	<div style="display:none">
+		<div class="carrier-container" id="carrier-select-container">
+			{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
+				<h3>Select Carrier</h3>
+				<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
+			{{ Form::close() }}
+		</div>
+	</div>
+
 @if($first_visit)
 <?php $ctr = 0; ?>
 	@if(count($discounts) != 0)		
@@ -606,14 +617,15 @@
 			$(this).submit();
 		});
 
-		$("#buy").on('click',function() {
+		$(".game-buy").on('click',function() {
+			var id = $(this).attr('data-id');
 			$('#carrier-select').remove();
 			 $.ajax({
-			 	type: "get",
-			 	url: "{{ URL::route('games.carrier', $game->id) }}",
-			 	dataType: "json",
-			 	complete:function(data) {
-			 		
+			 	type: "POST",
+			 	url: "{{ url() }}/games/post/carrier",
+			 	data: {id: id},
+			 	success:function(data) {
+			 		console.log(data);
 			 		var carriers = $.parseJSON(data['responseText']);
 					var append = '<select id="carrier-select">';
 
@@ -631,7 +643,7 @@
                 }
             });
 
-			$('#buy').fancybox({
+			$('.game-buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none',
@@ -649,9 +661,10 @@
 			            afterClose: function() {
 
 			            	$.ajax({
-							 	type: "get",
-							 	url: "{{ URL::route('games.status', $game->id) }}",
-							 	complete:function(data) {
+							 	type: "POST",
+							 	url: "{{ url() }}/games/post/carrier",
+							 	data: {id: id},
+							 	success:function(data) {
 
 							 		var response = JSON.parse(data['responseText']);
 							 		console.log(response.status);
