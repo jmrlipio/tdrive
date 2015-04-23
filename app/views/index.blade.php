@@ -157,7 +157,7 @@
 				@endforeach	
 				</div>
 			@else
-				<div class="container">
+				<div class="container mtop_15">
 					<p class="no-games">no games, please choose another carrier or another language for the selected carrier</p>
 				</div>
 			@endif		
@@ -498,8 +498,11 @@
 		        lazyLoad : true,
 		        navigation : false,
 		        pagination: true,
-		        autoPlay: true
+		        autoPlay: true,
+		        itemsTablet: [1024,2],
+		        itemsDesktop: [1024,2]
 		      });
+
 
 			$('#slider').show();
 
@@ -525,60 +528,6 @@
 			});
 		
 			var mySwiper;
-
-			// console.log($( window ).width());
-			if($( window ).width() >= 321){
-				
-				// mySwiper.reInit();
-				mySwiper = new Swiper('.featured', {
-				    slidesPerView: 2,
-					loop: true,
-					centeredSlides: true,
-					calculateHeight: true,
-					// initialSlide: 2,
-					autoplay: 3000,
-					pagination: '.swiper-pagination',
-	        		paginationClickable: true
-				});
-	        } else if($( window ).width() <= 320) {
-
-	        	// mySwiper.reInit();
-	        	mySwiper = new Swiper('.featured', {
-				    slidesPerView: 'auto',
-					loop: true,
-					loopedSlides: 10,
-					centeredSlides: true,
-					calculateHeight: true,
-					autoplay: 3000,
-					pagination: '.swiper-pagination',
-	        		paginationClickable: true
-				});
-	        }
-// console.log(mySwiper);
-	        // window.addEventListener("orientationchange", function() {
-	        $(window).on('resize',function(){
-	        	// console.log(mySwiper);
-	        	//alert(mySwiper);
-	        	// console.log(mySwiper);
-	        	// if($( window ).width() <= 320) {
-	        	// 	mySwiper.params.slidesPerView = 'auto';
-	        	// 	// mySwiper.params.calculateHeight = false;
-	        	// 	// mySwiper.params.centeredSlides = false;
-	        	// 	// $('#slider .swiper-slide').css('height', '127px !important');
-	        	// 	// myswiper.params.cssWidthAndHeight = true;
-	        	// } else if($( window ).width() >= 321){
-	        	// 	mySwiper.params.slidesPerView = 2;
-	        	// }
-	        	// console.log(mySwiper);
-	        	// console.log(typeof(mySwiper));
-	        	// mySwiper.destroy();
-	
-	        	// mySwiper.reInit();
-	        	// mySwiper2.update();
-	        	// console.log(mySwiper2);
-	        });		
-	        // }, false);
-
 
 	    });
 
