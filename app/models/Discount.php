@@ -37,7 +37,10 @@ class Discount extends \Eloquent {
 				foreach($data->games as $game ) {
 					$discounted_games[] = array(
 								'game_id' => $game->id,
-								'discount' => $data->discount_percentage
+								'discount' => $data->discount_percentage,
+								'featured_image' => $data->featured_image,
+								'title' => $data->title,
+								'description' => $data->description
 						);
 				}
 			

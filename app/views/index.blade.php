@@ -6,7 +6,8 @@
 	{{ HTML::style("css/jquery.fancybox.css"); }}
 	{{ HTML::style("css/jquery-ui.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
-
+	{{ HTML::style("owl-carousel/owl.carousel.css"); }}
+	{{ HTML::style("owl-carousel/owl.theme.css"); }}
 	<style>
 
 		div#image-container {
@@ -52,34 +53,42 @@
 
 @section('content')
 	{{-- Session::get('locale') --}}
-
-	<div id="slider" class="swiper-container featured container swiper-container-horizontal">
-		<div class="swiper-wrapper">
-			@foreach($sliders as $slider)
-				<div class="swiper-slide">
-					@if($slider->slideable_type == 'Game')
-						@foreach($games_slide as $key => $game)
-							@if($key == $slider->slideable_id)
-								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))					
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
-								@else
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}"><img src="assets/featured/placeholder.jpg" alt="{{$game['title']}}"></a>
-								@endif
-							@endif
-						@endforeach
-					@elseif($slider->slideable_type == 'News') 
-						@foreach($news_slide as $key => $nw) 
-							@if($key == $slider->slideable_id) 
-								<a href="{{ 'news/'. $nw['id'] }}"><img src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}"></a>					
-							@endif
-						@endforeach
-						
+	<div id="owl-demo" class="owl-carousel">
+       
+		@foreach($sliders as $slider)
+			@if($slider->slideable_type == 'Game')
+				@foreach($games_slide as $key => $game)
+					@if($key == $slider->slideable_id)
+						@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))					
+							<div class="item">
+								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}">
+									<img class="lazyOwl" data-src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}">
+								</a>
+							</div>	
+						@else
+							<div class="item">
+								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}">
+									<img class="lazyOwl" data-src="assets/featured/placeholder.jpg" alt="{{$game['title']}}">
+								</a>
+							</div>	
+						@endif
 					@endif
-				</div>		
-			@endforeach
-		</div>
-		<div class="swiper-pagination swiper-pagination-clickable"></div>
+				@endforeach
+			@elseif($slider->slideable_type == 'News') 
+				@foreach($news_slide as $key => $nw) 
+					@if($key == $slider->slideable_id) 
+						<div class="item">
+							<a href="{{ 'news/'. $nw['id'] }}">
+								<img class="lazyOwl" data-src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}">
+							</a>
+						</div>		
+					@endif
+				@endforeach
+				
+			@endif
+		@endforeach
 	</div>
+
 	{{ Form::token() }}
 	<div id="latest-games" class="bb container">
 		<h1 class="title fleft">{{ trans('global.All Games') }}</h1>
@@ -139,9 +148,9 @@
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
-									<a href="#" class="game-free">Free</a>
+									<a href="#" data-id="{{ $game['id'] }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">Buy</a>	
 								@endif
 							</div>
 						</div>
@@ -174,6 +183,10 @@
 				<div class="swiper-wrapper">
 					<?php $count = 0; ?>
 					@foreach($apps as $app) 
+						@if($count >= $limit)
+							<?php break; ?>
+						@endif
+						<?php $count++; ?>
 						<div class="swiper-slide item">
 							<div class="thumb relative">
 								@if ($app->pivot->price == 0)
@@ -215,9 +228,9 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="#" class="game-free">Free</a>
+									<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">Buy</a>	
 								@endif
 							</div>
 						</div>
@@ -388,6 +401,17 @@
 			</div>
 		{{ Form::close() }}
 	</div><!-- end #contact -->
+
+	<!-- CARRIER SELECT MODAL  -->
+	<div style="display:none">
+		<div class="carrier-container" id="carrier-select-container">
+			{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
+				<h3>Select Carrier</h3>
+				<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
+			{{ Form::close() }}
+		</div>
+	</div>
+
 @if($first_visit)
 <?php $ctr = 0; ?>
 	@if(count($discounts) != 0)		
@@ -403,11 +427,11 @@
 					    </div>				
 						<div class="modal-body">
 						  	<div id="image-container">
-						  		{{ HTML::image("assets/discounts/$data->featured_image", null, array('class' => 'auto', 'id' => 'discount-img')) }}
+						  		<img src="{{ asset('assets/discounts') }}/{{ $data['featured_image'] }}" class="auto" id="discount-img" />
 						  	</div>
 						  	<div class="clearfix"></div>
-						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->title) }}}</h2>							   
-						    <p> {{ str_limit($data->description, $limit = 200, $end = '...') }} </p>
+						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data['title']) }}}</h2>							   
+						    <p> {{ str_limit($data['description'], $limit = 200, $end = '...') }} </p>
 						</div>
 					</div>
 				</div>
@@ -455,7 +479,7 @@
 	{{ HTML::script("js/jquery.lightSlider.min.js") }}
 	{{ HTML::script("js/jquery.fancybox.js") }}
 	{{ HTML::script("js/idangerous.swiper.min.js") }}
-	{{-- {{ HTML::script("js/idangerous.swiper-2.0.min.js") }} --}}
+	{{ HTML::script("owl-carousel/owl.carousel.js") }}
 	{{ HTML::script("js/jquery-ui.min.js") }}
 	{{ HTML::script("js/jquery.ddslick.min.js") }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
@@ -468,6 +492,14 @@
 		var ctr2 = $('#ctr2').val();
 
 		$(window).load(function() {
+
+			$("#owl-demo").owlCarousel({
+		        items : 2,
+		        lazyLoad : true,
+		        navigation : false,
+		        pagination: true,
+
+		      });
 
 			$('#slider').show();
 
@@ -547,6 +579,7 @@
 	        });		
 	        // }, false);
 
+
 	    });
 
 		var token = $('#token input').val();
@@ -603,14 +636,15 @@
 			$(this).submit();
 		});
 
-		$("#buy").on('click',function() {
+		$(".game-buy").on('click',function() {
+			var id = $(this).attr('data-id');
 			$('#carrier-select').remove();
 			 $.ajax({
-			 	type: "get",
-			 	url: "{{ URL::route('games.carrier', $game->id) }}",
-			 	dataType: "json",
-			 	complete:function(data) {
-			 		
+			 	type: "POST",
+			 	url: "{{ url() }}/games/post/carrier",
+			 	data: {id: id},
+			 	success:function(data) {
+			 		console.log(data);
 			 		var carriers = $.parseJSON(data['responseText']);
 					var append = '<select id="carrier-select">';
 
@@ -628,7 +662,7 @@
                 }
             });
 
-			$('#buy').fancybox({
+			$('.game-buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none',
@@ -646,9 +680,10 @@
 			            afterClose: function() {
 
 			            	$.ajax({
-							 	type: "get",
-							 	url: "{{ URL::route('games.status', $game->id) }}",
-							 	complete:function(data) {
+							 	type: "POST",
+							 	url: "{{ url() }}/games/post/carrier",
+							 	data: {id: id},
+							 	success:function(data) {
 
 							 		var response = JSON.parse(data['responseText']);
 							 		console.log(response.status);

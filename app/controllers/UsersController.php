@@ -143,10 +143,10 @@ class UsersController extends \BaseController {
 			->with(compact('languages'));
     }
 
-    public function postLogin(){
+    public function postLogin()
+    {
     	
         $credentials = array('username' => Input::get('username'), 'password' => Input::get('password')); 		
-       
         $remember = Input::get('remember');
 
         try {
@@ -170,8 +170,10 @@ class UsersController extends \BaseController {
 				//Audit log
 			    Event::fire('audit.login', Auth::user());
 
-			    // return Redirect::intended('/home');
-			    return Redirect::to(Session::get('pre_login_url')); 
+			  	if(Input::has('url'))
+			    	return Redirect::to(Input::get('url')); 
+
+			    return Redirect::intended('/home');
 
 			} else {
 

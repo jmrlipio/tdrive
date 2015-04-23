@@ -247,7 +247,7 @@ class GamesController extends \BaseController {
 
 	public function getCarrier() 
 	{
-		$game = Game::find(1);
+		$game = Game::find(Input::get('id'));
 		$languages = Language::all();
 
 		$carriers = [];	
