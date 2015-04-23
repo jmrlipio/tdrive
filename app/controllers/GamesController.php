@@ -104,7 +104,7 @@ class GamesController extends \BaseController {
 		$cid = Session::get('carrier');
 		$games = Game::whereHas('apps', function($q) use ($cid)
 				 {
-				    $q->where('carrier_id', '=', $cid);
+				    $q->where('carrier_id', '=', $cid)->where('status', '=', Constant::PUBLISH);
 				 })->get();
 		
 		$related_games = [];

@@ -4,7 +4,7 @@
 @stop
 
 @section('content')
-
+	
 	<div class="container">
 		
 		<div class="clearfix">
@@ -114,8 +114,7 @@
 		var load = 0;
 		var _token = $('#token input').val();
 		var category_id = {{ $category->id }};
-		var num = {{ $count }};
-		var page = ({{ $page }} / 2);
+		var page = ({{ $page }} / 1);
 		var token = $('input[name="_token"]').val();
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
