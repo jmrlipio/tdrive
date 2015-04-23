@@ -104,7 +104,7 @@ class ListingController extends \BaseController {
 
 		$games = Game::whereHas('apps', function($q) use ($cid)
 		  {
-		      $q->where('carrier_id', '=', $cid);
+		      $q->where('carrier_id', '=', $cid)->where('status', '=', Constant::PUBLISH);
 	
 		  })->whereHas('categories', function ( $query ) use ($id){
               
@@ -117,19 +117,7 @@ class ListingController extends \BaseController {
 
 		$count = count($games_all);		
 
-		/* For getting discounts */
-		$dt = Carbon::now();
-		$discounts = Discount::whereActive(1)
-			->where('start_date', '<=', $dt->toDateString())
-			->where('end_date', '>=',  $dt->toDateString())
-			->get();
-
-		$discounted_games = [];
-		foreach ($discounts as $data) {
-			foreach($data->games as $gm ) {
-				$discounted_games[$data->id][] = $gm->id; 
-			}
-		}
+		$discounts = Discount::getDiscountedGames();
 
 
 		return View::make('category')
@@ -138,7 +126,7 @@ class ListingController extends \BaseController {
 			->with('count', $count)
 			->with('country', $country)
 			->with('page', $page)
-			->with(compact('category','discounted_games'))
+			->with(compact('category','discounts'))
 			->with(compact('games'))
 			->with(compact('languages'));
 	}
@@ -154,7 +142,7 @@ class ListingController extends \BaseController {
 			Paginator::setCurrentPage($page);
 			$games = Game::whereHas('apps', function($q) use ($cid)
 			  {
-		     	 $q->where('carrier_id', '=', $cid);
+		     	 $q->where('carrier_id', '=', $cid)->where('status', '=', Constant::PUBLISH);
 	
 		  			})->whereHas('categories', function ( $query ) use ($category_id){
               
