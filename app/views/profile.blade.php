@@ -3,8 +3,9 @@
 	<style>
 		.name h1 {padding: 0 0 10px 0 !important;}
 		#profile .details > div {
-		  margin-bottom: 3px !important;
+		 	margin-bottom: 3px !important;
 		}
+	/* 	.update-content {display: none; } */
 	</style>
 @stop
 @section('content')
@@ -12,13 +13,21 @@
 	<div class="container">
 		<div class="relative">
 			<div class="thumb">
-				<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}.jpg">
+				<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}" id="profile_img">
 			</div>
 
 			<div class="details">
 				<div class="name"><h1 class="title">{{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}}</h1></div>
 				<div class="email">{{{ Auth::user()->email }}}</div>
-				<div class="change_password"><a href="{{ route('password.change') }}">{{ trans('global.Change Password') }}</a></div>
+				<div class="change_password"><a href="{{ route('password.change') }}">{{ trans('global.Change Password') }}</a>
+				{{ Form::open(array('route' => array('user.profile.change', Auth::user()->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
+				
+					<!-- <input type="image" id="img_url" name="profile_pic"> -->
+					 {{ Form::file('image', array('onchange' => 'readURL(this);', 'required')) }}
+				
+					{{ Form::submit("Save", array("id" => "save-image")) }}
+				{{ Form::close()}}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -108,6 +117,32 @@
 
 				return true;
 			}
+
 		});
+
+	function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#profile_img').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+	</script>
+
+	<script>
+
+	/*$(document).ready(function() {
+
+		$('#img_url').change(function() {
+			$('#img_url').after(' <br><br>{{ Form::submit("Save", array("id" => "save-image")) }}');
+	     
+	    });
+			
+	});*/
+
 	</script>
 @stop
