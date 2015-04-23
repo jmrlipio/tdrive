@@ -203,34 +203,7 @@ class HomeController extends BaseController {
 			else if($slider->slideable_type == 'News') $selected_news[] = $slider->slideable_id;
 		}		
 		
-		foreach(Game::all() as $game) {	
-			foreach($game->apps as $app) {
-				$iso_code = ''; 
-				foreach($languages as $language){
-					if($language->id == $app->pivot->language_id){
-						$iso_code = strtolower($language->iso_code);
-					}
-				}		
-
-				/*THAI TEST*/
-				//$iso_code = 'TH';
-
-				foreach ($game->media as $media) {
-					if($media->type == 'homepage') {
-						if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier')) {						
-							$games_slide[$game->id] = array(
-								'url' => $media->url, 
-								'title' => $game->main_title, 
-								'id' => $game->id,
-								'price' => $app->pivot->price,
-								'currency_code' => $app->pivot->currency_code,
-								'app_id' => $app->pivot->app_id);
-						}
-					}
-				}
-			}
-		}
-			
+		$games_slide = Game::getAllGames();
 		$cid = Session::get('carrier');		
 	
 		$games = Game::whereHas('apps', function($q) use ($cid)
@@ -267,10 +240,7 @@ class HomeController extends BaseController {
 			->with('categories', $categories)
 			->with('discounts', $discounts)
 			->with('limit', $limit)
-			/*->with(compact('featured_games'))*/
 			->with(compact('games','featured_games', 'faqs', 'languages', 'games_slide','news_slide','sliders'));
-			/*->with(compact('faqs'))
-			->with(compact('languages'));*/
 	
 	}
 

@@ -12,93 +12,78 @@ class ListingController extends \BaseController {
 	public function showGames() 
 	{
 		$languages = Language::all();
-
+		$page = 2;
+		$count = Constant::CATEGORY_GAME_PAGING;
 		$country = Country::find(Session::get('country_id'));
 
 		$cid = Session::get('carrier');
 	
 		$games = Game::whereHas('apps', function($q) use ($cid)
 		  {
-		      $q->where('carrier_id', '=', $cid);
+		      $q->where('carrier_id', '=', $cid)->where('status', '=', Constant::PUBLISH);
 
-		  })->get()->take(6);
+		  })->paginate($count);
 
 		$games_all = Game::all();
 
 		$count = count($games_all);
-
-		/* For getting discounts */
-		$dt = Carbon::now();
-		$discounts = Discount::whereActive(1)
-			->where('start_date', '<=', $dt->toDateString())
-			->where('end_date', '>=',  $dt->toDateString())  
-			->get();
-
-		$discounted_games = [];
-		foreach ($discounts as $data) {
-			foreach($data->games as $gm ) {
-				$discounted_games[$data->id][] = $gm->id; 
-			}
-		}
+		$discounts = Discount::getDiscountedGames();
 
 		return View::make('games')
 			->with('page_title', 'New and updated games')
 			->with('page_id', 'game-listing')
+			->with('page', $page)
 			->with('count', $count)
 			->with('country', $country)
 			->with(compact('games'))
-			->with(compact('languages', 'discounted_games'));
+			->with(compact('languages', 'discounts'));
 	}
 
 	public function showAllMoreGames() 
 	{
 		$languages = Language::all();
 
-		$load = Input::get('load') * 6;
-
-		//$games = Game::take(6)->skip($load)->get();
-
+		$page = Input::get('page');
 		$cid = Session::get('carrier');
+		$count = Constant::CATEGORY_GAME_PAGING;
 
-		$games = Game::whereHas('apps', function($q) use ($cid)
-		  {
-		      $q->where('carrier_id', '=', $cid);
+		try 
+		{
+			Paginator::setCurrentPage($page);
+			$games = Game::whereHas('apps', function($q) use ($cid)
+			  {
+			      $q->where('carrier_id', '=', $cid)->where('status', '=', Constant::PUBLISH);
 
-		  })->take(6)->skip($load)->get();
+			  })->paginate($count);
 
-		$country = Country::find(Session::get('country_id'));
-		
-		/* For getting discounts */
-		$dt = Carbon::now();
-		$discounts = Discount::whereActive(1)
-			->where('start_date', '<=', $dt->toDateString())
-			->where('end_date', '>=',  $dt->toDateString())
-			->get();
+			$country = Country::find(Session::get('country_id'));
+			
+			/* For getting discounts */
+			$discounts = Discount::getDiscountedGames();
 
-		$discounted_games = [];
-		foreach ($discounts as $data) {
-			foreach($data->games as $gm ) {
-				$discounted_games[$data->id][] = $gm->id; 
+			if (Request::ajax()) {
+				return View::make('_partials/ajax-games')
+					->with('country', $country)
+					->with(compact('games', 'discounts', 'languages'));
 			}
 		}
-
-		
-		if (Request::ajax()) {
-			return View::make('_partials/ajax-games')
-				->with('country', $country)
-				->with(compact('games', 'discounted_games', 'languages'));
+		catch (Exception $e) 
+		{
+			return Response::json(array(
+					'error' => $e->getMessage(),
+			));
 		}
+
 	}
 
 	public function showGamesByCategory($id) 
 	{
 		$languages = Language::all();
-		$page = Constant::CATEGORY_GAME_COUNT;
+		$page = 2;
+		$count = Constant::CATEGORY_GAME_PAGING;
 		$category = Category::find($id);
 
 		$country = Country::find(Session::get('country_id'));
-
-		//$games = Category::find($id)->games->take(6);
 
 		$cid = Session::get('carrier');
 
@@ -110,24 +95,19 @@ class ListingController extends \BaseController {
               
                 $query->where('category_id','=', $id );
          
-          })->get()->take($page);
+          })->paginate($count);
            	
-
-		$games_all = Category::find($id)->games;
-
-		$count = count($games_all);		
-
+		//$games_all = Category::find($id)->games;
+		//$count = count($games_all);		
 		$discounts = Discount::getDiscountedGames();
-
 
 		return View::make('category')
 			->with('page_title', $category->category)
 			->with('page_id', 'game-listing')
-			->with('count', $count)
 			->with('country', $country)
 			->with('page', $page)
+			->with('games', $games)
 			->with(compact('category','discounts'))
-			->with(compact('games'))
 			->with(compact('languages'));
 	}
 
@@ -137,6 +117,7 @@ class ListingController extends \BaseController {
 		$page = Input::get('page');
 		$cid = Session::get('carrier');
 		$count = Constant::CATEGORY_GAME_PAGING;
+
 		try
 		{
 			Paginator::setCurrentPage($page);
@@ -149,34 +130,10 @@ class ListingController extends \BaseController {
                 	$query->where('category_id','=', $category_id );
          
          	  })->paginate($count);
-           	
+
 			$country = Country::find(Session::get('country_id'));
-
-
 			/* For getting discounts */
-			$dt = Carbon::now();
-			$discounts = Discount::whereActive(1)
-				->where('start_date', '<=', $dt->toDateString())
-				->where('end_date', '>=',  $dt->toDateString())		
-				->get();
-
-			$discounted_games = [];
-			foreach ($discounts as $data) {
-				foreach($data->games as $gm ) {
-					$discounted_games[$data->id][] = $gm->id; 
-				}
-			}
-/*			foreach($games as $game) {
-				foreach($game->apps as $app ) {
-					if(Language::getLangID(Session::get('locale')) == $app->pivot->language_id && $app->pivot->carrier_id == Session::get('carrier') ) 
-					{
-						echo "<pre>";
-						echo $app->pivot->app_id;
-						echo "</pre>";
-					}
-				
-				}
-			}*/
+			$discounts = Discount::getDiscountedGames();
 
 			if (Request::ajax()) {
 				return View::make('_partials/ajax-category')
@@ -196,23 +153,24 @@ class ListingController extends \BaseController {
 	public function showRelatedGames($id) 
 	{
 		$languages = Language::all();
-
+		$cid = Session::get('carrier');
 		$country = Country::find(Session::get('country_id'));
-
 		$game = Game::find($id);
+		$count = Constant::CATEGORY_GAME_PAGING;
 
-		$categories = [];
-		// $categories2 = [];
+		 $categories = array();
+		 foreach($game->categories as $cat) 
+		 {
+		 	$categories[] = $cat->id;
+		 }
 
-		foreach($game->categories as $cat) {
-			$categories[] = $cat->id;
-		}
-
+		$category_id = 2;
+		Paginator::setCurrentPage(1);
 		$related_games = Game::whereHas('categories', function($q) use ($categories)
 		{
 		    $q->whereIn('category_id', $categories);
 
-		})->get()->take(6);
+		})->get();
 
 		$test = [];
 
