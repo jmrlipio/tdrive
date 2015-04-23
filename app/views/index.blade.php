@@ -487,7 +487,7 @@
 		        lazyLoad : true,
 		        navigation : false,
 		        pagination: true,
-
+		        autoPlay: true
 		      });
 
 			$('#slider').show();
