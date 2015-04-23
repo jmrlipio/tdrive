@@ -258,7 +258,7 @@
 						@if($i <= $ctr)
 							<i class="fa fa-star active"></i>
 						@else
-							<i class="fa fa-star"></i>
+							<i class="fa fa-star active"></i>
 						@endif
 					@endfor  
 				</div>
