@@ -53,7 +53,7 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 .polyglotLanguageSwitcher a {
 	text-decoration: none;
 	display: block;	
-	padding: 0.5em 6px 0.5em 28px; /* 6px 6px 6px 28px */
+	padding: 6px 6px 6px 28px; /* 0.5em 6px 0.5em 28px */
 	color: #444;
 	width: 7em; /* 84px; total width: 120px */
 	background-repeat: no-repeat;

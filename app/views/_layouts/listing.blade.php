@@ -12,6 +12,7 @@
 <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
 {{ HTML::script("js/pushy.min.js"); }}
 
+
 @section('javascripts')
 
 	<script>
@@ -23,7 +24,9 @@
 		ga('create','(UA-58420474-1','auto');ga('send','pageview');
 	</script>
 
-@show
+@include('_partials/scripts')
 
+@show
+	
 </body>
 </html>

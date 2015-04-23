@@ -450,6 +450,12 @@ class AdminGamesController extends \BaseController {
     }
 
 	public function previewGame($id, $app_id){
+
+		$preview = array(
+			'content' => Input::get('content'),
+			'excerpt' => Input::get('excerpt')
+			); 
+
 		$languages = Language::all();
 		$game = Game::find($id);
 		$current_game = Game::find($id);
@@ -491,7 +497,7 @@ class AdminGamesController extends \BaseController {
 			->with('ratings', $ratings)
 			->with('current_game', $current_game)
 			->with('country', $country)
-			->with(compact('languages','related_games', 'game', 'discounted_games','app_id'));
+			->with(compact('languages','related_games', 'game', 'discounted_games','app_id','preview'));
 	}
 
 	public function getCreateApp($id) {
