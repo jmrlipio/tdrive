@@ -6,7 +6,8 @@
 	{{ HTML::style("css/jquery.fancybox.css"); }}
 	{{ HTML::style("css/jquery-ui.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
-
+	{{ HTML::style("owl-carousel/owl.carousel.css"); }}
+	{{ HTML::style("owl-carousel/owl.theme.css"); }}
 	<style>
 
 		div#image-container {
@@ -52,34 +53,42 @@
 
 @section('content')
 	{{-- Session::get('locale') --}}
-
-	<div id="slider" class="swiper-container featured container swiper-container-horizontal">
-		<div class="swiper-wrapper">
-			@foreach($sliders as $slider)
-				<div class="swiper-slide">
-					@if($slider->slideable_type == 'Game')
-						@foreach($games_slide as $key => $game)
-							@if($key == $slider->slideable_id)
-								@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))					
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}"><img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}"></a>
-								@else
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}"><img src="assets/featured/placeholder.jpg" alt="{{$game['title']}}"></a>
-								@endif
-							@endif
-						@endforeach
-					@elseif($slider->slideable_type == 'News') 
-						@foreach($news_slide as $key => $nw) 
-							@if($key == $slider->slideable_id) 
-								<a href="{{ 'news/'. $nw['id'] }}"><img src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}"></a>					
-							@endif
-						@endforeach
-						
+	<div id="owl-demo" class="owl-carousel">
+       
+		@foreach($sliders as $slider)
+			@if($slider->slideable_type == 'Game')
+				@foreach($games_slide as $key => $game)
+					@if($key == $slider->slideable_id)
+						@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))					
+							<div class="item">
+								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}">
+									<img class="lazyOwl" data-src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}">
+								</a>
+							</div>	
+						@else
+							<div class="item">
+								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}">
+									<img class="lazyOwl" data-src="assets/featured/placeholder.jpg" alt="{{$game['title']}}">
+								</a>
+							</div>	
+						@endif
 					@endif
-				</div>		
-			@endforeach
-		</div>
-		<div class="swiper-pagination swiper-pagination-clickable"></div>
+				@endforeach
+			@elseif($slider->slideable_type == 'News') 
+				@foreach($news_slide as $key => $nw) 
+					@if($key == $slider->slideable_id) 
+						<div class="item">
+							<a href="{{ 'news/'. $nw['id'] }}">
+								<img class="lazyOwl" data-src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}">
+							</a>
+						</div>		
+					@endif
+				@endforeach
+				
+			@endif
+		@endforeach
 	</div>
+
 	{{ Form::token() }}
 	<div id="latest-games" class="bb container">
 		<h1 class="title fleft">{{ trans('global.All Games') }}</h1>
@@ -455,7 +464,7 @@
 	{{ HTML::script("js/jquery.lightSlider.min.js") }}
 	{{ HTML::script("js/jquery.fancybox.js") }}
 	{{ HTML::script("js/idangerous.swiper.min.js") }}
-	{{-- {{ HTML::script("js/idangerous.swiper-2.0.min.js") }} --}}
+	{{ HTML::script("owl-carousel/owl.carousel.js") }}
 	{{ HTML::script("js/jquery-ui.min.js") }}
 	{{ HTML::script("js/jquery.ddslick.min.js") }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
@@ -468,6 +477,14 @@
 		var ctr2 = $('#ctr2').val();
 
 		$(window).load(function() {
+
+			$("#owl-demo").owlCarousel({
+		        items : 2,
+		        lazyLoad : true,
+		        navigation : false,
+		        pagination: true,
+
+		      });
 
 			$('#slider').show();
 
@@ -491,61 +508,6 @@
 					calculateHeight: true
 				});
 			});
-		
-			var mySwiper;
-
-			// console.log($( window ).width());
-			if($( window ).width() >= 321){
-				alert('weeeee');
-				// mySwiper.reInit();
-				mySwiper = new Swiper('.featured', {
-				    slidesPerView: 2,
-					loop: true,
-					centeredSlides: true,
-					calculateHeight: true,
-					// initialSlide: 2,
-					autoplay: 3000,
-					pagination: '.swiper-pagination',
-	        		paginationClickable: true
-				});
-	        } else if($( window ).width() <= 320) {
-	        	alert('waaaaa');
-	        	// mySwiper.reInit();
-	        	mySwiper = new Swiper('.featured', {
-				    slidesPerView: 'auto',
-					loop: true,
-					loopedSlides: 10,
-					centeredSlides: true,
-					calculateHeight: true,
-					autoplay: 3000,
-					pagination: '.swiper-pagination',
-	        		paginationClickable: true
-				});
-	        }
-// console.log(mySwiper);
-	        // window.addEventListener("orientationchange", function() {
-	        $(window).on('resize',function(){
-	        	// console.log(mySwiper);
-	        	//alert(mySwiper);
-	        	// console.log(mySwiper);
-	        	// if($( window ).width() <= 320) {
-	        	// 	mySwiper.params.slidesPerView = 'auto';
-	        	// 	// mySwiper.params.calculateHeight = false;
-	        	// 	// mySwiper.params.centeredSlides = false;
-	        	// 	// $('#slider .swiper-slide').css('height', '127px !important');
-	        	// 	// myswiper.params.cssWidthAndHeight = true;
-	        	// } else if($( window ).width() >= 321){
-	        	// 	mySwiper.params.slidesPerView = 2;
-	        	// }
-	        	// console.log(mySwiper);
-	        	// console.log(typeof(mySwiper));
-	        	// mySwiper.destroy();
-	
-	        	// mySwiper.reInit();
-	        	// mySwiper2.update();
-	        	// console.log(mySwiper2);
-	        });		
-	        // }, false);
 
 	    });
 
