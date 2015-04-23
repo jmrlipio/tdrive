@@ -23,7 +23,11 @@
 @section('content')
 	<?php $game_image = $game->slug;  ?>
 	{{ Form::token() }}
-	{{ HTML::image("images/games/{$game->slug}.jpg", $game->main_title, array('id' => 'featured')) }}
+	@foreach($game->media as $media)	
+		@if($media->type == 'promos')
+			{{ HTML::image('assets/games/promos/' . $media->url, $game->main_title, array('id' => 'featured')) }}
+		@endif
+	@endforeach
 	
 	<div style="display:none"><div id="carrier-form"><h1>This is a test</h1></div></div>
 

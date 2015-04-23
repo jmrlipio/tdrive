@@ -26,6 +26,7 @@ return array(
 	'search game' => 'search game',
 	'View all categories' => 'View all categories',
 	'Buy' => 'buy',
+	'Change Profile Picture' => 'Change Profile Picture',
 
 
 	//Categories

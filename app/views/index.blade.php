@@ -157,7 +157,7 @@
 				@endforeach	
 				</div>
 			@else
-				<div class="container">
+				<div class="container mtop_15">
 					<p class="no-games">no games, please choose another carrier or another language for the selected carrier</p>
 				</div>
 			@endif		
@@ -498,8 +498,11 @@
 		        lazyLoad : true,
 		        navigation : false,
 		        pagination: true,
-
+		        autoPlay: true,
+		        itemsTablet: [1024,2],
+		        itemsDesktop: [1024,2]
 		      });
+
 
 			$('#slider').show();
 
@@ -523,6 +526,9 @@
 					calculateHeight: true
 				});
 			});
+		
+			var mySwiper;
+
 	    });
 
 		var token = $('#token input').val();

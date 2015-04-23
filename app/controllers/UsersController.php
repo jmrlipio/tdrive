@@ -170,8 +170,8 @@ class UsersController extends \BaseController {
 				//Audit log
 			    Event::fire('audit.login', Auth::user());
 
-			  	if(Input::has('url'))
-			    	return Redirect::to(Input::get('url')); 
+			  	if(Input::has('redirect_url'))
+			    	return Redirect::to(Input::get('redirect_url')); 
 
 			    return Redirect::intended('/home');
 

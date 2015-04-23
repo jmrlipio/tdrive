@@ -81,6 +81,9 @@ img, video {
 img.auto, video.auto {
   width: auto;
 }
+.mtop_15 {
+  margin-top: 15px;
+}
 .no-games 
 {
   padding: 10px;
@@ -519,7 +522,7 @@ img.auto, video.auto {
 }
 
 #content {
-  padding-top: 40px;
+  padding-top: 60px;
 }
 
 #footer {
