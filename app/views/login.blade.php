@@ -30,13 +30,13 @@
 			{{ Form::password('password', array('placeholder'=>trans('global.password'))) }}                    
 		</div>
 		<input type="hidden" value="{{ Input::get('url') }}" name="url" />
-		<div class="control-group clearfix">
+		<div class="control-group clearfix sign-in">
 			<!-- <div class="control-item fl">
 				{{-- Form::checkbox('remember', 1 , null, ['id'=>'remember']); --}}
 				 <label for="remember">Remember me</label>
 			</div> -->
 
-			<div class="control-item fr">
+			<div class="control-item">
 				 {{ Form::submit(trans('global.login')) }}
 			</div>
 		</div>

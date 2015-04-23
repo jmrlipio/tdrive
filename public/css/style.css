@@ -1422,3 +1422,16 @@ a.game-free {
   float: right;
   margin: 15px 0;
 }
+
+select#select-year:before {
+  content: '&#8203;';
+  color: red;
+}
+
+#form #content div.sign-in {
+  margin: 20px auto;
+}
+#form #content div.sign-in input {
+  display: block;
+  margin: 0 auto;
+}
