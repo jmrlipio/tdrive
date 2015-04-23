@@ -92,12 +92,12 @@ img.auto, video.auto {
   display: none;
 }
 
-#home #latest-games.bb {
+/*#home #latest-games.bb {
   background: #61ded0;
   color: #fff;
-}
+}*/
 
-#home .game-category:nth-child(even) {
+#home .game-category:nth-child(odd) {
   background: #fff;
   color: #465a65;
 }

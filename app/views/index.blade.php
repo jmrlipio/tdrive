@@ -6,8 +6,8 @@
 	{{ HTML::style("css/jquery.fancybox.css"); }}
 	{{ HTML::style("css/jquery-ui.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
-	{{ HTML::style("owl-carousel/owl.carousel.css"); }}
-	{{ HTML::style("owl-carousel/owl.theme.css"); }}
+	{{ HTML::style("css/owl.carousel.css"); }}
+	{{ HTML::style("css/owl.theme.min.css"); }}
 	<style>
 
 		div#image-container {
@@ -47,28 +47,38 @@
 		
 		.discounted { text-decoration: line-through; }
 
+		.owl-theme .owl-dots .owl-dot span {
+			background: #e9548e;
+		}
+		.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+			background: #E08BAC;
+		}
+		/*.owl-carousel.owl-loaded {
+			margin-top: -10px;
+		}*/
+
 	</style>
 
 @stop
 
 @section('content')
 	{{-- Session::get('locale') --}}
-	<div id="owl-demo" class="owl-carousel">
+	<div class="owl-carousel">
        
 		@foreach($sliders as $slider)
 			@if($slider->slideable_type == 'Game')
 				@foreach($games_slide as $key => $game)
 					@if($key == $slider->slideable_id)
 						@if(File::exists(public_path() . '/assets/games/homepage/'. $game['url']))					
-							<div class="item">
+							<div>
 								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}">
-									<img class="lazyOwl" data-src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}">
+									<img src="assets/games/homepage/{{ $game['url'] }}" alt="{{$game['title']}}">
 								</a>
 							</div>	
 						@else
-							<div class="item">
+							<div>
 								<a href="{{ URL::route('game.show', array('id' => $game['id'], 'slug' => $game['app_id']))}}">
-									<img class="lazyOwl" data-src="assets/featured/placeholder.jpg" alt="{{$game['title']}}">
+									<img src="assets/featured/placeholder.jpg" alt="{{$game['title']}}">
 								</a>
 							</div>	
 						@endif
@@ -77,9 +87,9 @@
 			@elseif($slider->slideable_type == 'News') 
 				@foreach($news_slide as $key => $nw) 
 					@if($key == $slider->slideable_id) 
-						<div class="item">
+						<div>
 							<a href="{{ 'news/'. $nw['id'] }}">
-								<img class="lazyOwl" data-src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}">
+								<img src="assets/news/{{ $nw['image'] }}" alt="{{ $nw['title'] }}">
 							</a>
 						</div>		
 					@endif
@@ -241,9 +251,9 @@
 		</div>
 	@endforeach
 
-	<div class="view-all container clearfix">
-		<div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div>
-	</div>
+	{{-- <div class="view-all container clearfix"> --}}
+		{{-- <div class="more fr"><a href="{{ route('categories.all') }}">{{ trans('global.View all categories') }}</a></div> --}}
+	{{-- </div> --}}
 
 	<div id="news" class="container">
 		<div class="clearfix">
@@ -479,7 +489,7 @@
 	{{ HTML::script("js/jquery.lightSlider.min.js") }}
 	{{ HTML::script("js/jquery.fancybox.js") }}
 	{{ HTML::script("js/idangerous.swiper.min.js") }}
-	{{ HTML::script("owl-carousel/owl.carousel.js") }}
+	{{ HTML::script("js/owl.carousel.min.js") }}
 	{{ HTML::script("js/jquery-ui.min.js") }}
 	{{ HTML::script("js/jquery.ddslick.min.js") }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
@@ -493,16 +503,37 @@
 
 		$(window).load(function() {
 
-			$("#owl-demo").owlCarousel({
-		        items : 2,
-		        lazyLoad : true,
-		        navigation : false,
-		        pagination: true,
-		        autoPlay: true,
-		        itemsTablet: [1024,2],
-		        itemsDesktop: [1024,2]
-		      });
-
+			// alert($(window).width());
+			// if($(window).width() <= 320) {
+			// 	$(".owl-carousel").owlCarousel({
+			// 		center: true,
+			// 		loop:true,
+			// 		items:1,
+			// 		autoplay: true,
+			// 		dots: true,
+			// 		// dotData: true,
+			// 		dotEach: true,
+			// 	    responsive:{
+			// 	        600:{
+			// 	            items:2
+			// 	        }
+			// 	    }
+			// 	});
+			// } else {
+				$(".owl-carousel").owlCarousel({
+				center: true,
+				loop:true,
+				items:2,
+				autoplay: true,
+				dots: true,
+				dotEach: true,
+			    responsive:{
+			        600:{
+			            items:2
+			        }
+			    }
+			});
+			// }
 
 			$('#slider').show();
 

@@ -47,7 +47,7 @@ $game_settings = GameSetting::all();
 		@endforeach
 	@endif
 
-	<link rel="shortcut icon" href="favicon.ico">
+	
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 	{{ HTML::style("css/normalize.css"); }}
