@@ -138,7 +138,7 @@ class ListingController extends \BaseController {
 			if (Request::ajax()) {
 				return View::make('_partials/ajax-category')
 					->with('country', $country)
-					->with(compact('games', 'discounted_games'));
+					->with(compact('games', 'discounts'));
 			}
 		} 
 		catch (Exception $e) 
