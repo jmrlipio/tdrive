@@ -174,6 +174,10 @@
 				<div class="swiper-wrapper">
 					<?php $count = 0; ?>
 					@foreach($apps as $app) 
+						@if($count >= $limit)
+							<?php break; ?>
+						@endif
+						<?php $count++; ?>
 						<div class="swiper-slide item">
 							<div class="thumb relative">
 								@if ($app->pivot->price == 0)
@@ -403,11 +407,11 @@
 					    </div>				
 						<div class="modal-body">
 						  	<div id="image-container">
-						  		{{ HTML::image("assets/discounts/$data->featured_image", null, array('class' => 'auto', 'id' => 'discount-img')) }}
+						  		<img src="{{ asset('assets/discounts') }}/{{ $data['featured_image'] }}" class="auto" id="discount-img" />
 						  	</div>
 						  	<div class="clearfix"></div>
-						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data->title) }}}</h2>							   
-						    <p> {{ str_limit($data->description, $limit = 200, $end = '...') }} </p>
+						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data['title']) }}}</h2>							   
+						    <p> {{ str_limit($data['description'], $limit = 200, $end = '...') }} </p>
 						</div>
 					</div>
 				</div>
@@ -496,7 +500,6 @@
 
 			// console.log($( window ).width());
 			if($( window ).width() >= 321){
-				alert('weeeee');
 				// mySwiper.reInit();
 				mySwiper = new Swiper('.featured', {
 				    slidesPerView: 2,
