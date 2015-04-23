@@ -4,6 +4,10 @@
 	<style>
 		button{ background: #4288CE !important; }
 		button:hover {background: #333333 !important; }
+		
+		p.approved {color: green !important;}
+		p.pending {color: #555 !important;}
+	
 	</style>
 @stop
 
@@ -65,9 +69,11 @@
 
 						<td>
 							@if($review->status == 1)
-								<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/>
+								<p class="approved">Approved</p>
+								<!-- <input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/> -->
 							@else
-								<input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" />
+								<!-- <input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" /> -->
+								<p class="pending">Pending</p>
 							@endif
 						</td>
 						<td>
