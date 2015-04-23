@@ -134,10 +134,8 @@
 
 				</div>
 			</a>
-			
 			@else 
-			{{ Session::put('pre_login_url', Request::url()); }}
-			<a href="{{ URL::route('users.login')}}" class="buy" id="buy">
+			<a href="{{ URL::route('users.login')}}?url={{ Request::url() }}" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
 
@@ -585,19 +583,7 @@
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 	{{ HTML::script("js/jquery.event.move.js"); }}
 	{{ HTML::script("js/jquery.event.swipe.js"); }}
-	{{ HTML::script("js/share.js"); }}
 
-	<script>
-		$(document).ready(function() {			
-				$(document).fbshare({
-					'OG_name' : '{{ $game->main_title }}',
-					'OG_url' : '{{ url() }}',
-					'OG_title' : '{{ $game->main_title }}',
-					'OG_desc' : "{{ $game_excerpt }}",
-					'OG_image' : '{{ URL::asset('images/games/' . $game_image . '.jpg') }}'
-				});	
-		});
-	</script>	
 	<script>
 		FastClick.attach(document.body);
 

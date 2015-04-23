@@ -148,9 +148,9 @@
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
-									<a href="#" class="game-free">Free</a>
+									<a href="#" data-id="{{ $game['id'] }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">Buy</a>	
 								@endif
 							</div>
 						</div>
@@ -228,9 +228,9 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="#" class="game-free">Free</a>
+									<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">Buy</a>	
 								@endif
 							</div>
 						</div>
@@ -401,6 +401,17 @@
 			</div>
 		{{ Form::close() }}
 	</div><!-- end #contact -->
+
+	<!-- CARRIER SELECT MODAL  -->
+	<div style="display:none">
+		<div class="carrier-container" id="carrier-select-container">
+			{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
+				<h3>Select Carrier</h3>
+				<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
+			{{ Form::close() }}
+		</div>
+	</div>
+
 @if($first_visit)
 <?php $ctr = 0; ?>
 	@if(count($discounts) != 0)		
@@ -512,6 +523,63 @@
 					calculateHeight: true
 				});
 			});
+		
+			var mySwiper;
+
+			// console.log($( window ).width());
+			if($( window ).width() >= 321){
+				
+				// mySwiper.reInit();
+				mySwiper = new Swiper('.featured', {
+				    slidesPerView: 2,
+					loop: true,
+					centeredSlides: true,
+					calculateHeight: true,
+					// initialSlide: 2,
+					autoplay: 3000,
+					pagination: '.swiper-pagination',
+	        		paginationClickable: true
+				});
+	        } else if($( window ).width() <= 320) {
+
+	        	// mySwiper.reInit();
+	        	mySwiper = new Swiper('.featured', {
+				    slidesPerView: 'auto',
+					loop: true,
+					loopedSlides: 10,
+					centeredSlides: true,
+					calculateHeight: true,
+					autoplay: 3000,
+					pagination: '.swiper-pagination',
+	        		paginationClickable: true
+				});
+	        }
+// console.log(mySwiper);
+	        // window.addEventListener("orientationchange", function() {
+	        $(window).on('resize',function(){
+	        	// console.log(mySwiper);
+	        	//alert(mySwiper);
+	        	// console.log(mySwiper);
+	        	// if($( window ).width() <= 320) {
+	        	// 	mySwiper.params.slidesPerView = 'auto';
+	        	// 	// mySwiper.params.calculateHeight = false;
+	        	// 	// mySwiper.params.centeredSlides = false;
+	        	// 	// $('#slider .swiper-slide').css('height', '127px !important');
+	        	// 	// myswiper.params.cssWidthAndHeight = true;
+	        	// } else if($( window ).width() >= 321){
+	        	// 	mySwiper.params.slidesPerView = 2;
+	        	// }
+	        	// console.log(mySwiper);
+	        	// console.log(typeof(mySwiper));
+	        	// mySwiper.destroy();
+	
+	        	// mySwiper.reInit();
+	        	// mySwiper2.update();
+	        	// console.log(mySwiper2);
+	        });		
+	        // }, false);
+
+
 	    });
 
 		var token = $('#token input').val();
@@ -568,14 +636,15 @@
 			$(this).submit();
 		});
 
-		$("#buy").on('click',function() {
+		$(".game-buy").on('click',function() {
+			var id = $(this).attr('data-id');
 			$('#carrier-select').remove();
 			 $.ajax({
-			 	type: "get",
-			 	url: "{{ URL::route('games.carrier', $game->id) }}",
-			 	dataType: "json",
-			 	complete:function(data) {
-			 		
+			 	type: "POST",
+			 	url: "{{ url() }}/games/post/carrier",
+			 	data: {id: id},
+			 	success:function(data) {
+			 		console.log(data);
 			 		var carriers = $.parseJSON(data['responseText']);
 					var append = '<select id="carrier-select">';
 
@@ -593,7 +662,7 @@
                 }
             });
 
-			$('#buy').fancybox({
+			$('.game-buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none',
@@ -611,9 +680,10 @@
 			            afterClose: function() {
 
 			            	$.ajax({
-							 	type: "get",
-							 	url: "{{ URL::route('games.status', $game->id) }}",
-							 	complete:function(data) {
+							 	type: "POST",
+							 	url: "{{ url() }}/games/post/carrier",
+							 	data: {id: id},
+							 	success:function(data) {
 
 							 		var response = JSON.parse(data['responseText']);
 							 		console.log(response.status);
