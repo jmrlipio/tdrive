@@ -30,12 +30,16 @@ class ProfileController extends \BaseController {
 		$upload_success = Input::file('image')->move($destinationPath, $filename);
 
 		
-		if($upload_success){
-			File::delete('images/avatars/'. $user->prof_pic);
+		if($upload_success){	
+			
+			try{
+				File::delete('images/avatars/'. $user->prof_pic);
+			} catch (Exception $e) { }
+
 			
 			$user->prof_pic = $filename;
-
-			$user->save();
+			$user->save();			
+			
 		}	
 
 		return View::make('profile')

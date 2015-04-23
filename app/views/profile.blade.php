@@ -1,11 +1,18 @@
 @extends('_layouts/single')
 @section('stylesheets')
+
 	<style>
 		.name h1 {padding: 0 0 10px 0 !important;}
 		#profile .details > div {
 		 	margin-bottom: 3px !important;
 		}
-	/* 	.update-content {display: none; } */
+		input[type="submit"] {
+		  background: #e9548e;
+		  color: #fff;
+		  padding: 4px 6px;
+		  text-transform: lowercase;
+		}
+
 	</style>
 @stop
 @section('content')
@@ -13,7 +20,11 @@
 	<div class="container">
 		<div class="relative">
 			<div class="thumb">
-				<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}" id="profile_img">
+				@if(Auth::user()->prof_pic != '')
+					<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}" id="profile_img">
+				@else
+					<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img">
+				@endif
 			</div>
 
 			<div class="details">
