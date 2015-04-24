@@ -107,7 +107,7 @@
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
-
+	@include('_partials/scripts')
 	<script>
 		FastClick.attach(document.body);
 
@@ -127,7 +127,7 @@
 						data: {
 							page: page,
 							category_id: category_id,
-							_token: _token
+							_token: token
 						},
 						success: function(data) {
 							console.log(data);
@@ -137,10 +137,6 @@
 						}
 					});
 				}
-
-
-
-			
 		});
 	</script>
 @stop
