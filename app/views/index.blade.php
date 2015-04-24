@@ -161,7 +161,7 @@
 									<a href="#" data-id="{{ $game['id'] }}" class="game-free">Free</a>
 								@else
 
-									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">{{ trans('global.buy') }}</a>	
+									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
 
 								@endif
 							</div>
@@ -243,7 +243,7 @@
 									<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
 								@else
 
-									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">{{ trans('global.buy') }}</a>	
+									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
 								@endif
 							</div>
 						</div>

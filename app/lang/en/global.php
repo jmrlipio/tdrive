@@ -70,7 +70,7 @@ return array(
 	'Rating' => 'Rating',
 	'Login to write a review' => 'Login to write a review',
 	'See all reviews' => 'See all reviews',
-	'Related games' => 'Related games',
+	'Related games for' => 'Related games for',
 	'More' => 'More',
 	'total' => 'total',
 	'Release' => 'Release',

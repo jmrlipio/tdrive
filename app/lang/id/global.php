@@ -72,7 +72,7 @@ return array(
 	'Rating' => 'penilaian',
 	'Login to write a review' => 'Login untuk menulis review',
 	'See all reviews' => 'Lihat semua ulasan',
-	'Related games' => 'game terkait',
+	'Related games for' => 'game terkait',
 	'More' => 'Lebih Banyak',
 	'total' => 'total keseluruhan',
 	'Release' => 'pelepasan',
