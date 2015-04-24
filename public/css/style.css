@@ -1439,3 +1439,6 @@ select#select-year:before {
   display: block;
   margin: 0 auto;
 }
+#latest-games .swiper-container.thumbs-container {
+  padding-bottom: 5px;
+}
