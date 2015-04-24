@@ -445,6 +445,8 @@
 					<p class="form-success">{{ Session::get('message') }} You are only allowed to create one review per game.</p>
 				@endif
 
+				<p>You are only allowed to create one review per game.</p>
+
 			@endif
 
 		@else
@@ -479,6 +481,9 @@
 
 							<p class="message">{{{ $data->pivot->review }}}</p>
 						</div>
+						{{ Form::open() }}
+							{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+						{{ Form::close() }}
 					</div>
 				@endif
 			@endif
