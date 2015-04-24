@@ -125,13 +125,14 @@
 		$(document).ready(function(){
 			$('#delete-btn').on('click', function(e) {				
 			    
-			    if($("input[type='checkbox'].chckbox")){
-			      
-			       alert("Please select the box that you want to delete");
-
-			    } else {
+			    if($("input[type='checkbox'].chckbox").is(':checked')){
 
 			    	if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
+			  
+			    } else {
+
+			       alert("Please select the box that you want to delete");
+			   
 			    }								
 				
 			});
