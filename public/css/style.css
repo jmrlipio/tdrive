@@ -1419,7 +1419,7 @@
 }
 a.game-free {
   position: relative;
-  bottom: -18px;
+/*  bottom: -18px;*/
 }
 #game-category {
   float: right;
