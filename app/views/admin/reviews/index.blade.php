@@ -23,7 +23,7 @@
 		@endif
 		<br>
 	<div class="table-responsive">
-	<form method="POST" action="/admin/destroy/review">
+	<form method="POST" action="{{ URL::route('admin.destroy.review') }}">
 		{{ Form::token() }}
 		<table class="table table-striped table-bordered table-hover"  id="review_table">
 			<thead>
