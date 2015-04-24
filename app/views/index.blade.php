@@ -398,9 +398,10 @@
 
 @if($first_visit)
 <?php $ctr = 0; ?>
-	@if(count($discounts) != 0)		
+	@if(count($discounts) != 0)	
 		@foreach($discounts as $data)
 		<!-- Modal -->
+
 		<?php $ctr++; ?>
 			<div class="modal fade" id="myModal{{ $ctr }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">

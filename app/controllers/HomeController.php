@@ -115,11 +115,7 @@ class HomeController extends BaseController {
 
 		/* For displaying game discount alert */
 
-		
-
-		$discounts = Discount::getDiscountedGames();
-		//echo "<pre>";
-		//dd($discounts);
+		$discounts = Discount::getDiscountsEvent();
 
 		/* END */
 		$ctr = 0;
