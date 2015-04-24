@@ -97,6 +97,7 @@
 		var load = 0;
 		var num = {{ $count }};
 		var page = ({{ $page }} / 2);
+		var token = $('input[name="_token"]').val();
 
 		$(window).scroll(function() {
 			var bottom = 50;
@@ -107,7 +108,7 @@
 						type: "POST",
 						data: {
 							page: page,
-							_token: _token
+							_token: token
 						},
 						success: function(data) {
 							console.log(data);

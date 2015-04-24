@@ -57,7 +57,7 @@
 	<script>
 		FastClick.attach(document.body);
 
-		var _token = $('#token input').val();
+		var token = $('#token input').val();
 		var load = 0;
 		var num = {{ $count }};
 
@@ -75,7 +75,7 @@
 					type: "POST",
 					data: {
 						load: load,
-						_token: _token
+						_token: token
 					},
 					success: function(data) {
 						$('#scroll').append(data);

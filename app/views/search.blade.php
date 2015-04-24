@@ -92,7 +92,7 @@
 	<script>
 		FastClick.attach(document.body);
 
-		var _token = $('#token input').val();
+		var token = $('#token input').val();
 		var load = 0;
 		var num = {{ $count }};
 		var search = "{{ Input::get('search') }}";
@@ -111,7 +111,7 @@
 					type: "POST",
 					data: {
 						load: load,
-						_token: _token,
+						_token: token,
 						search: search
 					},
 					success: function(data) {

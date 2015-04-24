@@ -102,7 +102,7 @@
 		var num = {{ $count }};
 		var game_id = {{ $game_id }};
 		var ids = [];
-		var _token = $('#token input').val();
+		var token = $('input[name="_token"]').val();
 
 		var finished=1;
 		$(window).scroll(function() {
@@ -131,7 +131,7 @@
 						data: {
 							load: load,
 							ids: ids,
-							_token: _token
+							_token: token
 						},
 						success: function(data) {
 							$('#scroll').append(data);

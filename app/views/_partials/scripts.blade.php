@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		var token = $('#token input').val();
+
 
 		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
 			effect: 'fade',

@@ -85,7 +85,7 @@
 
 	<script>
 		FastClick.attach(document.body);
-
+		var token = $('input[name="_token"]').val();
 	function readURL(input) {
 	    if (input.files && input.files[0]) {
 	        var reader = new FileReader();

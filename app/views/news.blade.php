@@ -109,7 +109,8 @@
 
 	<script>
 		FastClick.attach(document.body);
-
+		var token = $('input[name="_token"]').val();
+		
 		$("#inline").fancybox({
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',

@@ -73,6 +73,8 @@
 @section('javascripts')
 
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
-
+	<script>
+		var token = $('input[name="_token"]').val();
+	</script>
 
 @stop

@@ -32,5 +32,7 @@
 	{{ Form::close() }}
 	
 	@include('_partials/scripts')
-
+	<script>
+		var token = $('input[name="_token"]').val();
+	</script>
 @stop

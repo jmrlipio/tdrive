@@ -42,6 +42,6 @@
 
 	<script>
 		FastClick.attach(document.body);
-
+		var token = $('input[name="_token"]').val();
 	</script>
 @stop

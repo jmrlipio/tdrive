@@ -499,7 +499,8 @@
 	<script>
 
 		FastClick.attach(document.body);
-
+		
+		var token = $('input[name="_token"]').val();
 		var ctr = $('#ctr').val();
 		var ctr2 = $('#ctr2').val();
 
