@@ -54,14 +54,16 @@ class Discount extends \Eloquent {
 	public static function checkDiscountedGame($game_id) 
 	{
 		$discounts = Discount::getDiscountedGames(); 
-		foreach($discounts as $discount) 
+		if($discounts) 
 		{
-			if($discount['game_id'] == $game_id) 
+			foreach($discounts as $discount) 
 			{
-				return true;
+				if($discount['game_id'] == $game_id) 
+				{
+					return true;
+				}
 			}
 		}
-
 		return false;
 	}
 
