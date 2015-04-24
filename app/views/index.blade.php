@@ -160,7 +160,7 @@
 								@if ($game['price'] == 0)
 									<a href="#" data-id="{{ $game['id'] }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
 								@endif
 							</div>
 						</div>
@@ -240,7 +240,7 @@
 								@if ($app->pivot->price == 0)
 									<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
 								@else
-									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">Buy</a>	
+									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
 								@endif
 							</div>
 						</div>
@@ -493,6 +493,8 @@
 	{{ HTML::script("js/jquery-ui.min.js") }}
 	{{ HTML::script("js/jquery.ddslick.min.js") }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js") }}
+	
+	@include('_partials/scripts')
 
 	<script>
 
@@ -562,47 +564,6 @@
 
 	    });
 
-		var token = $('#token input').val();
-
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-						location.reload();
-					}
-				});
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-					    location.reload();
-					}
-				});
-			}
-		});
 
 		$("#questions").accordion({ 
 			heightStyle: 'panel', 
@@ -682,25 +643,6 @@
 			});
         });
 
-	</script>
-	<script>
-		$(document).ready(function() {
-			var resize = false;
-			$('.tablet ul.menu li').each(function() {
-				if($(this).height() > 70) 
-				{
-					resize = true;
-				} 
-				
-			})
-			if(resize) 
-			{
-				$('.tablet ul.menu li').find('a').css('font-size', '10px');
-				$('.tablet ul.menu li').find('a').css('padding', '50px 0 5px');
-				  
-			}
-
-		});
 	</script>
 
 @stop

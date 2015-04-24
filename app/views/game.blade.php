@@ -258,7 +258,7 @@
 						@if($i <= $ctr)
 							<i class="fa fa-star active"></i>
 						@else
-							<i class="fa fa-star"></i>
+							<i class="fa fa-star active"></i>
 						@endif
 					@endfor  
 				</div>
@@ -584,6 +584,8 @@
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 	{{ HTML::script("js/jquery.event.move.js"); }}
 	{{ HTML::script("js/jquery.event.swipe.js"); }}
+	
+	@include('_partials/scripts')
 
 	<script>
 		FastClick.attach(document.body);
@@ -593,45 +595,6 @@
 		var user_id = '{{ $user_id }}';
 		var carrier_form = '';
 
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-						location.reload();
-					}
-				});
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-					    location.reload();
-					}
-				});
-			}
-		});
 
 		$('.fancybox').fancybox({ 
 			padding: 0 

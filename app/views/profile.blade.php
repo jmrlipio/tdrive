@@ -80,80 +80,22 @@
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+	
+	@include('_partials/scripts')
 
 	<script>
 		FastClick.attach(document.body);
 
-		var _token = $('#token input').val();
-
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-
-		});
-
 	function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#profile_img').attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-
-	</script>
-
-	<script>
-
-	/*$(document).ready(function() {
-
-		$('#img_url').change(function() {
-			$('#img_url').after(' <br><br>{{ Form::submit("Save", array("id" => "save-image")) }}');
-	     
-	    });
-			
-	});*/
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('#profile_img').attr('src', e.target.result);
+	        };
+	        reader.readAsDataURL(input.files[0]);
+	   	}
+	}
 
 	</script>
+
 @stop

@@ -263,7 +263,9 @@ class AdminUsersController extends \BaseController {
 		case 'user':			
 			$db_title = "Users DB";
 			$sheet_name = "Users";
-			$data = User::get()->toArray();
+			$data = User::select('id', 'first_name', 'last_name','username', 'email', 'role', 'last_login')
+					->get()
+					->toArray();
 		break;
 
 		case 'reports':

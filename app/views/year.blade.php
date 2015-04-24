@@ -1,8 +1,5 @@
 @extends('_layouts/listing')
 
-@section('stylesheets')
-@stop
-
 @section('content')
 
 	<div class="container">
@@ -52,58 +49,16 @@
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+	
+	@include('_partials/scripts')
 
 	<script>
 		FastClick.attach(document.body);
 
-		var load = 0;
 		var _token = $('#token input').val();
+		var load = 0;
 		var num = {{ $count }};
 		var year = "{{ $title }}";
-
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-		});
 
 		$(window).scroll(function() {
 			$('.ajax-loader').show();
