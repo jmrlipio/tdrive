@@ -453,7 +453,9 @@ class AdminGamesController extends \BaseController {
 
 		$preview = array(
 			'content' => Input::get('content'),
-			'excerpt' => Input::get('excerpt')
+			'excerpt' => Input::get('excerpt'),
+			'price' => Input::get('price'),
+			'currency' => Input::get('currency_code')
 			); 
 
 		$languages = Language::all();
