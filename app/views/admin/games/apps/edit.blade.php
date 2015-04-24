@@ -58,12 +58,12 @@
 				</li>
 				<li>
 					{{ Form::label('currency_code', 'Currency:') }}
-			  		{{ Form::select('currency_code', $currencies, $values['currency_code']) }}				
+			  		{{ Form::select('currency_code', $currencies, $values['currency_code'], array('id' => 'currency_code')) }}				
 					{{ $errors->first('currency_code', '<p class="error">:message</p>') }}
 				</li>
 				<li>
 					{{ Form::label('price', 'Price: ') }}
-					{{ Form::text('price', $values['price']) }}
+					{{ Form::text('price', $values['price'], array('id' => 'price')) }}
 					{{ $errors->first('price', '<p class="error">:message</p>') }}
 				</li>
 				<li>
