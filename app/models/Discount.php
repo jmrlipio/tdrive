@@ -44,7 +44,7 @@ class Discount extends \Eloquent {
 						);
 				}
 			
-		}
+			}
 		if($discounted_games)
 			return $discounted_games;
 
@@ -54,15 +54,31 @@ class Discount extends \Eloquent {
 	public static function checkDiscountedGame($game_id) 
 	{
 		$discounts = Discount::getDiscountedGames(); 
-		foreach($discounts as $discount) 
+		if($discounts) 
 		{
-			if($discount['game_id'] == $game_id) 
+			foreach($discounts as $discount) 
 			{
-				return true;
+				if($discount['game_id'] == $game_id) 
+				{
+					return true;
+				}
 			}
 		}
-
 		return false;
 	}
 
+	public static function getDiscountsEvent() 
+	{
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())	
+			->where('carrier_id', '=',  Session::get('carrier'))	
+			->get();
+
+		if($discounts)
+			return $discounts;
+
+		return null;
+	}
 }

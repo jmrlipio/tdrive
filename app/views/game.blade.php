@@ -404,11 +404,10 @@
 	<div id="review" class="container">
 
 		@if (Auth::check())
-			@if(Session::has('message'))
-				<p class="form-success">{{ Session::get('message') }}</p>
-			@endif
 
-			{{ Form::open(array('route' => array('review.post', $current_game->id, $app_id), 'method' => 'post')) }}
+			@if($show == 1)
+
+				{{ Form::open(array('route' => array('review.post', $current_game->id, $app_id), 'method' => 'post')) }}
 
 				{{ Form::hidden('game_id', $current_game->id) }}
 				{{ Form::hidden('user_id', Auth::id()) }}
@@ -439,6 +438,16 @@
 					 {{ Form::submit('Submit') }}
 				</div>
 			 {{ Form::close() }}
+
+			@else
+
+				@if(Session::has('message'))
+					<p class="form-success">{{ Session::get('message') }} You are only allowed to create one review per game.</p>
+				@endif
+
+				<p>You are only allowed to create one review per game.</p>
+
+			@endif
 
 		@else
 
@@ -472,6 +481,9 @@
 
 							<p class="message">{{{ $data->pivot->review }}}</p>
 						</div>
+						{{ Form::open() }}
+							{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+						{{ Form::close() }}
 					</div>
 				@endif
 			@endif
@@ -492,7 +504,7 @@
 	</div><!-- end #reviews -->
 	
 	<div id="related-games" class="container">
-		<h1 class="title">{{ trans('global.Related games') }}</h1>
+		<h1 class="title">{{ trans('global.Related games') }} for {{ $game->slug; }}</h1>
 		
 		@if(!empty($related_games))
 

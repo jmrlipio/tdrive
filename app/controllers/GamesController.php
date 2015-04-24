@@ -63,11 +63,36 @@ class GamesController extends \BaseController {
 		$game = Game::find($id);
 		$current_game = Game::find($id);
 		$categories = [];
+		$user_id = (Auth::check()) ? Auth::user()->id : 0;
+		$show = 0;
+
+		// echo '<pre>';
+		// print_r($game->review);
+		// echo '</pre>';
+
+		// $test = Review::find($user_id);
+
+		// $test2 = Review::whereHas('review', function($q){
+		// 	$q->where()
+		// })->get();
+
+		// echo $user_id;
+
+		// $test2 = Review::where('user_id', '=', $user_id);
+
+		// echo Review::where('user_id', '=', $user_id)->exists();
+		
+		// echo $id;
+
+		if(Review::where('user_id', '=', $user_id)->where('game_id', '=', $id)->exists()){
+			$show = 0;	
+		} else {
+			$show = 1;
+		}
+
 		foreach($game->categories as $cat) {
 			$categories[] = $cat->id;
 		}
-
-		$user_id = (Auth::check()) ? Auth::user()->id : 0;
 
 		if(!Session::has('carrier')) {
 			$uri = explode("/", "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
@@ -147,7 +172,7 @@ class GamesController extends \BaseController {
 			->with('country', $country)
 			->with('app_id', $app_id)
 			->with('user_id', $user_id)
-			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games'));
+			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games', 'show'));
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/
 	}

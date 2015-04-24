@@ -12,7 +12,7 @@ class HomeController extends BaseController {
 		Session::forget('carrier_name');
 		Session::forget('carrier');
 		$languages = Language::all();
-
+		$filters = IPFilter::lists('ip_address');
 		$user_location = GeoIP::getLocation();
 		
 		//erick test
@@ -40,9 +40,9 @@ class HomeController extends BaseController {
 			}
 		}
 
-		if(!$selected_carriers) 
+		if(!$selected_carriers || in_array($_SERVER['REMOTE_ADDR'], $filters)) 
 		{	
-
+			unset($selected_carriers);
 			$carriers_all = Carrier::all();
 			foreach($carriers_all as $carrier)
 			{
@@ -50,7 +50,6 @@ class HomeController extends BaseController {
 			}
 
 		}
-
 
 		$carrier_all = [];
 
@@ -116,11 +115,7 @@ class HomeController extends BaseController {
 
 		/* For displaying game discount alert */
 
-		
-
-		$discounts = Discount::getDiscountedGames();
-		//echo "<pre>";
-		//dd($discounts);
+		$discounts = Discount::getDiscountsEvent();
 
 		/* END */
 		$ctr = 0;

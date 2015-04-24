@@ -98,7 +98,8 @@ class ListingController extends \BaseController {
           })->paginate($count);
            	
 		//$games_all = Category::find($id)->games;
-		//$count = count($games_all);		
+		//$count = count($games_all);
+			
 		$discounts = Discount::getDiscountedGames();
 
 		return View::make('category')
@@ -175,7 +176,7 @@ class ListingController extends \BaseController {
 		$test = [];
 
 		$games = Game::all();
-
+	
 		/* For getting discounts */
 		$dt = Carbon::now();
 		$discounts = Discount::whereActive(1)
@@ -200,7 +201,8 @@ class ListingController extends \BaseController {
 			->with('country', $country)
 			->with('count', $count)
 			->with('game_id', $game->id)
-			->with(compact('related_games', 'discounted_games','games'))
+			// ->with('game_slug', $game->slug)
+			->with(compact('related_games', 'discounted_games','games', 'game'))
 			->with(compact('languages'));
 	}
 

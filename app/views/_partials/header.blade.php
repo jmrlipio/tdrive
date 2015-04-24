@@ -59,6 +59,9 @@ $game_settings = GameSetting::all();
 	@show
 	
 	<style>
+		#logo-container {
+			margin-top: 10px;
+		}
 		#news-detail .social div.like {
 			display: block;
 		  	float: left;
