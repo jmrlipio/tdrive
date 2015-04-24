@@ -6,21 +6,15 @@ class ProfileController extends \BaseController {
 	{
 		$user = User::find($id);
 		$languages = Language::all();
-		$page = 2;
+		$page = 3;
 		$count = 6;
 		$country = Country::find(Session::get('country_id'));
 
 		$cid = Session::get('carrier');
 	
-		$games = Game::whereHas('apps', function($q) use ($cid)
-		  {
-		      $q->where('carrier_id', '=', $cid)->where('status', '=', Constant::PUBLISH);
+		$games = Game::paginate($count);
 
-		  })->paginate($count);
-
-		$games_all = Game::all();
-
-		$count = count($games_all);
+		$count = count($games);
 
 		return View::make('profile')
 			->with('page_title', $user->username)

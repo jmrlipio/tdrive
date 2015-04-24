@@ -423,7 +423,7 @@ class ListingController extends \BaseController {
 	public function showMoreDownloadedGames() 
 	{
 		$languages = Language::all();
-
+		
 		$page = Input::get('page');
 		$cid = Session::get('carrier');
 		$count = Constant::CATEGORY_GAME_PAGING;

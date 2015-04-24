@@ -7,7 +7,7 @@
 <style>
 	
 	#logo-container {
-		margin-top: -30px;
+		
 		margin-bottom: 10px;
 	}
 	
