@@ -51,29 +51,47 @@
 
 			<div class="grid">
 				<div class="row">
-					<div class="clearfix">
+					<div id="scrl" class="clearfix">
 
-						@foreach ($games as $game)
-							<div class="item">
-								<div class="image"><img src="{{ Request::root() . '/images/games/thumb-' . $game->slug . '.jpg' }}" alt="{{ $game->main_title }}"></div>
-
-								<div class="meta">
-									<p>{{ $game->main_title }}</p>
-									<!-- <p>P{{-- $game->default_price --}}.00</p> -->
-								</div>
-
-								<!-- <div class="button"><a href="#">{{-- trans('global.Buy') --}}</a></div> -->
-							</div>
-
+						@foreach ($games as $game)												
+							@foreach($game->apps as $app)
+								<?php $iso_code = ''; ?>
+								@foreach($languages as $language)
+									@if($language->id == $app->pivot->language_id)
+										<?php $iso_code = strtolower($language->iso_code); ?>
+									@endif
+								@endforeach
+								
+								@if($app->pivot->status != Constant::PUBLISH)
+									<?php continue; ?>
+								@endif
+								
+								@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))							
+									@foreach ($game->media as $media)
+										@if ($media->type == 'icons')
+											<div class="item">
+												<div class="image">
+													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">
+														<img src="{{ URL::to('/') }}/assets/games/icons/{{ $media->url }}" alt="{{{ $app->pivot->title }}}">
+													</a>
+												</div>																		
+												<div class="meta">
+													<p>{{{ $app->pivot->title }}}</p>									
+												</div>									
+											</div>
+										@endif
+									@endforeach
+								@endif
+							@endforeach
 						@endforeach
-
 					</div>
 				</div>
 			</div>
-
-			<div id="loadmore" class="button center"><a href="#">{{ trans('global.More') }} +</a></div>
-		</div>
+	
+		<!-- <div id="loadmore" class="button center"><a href="#">{{ trans('global.More') }} +</a></div> -->
+		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
 	</div>
+</div>
 
 @stop
 
@@ -86,15 +104,43 @@
 	<script>
 		FastClick.attach(document.body);
 		var token = $('input[name="_token"]').val();
-	function readURL(input) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	            $('#profile_img').attr('src', e.target.result);
-	        };
-	        reader.readAsDataURL(input.files[0]);
-	   	}
-	}
+		
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#profile_img').attr('src', e.target.result);
+		        };
+		        reader.readAsDataURL(input.files[0]);
+		   	}
+		}
+
+		var load = 0;
+		var num = " {{ $count }}" ;
+		var page = ({{ $page }} / 2);
+		var token = $('input[name="_token"]').val();
+
+		$(window).scroll(function() {
+			var bottom = 50;
+				if ($(window).scrollTop() + $(window).height() > $(document).height() - bottom) 
+				{
+					$.ajax({
+						url: "{{ URL::current() }}/downloaded/games",
+						type: "POST",
+						data: {
+							page: page,
+							_token: token
+						},
+
+						success: function(data) {
+							console.log(data);
+							page++;
+							$('#scrl').append(data);
+							$('.ajax-loader').hide();
+						}
+					});
+				}
+			});
 
 	</script>
 

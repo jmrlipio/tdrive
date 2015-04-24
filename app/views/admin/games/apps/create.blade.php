@@ -2,6 +2,7 @@
 
 @section('content')
 	<article>
+
 		{{ Form::open(array('route' => array('admin.games.store.app', $game->id), 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
 			<div class='panel-container'>
 				<h3 class="center">{{ $game->main_title }} App</h3>
@@ -55,7 +56,7 @@
 				</li>
 				<li>
 					{{ Form::label('price', 'Price: ') }}
-					{{ Form::text('price') }}
+					{{ Form::text('price', $default_price) }}
 					{{ $errors->first('price', '<p class="error">:message</p>') }}
 				</li>
 				<br>

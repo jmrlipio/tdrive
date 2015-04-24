@@ -420,4 +420,38 @@ class ListingController extends \BaseController {
 			->with(compact('categories'));
 	}
 
+	public function showMoreDownloadedGames() 
+	{
+		$languages = Language::all();
+
+		$page = Input::get('page');
+		$cid = Session::get('carrier');
+		$count = Constant::CATEGORY_GAME_PAGING;
+
+		try 
+		{
+			Paginator::setCurrentPage($page);
+			$games = Game::whereHas('apps', function($q) use ($cid)
+			  {
+			      $q->where('carrier_id', '=', $cid)->where('status', '=', Constant::PUBLISH);
+
+			  })->paginate($count);
+
+			$country = Country::find(Session::get('country_id'));			
+
+			if (Request::ajax()) {
+				return View::make('_partials/ajax-downloaded_games')
+					->with('country', $country)
+					->with(compact('games', 'languages'));
+			}
+		}
+		catch (Exception $e) 
+		{
+			return Response::json(array(
+				'error' => $e->getMessage(),
+			));
+		}
+
+	}
+
 }

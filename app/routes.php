@@ -20,6 +20,7 @@ Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingCon
 Route::post('category/load/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
 Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));
 Route::post('games/all/more', array('as' => 'games.all.more', 'uses' => 'ListingController@showAllMoreGames'));
+Route::post('profile/{id}/downloaded/games', array('as' => 'downloaded.games', 'uses' => 'ListingController@showMoreDownloadedGames'));
 
 Route::get('games/related/{id}', array('as' => 'games.related', 'uses' => 'ListingController@showRelatedGames'));
 Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses' => 'ListingController@showMoreRelatedGames'));

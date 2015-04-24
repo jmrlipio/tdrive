@@ -509,6 +509,8 @@ class AdminGamesController extends \BaseController {
 		$carriers = [];
 		$currencies = [];
 
+		$default_price = $game->default_price;
+
 		foreach(Carrier::all() as $carrier) {
 			$carriers[$carrier->id] = $carrier->carrier;
 		}
@@ -522,7 +524,7 @@ class AdminGamesController extends \BaseController {
 		}
 
 		return View::make('admin.games.apps.create')
-			->with(compact('game','carriers','languages','currencies'));
+			->with(compact('game','carriers','languages','currencies', 'default_price'));
 	}
 
 	public function postStoreApp($id) {
