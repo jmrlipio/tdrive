@@ -86,58 +86,16 @@
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+	
+	@include('_partials/scripts')
 
 	<script>
 		FastClick.attach(document.body);
 
+		var token = $('#token input').val();
 		var load = 0;
-		var _token = $('#token input').val();
 		var num = {{ $count }};
 		var search = "{{ Input::get('search') }}";
-
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-
-			onChange: function(evt){
-
-				$.ajax({
-					url: "language",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: _token
-					},
-					success: function(data) {
-					}
-				});
-
-				return true;
-			}
-		});
 
 		$(window).scroll(function() {
 			$('.ajax-loader').show();
@@ -153,7 +111,7 @@
 					type: "POST",
 					data: {
 						load: load,
-						_token: _token,
+						_token: token,
 						search: search
 					},
 					success: function(data) {

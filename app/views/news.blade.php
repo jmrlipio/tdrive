@@ -89,6 +89,8 @@
 	<!-- facebook share function, cool right? -->
 	{{ HTML::script("js/share.js"); }}
 
+	@include('_partials/scripts')
+
 	<script>
 		$(document).ready(function() {
 			
@@ -107,49 +109,8 @@
 
 	<script>
 		FastClick.attach(document.body);
-
 		var token = $('input[name="_token"]').val();
-
-		$('#polyglotLanguageSwitcher1').polyglotLanguageSwitcher1({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-						location.reload();
-					}
-				});
-			}
-		});
-
-		$('#polyglotLanguageSwitcher2').polyglotLanguageSwitcher2({ 
-			effect: 'fade',
-			paramName: 'locale', 
-			websiteType: 'dynamic',
-			testMode: true,
-			onChange: function(evt){
-				$.ajax({
-					url: "{{ URL::route('choose_language') }}",
-					type: "POST",
-					data: {
-						locale: evt.selectedItem,
-						_token: token
-					},
-					success: function(data) {
-					    location.reload();
-					}
-				});
-			}
-		});
-
+		
 		$("#inline").fancybox({
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',
