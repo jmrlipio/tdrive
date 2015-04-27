@@ -70,10 +70,11 @@ return array(
 	'Rating' => 'Rating',
 	'Login to write a review' => 'Login to write a review',
 	'See all reviews' => 'See all reviews',
-	'Related games for' => 'Related games for',
+	'Related games for ' => 'Related games for ',
 	'More' => 'More',
 	'total' => 'total',
 	'Release' => 'Release',
+	'No related games' => 'no related games',
 
 	//Games Blade (games.blade.php)
 	'new and updated games' => 'new and updated games',

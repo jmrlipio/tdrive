@@ -313,6 +313,15 @@
     height: 20px;
   }
 }
+@media only screen and (min-width: 533px) {
+  #home #news .top > div {
+    width: 50%;
+    float: left;
+  }
+  #home #news .top > div:first-child {
+    padding-right: 5px;
+  }
+}
 #home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .top .social a, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #review .captcha input, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .title, #game-listing .search-category, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -639,8 +648,8 @@
 }
 #game-detail #review .rating-control {
   border: 1px solid #e9548e;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
+ /* -webkit-border-radius: 4px;
+  border-radius: 4px;*/
   background-clip: padding-box;
 }
 #game-detail #review .rating-control label {
@@ -660,6 +669,7 @@
 }
 #game-detail #review .form-error {
   margin-left: 0;
+  margin-bottom: 5px;
 }
 #game-detail #review .button a {
   -webkit-border-radius: 4px;
@@ -682,6 +692,8 @@
   padding: 5px 10px;
   width: 100%;
   margin: 5px 0;
+  -webkit-appearance: none;
+    border-radius: 0;
 }
 #game-detail #review form input[type="submit"] {
   text-transform: lowercase;
@@ -692,6 +704,8 @@
   /*-webkit-border-radius: 4px;
   border-radius: 4px;*/
   background-clip: padding-box;
+  -webkit-appearance: none;
+    border-radius: 0;
 }
 #game-detail #review .captcha img {
   width: 29%;
@@ -986,7 +1000,7 @@
     margin-top: 15px;
   }
   #news-detail #featured {
-    margin-top: 40px;
+    margin-top: 0px;
   }
 }
 #home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .top .social a, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #review .captcha input, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .title, #game-listing .search-category, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
@@ -1016,6 +1030,8 @@
   padding: 6px;
   margin-right: 5px;
   width: 92%;
+  -webkit-appearance: none;
+    border-radius: 0;
 }
 #game-listing .grid > .row .item {
   width: 33.3333333%;
@@ -1397,6 +1413,7 @@
   /*overflow: scroll;*/
   -webkit-overflow-scrolling: touch;
   /*padding-top: 60px;*/
+  clear: both;
 }
 .fleft {
   float: left;
@@ -1442,3 +1459,38 @@ select#select-year:before {
 #latest-games .swiper-container.thumbs-container {
   padding-bottom: 5px;
 }
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+  #content {
+    padding-top: 50px;
+  }
+  #news-detail #featured {
+    margin-top: 0;
+  }
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+
+}
+@media only screen and (max-width: 360px) and (orientation: portrait) {
+  #content {
+    padding-top: 50px;
+  }
+  #news-detail #featured {
+    margin-top: 0;
+  }
+}
+@media only screen and (max-width: 640px) and (orientation: landscape) {
+  #content {
+    padding-top: 50px;
+  }
+  #news-detail #featured {
+    margin-top: 0;
+  }
+}
+/*#select-year {
+  background: url(../images/dropdown.png) no-repeat right;
+  background-size: 15%;
+}
+#select-year:before {
+  content: 'a';
+}*/

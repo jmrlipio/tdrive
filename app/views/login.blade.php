@@ -39,7 +39,7 @@
 			</div> -->
 
 			<div class="control-item">
-				 {{ Form::submit(trans('global.login')) }}
+				 {{ Form::submit(trans('global.login'), array('class' => 'no-radius')) }}
 			</div>
 		</div>
 

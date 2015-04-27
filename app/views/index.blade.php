@@ -236,8 +236,9 @@
 			<form action="#" id="year" method="post">
 
 				<div id="token">{{ Form::token() }}</div>
-
-				 {{ Form::select('year', array('default' => trans('global.Please select')) + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
+				<span id="custom-dd">	
+					{{ Form::select('year', array('default' => trans('global.Please select')) + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
+				</span>
 			</form>
 		</div>
 

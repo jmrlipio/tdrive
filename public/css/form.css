@@ -67,3 +67,7 @@ p.flash-fail { color: red; line-height: 40px; }
 .flash-fail {
   background: red;
 }
+.carrier-submit, #game-detail #review .rating-control, .no-radius {
+   -webkit-appearance: none;
+    border-radius: 0;
+}
