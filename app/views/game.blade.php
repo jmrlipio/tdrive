@@ -427,11 +427,10 @@
 				</div>
 
 				<div class="captcha control clearfix">
-					{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 					{{ HTML::image(Captcha::img(), 'Captcha image') }}
 					{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
 
-					
+					{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 				</div>
 
 
@@ -443,7 +442,7 @@
 			@else
 
 				@if(Session::has('message'))
-					<p class="form-success">{{ Session::get('message') }}</p>
+					<p class="form-success">{{ Session::get('message') }} You are only allowed to create one review per game.</p>
 				@endif
 
 				<p>You are only allowed to create one review per game.</p>
@@ -505,7 +504,7 @@
 	</div><!-- end #reviews -->
 	
 	<div id="related-games" class="container">
-		<h1 class="title">{{ trans('global.Related games') }} for {{ $game->slug; }}</h1>
+		<h1 class="title">{{ trans('global.Related games') }} for {{ $game->main_title; }}</h1>
 		
 		@if(!empty($related_games))
 
