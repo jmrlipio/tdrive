@@ -225,3 +225,6 @@ Route::post('auth/login', array('as' => 'auth.login.post', 'uses' => 'APIControl
 Route::get('auth/logout/{token?}', array('as' => 'auth.logout.post', 'uses' => 'APIController@authLogoutAPI'));
 Route::get('auth/user/{token?}', array('as' => 'auth.logout.post', 'uses' => 'APIController@authorizeToken'));
 //Route::post('authorize/{appid}/{token}', array('as' => 'authorize.user', 'uses' => 'APIController@authorizeLoginPost'));
+
+//Review Delete in Front End
+// Route::delete('reviews/{app_id}/{id}/delete', array('as' => 'reviews.front.index', 'uses' => 'ReviewsController@delete_front'));
