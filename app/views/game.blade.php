@@ -404,7 +404,7 @@
 
 		@if (Auth::check())
 
-			@if($show == 1)
+			@if($user_commented == false)
 
 				{{ Form::open(array('route' => array('review.post', $current_game->id, $app_id), 'method' => 'post')) }}
 
