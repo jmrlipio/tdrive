@@ -481,9 +481,9 @@
 
 							<p class="message">{{{ $data->pivot->review }}}</p>
 						</div>
-						{{ Form::open() }}
-							{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-						{{ Form::close() }}
+						{{-- {{ Form::open(array('route' => array('reviews.front.index', $data->pivot->game_id, $data->pivot->user_id), 'method' => 'delete')) }} --}}
+							{{-- {{ Form::submit('Delete', array('class' => 'delete-btn')) }} --}}
+						{{-- {{ Form::close() }} --}}
 					</div>
 				@endif
 			@endif
@@ -504,7 +504,7 @@
 	</div><!-- end #reviews -->
 	
 	<div id="related-games" class="container">
-		<h1 class="title">{{ trans('global.Related games') }} for {{ $game->slug; }}</h1>
+		<h1 class="title">{{ trans('global.Related games') }} for {{ $game->main_title; }}</h1>
 		
 		@if(!empty($related_games))
 
@@ -533,7 +533,7 @@
 
 		@else
 
-			<p>{{ trans('global.No related games.') }}</p>
+			<p>{{ trans('global.No related games') }}.</p>
 
 		@endif
 

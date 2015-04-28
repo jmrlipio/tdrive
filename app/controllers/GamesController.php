@@ -66,6 +66,13 @@ class GamesController extends \BaseController {
 		$user_id = (Auth::check()) ? Auth::user()->id : 0;
 		$show = 0;
 
+		$has_appid = GameApp::where('app_id', '=', $app_id)
+					->first();
+		if(!$has_appid) 
+		{
+			App::abort(404);
+		}
+
 		// echo '<pre>';
 		// print_r($game->review);
 		// echo '</pre>';

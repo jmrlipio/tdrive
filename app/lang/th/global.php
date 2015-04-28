@@ -72,10 +72,11 @@ return array(
 	'Rating' => 'อันดับ',
 	'Login to write a review' => 'เข้าสู่ระบบก่อนแสดงความคิดเห็น',
 	'See all reviews' => 'ดูความคิดเห็นทั้งหมด',
-	'Related games for' => 'เกมที่เกี่ยวข้อง',
+	'Related games for ' => 'เกมที่เกี่ยวข้อง',
 	'More' => 'มากกว่า',
 	'total' => 'ทั้งหมด',
 	'Release' => 'ปล่อย',
+	'No related games' => 'เกมที่เกี่ยวข้อง',
 
 	//Games Blade (games.blade.php)
 	'new and updated games' => 'เกมใหม่และปรับปรุง',

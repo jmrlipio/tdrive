@@ -117,4 +117,9 @@ class ReviewsController extends \BaseController {
 
     }
 
+     public function delete_front($game_id, $user_id)
+	{
+		
+
+	}
 }

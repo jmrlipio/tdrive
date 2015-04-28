@@ -72,10 +72,11 @@ return array(
 	'Rating' => 'penilaian',
 	'Login to write a review' => 'Login untuk menulis review',
 	'See all reviews' => 'Lihat semua ulasan',
-	'Related games for' => 'game terkait',
+	'Related games for ' => 'game terkait',
 	'More' => 'Lebih Banyak',
 	'total' => 'total keseluruhan',
 	'Release' => 'pelepasan',
+	'No related games' => 'pelepasan',
 
 	//Games Blade (games.blade.php)
 	'new and updated games' => 'permainan baru dan diperbaharui',

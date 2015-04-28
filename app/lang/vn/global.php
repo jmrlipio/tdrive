@@ -72,10 +72,11 @@ return array(
 	'Rating' => 'Đánh giá',
 	'Login to write a review' => 'Đăng nhập để viết bình luận',
 	'See all reviews' => 'Xem tất cả các đánh giá',
-	'Related games for' => 'trò chơi liên quan',
+	'Related games for ' => 'trò chơi liên quan',
 	'More' => 'hơn',
 	'total' => 'tổng số',
 	'Release' => 'phóng thích',
+	'No related games' => 'phóng thích',
 
 	//Games Blade (games.blade.php)
 	'new and updated games' => 'các trò chơi mới và cập nhật',

@@ -64,7 +64,7 @@
 		</div>
 		--}}
 		
-		{{ Form::submit(trans('global.Create new account')) }}
+		{{ Form::submit(trans('global.Create new account'), array('class' => 'no-radius')) }}
 
 	{{ Form::close() }}
 
