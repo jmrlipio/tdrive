@@ -56,9 +56,11 @@
 		var token = $('input[name="_token"]').val();
 
 		$(window).scroll(function() {
-			var bottom = 50;
-				if ($(window).scrollTop() + $(window).height() > $(document).height() - bottom) 
+			var bottom = 70;
+			var scroll = true;
+				if ($(window).scrollTop() + window.innerHeight == $(document).height()) 
 				{
+					// $(window).unbind('scroll');
 					$.ajax({
 						url: "{{ url() }}/games/all/more",
 						type: "POST",
@@ -67,7 +69,7 @@
 							_token: token
 						},
 						success: function(data) {
-							console.log(data);
+							// $(window).bind('scroll');
 							page++;
 							$('#scroll').append(data);
 							$('.ajax-loader').hide();

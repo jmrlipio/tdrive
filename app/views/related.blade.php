@@ -20,7 +20,7 @@
 			<div class="row">
 				<div id="scroll" class="clearfix">
 					<?php $count = 0; ?>
-					@foreach ($related_games as $game)
+					@foreach ($games as $game)
 						@foreach($game->apps as $app)
 							<?php $iso_code = ''; ?>
 							@foreach($languages as $language)
@@ -58,51 +58,36 @@
 	
 	@include('_partials/scripts')
 
+
 	<script>
 		FastClick.attach(document.body);
 
+		var load = 0;
 		var num = {{ $count }};
-		var game_id = {{ $game_id }};
-		var ids = [];
+		var page = {{ $page }};
 		var token = $('input[name="_token"]').val();
 
-		var finished=1;
 		$(window).scroll(function() {
-		// $(document).on("scrollstart",function(){	
-			$('.ajax-loader').show();
-			
-			var load = $('.item').length;
-
-			$('.game-id').each(function() {
-				ids.push($(this).val());
-			});
-
-			// alert(load);
-
-			// if (load / 6 > num) {
-			// 	$('.ajax-loader').hide();
-			// } else {
-			if ($(window).scrollTop() >= parseInt($(document).height() - $(window).height() - 150)) {   
-				 if (finished == 1) {
-              		finished = 0;   
-
+			var bottom = 70;
+			var scroll = true;
+				if ($(window).scrollTop() + window.innerHeight == $(document).height()) 
+				{
+					$('.ajax-loader').show();
 					$.ajax({
-						// url: "{{ url() }}/games/related/more",
 						url: "{{ URL::route('games.related.more', array('id' => $game_id)) }}",
 						type: "POST",
 						data: {
-							load: load,
-							ids: ids,
+							page: page,
 							_token: token
 						},
 						success: function(data) {
+							// $(window).bind('scroll');
+							page++;
 							$('#scroll').append(data);
 							$('.ajax-loader').hide();
-							finished = 1;
 						}
-					}); // End of ajax call
-				} // End of inner condition
-			 } // End of first condition
-		});
+					});
+				}
+			});
 	</script>
 @stop

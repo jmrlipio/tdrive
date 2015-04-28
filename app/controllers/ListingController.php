@@ -12,8 +12,8 @@ class ListingController extends \BaseController {
 	public function showGames() 
 	{
 		$languages = Language::all();
-		$page = 2;
-		$count = Constant::CATEGORY_GAME_PAGING;
+		$page = 3;
+		$count = 6;
 		$country = Country::find(Session::get('country_id'));
 
 		$cid = Session::get('carrier');
@@ -45,7 +45,7 @@ class ListingController extends \BaseController {
 
 		$page = Input::get('page');
 		$cid = Session::get('carrier');
-		$count = Constant::CATEGORY_GAME_PAGING;
+		$count = 3;
 
 		try 
 		{
@@ -79,8 +79,8 @@ class ListingController extends \BaseController {
 	public function showGamesByCategory($id) 
 	{
 		$languages = Language::all();
-		$page = 2;
-		$count = Constant::CATEGORY_GAME_PAGING;
+		$page = 3;
+		$count = 6;
 		$category = Category::find($id);
 
 		$country = Country::find(Session::get('country_id'));
@@ -117,7 +117,7 @@ class ListingController extends \BaseController {
 		$category_id = Input::get('category_id');
 		$page = Input::get('page');
 		$cid = Session::get('carrier');
-		$count = Constant::CATEGORY_GAME_PAGING;
+		$count = 3;
 
 		try
 		{
@@ -157,7 +157,8 @@ class ListingController extends \BaseController {
 		$cid = Session::get('carrier');
 		$country = Country::find(Session::get('country_id'));
 		$game = Game::find($id);
-		$count = Constant::CATEGORY_GAME_PAGING;
+		$page = 3;
+		$count = 6;
 
 		 $categories = array();
 		 foreach($game->categories as $cat) 
@@ -165,9 +166,8 @@ class ListingController extends \BaseController {
 		 	$categories[] = $cat->id;
 		 }
 
-		$category_id = 2;
 		Paginator::setCurrentPage(1);
-		$related_games = Game::whereHas('categories', function($q) use ($categories)
+		$games = Game::whereHas('categories', function($q) use ($categories)
 		{
 		    $q->whereIn('category_id', $categories);
 
@@ -175,7 +175,7 @@ class ListingController extends \BaseController {
 
 		$test = [];
 
-		$games = Game::all();
+		//$games = Game::all();
 	
 		/* For getting discounts */
 		$dt = Carbon::now();
@@ -191,7 +191,7 @@ class ListingController extends \BaseController {
 			}
 		}
 
-		$count = count($related_games);
+		$count = count($games);
 
 		// dd(count($related_games));
 
@@ -202,7 +202,7 @@ class ListingController extends \BaseController {
 			->with('count', $count)
 			->with('game_id', $game->id)
 			// ->with('game_slug', $game->slug)
-			->with(compact('related_games', 'discounted_games','games', 'game'))
+			->with(compact('games', 'discounted_games','games', 'game', 'page'))
 			->with(compact('languages'));
 	}
 
@@ -224,7 +224,7 @@ class ListingController extends \BaseController {
 
 		$ids = Input::get('ids');
 
-		$related_games = Game::whereHas('categories', function($q) use ($categories, $ids)
+		$games = Game::whereHas('categories', function($q) use ($categories, $ids)
 		{
 		    $q->whereIn('category_id', $categories);
 
@@ -248,7 +248,7 @@ class ListingController extends \BaseController {
 		if (Request::ajax()) {
 			return View::make('_partials/ajax-related')
 				->with('country', $country)
-				->with(compact('related_games', 'languages','discounted_games'));
+				->with(compact('games', 'languages','discounted_games'));
 		}
 	}
 
