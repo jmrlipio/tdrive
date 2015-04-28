@@ -31,6 +31,8 @@ class ProfileController extends \BaseController {
 		$languages = Language::all();		
 		$user = User::find($id);
 		$games = Game::all();
+		$count = count($games);
+		$page = 3;
 
 		$filename = time() . '_' . $file->getClientOriginalName();
 		$destinationPath = public_path() . '/images/avatars';		
@@ -53,7 +55,7 @@ class ProfileController extends \BaseController {
 			->with('page_title', $user->username)
 			->with('page_id', 'profile')
 			->with('user', $user)
-			->with(compact('games'))
+			->with(compact('games','count', 'page'))
 			->with(compact('languages'));
 	}
 
