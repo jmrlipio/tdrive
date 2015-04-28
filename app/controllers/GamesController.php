@@ -72,6 +72,10 @@ class GamesController extends \BaseController {
 		{
 			App::abort(404);
 		}
+/*
+		echo '<pre>';
+		dd($game->review);
+		echo '</pre>';*/
 
 		// echo '<pre>';
 		// print_r($game->review);
@@ -91,10 +95,12 @@ class GamesController extends \BaseController {
 		
 		// echo $id;
 
+		$user_commented = true;
+
 		if(Review::where('user_id', '=', $user_id)->where('game_id', '=', $id)->exists()){
-			$show = 0;	
+			$user_commented = true;	
 		} else {
-			$show = 1;
+			$user_commented = false;
 		}
 
 		foreach($game->categories as $cat) {
@@ -170,6 +176,7 @@ class GamesController extends \BaseController {
 		$visitor = Tracker::currentSession();
 		$country = Country::find(Session::get('country_id'));
 		$game_id = $game->id;
+
 		return View::make('game')
 			->with('game', $game)
 			->with('page_title', $game->main_title)
@@ -179,7 +186,7 @@ class GamesController extends \BaseController {
 			->with('country', $country)
 			->with('app_id', $app_id)
 			->with('user_id', $user_id)
-			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games', 'show'));
+			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games', 'user_commented'));
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/
 	}

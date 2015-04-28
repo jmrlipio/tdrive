@@ -216,6 +216,8 @@ route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'as' => 'admin.destroy.review','uses' => 'ReviewsController@handleDestroy'));
 Route::post('admin/games/preview/{id}/{app_id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));
 Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+Route::post('removed/review/{id}/{app_id}', array('as' => 'remove.review', 'uses' => 'ReviewsController@deleteReview'));
+Route::post('review/{id}/{app_id}', array('as' => 'update.review', 'uses' => 'ReviewsController@updateReview'));
 
 
 /*API*/

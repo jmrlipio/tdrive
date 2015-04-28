@@ -49,8 +49,16 @@ class ReviewsController extends \BaseController {
 	{
 		$validator = Validator::make(Input::all(), Review::$rules);
 		$url = URL::route('game.show', $id) . '/' . $app_id;
+		$user_id = (Auth::check()) ? Auth::user()->id : 0;
+		$exists = true;
 
-		if ($validator->passes()) {
+		if(Review::where('user_id', '=', $user_id)->where('game_id', '=', $id)->exists()){
+			$exists = true;	
+		} else {
+			$exists = false;
+		}
+
+		if ($validator->passes() && $exists == false) {
 			Review::create(Input::all());
 
 			/*$data = Review::whereViewed(0)->count();
@@ -58,6 +66,9 @@ class ReviewsController extends \BaseController {
 			Event::fire('user.post.review',array($data));*/
 
 			return Redirect::to($url)->with('message', 'Your review has been submitted for approval.');
+		
+		} elseif ( $exists) {
+			return Redirect::to($url)->with('error', 'You are only allowed to create one review per game.');
 		}
 
 		//validator fails
@@ -104,8 +115,7 @@ class ReviewsController extends \BaseController {
 	}
 
 	 public function handleDestroy() {
-	    $checked = Input::only('checked')['checked'];
-        
+	    $checked = Input::only('checked')['checked'];        
 
 			Review::whereIn('id', $checked)->delete();
 			$reviews = Review::orderBy('viewed')->paginate(10);
@@ -121,5 +131,48 @@ class ReviewsController extends \BaseController {
 	{
 		
 
+	}
+
+	public function deleteReview($id, $app_id)
+	{
+		$url = URL::route('game.show', $id) . '/' . $app_id;
+		$review_id = Input::get('id');
+		$review = Review::find($review_id);
+
+		try{
+			
+			if($review) {
+				$review->delete();
+				return Redirect::to($url)->with('message', 'Your review has been removed.');
+			}
+
+		} catch( Exception $e){
+			return Redirect::to($url)->withErrors($validator)->withInput()->with('error', 'Deleting error.');
+		}	
+		
+	}
+
+	public function updateReview($id, $app_id)
+	{
+		$validator = Validator::make(Input::all(), Review::$rules);
+		$url = URL::route('game.show', $id) . '/' . $app_id;
+		$review_id = Input::get('id');
+		$review = Review::find($review_id);
+
+		try{
+			
+			if($validator->passes()) {
+
+				$review->review = Input::get('review');
+				$review->rating = Input::get('rating');
+				$review->save();
+				
+				return Redirect::to($url)->with('message', 'Your review has been updated.');
+			}
+			
+		} catch( Exception $e){
+			return Redirect::to($url)->withErrors($validator)->withInput()->with('error', 'Update error.');
+		}	
+		
 	}
 }
