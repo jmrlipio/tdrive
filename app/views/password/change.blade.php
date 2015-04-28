@@ -4,6 +4,16 @@
 	{{ HTML::style("css/form.css"); }}
 	<style>
 		#btn_container{text-align: center;}
+
+		#nav-toggle, #side-menu {
+			display: none !important;
+		}
+
+		#back {
+			display: block !important;
+			margin-top: 12px !important;
+		}
+
 	</style>
 @stop
 
