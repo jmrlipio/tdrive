@@ -1487,10 +1487,16 @@ select#select-year:before {
     margin-top: 0;
   }
 }
-/*#select-year {
-  background: url(../images/dropdown.png) no-repeat right;
-  background-size: 15%;
+.no-radius {
+  margin: 5px 0;
 }
+#select-year {
+  background: url(../images/dropdown.png) #fff no-repeat right;
+  background-size: 16%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+/*
 #select-year:before {
   content: 'a';
 }*/

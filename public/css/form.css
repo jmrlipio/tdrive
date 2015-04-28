@@ -51,9 +51,9 @@
   display: none !important;
 }
 
-/*.flash-success, .flash-fail { height: 40px; width: 100%; text-align: center; }*/
-/*.flash-success { color: green; line-height: 40px; }*/
-p.flash-fail { color: red; line-height: 40px; }
+.flash-success, .flash-fail { height: 40px; width: 100%; text-align: center; }
+.flash-success { color: green; line-height: 40px; }
+/*p.flash-fail { line-height: 40px; }*/
 
 .flash-success, .flash-fail {
   font-size: 15px;
@@ -66,6 +66,7 @@ p.flash-fail { color: red; line-height: 40px; }
 }
 .flash-fail {
   background: red;
+  color: white;
 }
 .carrier-submit, #game-detail #review .rating-control, .no-radius {
    -webkit-appearance: none;

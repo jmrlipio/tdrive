@@ -33,7 +33,6 @@
 				<div class="change_password"><a href="{{ route('password.change') }}">{{ trans('global.Change Password') }}</a>
 				{{ Form::open(array('route' => array('user.profile.change', Auth::user()->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
 				
-					<!-- <input type="image" id="img_url" name="profile_pic"> -->
 					 {{ Form::file('image', array('onchange' => 'readURL(this);', 'required')) }}
 				
 					{{ Form::submit("Save", array("id" => "save-image")) }}
@@ -116,8 +115,8 @@
 		}
 
 		var load = 0;
-		var num = " {{ $count }}" ;
-		var page = ({{ $page }} / 2);
+		var num = {{ $count }};
+		var page = {{ $page }};
 		var token = $('input[name="_token"]').val();
 
 		$(window).scroll(function() {
