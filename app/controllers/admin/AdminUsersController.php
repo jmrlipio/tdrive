@@ -10,7 +10,7 @@ class AdminUsersController extends \BaseController {
 	 */
 	public function index($role = NULL)
 	{
-
+		
 		$users = User::orderBy('created_at','DESC')->get();
 
 		$roles = ['all' => 'All'];
