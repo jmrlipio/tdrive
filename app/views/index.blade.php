@@ -56,6 +56,7 @@
 		/*.owl-carousel.owl-loaded {
 			margin-top: -10px;
 		}*/
+		a.news_link{color: #fff !important;}
 
 	</style>
 
@@ -285,28 +286,30 @@
 						@endif
 					@endforeach
 					@if($iso_code == Session::get('locale'))
-						<div>
-							<div class="date">
-								<div class="vhparent">
-									<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
-								</div>	
-							</div>	
-
-							<div class="details">
-								<div class="vparent">
-									<div class="vcenter">
-										<h3>{{{ $content->pivot->title }}}</h3>
-										<p>{{{ $content->pivot->excerpt }}}</p>
+						<a class="news_link" href="{{ 'news/'. $item->id }}">
+							<div id="bottom_news">
+								<div class="date">
+									<div class="vhparent">
+										<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
 									</div>	
-								</div>
-							</div>	
+								</div>	
 
-							<div class="readmore">
-								<a href="{{ 'news/'. $item->id }}">
-									<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
-								</a>
+								<div class="details">
+									<div class="vparent">
+										<div class="vcenter">
+											<h3>{{{ $content->pivot->title }}}</h3>
+											<p>{{{ $content->pivot->excerpt }}}</p>
+										</div>	
+									</div>
+								</div>	
+
+								<div class="readmore">
+									<a href="{{ 'news/'. $item->id }}">
+										<div class="vhcenter"><i class="fa fa-angle-right"></i></div>
+									</a>
+								</div>
 							</div>
-						</div>
+						</a>
 					@endif	
 				@endforeach
 			@endforeach
