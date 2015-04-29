@@ -100,5 +100,15 @@ return array(
 	*/
 
 	'attributes' => array(),
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Custom Validation Rules
+	|--------------------------------------------------------------------------
+	|
+	| Custom rules created in lib/Validators.php
+	|
+	*/
+	"alpha_spaces" => "The :attribute may only contain letters and spaces.",
 
 );

@@ -86,13 +86,19 @@ require app_path().'/AuditLogHandler.php';
 
 Event::subscribe(new AuditLogHandler);
 
-/* Added by: Jone   
+/*    
 * Purpose: For adding event listener for user registration
 * Date: 01/07/2015
 */
 require app_path().'/events.php';
 
 /*END*/
+/*    
+* Purpose: For removing spaces on forms
+* Date: 01/07/2015
+*/
+require app_path().'/validators.php';
+
 
 
 App::missing(function($exception)

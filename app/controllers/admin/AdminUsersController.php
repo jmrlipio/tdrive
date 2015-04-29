@@ -11,11 +11,13 @@ class AdminUsersController extends \BaseController {
 	public function index($role = NULL)
 	{
 
-		$users = User::all();
+		$users = User::orderBy('created_at','DESC')->get();
 
 		$roles = ['all' => 'All'];
 
-		foreach(DB::table('users')->select('role')->groupby('role')->get() as $role) {
+		$tbl_users = DB::table('users')->select('role')->groupby('role')->get();
+
+		foreach($tbl_users as $role) {
 			$roles[$role->role] = ucfirst($role->role);
 		}
 
@@ -235,8 +237,14 @@ class AdminUsersController extends \BaseController {
     {
     	$selected_role = Input::get('role');
 
-    	if($selected_role == 'all') $users = User::all();
-    	else $users = User::where('role', '=', Input::get('role'))->paginate(5);
+    	if($selected_role == 'all')
+    	{
+    	 	$users = User::orderBy('created_at','DESC')->get();
+    	}
+    	else 
+    	{
+    		$users = User::where('role', '=', Input::get('role'))->orderBy('created_at','DESC')->get();
+    	}
 
     	$roles = ['all' => 'All'];
 
