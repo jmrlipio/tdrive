@@ -16,6 +16,15 @@
 @section('content')
 <div id="logo-container">
 	{{ HTML::image("images/tdrive.png", null) }}
+	@if (Session::has('success') ) 
+            
+        <h3 class="center flash-success">{{ Session::get('success') }}</h3> 
+
+    @elseif(Session::has('fail') )   
+
+    	<h3 class="center flash-fail">{{ Session::get('fail') }}</h3>    
+
+    @endif
 </div>
 	<br>
 	{{ Form::open(array('action' => 'HomeController@home')) }}
