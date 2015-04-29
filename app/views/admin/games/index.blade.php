@@ -41,7 +41,7 @@
 							@if(Auth::user()->role != 'admin')
 								<ul class="actions">							
 									<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">Edit</a></li>							
-									<li><a href="#">View</a></li>
+									<li><a href="{{ URL::route('admin.games.edit', $game->id) }}">View</a></li>
 									<li>
 										{{ Form::open(array('route' => array('admin.games.destroy', $game->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}

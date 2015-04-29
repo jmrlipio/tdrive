@@ -53,6 +53,7 @@
 					<th>Role</th>
 					<th>Last Login</th>
 					<th>Last Activity</th>
+					<th>Registration Date</th>
 				</tr>
 			</thead>
 
@@ -77,6 +78,7 @@
 						<td>{{ $user->role }}</td>
 						<td>{{ $user->last_login }}</td>
 						<td>{{ $user->last_login }}</td>
+						<td>{{ $user->created_at }}</td>
 					</tr>
 
 					@empty

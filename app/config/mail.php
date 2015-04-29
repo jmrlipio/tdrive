@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'mandrill',
+	'driver' => 'smtp',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.mandrillapp.com',
+	'host' => 'mail.tdrive.co',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'jigzen.test@gmail.com', 'name' => 'TDRIVE'),
+	'from' => array('address' => 'siteadmin@tdrive.co', 'name' => 'TDRIVE'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'jigzen.test@gmail.com',
+	'username' => 'webmaster@tdrive.co',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'xnlnzcpteyumntme',
+	'password' => '8FgeMk63d5.W',
 
 	/*
 	|--------------------------------------------------------------------------

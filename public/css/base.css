@@ -157,6 +157,7 @@ img.auto, video.auto {
   padding: 4px 6px;
   display: inline-block;
   float: right;
+  margin-top: 10px;
 }
 
 .captcha {
