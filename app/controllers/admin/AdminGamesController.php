@@ -511,10 +511,14 @@ class AdminGamesController extends \BaseController {
 
 		$default_price = $game->default_price;
 
-		foreach(Carrier::all() as $carrier) {
-			$carriers[$carrier->id] = $carrier->carrier;
-		}
+		// foreach(Carrier::all() as $carrier) {
+		// 	$carriers[$carrier->id] = $carrier->carrier;
+		// }
 
+		foreach(Carrier::all() as $carrier) {
+			$carriers[] = array("id" => $carrier->id, "carrier" => $carrier->carrier);
+		}
+		
 		$cr = Country::distinct()->select('currency_code','name')->get();
 
 		foreach($cr as $currency) {
