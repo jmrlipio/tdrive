@@ -57,6 +57,15 @@
 			margin-top: -10px;
 		}*/
 
+		.modal div.fancybox-close-btn {
+		  text-align: center;
+		  display: block;
+		}
+		.modal div.fancybox-close-btn a{
+		  background: #e9548e;
+		  padding: 0 5px 5px;
+		  color: white;
+		}
 	</style>
 
 @stop
@@ -135,8 +144,8 @@
 								
 								@if($discounted_price && $game['price'] != 0)
 									<?php $sale_price = ($game['price']) - (($discounted_price / 100) * $game['price'])  ?>
-									<p class="price-original">{{ $game['currency_code'] . ' ' . number_format($sale_price, 2) }}</p>	
-									<p class="price">{{ $game['currency_code'] . ' ' . number_format($game['price'], 2) }}</p>
+									<p class="price-original">{{ $game['currency_code'] . ' ' . number_format($game['price'], 2) }}</p>	
+									<p class="price">{{ $game['currency_code'] . ' ' . number_format($sale_price, 2) }}</p>
 								@else
 									<p class="price">{{ $game['currency_code'] . ' ' . number_format($game['price'], 2) }}</p>
 								@endif
@@ -407,10 +416,10 @@
 			<div class="modal fade" id="myModal{{ $ctr }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">	
-						<div class="modal-header">
-						        <a title="Close" class="fancybox-item fancybox-close" data-dismiss="modal" aria-label="Close"></a>
-					        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>		 -->			      
-					    </div>				
+						<!--<div class="modal-header">
+						    <a title="Close" class="fancybox-item fancybox-close" data-dismiss="modal" aria-label="Close"></a>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>		      
+					    </div> -->		
 						<div class="modal-body">
 						  	<div id="image-container">
 						  		<img src="{{ asset('assets/discounts') }}/{{ $data['featured_image'] }}" class="auto" id="discount-img" />
@@ -418,6 +427,11 @@
 						  	<div class="clearfix"></div>
 						  	<h2 class="modal-title center" id="myModalLabel">{{{ ucfirst($data['title']) }}}</h2>							   
 						    <p> {{ str_limit($data['description'], $limit = 200, $end = '...') }} </p>
+							
+							<div class="fancybox-close-btn">
+								<a title="Close" data-dismiss="modal" aria-label="Close"> Close </a>
+							</div>
+
 						</div>
 					</div>
 				</div>

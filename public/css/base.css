@@ -325,7 +325,8 @@ img.auto, video.auto {
 #side-menu .top {
   background: #57d9cd;
   text-align: center;
-  padding: 4px 0;
+  padding: 6px 0;
+  position: relative;
 }
 #side-menu .top ul {
   display: inline-block;
@@ -359,7 +360,12 @@ img.auto, video.auto {
   color: #fff;
 }
 #side-menu .top p a {
-  display: inline;
+  display: inline-block;
+}
+#side-menu .top p a i.fa{
+  left: 6px;
+  top: 9px;
+  position: absolute;
 }
 #side-menu .search {
   margin-top: 10px;
