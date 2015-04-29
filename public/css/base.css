@@ -332,14 +332,14 @@ img.auto, video.auto {
   display: inline-block;
   overflow: hidden;
   position: relative;
-  padding: 0 22px;
+  padding: 2px 22px;
 }
 
 #side-menu .top ul > i{
   color: #fff;
-  right: 0;
+  right: 2px;
   position: absolute;
-  top: 2px;
+  top: 4px;
 }
 #side-menu .top li {
   float: left;
@@ -379,6 +379,7 @@ img.auto, video.auto {
 }
 #side-menu .search a i {
   color: #555;
+  padding-top: 2px;
 }
 #side-menu #polyglotLanguageSwitcher2 {
   margin-top: 10px;

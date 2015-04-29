@@ -642,27 +642,30 @@
   background: #ffae00;
   width: 10%;
 }
-#game-detail #review {
+#game-detail #review, #game-detail #update-form-wrapper {
   margin: 10px 0;
   text-align: center;
 }
-#game-detail #review .rating-control {
+#game-detail #review .rating-control, #game-detail #update-form-wrapper .rating-control { 
   border: 1px solid #e9548e;
  /* -webkit-border-radius: 4px;
   border-radius: 4px;*/
   background-clip: padding-box;
 }
-#game-detail #review .rating-control label {
+#game-detail #review .rating-control label, #game-detail #update-form-wrapper .rating-control label {
   padding: 5px 10px;
   background: #e9548e;
   color: #fff;
   float: left;
   width: 20%;
 }
-#game-detail #review .rating-control select {
+#game-detail #review .rating-control select, #game-detail #update-form-wrapper .rating-control select {
   height: 29px;
   float: left;
   width: 80%;
+}
+#game-detail #update-form-wrapper .rating-control select {
+  width: 70%;
 }
 #game-detail #review .form-success {
   margin-left: 0;
@@ -679,12 +682,13 @@
 #game-detail #review > div a {
   display: inline-block;
 }
-#game-detail #review form {
+#game-detail #review form, #game-detail #update-form-wrapper form {
   margin: 10px 0 0;
   display: inline-block;
   max-width: 320px;
 }
-#game-detail #review form input[type="text"], #game-detail #review form textarea {
+#game-detail #review form input[type="text"], #game-detail #review form textarea,
+#game-detail #update-form-wrapper form input[type="text"], #game-detail #update-form-wrapper form textarea {
   /*-webkit-border-radius: 4px;
   border-radius: 4px;*/
   background-clip: padding-box;
@@ -695,7 +699,8 @@
   -webkit-appearance: none;
     border-radius: 0;
 }
-#game-detail #review form input[type="submit"] {
+#game-detail #review form input[type="submit"], #game-detail #update-form-wrapper form input[type="submit"],
+#game-detail #reviews .entry input[type="submit"], #update-review {
   text-transform: lowercase;
   margin-top: 5px;
   background: #e9548e;
@@ -707,13 +712,16 @@
   -webkit-appearance: none;
     border-radius: 0;
 }
-#game-detail #review .captcha img {
+.edit-review-btns form, .edit-review-btns #update-review {
+  display: inline-block;
+}
+#game-detail #review .captcha img, #game-detail #update-form-wrapper .captcha img {
   width: 29%;
   height: 34px;
   float: left;
   margin-right: 1%;
 }
-#game-detail #review .captcha input {
+#game-detail #review .captcha input, #game-detail #update-form-wrapper .captcha input {
   width: auto;
   display: block;
   float: left;
@@ -721,7 +729,7 @@
   padding: 8px 6px !important;
   width: 70% !important;
 }
-#game-detail #review .captcha-correct, #game-detail #review .captcha-error {
+#game-detail #review .captcha-correct, #game-detail #update-form-wrapper .captcha-error {
   margin-left: 0;
 }
 #game-detail #reviews .entry {
@@ -753,6 +761,10 @@
   display: block;
   width: 60px;
   float: left;
+}
+#game-detail #update-form-wrapper img {
+  border-radius: 0 !important;
+  width: 72px !important;
 }
 #game-detail #related-games {
   background: #f4f4f4;

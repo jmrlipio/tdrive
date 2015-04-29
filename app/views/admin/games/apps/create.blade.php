@@ -22,7 +22,15 @@
 				</li>
 				<li>
 					{{ Form::label('carrier_id', 'Carrier:') }}
-			  		{{ Form::select('carrier_id', $carriers, null, array('id' => 'carrier')) }}				
+					
+			  		<!-- {{ Form::select('carrier_id', $carriers, null, array('id' => 'carrier')) }}	 -->
+
+					<select name="carrier_id" id="carrier">
+						@foreach($carriers as $carrier)
+							<option value="{{ str_pad($carrier['id'], 2, '0', STR_PAD_LEFT) }}" >{{ $carrier['carrier'] }}</option>
+						@endforeach
+					</select>
+
 					{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 				</li>
 				<li>
