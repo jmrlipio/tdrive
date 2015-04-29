@@ -490,15 +490,19 @@
 								<p class="message">{{{ $data->pivot->review }}}</p>
 							
 								<!-- Deletes user review -->
-								@if(Auth::user()->id == $data->pivot->user_id )							
-									{{ Form::open(array('route' => array('remove.review', $current_game->id, $app_id) )) }}			
-										{{ Form::hidden('id', $data->pivot->id) }}					
-									{{ Form::submit('Remove', array('id'=>'remove-review')) }}	
+								<div class="edit-review-btns">
+									@if(Auth::user()->id == $data->pivot->user_id )							
+										{{ Form::open(array('route' => array('remove.review', $current_game->id, $app_id) )) }}			
+											{{ Form::hidden('id', $data->pivot->id) }}					
+										{{ Form::submit('Remove', array('id'=>'remove-review')) }}	
 
-									{{ Form::close() }}
+										{{ Form::close() }}
+								
 								<!-- END -->
 
-									<button id="update-review">Update</button>	
+									<button id="update-review">Update</button>
+
+								</div>
 
 									<div id="update-form-wrapper" class="container">
 									<!-- Updates the review -->
@@ -786,9 +790,13 @@
 		$(document).ready(function(){				
 			
 			$('#update-review').click(function(e){
-
-				e.preventDefault();
-				$('#update-form-wrapper').css('display','block');
+				if ($('#update-form-wrapper').is(':visible')) {
+					e.preventDefault();
+					$('#update-form-wrapper').css('display','none');
+				} else {
+					e.preventDefault();
+					$('#update-form-wrapper').css('display','block');
+				}
 				
 			});
 		});
