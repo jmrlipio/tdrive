@@ -111,6 +111,14 @@ img.auto, video.auto {
   color: #465a65;
 }
 
+#category-listing .game-category:nth-child(even) {
+  background: #fff;
+  color: #465a65;
+}
+#category-listing .game-category:last-child {
+  border-bottom: none;
+}
+
 .container {
   max-width: 1024px;
   margin: 0 auto;

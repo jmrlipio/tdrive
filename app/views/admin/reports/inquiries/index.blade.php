@@ -8,8 +8,8 @@
 			<thead>
 			<tr>
 				<th><input type="checkbox"></th>
-				<th>Name</th>
 				<th>Email</th>
+				<th>Name</th>
 				<th>Message</th>
 			</tr>
 			<thead>
