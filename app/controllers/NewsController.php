@@ -62,7 +62,8 @@ class NewsController extends \BaseController {
 			->with('selected', $selected_year);
     }
 
-	public function show($id) {
+	// public function show($id, $slug) {
+    public function show($id) {
 		$languages = Language::all();
 
 		$news = News::find($id);

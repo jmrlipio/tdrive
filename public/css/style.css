@@ -918,7 +918,8 @@
 }
 
 #news-detail {
-  background: #eecf40;
+  /*background: #eecf40;*/
+  background: #fff;
 }
 #news-detail #nav-toggle, #news-detail #side-menu {
   display: none;
@@ -1514,6 +1515,10 @@ select#select-year:before {
   background-size: 20.5%;
   -webkit-appearance: none;
   -moz-appearance: none;
+  width: 120px;
+}
+.flash-success {
+  line-height: normal; 
 }
 /*
 #select-year:before {

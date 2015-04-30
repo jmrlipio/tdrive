@@ -279,6 +279,7 @@
 								<p>{{{ $content->pivot->excerpt }}}</p>
 							</div>	
 
+							{{-- <div class="readmore clearfix"><a href="{{ 'news/'. $item->id . '/' . $item->slug }}">{{ trans('global.Read more') }} <i class="fa fa-angle-right"></i></a></div> --}}
 							<div class="readmore clearfix"><a href="{{ 'news/'. $item->id }}">{{ trans('global.Read more') }} <i class="fa fa-angle-right"></i></a></div>
 						</div>
 					@endif		

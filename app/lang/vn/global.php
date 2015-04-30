@@ -68,7 +68,7 @@ return array(
 	'Downloads' => 'Downloads',
 	'Buy Now' => 'mua Ngay',
 	'Share' => 'phần',
-	'Share the game to the following social networks.' => 'Chia sẻ các trò chơi với các mạng xã hội sau.',
+	'Share the game to the following social networks' => 'Chia sẻ các trò chơi với các mạng xã hội sau',
 	'Rating' => 'Đánh giá',
 	'Login to write a review' => 'Đăng nhập để viết bình luận',
 	'See all reviews' => 'Xem tất cả các đánh giá',
@@ -146,9 +146,13 @@ return array(
 	'Inquiry' => 'Tin nhắn của bạn',
 
 	//Password (remind.blade.php)
-	'reset password' => 'đặt lại mật khẩu',
+	'reset password' => 'in nhắn của bạn',
 
 	//Password (reset.blade.php)
-	'Please fill up this form to reset your password' => 'Hãy điền vào mẫu này để thiết lập lại mật khẩu của bạn',
+	'Please fill up this form to reset your password' => 'Liên kết này sẽ hết hạn trong',
+
+	//Reset password
+	'old password' => 'Xin chào',
+	'new password' => 'Xin chào'
 
 );
