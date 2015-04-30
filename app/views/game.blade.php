@@ -547,7 +547,7 @@
  				@endif
 			@endif
 		@empty
-			<!-- <p>be the first one to add a review!</p> -->
+			<p class="center">be the first one to add a review!</p>
 		@endforelse
 		
 	@if($ctr > 4)	
