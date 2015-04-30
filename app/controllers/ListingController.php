@@ -415,10 +415,28 @@ class ListingController extends \BaseController {
 	public function showGameCategories() 
 	{
 		$categories = Category::all();
+		//$categories = [];
+		$game_settings = GameSetting::all();
+		$cat_list = [];
+		foreach($categories as $cat)
+		{
+			$apps = Game::getAppsPerCategory($cat->id); 
+			
+			if(!$apps)
+			{
+				continue; 
+			}
+			
+			$cat_list[$cat->id] = $cat->category;
+
+		} 
+
+		$languages = Language::all();
 
 		return View::make('category_listing')
 			->with('page_title', 'Category List')
-			->with('page_id', 'category-listing')		
+			->with('page_id', 'category-listing')
+			->with(compact('limit','cat_list'))		
 			->with(compact('categories'));
 	}
 

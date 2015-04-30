@@ -170,7 +170,9 @@
 			@endif		
 		</div>
 
-		<div class="more"><a href="{{ route('games.all') }}">{{ trans('global.More') }} +</a></div>
+		<!-- <div class="more"><a href="{{ route('games.all') }}">{{ trans('global.More') }} +</a></div> -->
+		<div class="more"><a href="{{ route('categories.all') }}">{{ trans('global.More') }} +</a></div>
+		
 	</div><!-- end #latest-games -->
 
 	{{-- <div id="games-heading" class="container"> --}}
