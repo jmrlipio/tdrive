@@ -36,6 +36,7 @@ return array(
 	'Cards and Casino' => 'Cards and Casino',
 	'Classic' => 'Classic',
 	'Sanrio' => 'Sanrio',
+	'Categories'=>'categories',
 
 	// Error and Success Messages
 	'Login successful' => 'Login successful',
