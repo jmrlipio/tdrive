@@ -904,6 +904,12 @@
     width: 93%;
   }
 }
+@media only screen and (min-width: 1280px) {
+  #game-detail #featured {
+    max-width: 1280px;
+  }
+}
+
 #home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .top .social a, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #review .captcha input, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .title, #game-listing .search-category, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
