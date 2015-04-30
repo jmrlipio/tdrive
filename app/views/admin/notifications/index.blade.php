@@ -63,7 +63,7 @@
 
 		{{ Form::open(array('route' => array('review.destroy', $review->id), 'method' => 'delete', 'class' => 'fl login')) }}
 				
-			{{ Form::submit('Delete') }}					
+			{{ Form::submit('Delete', array('class' => 'delete-button')) }}					
 
 		{{ Form::close() }}
 
@@ -71,9 +71,13 @@
 		
 	</div>
 
+	<script type="text/javascript">
+		$('.delete-button').on('click', function(e) {
+			if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
+		});
+	</script>
 @stop
 
 @section('scripts')
-
 
 @stop

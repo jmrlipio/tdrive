@@ -9,7 +9,7 @@
 			<p>Hello, {{ $name }}</p>
 
 			<p>
-				Your request "<subject title>" has been received and is being reviewed by our customer service. <br> 
+				Your request "{{ $game_title }}" has been received and is being reviewed by our customer service. <br> 
 
 				To ensure a fast and accurate response, please refrain from sending more than one email/ticket regarding your inquiry. <br>				 
 
