@@ -66,7 +66,7 @@ return array(
 	'Downloads' => 'Downloads',
 	'Buy Now' => 'Buy Now',
 	'Share' => 'Share',
-	'Share the game to the following social networks.' => 'Share the game to the following social networks.',
+	'Share the game to the following social networks' => 'Share the game to the following social networks',
 	'Rating' => 'Rating',
 	'Login to write a review' => 'Login to write a review',
 	'See all reviews' => 'See all reviews',

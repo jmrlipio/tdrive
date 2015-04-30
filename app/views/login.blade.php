@@ -38,7 +38,7 @@
 				 <label for="remember">Remember me</label>
 			</div> -->
 
-			<div class="control-item">
+			<div class="control-item center">
 				 {{ Form::submit(trans('global.login'), array('class' => 'no-radius')) }}
 			</div>
 		</div>

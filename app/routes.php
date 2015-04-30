@@ -6,6 +6,7 @@ Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'))
 
 Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
 Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingController@showMoreNews'));
+// Route::get('news/{id}/{slug}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
 Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));

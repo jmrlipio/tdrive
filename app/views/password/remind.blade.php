@@ -9,9 +9,11 @@
 
 @section('content')
 
+	{{ Form::token() }}
+
 	@if (Session::has('fail'))
 
-	  <p class="flash-fail">{{ trans(Session::get('reason')) }}</p>
+	  <p class="flash-fail">{{ Session::get('fail') }}</p>
 
 	@endif
 
@@ -21,18 +23,29 @@
 
 	@endif
 
-	<h3 class="center">reset password</h3>
+	<h3 class="center pad_10">{{ trans('global.reset password') }}</h3>
 	 
 	{{ Form::open(array('route' => 'password.request', 'class' => 'forgot-password', 'id' => 'forgot-password-form')) }}  
 
 		<div class="control">       
-			{{ Form::text('email', null, array('placeholder'=>'email','required')) }}
+			<?php $email = trans('global.email'); ?>
+			{{ Form::text('email', null, array('placeholder'=>$email,'required')) }}
 		</div>
 
-		<div class="control-item" id="btn_container">
+		<div class="control-item pad_10" id="btn_container">
 			 {{ Form::submit('Submit') }}
 		</div>
 	 
 	{{ Form::close() }}
 
+@stop
+
+@section('javascripts')
+	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+
+	@include('_partials/scripts')
+
+	<script>
+		var token = $('input[name="_token"]').val();
+	</script>
 @stop

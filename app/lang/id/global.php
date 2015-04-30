@@ -68,7 +68,7 @@ return array(
 	'Downloads' => 'download',
 	'Buy Now' => 'Beli Sekarang',
 	'Share' => 'saham',
-	'Share the game to the following social networks.' => 'Berbagi game untuk jejaring sosial berikut.',
+	'Share the game to the following social networks' => 'Berbagi game untuk jejaring sosial berikut',
 	'Rating' => 'penilaian',
 	'Login to write a review' => 'Login untuk menulis review',
 	'See all reviews' => 'Lihat semua ulasan',
@@ -146,9 +146,13 @@ return array(
 	'Inquiry' => 'penyelidikan',
 
 	//Password (remind.blade.php)
-	'reset password' => 'reset password',
+	'reset password' => 'penyelidikan',
 
 	//Password (reset.blade.php)
-	'Please fill up this form to reset your password' => 'Silahkan mengisi formulir ini untuk mereset password Anda',
+	'Please fill up this form to reset your password' => 'Untuk mereset password Anda, lengkapi formulir ini',
+
+	//Reset password
+	'old password' => 'penyelidikan',
+	'new password' => 'penyelidikan'
 
 );
