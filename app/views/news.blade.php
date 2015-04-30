@@ -71,7 +71,7 @@
 					<a style="margin:0 2px;" href="#" data-social='{"type":"facebook", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->slug }}"}'>
 						{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 					</a>
-					<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/news/{{ $news->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->slug }}"}'>
+					<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/news/{{ $news->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->main_title }}"}'>
 						{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
 					</a>
 				</div>

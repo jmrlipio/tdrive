@@ -6,6 +6,8 @@
 
 @section('content')
 
+	{{ Form::token() }}
+
 	<h1 class="title">{{ trans('global.Create new account') }}</h1>
 
 	{{ Form::open(array('route'=>'users.register', 'id' => 'register')) }}
@@ -71,10 +73,11 @@
 @stop
 
 @section('javascripts')
-
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+
+	@include('_partials/scripts')
+
 	<script>
 		var token = $('input[name="_token"]').val();
 	</script>
-
 @stop

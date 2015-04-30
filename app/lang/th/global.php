@@ -68,7 +68,7 @@ return array(
 	'Downloads' => 'ดาวน์โหลด',
 	'Buy Now' => 'ซื้อตอนนี้',
 	'Share' => 'หุ้น',
-	'Share the game to the following social networks.' => 'แบ่งปันเกมต่อไปนี้เครือข่ายทางสังคม',
+	'Share the game to the following social networks' => 'แบ่งปันเกมต่อไปนี้เครือข่ายทางสังคม',
 	'Rating' => 'อันดับ',
 	'Login to write a review' => 'เข้าสู่ระบบก่อนแสดงความคิดเห็น',
 	'See all reviews' => 'ดูความคิดเห็นทั้งหมด',
@@ -146,9 +146,13 @@ return array(
 	'Inquiry' => 'การสอบสวน',
 
 	//Password (remind.blade.php)
-	'reset password' => 'รีเซ็ตรหัสผ่าน',
+	'reset password' => 'ลิงค์นี้จะหมดอายุใน',
 
 	//Password (reset.blade.php)
-	'Please fill up this form to reset your password' => 'กรุณากรอกแบบฟอร์มเพื่อรีเซ็ตรหัสผ่านของคุณ',
+	'Please fill up this form to reset your password' => 'ในการรีเซ็ตรหัสผ่านของคุณกรอกแบบฟอร์มนี้',
+
+	//Reset password
+	'old password' => 'การสอบสวน',
+	'new password' => 'การสอบสวน'
 
 );

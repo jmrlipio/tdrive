@@ -134,7 +134,8 @@ class HomeController extends BaseController {
 		$arr_yrs = [];	
 		
 		foreach ($year as $yrs) {
-			$year = date('Y', strtotime($yrs->created_at)) . ' news archive'; 
+			// $year = date('Y', strtotime($yrs->created_at)) . ' news archive'; 
+			$year = date('Y', strtotime($yrs->created_at));
 			$arr_yrs[$year] = $year;
 			$year = array_unique($arr_yrs);
 		}
