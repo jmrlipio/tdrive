@@ -466,88 +466,88 @@
 			@if($data->pivot->status == 1)
 				<?php $ctr++; ?>
 				@if($ctr <= 4)
- 					<div class="entry clearfix">
 
- 					@if (Auth::check())
+ 					<div class="entry clearfix">
+ 				
  						@if($data->prof_pic != '')
-							<img src="{{ Request::root() }}/images/avatars/{{ $data->prof_pic }}" id="profile_img">
+							<img src="{{ Request::root() }}/images/avatars/{{ $data->prof_pic }}" id="profile_img">	
 						@else
-							<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img">
+							<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img">		
 						@endif
+					
+			
 								
 						<div class="user-review" id="{{ $data->pivot->user_id }}" >		
 											
-								<p class="name">{{ $data->first_name }}</p>
+							<p class="name">{{ $data->first_name }}</p>
 
-								<div class="stars">
-									@for ($i=1; $i <= 5 ; $i++)
-					                    <i class="fa fa-star{{ ($i <= $data->pivot->rating) ? '' : '-empty'}}"></i>
-					                 @endfor    
-								</div>
-								
-								<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
-
-								<p class="message">{{{ $data->pivot->review }}}</p>
+							<div class="stars">
+								@for ($i=1; $i <= 5 ; $i++)
+				                    <i class="fa fa-star{{ ($i <= $data->pivot->rating) ? '' : '-empty'}}"></i>
+				                 @endfor    
+							</div>
 							
-								<!-- Deletes user review -->
-								<div class="edit-review-btns">
+							<p class="date">{{ Carbon::parse($data->pivot->created_at)->format('M j') }}</p>
+
+							<p class="message">{{{ $data->pivot->review }}}</p>
+						
+							<!-- Deletes user review -->
+							<div class="edit-review-btns">
+								@if (Auth::check())
 									@if(Auth::user()->id == $data->pivot->user_id )							
 										{{ Form::open(array('route' => array('remove.review', $current_game->id, $app_id) )) }}			
 											{{ Form::hidden('id', $data->pivot->id) }}					
 										{{ Form::submit('Remove', array('id'=>'remove-review')) }}	
 
 										{{ Form::close() }}
-								
-								<!-- END -->
+										<button id="update-review">Update</button>
+									@endif
 
-									<button id="update-review">Update</button>
+								@endif																			
 
-								</div>
+							</div>
+							<!-- END -->	
 
-									<div id="update-form-wrapper" class="container">
-									<!-- Updates the review -->
-										{{Form::open(array('route' =>array('update.review', $current_game->id, $app_id),'id'=>'update-review-form'))}}
-											{{ Form::hidden('game_id', $current_game->id) }}
-											{{ Form::hidden('user_id', Auth::id()) }}
-											{{ Form::hidden('id', $data->pivot->id) }}
+							<div id="update-form-wrapper" class="container">
+							<!-- Updates the review -->
+								{{Form::open(array('route' =>array('update.review', $current_game->id, $app_id),'id'=>'update-review-form'))}}
+									{{ Form::hidden('game_id', $current_game->id) }}
+									{{ Form::hidden('user_id', Auth::id()) }}
+									{{ Form::hidden('id', $data->pivot->id) }}
 
-											<div class="rating-control clearfix control">
-												<label class="rating" for="rating">Rating</label>
+									<div class="rating-control clearfix control">
+										<label class="rating" for="rating">Rating</label>
 
-												{{ Form::selectRange('rating', 1, 5, $data->pivot->rating ) }}										
-												{{ $errors->first('rating', '<p class="form-error">:message</p>') }}
-											</div>
-					 
-												
-											<div class="control">
-												<textarea name="review" placeholder="write a review" required>{{{ $data->pivot->review }}}</textarea>
+										{{ Form::selectRange('rating', 1, 5, $data->pivot->rating ) }}										
+										{{ $errors->first('rating', '<p class="form-error">:message</p>') }}
+									</div>
+			 
+										
+									<div class="control">
+										<textarea name="review" placeholder="write a review" required>{{{ $data->pivot->review }}}</textarea>
 
-												{{ $errors->first('review', '<p class="form-error">:message</p>') }}
-											</div>
+										{{ $errors->first('review', '<p class="form-error">:message</p>') }}
+									</div>
 
-											<div class="captcha control clearfix">
-												{{ HTML::image(Captcha::img(), 'Captcha image') }}
-												{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
+									<div class="captcha control clearfix">
+										{{ HTML::image(Captcha::img(), 'Captcha image') }}
+										{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
 
-												{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
-											</div>
+										{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
+									</div>
 
-											
-											{{ Form::submit('Save', array('id' => 'update')) }}
-
-										{{ Form::close() }}
-									<!-- END -->
-									</div>	
-
-								@endif
-							@endif							
 									
+									{{ Form::submit('Save', array('id' => 'update')) }}
+
+								{{ Form::close() }}
+							<!-- END -->
+							</div>															
  						</div>
  					</div>
  				@endif
 			@endif
 		@empty
-			<!-- <p>be the first one to add a review!</p> -->
+			 <p class="center">be the first one to add a review!</p> 
 		@endforelse
 		
 	@if($ctr > 4)	
