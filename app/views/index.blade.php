@@ -295,22 +295,25 @@
 						@endif
 					@endforeach
 					@if($iso_code == Session::get('locale'))
-						<a class="news_link" href="{{ 'news/'. $item->id }}">
-							<div id="bottom_news">
-								<div class="date">
-									<div class="vhparent">
-										<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
-									</div>	
-								</div>	
-
-								<div class="details">
-									<div class="vparent">
-										<div class="vcenter">
-											<h3>{{{ $content->pivot->title }}}</h3>
-											<p>{{{ $content->pivot->excerpt }}}</p>
+						
+							<div>
+								<a class="news_link" href="{{ 'news/'. $item->id }}">
+									<div class="date">
+										<div class="vhparent">
+											<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
 										</div>	
+									</div>	
+								
+								
+									<div class="details">
+										<div class="vparent">
+											<div class="vcenter">
+												<h3>{{{ $content->pivot->title }}}</h3>
+												<p>{{{ $content->pivot->excerpt }}}</p>
+											</div>	
+										</div>
 									</div>
-								</div>	
+								</a>	
 
 								<div class="readmore">
 									<a href="{{ 'news/'. $item->id }}">
@@ -318,7 +321,7 @@
 									</a>
 								</div>
 							</div>
-						</a>
+						
 					@endif	
 				@endforeach
 			@endforeach
