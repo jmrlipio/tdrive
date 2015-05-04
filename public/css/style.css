@@ -987,6 +987,7 @@
 #news-detail .social {
   background: #fff;
   padding: 10px 0;
+  margin-top: 0;
 }
 #news-detail .social > div {
   float: right;
@@ -1002,7 +1003,7 @@
   background-clip: padding-box;
 }
 #news-detail .social a.share {
-  background: #e9548e url(../images/share2.png) 56px center no-repeat;
+  background: #e9548e url(../images/share2.png) 65px center no-repeat;
   color: #fff;
 }
 #news-detail .social a.like {
@@ -1516,9 +1517,12 @@ select#select-year:before {
   -webkit-appearance: none;
   -moz-appearance: none;
   width: 130px;
+<<<<<<< HEAD
 }
 a.news_link{
   color: #fff !important;
+=======
+>>>>>>> 5dc3c2be8ec7b74a4d0893f0bdf8d035b7d13d0e
 }
 .flash-success {
   line-height: normal; 

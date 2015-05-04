@@ -39,8 +39,8 @@ $game_settings = GameSetting::all();
 				@endforeach
 
 				@foreach($game->media as $media)
-					@if($media->type == 'homepage')
-						<meta property="og:image" content="{{ url() }}/assets/games/homepage/{{ $media->url}}" />
+					@if($media->type == 'icons')
+						<meta property="og:image" content="{{ url() }}/assets/games/icons/{{ $media->url}}" />
 					@endif
 				@endforeach
 			@endif

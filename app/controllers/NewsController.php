@@ -136,6 +136,13 @@ class NewsController extends \BaseController {
 
 			$data['featured_image'] = $filename;
 
+			$homepage = Input::file('homepage_image');
+			$filename = time() . "_" . $featured->getClientOriginalName();
+			$path = public_path('assets/news/' . $filename);
+			Image::make($featured->getRealPath())->save($path);
+
+			$data['homepage_image'] = $filename;
+
 			switch($data['status']){
 
 				case 1:
