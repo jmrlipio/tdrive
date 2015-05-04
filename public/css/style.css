@@ -987,6 +987,7 @@
 #news-detail .social {
   background: #fff;
   padding: 10px 0;
+  margin-top: 0;
 }
 #news-detail .social > div {
   float: right;
@@ -1002,7 +1003,7 @@
   background-clip: padding-box;
 }
 #news-detail .social a.share {
-  background: #e9548e url(../images/share2.png) 56px center no-repeat;
+  background: #e9548e url(../images/share2.png) 65px center no-repeat;
   color: #fff;
 }
 #news-detail .social a.like {
@@ -1512,10 +1513,10 @@ select#select-year:before {
 }
 #select-year {
   background: url(../images/dropdown.png) #fff no-repeat right;
-  background-size: 20.5%;
+  background-size: 20.5% 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 120px;
+  width: 130px;
 }
 .flash-success {
   line-height: normal; 
