@@ -71,13 +71,15 @@
 		
 	</div>
 
-	<script type="text/javascript">
+	
+@stop
+
+@section('scripts')
+
+<script type="text/javascript">
 		$('.delete-button').on('click', function(e) {
 			if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
 		});
 	</script>
-@stop
-
-@section('scripts')
 
 @stop
