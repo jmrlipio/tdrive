@@ -72,12 +72,15 @@
 		  color: white;
 		}
 		#select-category {
-		  background: url(../images/dropdown.png) #fff no-repeat right;
-		  background-size: 16%;
-		  -webkit-appearance: none;
-		  margin: 18px 0 0;
-		  float: right;
-		  font-size: 14px;
+			background: url(../images/dropdown.png) #fff no-repeat right;
+			background-size: 20.5% 100%;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			margin: 18px 0 0;
+			float: right;
+			font-size: 14px;
+			width: 130px;
+			padding: 5px 0;
 		}
 
 	</style>

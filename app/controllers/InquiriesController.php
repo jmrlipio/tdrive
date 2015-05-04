@@ -114,9 +114,11 @@ class InquiriesController extends \BaseController {
 					$message->to($inquiry->email, $inquiry->name)->subject('Welcome!');
 				});
 
+
 			if(!$mail) 
 			{
-				return Redirect::back()->with('message', 'Mail sent!');
+				//return Redirect::back()->with('message', 'Mail sent!');
+				return Redirect::to('admin/reports/inquiries')->with('success', 'Mail sent!');
 			}
 
 			return Redirect::back()->with('message', 'Mail not sent');

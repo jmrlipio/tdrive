@@ -1512,10 +1512,13 @@ select#select-year:before {
 }
 #select-year {
   background: url(../images/dropdown.png) #fff no-repeat right;
-  background-size: 20.5%;
+  background-size: 20.5% 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 120px;
+  width: 130px;
+}
+a.news_link{
+  color: #fff !important;
 }
 .flash-success {
   line-height: normal; 

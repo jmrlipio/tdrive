@@ -244,6 +244,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 .flash-success, .flash-fail { height: 40px; width: 100%; text-align: center; }
 .flash-success p { color: green; line-height: 40px; }
+.flash-success { color: green; line-height: 40px; }
 .flash-fail p { color: red; line-height: 40px; }
 
 #prices h3 { padding: 15px 0; }
