@@ -294,6 +294,8 @@ class ListingController extends \BaseController {
 
 		$count = count($news_all);
 
+		$year .= ' news archive';
+
 		return View::make('year')
 			->with('page_title', $year)
 			->with('title', $year)
