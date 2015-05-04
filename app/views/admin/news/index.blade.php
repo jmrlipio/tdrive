@@ -43,7 +43,7 @@
 						</td>
 						<td>
 							@foreach($data->languages as $row)
-								<a href="{{ URL::route('admin.news.variant.edit', array('news_id' => $data->id, 'variant_id' => $row->id)) }}">{{ $row->language }}</a>
+								<a class="{{strtolower($row->iso_code)}} flag-link" href="{{ URL::route('admin.news.variant.edit', array('news_id' => $data->id, 'variant_id' => $row->id)) }}"></a>
 							@endforeach
 						</td>
 						<td>{{ $data->NewsCategory->category }}</td>
@@ -63,6 +63,8 @@
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	{{ HTML::script('js/form-functions.js') }}
+
+	{{ HTML::script('css/polyglot-language-switcher.css') }}
 
 	<script>
 	$(document).ready(function(){

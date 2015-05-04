@@ -96,6 +96,7 @@
   margin: 18px 0 0;
   float: right;
   font-size: 14px;
+  padding: 5px 0;
 }
 #home #news .top > div {
   position: relative;
@@ -1511,7 +1512,7 @@ select#select-year:before {
 }
 #select-year {
   background: url(../images/dropdown.png) #fff no-repeat right;
-  background-size: 18%;
+  background-size: 20.5%;
   -webkit-appearance: none;
   -moz-appearance: none;
   width: 120px;

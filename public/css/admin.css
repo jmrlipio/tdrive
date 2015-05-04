@@ -549,3 +549,33 @@ a#back {
 .sort-label { max-width: 50%; float: right; margin-right: 50px; margin-bottom: 10px; }
 
 .center { text-align: center; }
+
+.flag-link {
+	height: 11px;
+	width: 16px;
+	display: inline-block;
+}
+
+a.en { 
+	background-image: url(../images/flags/us.png);
+}
+
+a.th {
+	background-image: url(../images/flags/th.png);
+}
+
+a.id {
+	background-image: url(../images/flags/id.png);
+}
+
+a.my {
+	background-image: url(../images/flags/my.png);
+}
+
+a.cn {
+	background-image: url(../images/flags/cn.png);
+}
+
+a.vn {
+	background-image: url(../images/flags/vn.png);
+}
