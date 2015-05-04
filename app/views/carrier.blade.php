@@ -10,7 +10,8 @@
 		
 		margin-bottom: 10px;
 	}
-	
+
+	#carrier {background: #fff;}
 </style>
 
 @section('content')
@@ -31,7 +32,7 @@
 		{{ Form::token() }}
 
 		<div class="control">
-			<select name="selected_carrier" required>
+			<select name="selected_carrier" required id="carrier">
 				<option value="">Select Carrier</option>
 
 				@foreach ($selected_carriers as $carrier)
