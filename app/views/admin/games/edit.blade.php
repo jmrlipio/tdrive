@@ -238,8 +238,10 @@
 								<div id="add-box" class="media-box ss-medium">
 									{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
 										<a class='upload-trigger' href='javascript:;'>
+										
 										<img src="{{ asset('images/default-300x300.png') }}" alt="addbox" class="addbox-media" />
 						            	 <div style="position:relative; width: 100px; top: -35px">
+						            	 	<span class="screenshot-loader"></span>
 						                    {{ Form::hidden('orientation-ss', '' , array('class' => 'screenshot-media')) }}
 						                    <input type="file" name="screenshots" id="homepage" class="ss-media-file" style='position:absolute;z-index:2;top:-167px;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;width:220px;height:200px;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>						      
 							        	</div>
@@ -494,7 +496,7 @@
 				var wrapper = $('.screenshot-box');
 				var media = $(this).closest('.media-box');
 				var frm = box.find('.post-media-form');
-				var btn = media.find('.upload-trigger span');
+				var btn = media.find('.screenshot-loader');
 	    		var mediabox = '<div class="media-box ss-medium"><img src="{src}" class="image-preview"><div style="position:relative; width: 100px; top: -35px"><a href="#" class="arrow remove-btn media-remove-btn" ssid="{ssid}"></a><input type="hidden" name="orientation" class="screenshot-media" value="{orientation}" /></div></div>';	
 
 				var file = this.files[0];
@@ -521,7 +523,7 @@
 				    frm.submit(function (ev) {
 				    	console.log('submit');
 				    	var formData = new FormData(this);
-				    	btn.html('<span class="loader-icon"></span>Saving..');
+				    	btn.html('<span class="loader-image"></span>');
 				        $.ajax({
 				            type: frm.attr('method'),
 				            url: frm.attr('action'),
@@ -535,6 +537,7 @@
 			                	mediabox = mediabox.replace('{ssid}', data.id );
 			                	mediabox = mediabox.replace('{orientation}', data.orientation );
 			                	$(mediabox).insertBefore(box);
+			                	btn.html('');
 				            }
 				        });
 				        ev.preventDefault();
