@@ -4,6 +4,16 @@
 	<div class="item-listing" id="categories-list">
 		<h2>Inquiries</h2>
 		<br>
+		@if (Session::has('success') ) 
+            
+       		<p class="center flash-success">{{ Session::get('success') }}</p> 
+
+	    @elseif(Session::has('fail') )   
+
+	    	<p class="center flash-fail">{{ Session::get('fail') }}</p>    
+
+	    @endif
+
 		<table id="table">
 			<thead>
 			<tr>
@@ -18,7 +28,7 @@
 				<tr>
 					<td><input type="checkbox"></td>
 					<td>
-						<a href="#">{{ $inquiry->email }}</a>
+						<a href="{{ URL::route('admin.reports.inquiries.show', $inquiry->id) }}">{{ $inquiry->email }}</a>
 						<ul class="actions">
 							<li><a href="{{ URL::route('admin.reports.inquiries.show', $inquiry->id) }}">View</a></li>
 							<li>

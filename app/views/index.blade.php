@@ -119,6 +119,7 @@
 		{{-- </select> --}}
 		<div class="clear"></div>
 		<div class="swiper-container thumbs-container">
+			
 			<?php $count = 0; ?>
 			@if($games_slide)
 				<div class="swiper-wrapper">
@@ -130,7 +131,7 @@
 						<div class="swiper-slide item">
 							<div class="thumb relative">
 								<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" class="thumb-image"><img src="assets/games/icons/{{ Media::getGameIcon($game['id']) }}"></a>
-								<?php $discounted_price = Discount::checkDiscountedGame($game['id']); ?>
+								<?php $discounted_price = Discount::checkDiscountedGame($game['id']) ?>
 								@if($discounted_price && $game['price'] != 0)
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-discounted-front.png', 'Free', array('class' => 'free-front auto')) }}</a>
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}">{{ HTML::image('images/ribbon-back.png', 'Free', array('class' => 'free-back auto')) }}</a>

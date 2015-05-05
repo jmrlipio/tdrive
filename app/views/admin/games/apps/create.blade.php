@@ -59,7 +59,7 @@
 				</li>
 				<li>
 					{{ Form::label('currency_code', 'Currency:') }}
-			  		{{ Form::select('currency_code', $currencies, array('value'=>'USD')) }}				
+			  		{{ Form::select('currency_code', $currencies) }}				
 					{{ $errors->first('currency_code', '<p class="error">:message</p>') }}
 				</li>
 				<li>

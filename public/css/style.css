@@ -1521,6 +1521,9 @@ select#select-year:before {
   -moz-appearance: none;
   width: 130px;
 }
+a.news_link{
+  color: #fff !important;
+}
 .flash-success {
   line-height: normal; 
 }

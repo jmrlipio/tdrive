@@ -14,20 +14,22 @@
 				@foreach ($item->contents as $content)
 
 					<div class="item">
-						<div class="date">
-							<div class="vhparent">
-								<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
-							</div>	
-						</div>	
-
-						<div class="details">
-							<div class="vparent">
-								<div class="vcenter">
-									<h3>{{{ $item->main_title }}}</h3>
-									<p>{{{ $content->pivot->excerpt }}}</p>
+						<a class="news_link" href="{{ '/news/'. $item->id }}">
+							<div class="date">
+								<div class="vhparent">
+									<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
 								</div>	
-							</div>
-						</div>	
+							</div>	
+
+							<div class="details">
+								<div class="vparent">
+									<div class="vcenter">
+										<h3>{{{ $item->main_title }}}</h3>
+										<p>{{{ $content->pivot->excerpt }}}</p>
+									</div>	
+								</div>
+							</div>	
+						</a>
 
 						<div class="readmore">
 							<a href="{{ '/news/'. $item->id }}">
