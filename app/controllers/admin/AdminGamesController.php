@@ -526,6 +526,7 @@ class AdminGamesController extends \BaseController {
 				$currencies[$currency->currency_code] = $currency->currency_code . ' ('. $currency->name .')';
 			}
 		}
+		sort($currencies);
 
 		return View::make('admin.games.apps.create')
 			->with(compact('game','carriers','languages','currencies', 'default_price'));
