@@ -68,7 +68,7 @@
 			<div style="display:none">
 				<div id="share" style="text-align:center;">
 					<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks') }}</h4>
-					<a style="margin:0 2px;" href="#" data-social='{"type":"facebook", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->slug }}"}'>
+					<a style="margin:0 2px;" href="#" data-social='{"type":"facebook", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->slug }}", "image": "http://www.tdrive.co/assets/news/1428396829_doraemon-gadget-series-ii.jpg"}'>
 						{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
 					</a>
 					<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/news/{{ $news->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->main_title }}"}'>

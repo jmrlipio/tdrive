@@ -4,6 +4,7 @@
 	{{ HTML::style("css/slick.css"); }}
 	{{ HTML::style("css/jquery.fancybox.css"); }}
 	{{ HTML::style("css/idangerous.swiper.css"); }}
+	{{-- {{ HTML::style("css/cool.share.css"); }} --}}
 	<style>
 		
 		.discounted { 
@@ -202,7 +203,7 @@
 
 			@if($app->pivot->app_id == $app_id)
 			<div class="content hey">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
-			<?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?>
+			<p id="excerpt"><?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?></p>
 			@endif
 
   		@endforeach
@@ -293,18 +294,9 @@
 				
 				<div style="display:none">
 					<div id="share" style="text-align:center;">
-						<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks.') }}</h4>
+						<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks') }}</h4>
 						
-						<!-- TWITTER SHARE -->
-						<a style="margin:0 2px;" href="https://twitter.com/share?url={{URL::current()}}" data-social='{"type":"twitter", "url":"{{URL::current()}}", "text": "{{{$excerpt}}}"}' title="\n{{ $game->main_title }}">
-
-							{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
-						</a>
-
-						<!-- FACEBOOK SHARE -->
-						<a style="margin:0 2px;" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{URL::current()}}&amp;p[images][0]={{ url() }}/images/games/{{$game->slug}}.jpg" data-social='{"type":"facebook", "url":"{{URL::current()}}", "text": "{{ $game->main_title }}"}' title="{{ $game->main_title }}">
-							{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
-						</a>
+						<span class="socialShare"></span>
 					</div>
 				</div>
 
@@ -610,7 +602,7 @@
 	{{ HTML::script("js/jquery.fancybox-media.js"); }}
 	{{ HTML::script("js/idangerous.swiper.min.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
-	{{ HTML::script("js/jqSocialSharer.min.js"); }}
+	{{ HTML::script("js/cool.share.js"); }}
 	{{ HTML::script("js/jquery.event.move.js"); }}
 	{{ HTML::script("js/jquery.event.swipe.js"); }}
 	
@@ -623,7 +615,7 @@
 		var app_id = '{{ $app_id }}';
 		var user_id = '{{ $user_id }}';
 		var carrier_form = '';
-
+		var exerpt = $('.content').text();
 
 		$('.fancybox').fancybox({ 
 			padding: 0 
@@ -631,6 +623,8 @@
 
 		$('.fancybox-media').fancybox({ 
 			padding: 0, 
+			height: 250,
+			centerOnScroll: true,
 			helpers: { media: true }
 		});
 
@@ -649,7 +643,23 @@
             'transitionOut'     : 'none'
         });
 
-        $("#share a").jqSocialSharer();
+		var url = '{{URL::current()}}';
+
+		var options = {
+
+			twitter: {
+				text: exerpt
+			},
+
+			facebook : true,
+		};
+
+		$('.socialShare').shareButtons(url, options);
+
+        // $("#share a").jqSocialSharer({
+        // 	"popUpWidth" : 320,               /*Width of the Pop-Up Window*/
+        // 	"popUpHeight": 533,
+        // });
 
 		$("#buy").on('click',function() {
 			$('#carrier-select').remove();
