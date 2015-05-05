@@ -60,6 +60,7 @@ class Discount extends \Eloquent {
 			{
 				if($discount['game_id'] == $game_id) 
 				{
+					/*return true;*/
 					return $discount['discount'];
 				}
 			}
@@ -81,4 +82,5 @@ class Discount extends \Eloquent {
 
 		return null;
 	}
+	
 }
