@@ -208,6 +208,8 @@
 }
 #home #faqs .ui-accordion .ui-accordion-icons {
   padding-left: 50px;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 #home #faqs .ui-accordion .ui-accordion-content {
   padding: 0px 10px 10px 50px;
@@ -1005,6 +1007,7 @@
 #news-detail .social a.share {
   background: #e9548e url(../images/share2.png) 65px center no-repeat;
   color: #fff;
+  padding-right: 40px;
 }
 #news-detail .social a.like {
   background: #0086dd url(../images/like.png) 40px center no-repeat;
@@ -1603,4 +1606,24 @@ a.news_link{
 #category-listing .game-category .slick-slider {
   margin-bottom: 0;
   padding-bottom: 10px;
+}
+span.showSocialButtons.fa.fa-share {
+  display: none;
+}
+span.socials {
+  width: auto !important;
+  margin-left: 0 !important;
+}
+span.socials a {
+  padding: 7px 10px;
+  color: white;
+  font-size: 20px;
+  margin-right: 5px;
+}
+span.socials a.fa.fa-twitter {
+  background: #55Acee;
+}
+span.socials a.fa.fa-facebook {
+  background: #3068C0;
+  padding: 7px 13px;
 }
