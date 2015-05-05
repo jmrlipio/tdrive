@@ -195,29 +195,36 @@ class AdminGamesController extends \BaseController {
 	{
 		$game = Game::find($id);
 
-		if(Input::hasFile('promo')) {
+		if(Input::hasFile('promo')) 
+		{
 			$promo = Input::file('promo');
 			$promo_name = $this->saveMedia($promo, 'promos');
 			$this->syncMedia($game, 'promos', $promo_name);
+
 		}
 		
-		if(Input::hasFile('icon')) {
+		if(Input::hasFile('icon')) 
+		{
 			$icon = Input::file('icon');
 			$icon_name = $this->saveMedia($icon, 'icons');
 			$this->syncMedia($game, 'icons', $icon_name);
 		}
 
-		if(Input::get('video') != '') {
+		if(Input::get('video') != '') 
+		{
 			$video = Input::get('video');
 			$this->syncMedia($game, 'video', $video);
-		} else {
-			foreach($game->media as $media) {
-				if($media->type == 'video') {
+		} 
+		else 
+		{
+			foreach($game->media as $media) 
+			{
+				if($media->type == 'video') 
+				{
 					$game->media()->detach($media->id);
 				}
 			}
 		}
-
 
 		if(Input::hasFile('homepage')) {
 			$homepage = Input::file('homepage');
@@ -225,26 +232,132 @@ class AdminGamesController extends \BaseController {
 			$this->syncMedia($game, 'homepage', $homepage_name);
 		}
 
-		$orientation = Input::get('image_orientation');
+		if(Input::hasFile('screenshots')) {
+			$orientation = Input::get('image_orientation');
 
-		$game->update(array('image_orientation' => $orientation));
+			$game->update(array('image_orientation' => $orientation));
 
-		$screenshots = Input::file('screenshots');
 
-		$ssid = Input::get('ssid');
+			$screenshots = Input::file('screenshots');
+			$ssid = Input::get('ssid');
 
-		foreach($screenshots as $screenshot) {
-			$screenshot_name = '';
-			if($screenshot != null) {
-				$screenshot_name = $this->saveMedia($screenshot, 'screenshots', $orientation);
+			foreach($screenshots as $screenshot) {
+				$screenshot_name = '';
+				if($screenshot != null) {
+					$screenshot_name = $this->saveMedia($screenshot, 'screenshots', $orientation);
+				}
+
+				$this->syncMedia($game, 'screenshots', $screenshot_name, $ssid);
 			}
-
-			$this->syncMedia($game, 'screenshots', $screenshot_name, $ssid);
 		}
-
 		$url = URL::route('admin.games.edit', $game->id) . '#media';
 
 		return Redirect::to($url)->with('message', 'You have successfully updated the game media.');
+	}
+
+	public function updatePostMedia($id)
+	{
+		$game = Game::find($id);
+
+		if(Input::hasFile('promos')) 
+		{
+			$promo = Input::file('promos');
+			$media = Media::getGameImages($id, 'promos');
+			if($media) 
+			{
+				File::delete(public_path('assets/games/' . 'promos' . '/' . $media->url) );
+				Media::destroy($media->id);
+			}
+			$promo_name = $this->saveMedia($promo, 'promos');
+			$this->syncMedia($game, 'promos', $promo_name);
+
+			return Response::json(array(
+					'message' => 'Image saved.',
+				));
+		}
+
+		if(Input::hasFile('icons')) 
+		{
+			$icon = Input::file('icons');
+			$media = Media::getGameImages($id, 'icons');
+			if($media) 
+			{
+				File::delete(public_path('assets/games/' . 'icons' . '/' . $media->url) );
+				Media::destroy($media->id);
+			}
+			$icon_name = $this->saveMedia($icon, 'icons');
+			$this->syncMedia($game, 'icons', $icon_name);
+
+			return Response::json(array(
+					'message' => 'Image saved.',
+				));
+		}
+
+		if(Input::hasFile('homepage')) 
+		{
+			$homepage = Input::file('homepage');
+			$media = Media::getGameImages($id, 'homepage');
+			if($media) 
+			{
+				File::delete(public_path('assets/games/' . 'homepage' . '/' . $media->url) );
+				Media::destroy($media->id);
+			}
+			$homepage_name = $this->saveMedia($homepage, 'homepage');
+			$this->syncMedia($game, 'homepage', $homepage_name);
+
+			return Response::json(array(
+					'message' => 'Image saved.',
+				));
+		}
+
+		if( Input::has('video')) 
+		{
+			//dd(Input::all());
+
+			if(Input::get('video') != '') 
+			{
+				$video = Input::get('video');
+				$media = Media::getGameImages($id, 'video');
+				if($media) 
+				{
+					Media::destroy($media->id);
+				}
+				$this->syncMedia($game, 'video', $video);
+			} 
+			else 
+			{
+				foreach($game->media as $media) 
+				{
+					if($media->type == 'video') 
+					{
+						$game->media()->detach($media->id);
+					}
+				}
+			}
+
+			return Response::json(array(
+					'message' => 'Video saved.',
+				));
+		}
+
+		if(Input::hasFile('screenshots')) {
+			$orientation = Input::get('orientation-ss');
+
+			$game->update(array('image_orientation' => $orientation));
+
+
+			$screenshot = Input::file('screenshots');
+			//$ssid = Input::get('ssid');
+
+			$screenshot_name = $this->saveMedia($screenshot, 'screenshots', $orientation);
+			$media = $this->syncMedia($game, 'screenshots', $screenshot_name);
+			
+			return Response::json(array(
+					'id' => $media->id,
+					'orientation' => $orientation,
+				));
+		}
+			
 	}
 
 	private function saveMedia($media_file, $folder, $orientation = '') {
@@ -263,17 +376,32 @@ class AdminGamesController extends \BaseController {
 			'type' => $type
 		];
 
-		if($media_name != '') $new_media = Media::create($details);
-
-		foreach($game->media as $media) {
-			if($media->type == $type) {
-				if($type == 'screenshots') {
-					if(!in_array($media->id, $ssid)) $game->media()->detach($media->id);
-				} else $game->media()->detach($media->id);
-			}
+		if($media_name != '') 
+		{
+			$new_media = Media::create($details);
+			$game->media()->attach($new_media->id);	
+			return $new_media;
 		}
+			
+		return false;
+	}
 
-		if($media_name != '') $game->media()->attach($new_media->id);
+	public function destroyMedia() {
+		$type = 'screenshots';
+		$orientation = Input::get('orientation');
+		$id = Input::get('ssid');
+
+		$media = Media::find($id);
+
+		if($media) 
+		{
+			File::delete(public_path('assets/games/' . $type . '/' . $orientation . '-' . $media->url) );
+			$destroy = Media::destroy($id);
+
+			return Response::json(array(
+					'message' => 'Deleted Succesfully.'
+				));
+		}
 	}
 
 	/**
@@ -306,9 +434,11 @@ class AdminGamesController extends \BaseController {
 
 			if($media->type == 'video') $media_url = $media->url;
 			else $media_url = $root . '/assets/games/' . $media->type . '/' . $orientation . $media->url;
+			//else $media_url = $root . '/assets/games/' . $media->type . '/' . $orientation . $media->url;
 
 			$selected_media[$count]['media_id'] = $media->id;
 			$selected_media[$count]['media_url'] = $media_url;
+			$selected_media[$count]['orientation'] = $orientation;
 			$selected_media[$count]['type'] = $media->type;
 			$count++;
 		}

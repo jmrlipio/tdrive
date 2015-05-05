@@ -30,4 +30,29 @@ class Media extends \Eloquent {
 		return null;
 	}
 
+	public static function getGameImages($game_id, $type) 
+	{
+		$game = Game::find($game_id);
+
+		foreach($game->media as $icon) 
+		{
+			if($icon->type == $type) 
+			{
+				return $icon;
+			}
+		}
+
+		return null;
+	}
+
+	public static function saveGameMedia($data) 
+	{
+
+	}
+
+	public static function deleteGameMedia($data) 
+	{
+		
+	}
+
 }
