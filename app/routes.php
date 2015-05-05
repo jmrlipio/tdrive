@@ -213,6 +213,7 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
 Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
 Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
+Route::post('dispprove/review', array('as' => 'review.disapprove', 'uses' => 'ReviewsController@disapproveReview'));
 route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'as' => 'admin.destroy.review','uses' => 'ReviewsController@handleDestroy'));
 Route::post('admin/games/preview/{id}/{app_id}', array('as' => 'admin.games.preview', 'uses' => 'AdminGamesController@previewGame'));
