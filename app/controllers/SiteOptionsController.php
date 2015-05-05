@@ -88,22 +88,24 @@ class SiteOptionsController extends \BaseController {
 		$game_settings = GameSetting::find($id);
 
 		$validator = Validator::make($data = Input::all(), GameSetting::$rules);
-
+		//free
 		if(Input::hasFile('ribbon_url')) {
 			$ribbon = Input::file('ribbon_url');
-			$ribbon_name = time() . "_" . $ribbon->getClientOriginalName();
-			$ribbon_path = public_path('assets/site/' . $ribbon_name);
+			//$ribbon_name = time() . "_" . $ribbon->getClientOriginalName();
+			$ribbon_name = "ribbon-front.png";
+			$ribbon_path = public_path('images/' . $ribbon_name);
 			Image::make($ribbon->getRealPath())->save($ribbon_path);
 			
 			$data['ribbon_url'] = $ribbon_name;
 		} else {
 			$data['ribbon_url'] = $game_settings->ribbon_url;
 		}
-
+		//discounted
 		if(Input::hasFile('sale_url')) {
 			$sale_ribbon = Input::file('sale_url');
-			$sale_ribbon_name = time() . "_" . $sale_ribbon->getClientOriginalName();
-			$sale_ribbon_path = public_path('assets/site/' . $sale_ribbon_name);
+			//$sale_ribbon_name = time() . "_" . $sale_ribbon->getClientOriginalName();
+			$sale_ribbon_name = "ribbon-discounted-front.png";
+			$sale_ribbon_path = public_path('images/' . $sale_ribbon_name);
 			Image::make($sale_ribbon->getRealPath())->save($sale_ribbon_path);
 			
 			$data['sale_url'] = $sale_ribbon_name;

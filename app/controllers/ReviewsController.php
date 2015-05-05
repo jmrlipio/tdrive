@@ -65,10 +65,10 @@ class ReviewsController extends \BaseController {
 
 			Event::fire('user.post.review',array($data));*/
 
-			return Redirect::to($url)->with('message', 'Your review has been submitted for approval.');
+			return Redirect::to($url."#review")->with('message', 'Your review has been submitted for approval.');
 		
 		} elseif ( $exists) {
-			return Redirect::to($url)->with('error', 'You are only allowed to create one review per game.');
+			return Redirect::to($url."#review")->with('error', 'You are only allowed to create one review per game.');
 		}
 
 		//validator fails

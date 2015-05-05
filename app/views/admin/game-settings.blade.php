@@ -32,7 +32,7 @@
 		</li>-->
 		<li>
 			<div class="media-box" id="ribbon">
-				{{ HTML::image(Request::root() . '/assets/site/' . $settings->ribbon_url, null) }}
+				{{ HTML::image(Request::root() . '/images/' . $settings->ribbon_url, null) }}
 			</div>
 
 			{{ Form::label('ribbon_url', 'Free Ribbon:') }}
@@ -40,7 +40,7 @@
 		</li>
 		<li>
 			<div class="media-box" id="sale">
-				{{ HTML::image(Request::root() . '/assets/site/' . $settings->sale_url, null) }}
+				{{ HTML::image(Request::root() . '/images/' . $settings->sale_url, null) }}
 			</div>
 
 			{{ Form::label('sale_url', 'On Sale Ribbon:') }}

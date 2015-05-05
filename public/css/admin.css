@@ -633,6 +633,15 @@ a.vn {
 	width: 220px !important;
 	height: 200px !important;
 }
+.loader-image {
+    background: url('../images/ajax-loader-image.gif');
+    position: relative;
+    top: -100px;
+    display: block;
+    left: 74px;
+    width: 66px;
+    height: 66px;
+}	
 .loader-icon {
 	background: url('../images/ajax-loader.gif');
 	width: 15px;
