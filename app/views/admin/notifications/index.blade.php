@@ -64,7 +64,8 @@
 		{{ Form::close() }}
 
 		{{ Form::open(array('route' => 'review.disapprove', 'class' => 'fl login')) }}
-				
+			<input type="hidden" name="id" value="{{$review->id}}" />	
+			
 			{{ Form::submit('Disapprove') }}					
 
 		{{ Form::close() }}
