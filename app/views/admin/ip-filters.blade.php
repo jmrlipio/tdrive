@@ -12,13 +12,15 @@
 		@endif
 		<table id="filters">
 			<tr>
-				<th>IP Addresses</th>
+				<th colspan="2">IP Addresses</th>
 			</tr>
 			@if(!$filters->isEmpty())
 				@foreach($filters as $filter)
 					<tr>
 						<td>
 							{{ $filter->ip_address }}
+						</td>
+						<td>
 							{{ Form::open(array('route' => array('admin.ip-filters.delete', $filter->id), 'method' => 'delete', 'class' => 'delete-form fright')) }}
 								{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
 							{{ Form::close() }}

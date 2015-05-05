@@ -1,4 +1,4 @@
-<nav class="sub-nav" id="options-nav">
+<nav class="sub-nav">
 	<ul>
 		<li><a href="{{ URL::route('admin.general-settings') }}">General Settings</a></li>
 		<li><a href="{{ URL::route('admin.featured') }}">Homepage</a></li>
