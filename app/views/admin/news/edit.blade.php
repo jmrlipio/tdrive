@@ -48,6 +48,7 @@
 
 						{{ Form::label('featured_image', 'Featured Image:') }}
 						{{ Form::file('featured_image') }}
+						<div class="clear"></div>
 					</li>
 					<li>
 						<div class="media-box">
@@ -56,6 +57,7 @@
 
 						{{ Form::label('homepage_image', 'Homepage Image:') }}
 						{{ Form::file('homepage_image') }}
+						<div class="clear"></div>
 					</li>
 					{{ Form::hidden('user_id', Auth::user()->id) }}
 					{{ Form::submit('Save') }}
