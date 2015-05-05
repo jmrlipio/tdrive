@@ -26,6 +26,7 @@
 			@endforeach
 		</tbody>
 		</table>
+		<div class="clear"></div>
 	</div>
 	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/jquery.dataTables.js') }}
