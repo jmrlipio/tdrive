@@ -656,3 +656,15 @@ a.vn {
 	margin-left: 10px;
 
 }
+
+/*filters*/
+
+#filters {
+	width: 100%;
+}
+#filters td {
+	padding: 10px;
+}
+#filters tr {
+	border: 1px solid black;
+}
