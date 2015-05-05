@@ -98,7 +98,7 @@ class ReviewsController extends \BaseController {
     public function disapproveReview(){
 
     	$review = Review::whereId(Input::get('id'));
-        $review->update(array('status' => 2));
+        $review->update(array('status' => 0));
 
     	return Redirect::back()->with('success','Review disapproved!');  
 					
