@@ -29,6 +29,7 @@
 				@endforeach
 			</tbody>
 		</table>
+		<div class="clear"></div>
 	</div>
 @stop
 
