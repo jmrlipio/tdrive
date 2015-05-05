@@ -634,7 +634,7 @@ a.vn {
 	height: 200px !important;
 }
 .loader-icon {
-	background: url('../images/ajax-loader-admin.gif');
+	background: url('../images/ajax-loader.gif');
 	width: 15px;
 	height: 15px;
 	display: block;
