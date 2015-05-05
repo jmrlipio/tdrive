@@ -51,12 +51,7 @@ class ProfileController extends \BaseController {
 			
 		}	
 
-		return View::make('profile')
-			->with('page_title', $user->username)
-			->with('page_id', 'profile')
-			->with('user', $user)
-			->with(compact('games','count', 'page'))
-			->with(compact('languages'));
+		return Redirect::back();
 	}
 
 }

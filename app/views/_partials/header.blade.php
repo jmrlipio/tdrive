@@ -150,7 +150,8 @@ $game_settings = GameSetting::all();
 
 		<div class="container clearfix">
 			<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
-			<a href="{{ URL::previous(); }}" id="back"><i class="fa fa-angle-left"></i></a>
+			<!-- <a href="{{ URL::previous(); }}" id="back"><i class="fa fa-angle-left"></i></a> -->
+			<a href="#" onClick="history.go(-1); return false;" id="back"><i class="fa fa-angle-left"></i></a>
 
 			<?php $tdrive = $general_settings[0]->value ?>
 

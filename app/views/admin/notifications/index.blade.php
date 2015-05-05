@@ -41,9 +41,11 @@
 							
 					<input type="hidden" name="id" value="{{$review->id}}" />	
 						
-						{{ Form::submit('Approved', array('disabled')) }}		
+						{{ Form::submit('Approved', array('disabled')) }}
+						
+				</div>
 
-				</div>	
+				
 
 			@else
 
@@ -58,6 +60,12 @@
 
 			@endif			
 
+
+		{{ Form::close() }}
+
+		{{ Form::open(array('route' => 'review.disapprove', 'class' => 'fl login')) }}
+				
+			{{ Form::submit('Disapprove') }}					
 
 		{{ Form::close() }}
 
