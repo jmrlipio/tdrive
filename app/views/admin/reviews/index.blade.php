@@ -34,6 +34,7 @@
 					<th>Review</th>
 					<th>Approve</th>
 					<th>Rating</th>
+					<th>Date Created</th>
 				</tr>
 			</thead>
 
@@ -82,6 +83,10 @@
 		                      <i class="fa fa-star"></i>
 		                    @endfor      
 													
+						</td>
+
+						<td>	
+							{{ $review->created_at }}			
 						</td>
 					</tr>
 				@endforeach				
@@ -146,7 +151,7 @@
 		       ]
 			});
 			*/
-			
+
 			$('#review_table').dataTable();
 
 		   $('#select-all').click(function(){			   
