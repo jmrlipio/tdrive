@@ -226,7 +226,7 @@
 									<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
 								@else
 
-									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
+									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" app-id="{{$app->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 
 								@endif
 							</div>
@@ -579,8 +579,10 @@
 		});
 
 		$(".game-buy").on('click',function() {
+
 			var id = $(this).attr('data-id');
 			$('#carrier-select').remove();
+
 			 $.ajax({
 			 	type: "POST",
 			 	url: "{{ url() }}/games/post/carrier",
@@ -588,6 +590,7 @@
 			 	success:function(data) {
 			 		console.log(data);
 			 		var carriers = $.parseJSON(data['responseText']);
+			 		
 					var append = '<select id="carrier-select">';
 
 					for(x = 0; x < carriers.length; x++ ) 
@@ -604,12 +607,12 @@
                 }
             });
 
-			$('.game-buy').fancybox({
+			/*$('.game-buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none',
 	            afterClose: function() {
-	            	var app_id = 'blazing-dribble-globe-en';
+	            	var app_id = $(this).attr('app-id');
 	            	var user_id = '';
 	            	$.fancybox({
 			            'width': '80%',
@@ -641,7 +644,7 @@
 			            }
 			        });
 	            }
-			});
+			});*/
         });
 
 	</script>

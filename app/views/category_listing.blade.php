@@ -79,7 +79,7 @@
 			margin: 18px 0 0;
 			float: right;
 			font-size: 14px;
-			width: 130px;
+			width: 150px;
 			padding: 5px 0;
 		}
 
@@ -99,9 +99,12 @@
 		<?php $ctr++; ?>
 		@if($ctr == 1)
 			<h1 class="title">{{ trans('global.games') }}</h1>			
-			<span id="custom-dd">	
-				{{ Form::select('category', array('default' => trans('global.Categories')) + $cat_list, 'default', array('class' => 'select-category', 'id' => 'select-category')) }}
-			</span>
+
+			{{Form::open(array('id'=>'category'))}}		
+				<span id="custom-dd">	
+					{{ Form::select('select-category', array('default' => trans('global.Please select')) + $cat_list, 'default', array('class' => 'select-category', 'id' => 'select-category')) }}
+				</span>
+			{{Form::close()}}
 
 		@endif
 	
@@ -182,7 +185,14 @@
 
 		$(window).load(function() {
 
-				$(".owl-carousel").owlCarousel({
+			$('#category').change(function() {
+				var id = $(this).find('select').val();
+				if(id != 'default'){
+					window.location.href = "category/"+id;
+				}				
+			});
+
+			$(".owl-carousel").owlCarousel({
 				center: true,
 				loop:true,
 				items:2,
@@ -304,17 +314,5 @@
         });
 
 	</script>
-	<script>
-	$( document ).ready(function() {
-		$('#select-category').change(function() {
-			var id = $(this).val();
-
-			window.location.href = "category/"+id;
-			/*$(this).attr('action', 'category/' + selected_category);
-			$(this).submit();*/
-		});
-	});
-
-	</script>
-
+	
 @stop

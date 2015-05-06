@@ -260,16 +260,30 @@ class ListingController extends \BaseController {
 
 		$news_all = News::all();
 
+		$year = $news_all;
+
 		$count = count($news_all);
 
-		// dd($news->toArray());
+		/* For displaying year dynamically in select form */
+
+		$arr_yrs = [];	
+		
+		foreach ($year as $yrs) {			
+			$year = date('Y', strtotime($yrs->created_at));
+			$arr_yrs[$year] = $year;
+			$year = array_unique($arr_yrs);
+		}
+		
+	/* END */
+
+
 
 		return View::make('news_listing')
 			->with('page_title', 'Latest news')
 			->with('page_id', 'news-listing')
 			->with('count', $count)
 			->with('live_news', $news)
-			->with(compact('languages'));
+			->with(compact('languages', 'year'));
 	}
 
 	public function showMoreNews() 
