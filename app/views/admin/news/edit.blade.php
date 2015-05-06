@@ -65,7 +65,8 @@
 			</ul>
 		</div>
 		
-		
+	
+
 	</article>
 
 	@include('admin._partials.image-select')
