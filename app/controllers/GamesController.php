@@ -323,7 +323,7 @@ class GamesController extends \BaseController {
 		$carrier_id = $data[1];
 
 		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
-		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
+		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id='.$app_id.'&carrier_id='.$carrier_id.'&uuid='.Auth::user()->id;
 		
 		$response = file_get_contents($url);
 
