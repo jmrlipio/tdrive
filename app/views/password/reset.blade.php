@@ -11,9 +11,11 @@
 	<h3 class="center">Please fill up this form to reset your password</h3>
 	
 	<div class="center">
-		@if (Session::has('error'))
-		  {{ trans(Session::get('reason')) }}
-		@endif		 
+		@if (Session::has('error') ) 
+            
+        	<h3 class="center flash-fail"> {{ trans(Session::get('error')) }}</h3> 
+
+        @endif	 
 
 		{{ Form::open(array('route' => 'password.update', 'class' => 'forgot-password', 'id' => 'forgot-password-form')) }}
 
