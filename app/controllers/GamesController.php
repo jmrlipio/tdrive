@@ -302,7 +302,7 @@ class GamesController extends \BaseController {
 			}
 			$carriers[] = array(
 						'id' =>  $app->pivot->app_id,
-						'carrier' => $app->carrier . ' - ' . $lang,
+						'carrier' => $app->carrier . ' - ' . $lang
 				);
 		}
 

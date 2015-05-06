@@ -48,10 +48,12 @@
 
 			<div id="token">{{ Form::token() }}</div>
 
-			<div class="grid">
+			<p>You haven't bought any games yet.</p>
+
+			<!-- <div class="grid">
 				<div class="row">
 					<div id="scrl" class="clearfix">
-
+			
 						@foreach ($games as $game)												
 							@foreach($game->apps as $app)
 								<?php $iso_code = ''; ?>
@@ -85,7 +87,7 @@
 						@endforeach
 					</div>
 				</div>
-			</div>
+			</div> -->
 	
 		<!-- <div id="loadmore" class="button center"><a href="#">{{ trans('global.More') }} +</a></div> -->
 		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
