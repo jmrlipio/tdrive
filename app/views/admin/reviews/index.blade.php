@@ -34,6 +34,7 @@
 					<th>Review</th>
 					<th>Approve</th>
 					<th>Rating</th>
+					<th>Date Created</th>
 				</tr>
 			</thead>
 
@@ -76,14 +77,16 @@
 								<p class="pending">Pending</p>
 							@endif
 						</td>
-						<td>
-												
-						<!-- UPDATED BY: Jone -->
-							@for ($i=1; $i <= 5 ; $i++)
-		                      <i class="fa fa-star{{ ($i <= $review->rating) ? '' : '-empty'}}"></i>
-		                    @endfor         
-						<!-- END -->
+						<td>		
+
+							@for ($i=$review->rating; $i>= 1 ; $i--)
+		                      <i class="fa fa-star"></i>
+		                    @endfor      
 													
+						</td>
+
+						<td>	
+							{{ $review->created_at }}			
 						</td>
 					</tr>
 				@endforeach				
@@ -136,17 +139,20 @@
 			    }								
 				
 			});
-		   /** 
-				* Added by: Jone   
+
+		   /**  
 				* Purpose: Fixed sorting on the rating column
 				* Date: 01/22/2015
-			*/
+			
 		   $('#review_table').dataTable( {
 		      "aoColumnDefs": [
 		          { 'bSortable': true, 'aTargets': [ 5 ], "sType": "formatted-num" }
 		        
 		       ]
 			});
+			*/
+
+			$('#review_table').dataTable();
 
 		   $('#select-all').click(function(){			   
 		
