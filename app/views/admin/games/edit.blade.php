@@ -254,7 +254,6 @@
 							<div class="clear"></div>
 						</li>
 				</ul>
-				<input type="file" name="screenshots" id="homepage" class="btn-samp" />
 			</div>
 		</div>
 	</article>
@@ -430,7 +429,7 @@
 		            	}
 			       });
     		});
-    		
+
     		//promo, icons, homepage
     		$('.media-file').each(function() {
     			$(this).upload({
