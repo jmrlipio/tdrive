@@ -17,6 +17,11 @@
 				{{ $errors->first('language', '<p class="error">:message</p>') }}
 			</li>
 			<li>
+				{{ Form::label('iso_code', 'ISO code: ') }}
+				{{ Form::text('iso_code') }}
+				{{ $errors->first('iso_code', '<p class="error">:message</p>') }}
+			</li>
+			<li>
 				{{ Form::submit('Save') }}
 			</li>
 		</ul>
