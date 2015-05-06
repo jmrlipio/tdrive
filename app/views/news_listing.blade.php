@@ -128,6 +128,5 @@
 			$(this).submit();
 		});
 	});
-
 	</script>
 @stop
