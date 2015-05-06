@@ -621,7 +621,10 @@ a.vn {
 	background-image: url(../images/flags/vn.png);
 }
 /**/
-
+.post-media-form {
+	width: 100%;
+	height: 100%;
+}
 .media-icon {
 	width: 150px;
 	height: 150px;
@@ -643,7 +646,7 @@ a.vn {
     height: 66px;
 }	
 .loader-icon {
-	background: url('../images/ajax-loader.gif');
+	background: url('../images/ajax-loader-admin.gif');
 	width: 15px;
 	height: 15px;
 	display: block;

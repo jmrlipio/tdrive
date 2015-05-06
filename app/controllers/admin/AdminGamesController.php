@@ -355,6 +355,7 @@ class AdminGamesController extends \BaseController {
 			return Response::json(array(
 					'id' => $media->id,
 					'orientation' => $orientation,
+					'name' => $media->url,
 				));
 		}
 			

@@ -153,12 +153,12 @@
 						</li>
 						<div class="clear"></div>
 						<li>
-							{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form promo-form')) }}
 							{{ Form::label('promo', 'Promo Image:', array('class' => 'media-label')) }}
 							<input type="hidden" value="this is a text" name="promo-code" />
 							<div id="message"></div>
 								<?php $image = Media::getGameImages($game->id, 'promos'); ?>
-									<div class="media-box">
+									<div class="media-box" id="promoc">
+										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form promo-form')) }}
 										@if($image)
 											<img src="{{ asset('assets/games/promos') }}/{{ $image['url'] }}" class="image-preview" alt="image_preview"/>
 						            	@else
@@ -166,39 +166,41 @@
 						            	@endif
 						            	 <div style="position:relative; width: 100px; top: -35px">
 						              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
-						                    <span>change</span>
+						                    <span class="screenshot-loader">change</span>
 						                    <input type="file" name="promos" id="promos" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
 						             		</a>
 							        	</div>
+							        	{{ Form::close() }}
 						            </div>
-							{{ Form::close() }}
 							<div class="clear"></div>
 						</li>
 						<li>
-							{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
+							
 							{{ Form::label('icon', 'Icon:', array('class' => 'media-label')) }}
 								<?php $image = Media::getGameImages($game->id, 'icons'); ?>
-									<div class="media-box media-icon">
-										@if($image)
-											<img src="{{ asset('assets/games/icons') }}/{{ $image['url'] }}" class="image-preview" alt="image_preview"/>
-						            	@else
-						            		<img src="{{ asset('images/default-300x300.png') }}" class="image-preview" alt="image_preview"/>
-						            	@endif
-						            	 <div style="position:relative; width: 100px; top: -35px">
-						              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
-						                    <span>change</span>
-						                    <input type="file" name="icons" id="icons" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
-						             		</a>
-							        	</div>
+									<div class="media-box media-icon" id="iconc">
+										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
+											@if($image)
+												<img src="{{ asset('assets/games/icons') }}/{{ $image['url'] }}" class="image-preview" alt="image_preview"/>
+							            	@else
+							            		<img src="{{ asset('images/default-300x300.png') }}" class="image-preview" alt="image_preview"/>
+							            	@endif
+							            	 <div style="position:relative; width: 100px; top: -35px">
+							              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
+							                    <span class="screenshot-loader">change</span>
+							                    <input type="file" name="icons" id="icons" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
+							             		</a>
+								        	</div>
+							        	{{ Form::close() }}
 						            </div>
-							{{ Form::close() }}
 							<div class="clear"></div>
 						</li>
 						<li>
-							{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
+							
 							{{ Form::label('homepage', 'Homepage Image:', array('class' => 'media-label')) }}
 								<?php $image = Media::getGameImages($game->id, 'homepage'); ?>
-									<div class="media-box">
+									<div class="media-box" id="homepagec">
+										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
 										@if($image)
 											<img src="{{ asset('assets/games/homepage') }}/{{ $image['url'] }}" class="image-preview" alt="image_preview"/>
 						            	@else
@@ -206,12 +208,13 @@
 						            	@endif
 						            	 <div style="position:relative; width: 100px; top: -35px">
 						              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
-						                    <span>change</span>
+						                    <span class="screenshot-loader" >change</span>
 						                    <input type="file" name="homepage" id="homepage" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
 						             		</a>
 							        	</div>
+							        	{{ Form::close() }}
 						            </div>
-							{{ Form::close() }}
+							
 							<div class="clear"></div>
 						</li>
 						<li>
@@ -237,8 +240,7 @@
 
 								<div id="add-box" class="media-box ss-medium">
 									{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
-										<a class='upload-trigger' href='javascript:;'>
-										
+										<a class='upload-trigger' href='javascript:;'>		
 										<img src="{{ asset('images/default-300x300.png') }}" alt="addbox" class="addbox-media" />
 						            	 <div style="position:relative; width: 100px; top: -35px">
 						            	 	<span class="screenshot-loader"></span>
@@ -252,7 +254,7 @@
 							<div class="clear"></div>
 						</li>
 				</ul>
-				
+				<input type="file" name="screenshots" id="homepage" class="btn-samp" />
 			</div>
 		</div>
 	</article>
@@ -264,6 +266,7 @@
 	{{ HTML::script('js/chosen.jquery.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/form.min.js') }}
+	{{ HTML::script('js/image-uploader.js') }}
 	<script>
 	var gallery = $('#img-gallery ul'), 
 		img_li,
@@ -273,6 +276,8 @@
 	$(document).ready(function() {
 		// Initializes different tab sections
 		$('.tab-container, #carrier-tab, #content-tab').easytabs();
+
+		
 
 		// Date picker for Release Date
         $("#release_date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
@@ -425,63 +430,18 @@
 		            	}
 			       });
     		});
+    		
+    		//promo, icons, homepage
+    		$('.media-file').each(function() {
+    			$(this).upload({
+    				'url': '{{ URL::route("admin.games.postupdate-media", $game->id) }}',
+    				'before_loading': '<span class="loader-icon"></span>Saving..',
+    				'after_loading' : 'Change'
+    			});
+    		})
 
-			$(".media-file").change(function() {
-				var file_input = $(this);
-				var media = $(this).closest('li');
-				var img = media.find('.image-preview');
-				var frm = media.find('.post-media-form');
-				var btn = media.find('.upload-trigger span');
-
-				$("#message").empty(); // To remove the previous error message
-
-				var file = this.files[0];
-				var imagefile = file.type;
-				var match= ["image/jpeg","image/png","image/jpg"];
-
-				if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
-				{
-					$('#previewing').attr('src','noimage.png');
-					$("#message").html("<p id='error'>Please Select A valid Image File</p>"+"<h4>Note</h4>"+"<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
-					return false;
-				}
-				else
-				{
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						$('#image_preview').css("display", "block");
-						img.attr('src', e.target.result);
-						img.attr('width', '250px');
-						img.attr('height', '230px');
-					}
-
-					reader.readAsDataURL(this.files[0]);
-
-					var form = $('.promo-form');
-					//form.submit();
-				    frm.submit(function (ev) {
-				    	var formData = new FormData(this);
-				    	btn.html('<span class="loader-icon"></span>Saving..');
-				        $.ajax({
-				            type: frm.attr('method'),
-				            url: frm.attr('action'),
-				            data: formData,
-				            mimeType:"multipart/form-data",
-						    contentType: false,
-						    cache: false,
-						    processData:false,
-				            success: function (data) {
-				                	btn.html('Change');
-				            }
-				        });
-				        ev.preventDefault();
-				        $(this).unbind('submit');
-				    });
-				    frm.submit();
-				}
-			});
-			//screenshots
-			var orientation = $('#orientation');
+    		//screenshots
+    		var orientation = $('#orientation');
 			var orientation_post = $('.screenshot-media');
 			orientation_post.val(orientation.val());
 			
@@ -489,64 +449,21 @@
 				orientation_post.val($(this).val());
 			})
 
-			$(".ss-media-file").change(function() {
-				
-				var file_input = $(this);
+			$('.ss-media-file').upload({
+				'url': '{{ URL::route("admin.games.postupdate-media", $game->id) }}',
+				'before_loading': '<span class="loader-image"></span>',
+				'after_loading' : ''
+			}, function(data) {
+				var mediabox = '<div class="media-box ss-medium"><img src="{src}" class="image-preview"><div style="position:relative; width: 100px; top: -35px"><a href="#" class="arrow remove-btn media-remove-btn" ssid="{ssid}"></a><input type="hidden" name="orientation" class="screenshot-media" value="{orientation}" /></div></div>';	
 				var box = $('#add-box');
-				var wrapper = $('.screenshot-box');
-				var media = $(this).closest('.media-box');
-				var frm = box.find('.post-media-form');
-				var btn = media.find('.screenshot-loader');
-	    		var mediabox = '<div class="media-box ss-medium"><img src="{src}" class="image-preview"><div style="position:relative; width: 100px; top: -35px"><a href="#" class="arrow remove-btn media-remove-btn" ssid="{ssid}"></a><input type="hidden" name="orientation" class="screenshot-media" value="{orientation}" /></div></div>';	
-
-				var file = this.files[0];
-				var imagefile = file.type;
-				var match= ["image/jpeg","image/png","image/jpg"];
-
-				if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
-				{
-					$('#previewing').attr('src','noimage.png');
-					$("#message").html("<p id='error'>Please Select A valid Image File</p>"+"<h4>Note</h4>"+"<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
-					return false;
-				}
-				else
-				{
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						$('#image_preview').css("display", "block");
-						mediabox = mediabox.replace('{src}', e.target.result );
-						//$(mediabox).insertBefore(box);
-					}
-
-					reader.readAsDataURL(this.files[0]);
-
-				    frm.submit(function (ev) {
-				    	console.log('submit');
-				    	var formData = new FormData(this);
-				    	btn.html('<span class="loader-image"></span>');
-				        $.ajax({
-				            type: frm.attr('method'),
-				            url: frm.attr('action'),
-				            data: formData,
-				            mimeType:"multipart/form-data",
-						    contentType: false,
-						    cache: false,
-						    processData:false,
-				            success: function (data) {
-				            	var data = jQuery.parseJSON( data );
-			                	mediabox = mediabox.replace('{ssid}', data.id );
-			                	mediabox = mediabox.replace('{orientation}', data.orientation );
-			                	$(mediabox).insertBefore(box);
-			                	btn.html('');
-				            }
-				        });
-				        ev.preventDefault();
-				        $(this).unbind('submit');
-				    });
-				    frm.submit();
-				}
+				var path = "{{ asset('assets/games/screenshots') }}/" + data.orientation + '-' + data.name;
+				mediabox = mediabox.replace('{ssid}', data.id );
+            	mediabox = mediabox.replace('{orientation}', data.orientation );
+            	mediabox = mediabox.replace('{src}', path );
+            	$(mediabox).insertBefore(box);
 			});
 		});
 
     </script>
+
 @stop
