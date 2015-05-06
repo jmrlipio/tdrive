@@ -202,7 +202,7 @@
   		@foreach($game->apps as $app)
 
 			@if($app->pivot->app_id == $app_id)
-			<div class="content hey">{{ htmlspecialchars_decode($app->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+			<div class="content hey"><p id="excerpt">{{ htmlspecialchars_decode($app->pivot->excerpt) }}</p> <a href="" class="readmore">Read more</a></div>
 			<p id="excerpt"><?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?></p>
 			@endif
 
@@ -615,7 +615,7 @@
 		var app_id = '{{ $app_id }}';
 		var user_id = '{{ $user_id }}';
 		var carrier_form = '';
-		var exerpt = $('.content').text();
+		var exerpt = $('#excerpt').text();
 
 		$('.fancybox').fancybox({ 
 			padding: 0 

@@ -54,6 +54,7 @@
 					@if($iso_code == Session::get('locale'))
 						{{ htmlspecialchars_decode($content->pivot->content) }}
 					@endif	
+					<input type="hidden" id="excerpt" value="{{ $content->pivot->excerpt }}" />
 			@endforeach
 
 		</div>
@@ -68,12 +69,7 @@
 			<div style="display:none">
 				<div id="share" style="text-align:center;">
 					<h4 style="margin: 10px 0;">{{ trans('global.Share the game to the following social networks') }}</h4>
-					<a style="margin:0 2px;" href="#" data-social='{"type":"facebook", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->slug }}", "image": "http://www.tdrive.co/assets/news/1428396829_doraemon-gadget-series-ii.jpg"}'>
-						{{ HTML::image('images/icon-social-facebook.png', 'Share', array('class' => 'auto')) }}
-					</a>
-					<a style="margin:0 2px;" href="https://twitter.com/share?url={{ url() }}/news/{{ $news->id }}" data-social='{"type":"twitter", "url":"{{ url() }}/news/{{ $news->id }}", "text": "{{ $news->main_title }}"}'>
-						{{ HTML::image('images/icon-social-twitter.png', 'Share', array('class' => 'auto')) }}
-					</a>
+					<span class="socialShare"></span>
 				</div>
 			</div>
 		</div>
@@ -88,6 +84,7 @@
 	{{ HTML::script("js/jqSocialSharer.min.js"); }}
 	<!-- facebook share function, cool right? -->
 	{{ HTML::script("js/share.js"); }}
+	{{ HTML::script("js/cool.share.js"); }}
 
 	@include('_partials/scripts')
 
@@ -110,6 +107,9 @@
 	<script>
 		FastClick.attach(document.body);
 		var token = $('input[name="_token"]').val();
+		var exerpt = $('#excerpt').val();
+
+		// alert(exerpt);
 		
 		$("#inline").fancybox({
             'titlePosition'     : 'inside',
@@ -117,7 +117,20 @@
             'transitionOut'     : 'none'
         });
 
-        $("#share a").jqSocialSharer();
+        // $("#share a").jqSocialSharer();
+
+        var url = '{{URL::current()}}';
+
+		var options = {
+
+			twitter: {
+				text: exerpt
+			},
+
+			facebook : true,
+		};
+
+		$('.socialShare').shareButtons(url, options);
 
         $('.fancybox').fancybox({ padding: 0 });
 	</script>
