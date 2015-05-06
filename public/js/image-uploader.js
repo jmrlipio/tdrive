@@ -49,7 +49,7 @@
 						},
 						submit: function() 
 						{
-							selector['loader'].html(Data['loader']);
+							selector['loader'].html(Data['before_loading']);
 							selector['form'].submit(function(e) {
 								var _form = new FormData(this);
 
