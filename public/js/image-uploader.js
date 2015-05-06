@@ -3,7 +3,7 @@
 
 (function($) {
 	"use strict";
-	$.fn.upload = function(options, callback)  
+	$.fn.uploadBOOM = function(options, callback)  
 	{
 		var file = this;
 		var Data = {

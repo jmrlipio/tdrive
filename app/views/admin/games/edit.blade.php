@@ -432,7 +432,7 @@
 
     		//promo, icons, homepage
     		$('.media-file').each(function() {
-    			$(this).upload({
+    			$(this).uploadBOOM({
     				'url': '{{ URL::route("admin.games.postupdate-media", $game->id) }}',
     				'before_loading': '<span class="loader-icon"></span>Saving..',
     				'after_loading' : 'Change'
@@ -448,7 +448,7 @@
 				orientation_post.val($(this).val());
 			})
 
-			$('.ss-media-file').upload({
+			$('.ss-media-file').uploadBOOM({
 				'url': '{{ URL::route("admin.games.postupdate-media", $game->id) }}',
 				'before_loading': '<span class="loader-image"></span>',
 				'after_loading' : ''
