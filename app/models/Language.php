@@ -6,7 +6,7 @@ class Language extends \Eloquent {
 	protected $fillable = ['language','iso_code'];
     public static $rules = [
         'language' => 'required|min:3|unique:languages',
-        'iso_code' => 'required|min:2|unique:languages',
+        'iso_code' => 'required|min:2',
     ];
 
 	public function games()
