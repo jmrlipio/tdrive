@@ -83,7 +83,11 @@ class LanguagesController extends \BaseController {
 	{
 		$language = Language::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Language::$rules);
+		$rules = array(
+		        'language'=>'required|unique:languages,language,'.$id 
+		        );
+
+		$validator = Validator::make($data = Input::all(), $rules);
 
 		if ($validator->fails())
 		{
