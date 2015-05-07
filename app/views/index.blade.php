@@ -124,6 +124,7 @@
 			@if($games_slide)
 				<div class="swiper-wrapper">
 				@foreach($games_slide as $game)
+				
 					@if($count >= $limit)
 						<?php break; ?>
 					@endif
@@ -154,11 +155,17 @@
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
-									<a href="#" data-id="{{ $game['id'] }}" class="game-free">Free</a>
+									@if(Auth::check())
+										<a href="#carrier-select-container" data-id="{{ $game['id'] }}" app-id="{{$game['app_id']}}" class="game-free">Free</a>
+									@else
+										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" class="game-free">Free</a>
+									@endif
 								@else
-
-									<a href="#" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
-
+									@if(Auth::check())
+										<a href="#carrier-select-container" id="buy" data-id="{{ $game['id'] }}" app-id="{{$game['app_id']}}" class="game-buy buy">{{ trans('global.Buy') }} </a>
+									@else
+										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" id="buy"  class="game-buy buy">{{ trans('global.Buy') }}</a>	
+									@endif
 								@endif
 							</div>
 						</div>
@@ -223,10 +230,17 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
+									@if(Auth::check())
+										<a href="#carrier-select-container" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
+									@else
+										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
+									@endif
 								@else
-
-									<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" app-id="{{$app->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>	
+									@if(Auth::check())
+										<a href="#carrier-select-container" id="buy" data-id="{{ $app->pivot->game_id }}" app-id="{{$app->pivot->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>
+									@else
+										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" id="buy" data-id="{{ $app->pivot->game_id }}" app-id="{{$app->pivot->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>
+									@endif
 
 								@endif
 							</div>
@@ -579,8 +593,8 @@
 		});
 
 		$(".game-buy").on('click',function() {
-
 			var id = $(this).attr('data-id');
+			var app_id = $(this).attr('app-id');
 			$('#carrier-select').remove();
 
 			 $.ajax({
@@ -588,26 +602,29 @@
 			 	url: "{{ url() }}/games/post/carrier",
 			 	data: {id: id},
 			 	success:function(data) {
-			 		console.log(data);
-			 		var carriers = $.parseJSON(data['responseText']);
 			 		
-					var append = '<select id="carrier-select">';
+			 		var carriers = jQuery.parseJSON(data);
+			 		console.log(carriers);
+					var append = '<select name="selected-carrier" id="carrier-select">';
+					/*var app_id_input = '<input type="hidden" name="app_id" value="{value}">';
+					var carrier_id_input = '<input type="hidden" name="carrier_id" value="{value}">';*/
 
 					for(x = 0; x < carriers.length; x++ ) 
 					{
-						append += '<option value="' + carriers[x].id + '">' + carriers[x].carrier + '</option>';
+						append += '<option value="' + carriers[x].app_id +'-' + carriers[x].cid + '">' + carriers[x].carrier + '</option>';
 					}
 					append += '</select>';
 				
 					if($('#carrier-container').find('#carrier-select').length == 0) 
 					{
+						/*append += app_id_input.replace('{value}', app_id);*/
 						$('#submit-carrier').before(append);
 						append = '';
 					}
                 }
             });
-
-			/*$('.game-buy').fancybox({
+			
+			$('.game-buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none',
@@ -622,6 +639,8 @@
 			            'transitionOut': 'fade',
 			            'type': 'iframe',
 			            'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
+			           
+			            /*billing link sample from docs: http://106.186.24.12/tdrive_api/process_billing.php?app_id=0001101&carrier_id=1&uuid=1*/
 			            afterClose: function() {
 
 			            	$.ajax({
@@ -644,7 +663,7 @@
 			            }
 			        });
 	            }
-			});*/
+			});
         });
 
 	</script>
