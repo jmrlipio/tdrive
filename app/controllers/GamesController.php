@@ -291,7 +291,6 @@ class GamesController extends \BaseController {
 
 		$carriers = [];	
 
-
 		foreach($game->apps as $app) 
 		{
 			$lang = '';
@@ -310,6 +309,7 @@ class GamesController extends \BaseController {
 						);
 				}
 		}
+		dd($carriers);
 
 		return json_encode($carriers);
 
@@ -345,7 +345,7 @@ class GamesController extends \BaseController {
 		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
 
 		// $url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
-		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
+		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid='. Auth::user()->id;
 
 		$response = file_get_contents($url);
 

@@ -155,17 +155,11 @@
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
-									@if(Auth::check())
-										<a href="#carrier-select-container" data-id="{{ $game['id'] }}" app-id="{{$game['app_id']}}" class="game-free">Free</a>
-									@else
-										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" class="game-free">Free</a>
-									@endif
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">Free</a>
 								@else
-									@if(Auth::check())
-										<a href="#carrier-select-container" id="buy" data-id="{{ $game['id'] }}" app-id="{{$game['app_id']}}" class="game-buy buy">{{ trans('global.Buy') }} </a>
-									@else
-										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" id="buy"  class="game-buy buy">{{ trans('global.Buy') }}</a>	
-									@endif
+
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
+
 								@endif
 							</div>
 						</div>
@@ -230,17 +224,10 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									@if(Auth::check())
-										<a href="#carrier-select-container" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
-									@else
-										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
-									@endif
+									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}"  class="game-free">Free</a>
 								@else
-									@if(Auth::check())
-										<a href="#carrier-select-container" id="buy" data-id="{{ $app->pivot->game_id }}" app-id="{{$app->pivot->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>
-									@else
-										<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" id="buy" data-id="{{ $app->pivot->game_id }}" app-id="{{$app->pivot->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>
-									@endif
+
+									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 
 								@endif
 							</div>
