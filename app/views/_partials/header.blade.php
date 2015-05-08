@@ -20,6 +20,20 @@ $game_settings = GameSetting::all();
 		{{ $general_settings[2]->value }}
 	@endif
 
+	@if(isset($news->id))
+		 <?php $thumbnail = $news->featured_image; ?>
+		 <?php if( isset($_GET['lang']) ) : ?>
+		  <?php $content = News::getNewsByLang($news->id, $_GET['lang']); ?>
+		   <?php if($content) : ?>
+		    <meta property="og:locale" content="en_US" />
+		    <meta property="og:url" content="{{ url() }}/news/{{ $content->pivot->news_id }}?lang={{ $_GET['lang'] }}" />
+		    <meta property="og:title" content="{{ $content->pivot->title }}" />
+		    <meta property="og:description" content="test" />
+		    <meta property="og:image" content="{{ url() }}/assets/news/{{ $content->pivot->featured_image }}" /> 
+		   <?php endif; ?> 
+		 <?php endif; ?>
+	@endif
+
 	@if(isset($game_id))
 	
 		@foreach($games as $game)

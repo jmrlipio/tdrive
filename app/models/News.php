@@ -46,4 +46,14 @@ class News extends \Eloquent {
     public function sliders() {
     	return $this->morphMany('Slider', 'slideable');
     }
+
+     public static function getNewsByLang($id, $lang) {
+    	$news = News::find($id);
+    	foreach($news->languages as $content) :
+			if($lang == $content->iso_code) :
+				return $content;
+			endif;
+		endforeach;
+			return false;
+    }
 }

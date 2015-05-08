@@ -16,7 +16,7 @@
 						'image_preview': this.closest('.media-box').find('.image-preview'),
 						'form': this.closest('.media-box').find('.post-media-form'),
 						'loader': this.closest('.media-box').find('.screenshot-loader'),
-
+						'orientation' : $('#orientation')
 					   },		   
 			methods = {
 						init: function() 
@@ -26,18 +26,41 @@
                             }
 							//onchange event
 							file.change(function() {
-								if(methods.validate(this)) 
+								var _file = this;
+								if(methods.checkExtension()) 
 								{
-									methods.show(this);									
-									methods.submit();
-								}	
+									methods.validate(_file, function(e){
+										if(methods.checkDimensions(e.width, e.height)) 
+										{
+											methods.show(_file);									
+											methods.submit();
+										}
+										else 
+										{
+											alert('Wrong dimensions!');
+										}
+									});	
+								}
 								else 
 								{
 									alert('Not a correct file format!');
 								}
 							})
 						},
-						validate: function(_file) 
+						validate: function(_file, _callback) 
+						{
+							var temp, img;
+						    if ((temp = _file.files[0])) {
+						        img = new Image();
+					              img.onload = function() {
+										_callback(this);	
+					              }
+						        img.src = _URL.createObjectURL(temp);
+						    }
+
+							return true;
+						},
+						checkExtension: function() 
 						{
 							var val = file.val().toLowerCase();
 							var regex = new RegExp("(.*?)\.(jpg|png|jpeg)$");
@@ -46,17 +69,6 @@
 								file.val('');
 								return false;
 							}
-
-							var temp, img;
-						    if ((temp = _file.files[0])) {
-						        img = new Image();
-						        img.onload = function() {
-						        	//check dimensions
-						 
-						            console.log(this.width + " " + this.height);
-						        }
-						        img.src = _URL.createObjectURL(temp);
-						    }
 
 							return true;
 						},
@@ -104,41 +116,51 @@
 				            	}
 					       	});
 						},
-						checkDimensions: function(_type) 
+						checkDimensions: function(_width, _height) 
 						{
 							var type = file.attr('name');
+							var __width, __height
+
 							if(type == 'promos') 
 							{
-					    		width = 1024;
-					    		height = 768;
+					    		__width = 1024;
+					    		__height = 500;
+					    		/*__width = 450;
+					    		__height = 549;*/
 						    } 
 						    else if(type == 'icons')
 						    {
-						    	width = 512;
-						    	height = 512;
+						    	__width = 512;
+						    	__height = 512;
 						    } 
 						    else if(type == 'homepage') 
 						    {
-						    	width = 1024;
-						    	height = 768;
+						    	__width = 1024;
+						    	__height = 768;
 						    } 
 						    else if(type == 'screenshot')
 						    {
 
-						    	if(orientation == 'landscape') 
+						    	if(selector['orientation'] == 'landscape') 
 						    	{
-						    		width = 800;
-						    		height = 480;
+						    		__width = 800;
+						    		__height = 480;
 						    	} 
 						    	else 
 						    	{
-						    		width = 480;
-						    		height = 500;
+						    		__width = 480;
+						    		__height = 500;
 						    	}
 						    }
-						    else {}
 
+						    console.log(_width + "-" + __width + "; " + _height + "-" + __height );
+						    
+						    if(_width != __width && _height != __height) 
+						    {
+						    	return false;
+						    }
 
+						    return true;
 						}
 					  };
 
