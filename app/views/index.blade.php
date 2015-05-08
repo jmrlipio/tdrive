@@ -157,9 +157,7 @@
 								@if ($game['price'] == 0)
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">Free</a>
 								@else
-
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
-
 								@endif
 							</div>
 						</div>
@@ -224,11 +222,9 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}"  class="game-free">Free</a>
+									<a href="#carrier-select-container" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
 								@else
-
-									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
-
+									<a href="#carrier-select-container" id="buy" data-id="{{  $app->pivot->game_id }}" app-id="{{$app->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 								@endif
 							</div>
 						</div>
@@ -589,7 +585,6 @@
 			 	url: "{{ url() }}/games/post/carrier",
 			 	data: {id: id},
 			 	success:function(data) {
-			 		
 			 		var carriers = jQuery.parseJSON(data);
 			 		console.log(carriers);
 					var append = '<select name="selected-carrier" id="carrier-select">';
@@ -610,7 +605,7 @@
 					}
                 }
             });
-			
+
 			$('.game-buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
