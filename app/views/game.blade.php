@@ -23,6 +23,7 @@
 @stop
 
 @section('content')
+
 	<?php $game_image = $game->slug;  ?>
 	{{ Form::token() }}
 
@@ -104,6 +105,7 @@
 		</a>
 
 		@if(Auth::check())
+
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
@@ -662,19 +664,20 @@
         // });
 
 		$("#buy").on('click',function() {
+			var id = {{ $game_id }};
 			$('#carrier-select').remove();
 			 $.ajax({
-			 	type: "get",
-			 	url: "{{ URL::route('games.carrier', $game->id) }}",
-			 	dataType: "json",
-			 	complete:function(data) {
+			 	type: "post",
+			 	url: "{{ url() }}/games/post/carrier",			 	
+			 	data: {id: id},
+			 	success:function(data) {
 			 		
-			 		var carriers = $.parseJSON(data['responseText']);
+			 		var carriers = jQuery.parseJSON(data);
 					var append = '<select id="carrier-select">';
 
 					for(x = 0; x < carriers.length; x++ ) 
 					{
-						append += '<option value="' + carriers[x].id + '">' + carriers[x].carrier + '</option>';
+						append += '<option name="selected-carrier" value="' + carriers[x].app_id +'-' + carriers[x].cid + '">' + carriers[x].carrier + '</option>';
 					}
 					append += '</select>';
 				
@@ -691,8 +694,9 @@
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none',
 	            afterClose: function() {
-	            	var app_id = 'blazing-dribble-globe-en';
-	            	var user_id = '';
+	            	//var app_id = 'blazing-dribble-globe-en';
+	            	var app_id = {{ $app_id }};
+	            	var user_id = {{ Auth::user()->id }};
 	            	$.fancybox({
 			            'width': '80%',
 			            'height': '60%',
@@ -786,7 +790,7 @@
 
 	             	$.ajax({
 			 		 	type: "get",
-			 		 	url: "{{ URL::route('games.status', $game->id) }}",
+			 		 	url: "{{ URL::route('games.status', $game_id) }}",
 			 		 	complete:function(data) {
 			 				if(data['responseText'] == 1) {
 			 					$('#game-download').css('display', 'none');

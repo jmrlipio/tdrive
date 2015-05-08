@@ -83,7 +83,11 @@ class CategoriesController extends \BaseController {
 	{
 		$category = Category::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Category::$rules);
+		$rules = array(
+		        'category'=>'required|unique:categories,category,'.$id 
+		        );
+
+		$validator = Validator::make($data = Input::all(), $rules);
 
 		if ($validator->fails())
 		{

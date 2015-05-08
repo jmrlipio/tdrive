@@ -13,7 +13,7 @@
 			width: 130px;
 			padding: 5px 0;
 		}
-		.title {float: left !important;}
+	.title {float: left !important;}
 </style>
 @stop
 
@@ -23,11 +23,11 @@
 		<h1 class="title">{{ trans('global.Latest news') }}</h1>
 		
 		{{Form::open(array('id'=>'year'))}}
-
-			<div id="token">{{ Form::token() }}</div>
+			
 			<span id="custom-dd">	
 				{{ Form::select('year', array('default' => trans('global.Please select')) + $year, 'default', array('class' => 'select-year', 'id' => 'select-year')) }}
 			</span>
+			
 		{{Form::close()}}
 
 		<div id="token">{{ Form::token() }}</div>

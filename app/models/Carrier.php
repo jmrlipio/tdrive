@@ -41,6 +41,23 @@ class Carrier extends \Eloquent {
     	return $this->belongsTo('Language');
     }
 
+    public static function getCarriers($game_id){
+        $game = Game::find($game_id);
+        $carriers = array();
+
+        foreach ($game->apps as $app) {
+            if($app->pivot->status == Constant::PUBLISH )
+            {
+                $carriers[] = array(
+                    'carrier_name' => $app->pivot->carrier,
+                    'id' => $app->pivot->carrier_id,
+                    'language' => $app->pivot->language_id
+                    );
+            }
+        }
+        return $carriers;
+
+    }
 
 	// public function sales() {
 	// 	return $this->belongsToMany('Game', 'sale_games');

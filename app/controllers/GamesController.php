@@ -300,11 +300,16 @@ class GamesController extends \BaseController {
 					$lang = $language->language;
 
 			}
-			$carriers[] = array(
-						'id' =>  $app->pivot->app_id,
-						'carrier' => $app->carrier . ' - ' . $lang
-				);
+			  if($app->pivot->status == Constant::PUBLISH )
+	            {
+					$carriers[] = array(
+								'app_id' =>  $app->pivot->app_id,
+								'carrier' => $app->carrier . ' - ' . $lang,
+								'cid' => $app->pivot->carrier_id
+						);
+				}
 		}
+		dd($carriers);
 
 		return json_encode($carriers);
 
@@ -313,7 +318,13 @@ class GamesController extends \BaseController {
 
 	public function getCarrierDetails($id) {	
 		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=' . $id . '&carrier_id=' . Input::get('carrier_id') . '&uuid=' . Auth::user()->id;
-		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
+		$data = explode("-",Input::get('selected-carrier'));
+		$app_id = $data[0];
+		$carrier_id = $data[1];
+
+		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
+		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id='.$app_id.'&carrier_id='.$carrier_id.'&uuid='.Auth::user()->id;
+		
 		$response = file_get_contents($url);
 
 		return $response;
@@ -334,7 +345,7 @@ class GamesController extends \BaseController {
 		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
 
 		// $url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
-		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
+		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid='. Auth::user()->id;
 
 		$response = file_get_contents($url);
 
