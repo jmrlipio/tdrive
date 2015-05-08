@@ -1,9 +1,13 @@
 @extends('admin._layouts.admin')
-
+@section('stylesheets')
+	<style>
+		.media-box { float: none !important; padding-left: 0 !important; }
+	</style>
+@stop
 @section('content')
 	@include('admin._partials.game-nav')
 	<article>
-		{{ Form::model($discount, array('route' => array('admin.discounts.update', $discount->id), 'method' => 'put', 'enctype'=> 'multipart/form-data', 'files' => true, 'id' => 'tab-container', 'class' => 'large-form tab-container')) }}
+		
 			<h2>Edit Discount</h2>
 			<br>
 			@if(Session::has('message'))
@@ -13,6 +17,32 @@
 			@endif
 			<div class='panel-container'>
 				<ul>
+					<li>
+						<?php $image = $discount->featured_image; ?>
+						
+						{{ Form::label('featured_image', 'Featured Image:') }}
+
+						<div class="media-box" id="featured_imagec">
+							
+							{{ Form::open(array('route' => array('admin.games.postupdate-media', $discount->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
+							@if($image)
+								<img src="{{ asset('assets/discounts') }}/{{ $image }}" class="image-preview" alt="image_preview"/>
+			            	@else
+			            		<img src="{{ asset('images/default-450x200.png') }}" class="image-preview" alt="image_preview"/>
+			            	@endif
+			            	 <div style="position:relative; width: 100px; top: -35px">
+			              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
+			                    <span class="screenshot-loader" >change</span>
+			                    <input type="file" name="featured_image" id="featured_image" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
+			             		</a>
+				        	</div>
+				        	{{ Form::close() }}
+			            </div>
+
+						<div class="clear"></div>
+
+					</li>
+					{{ Form::model($discount, array('route' => array('admin.discounts.update', $discount->id), 'method' => 'put', 'enctype'=> 'multipart/form-data', 'files' => true, 'id' => 'tab-container', 'class' => 'large-form tab-container')) }}
 					<li>
 						{{ Form::label('title', 'Discount Name: ') }}
 						{{ Form::text('title') }}
@@ -57,26 +87,21 @@
 						{{ Form::text('end_date', null, array('id' => 'end_date', 'class' => 'datepicker')) }}
 						{{ $errors->first('end_date', '<p class="error">:message</p>') }}
 					</li>
-					<li>
-						<div class="media-box">
-							{{ HTML::image(Request::root() . '/assets/discounts/' . $discount->featured_image, null) }}
-						</div>
+					
 
-						{{ Form::label('featured_image', 'Featured Image:') }}
-						{{ Form::file('featured_image') }}
-						{{ $errors->first('featured_image', '<p class="error">:message</p>') }}
-					</li>
 					<li>
 						{{ Form::submit('Save') }}
-					</li>
+					</li>			
 					
 				</ul>
 			</div>
+
 		{{ Form::close() }}
 	</article>
 	
 	{{ HTML::script('js/chosen.jquery.js') }}
 	{{ HTML::script('js/form-functions.js') }}
+	{{ HTML::script('js/image-uploader.js') }}
 	<script>
 	(function(){
 		$(".chosen-select").chosen();
@@ -89,6 +114,15 @@
     	});
 
     	CKEDITOR.replace('content');
+
+    	//promo, icons, homepage
+
+		$("#featured_image").uploadBOOM({
+			'url': '{{ URL::route("admin.discounts.postupdate-media", $discount->id) }}',
+			'before_loading': '<span class="loader-icon"></span>Saving..',
+			'after_loading' : 'Change'
+		});
+
 	})();
 	</script>
 

@@ -1,5 +1,9 @@
 @extends('admin._layouts.admin')
-
+@section('stylesheets')
+	<style>
+		.media-box { float: none !important; padding-left: 0 !important; }
+	</style>
+@stop
 @section('content')
 	<article>
 	<h2>Edit News</h2>
@@ -12,7 +16,55 @@
 	<br>
 	<div class='large-form tab-container' id='tab-container'>
 		<div class='panel-container'>
-			<ul id="content">
+			<ul id="content">				
+					<li>
+
+						<?php $image = $news->featured_image; ?>
+						
+						{{ Form::label('featured_image', 'Featured Image:') }}
+
+						<div class="media-box" id="featured_imagec">
+							
+							{{ Form::open(array('route' => array('admin.news.postupdate-media', $news->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
+							@if($image)
+								<img src="{{ asset('assets/news') }}/{{ $image }}" class="image-preview" alt="image_preview"/>
+			            	@else
+			            		<img src="{{ asset('images/default-450x200.png') }}" class="image-preview" alt="image_preview"/>
+			            	@endif
+			            	 <div style="position:relative; width: 100px; top: -35px">
+			              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
+			                    <span class="screenshot-loader" >change</span>
+			                    <input type="file" name="featured_image" id="featured_image" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
+			             		</a>
+				        	</div>
+				        	{{ Form::close() }}
+			            </div>
+						<div class="clear"></div>
+					</li>
+					<li>
+						<?php $homepage_image = $news->homepage_image; ?>
+						
+						{{ Form::label('featured_image', 'Featured Image:') }}
+
+						<div class="media-box" id="featured_imagec">
+							
+							{{ Form::open(array('route' => array('admin.news.postupdate-media', $news->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
+							@if($homepage_image)
+								<img src="{{ asset('assets/news') }}/{{ $image }}" class="image-preview" alt="image_preview"/>
+			            	@else
+			            		<img src="{{ asset('images/default-450x200.png') }}" class="image-preview" alt="image_preview"/>
+			            	@endif
+			            	 <div style="position:relative; width: 100px; top: -35px">
+			              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
+			                    <span class="screenshot-loader" >change</span>
+			                    <input type="file" name="homepage_image" id="homepage_image" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
+			             		</a>
+				        	</div>
+				        	{{ Form::close() }}
+			            </div>
+						<div class="clear"></div>
+					</li>
+
 				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
 					<li>
 						{{ Form::label('main_title', 'Title: ') }}
@@ -40,25 +92,7 @@
 						{{-- Form::text('release_date', null, array('id' => 'release_date')) --}}
 						{{-- $errors->first('release_date', '<p class="error">:message</p>') --}}
 					</li>
-					-->
-					<li>
-						<div class="media-box">
-							{{ HTML::image(Request::root() . '/assets/news/' . $news->featured_image, null) }}
-						</div>
-
-						{{ Form::label('featured_image', 'Featured Image:') }}
-						{{ Form::file('featured_image') }}
-						<div class="clear"></div>
-					</li>
-					<li>
-						<div class="media-box">
-							{{ HTML::image(Request::root() . '/assets/news/' . $news->homepage_image, null) }}
-						</div>
-
-						{{ Form::label('homepage_image', 'Homepage Image:') }}
-						{{ Form::file('homepage_image') }}
-						<div class="clear"></div>
-					</li>
+					-->					
 					{{ Form::hidden('user_id', Auth::user()->id) }}
 					{{ Form::submit('Save') }}
 				{{ Form::close() }}
@@ -74,6 +108,7 @@
 	{{ HTML::script('js/jquery.easytabs.min.js') }}
 	{{ HTML::script('js/chosen.jquery.js') }}
 	{{ HTML::script('js/form-functions.js') }}
+	{{ HTML::script('js/image-uploader.js') }}
 
 	<script>
 	var gallery = $('#img-gallery ul'), 
@@ -167,6 +202,18 @@
 	// On submit of form
 	$('#tab-container').on('submit', function() {
 		$('.img-url').prop('disabled', false);
+	});
+
+	$("#featured_image").uploadBOOM({
+		'url': '{{ URL::route("admin.news.postupdate-media", $news->id) }}',
+		'before_loading': '<span class="loader-icon"></span>Saving..',
+		'after_loading' : 'Change'
+	});
+
+	$("#homepage_image").uploadBOOM({
+		'url': '{{ URL::route("admin.news.postupdate-media", $news->id) }}',
+		'before_loading': '<span class="loader-icon"></span>Saving..',
+		'after_loading' : 'Change'
 	});
 
     </script>

@@ -134,7 +134,7 @@ class DiscountsController extends \BaseController {
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
 
-		if(Input::hasFile('featured_image')) {
+		/*if(Input::hasFile('featured_image')) {
 			$featured = Input::file('featured_image');
 			$filename = time() . "_" . $featured->getClientOriginalName();
 			$path = public_path('assets/discounts/' . $filename);
@@ -143,7 +143,7 @@ class DiscountsController extends \BaseController {
 			$data['featured_image'] = $filename;
 		} else {
 			$data['featured_image'] = $discount->featured_image;
-		}
+		}*/
 		
 		if ($validator->fails())
 		{
@@ -181,6 +181,29 @@ class DiscountsController extends \BaseController {
 		return Redirect::route('admin.discounts.index')
 			->with('message', 'Something went wrong. Try again.')
 			->with('sof', 'failed');
+	}
+
+	public function updatePostMedia($id)
+	{
+		$discount = Discount::find($id);
+
+		if(Input::file('featured_image')) 
+		{
+			$featured = Input::file('featured_image');
+			$filename = time() . "_" . $featured->getClientOriginalName();
+			$path = public_path('assets/discounts/' . $filename);
+			$media = Image::make($featured->getRealPath())->save($path);
+
+			if($media)
+			{
+				File::delete(public_path('assets/discounts/' . $discount->featured_image));
+			}	
+
+			$discount->featured_image = $filename;
+			$discount->save();	
+
+			return Response::json(array('message'=>"update successful"));
+		}
 	}
 
 }
