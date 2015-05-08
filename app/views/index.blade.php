@@ -154,7 +154,7 @@
 								@endif
 							</div>
 							<div class="game-button">
-								@if
+								@if ($game['price'] == 0)
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">Free</a>
 								@else
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
