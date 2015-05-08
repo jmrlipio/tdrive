@@ -44,13 +44,13 @@
 					<li>
 						<?php $homepage_image = $news->homepage_image; ?>
 						
-						{{ Form::label('featured_image', 'Featured Image:') }}
+						{{ Form::label('homepage_image', 'Homepage Image:') }}
 
 						<div class="media-box" id="featured_imagec">
 							
 							{{ Form::open(array('route' => array('admin.news.postupdate-media', $news->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
 							@if($homepage_image)
-								<img src="{{ asset('assets/news') }}/{{ $image }}" class="image-preview" alt="image_preview"/>
+								<img src="{{ asset('assets/news') }}/{{ $homepage_image }}" class="image-preview" alt="image_preview"/>
 			            	@else
 			            		<img src="{{ asset('images/default-450x200.png') }}" class="image-preview" alt="image_preview"/>
 			            	@endif

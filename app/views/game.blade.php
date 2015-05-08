@@ -105,6 +105,7 @@
 		</a>
 
 		@if(Auth::check())
+		<?php $user_id = Auth::user()->id; ?>
 
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
@@ -696,7 +697,7 @@
 	            afterClose: function() {
 	            	//var app_id = 'blazing-dribble-globe-en';
 	            	var app_id = {{ $app_id }};
-	            	var user_id = {{ Auth::user()->id }};
+	            	var user_id = {{ $user_id }};
 	            	$.fancybox({
 			            'width': '80%',
 			            'height': '60%',
