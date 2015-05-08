@@ -150,7 +150,7 @@
 
 							@unless ($apps->pivot->price == 0)
             
-				            	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+				            	<?php $dc = Discount::checkDiscountedGame($game->id);
 				              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
 				              	?>
 				             
