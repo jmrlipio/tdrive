@@ -52,6 +52,7 @@
 						        img = new Image();
 						        img.onload = function() {
 						        	//check dimensions
+						 
 						            console.log(this.width + " " + this.height);
 						        }
 						        img.src = _URL.createObjectURL(temp);

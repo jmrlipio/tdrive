@@ -154,19 +154,10 @@
 								@endif
 							</div>
 							<div class="game-button">
-								@if ($game['price'] == 0)
-<<<<<<< HEAD
-									<a href="#carrier-select-container" data-id="{{ $game['id'] }}" class="game-free">Free</a>
-								@else
-
-									<a href="#carrier-select-container" id="buy" data-id="{{ $game['id'] }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
-=======
+								@if
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">Free</a>
 								@else
-
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
->>>>>>> 0c91c037bfdb09ede74cc5320f6ccff3d3891b36
-
 								@endif
 							</div>
 						</div>
@@ -594,12 +585,6 @@
 			 	url: "{{ url() }}/games/post/carrier",
 			 	data: {id: id},
 			 	success:function(data) {
-<<<<<<< HEAD
-			 		
-			 		var carriers = jQuery.parseJSON(data);
-=======
->>>>>>> 0c91c037bfdb09ede74cc5320f6ccff3d3891b36
-			 		
 			 		var carriers = jQuery.parseJSON(data);
 			 		console.log(carriers);
 					var append = '<select name="selected-carrier" id="carrier-select">';
@@ -620,11 +605,7 @@
 					}
                 }
             });
-<<<<<<< HEAD
 
-=======
-			
->>>>>>> 0c91c037bfdb09ede74cc5320f6ccff3d3891b36
 			$('.game-buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
