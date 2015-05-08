@@ -6,6 +6,7 @@
 	$.fn.uploadBOOM = function(options, callback)  
 	{
 		var file = this;
+		var _URL = window.URL || window.webkitURL;
 		var Data = {
 					'url' : '',
 					'before_loading' : '',

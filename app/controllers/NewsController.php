@@ -245,12 +245,12 @@ class NewsController extends \BaseController {
 
 		$edit_rules = News::$rules;
 
-		$edit_rules['featured_image'] = '';
-		$edit_rules['homepage_image'] = '';
+		/*$edit_rules['featured_image'] = '';
+		$edit_rules['homepage_image'] = '';*/
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
 
-		if(Input::hasFile('featured_image')) {
+		/*if(Input::hasFile('featured_image')) {
 			$featured = Input::file('featured_image');
 			$filename = time() . "_" . $featured->getClientOriginalName();
 			$path = public_path('assets/news/' . $filename);
@@ -270,7 +270,7 @@ class NewsController extends \BaseController {
 			$data['homepage_image'] = $filename;
 		} else {
 			$data['homepage_image'] = $news->homepage_image;
-		}
+		}*/
 		
 		if ($validator->fails())
 		{
@@ -486,6 +486,47 @@ class NewsController extends \BaseController {
 
 		return Redirect::route('admin.news.index')
 			->with('message', $message);
+	}
+
+	public function updatePostMedia($id)
+	{
+		$news = News::find($id);
+
+		if(Input::file('featured_image')) 
+		{
+			$featured = Input::file('featured_image');
+			$filename = time() . "_" . $featured->getClientOriginalName();
+			$path = public_path('assets/news/' . $filename);
+			$media = Image::make($featured->getRealPath())->save($path);
+
+			if($media)
+			{
+				File::delete(public_path('assets/news/' . $news->featured_image));
+			}	
+
+			$news->featured_image = $filename;
+			$news->save();	
+
+			return Response::json(array('message'=>"update successful"));
+		}
+
+		if(Input::file('homepage_image')) 
+		{
+			$homepage_image = Input::file('homepage_image');
+			$filename = time() . "_" . $homepage_image->getClientOriginalName();
+			$path = public_path('assets/news/' . $filename);
+			$media = Image::make($homepage_image->getRealPath())->save($path);
+
+			if($media)
+			{
+				File::delete(public_path('assets/news/' . $news->homepage_image));
+			}	
+
+			$news->homepage_image = $filename;
+			$news->save();	
+
+			return Response::json(array('message'=>"update successful"));
+		}
 	}
 
 

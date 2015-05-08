@@ -89,6 +89,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('languages', 'LanguagesController');
     Route::resource('carriers', 'CarriersController');
     Route::resource('discounts', 'DiscountsController');
+    Route::post('discounts/{id}/edit-media-post', array('as' => 'admin.discounts.postupdate-media', 'uses' => 'DiscountsController@updatePostMedia'));
+    Route::post('news/{id}/edit-media-post', array('as' => 'admin.news.postupdate-media', 'uses' => 'NewsController@updatePostMedia'));
 
 
 
