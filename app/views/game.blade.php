@@ -120,7 +120,6 @@
 					            	<?php $dc = Discount::checkDiscountedGame($game->id);
 					              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
 					              	?>
-					             
 						            @if($dc != 0)
 						              
 						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
@@ -332,7 +331,7 @@
 						<div class="meter clearfix">
 							<span style="width: {{ ($ratings['five'] != 0) ? ($ratings['five'] / $ratings['count']) * 100 : 5 }}%"></span>
 
-							<p class="total">{{ $ratings['five'] }}</p>
+							<p class="total">{{ ($ratings['five'] != 0) ? $ratings['five'] : 0 }}</p>
 						</div>
 					
 					</div>
@@ -348,7 +347,7 @@
 						<div class="meter clearfix">
 							<span style="width: {{ ($ratings['four'] != 0) ? ($ratings['four'] / $ratings['count']) * 100 : 5 }}%"></span>
 
-							<p class="total">{{  $ratings['four']  }}</p>
+							<p class="total">{{ ($ratings['four'] != 0) ? $ratings['four'] : 0 }}</p>
 						</div>
 					</div>
 
@@ -362,7 +361,7 @@
 						<div class="meter clearfix">
 							<span style="width: {{ ($ratings['three'] != 0) ? ($ratings['three'] / $ratings['count']) * 100 : 5 }}%"></span>
 
-							<p class="total">{{  $ratings['three']  }}</p>
+							<p class="total">{{ ($ratings['three'] != 0) ? $ratings['three'] : 0 }}</p>
 						</div>
 					</div>
 
@@ -375,7 +374,7 @@
 						<div class="meter clearfix">
 							<span style="width: {{ ($ratings['two'] != 0) ? ($ratings['two'] / $ratings['count']) * 100 : 5}}%"></span>
 
-							<p class="total">{{ $ratings['two'] }}</p>
+							<p class="total">{{ ($ratings['two'] != 0) ? $ratings['two'] : 0 }}</p>
 						</div>
 					</div>
 
@@ -387,7 +386,7 @@
 						<div class="meter clearfix">
 							<span style="width: {{ ($ratings['one'] != 0) ? ($ratings['one'] / $ratings['count']) * 100 : 5 }}%"></span>
 
-							<p class="total">{{ $ratings['one']  }}</p>
+							<p class="total">{{ ($ratings['one'] != 0) ? $ratings['one'] : 0 }}</p>
 						</div>
 					</div>
 

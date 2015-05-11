@@ -321,7 +321,7 @@ class GamesController extends \BaseController {
 		$data = explode("-",Input::get('selected-carrier'));
 		$app_id = $data[0];
 		$carrier_id = $data[1];
-
+		dd($data);
 		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
 		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id='.$app_id.'&carrier_id='.$carrier_id.'&uuid='.Auth::user()->id;
 		

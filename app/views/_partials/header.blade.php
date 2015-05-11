@@ -199,7 +199,10 @@ $game_settings = GameSetting::all();
 
 							foreach($games as $game){								
 								foreach($game->apps as $app) {
-									$arr_id[] = $app->pivot->language_id;						
+									if($app->pivot->status == Constant::PUBLISH ) 
+									{
+										$arr_id[] = $app->pivot->language_id;
+									}						
 								}
 							}
 
