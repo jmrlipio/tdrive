@@ -2,7 +2,7 @@
 @section('stylesheets')
 
 	<style>
-		.name h1 {padding: 0 0 10px 0 !important;}
+		.name h1 {padding: 0 0 10px 0 !important; font-size: 24px;}
 		#profile .details > div {
 		 	margin-bottom: 3px !important;
 		}

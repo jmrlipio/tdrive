@@ -193,6 +193,7 @@ Route::get('logout', array('as' => 'users.logout', 'uses' => 'UsersController@ge
 Route::get('register', array('as' => 'users.register', 'uses' => 'UsersController@getRegister'));
 Route::post('register', array('as' => 'users.register.post', 'uses' => 'UsersController@postRegister'));
 Route::get('update', array('as' => 'users.update.account', 'uses' => 'UsersController@getUpdate'));
+Route::post('update', array('as' => 'users.update.account.post', 'uses' => 'UsersController@postUpdate'));
 
 Route::group(array('before' => 'auth'), function(){
     Route::resource('users', 'UsersController');
