@@ -7,12 +7,39 @@
 		 	margin-bottom: 3px !important;
 		}
 		input[type="submit"] {
-		  background: #e9548e;
-		  color: #fff;
-		  padding: 4px 6px;
-		  text-transform: lowercase;
+			background: #e9548e;
+			color: #fff;
+			padding: 4px 6px;
+			text-transform: lowercase;
 		}
 		.update_account a { color: #e9548e;}
+		.thumb img {height: 108px !important;}
+		.btn {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: normal;
+			text-align: center;
+			vertical-align: middle;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			cursor: pointer;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 0 6px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		.btn-primary {
+			color: #fff;
+			background-color: #337ab7;
+			border-color: #2e6da4;
+		}
 
 	</style>
 @stop
@@ -33,7 +60,7 @@
 							@else
 								<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img" class="image-preview" alt="image_preview">
 							@endif
-		            	 <div style="position:relative; width: 100px; top: 0px">
+		            	 <div style="position:relative; width: 100px; top: -22px">
 		              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
 		                    <span class="screenshot-loader" >change</span>
 		                    <input type="file" name="profile_image" id="profile_image" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
