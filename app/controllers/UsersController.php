@@ -155,7 +155,7 @@ class UsersController extends \BaseController {
 
         } catch(Exception $e) {
 
-        	return Redirect::to('login')->with('fail','Your email/password was incorrect');
+        	return Redirect::to('login')->with('fail','Your username/password was incorrect');
 
         }
 
@@ -177,7 +177,7 @@ class UsersController extends \BaseController {
 
 			} else {
 
-				return Redirect::to('login')->with('fail','Your email/password was incorrect');
+				return Redirect::to('login')->with('fail','Your username/password was incorrect');
 			}
 
         } else {
