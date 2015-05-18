@@ -44,6 +44,11 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, simple checking.
 |
 */
+Route::filter('carrier_check', function() {
+    if ( !Session::has('carrier') ) { 
+        return Redirect::to('/');
+    }
+});
 
 Route::filter('admin', function($route, $request)
 {
