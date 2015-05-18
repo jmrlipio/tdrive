@@ -29,7 +29,7 @@ return array(
 	'Change Profile Picture' => 'Change Profile Picture',
 	'gender' => 'gender',
 	'birthday' => 'birthday',
-	'Update Account' => 'Update Account',
+	'Update Profile' => 'Update Profile',
 
 
 	//Categories

@@ -63,7 +63,7 @@
 		            	 <div style="position:relative; width: 100px; top: -22px">
 		              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
 		                    <span class="screenshot-loader" >change</span>
-		                    <input type="file" name="profile_image" id="profile_image" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
+		                    <input type="file" name="profile_image" id="profile_image" class="media-file" style='width:61%;position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
 		             		</a>
 		             	</div>
 		             {{Form::close()}}
@@ -74,7 +74,7 @@
 				<div class="name"><h1 class="title">{{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}}</h1></div>
 				<div class="email">{{{ Auth::user()->email }}}</div>
 				
-				<div class="update_account"><a href="{{ route('users.update.account') }}">{{ trans('global.Update Account') }}</a></div>
+				<div class="update_account"><a href="{{ route('users.update.account') }}">{{ trans('global.Update Profile') }}</a></div>
 				
 				<div class="change_password"><a href="{{ route('password.change') }}">{{ trans('global.Change Password') }}</a>
 				
