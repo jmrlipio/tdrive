@@ -115,6 +115,8 @@ class UsersController extends \BaseController {
 			$user->code = $code;
 			$user->role = "member";
 			$user->mobile_no = Input::get('mobile_no');
+			$user->gender = Input::get('gender');
+			$user->birthday = Input::get('birthday');
 
 			$user->save();
 

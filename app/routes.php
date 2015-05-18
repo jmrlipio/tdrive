@@ -28,7 +28,7 @@ Route::get('games/related/{id}', array('as' => 'games.related', 'uses' => 'Listi
 Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses' => 'ListingController@showMoreRelatedGames'));
 
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
-Route::post('profile/{id}/change', array('as' => 'user.profile.change', 'uses' => 'ProfileController@changeProfile'));
+Route::get('profile/{id}/change', array('as' => 'user.profile.change', 'uses' => 'ProfileController@changeProfile'));
 
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
@@ -192,6 +192,7 @@ Route::post('login', array('as' => 'login.post', 'uses' => 'UsersController@post
 Route::get('logout', array('as' => 'users.logout', 'uses' => 'UsersController@getLogout'));
 Route::get('register', array('as' => 'users.register', 'uses' => 'UsersController@getRegister'));
 Route::post('register', array('as' => 'users.register.post', 'uses' => 'UsersController@postRegister'));
+Route::get('update', array('as' => 'users.update.account', 'uses' => 'UsersController@getUpdate'));
 
 Route::group(array('before' => 'auth'), function(){
     Route::resource('users', 'UsersController');

@@ -1,7 +1,10 @@
 @extends('_layouts.form')
 
 @section('stylesheets')
+	{{ HTML::style('css/jquery-ui.css') }}
+	{{ HTML::style('css/jquery-ui.theme.css') }}
 	{{ HTML::style("css/form.css"); }}
+
 @stop
 
 @section('content')
@@ -39,6 +42,20 @@
 		</div>
 
 		<div class="control">
+			{{ Form::label('gender', trans('global.gender')) }}
+			{{ Form::select('gender', array('M' => 'Male', 'F' => 'Female'), 'M') }}
+			{{ $errors->first('gender', '<p class="error">:message</p>') }}
+		</div>
+
+		<div class="control">
+			{{ Form::label('birthday', trans('global.birthday')) }}
+			{{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => 'YYYY-MM-DD')) }}
+			{{ $errors->first('birthday', '<p class="error">:message</p>') }}
+		</div>
+
+		
+
+		<div class="control">
 			{{ Form::label('mobile_no', trans('global.mobile_no')) }}
 			{{ Form::text('mobile_no', null, array('class' => 'mobile_no','maxlength'=>"12")) }}
 			{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
@@ -74,6 +91,9 @@
 
 @section('javascripts')
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+	{{ HTML::script('js/jquery-ui.js') }}
+	{{ HTML::script('js/form-functions.js') }}
+	{{ HTML::script('js/chosen.jquery.js') }}
 
 	@include('_partials/scripts')
 
@@ -86,7 +106,18 @@
 			       this.value = this.value.replace(/[^0-9\.]/g, '');
 			    }
 			});
+
+			$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+	            var minValue = $(this).val();
+	            minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
+	            minValue.setDate(minValue.getDate()+1);
+	            $("#to").datepicker( "option", "minDate", minValue );
+	    	});
 		});
 
 	</script>
 @stop
+
+
+
+	

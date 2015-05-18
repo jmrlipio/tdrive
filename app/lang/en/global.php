@@ -27,6 +27,9 @@ return array(
 	'View all categories' => 'View all categories',
 	'Buy' => 'buy',
 	'Change Profile Picture' => 'Change Profile Picture',
+	'gender' => 'gender',
+	'birthday' => 'birthday',
+	'Update Account' => 'Update Account',
 
 
 	//Categories

@@ -12,6 +12,7 @@
 		  padding: 4px 6px;
 		  text-transform: lowercase;
 		}
+		.update_account a { color: #e9548e;}
 
 	</style>
 @stop
@@ -19,24 +20,43 @@
 
 	<div class="container">
 		<div class="relative">
-			<div class="thumb">
-				@if(Auth::user()->prof_pic != '')
-					<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}" id="profile_img">
-				@else
-					<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img">
-				@endif
+			<div class="thumb media-box">
+			<!-- 	@if(Auth::user()->prof_pic != '')
+				<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}" id="profile_img">
+			@else
+				<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img">
+			@endif -->
+
+					{{ Form::open(array('files' => true, 'id' => 'update-media', 'class' => 'post-media-form')) }}
+							@if(Auth::user()->prof_pic != '')
+								<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}" id="profile_img" class="image-preview" alt="image_preview">
+							@else
+								<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img" class="image-preview" alt="image_preview">
+							@endif
+		            	 <div style="position:relative; width: 100px; top: 0px">
+		              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
+		                    <span class="screenshot-loader" >change</span>
+		                    <input type="file" name="profile_image" id="profile_image" class="media-file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
+		             		</a>
+		             	</div>
+		             {{Form::close()}}
+
 			</div>
 
 			<div class="details">
 				<div class="name"><h1 class="title">{{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}}</h1></div>
 				<div class="email">{{{ Auth::user()->email }}}</div>
+				
+				<div class="update_account"><a href="{{ route('users.update.account') }}">{{ trans('global.Update Account') }}</a></div>
+				
 				<div class="change_password"><a href="{{ route('password.change') }}">{{ trans('global.Change Password') }}</a>
-				{{ Form::open(array('route' => array('user.profile.change', Auth::user()->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
 				
-					 {{ Form::file('image', array('onchange' => 'readURL(this);', 'required')) }}
-				
-					{{ Form::submit("Save", array("id" => "save-image")) }}
-				{{ Form::close()}}
+			<!-- 	{{ Form::open(array('route' => array('user.profile.change', Auth::user()->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
+			
+				 {{ Form::file('image', array('onchange' => 'readURL(this);', 'required')) }}
+			
+				{{ Form::submit("Save", array("id" => "save-image")) }}
+			{{ Form::close()}} -->
 				</div>
 			</div>
 		</div>
@@ -99,6 +119,7 @@
 @section('javascripts')
 	{{ HTML::script("js/fastclick.js"); }}
 	{{ HTML::script("js/jquery.polyglot.language.switcher.js"); }}
+	{{ HTML::script('js/image-uploader.js') }}
 	
 	@include('_partials/scripts')
 
@@ -106,7 +127,7 @@
 		FastClick.attach(document.body);
 		var token = $('input[name="_token"]').val();
 		
-		function readURL(input) {
+		/*function readURL(input) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
 		        reader.onload = function (e) {
@@ -114,9 +135,9 @@
 		        };
 		        reader.readAsDataURL(input.files[0]);
 		   	}
-		}
+		}*/
 
-		var load = 0;
+	/*	var load = 0;
 		var num = {{ $count }};
 		var page = {{ $page }};
 		var token = $('input[name="_token"]').val();
@@ -141,8 +162,40 @@
 						}
 					});
 				}
-			});
+			});*/
 
+	</script>
+
+	<script>
+	$( document ).ready(function() {
+		$('form').submit(function(){
+
+	    var required = $('[required]'); // change to [required] if not using true option as part of the attribute as it is not really needed.
+	    var error = false;
+
+	    for(var i = 0; i <= (required.length - 1);i++)
+	    {
+	        if(required[i].value == '') // tests that each required value does not equal blank, you could put in more stringent checks here if you wish.
+	        {
+	            required[i].style.backgroundColor = 'rgb(255,155,155)';
+	            error = true; // if any inputs fail validation then the error variable will be set to true;     
+	        }
+	    }
+
+		    if(error) // if error is true;
+		    {
+		        return false; // stop the form from being submitted.
+		    }
+		});
+
+
+		$("#profile_image").uploadBOOM({
+			'url': '{{ URL::route("user.profile.change", Auth::user()->id) }}',
+			'before_loading': '<span class="loader-icon"></span>Saving..',
+			'after_loading' : 'Change'
+		});
+
+	});
 	</script>
 
 @stop
