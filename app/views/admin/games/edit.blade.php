@@ -153,7 +153,7 @@
 						</li>
 						<div class="clear"></div>
 						<li>
-							{{ Form::label('promo', 'Promo Image:', array('class' => 'media-label')) }}
+							{{ Form::label('promo', 'Promo Image: (1024x500)', array('class' => 'media-label')) }}
 							<input type="hidden" value="this is a text" name="promo-code" />
 							<div id="message"></div>
 								<?php $image = Media::getGameImages($game->id, 'promos'); ?>
@@ -176,7 +176,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('icon', 'Icon:', array('class' => 'media-label')) }}
+							{{ Form::label('icon', 'Icon: (512x512)', array('class' => 'media-label')) }}
 								<?php $image = Media::getGameImages($game->id, 'icons'); ?>
 									<div class="media-box media-icon" id="iconc">
 										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
@@ -197,7 +197,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('homepage', 'Homepage Image:', array('class' => 'media-label')) }}
+							{{ Form::label('homepage', 'Homepage Image: (1024x768)', array('class' => 'media-label')) }}
 								<?php $image = Media::getGameImages($game->id, 'homepage'); ?>
 									<div class="media-box" id="homepagec">
 										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
@@ -224,7 +224,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('screenshots', 'Screenshots: ', array('class' => 'media-label')) }}
+							{{ Form::label('screenshots', 'Screenshots: (480x500)', array('class' => 'media-label', 'id' => 'ss-label')) }}
 							<div class="screenshot-box">
 								@foreach($selected_media as $media)
 									@if($media['type'] == 'screenshots')
@@ -443,9 +443,14 @@
     		var orientation = $('#orientation');
 			var orientation_post = $('.screenshot-media');
 			orientation_post.val(orientation.val());
-			
+			var label = '';	
+
 			orientation.change(function() {
-				orientation_post.val($(this).val());
+				orientation_post.val($(this).val());						
+		    	(orientation.val() == 'landscape') ? label = 'Screenshots: (800x480)' : label = 'Screenshots: (480x500)'
+		    	
+		    	$('#ss-label').text(label);
+		    	
 			})
 
 			$('.ss-media-file').uploadBOOM({

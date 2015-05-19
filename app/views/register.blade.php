@@ -43,7 +43,7 @@
 
 		<div class="control">
 			{{ Form::label('gender', trans('global.gender')) }}
-			{{ Form::select('gender', array('M' => 'Male', 'F' => 'Female'), 'M') }}
+			{{ Form::select('gender', array('M' => 'Male', 'F' => 'Female'), 'M', array('class'=>'select_gender')) }}
 			{{ $errors->first('gender', '<p class="error">:message</p>') }}
 		</div>
 
@@ -52,8 +52,6 @@
 			{{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => 'YYYY-MM-DD')) }}
 			{{ $errors->first('birthday', '<p class="error">:message</p>') }}
 		</div>
-
-		
 
 		<div class="control">
 			{{ Form::label('mobile_no', trans('global.mobile_no')) }}

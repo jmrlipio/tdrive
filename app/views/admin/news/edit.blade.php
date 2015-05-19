@@ -21,7 +21,7 @@
 
 						<?php $image = $news->featured_image; ?>
 						
-						{{ Form::label('featured_image', 'Featured Image:') }}
+						{{ Form::label('featured_image', 'Featured Image: (1024x500)') }}
 
 						<div class="media-box" id="featured_imagec">
 							
@@ -44,7 +44,7 @@
 					<li>
 						<?php $homepage_image = $news->homepage_image; ?>
 						
-						{{ Form::label('homepage_image', 'Homepage Image:') }}
+						{{ Form::label('homepage_image', 'Homepage Image: (1024x500)') }}
 
 						<div class="media-box" id="featured_imagec">
 							

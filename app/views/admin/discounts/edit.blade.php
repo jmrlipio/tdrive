@@ -20,7 +20,7 @@
 					<li>
 						<?php $image = $discount->featured_image; ?>
 						
-						{{ Form::label('featured_image', 'Featured Image:') }}
+						{{ Form::label('featured_image', 'Featured Image: (1024x500)') }}
 
 						<div class="media-box" id="featured_imagec">
 							
