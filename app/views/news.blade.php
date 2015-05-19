@@ -119,7 +119,7 @@
 
         // $("#share a").jqSocialSharer();
 
-        var url = '{{URL::current()}}';
+         var url = '{{URL::current()}}/?lang='+'{{ strtoupper(Session::get("locale")) }}';
 
 		var options = {
 
