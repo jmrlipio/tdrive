@@ -151,12 +151,8 @@ $game_settings = GameSetting::all();
   ga('send', 'pageview');
 
 </script>
-
 </head>
-
-
 <body id="{{ $page_id }}" class="{{ $page_class or '' }}">
-
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
 var js, fjs = d.getElementsByTagName(s)[0];
