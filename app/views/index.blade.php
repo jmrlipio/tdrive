@@ -222,9 +222,9 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="#carrier-select-container" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
+									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" class="game-free">Free</a>
 								@else
-									<a href="#carrier-select-container" id="buy" data-id="{{  $app->pivot->game_id }}" app-id="{{$app->app_id}}" class="game-buy buy">{{ trans('global.Buy') }} </a>	
+									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 								@endif
 							</div>
 						</div>

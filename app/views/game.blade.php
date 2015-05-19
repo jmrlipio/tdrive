@@ -117,10 +117,9 @@
 
 								@unless ($apps->pivot->price == 0)
             
-					            	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+					            	<?php $dc = Discount::checkDiscountedGame($game->id);
 					              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
 					              	?>
-					             
 						            @if($dc != 0)
 						              
 						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
@@ -150,7 +149,7 @@
 
 							@unless ($apps->pivot->price == 0)
             
-				            	<?php $dc = GameDiscount::checkDiscountedGames($game->id, $discounted_games);
+				            	<?php $dc = Discount::checkDiscountedGame($game->id);
 				              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
 				              	?>
 				             

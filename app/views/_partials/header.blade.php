@@ -166,19 +166,20 @@ js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1994919
 fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-@include('_partials/side_menu')
+	@include('_partials/side_menu')
 
 <div id="header">
-	<?php
-		$lang = (isset($_GET['locale'])) ? $_GET['locale'] : 'us'; 
-		// Session::set('locale', $lang);
-	?>
+		<?php
+			$lang = (isset($_GET['locale'])) ? $_GET['locale'] : 'us'; 
+			// Session::set('locale', $lang);
+		?>
 	<div class="container clearfix">
 		<a href="#" id="nav-toggle" class="menu-btn"><i class="fa fa-bars"></i></a>
 		<!-- <a href="{{ URL::previous(); }}" id="back"><i class="fa fa-angle-left"></i></a> -->
 		<a href="#" onClick="history.go(-1); return false;" id="back"><i class="fa fa-angle-left"></i></a>
 
 		<?php $tdrive = $general_settings[0]->value ?>
+
 		<div id="tdrive"><a href="{{ route('home.show') }}">{{ HTML::image("images/tdrive.png", "$tdrive") }}</a></div>
 
 		<div class="tablet fl clearfix">
@@ -191,19 +192,28 @@ fjs.parentNode.insertBefore(js, fjs);
 
 			<div class="fl">
 				<div class="top">
+
 					@if (Auth::check())
+						
 						<p><a href="{{ route('user.profile', Auth::user()->id) }}"><i class="fa fa-user"></i> {{ Auth::user()->username }}</a> | {{ link_to_route('users.logout', trans('global.logout')) }}</p>
+
 					@else
+
 						<ul>
 							<li><a href="{{ route('users.login') }}" class="login">{{ trans('global.login') }}</a></li>
 							<li><a href="{{ route('users.register') }}" class="register">{{ trans('global.register') }} <i class="fa fa-user"></i></a></li>
 						</ul>
+
 					@endif
+
 				</div>
 				
 				<div id="polyglotLanguageSwitcher1" class="polyglotLanguageSwitcher">
+
 					<?php 
+
 						$cid = Session::get('carrier');
+
 						$games = Game::whereHas('apps', function($q) use ($cid)
 						  {
 						      $q->where('carrier_id', '=', $cid);
@@ -214,27 +224,31 @@ fjs.parentNode.insertBefore(js, fjs);
 
 						foreach($games as $game){								
 							foreach($game->apps as $app) {
-								$arr_id[] = $app->pivot->language_id;						
+								if($app->pivot->status == Constant::PUBLISH ) 
+								{
+									$arr_id[] = $app->pivot->language_id;
+								}						
 							}
 						}
-						$lang_id = array_unique($arr_id);
-						$languages = Language::whereIn('id', $lang_id)->get();
-					?>
-					<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
-						<select name="locale" id="polyglot-language-options">
-							@foreach($languages as $lang)												
-								<?php $selected = (strtolower($lang->iso_code) == Session::get('locale')) ? ' selected' : ''; ?>
-									<option id="{{strtolower($lang->iso_code)}}" value="{{strtolower($lang->iso_code)}}" {{ $selected }}>{{$lang->language}}</option>		
-																
-							@endforeach	
-						</select>
-						<input type="submit" value="select">
-					</form>
-				</div>
+					}
+					$lang_id = array_unique($arr_id);
+					$languages = Language::whereIn('id', $lang_id)->get();
+				?>
+				<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
+					<select name="locale" id="polyglot-language-options">
+						@foreach($languages as $lang)												
+							<?php $selected = (strtolower($lang->iso_code) == Session::get('locale')) ? ' selected' : ''; ?>
+								<option id="{{strtolower($lang->iso_code)}}" value="{{strtolower($lang->iso_code)}}" {{ $selected }}>{{$lang->language}}</option>		
+															
+						@endforeach	
+					</select>
+					<input type="submit" value="select">
+				</form>
 			</div>
 		</div>
-		<div id="tose"><a href="http://tose.com.ph" target="_blank">{{ HTML::image('images/tose.png', 'TOSE') }}</a></div>
 	</div>
+	<div id="tose"><a href="http://tose.com.ph" target="_blank">{{ HTML::image('images/tose.png', 'TOSE') }}</a></div>
+</div>
 
 </div><!-- end #header -->
 <div class="site-overlay"></div>

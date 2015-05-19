@@ -115,6 +115,8 @@ class UsersController extends \BaseController {
 			$user->code = $code;
 			$user->role = "member";
 			$user->mobile_no = Input::get('mobile_no');
+			$user->gender = Input::get('gender');
+			$user->birthday = Input::get('birthday');
 
 			$user->save();
 
@@ -155,7 +157,7 @@ class UsersController extends \BaseController {
 
         } catch(Exception $e) {
 
-        	return Redirect::to('login')->with('fail','Your email/password was incorrect');
+        	return Redirect::to('login')->with('fail','Your username/password was incorrect');
 
         }
 
@@ -177,7 +179,7 @@ class UsersController extends \BaseController {
 
 			} else {
 
-				return Redirect::to('login')->with('fail','Your email/password was incorrect');
+				return Redirect::to('login')->with('fail','Your username/password was incorrect');
 			}
 
         } else {
@@ -266,5 +268,40 @@ class UsersController extends \BaseController {
 
     	$response = Event::fire('user.registered', array($user));	
     }
+
+    public function getUpdate(){
+		$languages = Language::all();
+
+		return View::make('update_user_details')
+			->with('page_title', 'Update Account')
+			->with('page_id', 'form')
+			->with(compact('languages'));
+    }
+
+    public function postUpdate(){
+		$validator = Validator::make(Input::all(), User::$update_details_rules);
+		$id = Auth::user()->id;
+		$user = User::find($id);
+
+		if($validator->passes()){
+			
+			$user->first_name= Input::get('first_name');
+			$user->last_name= Input::get('last_name');
+			$user->mobile_no = Input::get('mobile_no');
+			$user->gender = Input::get('gender');
+			$user->birthday = Input::get('birthday');
+
+			$user->save();
+
+			//$response = Event::fire('user.registered', array($user));	
+
+			return Redirect::back()->with('message', 'Account details updated.');			
+		}
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+	}
 
 }

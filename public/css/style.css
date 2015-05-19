@@ -1054,7 +1054,7 @@
 #game-listing .search-category input {
   padding: 6px;
   margin-right: 5px;
-  width: 92%;
+  width: 88%;
   -webkit-appearance: none;
     border-radius: 0;
 }
@@ -1631,3 +1631,4 @@ span.socials a.fa.fa-facebook {
 #excerpt, #description .readmore {
   display: inline;
 }
+.select_gender {background: #fff}

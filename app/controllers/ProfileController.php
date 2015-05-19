@@ -26,32 +26,37 @@ class ProfileController extends \BaseController {
 
 	public function changeProfile($id)
 	{
-		$file = Input::file('image');
-
-		$languages = Language::all();		
 		$user = User::find($id);
-		$games = Game::all();
-		$count = count($games);
-		$page = 3;
-
-		$filename = time() . '_' . $file->getClientOriginalName();
-		$destinationPath = public_path() . '/images/avatars';		
-		$upload_success = Input::file('image')->move($destinationPath, $filename);
-
+		/*$file = Input::file('image');
+		$languages = Language::all();*/
 		
-		if($upload_success){	
-			
-			try{
-				File::delete('images/avatars/'. $user->prof_pic);
-			} catch (Exception $e) { }
+		//$games = Game::all();
+		//$count = count($games);
+		//$page = 3;
 
-			
+	/*	$filename = time() . '_' . $file->getClientOriginalName();
+		$destinationPath = public_path() . '/images/avatars';		
+		$upload_success = Input::file('image')->move($destinationPath, $filename);*/
+
+		if(Input::file('profile_image')) 
+		{
+			$profile_image = Input::file('profile_image');
+			$filename = time() . "_" . $profile_image->getClientOriginalName();
+			$path = public_path('images/avatars/' . $filename);
+			$media = Image::make($profile_image->getRealPath())->save($path);
+
+			if($media)
+			{
+				try{
+					File::delete('images/avatars/'. $user->prof_pic);
+				} catch (Exception $e) { }
+			}	
+
 			$user->prof_pic = $filename;
-			$user->save();			
-			
-		}	
+			$user->save();		
 
-		return Redirect::back();
+			return Response::json(array('message'=>"update successful"));
+		}
 	}
 
 }
