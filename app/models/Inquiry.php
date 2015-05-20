@@ -6,16 +6,15 @@ class Inquiry extends \Eloquent {
 	protected $fillable = ['name', 'email', 'game_title', 'message'];
 
 	public static $rules = [
-		'name' => 'required|min:3',
+		'name' => 'required|min:3|max:255',
 		'email' => 'required|email|min:3',
 		'game_title' => 'required',
-		'message' => 'required|min:3',
-		'captcha' => 'required|captcha'
+		'message' => 'required|min:3|max:2000',
+		'captcha' => 'required'
 	];
 
 	public static $reply_rules = [
 		'message' => 'required|min:3',
 	];
-
 
 }
