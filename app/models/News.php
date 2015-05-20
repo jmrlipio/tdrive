@@ -5,8 +5,8 @@ class News extends \Eloquent {
 
 	public static $rules = [
 		'user_id' => 'required|integer',
-		'main_title' => 'required|min:2',
-		'slug' => 'required|min:2',
+		'main_title' => 'required|min:2|max:255',
+		'slug' => 'required|min:2|max:255',
 		'status' => 'required',
 		'news_category_id' => 'required|integer',
 		'featured_image' => 'required',
@@ -14,9 +14,9 @@ class News extends \Eloquent {
 	];
 
 	public static $content_rules = [
-		'title' => 'required|min:2',
-		'content' => 'required:max:2000',
-		'excerpt' => 'required'
+		'title' => 'required|min:2|max:255',
+		'content' => 'required|max:2000',
+		'excerpt' => 'required|max:255'
 	];
 
 	public static $fieldRules = [

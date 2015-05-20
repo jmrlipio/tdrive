@@ -7,9 +7,9 @@ class GameApp extends \Eloquent {
 
 	public static $rules = [
 		'app_id' => 'required|unique:apps',
-		'title' => 'required',
+		'title' => 'required|max:255',
 		'content' => 'required|max:10000',
-		'excerpt' => 'required',
+		'excerpt' => 'required|max:255',
 		'price' => 'required|numeric'
 	];
 

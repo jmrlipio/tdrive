@@ -10,8 +10,8 @@ class Game extends \Eloquent {
 
 	public static $rules = [
 		'user_id' => 'required|integer',
-		'main_title' => 'required|min:2',
-		'slug' => 'required|min:2',
+		'main_title' => 'required|min:2|max:255',
+		'slug' => 'required|min:2|max:255',
 		'release_date' => 'required|date',
 		'downloads' => 'required|numeric',
 		'default_price' => 'required|numeric'
@@ -27,7 +27,7 @@ class Game extends \Eloquent {
 	];
 
 	public static $app_rules = [
-		'title' => 'required',
+		'title' => 'required|max:255',
 		'content' => 'required|max:10000',
 		'excerpt' => 'required',
 		'price' => 'required|numeric'

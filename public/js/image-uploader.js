@@ -122,7 +122,7 @@
 							var type = file.attr('name');
 							var __width, __height
 
-							if(type == 'promos') 
+							if(type == 'promos' || type == 'featured_image') 
 							{
 					    		__width = 1024;
 					    		__height = 500;
@@ -138,7 +138,15 @@
 						    {
 						    	__width = 1024;
 						    	__height = 768;
-						    } 
+						    }
+						    else if (type == 'profile_image')
+						    {
+						    	if(_width <= 1200 && _height >= 200)
+						    	{						    		
+						    		return true;
+						    	}
+						    	
+						    }
 						    else if(type == 'screenshot')
 						    {
 

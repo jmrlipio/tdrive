@@ -5,7 +5,7 @@ use Jarektkaczyk\TriplePivot\TriplePivotTrait;
 class Language extends \Eloquent {
 	protected $fillable = ['language','iso_code'];
     public static $rules = [
-        'language' => 'required|min:3|unique:languages',
+        'language' => 'required|min:3|unique:languages|max:255',
         'iso_code' => 'required|min:2',
     ];
 

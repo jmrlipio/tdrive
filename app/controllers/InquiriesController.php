@@ -38,6 +38,10 @@ class InquiriesController extends \BaseController {
 	{
 		$validator = Validator::make(Input::all(), Inquiry::$rules);
 
+		$messages = [
+		    'captcha.required' => 'Incorrect',
+		];
+
 		if($validator->passes()) {
 
 			Inquiry::create(Input::all());
@@ -61,7 +65,8 @@ class InquiriesController extends \BaseController {
 
 		//validator fails
 		return Redirect::to(URL::previous() . '#contact')
-                    ->with('message', 'Something went wrong.');
+                    ->with('message', 'Something went wrong.')
+                    ->withErrors($validator);
 	}
 
 	/**

@@ -15,6 +15,7 @@
 		  margin-top: 10px;
 		}
 		#side-menu, #nav-toggle {display: none !important;}
+	div#btn-submit { text-align: center; }
 </style>
 @stop
 <?php 
@@ -67,9 +68,9 @@
 			{{ Form::text('mobile_no', null, array('class' => 'mobile_no','maxlength'=>"12", 'placeholder' => $mobile)) }}
 			{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
 		</div>
-		
-		{{ Form::submit(trans('global.Update Account'), array('class' => 'no-radius')) }}
-
+		<div id="btn-submit">
+			{{ Form::submit(trans('global.Update Account'), array('class' => 'no-radius')) }}
+		</div>
 	{{ Form::close() }}
 
 @stop
