@@ -177,6 +177,27 @@ class GamesController extends \BaseController {
 		$country = Country::find(Session::get('country_id'));
 		$game_id = $game->id;
 
+		/*carrier select*/
+		$carriers = [];	
+		foreach($game->apps as $app) 
+		{
+			$lang = '';
+			foreach($languages as $language) 
+			{
+				if($language->id == $app->pivot->language_id)
+					$lang = $language->language;
+
+			}
+			  if($app->pivot->status == Constant::PUBLISH )
+	            {
+					$carriers[] = array(
+								'app_id' =>  $app->pivot->app_id,
+								'carrier' => $app->carrier . ' - ' . $lang,
+								'cid' => $app->pivot->carrier_id
+						);
+				}
+		}
+
 		return View::make('game')
 			->with('game', $game)
 			->with('page_title', $game->main_title)
@@ -186,7 +207,8 @@ class GamesController extends \BaseController {
 			->with('country', $country)
 			->with('app_id', $app_id)
 			->with('user_id', $user_id)
-			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games', 'user_commented'));
+			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games', 'user_commented'))
+			->with('carriers', $carriers);
 			/*->with(compact('related_games'))
 			->with(compact('game'));*/
 	}
@@ -309,7 +331,6 @@ class GamesController extends \BaseController {
 						);
 				}
 		}
-		dd($carriers);
 
 		return json_encode($carriers);
 

@@ -109,33 +109,21 @@
 
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
-					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
-
+					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span class="buy-text">{{ trans('global.Buy Now') }}</span></p>
 						@foreach($game->apps as $apps)
-
 							@if($apps->pivot->app_id == $app_id)
-
 								@unless ($apps->pivot->price == 0)
-            
 					            	<?php $dc = Discount::checkDiscountedGame($game->id);
 					              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
 					              	?>
-						            @if($dc != 0)
-						              
+						            @if($dc != 0)						              
 						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
-
-						            @else
-						            
+						            @else						            
 						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
-
-						            @endif            
-					             
+						            @endif            					             
 					            @endunless
-
 							@endif
-
 						@endforeach
-
 				</div>
 			</a>
 			@else 
@@ -177,10 +165,14 @@
 
 			<div style="display:none">
 				<div class="carrier-container" id="carrier-select-container">
-					{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
 						<h3>Select Carrier</h3>
-						<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
-					{{ Form::close() }}
+						<select class="select-carrier">
+							@foreach($carriers as $carrier)
+							<option value="{{ $carrier['app_id'] }}">{{ $carrier['carrier'] }}</option>
+							@endforeach
+						</select>
+						<br/>
+						<button class="carrier-btn">Choose</button>
 				</div>
 			</div>
 
@@ -666,95 +658,50 @@
 		$("#buy").on('click',function() {
 			var id = {{ $game_id }};
 			$('#carrier-select').remove();
-			 $.ajax({
-			 	type: "post",
-			 	url: "{{ url() }}/games/post/carrier",			 	
-			 	data: {id: id},
-			 	success:function(data) {
-			 		
-			 		var carriers = jQuery.parseJSON(data);
-					var append = '<select id="carrier-select">';
-
-					for(x = 0; x < carriers.length; x++ ) 
-					{
-						append += '<option name="selected-carrier" value="' + carriers[x].app_id +'-' + carriers[x].cid + '">' + carriers[x].carrier + '</option>';
-					}
-					append += '</select>';
-				
-					if($('#carrier-container').find('#carrier-select').length == 0) 
-					{
-						$('#submit-carrier').before(append);
-						append = '';
-					}
-                }
-            });
 
 			$('#buy').fancybox({
 				'titlePosition'     : 'inside',
 	            'transitionIn'      : 'none',
-	            'transitionOut'     : 'none',
-	            afterClose: function() {
-	            	//var app_id = 'blazing-dribble-globe-en';
-	            	var app_id = {{ $app_id }};
-	            	var user_id = {{ $user_id }};
-	            	$.fancybox({
-			            'width': '80%',
-			            'height': '60%',
+	            'transitionOut'     : 'none'
+			});
+
+
+        });
+
+		$('.carrier-btn').click(function(e) {
+			var app_id = $('.select-carrier').val();
+			var uuid = '{{ $user_id }}'
+				$.fancybox({
+			            'width': '100%',
+			            'height': '100%',
 			            'autoScale': true,
 			            'transitionIn': 'fade',
 			            'transitionOut': 'fade',
 			            'type': 'iframe',
-			            'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
+			            'href': 'http://106.187.43.219/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + uuid + '&price=' + '{{ $sale_price }}',
 			            afterClose: function() {
-
 			            	$.ajax({
 							 	type: "get",
-							 	url: "{{ URL::route('games.status', $game->id) }}",
-							 	complete:function(data) {
-
-							 		var response = JSON.parse(data['responseText']);
-							 		console.log(response.status);
-									if(response.status == 1) {
-										$('#game-download').css('display', 'block');
-										$('#buy').css('display', 'none');
-
-										var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
-										$('#game-download').attr('href', url);
-									}
+							 	url: "/games/post/status/" + app_id + "/" + uuid,
+							 	success:function(data) {			
+							 		console.log(data);
+							 		if(data.message != 'error') 
+							 		{
+							 			//var status = data.message.transaction.status;
+								 		//var span = $('.buy-text');
+								 		console.log(data.message);
+								 		//var price = $('.price');
+								 	/*	if(status == 3) 
+								 		{
+								 			span.html('download');	
+								 			price.remove();
+								 		}*/
+							 		}
 				                }
 				            });
-			            }
+	           			}
 			        });
-	            }
-			});
-			// $.fancybox({
-	  //           'width': '80%',
-	  //           'height': '60%',
-	  //           'autoScale': true,
-	  //           'transitionIn': 'fade',
-	  //           'transitionOut': 'fade',
-	  //           'type': 'iframe',
-	  //           'href': 'http://106.186.24.12/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + user_id,
-	  //           afterClose: function() {
-	  //           	$.ajax({
-			// 		 	type: "get",
-			// 		 	url: "{{ URL::route('games.status', $game->id) }}",
-			// 		 	complete:function(data) {
-
-			// 		 		var response = JSON.parse(data['responseText']);
-	
-			// 				if(response.status == 1) {
-			// 					$('#game-download').css('display', 'block');
-			// 					$('#buy').css('display', 'none');
-
-			// 					var url = 'http://122.54.250.228:60000/tdrive_api/download.php?transaction_id=' + response.transaction_id + '&receipt=' + response.receipt + '&uuid=1';
-			// 					$('#game-download').attr('href', url);
-			// 				}
-		 //                }
-		 //            });
-	  //           }
-	  //       });
-        });
+		})
 
 		$('#description .readmore').click(function(e) {
 			e.preventDefault();
@@ -774,33 +721,6 @@
 			});
 		});
 
-		$('#carrier').on('submit', function(e){
-			e.preventDefault();
-
-			$.fancybox.close();
-			$.fancybox({
-	             'width': '80%',
-	             'height': '80%',
-	             'autoScale': true,
-	             'transitionIn': 'fade',
-	             'transitionOut': 'fade',
-	             'type': 'iframe',
-	             'href': 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1',
-	             afterClose: function() {
-
-	             	$.ajax({
-			 		 	type: "get",
-			 		 	url: "{{ URL::route('games.status', $game_id) }}",
-			 		 	complete:function(data) {
-			 				if(data['responseText'] == 1) {
-			 					$('#game-download').css('display', 'none');
-			 				}
-		                 }
-		             });
-	             }
-	        });
-		});
-	
 	</script>
 	<script>
 		$(document).ready(function(){				

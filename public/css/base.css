@@ -326,6 +326,18 @@ img.auto, video.auto {
   color: transparent;
 }
 
+.carrier-container button {
+  padding: 7px 10px;
+
+}
+.carrier-container select {
+  padding: 10px;
+  margin: 0px 10px;
+}
+.carrier-container {
+    text-align: center;
+}
+
 #end {
   margin: 10px 0;
 }

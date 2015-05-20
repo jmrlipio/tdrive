@@ -109,6 +109,38 @@ class APIController extends \BaseController {
 						'message' => 'Internal Server Error',
 				));
 	}
+
+	public function checkPurchaseStatus($app_id, $uuid) 
+	{
+		$_app_id = '526243';
+		$_uuid = '00010201';
+
+		$response = file_get_contents('http://106.187.43.219/tdrive_api/purchase_status.php?uuid=1&app_id=00050101');
+		dd($response);
+/*		if($response != '-1001') 
+		{
+			$xml = simplexml_load_string($response);
+			$values = $this->object2array($xml);
+
+			//dd($values);
+			return Response::json(array(
+					'message' => $values
+			));
+		}
+		else 
+		{
+			return Response::json(array(
+					'message' => 'error'
+			));
+		}*/
+
+	}
+
+	private function object2array($object) 
+	{ 
+		return @json_decode(@json_encode($object),1); 
+	} 
+
 }
 
 

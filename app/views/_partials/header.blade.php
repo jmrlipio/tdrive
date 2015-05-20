@@ -226,7 +226,7 @@ fjs.parentNode.insertBefore(js, fjs);
 								}						
 							}
 						}
-					}
+					
 					$lang_id = array_unique($arr_id);
 					$languages = Language::whereIn('id', $lang_id)->get();
 				?>

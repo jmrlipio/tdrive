@@ -9,6 +9,8 @@ class Constant {
 		option table constants
 	*/
 
+	const API_PURCHASE_STATUS = 'http://106.187.43.219/tdrive_api/purchase_status.php?uuid=%s&app_id=%s';
+
 	const INQUIRY_EMAIL_SUBJECT = 'inquiry email subject';
 	const INQUIRY_EMAIL_MESSAGE = 'inquiry email message';
 
