@@ -85,6 +85,9 @@
 				{{ Form::submit("Save", array("id" => "save-image")) }}
 			{{ Form::close()}} -->
 				</div>
+
+				<div class="transactions"><a href="{{ route('profile.transactions', Auth::user()->id) }}">{{ trans('global.Transactions') }}</a></div>
+
 			</div>
 		</div>
 	</div>

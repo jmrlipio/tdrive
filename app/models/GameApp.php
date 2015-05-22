@@ -17,4 +17,8 @@ class GameApp extends \Eloquent {
 		'unique' => 'An app with the same ID already exists.'
 	];
 
+    public function transactions() {
+        return $this->hasMany('Transaction', "app_id");
+    }
+
 }

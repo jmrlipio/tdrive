@@ -135,3 +135,11 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('auth_trans', function($route)
+{
+    $id = $route->getParameter('id');
+    if( Auth::check() && Auth::user()->id != $id) {
+        return Redirect::to(route('profile.transactions', Auth::user()->id));
+    }
+});

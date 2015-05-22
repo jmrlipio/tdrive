@@ -34,6 +34,9 @@ Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 Route::post('profile/{id}/change', array('as' => 'user.profile.change', 'uses' => 'ProfileController@changeProfile'));
 
+Route::group(array('before' => 'auth_trans'), function() {
+    Route::get('transactions/{id}', array('as' => 'profile.transactions', 'uses' => 'ProfileController@getTransactions'));
+});
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
 Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
