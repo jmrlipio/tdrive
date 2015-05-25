@@ -325,7 +325,9 @@ img.auto, video.auto {
   text-shadow: none;
   color: transparent;
 }
-
+.download-text {
+  margin-top: 15px;
+}
 .carrier-container button {
   padding: 7px 10px;
 

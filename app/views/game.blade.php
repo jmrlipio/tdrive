@@ -109,10 +109,12 @@
 
 			<a href="#carrier-select-container" class="buy" id="buy">
 				<div>
+					<!-- <p class="image clearfix">{{ HTML::image('images/download1.png', 'Buy', array('class' => 'auto')) }}<span class="buy-text download-text">Download</span></p> -->
+					
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span class="buy-text">{{ trans('global.Buy Now') }}</span></p>
 						@foreach($game->apps as $apps)
 							@if($apps->pivot->app_id == $app_id)
-								@unless ($apps->pivot->price == 0)
+								@if ($apps->pivot->price == 0)
 					            	<?php $dc = Discount::checkDiscountedGame($game->id);
 					              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
 					              	?>
@@ -121,7 +123,9 @@
 						            @else						            
 						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
 						            @endif            					             
-					            @endunless
+					            @else
+					            	<?php $sale_price = 0; ?>
+					            @endif
 							@endif
 						@endforeach
 				</div>
