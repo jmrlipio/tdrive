@@ -57,12 +57,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password' => 'required'
     ];
 
-        public function authorization() {
+    public function authorization() {
         return $this->hasOne('Authorization');
     }
 
     public function news(){
         return $this->hasMany('News');
+    }
+
+    public function transactions(){
+        return $this->hasMany('TRansaction');
     }
 
     public function games() {

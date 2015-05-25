@@ -1277,7 +1277,8 @@
 #profile .details > div {
   margin-bottom: 10px;
 }
-#profile .details .change_password a {
+#profile .details .change_password a,
+#profile .details .transactions a {
   color: #e9548e;
 }
 #profile .grid > .row .item {
@@ -1632,3 +1633,10 @@ span.socials a.fa.fa-facebook {
   display: inline;
 }
 .select_gender {background: #fff}
+
+/*transactions*/
+#transactions td {
+  padding: 5px;
+  background: #f4f4f4;
+  border: solid 1px #fff;
+}
