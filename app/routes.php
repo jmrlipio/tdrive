@@ -176,6 +176,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 * Date: 12/04/2014
 */
 Route::get('users/activate/{code}', array('as' => 'account.activate', 'uses' => 'UsersController@getActivate'));
+Route::get('resend/code/{id}', array('as' => 'account.resend.activation', 'uses' => 'UsersController@resendActivationCode'));
+
 
 //Password Reminder & Reset
 Route::get('password/remind', array('as' => 'password.remind', 'uses' => 'RemindersController@getRemind'));

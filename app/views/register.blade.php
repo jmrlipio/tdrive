@@ -4,9 +4,49 @@
 	{{ HTML::style('css/jquery-ui.css') }}
 	{{ HTML::style('css/jquery-ui.theme.css') }}
 	{{ HTML::style("css/form.css"); }}
+	<style>
+		#day{
+			width: 10% !important;
+		}
+		#month{
+			width: 30% !important;
+		}
+		#year {
+			width: 20% !important;
+		}
 
+	</style>
 @stop
+<?php 
 
+function mdy($mid = "month", $did = "day", $yid = "year", $mval, $dval, $yval)
+	{
+		if(empty($mval)) $mval = date("m");
+		if(empty($dval)) $dval = date("d");
+		if(empty($yval)) $yval = date("Y");
+ 
+		$months = array(1 => "January", 2 => "February", 3 => "March", 4 => "April", 5 => "May", 6 => "June", 7 => "July", 8 => "August", 9 => "September", 10 => "October", 11 => "November", 12 => "December");
+		$out = "<select name='$mid' id='$mid'>";
+		foreach($months as $val => $text)
+			if($val == $mval) $out .= "<option value='$val' selected>$text</option>";
+			else $out .= "<option value='$val'>$text</option>";
+		$out .= "</select> ";
+ 
+		$out .= "<select name='$did' id='$did'>";
+		for($i = 1; $i <= 31; $i++)
+			if($i == $dval) $out .= "<option value='$i' selected>$i</option>";
+			else $out .= "<option value='$i'>$i</option>";
+		$out .= "</select> ";
+ 
+		$out .= "<select name='$yid' id='$yid'>";
+		for($i = date("Y"); $i <= date("Y") + 2; $i++)
+			if($i == $yval) $out.= "<option value='$i' selected>$i</option>";
+			else $out.= "<option value='$i'>$i</option>";
+		$out .= "</select>";
+ 
+		return $out;
+	}
+?>
 @section('content')
 
 	{{ Form::token() }}
@@ -48,9 +88,14 @@
 		</div>
 
 		<div class="control">
+			<?php $current_year = date("Y"); ?>
 			{{ Form::label('birthday', trans('global.birthday')) }}
-			{{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => 'YYYY-MM-DD')) }}
+			{{ Form::selectMonth('month', 1, ['class' => 'field','id'=>'month']) }}
+			{{ Form::selectYear('year', 1940, $current_year, $current_year, ['class' => 'field','id'=>'year']) }}
+			{{ Form::select('day', range(1,31), 0, array('id'=>'day')) }}
 			{{ $errors->first('birthday', '<p class="error">:message</p>') }}
+			<!-- {{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => 'YYYY-MM-DD')) }}
+			{{ $errors->first('birthday', '<p class="error">:message</p>') }} -->
 		</div>
 
 		<div class="control">
@@ -105,12 +150,12 @@
 			    }
 			});
 
-			$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+			/*$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
 	            var minValue = $(this).val();
 	            minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
 	            minValue.setDate(minValue.getDate()+1);
 	            $("#to").datepicker( "option", "minDate", minValue );
-	    	});
+	    	});*/
 		});
 
 	</script>

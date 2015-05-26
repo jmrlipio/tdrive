@@ -54,6 +54,7 @@ return array(
 	'One or more fields are incomplete' => 'One or more fields are incomplete',
 	'Password request has been submitted' => 'Password request has been submitted',
 	'Email not found' => 'Email not found',
+	'Resend verification code' => 'Resend verification code',
 
 	//404 Error Blade (404.blade.php)
 	'Page Not Found!' => 'Page Not Found!',
