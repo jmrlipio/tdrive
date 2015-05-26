@@ -7,14 +7,18 @@ class GameApp extends \Eloquent {
 
 	public static $rules = [
 		'app_id' => 'required|unique:apps',
-		'title' => 'required',
+		'title' => 'required|max:255',
 		'content' => 'required|max:10000',
-		'excerpt' => 'required',
+		'excerpt' => 'required|max:255',
 		'price' => 'required|numeric'
 	];
 
 	public static $messages = [
 		'unique' => 'An app with the same ID already exists.'
 	];
+
+    public function transactions() {
+        return $this->hasMany('Transaction', "app_id");
+    }
 
 }

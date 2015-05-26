@@ -69,7 +69,7 @@
 					<li>
 						{{ Form::label('main_title', 'Title: ') }}
 						{{ Form::text('main_title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}
-						{{ $errors->first('title', '<p class="error">:message</p>') }}
+						{{ $errors->first('main_title', '<p class="error">:message</p>') }}
 					</li>
 					<li>
 						{{ Form::label('slug', 'Slug: ') }}

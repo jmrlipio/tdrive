@@ -9,7 +9,7 @@ class Review extends Eloquent {
 	public static $rules = [
 		'game_id' => 'required|integer',
 		'user_id' => 'required|integer',
-		'review' => 'required',
+		'review' => 'required|min:2|max:2000',
 		'rating' => 'required',
 		'captcha' => 'required|captcha'
 	];

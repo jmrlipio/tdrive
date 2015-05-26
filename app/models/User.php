@@ -27,25 +27,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public static $rules = [
         'username'              => 'required|unique:users|min:6|max:10',
-        'password'              => 'required|alpha_num|min:8|confirmed',
-        'password_confirmation' => 'required|alpha_num|min:8',
-        'first_name'            => 'required|min:2|alpha_spaces',
-        'last_name'             => 'required|min:2|alpha_spaces',
-        'email'                 => 'required|email|unique:users',
+        'password'              => 'required|alpha_num|min:8|confirmed|max:64',
+        'password_confirmation' => 'required|alpha_num|min:8|max:64',
+        'first_name'            => 'required|min:2|alpha_spaces|max:255',
+        'last_name'             => 'required|min:2|alpha_spaces|max:255',
+        'email'                 => 'required|email|unique:users|max:255',
         'mobile_no'             => 'required|max:12',
         'gender'                => 'required',
     ];
 
     public static $update_rules = [
-        'first_name'            => 'required|alpha|min:2',
-        'last_name'             => 'required|alpha|min:2',
+        'first_name'            => 'required|alpha|min:2|max:255',
+        'last_name'             => 'required|alpha|min:2|max:255',
         'email'                 => 'required|email|unique:users',
         'mobile_no'             => 'required'
     ];
 
     public static $update_details_rules = [
-        'first_name'            => 'required|min:2|alpha_spaces',
-        'last_name'             => 'required|min:2|alpha_spaces',
+        'first_name'            => 'required|min:2|alpha_spaces|max:255',
+        'last_name'             => 'required|min:2|alpha_spaces|max:255',
         'mobile_no'             => 'required',
         'gender'                => 'required',
         'birthday'              => 'required'
@@ -56,12 +56,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password' => 'required'
     ];
 
-        public function authorization() {
+    public function authorization() {
         return $this->hasOne('Authorization');
     }
 
     public function news(){
         return $this->hasMany('News');
+    }
+
+    public function transactions(){
+        return $this->hasMany('TRansaction');
     }
 
     public function games() {

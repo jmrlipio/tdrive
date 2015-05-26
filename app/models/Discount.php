@@ -4,8 +4,8 @@ class Discount extends \Eloquent {
 	protected $fillable = ['title', 'description', 'carrier_id','discount_percentage', 'start_date', 'end_date', 'featured_image', 'active', 'user_limit'];
 
 	public static $rules = [
-		'title' => 'required|min:2',
-		'description' => 'required|min:2',
+		'title' => 'required|min:2|max:255',
+		'description' => 'required|min:2|max:2000',
 		'carrier_id' => 'required|integer',
 		'discount_percentage' => 'required|numeric',
 		'start_date' => 'required|date',

@@ -10,7 +10,7 @@ class Carrier extends \Eloquent {
 
 	public static $rules = [
 		'id' => 'required|integer|unique:carriers',
-        'carrier' => 'required|min:3|unique:carriers',
+        'carrier' => 'required|min:3|unique:carriers|max:255',
         'language_id' => 'required'
     ];
 

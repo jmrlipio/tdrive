@@ -59,4 +59,18 @@ class ProfileController extends \BaseController {
 		}
 	}
 
+	function getTransactions($id) {
+		$transactions = Transaction::with("app")
+			->where("user_id", "=", $id)
+			->get();
+			
+		$user = User::find($id);
+
+		return View::make('transactions')
+			->with('page_title', $user->username)
+			->with('page_id', 'transactions')
+			->with('user', $user)
+			->with('transactions', $transactions);
+	}
+
 }

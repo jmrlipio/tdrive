@@ -32,6 +32,7 @@ return array(
 	'Update Profile' => 'Update Profile',
 	'Update Account Details' => 'update account details',
 	'Update Account' => 'update account',
+	'Transactions' => 'Transactions',
 
 
 	//Categories
