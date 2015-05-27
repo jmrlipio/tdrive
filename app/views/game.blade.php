@@ -103,34 +103,36 @@
 				<p class="clearfix">{{ HTML::image('images/download.png', 'Download', array('class' => 'auto')) }}<span>{{ trans('global.Download') }}</span></p>
 			</div>
 		</a>
-
+		<?php $sale_price = 0; ?>
 		@if(Auth::check())
 		<?php $user_id = Auth::user()->id; ?>
+				@if($has_purchased)
+				<a href="#" class="buy" id="download">
+					<div>
+						<p class="image clearfix">{{ HTML::image('images/download1.png', 'Buy', array('class' => 'auto')) }}<span class="buy-text download-text">Download</span></p>
+					</div>
+				</a>
+				@else
+					<a href="#carrier-select-container" class="buy" id="buy">
+						<div>
+							<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span class="buy-text">{{ trans('global.Buy Now') }}</span></p>
+							@foreach($game->apps as $apps)
+								@if($apps->pivot->app_id == $app_id)
+						            	<?php $dc = Discount::checkDiscountedGame($game->id);
+						              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
+						              	?>
+							            @if($dc != 0)						              
+							            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
+							            @else						            
+							            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
+							            @endif            					             
+								@endif
 
-			<a href="#carrier-select-container" class="buy" id="buy">
-				<div>
-					<!-- <p class="image clearfix">{{ HTML::image('images/download1.png', 'Buy', array('class' => 'auto')) }}<span class="buy-text download-text">Download</span></p> -->
-					
-					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span class="buy-text">{{ trans('global.Buy Now') }}</span></p>
-						@foreach($game->apps as $apps)
-							@if($apps->pivot->app_id == $app_id)
-								@if ($apps->pivot->price == 0)
-					            	<?php $dc = Discount::checkDiscountedGame($game->id);
-					              		$sale_price = $apps->pivot->price * (1 - ($dc/100));
-					              	?>
-						            @if($dc != 0)						              
-						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($sale_price, 2) }}</p> 
-						            @else						            
-						            	<p class="price">{{ $apps->pivot->currency_code . ' ' . number_format($apps->pivot->price, 2) }}</p>
-						            @endif            					             
-					            @else
-					            	<?php $sale_price = 0; ?>
-					            @endif
-							@endif
-						@endforeach
-				</div>
-			</a>
-			@else 
+							@endforeach
+						</div>
+					</a>
+				@endif
+		@else 
 			<a href="{{ URL::route('users.login')}}?redirect_url={{ Request::url() }}" class="buy" id="buy">
 				<div>
 					<p class="image clearfix">{{ HTML::image('images/buy.png', 'Buy', array('class' => 'auto')) }}<span>{{ trans('global.Buy Now') }}</span></p>
@@ -170,13 +172,15 @@
 			<div style="display:none">
 				<div class="carrier-container" id="carrier-select-container">
 						<h3>Select Carrier</h3>
-						<select class="select-carrier">
-							@foreach($carriers as $carrier)
-							<option value="{{ $carrier['app_id'] }}">{{ $carrier['carrier'] }}</option>
-							@endforeach
-						</select>
-						<br/>
-						<button class="carrier-btn">Choose</button>
+						{{ Form::open(array('route' => array('games.carrier-select'), 'method' => 'post')) }}
+							<select class="select-carrier" name="carrier">
+								@foreach($carriers as $carrier)
+								<option value="{{ $carrier['app_id'] }}">{{ $carrier['carrier'] }}</option>
+								@endforeach
+							</select>
+							<br/><br/><br/>
+						{{ Form::submit('Choose', array('class'=> 'submit-carrier')) }}
+			 			{{ Form::close() }}
 				</div>
 			</div>
 
@@ -654,11 +658,6 @@
 
 		$('.socialShare').shareButtons(url, options);
 
-        // $("#share a").jqSocialSharer({
-        // 	"popUpWidth" : 320,               /*Width of the Pop-Up Window*/
-        // 	"popUpHeight": 533,
-        // });
-
 		$("#buy").on('click',function() {
 			var id = {{ $game_id }};
 			$('#carrier-select').remove();
@@ -668,44 +667,24 @@
 	            'transitionIn'      : 'none',
 	            'transitionOut'     : 'none'
 			});
-
-
         });
 
-		$('.carrier-btn').click(function(e) {
-			var app_id = $('.select-carrier').val();
-			var uuid = '{{ $user_id }}'
-				$.fancybox({
-			            'width': '100%',
-			            'height': '100%',
-			            'autoScale': true,
-			            'transitionIn': 'fade',
-			            'transitionOut': 'fade',
-			            'type': 'iframe',
-			            'href': 'http://106.187.43.219/tdrive_api/process_billing.php?app_id=' + app_id + '&uuid=' + uuid + '&price=' + '{{ $sale_price }}',
-			            afterClose: function() {
-			            	$.ajax({
-							 	type: "get",
-							 	url: "/games/post/status/" + app_id + "/" + uuid,
-							 	success:function(data) {			
-							 		console.log(data);
-							 		if(data.message != 'error') 
-							 		{
-							 			//var status = data.message.transaction.status;
-								 		//var span = $('.buy-text');
-								 		console.log(data.message);
-								 		//var price = $('.price');
-								 	/*	if(status == 3) 
-								 		{
-								 			span.html('download');	
-								 			price.remove();
-								 		}*/
-							 		}
-				                }
-				            });
-	           			}
-			        });
-		})
+		<?php if($has_purchased) : ?>
+        $("#download").on('click',function() {
+        	console.log('clicked');
+			$.ajax({
+				type: 'POST',
+				url: "<?php echo URL::route('games.download', $has_purchased->id ); ?>",
+				data: { 
+					_token: token
+				},
+				success: function(data) {
+						window.location = data.url;
+						alert("Your download has started...");
+				}
+			});
+        });
+        <?php endif; ?>
 
 		$('#description .readmore').click(function(e) {
 			e.preventDefault();

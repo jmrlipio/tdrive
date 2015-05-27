@@ -109,6 +109,8 @@ return array(
 	'Change Password' => 'เปลี่ยนรหัสผ่าน',
 	'Downloaded games' => 'เกมดาวน์โหลด',
 	'Buy' => 'ซื้อ',
+	'Transactions' => 'การซื้อขาย',
+	'Purchase History' => 'ประวัติการซื้อ',
 
 	//Register Blade (register.blade.php)
 	'Create new account' => 'สร้างบัญชีใหม่',

@@ -15,12 +15,20 @@ class ProfileController extends \BaseController {
 		$games = Game::paginate($count);
 
 		$count = count($games);
+		$downloaded = Transaction::where('user_id', '=', $id )
+									->where('status', '=', '1')
+									->get();
+		$downloaded_games = array();
+		foreach($downloaded as $d) 
+		{
+			$downloaded_games[] = $d->app;
+		}
 
 		return View::make('profile')
 			->with('page_title', $user->username)
 			->with('page_id', 'profile')
 			->with('user', $user)
-			->with(compact('games'))
+			->with(compact('games', 'downloaded_games'))
 			->with(compact('languages','count', 'page'));
 	}
 
@@ -59,11 +67,11 @@ class ProfileController extends \BaseController {
 		}
 	}
 
-	function getTransactions($id) {
+	public function getTransactions($id) {
 		$transactions = Transaction::with("app")
 			->where("user_id", "=", $id)
 			->get();
-			
+	
 		$user = User::find($id);
 
 		return View::make('transactions')

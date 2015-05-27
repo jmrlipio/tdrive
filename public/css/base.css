@@ -95,6 +95,9 @@ img.auto, video.auto {
   padding: 10px 0;
   margin-top: 10px;
 }
+.green {
+  color: green;
+}
 .flash-success, .flash-fail {
     padding: 5px 0px;
 }
@@ -105,6 +108,17 @@ img.auto, video.auto {
   background: #61ded0;
   color: #fff;
 }*/
+#user_transactions {
+    width: 100%;
+}
+#user_transactions thead tr td {
+  text-align: center;
+}
+
+#user_transactions td {
+  font-size: 14px;
+  padding: 10px 5px !important;
+}
 
 #home .game-category:nth-child(odd) {
   background: #fff;

@@ -59,6 +59,7 @@ class GamesController extends \BaseController {
 	 */
 	public function show($id, $app_id)
 	{
+
 		$languages = Language::all();
 		$game = Game::find($id);
 		$current_game = Game::find($id);
@@ -72,29 +73,19 @@ class GamesController extends \BaseController {
 		{
 			App::abort(404);
 		}
-/*
-		echo '<pre>';
-		dd($game->review);
-		echo '</pre>';*/
 
-		// echo '<pre>';
-		// print_r($game->review);
-		// echo '</pre>';
+		if(Auth::check()) 
+		{
+			$transaction = $this->getPurchaseStatus($app_id, $user_id);
+			if($transaction) 
+			{
+				$transaction['user_id'] = $user_id;
+				$_transaction = Transaction::saveTransaction($transaction);
+			}
+		}
 
-		// $test = Review::find($user_id);
-
-		// $test2 = Review::whereHas('review', function($q){
-		// 	$q->where()
-		// })->get();
-
-		// echo $user_id;
-
-		// $test2 = Review::where('user_id', '=', $user_id);
-
-		// echo Review::where('user_id', '=', $user_id)->exists();
 		
-		// echo $id;
-
+		$has_purchased = Transaction::checkPurchased($app_id);
 		$user_commented = true;
 
 		if(Review::where('user_id', '=', $user_id)->where('game_id', '=', $id)->exists()){
@@ -207,6 +198,7 @@ class GamesController extends \BaseController {
 			->with('country', $country)
 			->with('app_id', $app_id)
 			->with('user_id', $user_id)
+			->with('has_purchased', $has_purchased)
 			->with(compact('languages','related_games', 'discounted_games', 'game_id', 'games', 'user_commented'))
 			->with('carriers', $carriers);
 			/*->with(compact('related_games'))
@@ -362,31 +354,47 @@ class GamesController extends \BaseController {
 			->with('app_id', $id);
 	}
 
-	public function getPurchaseStatus($id) {
-		// $url = 'http://122.54.250.228:60000/tdrive_api/purchase_status.php?uuid=' . Auth::user()->id;
-
-		// $url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid=1';
-		$url = 'http://106.186.24.12/tdrive_api/purchase_status.php?uuid='. Auth::user()->id;
-
+	private function getPurchaseStatus($_app_id, $_uuid) {
+		
+		$url = sprintf(Constant::API_PURCHASE_STATUS, $_uuid, $_app_id);
 		$response = file_get_contents($url);
+		
+		if($response == '-1001' || $response == '-1' ) 
+		{
+			return false;
+		}
 
 		$xml = simplexml_load_string($response);
-
 		$values = $this->object2array($xml);
 
-		$purchased = [];
-		$purchased['transaction_id'] = (string) $xml->transaction[2]->attributes()->id;
-		$purchased['receipt'] = $values['transaction'][2]['receipt'];
-		$purchased['status'] = $values['transaction'][2]['status'];
+		if(!isset($values['transaction'])) 
+		{
+			return false;
+		}
+
+		$l = $xml->count();
+		$arr = array();
+		if($l == 1) 
+		{
+			$arr = array(
+				'transaction_id' => (string) $xml->transaction->attributes()->id,
+				'app_id' => $values['transaction']['app_id'],
+				'receipt_id' => $values['transaction']['receipt'],
+				'status' => $values['transaction']['status'],
+			);
+		}
+		else 
+		{
+			$arr = array(
+				'transaction_id' => (string) $xml->transaction[$l - 1]->attributes()->id,
+				'app_id' => $values['transaction'][$l - 1]['app_id'],
+				'receipt_id' => $values['transaction'][$l - 1]['receipt'],
+				'status' => $values['transaction'][$l - 1]['status'],
+			);
+		}
 
 
-		// foreach($xml as $purchase) {
-		// 	if($purchase->app_id == $id) {
-		// 		$status = $purchase->status;
-		// 	}
-		// }
 
-		return $purchased;
+		return $arr;
 	}
-
 }

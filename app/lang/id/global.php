@@ -51,6 +51,7 @@ return array(
 	'Password request has been submitted' => 'Permintaan kata sandi telah disampaikan',
 	'Email not found' => 'Email tidak ditemukan',
 
+
 	//404 Error Blade (404.blade.php)
 	'Page Not Found!' => 'Halaman Tidak Ditemukan!',
 	'This page could not be found on the server.' => 'Halaman ini tidak dapat ditemukan di server.',
@@ -109,6 +110,8 @@ return array(
 	'Change Password' => 'Ganti Kata Sandi',
 	'Downloaded games' => 'download game',
 	'Buy' => 'membeli',
+	'Transactions' => 'Transactions',
+	'Purchase History' => 'Purchase History',
 
 	//Register Blade (register.blade.php)
 	'Create new account' => 'Buat akun baru',

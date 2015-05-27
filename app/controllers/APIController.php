@@ -110,30 +110,48 @@ class APIController extends \BaseController {
 				));
 	}
 
-	public function checkPurchaseStatus($app_id, $uuid) 
+	public function downloadGame($id) 
 	{
-		$_app_id = '526243';
-		$_uuid = '00010201';
 
-		$response = file_get_contents('http://106.187.43.219/tdrive_api/purchase_status.php?uuid=1&app_id=00050101');
-		dd($response);
-/*		if($response != '-1001') 
+		$transaction = Transaction::find($id);
+		if($transaction) 
 		{
-			$xml = simplexml_load_string($response);
-			$values = $this->object2array($xml);
-
-			//dd($values);
-			return Response::json(array(
-					'message' => $values
-			));
+			$url = 'http://106.187.43.219/tdrive_api/download.php?transaction_id=' . $transaction->transaction_id . '&receipt=' . $transaction->receipt_id  . '&uuid=' . Auth::user()->id;
+			$response = file_get_contents($url);	
+			if($response == '-1001' || $response == '-1') 
+			{
+				return Response::json(array(
+						'message' => 'Error!'
+					));
+			}
+				$download = Download::addDownload($transaction->app->game_id);
+				return Response::json(array(
+							'message' => 'Download started',
+							'url' => $url
+					));
 		}
-		else 
-		{
-			return Response::json(array(
-					'message' => 'error'
-			));
-		}*/
+		
+		return Response::json(array(
+					'message' => 'Error!'
+				));
 
+	}
+
+	public function redirectToCarrier() 
+	{
+		$app = GameApp::where('app_id', '=', Input::get('carrier'))
+						->first();
+
+		$url = sprintf(Constant::API_PROCESS_BILLING, $app->app_id, Auth::user()->id, $app->price);
+		$response = file_get_contents($url);
+		
+		if($response == '-1001' || $response == '-1') 
+			{
+				 return Redirect::back()
+				 				->with('message', 'Error on processing! Please try again'); 
+			}
+
+	    return Redirect::to($url); 
 	}
 
 	private function object2array($object) 

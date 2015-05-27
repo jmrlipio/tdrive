@@ -33,6 +33,7 @@ return array(
 	'Update Account Details' => 'update account details',
 	'Update Account' => 'update account',
 	'Transactions' => 'Transactions',
+	'Purchase History' => 'Purchase History',
 
 
 	//Categories

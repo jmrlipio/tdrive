@@ -147,10 +147,9 @@
 						    	}
 						    	
 						    }
-						    else if(type == 'screenshot')
+						    else if(type == 'screenshots')
 						    {
-
-						    	if(selector['orientation'] == 'landscape') 
+						    	if(selector['orientation'].val() == 'landscape') 
 						    	{
 						    		__width = 800;
 						    		__height = 480;
@@ -158,13 +157,13 @@
 						    	else 
 						    	{
 						    		__width = 480;
-						    		__height = 500;
+						    		__height = 800;
 						    	}
 						    }
-
+						    
 						    console.log(_width + "-" + __width + "; " + _height + "-" + __height );
 						    
-						    if(_width != __width && _height != __height) 
+						    if(_width != __width || _height != __height) 
 						    {
 						    	return false;
 						    }

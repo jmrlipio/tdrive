@@ -209,7 +209,6 @@ Route::group(array('before' => 'auth'), function(){
 Route::post('reports/inquiries', array('as' => 'reports.inquiries.store-inquiry', 'uses' => 'InquiriesController@storeInquiry'));
 //Route::get('games/{id}/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getAPICarrier'));
 Route::post('games/post/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getCarrier'));
-Route::get('games/post/status/{appid}/{userid}', array('as' => 'games.purchase.status', 'uses' => 'APIController@checkPurchaseStatus'));
 Route::get('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
 //original link is from above
 //Route::post('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
@@ -246,6 +245,8 @@ Route::get('auth/login/{app_id?}', array('as' => 'authorize.login', 'uses' => 'A
 Route::post('auth/login', array('as' => 'auth.login.post', 'uses' => 'APIController@authLoginPost'));
 Route::get('auth/logout/{token?}', array('as' => 'auth.logout.post', 'uses' => 'APIController@authLogoutAPI'));
 Route::get('auth/user/{token?}', array('as' => 'auth.logout.post', 'uses' => 'APIController@authorizeToken'));
+Route::post('games/{id?}/download', array('as' => 'games.download', 'uses' => 'APIController@downloadGame'));
+Route::post('games/carrier-select', array('as' => 'games.carrier-select', 'uses' => 'APIController@redirectToCarrier'));
 //Route::post('authorize/{appid}/{token}', array('as' => 'authorize.user', 'uses' => 'APIController@authorizeLoginPost'));
 
 //Review Delete in Front End

@@ -43,7 +43,7 @@ class Download extends Eloquent{
 
 	}
 
-		public static function getTotal($game_id)
+	public static function getTotal($game_id)
 	{
 		$prices = GameSales::where('game_id', '=', $game_id)
 				->get();
@@ -58,6 +58,17 @@ class Download extends Eloquent{
 		}
 
 		return $total;	
+	}
+
+	public static function addDownload($game_id) 
+	{
+		$game = Game::find($game_id);
+		$count = 1;
+		
+		$game->actual_downloads = $game->actual_downloads + $count;
+		$game->save();
+
+		return $game;
 	}
 
 }

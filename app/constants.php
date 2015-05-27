@@ -10,6 +10,8 @@ class Constant {
 	*/
 
 	const API_PURCHASE_STATUS = 'http://106.187.43.219/tdrive_api/purchase_status.php?uuid=%s&app_id=%s';
+	const API_DOWNLOAD_GAME = 'http://106.187.43.219/tdrive_api/download.php?transaction_id=%s&receipt=%s&uuid=%s';
+	const API_PROCESS_BILLING = 'http://106.187.43.219/tdrive_api/process_billing.php?app_id=%s&uuid=%s&price=%s';
 
 	const INQUIRY_EMAIL_SUBJECT = 'inquiry email subject';
 	const INQUIRY_EMAIL_MESSAGE = 'inquiry email message';
@@ -55,6 +57,27 @@ class Constant {
 				);
 
 		return $_constants;
+	}
+
+	public static function status($val) 
+	{
+		$text = '';
+		switch($val) 
+		{
+			case 1: $text = 'PURCHASED';
+					break;
+			case 2: $text = 'ERROR ON PROCESS';
+					break;
+			case 3: $text = 'PROCESSING';
+					break;
+			case 4: $text = 'NOT ENOUGH CREDITS';
+					break;
+			case 5: $text = 'EXPIRED';
+					break;
+			default: break;
+		}
+
+		return $text;
 	}
 
 }

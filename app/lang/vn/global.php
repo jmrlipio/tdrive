@@ -109,6 +109,8 @@ return array(
 	'Change Password' => 'đổi Mật Khẩu',
 	'Downloaded games' => 'trò chơi tải về',
 	'Buy' => 'mua',
+	'Transactions' => 'Transactions',
+	'Purchase History' => 'lịch sử mua hàng',
 
 	//Register Blade (register.blade.php)
 	'Create new account' => 'Tạo tài khoản mới',

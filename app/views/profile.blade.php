@@ -1,6 +1,7 @@
 @extends('_layouts/single')
 @section('stylesheets')
 
+	<!-- REALLY?! remove and add in external -->
 	<style>
 		.name h1 {padding: 0 0 10px 0 !important; font-size: 24px;}
 		#profile .details > div {
@@ -95,50 +96,29 @@
 	<div id="downloads">
 		<div class="container">
 			<h1 class="title">{{ trans('global.Downloaded games') }}</h1>
-
 			<div id="token">{{ Form::token() }}</div>
-
-			<p>You haven't bought any games yet.</p>
-
-			<!-- <div class="grid">
-				<div class="row">
-					<div id="scrl" class="clearfix">
-			
-						@foreach ($games as $game)												
-							@foreach($game->apps as $app)
-								<?php $iso_code = ''; ?>
-								@foreach($languages as $language)
-									@if($language->id == $app->pivot->language_id)
-										<?php $iso_code = strtolower($language->iso_code); ?>
-									@endif
-								@endforeach
-								
-								@if($app->pivot->status != Constant::PUBLISH)
-									<?php continue; ?>
-								@endif
-								
-								@if($iso_code == Session::get('locale') && $app->pivot->carrier_id == Session::get('carrier'))							
-									@foreach ($game->media as $media)
-										@if ($media->type == 'icons')
-											<div class="item">
-												<div class="image">
-													<a href="{{ URL::route('game.show', array('id' => $game->id, $app->pivot->app_id)) }}">
-														<img src="{{ URL::to('/') }}/assets/games/icons/{{ $media->url }}" alt="{{{ $app->pivot->title }}}">
-													</a>
-												</div>																		
-												<div class="meta">
-													<p>{{{ $app->pivot->title }}}</p>									
-												</div>									
-											</div>
-										@endif
-									@endforeach
-								@endif
+			@if(!empty($downloaded_games))
+				<div class="grid">
+					<div class="row">
+						<div id="scrl" class="clearfix">
+							@foreach($downloaded_games as $app)
+								<div class="item">
+									<div class="image">
+										<a href="{{ URL::route('game.show', array('id' => $app->game_id, $app->app_id)) }}" class="thumb-image"><img src="{{ URL::to('/') }}/assets/games/icons/{{ Media::getGameIcon( $app->game_id) }}" ></a>
+									</div>																		
+									<div class="meta">
+										<p>{{{ $app->title }}}</p>									
+									</div>									
+								</div>
 							@endforeach
-						@endforeach
+						</div>
 					</div>
 				</div>
-			</div> -->
-	
+			@else
+				<p>You haven't bought any games yet.</p>
+			@endif
+
+
 		<!-- <div id="loadmore" class="button center"><a href="#">{{ trans('global.More') }} +</a></div> -->
 		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
 	</div>

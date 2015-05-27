@@ -224,7 +224,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('screenshots', 'Screenshots: (480x500)', array('class' => 'media-label', 'id' => 'ss-label')) }}
+							{{ Form::label('screenshots', 'Screenshots: (portrait: 480x800, landscape: 800x480)') }}
 							<div class="screenshot-box">
 								@foreach($selected_media as $media)
 									@if($media['type'] == 'screenshots')
