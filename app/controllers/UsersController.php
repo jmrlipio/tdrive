@@ -104,6 +104,7 @@ class UsersController extends \BaseController {
 		$user = new User;
 		$code = str_random(60);
 		$username = Input::get('username');
+		$birthday = Input::get('year').'-'.Input::get('month').'-'.Input::get('day');
 
 		if($validator->passes()){
 			
@@ -116,7 +117,7 @@ class UsersController extends \BaseController {
 			$user->role = "member";
 			$user->mobile_no = Input::get('mobile_no');
 			$user->gender = Input::get('gender');
-			$user->birthday = Input::get('birthday');
+			$user->birthday = $birthday;
 
 			$user->save();
 
@@ -183,8 +184,15 @@ class UsersController extends \BaseController {
 			}
 
         } else {
+        	
+				$_user = User::whereUsername(Input::get('username'))->firstOrFail();
 
-        	return Redirect::to('login')->with('fail','Please check your email to verify your account');
+				//if($_user->active == 0)
+				//{
+					$id = $_user->id;
+				//}			
+				
+        	return Redirect::to('login')->with('fail','Please check your email to verify your account')->with('id', $id);
 
         }
 
@@ -254,7 +262,7 @@ class UsersController extends \BaseController {
 
     		if($user->save()){
 	    		return Redirect::route('users.login')
-	    			->with('success', 'Account activated, you can now rate/comment a game');    			
+	    			->with('success', 'Account activated');    			
     		}
     	}
 
@@ -282,15 +290,19 @@ class UsersController extends \BaseController {
 		$validator = Validator::make(Input::all(), User::$update_details_rules);
 		$id = Auth::user()->id;
 		$user = User::find($id);
+		$birthday = Input::get('year').'-'.Input::get('month').'-'.Input::get('day');
 
 		if($validator->passes()){
 			
 			$user->first_name= Input::get('first_name');
-			$user->last_name= Input::get('last_name');
-			$user->mobile_no = Input::get('mobile_no');
+			$user->last_name= Input::get('last_name');			
 			$user->gender = Input::get('gender');
-			$user->birthday = Input::get('birthday');
+			$user->birthday = $birthday;
 
+			if(Input::get('mobile_no') != null)
+			{
+				$user->mobile_no = Input::get('mobile_no');
+			}
 			$user->save();
 
 			//$response = Event::fire('user.registered', array($user));	
@@ -303,5 +315,17 @@ class UsersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 	}
+	public function resendActivationCode($id){
+		$languages = Language::all();
+		$user = User::find($id);
+		$code = str_random(60);	
+		
+		$user->code = $code;
+
+		$user->save();
+		
+		$response = Event::fire('user.resend.code', array($user));		
+		return Redirect::to('login')->with('success','Activication code resent');
+    }
 
 }

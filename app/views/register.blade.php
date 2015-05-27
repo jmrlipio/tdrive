@@ -4,7 +4,12 @@
 	{{ HTML::style('css/jquery-ui.css') }}
 	{{ HTML::style('css/jquery-ui.theme.css') }}
 	{{ HTML::style("css/form.css"); }}
+	<style>
+		#day{ width: 15% !important; }
+		#month{ width: 35% !important; }
+		#year {	width: 20% !important; }
 
+	</style>
 @stop
 
 @section('content')
@@ -48,9 +53,14 @@
 		</div>
 
 		<div class="control">
+			<?php $current_year = date("Y"); ?>
 			{{ Form::label('birthday', trans('global.birthday')) }}
-			{{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => 'YYYY-MM-DD')) }}
+			{{ Form::selectMonth('month', 1, ['class' => 'field','id'=>'month']) }}			
+			{{ Form::select('day', range(1,31), 0, array('id'=>'day')) }}
+			{{ Form::selectYear('year', 1940, $current_year, $current_year, ['class' => 'field','id'=>'year']) }}
 			{{ $errors->first('birthday', '<p class="error">:message</p>') }}
+			<!-- {{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => 'YYYY-MM-DD')) }}
+			{{ $errors->first('birthday', '<p class="error">:message</p>') }} -->
 		</div>
 
 		<div class="control">
@@ -105,12 +115,12 @@
 			    }
 			});
 
-			$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+			/*$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
 	            var minValue = $(this).val();
 	            minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
 	            minValue.setDate(minValue.getDate()+1);
 	            $("#to").datepicker( "option", "minDate", minValue );
-	    	});
+	    	});*/
 		});
 
 	</script>

@@ -12,7 +12,7 @@
 
     @elseif(Session::has('fail') )   
 
-    	<h3 class="center flash-fail">{{ Session::get('fail') }}</h3>    
+    	<h3 class="center flash-fail">{{ Session::get('fail') }} </h3>    
 
     @endif
                          
@@ -37,6 +37,11 @@
 				{{-- Form::checkbox('remember', 1 , null, ['id'=>'remember']); --}}
 				 <label for="remember">Remember me</label>
 			</div> -->
+			@if(Session::has('fail') ) 		    	
+				<div class="button">
+					<a href="resend/code/{{Session::get('id')}}">{{ trans('global.Resend verification code') }}</a>
+				</div>
+		    @endif
 
 			<div class="control-item center">
 				 {{ Form::submit(trans('global.login'), array('class' => 'no-radius')) }}
