@@ -290,15 +290,19 @@ class UsersController extends \BaseController {
 		$validator = Validator::make(Input::all(), User::$update_details_rules);
 		$id = Auth::user()->id;
 		$user = User::find($id);
+		$birthday = Input::get('year').'-'.Input::get('month').'-'.Input::get('day');
 
 		if($validator->passes()){
 			
 			$user->first_name= Input::get('first_name');
-			$user->last_name= Input::get('last_name');
-			$user->mobile_no = Input::get('mobile_no');
+			$user->last_name= Input::get('last_name');			
 			$user->gender = Input::get('gender');
-			$user->birthday = Input::get('birthday');
+			$user->birthday = $birthday;
 
+			if(Input::get('mobile_no') != null)
+			{
+				$user->mobile_no = Input::get('mobile_no');
+			}
 			$user->save();
 
 			//$response = Event::fire('user.registered', array($user));	

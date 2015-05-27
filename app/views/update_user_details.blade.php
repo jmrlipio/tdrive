@@ -7,15 +7,19 @@
 
 <style>
 	div#btn-link a {
-			color: #fff;
-			display: block;
+		color: #fff;
+		display: block;
 		}
-		#back {
-		  display: block !important;
-		  margin-top: 10px;
-		}
-		#side-menu, #nav-toggle {display: none !important;}
+	#back {
+		display: block !important;
+		margin-top: 10px;
+	}
+	#side-menu, #nav-toggle { display: none !important; }
 	div#btn-submit { text-align: center; }
+	#day{ width: 15% !important; }
+	#month{ width: 35% !important; }
+	#year {	width: 20% !important; }
+	label#birthday { display: block; }
 </style>
 @stop
 <?php 
@@ -58,9 +62,20 @@
 		</div>
 
 		<div class="control">
-			{{ Form::label('birthday', trans('global.birthday')) }}
-			{{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => $birthday)) }}
+			<?php $str = explode("-", $birthday); ?>
+			<?php $current_year = date("Y"); ?>
+			<!-- 
+				=== LEGEND ===
+				str[0] = year
+				str[1] = month
+				str[2] = days 
+			-->
+			{{ Form::label('birthday', null , array('id'=>'birthday'), trans('global.birthday')) }}
+			{{ Form::selectMonth('month', $str[1], ['class' => 'field','id'=>'month']) }}
+			{{ Form::select('day', range(1,31), $str[2], array('id'=>'day')) }}
+			{{ Form::selectYear('year', 1940, $current_year, $str[0], ['class' => 'field','id'=>'year']) }}			
 			{{ $errors->first('birthday', '<p class="error">:message</p>') }}
+
 		</div>	
 
 		<div class="control">
