@@ -86,7 +86,7 @@ class ReviewsController extends \BaseController {
 					
     }
 
-    public function apprroveReview(){
+    public function approveReview(){
 
     	$review = Review::whereId(Input::get('id'));
         $review->update(array('status' => 1));
@@ -171,16 +171,16 @@ class ReviewsController extends \BaseController {
 		try{
 			
 			if($validator->passes()) {
-
 				$review->review = Input::get('review');
 				$review->rating = Input::get('rating');
 				$review->save();
 				
 				return Redirect::to($url)->with('message', 'Your review has been updated.');
 			}
+			return Redirect::to($url)->withErrors($validator)->withInput()->with('error', 'Wrong Captcha. Please Try again');
 			
 		} catch( Exception $e){
-			return Redirect::to($url)->withErrors($validator)->withInput()->with('error', 'Update error.');
+			return Redirect::to($url)->with('error', 'Update error.');
 		}	
 		
 	}

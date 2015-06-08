@@ -13,5 +13,9 @@ class Category extends \Eloquent {
 		return $this->belongsToMany('Game', 'game_categories')->orderBy('id', 'DESC');
 	}
 
+	public function languages() {
+    	return $this->BelongsToMany('Language', 'category_languages')->withPivot('language_id','variant', 'id');
+    }
+
 
 }

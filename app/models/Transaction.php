@@ -50,4 +50,5 @@ class Transaction extends \Eloquent {
     	return $transaction;
     }
 
+
 }

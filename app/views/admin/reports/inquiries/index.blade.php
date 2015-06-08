@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 @section('content')
 	@include('admin._partials.reports-nav')
-	<div class="item-listing" id="categories-list">
+	<div class="item-listing" >
 		<h2>Inquiries</h2>
 		<br>
 		@if (Session::has('success') ) 

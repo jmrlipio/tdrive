@@ -54,7 +54,6 @@ class Sales extends Eloquent{
 							->get();
 			$count = count($sales->toArray());
 			$total = $total + $count;
-
 		}
 
 		return $total;	

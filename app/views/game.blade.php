@@ -54,7 +54,7 @@
 			<ul class="categories clearfix">
 
 				@foreach ($game->categories as $item)
-					<li><a href="{{ route('category.show', $item->id) }}">{{ trans('global.'.$item->category) }}</a></li>
+					<li><a href="{{ route('category.show', $item->id) }}">{{ Language::getVariant($item->id,Session::get('locale')) }}</a></li>
 				@endforeach
 
 			</ul>
@@ -408,8 +408,13 @@
 
 				<div class="rating-control clearfix control">
 					<label class="rating" for="rating">Rating</label>
-
-					{{ Form::selectRange('rating', 1, 5) }}
+					<select name="rating">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option selected="selected" value="5">5</option>
+					</select>
 
 					{{ $errors->first('rating', '<p class="form-error">:message</p>') }}
 				</div>
@@ -494,48 +499,14 @@
 										{{ Form::submit('Remove', array('id'=>'remove-review')) }}	
 
 										{{ Form::close() }}
-										<button id="update-review">Update</button>
+										
 									@endif
 
 								@endif																			
 
 							</div>
 							<!-- END -->	
-
-							<div id="update-form-wrapper" class="container">
-							<!-- Updates the review -->
-								{{Form::open(array('route' =>array('update.review', $current_game->id, $app_id),'id'=>'update-review-form'))}}
-									{{ Form::hidden('game_id', $current_game->id) }}
-									{{ Form::hidden('user_id', Auth::id()) }}
-									{{ Form::hidden('id', $data->pivot->id) }}
-
-									<div class="rating-control clearfix control">
-										<label class="rating" for="rating">Rating</label>
-
-										{{ Form::selectRange('rating', 1, 5, $data->pivot->rating ) }}										
-										{{ $errors->first('rating', '<p class="form-error">:message</p>') }}
-									</div>
-			 
-										
-									<div class="control">
-										<textarea name="review" placeholder="write a review" required>{{{ $data->pivot->review }}}</textarea>
-
-										{{ $errors->first('review', '<p class="form-error">:message</p>') }}
-									</div>
-
-									<div class="captcha control clearfix">
-										{{ HTML::image(Captcha::img(), 'Captcha image') }}
-										{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
-
-										{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
-									</div>
-
-									
-									{{ Form::submit('Save', array('id' => 'update')) }}
-
-								{{ Form::close() }}
-							<!-- END -->
-							</div>															
+														
  						</div>
  					</div>
  				@endif
@@ -701,22 +672,6 @@
 				success: function(data) {
 					$('#description .content').html(data);
 				}
-			});
-		});
-
-	</script>
-	<script>
-		$(document).ready(function(){				
-			
-			$('#update-review').click(function(e){
-				if ($('#update-form-wrapper').is(':visible')) {
-					e.preventDefault();
-					$('#update-form-wrapper').css('display','none');
-				} else {
-					e.preventDefault();
-					$('#update-form-wrapper').css('display','block');
-				}
-				
 			});
 		});
 

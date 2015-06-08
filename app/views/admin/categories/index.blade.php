@@ -23,7 +23,7 @@
 						<!--<th><input type="checkbox"></th>-->
 						<th>Category Name</th>
 						<th>Slug</th>
-						{{-- <th>Featured</th> --}}
+						<th>Variant</th>
 					</tr>
 				</thead>
 
@@ -35,6 +35,7 @@
 								<a href="{{ URL::route('admin.categories.edit', $category->id) }}">{{ $category->category }}</a>
 								@if(Auth::user()->role != 'admin')
 									<ul class="actions">
+										<li><a href="{{ URL::route('admin.categories.variant.create', $category->id) }}">Variant</a></li>
 										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>
 										<li><a href="">View</a></li>
 										<li>
@@ -46,15 +47,13 @@
 								@endif
 							</td>
 							<td>{{ $category->slug }}</td>
-							{{--
+							
 							<td>
-								@if($category->featured == 1)
-									<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" checked id="{{ $category->id }}"/>
-								@else
-									<input type="checkbox" class="featured" name="featured[]" value="{{ $category->featured }}" id="{{ $category->id }}" />
-								@endif
+								@foreach($category->languages as $cat)
+									<a href="{{ URL::route('admin.categories.variant.edit', array('cat_id' => $category->id, 'variant_id' => $cat->pivot->id)) }}">{{ $cat->language }}</a>
+								@endforeach
 							</td>
-							--}}
+							
 						</tr>
 					@endforeach
 				</tbody>

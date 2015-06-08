@@ -16,9 +16,9 @@
 	}
 	#side-menu, #nav-toggle { display: none !important; }
 	div#btn-submit { text-align: center; }
-	#day{ width: 15% !important; }
-	#month{ width: 35% !important; }
-	#year {	width: 20% !important; }
+	#day{ width: 15% !important; background-color: #fff !important;}
+	#month{ width: 35% !important; background-color: #fff !important; }
+	#year {	width: 20% !important; background-color: #fff !important; }
 	label#birthday { display: block; }
 </style>
 @stop
@@ -70,7 +70,7 @@
 				str[1] = month
 				str[2] = days 
 			-->
-			{{ Form::label('birthday', null , array('id'=>'birthday'), trans('global.birthday')) }}
+			{{ Form::label('birthdate', null , array('id'=>'birthday'), trans('global.birthdate')) }}
 			{{ Form::selectMonth('month', $str[1], ['class' => 'field','id'=>'month']) }}
 			{{ Form::select('day', range(1,31), $str[2], array('id'=>'day')) }}
 			{{ Form::selectYear('year', 1940, $current_year, $str[0], ['class' => 'field','id'=>'year']) }}			

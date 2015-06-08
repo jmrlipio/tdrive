@@ -109,7 +109,7 @@
 		@endif
 	
 		<div class="clearfix">
-			<h2 class="title fl">{{ trans('global.'.$cat->category) }}</h2>
+			<h2 class="title fl">{{ Language::getVariant($cat->id,Session::get('locale')) }}</h2>
 		</div>
 
 		<div class="swiper-container thumbs-container">

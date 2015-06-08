@@ -21,4 +21,14 @@ class GameApp extends \Eloquent {
         return $this->hasMany('Transaction', "app_id");
     }
 
+    public function carrier() 
+    {
+    	return $this->belongsTo('Carrier');
+    }
+
+    public function language() 
+    {
+    	return $this->belongsTo('Language');
+    }
+
 }

@@ -10,9 +10,9 @@ class ReportsController extends \BaseController {
 
 	public function salesList()
 	{
-		$sales = Sales::all();
+		$transactions = Transaction::all();
 		return View::make('admin.reports.sales.lists')
-					->with('sales', $sales);
+					->with('transactions', $transactions);
 	}
 
 	public function salesChart()

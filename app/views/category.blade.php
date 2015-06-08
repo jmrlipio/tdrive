@@ -8,7 +8,7 @@
 	<div class="container">
 		
 		<div class="clearfix">
-			<h1 class="title">{{{ trans('global.'.$category->category) }}}</h1>
+			<h1 class="title">{{{ Language::getVariant($category->id,Session::get('locale')) }}}</h1>
 
 			<div class="search-category">
 

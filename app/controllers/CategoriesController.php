@@ -23,7 +23,13 @@ class CategoriesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin.categories.create');
+		$languages = [];
+
+		foreach(Language::all() as $language) {
+			$languages[$language->id] = $language->language;
+		}
+		return View::make('admin.categories.create')
+					->with('languages', $languages);
 	}
 
 	/**
@@ -133,6 +139,70 @@ class CategoriesController extends \BaseController {
             $featured->featured = $data['featured'];
             $featured->update();
         }
+	}
+
+	public function addVariant($id) 
+	{
+		$category = Category::findOrFail($id);
+		$languages = [];
+		$has_languages = [];
+		$all_languages = Language::all();
+
+		foreach($all_languages as $language) 
+		{
+			$languages[$language->id] = $language->language;
+		}
+
+		return View::make('admin.categories.variant.create')
+			->with(compact('category', 'languages'));
+	}
+
+	public function storeVariant($id) 
+	{
+		$category = Category::findOrFail($id);
+		$language_id = Input::get('language_id');
+		$variant = Input::get('variant');
+
+		//$category->languages()->attach($language_id, array('variant' => $variant, 'answer' => $answer));
+		DB::table('category_languages')->insert(
+			    array(	'language_id' => Input::get('language_id'), 
+			    		'category_id' => $id,
+			    		'variant' => Input::get('variant'),
+			    		)
+			);
+
+		return Redirect::route('admin.categories.index');
+
+	}
+
+	public function editVariant($cat_id, $variant_id) 
+	{
+		$variant = DB::table('category_languages')
+					 ->where('id', $variant_id)
+					 ->first();
+		$category = Category::findOrFail($cat_id);
+
+		return View::make('admin.categories.variant.edit')
+					->with('variant', $variant)
+					->with('category', $category);
+	}
+
+	public function updateVariant($id) 
+	{
+		$variant = DB::table('category_languages')
+					 ->where('id', $id)
+					 ->update(array('variant' => Input::get('variant')));
+
+		return Redirect::back()
+						->with('message', 'Update Successfully');
+	}
+
+	public function deleteVariant($id) 
+	{
+		$variant = DB::table('category_languages')
+					->where('id', $id)
+					->delete();
+		return Redirect::route('admin.categories.index');
 	}
 
 }
