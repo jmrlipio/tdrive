@@ -6,14 +6,14 @@ Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
     Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
 
 /* Pages that needs carrier */
-Route::group(array('before' => 'carrier_check'), function() {
+
     Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
     Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingController@showMoreNews'));  
     Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
     Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
     Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
     Route::post('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
-});
+
 /* END */
 
     Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
