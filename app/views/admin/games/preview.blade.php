@@ -589,7 +589,7 @@
 	</div><!-- end #reviews -->
 	
 	<div id="related-games" class="container">
-		<h1 class="title">{{ trans('global.Related games') }}</h1>
+		<h1 class="title">{{ trans('global.Related games') }} for {{ $game->main_title; }}</h1>
 		
 		@if(!empty($related_games))
 
