@@ -161,4 +161,78 @@ class InquiriesController extends \BaseController {
 		return Redirect::back();
 	}
 
+	public function userContact() 
+	{
+		$cid = Session::get('carrier');	
+		$games = Game::all();
+		$countries = Country::all();
+
+		$user_location = GeoIP::getLocation();
+		$_default_location = Country::where('iso_3166_2','=', $user_location['isoCode'])->get();
+		$default_location = array();
+		
+		foreach($_default_location as $df)
+		{
+			$default_location = array(
+				'id' => $df->id,
+				'name' => $df->name
+			);
+		}
+
+		$page_title = 'Contact Us';
+		$page_id = 'contact-form';
+
+		return View::make('contact-us')
+					->with('page_title', $page_title)
+					->with('page_id', $page_id)
+					->with('games', $games)
+					->with('countries', $countries)
+					->with('default_location', $default_location);
+	}
+
+	public function userInquiry()
+	{
+		$validator = Validator::make(Input::all(), Inquiry::$rules);
+
+		$messages = [
+		    'captcha.required' => 'Incorrect',
+		];
+
+		if($validator->passes()) {
+
+			Inquiry::create(Input::all());
+			$other_os = Input::get('other');
+			$other = "";
+			if($other_os != null)
+			{
+				$other = $other_os;
+			}
+
+			$message = Input::get('message');
+			$subject = 'Welcome!';
+			$data = array(
+			    'name' => Input::get('name'),
+			    'email' => Input::get('email'),
+			    'country' => Input::get('country'),
+			    'os-version' => Input::get('os-version'),
+			    'game_title' => Input::get('game_title'),
+			    'messages' => $message,
+			);
+
+			Mail::send('emails.inquiries.inquire', $data , function ($message) use ($data) {
+				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
+			});
+
+			return Redirect::to(URL::previous())
+                    ->with('message', 'Your inquiry has been sent.');
+		}
+
+		//validator fails
+		return Redirect::to(URL::previous() )
+                    ->with('message', 'Something went wrong.')
+                    ->withErrors($validator);
+	}
+
+
+
 }
