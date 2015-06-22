@@ -437,13 +437,21 @@ class ListingController extends \BaseController {
 		foreach($categories as $cat)
 		{
 			$apps = Game::getAppsPerCategory($cat->id); 
-			
+			$variant = Category::checkVariant($cat->id, Language::getLangID(Session::get('locale')));
 			if(!$apps)
 			{
 				continue; 
 			}
+
+			if(!$variant)
+			{
+				continue; 
+			}
 			
-			$cat_list[$cat->id] = $cat->category;
+			$cat_list[$cat->id] = array(
+				'cat_id' => $cat->id,
+				'cat_name' => $cat->category
+				);
 
 		} 
 

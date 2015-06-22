@@ -9,17 +9,17 @@
 			<tr>
 				<th style="width: 300px;">Game</th>
 				<th>Carrier</th>
-				<th>Country</th>
+				<th>Language</th>
 				<th>Total</th>
 			</tr>
 			<thead>
 			<tbody>
-				@foreach($games as $game) 
+				@foreach($games as $_game) 
 					<tr>
-						<td style="width: 1000px">{{ $game['game_title']  }}</td>
-						<td style="width: 100px">{{ $game['carrier'] }}</td>
-						<td style="width: 300px">{{ $game['country'] }}</td>
-						<td style="width: 300px">{{ $game['total'] }}</td>
+						<td style="width: 1000px">{{ $game->main_title }}</td>
+						<td style="width: 100px">{{ $_game['carrier'] }}</td>
+						<td style="width: 300px">{{ $_game['language'] }}</td>
+						<td style="width: 300px">{{ $_game['count'] }}</td>
 					</tr>
 				@endforeach	
 			</tbody>

@@ -69,4 +69,10 @@ class Language extends \Eloquent {
         return false;
     }
 
+    public static function getLangText($id) 
+    {
+        $lang = Language::find($id);
+        return $lang->language;
+    }
+
 }

@@ -290,11 +290,11 @@ class ReportsController extends \BaseController {
 
      public function visitorsBuyStatisticViews($id) 
      {
-     	$games = Sales::getTotalSales($id);
-/*     	echo '<pre>';
-     	dd($games);*/
+     	$games = Transaction::getTransaction($id) ;
+     	$game = Game::find($id);
      	return View::make('admin.reports.visitors.buy-index')
-     				->with('games', $games);
+     				->with('games', $games)
+     				->with('game', $game);
      }   
 
      public function visitorsDownloadStatisticViews($id) 

@@ -17,5 +17,17 @@ class Category extends \Eloquent {
     	return $this->BelongsToMany('Language', 'category_languages')->withPivot('language_id','variant', 'id');
     }
 
+    public static function checkVariant($cat_id, $lang_id) 
+    {
+    	$variant = DB::table('category_languages')
+                        ->where('category_id', $cat_id)
+                        ->where('language_id', $lang_id)
+                        ->first();
+
+        return $variant;
+    }
+
+
 
 }
+

@@ -35,7 +35,7 @@
 								<a href="{{ URL::route('admin.categories.edit', $category->id) }}">{{ $category->category }}</a>
 								@if(Auth::user()->role != 'admin')
 									<ul class="actions">
-										<li><a href="{{ URL::route('admin.categories.variant.create', $category->id) }}">Variant</a></li>
+										<li><a href="{{ URL::route('admin.categories.variant.create', $category->id) }}">Add Variant</a></li>
 										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>
 										<li><a href="">View</a></li>
 										<li>

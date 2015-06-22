@@ -10,8 +10,6 @@
 				<th style="width: 300px;">Game</th>
 				<th style="width: 120px !important;" >Real Downloads</th>
 				<th>Modified Downloads</th>
-				<th>Success Downloads</th>
-				<th>Failed Downloads</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,8 +18,6 @@
 					<td>{{ $game->main_title }}</td>
 					<td style="width: 120px !important;">{{ $game->actual_downloads }}</td>
 					<td>{{ $game->downloads }}</td>
-					<td></td>
-					<td></td>
 				</tr>
 			@endforeach
 		</tbody>

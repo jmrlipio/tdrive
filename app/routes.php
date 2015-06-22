@@ -88,6 +88,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
     Route::get('games/{id}/reviews', array('as' => 'admin.game.reviews', 'uses' => 'AdminGamesController@getGameReviews'));
     Route::post('games/{id}/languages/default', array('as' => 'admin.game.languages.default', 'uses' => 'AdminGamesController@updateDefaultLanguage'));
+    
+    Route::get('apps/{id}/link/create', array('as' => 'admin.games.appslink.create', 'uses' => 'AdminGamesController@createAppLinks'));
+    Route::get('apps/{id}/link/store', array('as' => 'admin.games.appslink.store', 'uses' => 'AdminGamesController@storeAppLinks'));
+    Route::get('apps/{id}/link/edit', array('as' => 'admin.games.appslink.edit', 'uses' => 'AdminGamesController@editAppLinks'));
+    Route::get('apps/{id}/link/update', array('as' => 'admin.games.appslink.update', 'uses' => 'AdminGamesController@updateAppLinks'));
+
+
     Route::post('categories/featured', array('as' => 'admin.categories.featured', 'uses' => 'CategoriesController@update_featured'));
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
@@ -176,11 +183,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 
 });
 
-/** 
-* Added by: Jone   
-* Purpose: For admin news creation
-* Date: 12/04/2014
-*/
 Route::get('users/activate/{code}', array('as' => 'account.activate', 'uses' => 'UsersController@getActivate'));
 Route::get('resend/code/{id}', array('as' => 'account.resend.activation', 'uses' => 'UsersController@resendActivationCode'));
 //Password Reminder & Reset

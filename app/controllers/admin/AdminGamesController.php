@@ -808,5 +808,41 @@ class AdminGamesController extends \BaseController {
 			->with('message', 'Something went wrong. Try again.')
 			->with('sof', 'failed');
 	}
+
+	public function createAppLinks($id) 
+	{
+		$app = GameApp::find($id);
+
+		return View::make("admin.games.links.create")
+					->with('app', $app);
+	}
+
+	public function storeAppLinks($id)
+	{
+		$app = GameApp::find($id);
+		$url = route('admin.games.edit', $app->game_id) . '#apps';
+
+		return Redirect::to($url)
+				->with('message', 'Added new Links!')
+				->with('sof', 'success');
+	}
+
+	public function editAppLinks($id) 
+	{
+		$app = GameApp::find($id);
+
+		return View::make("admin.games.links.edit")
+					->with('app', $app);
+	}
+
+	public function updateAppLinks($id) 
+	{
+		$app = GameApp::find($id);
+		$url = route('admin.games.edit', $app->game_id) . '#apps';
+
+		return Redirect::to($url)
+				->with('message', 'Links edited successfully')
+				->with('sof', 'success');
+	}
     
 }
