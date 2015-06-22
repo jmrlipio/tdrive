@@ -9,19 +9,19 @@
 			<tr>
 				<th style="width: 300px;">Game</th>
 				<th>Carrier</th>
-				<th>Country</th>
+				<th>Language</th>
 				<th>User</th>
 				<th>Price</th>
 			</tr>
 			<thead>
 			<tbody>
-				@foreach($sales as $sale)
+				@foreach($transactions as $transaction)
 					<tr>
-						<td style="width: 300px;">{{ $sale->prices->game->main_title }}</td>
-						<td style="width: 80px;" >{{ $sale->prices->carrier->carrier }}</td>
-						<td style="width: 280px;">{{ $sale->prices->country->capital }}</td>
-						<td style="width: 180px;">{{ $sale->user->username }}</td>
-						<td style="width: 180px;">{{ $sale->prices->price }}</td>
+						<td style="width: 300px;">{{ $transaction->app->title }}</td>
+						<td style="width: 80px;" >{{ $transaction->app->carrier->carrier }}</td>
+						<td style="width: 280px;">{{ $transaction->app->language->language  }}</td>
+						<td style="width: 180px;">{{ $transaction->user->username }}</td>
+						<td style="width: 180px;">{{ $transaction->app->price}}</td>
 					</tr>
 				@endforeach
 			</tbody>

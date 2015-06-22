@@ -48,4 +48,31 @@ class Language extends \Eloquent {
         return $id->id;
     }
 
+    public static function getVariant($cat_id, $lang_id) 
+    {
+        $variant = DB::table('category_languages')
+                        ->where('category_id', $cat_id)
+                        ->where('language_id', Language::getLangID($lang_id))
+                        ->first();
+        if($variant) 
+        {
+            return $variant->variant;
+        }
+        else 
+        {
+            $variant = DB::table('category_languages')
+                        ->where('category_id', $cat_id)
+                        ->where('language_id', Language::getLangID('en'))
+                        ->first();
+            return $variant->variant;
+        }
+        return false;
+    }
+
+    public static function getLangText($id) 
+    {
+        $lang = Language::find($id);
+        return $lang->language;
+    }
+
 }

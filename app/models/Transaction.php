@@ -50,4 +50,53 @@ class Transaction extends \Eloquent {
     	return $transaction;
     }
 
+    public static function countTransaction($game_id) 
+    {
+        $count = 0;
+        $game = GameApp::where('game_id', $game_id)
+                        ->get();
+            foreach($game as $app) 
+            {
+                $apps = Transaction::where('app_id', $app->app_id)
+                                    ->where('status', 1)
+                                    ->get()
+                                    ->count();
+                if(!$apps) 
+                {
+                    continue;   
+                }
+                    $count = $apps + $count;               
+            }
+            return $count;
+    }
+
+    public static function getTransaction($game_id) 
+    {
+        $game = GameApp::where('game_id', $game_id)
+                        ->get();
+        $games = array();
+        foreach($game as $app) 
+        {
+            $_count = Transaction::where('app_id', $app->app_id)
+                                ->where('status', 1)
+                                ->get()
+                                ->count();
+            if(!$_count) 
+            {
+                continue;
+            }
+            
+            $_app = GameApp::where('app_id', $app->app_id)
+                            ->first();
+            $games[] = array(
+                'game_title' => $app->game_id,
+                'carrier' => $_app->carrier->carrier,
+                'language' => $_app->language->language,
+                'count' => $_count, 
+                );
+        }
+        return $games;
+    }
+
+
 }

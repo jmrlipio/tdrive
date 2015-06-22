@@ -5,10 +5,9 @@
 	{{ HTML::style('css/jquery-ui.theme.css') }}
 	{{ HTML::style("css/form.css"); }}
 	<style>
-		#day{ width: 15% !important; }
-		#month{ width: 35% !important; }
-		#year {	width: 20% !important; }
-
+		#day{ width: 15% !important; background-color: #fff !important;}
+		#month{ width: 35% !important; background-color: #fff !important; }
+		#year {	width: 20% !important; background-color: #fff !important; }
 	</style>
 @stop
 
@@ -54,7 +53,7 @@
 
 		<div class="control">
 			<?php $current_year = date("Y"); ?>
-			{{ Form::label('birthday', trans('global.birthday')) }}
+			{{ Form::label('birthdate', trans('global.birthdate')) }}
 			{{ Form::selectMonth('month', 1, ['class' => 'field','id'=>'month']) }}			
 			{{ Form::select('day', range(1,31), 0, array('id'=>'day')) }}
 			{{ Form::selectYear('year', 1940, $current_year, $current_year, ['class' => 'field','id'=>'year']) }}

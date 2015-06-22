@@ -10,9 +10,9 @@ class ReportsController extends \BaseController {
 
 	public function salesList()
 	{
-		$sales = Sales::all();
+		$transactions = Transaction::all();
 		return View::make('admin.reports.sales.lists')
-					->with('sales', $sales);
+					->with('transactions', $transactions);
 	}
 
 	public function salesChart()
@@ -290,11 +290,11 @@ class ReportsController extends \BaseController {
 
      public function visitorsBuyStatisticViews($id) 
      {
-     	$games = Sales::getTotalSales($id);
-/*     	echo '<pre>';
-     	dd($games);*/
+     	$games = Transaction::getTransaction($id) ;
+     	$game = Game::find($id);
      	return View::make('admin.reports.visitors.buy-index')
-     				->with('games', $games);
+     				->with('games', $games)
+     				->with('game', $game);
      }   
 
      public function visitorsDownloadStatisticViews($id) 

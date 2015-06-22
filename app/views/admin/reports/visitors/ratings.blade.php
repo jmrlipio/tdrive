@@ -16,7 +16,7 @@
 				@foreach($games as $game)
 				<tr>
 					<td style="width: 300px;">{{ $game->main_title }}</td>
-					<td>
+					<td style="width: 100px;">
 						<?php  $ratings = Review::getRatings($game->id) ?>
 						@if($ratings)
 							<p style="display:none;"></p>

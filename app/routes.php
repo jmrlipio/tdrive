@@ -1,9 +1,8 @@
 <?php
 
 Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
-
-    Route::get('home', array('as' => 'home.show', 'uses' => 'HomeController@home'));
-    Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
+Route::get('home', array('as' => 'home.show', 'uses' => 'HomeController@home'));
+Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
 
 /* Pages that needs carrier */
 
@@ -20,9 +19,20 @@ Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
     Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
     Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
 
+Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
+Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingController@showMoreNews'));
+// Route::get('news/{id}/{slug}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
+Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
+Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
+Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
+Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
+
+//Route::get('game/{id}/{slug}-{carrier}-{language}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+// Route::get('game/{id}/{slug}/{carrier}/{language}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
+// Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 
 Route::post('game/{id}', array('as' => 'game.show.post', 'uses' => 'GamesController@show'));
-
+Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
 Route::post('category/load/more', array('as' => 'category.more.show', 'uses' => 'ListingController@showMoreGamesByCategory'));
 Route::get('games', array('as' => 'games.all', 'uses' => 'ListingController@showGames'));
 Route::post('games/all/more', array('as' => 'games.all.more', 'uses' => 'ListingController@showAllMoreGames'));
@@ -34,12 +44,14 @@ Route::post('games/related/more/{id}', array('as' => 'games.related.more', 'uses
 Route::get('profile/{id}', array('as' => 'user.profile', 'uses' => 'ProfileController@index'));
 Route::post('profile/{id}/change', array('as' => 'user.profile.change', 'uses' => 'ProfileController@changeProfile'));
 
+
+Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
+Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
+
 Route::group(array('before' => 'auth_trans'), function() {
     Route::get('transactions/{id}', array('as' => 'profile.transactions', 'uses' => 'ProfileController@getTransactions'));
 });
 
-Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
-Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
 
 Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searchGames'));
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
@@ -91,6 +103,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
     Route::get('games/{id}/reviews', array('as' => 'admin.game.reviews', 'uses' => 'AdminGamesController@getGameReviews'));
     Route::post('games/{id}/languages/default', array('as' => 'admin.game.languages.default', 'uses' => 'AdminGamesController@updateDefaultLanguage'));
+    
+    Route::get('apps/{id}/link/create', array('as' => 'admin.games.appslink.create', 'uses' => 'AdminGamesController@createAppLinks'));
+    Route::get('apps/{id}/link/store', array('as' => 'admin.games.appslink.store', 'uses' => 'AdminGamesController@storeAppLinks'));
+    Route::get('apps/{id}/link/edit', array('as' => 'admin.games.appslink.edit', 'uses' => 'AdminGamesController@editAppLinks'));
+    Route::get('apps/{id}/link/update', array('as' => 'admin.games.appslink.update', 'uses' => 'AdminGamesController@updateAppLinks'));
+
+
     Route::post('categories/featured', array('as' => 'admin.categories.featured', 'uses' => 'CategoriesController@update_featured'));
     Route::resource('categories', 'CategoriesController');
     Route::resource('languages', 'LanguagesController');
@@ -98,7 +117,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('discounts', 'DiscountsController');
     Route::post('discounts/{id}/edit-media-post', array('as' => 'admin.discounts.postupdate-media', 'uses' => 'DiscountsController@updatePostMedia'));
     Route::post('news/{id}/edit-media-post', array('as' => 'admin.news.postupdate-media', 'uses' => 'NewsController@updatePostMedia'));
-
 
 
     // Site Options Routes
@@ -136,6 +154,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('faq/{id}/edit/variant/{language}', array('as' => 'admin.faqs.variant.edit', 'uses' => 'FaqsController@editVariant'));
     Route::put('faq/{id}/update/variant/{language}', array('as' => 'admin.faqs.variant.update', 'uses' => 'FaqsController@updateVariant'));
     Route::delete('faq/{id}/delete/variant/{language}', array('as' => 'admin.faqs.variant.delete', 'uses' => 'FaqsController@deleteVariant'));
+
+    Route::get('category/{id}/variant', array('as' => 'admin.categories.variant', 'uses' => 'CategoriesController@addVariant'));
+    Route::get('category/{id}/create/variant', array('as' => 'admin.categories.variant.create', 'uses' => 'CategoriesController@addVariant'));
+    Route::post('category/{id}/create/variant', array('as' => 'admin.categories.variant.store', 'uses' => 'CategoriesController@storeVariant'));
+    Route::get('category/{id}/edit/variant/{variant}', array('as' => 'admin.categories.variant.edit', 'uses' => 'CategoriesController@editVariant'));
+    Route::put('category/{id}/update/variant', array('as' => 'admin.categories.variant.update', 'uses' => 'CategoriesController@updateVariant'));
+    Route::get('category/{id}/delete/variant', array('as' => 'admin.categories.variant.delete', 'uses' => 'CategoriesController@deleteVariant'));
     
     Route::resource('siteoptions', 'SiteOptionsController');
     Route::get('reports', array('as' => 'admin.reports.index', 'uses' => 'ReportsController@index'));
@@ -173,15 +198,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 
 });
 
-/** 
-* Added by: Jone   
-* Purpose: For admin news creation
-* Date: 12/04/2014
-*/
 Route::get('users/activate/{code}', array('as' => 'account.activate', 'uses' => 'UsersController@getActivate'));
 Route::get('resend/code/{id}', array('as' => 'account.resend.activation', 'uses' => 'UsersController@resendActivationCode'));
-
-
 //Password Reminder & Reset
 Route::get('password/remind', array('as' => 'password.remind', 'uses' => 'RemindersController@getRemind'));
 Route::post('password/request', array('as' => 'password.request', 'uses' => 'RemindersController@postRemind'));
@@ -211,9 +229,9 @@ Route::group(array('before' => 'auth'), function(){
 Route::post('reports/inquiries', array('as' => 'reports.inquiries.store-inquiry', 'uses' => 'InquiriesController@storeInquiry'));
 //Route::get('games/{id}/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getAPICarrier'));
 Route::post('games/post/carrier', array('as' => 'games.carrier', 'uses' => 'GamesController@getCarrier'));
-Route::get('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
+//Route::get('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
 //original link is from above
-//Route::post('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
+Route::post('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
 //end
 Route::get('games/{id}/status', array('as' => 'games.status', 'uses' => 'GamesController@getPurchaseStatus'));
 
@@ -229,9 +247,9 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
 });*/
 
 
-
+Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
 Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
-Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@apprroveReview'));
+Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@approveReview'));
 Route::post('disapprove/review', array('as' => 'review.disapprove', 'uses' => 'ReviewsController@disapproveReview'));
 route::resource('review', 'ReviewsController');
 Route::post('/admin/destroy/review', array('before' => 'csrf', 'as' => 'admin.destroy.review','uses' => 'ReviewsController@handleDestroy'));
@@ -239,7 +257,6 @@ Route::post('admin/games/preview/{id}/{app_id}', array('as' => 'admin.games.prev
 Route::get('game/{id}/{app_id}', array('as' => 'game.show', 'uses' => 'GamesController@show'));
 Route::post('removed/review/{id}/{app_id}', array('as' => 'remove.review', 'uses' => 'ReviewsController@deleteReview'));
 Route::post('review/{id}/{app_id}', array('as' => 'update.review', 'uses' => 'ReviewsController@updateReview'));
-
 
 /*API*/
 //Route::get('auth/{appid?}/{token?}', array('as' => 'authorize.token', 'uses' => 'APIController@authorizeToken'));

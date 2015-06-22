@@ -28,7 +28,7 @@ return array(
 	'Buy' => 'buy',
 	'Change Profile Picture' => 'Change Profile Picture',
 	'gender' => 'gender',
-	'birthday' => 'birthday',
+	'birthdate' => 'birthdate',
 	'Update Profile' => 'Update Profile',
 	'Update Account Details' => 'update account details',
 	'Update Account' => 'update account',

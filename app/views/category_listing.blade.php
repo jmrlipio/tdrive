@@ -94,6 +94,11 @@
 	@if(!$apps)
 		<?php continue; ?>
 	@endif
+	
+	<?php $variant = Category::checkVariant($cat->id, Language::getLangID(Session::get('locale'))); ?>
+	@if(!$variant) 
+		<?php continue; ?>
+	@endif
 
 	<div class="game-category container">
 		<?php $ctr++; ?>
@@ -102,14 +107,19 @@
 
 			{{Form::open(array('id'=>'category'))}}		
 				<span id="custom-dd">	
-					{{ Form::select('select-category', array('default' => trans('global.Please select')) + $cat_list, 'default', array('class' => 'select-category', 'id' => 'select-category')) }}
+					<select class="select-category" id="select-category" >
+						<option>{{ trans('global.Please select') }}</option>
+						@foreach($cat_list as $_cat)
+							<option value="{{ $_cat['cat_id'] }}">{{ Language::getVariant($_cat['cat_id'],Session::get('locale')) }}</option>
+						@endforeach
+					</select>
 				</span>
 			{{Form::close()}}
 
 		@endif
 	
 		<div class="clearfix">
-			<h2 class="title fl">{{ trans('global.'.$cat->category) }}</h2>
+			<h2 class="title fl">{{ Language::getVariant($cat->id,Session::get('locale')) }}</h2>
 		</div>
 
 		<div class="swiper-container thumbs-container">
