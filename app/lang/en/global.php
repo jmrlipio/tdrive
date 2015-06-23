@@ -12,6 +12,7 @@ return array(
 	'logout' => 'Logout',
 	'test' => ':content',
 	'Select Carrier' => 'Select Carrier',
+	'Select app store' => 'Select app store',
 	'loading' => 'loading',
 	'name' => 'name',
 	'email' => 'email',

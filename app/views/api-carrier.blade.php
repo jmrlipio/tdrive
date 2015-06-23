@@ -15,7 +15,7 @@
 
     @endif
 
-	<h1 class="title center">Select Carrier</h1>
+	<h1 class="title center">Select App Store</h1>
 
 	{{ Form::open(array('route' => array('games.carrier.post', $app_id))) }}
 

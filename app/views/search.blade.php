@@ -6,7 +6,7 @@
 @section('content')
 
 	<div class="container">
-		<h1 class="title">{{ trans('global.Search results') }}</h1>
+		<h1 class="title">{{ trans('global.Search results') }} for "{{ $search }}"</h1>
 
 		<div class="clear"></div>	
 

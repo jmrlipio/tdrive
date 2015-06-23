@@ -17,8 +17,6 @@ $game_settings = GameSetting::all();
 <meta property="og:site_name" content="TDRIVE" />
 
 @if (isset($general_settings[2]) || !empty($general_settings[2]))
-	
-
 
 	@if(isset($game_id))
 	

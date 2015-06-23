@@ -33,7 +33,7 @@
 
 		<div class="control">
 			<select name="selected_carrier" required id="carrier">
-				<option value="">Select Carrier</option>
+				<option value="">Select App Store</option>
 
 				@foreach ($selected_carriers as $carrier)
 					<?php $selected = ''; ?>

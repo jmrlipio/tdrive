@@ -171,7 +171,7 @@
 
 			<div style="display:none">
 				<div class="carrier-container" id="carrier-select-container">
-						<h3>Select Carrier</h3>
+						<h3>Select App Store</h3>
 						{{ Form::open(array('route' => array('games.carrier-select'), 'method' => 'post')) }}
 							<select class="select-carrier" name="carrier">
 								@foreach($carriers as $carrier)
@@ -530,7 +530,7 @@
 	</div><!-- end #reviews -->
 	
 	<div id="related-games" class="container">
-		<h1 class="title">{{ trans('global.Related games') }}{{--  for {{ $game->main_title; }} --}}</h1>
+		<h1 class="title">{{ trans('global.Related games') }} for {{ $game->main_title; }} </h1>
 		
 		@if(!empty($related_games))
 
