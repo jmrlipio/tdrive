@@ -1640,16 +1640,14 @@ span.socials a.fa.fa-facebook {
   background: #f4f4f4;
   border: solid 1px #fff;
 }
-<<<<<<< HEAD
-
-.swiper-container.thumbs-container .swiper-wrapper {
+#screenshots .swiper-container.thumbs-container .swiper-wrapper {
   overflow: hidden;
 }
-.swiper-slide.item.swiper-slide-visible {
+#screenshots .swiper-slide.item.swiper-slide-visible {
   margin: 0 1px;
 }
 /* iOS hack */
-textarea, input[type=”text”], input[type=”button”], input[type=”submit”] {-webkit-appearance: none; border-radius: 0;}
+textarea, input, select {-webkit-appearance: none; border-radius: 0;}
 
 #contact-form{ background: #465a65; }
 #contact-form #contact { color: #fff; }
