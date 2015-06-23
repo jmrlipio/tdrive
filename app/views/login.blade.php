@@ -37,7 +37,7 @@
 				{{-- Form::checkbox('remember', 1 , null, ['id'=>'remember']); --}}
 				 <label for="remember">Remember me</label>
 			</div> -->
-			@if(Session::has('fail') ) 		    	
+			@if(Session::has('fail') && Session::has('id') ) 		    	
 				<div class="button">
 					<a href="resend/code/{{Session::get('id')}}">{{ trans('global.Resend verification code') }}</a>
 				</div>

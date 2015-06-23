@@ -36,26 +36,40 @@ class InquiriesController extends \BaseController {
 	 */
 	public function storeInquiry()
 	{
-		$validator = Validator::make(Input::all(), Inquiry::$rules);
-
-		$messages = [
+		
+		/*$messages = [
 		    'captcha.required' => 'Incorrect',
-		];
+		];*/
+		$os_version = Input::get('os-type'). ' - ' . Input::get('os-version');
+		$data = array(
+		    'name' => Input::get('name'),
+		    'email' => Input::get('email'),
+		    'app_store' => Input::get('app_store'),
+		    'country' => Input::get('country'),
+		    'os' => $os_version,
+		    'game_title' => Input::get('game_title'),
+		    'message' => Input::get('message'),
+		    'captcha' => Input::get('captcha')
+		);
+
+		$validator = Validator::make($data, Inquiry::$rules);
 
 		if($validator->passes()) {
 
-			Inquiry::create(Input::all());
+			Inquiry::create($data);
 
 			$message = Input::get('message');
 			$subject = 'Welcome!';
-			$data = array(
+			$_data = array(
 			    'name' => Input::get('name'),
 			    'email' => Input::get('email'),
+			    'country' => Input::get('country'),
+			    'os' => Input::get('os-type'). ' - ' . Input::get('os-version'),
 			    'game_title' => Input::get('game_title'),
 			    'messages' => $message,
 			);
 
-			Mail::send('emails.inquiries.inquire', $data , function ($message) use ($data) {
+			Mail::send('emails.inquiries.inquire', $_data , function ($message) use ($_data) {
 				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
 			});
 
@@ -163,9 +177,9 @@ class InquiriesController extends \BaseController {
 
 	public function userContact() 
 	{
-		$cid = Session::get('carrier');	
 		$games = Game::all();
 		$countries = Country::all();
+		$carriers = Carrier::all();
 
 		$user_location = GeoIP::getLocation();
 		$_default_location = Country::where('iso_3166_2','=', $user_location['isoCode'])->get();
@@ -180,46 +194,48 @@ class InquiriesController extends \BaseController {
 		}
 
 		$page_title = 'Contact Us';
-		$page_id = 'contact-form';
+		$page_id = 'form';
 
 		return View::make('contact-us')
 					->with('page_title', $page_title)
 					->with('page_id', $page_id)
 					->with('games', $games)
 					->with('countries', $countries)
+					->with('carriers', $carriers)
 					->with('default_location', $default_location);
 	}
 
 	public function userInquiry()
 	{
-		$validator = Validator::make(Input::all(), Inquiry::$rules);
+		$os_version = Input::get('os-type'). ' - ' . Input::get('os-version');
+		$data = array(
+		    'name' => Input::get('name'),
+		    'email' => Input::get('email'),
+		    'app_store' => Input::get('app_store'),
+		    'country' => Input::get('country'),
+		    'os' => $os_version,
+		    'game_title' => Input::get('game_title'),
+		    'message' => Input::get('message'),
+		    'captcha' => Input::get('captcha')
+		);
 
-		$messages = [
-		    'captcha.required' => 'Incorrect',
-		];
+		$validator = Validator::make($data, Inquiry::$rules);
 
 		if($validator->passes()) {
 
-			Inquiry::create(Input::all());
-			$other_os = Input::get('other');
-			$other = "";
-			if($other_os != null)
-			{
-				$other = $other_os;
-			}
-
 			$message = Input::get('message');
 			$subject = 'Welcome!';
-			$data = array(
+			$_data = array(
 			    'name' => Input::get('name'),
 			    'email' => Input::get('email'),
 			    'country' => Input::get('country'),
-			    'os-version' => Input::get('os-version'),
+			    'os' => Input::get('os-type'). ' - ' . Input::get('os-version'),
 			    'game_title' => Input::get('game_title'),
 			    'messages' => $message,
 			);
+			Inquiry::create($data);
 
-			Mail::send('emails.inquiries.inquire', $data , function ($message) use ($data) {
+			Mail::send('emails.inquiries.inquire', $_data , function ($message) use ($_data) {
 				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
 			});
 
@@ -228,9 +244,9 @@ class InquiriesController extends \BaseController {
 		}
 
 		//validator fails
-		return Redirect::to(URL::previous() )
-                    ->with('message', 'Something went wrong.')
-                    ->withErrors($validator);
+		return Redirect::to('contact-us' )
+				->withInput()
+				->withErrors($validator);
 	}
 
 
