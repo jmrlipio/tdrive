@@ -189,7 +189,7 @@ class InquiriesController extends \BaseController {
 		{
 			$default_location = array(
 				'id' => $df->id,
-				'name' => $df->name
+				'name' => $df->full_name
 			);
 		}
 
