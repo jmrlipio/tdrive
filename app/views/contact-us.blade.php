@@ -76,7 +76,7 @@
 			</div>
 
 			<div class="control clearfix wbg">
-				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.Os Version') }}" required>
+				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
 
 				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
 			</div>
@@ -86,7 +86,7 @@
 				<div id="os-selection" class="select clearfix">
 					<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 					<select id="os-type" name="os-type">
-						<option value="Ios">Ios</option>
+						<option value="iOS">iOS</option>
 						<option value="Android">Android</option>
 						<!-- Apple -->
 						<!-- <optgroup label="iOS">
