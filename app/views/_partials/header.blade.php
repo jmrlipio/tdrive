@@ -60,13 +60,6 @@ $game_settings = GameSetting::all();
  <?php endif; ?>
 @endif
 
-@if(isset($categories))
-    <meta property="og:title" content="{{{ $page_title }}}" />
-    <meta property="og:description" content="{{{ $page_title }}}" />
-    <meta property="og:url" content="{{ url() }}" />
-    <meta property="og:image" content="{{ url() }}/images/tose.png" /> 
-@endif
-
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 {{ HTML::style("css/normalize.css"); }}
