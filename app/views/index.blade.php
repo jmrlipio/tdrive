@@ -407,7 +407,7 @@
 	<div style="display:none">
 		<div class="carrier-container" id="carrier-select-container">
 			{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
-				<h3>Select Carrier</h3>
+				<h3>Select App Store</h3>
 				<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
 			{{ Form::close() }}
 		</div>

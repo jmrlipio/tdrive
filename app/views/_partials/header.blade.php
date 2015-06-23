@@ -17,8 +17,6 @@ $game_settings = GameSetting::all();
 <meta property="og:site_name" content="TDRIVE" />
 
 @if (isset($general_settings[2]) || !empty($general_settings[2]))
-	
-
 
 	@if(isset($game_id))
 	
@@ -60,6 +58,13 @@ $game_settings = GameSetting::all();
     <meta property="og:image" content="{{ url() }}/assets/news/{{ $thumbnail }}" /> 
    <?php endif; ?> 
  <?php endif; ?>
+@endif
+
+@if(isset($categories))
+    <meta property="og:title" content="{{{ $page_title }}}" />
+    <meta property="og:description" content="{{{ $page_title }}}" />
+    <meta property="og:url" content="{{ url() }}" />
+    <meta property="og:image" content="{{ url() }}/images/tose.png" /> 
 @endif
 
 <link rel="apple-touch-icon" href="apple-touch-icon.png">

@@ -1649,7 +1649,7 @@ span.socials a.fa.fa-facebook {
 }
 /* iOS hack */
 textarea, input[type=”text”], input[type=”button”], input[type=”submit”] {-webkit-appearance: none; border-radius: 0;}
-\
+
 #contact-form{ background: #465a65; }
 #contact-form #contact { color: #fff; }
 #contact-form h1 { color: #fff!important; }
