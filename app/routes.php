@@ -4,6 +4,21 @@ Route::get('/', array('as' => 'carrier', 'uses' => 'HomeController@index'));
 Route::get('home', array('as' => 'home.show', 'uses' => 'HomeController@home'));
 Route::post('home', array('as' => 'home.post', 'uses' => 'HomeController@home'));
 
+/* Pages that needs carrier */
+
+    Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
+    Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingController@showMoreNews'));  
+    Route::post('year/more', array('as' => 'news.year.more.show', 'uses' => 'ListingController@showMoreNewsByYear'));
+    Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
+    Route::get('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
+    Route::post('category/{id}', array('as' => 'category.show', 'uses' => 'ListingController@showGamesByCategory'));
+
+/* END */
+
+    Route::get('news/year/{year}', array('as' => 'news.year.show', 'uses' => 'ListingController@showNewsByYear'));
+    Route::post('news/year/{year}', array('as' => 'news.year.show.post', 'uses' => 'ListingController@showNewsByYear'));
+    Route::get('news/{id}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
+
 Route::get('news', array('as' => 'news.all', 'uses' => 'ListingController@showNews'));
 Route::post('news/more', array('as' => 'news.all.post', 'uses' => 'ListingController@showMoreNews'));
 // Route::get('news/{id}/{slug}', array('as' => 'news.show', 'uses' => 'NewsController@show'));
@@ -255,3 +270,5 @@ Route::post('games/carrier-select', array('as' => 'games.carrier-select', 'uses'
 
 //Review Delete in Front End
 // Route::delete('reviews/{app_id}/{id}/delete', array('as' => 'reviews.front.index', 'uses' => 'ReviewsController@delete_front'));
+Route::get('contact-us', array('as' => 'contact-us', 'uses' => 'InquiriesController@userContact'));
+Route::post('contact-us/inquiries', array('as' => 'contact-us.user-inquiry', 'uses' => 'InquiriesController@userInquiry'));

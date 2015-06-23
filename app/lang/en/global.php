@@ -163,5 +163,8 @@ return array(
 
 	//Reset password
 	'old password' => 'old password',
-	'new password' => 'new password'
+	'new password' => 'new password',
+
+	//Contact Us
+	'Contact Us' => 'Contact Us',
 );

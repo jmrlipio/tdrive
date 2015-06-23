@@ -1649,3 +1649,68 @@ span.socials a.fa.fa-facebook {
 }
 /* iOS hack */
 textarea, input[type=”text”], input[type=”button”], input[type=”submit”] {-webkit-appearance: none; border-radius: 0;}
+\
+#contact-form{ background: #465a65; }
+#contact-form #contact { color: #fff; }
+#contact-form h1 { color: #fff!important; }
+#contact-form #contact form {
+  padding-bottom: 10px;
+}
+#contact-form #contact label.common {
+  display: block;
+  text-transform: lowercase;
+  line-height: 26px;
+}
+#contact-form #contact .control {
+  position: relative;
+  margin-top: 10px;
+}
+#contact-form #contact .control:last-child {
+  margin-top: 10px;
+}
+#contact-form #contact input[type="text"], #contact-form #contact input[type="email"] {
+  padding: 1px 6px;
+  height: 34px;
+  width: 100%;
+  /* border: 1px solid #555; */
+}
+#contact-form #contact .select {
+  position: relative;
+  margin-top: 10px;
+}
+#contact-form #contact .select label {
+  display: block;
+  text-transform: lowercase;
+  line-height: 26px;
+}
+#contact-form #contact .select select {
+  padding: 8px 6px;
+  font-size: 12px;
+  height: 34px;
+  width: 100%;
+}
+
+#contact-form #contact textarea {
+  padding: 6px 6px;
+  min-height: 100px;
+  width: 100%;
+}
+#contact-form #contact input[type="submit"] {
+  text-transform: lowercase;
+  background: #e9548e;
+  color: #fff;
+  padding: 4px 6px;
+  float: right;
+}
+
+#contact-form #contact input#other {
+  padding: 1px 6px;
+  font-size: 12px;
+  height: 34px;
+  width: 100%;
+  color: #465a65;
+  margin-top: 10px;
+}
+/* #contact-form #contact .captcha input{
+  width: 69.3% !important;
+} */\
