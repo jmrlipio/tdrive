@@ -43,19 +43,17 @@
 		
 			<div class="control">
 				<div class="select clearfix wbg">
+					<?php 
+					$countries = ['Indonesia', 'Thailand', 'Malaysia', 'Singapore', 'Philippines', 'Vietnam', 'Myanmar', 'Brunei', 'Cambodia', 'Laos']; ?>
 					<select name="country" class="clearfix" id="country" required>
 						<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
-						<option value="Indonesia">Indonesia</option>
-						<option value="Thailand">Thailand</option>
-						<option value="Malaysia">Malaysia</option>
-						<option value="Singapore">Singapore</option>
-						<option value="Philippines">Philippines</option>
-						<option value="Vietnam">Vietnam</option>
-						<option value="Myanmar">Myanmar</option>
-						<option value="Brunei">Brunei</option>
-						<option value="Cambodia">Cambodia</option>
-						<option value="Laos">Laos</option>
-
+						
+						@for($x = 0; $x < count($countries); $x++)
+							@if($countries[$x] != $default_location['name'])
+								<option value="{{$countries[$x]}}">{{$countries[$x]}}</option>
+							@endif
+						@endfor
+						
 					</select>
 
 					{{ $errors->first('country', '<p class="form-error">:message</p>') }}
@@ -76,7 +74,7 @@
 			</div>
 
 			<div class="control clearfix wbg">
-				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.Os Version') }}" required>
+				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
 
 				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
 			</div>
@@ -86,7 +84,7 @@
 				<div id="os-selection" class="select clearfix">
 					<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 					<select id="os-type" name="os-type">
-						<option value="Ios">Ios</option>
+						<option value="iOS">iOS</option>
 						<option value="Android">Android</option>
 						<!-- Apple -->
 						<!-- <optgroup label="iOS">
