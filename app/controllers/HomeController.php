@@ -208,14 +208,50 @@ class HomeController extends BaseController {
 
 		foreach(News::all() as $nw) {
 			//$news_slide[$nw->id] = $nw->homepage_image;
-
-			//$news_slide[$nw->id] = $nw->featured_image;
 			$news_slide[$nw->id] = array(
 				'image' => $nw->homepage_image,
 				'id' => $nw->id,
 				'title' => $nw->main_title
 			);
 
+		}
+
+		$_default_location = Country::where('iso_3166_2','=', $user_location['isoCode'])->get();
+		$default_location = array();
+		
+		foreach($_default_location as $df)
+		{
+			$default_location = array(
+				'id' => $df->id,
+				'name' => $df->name
+			);
+		}
+
+		$country = Country::where('name', $user_location['country'])->get();
+		$country_id = '';
+
+		foreach($country as $key) {
+			$country_id = $key->id;
+		}
+
+		$filters = IPFilter::lists('ip_address');
+		$carriers = Country::with('carriers')->where('country_code', '=', $country_id)->get();
+
+		$selected_carriers = [];
+		foreach($carriers as $c) {
+			foreach($c->carriers as $i) {
+				$selected_carriers[] = $i;
+			}
+		}
+
+		if(!$selected_carriers || in_array($_SERVER['REMOTE_ADDR'], $filters)) 
+		{	
+			unset($selected_carriers);
+			$carriers_all = Carrier::all();
+			foreach($carriers_all as $carrier)
+			{
+				$selected_carriers[] = $carrier;
+			}
 		}
 
 		/* END */
@@ -233,7 +269,8 @@ class HomeController extends BaseController {
 			->with('categories', $categories)
 			->with('discounts', $discounts)
 			->with('limit', $limit)
-			->with(compact('games','featured_games', 'faqs', 'languages', 'games_slide','news_slide','sliders'));
+			->with('selected_carriers', $selected_carriers)
+			->with(compact('games','featured_games', 'faqs', 'languages', 'games_slide','news_slide','sliders', 'default_location'));
 	
 	}
 

@@ -97,7 +97,7 @@ return array(
 	'FAQs' => 'FAQs',
 	'Find answers to Frequently Asked Questions about TDrive and our services below.' => 'Find answers to Frequently Asked Questions about TDrive and our services below.',
 	'Contact us' => 'Contact us',
-	'Your comments and suggestions are important to us. You can reach us via the contact points below.' => 'Your comments and suggestions are important to us. You can reach us via the contact points below.',
+	'Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.' => 'Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.',
 	'General Inquiry' => 'General Inquiry',
 	'View' => 'View',
 	'type what you see...' => 'type what you see...',
@@ -168,4 +168,5 @@ return array(
 
 	//Contact Us
 	'Contact Us' => 'Contact Us',
+	'os version' => 'os version',
 );

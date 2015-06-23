@@ -1640,6 +1640,7 @@ span.socials a.fa.fa-facebook {
   background: #f4f4f4;
   border: solid 1px #fff;
 }
+<<<<<<< HEAD
 
 .swiper-container.thumbs-container .swiper-wrapper {
   overflow: hidden;
@@ -1689,28 +1690,15 @@ textarea, input[type=”text”], input[type=”button”], input[type=”submit
   height: 34px;
   width: 100%;
 }
-
-#contact-form #contact textarea {
-  padding: 6px 6px;
+#os-selection > select, .wbg {
+  background: #fff;
+}
+textarea#contact-message {
+  width: 99%;
+  border-radius: 0 !important;
   min-height: 100px;
-  width: 100%;
-}
-#contact-form #contact input[type="submit"] {
-  text-transform: lowercase;
-  background: #e9548e;
-  color: #fff;
-  padding: 4px 6px;
-  float: right;
 }
 
-#contact-form #contact input#other {
-  padding: 1px 6px;
-  font-size: 12px;
-  height: 34px;
-  width: 100%;
-  color: #465a65;
-  margin-top: 10px;
-}
 /* #contact-form #contact .captcha input{
   width: 69.3% !important;
-} */\
+} */

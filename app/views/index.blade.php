@@ -354,11 +354,16 @@
 	</div><!-- end #faqs -->
 	<div id="contact" class="container">
 		<h1 class="title">{{ trans('global.Contact us') }}</h1>
-		<p>{{ trans('global.Your comments and suggestions are important to us. You can reach us via the contact points below.') }}</p>
+		<p>{{ trans('global.Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.') }}</p>
 		{{ Form::open(array('route'=>'reports.inquiries.store-inquiry', 'method' => 'post')) }}
 			@if(Session::has('message'))
-				<br>
-				<p class="form-success">{{ Session::get('message') }}</p>
+				@if(Session::get('message') == 'Your inquiry has been sent.')
+					<br>
+					<p class="form-success">{{ Session::get('message') }}</p>
+				@else
+					<br>
+					<p class="form-error">{{ Session::get('message') }}</p>
+				@endif
 			@endif
 
 			<div class="control clearfix">
@@ -373,6 +378,40 @@
 				{{ $errors->first('email', '<p class="form-error">:message</p>') }}
 			</div>
 
+			<div class="select clearfix wbg">
+				<select class="clearfix" name="app_store" required>
+					@foreach ($selected_carriers as $carrier)
+						<?php $selected = ''; ?>
+
+						@if(Session::has('carrier'))
+							<?php $selected = ($carrier->id == Session::get('carrier')) ? 'selected' : ''; ?>
+						@endif
+
+						<option value="{{ $carrier->carrier }}" {{ $selected }}>{{ $carrier->carrier }}</option>
+					@endforeach
+
+				</select>
+				{{ $errors->first('carrier', '<p class="form-error">:message</p>') }}
+			</div>
+
+			<div class="select clearfix wbg">
+				<select name="country" class="clearfix" id="country" required>
+					<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
+					<option value="Indonesia">Indonesia</option>
+					<option value="Thailand">Thailand</option>
+					<option value="Malaysia">Malaysia</option>
+					<option value="Singapore">Singapore</option>
+					<option value="Philippines">Philippines</option>
+					<option value="Vietnam">Vietnam</option>
+					<option value="Myanmar">Myanmar</option>
+					<option value="Brunei">Brunei</option>
+					<option value="Cambodia">Cambodia</option>
+					<option value="Laos">Laos</option>
+				</select>
+
+				{{ $errors->first('country', '<p class="form-error">:message</p>') }}
+			</div>
+			
 			<div class="select clearfix">
 				<select name="game_title" class="clearfix" id="game" required>
 					<option value="General Inquiry">{{ trans('global.General Inquiry') }}</option>
@@ -382,6 +421,20 @@
 				</select>
 
 				{{ $errors->first('game_title', '<p class="form-error">:message</p>') }}
+			</div>
+
+			<div class="control clearfix wbg">
+				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
+
+				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
+			</div>
+
+			<div id="os-selection" class="select clearfix">
+				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
+				<select id="os-type" name="os-type">
+					<option value="Ios">Ios</option>
+					<option value="Android">Android</option>
+				</select>
 			</div>
 
 			<div class="captcha control clearfix">
@@ -402,16 +455,6 @@
 			</div>
 		{{ Form::close() }}
 	</div><!-- end #contact -->
-
-	<!-- CARRIER SELECT MODAL  -->
-	<div style="display:none">
-		<div class="carrier-container" id="carrier-select-container">
-			{{ Form::open(array('route' => array('games.carrier.details', $game->id), 'id' => 'carrier')) }}
-				<h3>Select App Store</h3>
-				<input type="submit" id="submit-carrier" class="carrier-submit" value="choose">
-			{{ Form::close() }}
-		</div>
-	</div>
 
 @if($first_visit)
 <?php $ctr = 0; ?>
