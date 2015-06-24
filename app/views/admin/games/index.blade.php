@@ -24,6 +24,7 @@
 				<tr>
 					<th><input type="checkbox"></th>
 					<th>Game Name</th>
+					<th>Status</th>
 					<th>Categories</th>
 					<th>Author</th>
 					<th>Release Date</th>
@@ -50,6 +51,7 @@
 								</ul>
 							@endif
 						</td>
+						<td>{{ $game->status }}</td>
 						<td>
 							@foreach($game->categories as $gc)
 								{{ $gc->category }}
