@@ -71,7 +71,7 @@ class AdminUsersController extends \BaseController {
 		$games = Game::all();
 		$carriers = Carrier::all();
 		$countries = Country::all();
-		$histories = DB::table('login_history')->where('user_id', $id)->get();	
+		$histories = LoginHistory::where('user_id', $id)->orderBy('created_at', 'DESC')->get();	
 		$activities = DB::table('activity_logs')->where('user_id', $id)->get();	
 
 		$selected_games = [];
@@ -101,10 +101,19 @@ class AdminUsersController extends \BaseController {
 			$count++;
 		}
 
+		$downloaded = Transaction::where('user_id', '=', $id )
+									->where('status', '=', '1')
+									->get();
+		$downloaded_games = array();
+		foreach($downloaded as $d) 
+		{
+			$downloaded_games[] = $d->app;
+		}
 
 		return View::make('admin.users.view')
 			->with('user', $user)
 			->with('games', $selected_games)
+			->with('downloaded_games', $downloaded_games)
 			->with('histories', $histories)
 			->with('activities', $activities);
 	}
