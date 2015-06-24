@@ -429,10 +429,11 @@
 				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
 			</div>
 
-			<div id="os-selection" class="select clearfix">
+			<div id="os-selection" class="select clearfix" required>
 				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 				<select id="os-type" name="os-type">
-					<option value="Ios">Ios</option>
+					<option value="1">Select OS</option>
+					<option value="iOS">iOS</option>
 					<option value="Android">Android</option>
 				</select>
 			</div>

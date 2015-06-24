@@ -7,7 +7,7 @@ Event::listen('user.*', function($user) {
 
 		Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $user->code), 'username' => $user->username), function ($message) use ($user){
 			$message->to($user->email, $user->username)			 
-			 ->subject('Activate your Account');
+			 ->subject('Welcome to Tdrive!');
 		});
 
 	}
@@ -16,7 +16,7 @@ Event::listen('user.*', function($user) {
 
 		Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $user->code), 'username' => $user->username), function ($message) use ($user){
 			$message->to($user->email, $user->username)			 
-			 ->subject('Activate your Account');
+			 ->subject('Activate your account');
 		});
 
 	}

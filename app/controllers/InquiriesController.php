@@ -10,7 +10,7 @@ class InquiriesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$inquiries = Inquiry::orderBy('created_at')->paginate(30);
+		$inquiries = Inquiry::orderBy('created_at', 'DESC')->paginate(30);
 
 		return View::make('admin.reports.inquiries.index')
 					->with('inquiries', $inquiries);
@@ -59,7 +59,7 @@ class InquiriesController extends \BaseController {
 			Inquiry::create($data);
 
 			$message = Input::get('message');
-			$subject = 'Welcome!';
+			$subject = 'Thank you for you inquiry.';
 			$_data = array(
 			    'name' => Input::get('name'),
 			    'email' => Input::get('email'),
@@ -70,7 +70,7 @@ class InquiriesController extends \BaseController {
 			);
 
 			Mail::send('emails.inquiries.inquire', $_data , function ($message) use ($_data) {
-				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
+				$message->to(Input::get('email'), Input::get('name'))->subject('Thank you for you inquiry.');
 			});
 
 			return Redirect::to(URL::previous() . '#contact')
@@ -121,7 +121,7 @@ class InquiriesController extends \BaseController {
 		if($validator->passes())
 		{ 
 			$inquiry = Inquiry::find($id);
-			$subject = 'Welcome!';
+			$subject = 'Thank you for you inquiry.';
 			$data = array(
 			    'name' => $inquiry->name,
 			    'email' => $inquiry->email,
@@ -130,7 +130,7 @@ class InquiriesController extends \BaseController {
 			);
 
 			$mail = Mail::send('emails.inquiries.replyto', $data , function ($message) use ($inquiry) {
-					$message->to($inquiry->email, $inquiry->name)->subject('Welcome!');
+					$message->to($inquiry->email, $inquiry->name)->subject('Thank you for you inquiry.');
 				});
 
 
@@ -224,7 +224,7 @@ class InquiriesController extends \BaseController {
 		if($validator->passes()) {
 
 			$message = Input::get('message');
-			$subject = 'Welcome!';
+			$subject = 'Thank you for you inquiry.';
 			$_data = array(
 			    'name' => Input::get('name'),
 			    'email' => Input::get('email'),
@@ -236,7 +236,7 @@ class InquiriesController extends \BaseController {
 			Inquiry::create($data);
 
 			Mail::send('emails.inquiries.inquire', $_data , function ($message) use ($_data) {
-				$message->to(Input::get('email'), Input::get('name'))->subject('Welcome!');
+				$message->to(Input::get('email'), Input::get('name'))->subject('Thank you for you inquiry.');
 			});
 
 			return Redirect::to(URL::previous())
