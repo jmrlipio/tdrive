@@ -680,3 +680,10 @@ a.vn {
 #filters tr {
 	border: 1px solid black;
 }
+
+
+form .fw-li li {
+  width: 100%;
+  display: inline-block;
+}
+.fw-li li 

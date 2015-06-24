@@ -58,7 +58,7 @@ class HomeController extends BaseController {
 		}
 
 		return View::make('carrier')
-			->with('page_title', 'Select app store')
+			->with('page_title', 'Select App Store')
 			->with('selected_carriers', $selected_carriers)
 			->with('country_id', $country_id)
 			->with('page_id', 'form')

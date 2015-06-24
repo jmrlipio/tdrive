@@ -1640,12 +1640,12 @@ span.socials a.fa.fa-facebook {
   background: #f4f4f4;
   border: solid 1px #fff;
 }
-#screenshots .swiper-container.thumbs-container .swiper-wrapper {
-  overflow: hidden;
+
+#screenshots .swiper-slide.item.swiper-slide-visible img {
+  width: 98%;
+  padding: 0 1px;
 }
-#screenshots .swiper-slide.item.swiper-slide-visible {
-  margin: 0 1px;
-}
+
 /* iOS hack */
 textarea, input, select {-webkit-appearance: none; border-radius: 0;}
 

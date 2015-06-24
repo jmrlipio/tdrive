@@ -395,18 +395,19 @@
 			</div>
 
 			<div class="select clearfix wbg">
-				<?php 
-					$countries = ['Indonesia', 'Thailand', 'Malaysia', 'Singapore', 'Republic of the Philippines', 'Vietnam', 'Myanmar', 'Brunei', 'Cambodia', 'Laos']; ?>
-					<select name="country" class="clearfix" id="country" required>
-						<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
-						
-						@for($x = 0; $x < count($countries); $x++)
-							@if($countries[$x] != $default_location['name'])
-								<option value="{{$countries[$x]}}">{{$countries[$x]}}</option>
-							@endif
-						@endfor
-						
-					</select>
+				<select name="country" class="clearfix" id="country" required>
+					<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
+					<option value="Indonesia">Indonesia</option>
+					<option value="Thailand">Thailand</option>
+					<option value="Malaysia">Malaysia</option>
+					<option value="Singapore">Singapore</option>
+					<option value="Philippines">Philippines</option>
+					<option value="Vietnam">Vietnam</option>
+					<option value="Myanmar">Myanmar</option>
+					<option value="Brunei">Brunei</option>
+					<option value="Cambodia">Cambodia</option>
+					<option value="Laos">Laos</option>
+				</select>
 
 				{{ $errors->first('country', '<p class="form-error">:message</p>') }}
 			</div>
@@ -431,7 +432,7 @@
 			<div id="os-selection" class="select clearfix">
 				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 				<select id="os-type" name="os-type">
-					<option value="iOS">iOS</option>
+					<option value="Ios">Ios</option>
 					<option value="Android">Android</option>
 				</select>
 			</div>
@@ -537,22 +538,20 @@
 
 	<script>
 
-        $('#contact input[type="submit"]').on('click',function(e) {
+   //     $('#contact form').submit(function(e) {
    //      	e.preventDefault();
    //      	//console.log("yowww");
 
 			// $.ajax({
 			// 	type: 'POST',
 			// 	url: "<?php echo URL::route('reports.inquiries.store-inquiry' ); ?>",
-			// 	data: { 
-			// 		$("#contact form").serialize()
-			// 	},
+			// 	data: $("#contact form").serialize(),
 			// 	success: function(data) {
 			// 			//window.location = data.url;
 			// 			alert("Your download has started...");
 			// 	}
 			// });
-        });
+   //      });
 
 		FastClick.attach(document.body);
 		
