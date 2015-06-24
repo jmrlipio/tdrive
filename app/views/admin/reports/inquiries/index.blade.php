@@ -20,10 +20,16 @@
 				<th><input type="checkbox"></th>
 				<th>Email</th>
 				<th>Name</th>
+				<th>Country</th>
+				<th>App Store</th>
+				<th>Os</th>
+				<th>Os Version</th>
 				<th>Message</th>
+				<th>Date</th>
 			</tr>
 			<thead>
 			<tbody>
+
 			@foreach($inquiries as $inquiry)
 				<tr>
 					<td><input type="checkbox"></td>
@@ -39,9 +45,30 @@
 						</ul>
 					</td>
 					<td>{{ $inquiry->name }}</td>
+					<td>{{ $inquiry->country }}</td>
+					<td>{{ $inquiry->app_store }}</td>					
+					<?php 
+						$str = $inquiry->os;		
+						if($str != null)
+						{
+							$temp = explode(" - ",$str);		
+							$os = $temp[0];
+							$os_version = $temp[1]; 
+					?>
+							<td>{{ $os }}</td>
+							<td>{{ $os_version }}</td>
+					
+					<?php } else { ?>	
+
+						<td></td>
+						<td></td>
+
+					<?php } ?>
 					<td>{{ $inquiry->message }}</td>
+					<td>{{ $inquiry->created_at }}</td>
 				</tr>
 			@endforeach
+			
 		</tbody>
 		</table>
 

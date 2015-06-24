@@ -10,7 +10,7 @@ class InquiriesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$inquiries = Inquiry::orderBy('created_at')->paginate(30);
+		$inquiries = Inquiry::orderBy('created_at', 'DESC')->paginate(30);
 
 		return View::make('admin.reports.inquiries.index')
 					->with('inquiries', $inquiries);
