@@ -64,7 +64,7 @@
 						<td></td>
 
 					<?php } ?>
-					<td>{{ $inquiry->message }}</td>
+					<td>{{ str_limit($inquiry->message, $limit = 10, $end = '...') }} </td>
 					<td>{{ $inquiry->created_at }}</td>
 				</tr>
 			@endforeach
