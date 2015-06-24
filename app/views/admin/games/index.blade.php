@@ -1,5 +1,10 @@
 @extends('admin._layouts.admin')
-
+@section('stylesheets')
+	<style>
+		p.published {color: green;}
+		p.draft {color: #555;}
+	</style>
+@stop
 @section('content')
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
@@ -51,7 +56,9 @@
 								</ul>
 							@endif
 						</td>
-						<td>{{ $game->status }}</td>
+						<td>
+							{{ ( $game->status == 'live' ) ? '<p class="published">Published</p>' : '<p class="draft">Draft</p>'  }}
+						</td>
 						<td>
 							@foreach($game->categories as $gc)
 								{{ $gc->category }}
