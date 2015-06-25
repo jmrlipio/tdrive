@@ -137,9 +137,9 @@ class NewsController extends \BaseController {
 			$data['featured_image'] = $filename;
 
 			$homepage = Input::file('homepage_image');
-			$filename = time() . "_" . $featured->getClientOriginalName();
+			$filename = time() . "_" . $homepage->getClientOriginalName();
 			$path = public_path('assets/news/' . $filename);
-			Image::make($featured->getRealPath())->save($path);
+			Image::make($homepage->getRealPath())->save($path);
 
 			$data['homepage_image'] = $filename;
 
@@ -302,9 +302,19 @@ class NewsController extends \BaseController {
 			$news->delete();
 			Event::fire('audit.news.delete', Auth::user());
 
+			$featured_img = public_path().'/assets/news/'.$news->featured_image;
+			$homepage_img = public_path().'/assets/news/'.$news->homepage_image;
+
+			if($featured_img && $homepage_img)
+			{
+				File::delete($featured_img, $homepage_img);
+			}
+
 			return Redirect::route('admin.news.index')
 				->with('message', 'News deleted')
 				->with('sof', 'success');	
+
+
 		}
 
 		return Redirect::route('admin.news.index')

@@ -133,6 +133,21 @@ class AdminGamesController extends \BaseController {
 	public function destroy($id)
 	{
 		$game = Game::find($id);
+		$imgs[] ="";
+
+		foreach($game->media as $media) 
+		{
+			$imgs[] += $media->id;
+		}
+
+		foreach ($imgs as $key => $value) {
+			$media = Media::find($value);
+			$file = public_path().'/assets/games/'.$media["type"]."/".$media["url"];
+			File::delete($file);
+		}
+
+		// echo "<pre>";
+		// dd($media->url);
 
 		if($game) {
 			$game->delete();

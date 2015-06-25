@@ -152,7 +152,9 @@
 			});
 			*/
 
-			$('#review_table').dataTable();
+			$('#review_table').dataTable({
+		        "order": [[ 6, "desc" ]]
+		    });
 
 		   $('#select-all').click(function(){			   
 		

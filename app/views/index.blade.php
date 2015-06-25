@@ -540,22 +540,20 @@
 
 	<script>
 
-        $('#contact input[type="submit"]').on('click',function(e) {
+   //     $('#contact form').submit(function(e) {
    //      	e.preventDefault();
    //      	//console.log("yowww");
 
 			// $.ajax({
 			// 	type: 'POST',
 			// 	url: "<?php echo URL::route('reports.inquiries.store-inquiry' ); ?>",
-			// 	data: { 
-			// 		$("#contact form").serialize()
-			// 	},
+			// 	data: $("#contact form").serialize(),
 			// 	success: function(data) {
 			// 			//window.location = data.url;
 			// 			alert("Your download has started...");
 			// 	}
 			// });
-        });
+   //      });
 
 		FastClick.attach(document.body);
 		

@@ -68,7 +68,11 @@
 
 	<script>
 	$(document).ready(function(){
-		$('#news_table').DataTable();
+
+		$('#news_table').DataTable({
+		        "order": [[ 3, "desc" ]]
+		    });
+
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
 				$('td input[type=checkbox').prop('checked', true);
