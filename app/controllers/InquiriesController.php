@@ -36,17 +36,21 @@ class InquiriesController extends \BaseController {
 	 */
 	public function storeInquiry()
 	{
+		$os = "";
+		if(Input::get('os-version') != null) 
+		{
+			$os = Input::get('os-type'). ' - ' . Input::get('os-version');
 		
-		/*$messages = [
-		    'captcha.required' => 'Incorrect',
-		];*/
-		$os_version = Input::get('os-type'). ' - ' . Input::get('os-version');
+		} else {
+			$os = Input::get('os-type');
+		}
+
 		$data = array(
 		    'name' => Input::get('name'),
 		    'email' => Input::get('email'),
 		    'app_store' => Input::get('app_store'),
 		    'country' => Input::get('country'),
-		    'os' => $os_version,
+		    'os' => $os,
 		    'game_title' => Input::get('game_title'),
 		    'message' => Input::get('message'),
 		    'captcha' => Input::get('captcha')
@@ -206,17 +210,27 @@ class InquiriesController extends \BaseController {
 
 	public function userInquiry()
 	{
-		$os_version = Input::get('os-type'). ' - ' . Input::get('os-version');
+		$os = "";
+		if(Input::get('os-version') != null) 
+		{
+			$os = Input::get('os-type'). ' - ' . Input::get('os-version');
+		
+		} else {
+			$os = Input::get('os-type');
+		}
+			
 		$data = array(
 		    'name' => Input::get('name'),
 		    'email' => Input::get('email'),
 		    'app_store' => Input::get('app_store'),
 		    'country' => Input::get('country'),
-		    'os' => $os_version,
+		    'os' => $os,
 		    'game_title' => Input::get('game_title'),
 		    'message' => Input::get('message'),
 		    'captcha' => Input::get('captcha')
 		);
+
+		//dd($data);
 
 		$validator = Validator::make($data, Inquiry::$rules);
 

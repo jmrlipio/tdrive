@@ -47,23 +47,32 @@
 					<td>{{ $inquiry->country }}</td>
 					<td>{{ $inquiry->app_store }}</td>					
 					<?php 
-						$str = $inquiry->os;		
-						if($str != null)
-						{
-							$temp = explode(" - ",$str);		
-							$os = $temp[0];
-							$os_version = $temp[1]; 
-					?>
-							<td>{{ $os }}</td>
-							<td>{{ $os_version }}</td>
+						$str = $inquiry->os;
+						$os = "";
+						$os_version = "";
+					?>		
+					@if($str != null ) 
+						
+						@if(strpos($str,'-') !== false) 
+							<?php 
+								$temp = explode(" - ",$str);		
+								$os = $temp[0];
+								$os_version = $temp[1];
+						 	?>					
+								<td>{{ $os }}</td>
+								<td>{{ $os_version }}</td>
+					 	@else
+							<td>{{ $str }}</td>
+							<td></td>
+						@endif <!-- END of inner condition --> 
 					
-					<?php } else { ?>	
+					@else 
 
 						<td></td>
 						<td></td>
 
-					<?php } ?>
-					<!-- <td>{{ str_limit($inquiry->message, $limit = 10, $end = '...') }} </td> -->
+					@endif <!-- //END of first condition -->
+					
 					<td>{{ $inquiry->created_at }}</td>
 				</tr>
 			@endforeach

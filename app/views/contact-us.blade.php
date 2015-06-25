@@ -76,47 +76,16 @@
 			<div class="control">
 			
 				<div id="os-selection" class="select clearfix">
-					<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 					<select id="os-type" name="os-type" required>
 						<option value="1">Select OS</option>
 						<option value="iOS">iOS</option>
 						<option value="Android">Android</option>
-						<!-- Apple -->
-						<!-- <optgroup label="iOS">
-							<option value="iOS 8.3">iOS 8.3</option>
-							<option value="iOS 8.2">iOS 8.2</option>
-							<option value="iOS 8.1">iOS 8.1</option>
-							<option value="iOS 7.1">iOS 7.1</option>
-							<option value="iOS 7.0.6">iOS 7.0.6</option>
-							<option value="iOS 7.0.5">iOS 7.0.5</option>
-							<option value="iOS 7.0.4">iOS 7.0.4</option>
-							<option value="iOS 7.0.3">iOS 7.0.3</option>
-							<option value="iOS 7.0.2">iOS 7.0.2</option>
-							<option value="iOS 7">iOS 7</option>
-						</optgroup>
-						
-						Android
-						<optgroup label="Android">
-							<option value="Android 5.0, Lollipop">Android 5.0, Lollipop</option>
-							<option value="Android 4.4, KitKat">Android 4.4, KitKat</option>
-							<option value="Android 4.1, Jelly Bean">Android 4.1, Jelly Bean</option>
-							<option value="Android 4.0, Ice Cream Sandwich">Android 4.0, Ice Cream Sandwich</option>
-							<option value="Android 3.0, Honeycomb">Android 3.0, Honeycomb</option>
-							<option value="Android 2.3, Gingerbread">Android 2.3, Gingerbread</option>
-							<option value="Android 2.2, Froyo">Android 2.2, Froyo</option>
-							<option value="Android 2.0, Eclair">Android 2.0, Eclair</option>
-							<option value="Android 1.6, Donut">Android 1.6, Donut</option>						
-						</optgroup>
-						
-						<optgroup label="other">
-							<option value="other">Others</option>
-						</optgroup> -->
 					</select>
 				</div>
 			</div>
 
 			<div class="control clearfix wbg">
-				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
+				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}">
 
 				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
 			</div>

@@ -433,7 +433,7 @@
 			</div>
 
 			<div class="control clearfix wbg">
-				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
+				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}">
 
 				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
 			</div>
