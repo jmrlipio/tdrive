@@ -44,7 +44,7 @@
 			<div class="control">
 				<div class="select clearfix wbg">
 					<?php 
-					$countries = ['Indonesia', 'Thailand', 'Malaysia', 'Singapore', 'Philippines', 'Vietnam', 'Myanmar', 'Brunei', 'Cambodia', 'Laos']; ?>
+					$countries = ['Indonesia', 'Thailand', 'Malaysia', 'Singapore', 'Philippines', 'Vietnam', 'Myanmar', 'Brunei', 'Cambodia', 'Laos']; sort($countries);?>
 					<select name="country" class="clearfix" id="country" required>
 						<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
 						

@@ -199,9 +199,9 @@ class HomeController extends BaseController {
 		$games_slide = Game::getAllGames();
 		$cid = Session::get('carrier');		
 	
-		$games = Game::whereHas('apps', function($q) use ($cid)
+		$games = Game::orderBy('main_title', 'ASC')->whereHas('apps', function($q) use ($cid)
 		  {
-		      $q->where('carrier_id', '=', $cid);
+		    $q->where('carrier_id', '=', $cid);
 
 		  })->get();
 		

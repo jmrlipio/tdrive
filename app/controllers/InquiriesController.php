@@ -180,7 +180,7 @@ class InquiriesController extends \BaseController {
 
 	public function userContact() 
 	{
-		$games = Game::all();
+		$games = Game::orderBy('main_title','ASC')->get();
 		$countries = Country::all();
 		$carriers = Carrier::all();
 
