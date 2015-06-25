@@ -76,7 +76,6 @@ class InquiriesController extends \BaseController {
 			return Redirect::to(URL::previous() . '#contact')
                     ->with('message', 'Your inquiry has been sent.');
 		}
-
 		//validator fails
 		return Redirect::to(URL::previous() . '#contact')
                     ->with('message', 'Something went wrong.')

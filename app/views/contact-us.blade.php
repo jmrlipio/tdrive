@@ -73,12 +73,6 @@
 				</div>
 			</div>
 
-			<div class="control clearfix wbg">
-				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
-
-				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
-			</div>
-
 			<div class="control">
 			
 				<div id="os-selection" class="select clearfix">
@@ -119,6 +113,12 @@
 						</optgroup> -->
 					</select>
 				</div>
+			</div>
+
+			<div class="control clearfix wbg">
+				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
+
+				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="captcha control clearfix">

@@ -24,7 +24,6 @@
 				<th>App Store</th>
 				<th>Os</th>
 				<th>Os Version</th>
-				<th>Message</th>
 				<th>Date</th>
 			</tr>
 			<thead>
@@ -64,7 +63,7 @@
 						<td></td>
 
 					<?php } ?>
-					<td>{{ $inquiry->message }}</td>
+					<!-- <td>{{ str_limit($inquiry->message, $limit = 10, $end = '...') }} </td> -->
 					<td>{{ $inquiry->created_at }}</td>
 				</tr>
 			@endforeach

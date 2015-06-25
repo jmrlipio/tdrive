@@ -26,25 +26,25 @@
 			</tr>
 		</table>
 		<h2>Game Purchased</h2>
-		@if($games)
+		@if(!empty($downloaded_games))
 			<div class="purchased_cont">
 				<table class="table table-striped table-bordered table-hover purchased_games"  id="purchased_games">
 					<thead>
 						<tr>
 							<th>Game Title</th>
-							<th>Carrier</th>
-							<th>Country</th>
+							<th>Carrier</th>							
 							<th>Price</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						@foreach($games as $game)
+						@foreach($downloaded_games as $app)
+							
 							<tr>
-								<td>{{ $game['game_title'] }}</td>
-								<td>{{ $game['carrier'] }}</td>
-								<td>{{ $game['country'] }}</td>
-								<td>{{ $game['currency'] . ' ' . $game['price'] }}</td>
+								<td>{{ $app->title }}</td>
+								<td>{{ $app->carrier->carrier }}</td>								
+								<td>{{ $app->price.$app->currency_code }}</td>
+								
 							</tr>
 						@endforeach
 					</tbody>
@@ -144,10 +144,16 @@
 		    </div>
 	    </div> -->
 
+		
+
+		<!-- <tr>
+			<td colspan="2"><a href="{{ URL::route('admin.users.edit', $user->id) }}" class="mgmt-link">Edit Account</a></td>
+		</tr> -->
+	</div>
 		{{ HTML::script('js/form-functions.js') }}
 		{{ HTML::script('js/jquery.dataTables.js') }}
 		{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 
 	    <script>
 	    	// $("#inline").fancybox({
@@ -164,13 +170,12 @@
 
 			$(document).ready(function(){
 			    $('#purchased_games').DataTable();
-			    $('#login_history').DataTable();
-			    $('#activity_history').DataTable();
+			    $('#login_history').dataTable({
+			        "order": [[ 0, "DESC" ]]
+			    });
+			    $('#activity_history').DataTable({
+			        "order": [[ 2, "DESC" ]]
+			    });
 			});
 	    </script>
-
-		<!-- <tr>
-			<td colspan="2"><a href="{{ URL::route('admin.users.edit', $user->id) }}" class="mgmt-link">Edit Account</a></td>
-		</tr> -->
-	</div>
 @stop
