@@ -308,6 +308,10 @@ p#generated-password {
 	padding: 5px 0;
 }
 
+.panel-container #media li {
+	padding: 15px 0;
+}
+
 .panel-container li a {
 	text-decoration: none;
 	color: #FF6100;
