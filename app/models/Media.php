@@ -50,7 +50,7 @@ class Media extends \Eloquent {
 
 	}
 
-	public static function deleteGameMedia($data) 
+	public static function deleteGameMedia($game_id) 
 	{
 		
 	}

@@ -90,7 +90,9 @@
 
 	<script>
 	$(document).ready(function(){
-		$('#game_table').DataTable();
+		$('#game_table').DataTable({
+		        "order": [[ 5, "desc" ]]
+		    });
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
 				$('td input[type=checkbox').prop('checked', true);
