@@ -422,12 +422,6 @@
 				{{ $errors->first('game_title', '<p class="form-error">:message</p>') }}
 			</div>
 
-			<div class="control clearfix wbg">
-				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
-
-				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
-			</div>
-
 			<div id="os-selection" class="select clearfix" required>
 				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 				<select id="os-type" name="os-type">
@@ -435,6 +429,12 @@
 					<option value="iOS">iOS</option>
 					<option value="Android">Android</option>
 				</select>
+			</div>
+
+			<div class="control clearfix wbg">
+				<input type="text" name="os-version" id="os-version" placeholder="{{ trans('global.os version') }}" required>
+
+				{{ $errors->first('os-version', '<p class="form-error">:message</p>') }}
 			</div>
 
 			<div class="captcha control clearfix">
@@ -453,7 +453,9 @@
 			<div class="control clearfix">
 				<input type="submit" value="{{ trans('global.submit') }} &raquo;">
 			</div>
+			
 		{{ Form::close() }}
+
 	</div><!-- end #contact -->
 
 @if($first_visit)
