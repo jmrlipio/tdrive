@@ -556,7 +556,6 @@
 
        $('#contact form').submit(function(e) {
         	e.preventDefault();
-       		$('#contactUsModal').modal('show');
         	var form_data = $(this).serialize();
 			$.ajax({
 				type: 'POST',
@@ -572,11 +571,13 @@
 						$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>");
 						console.log(message.msg);
 					}
+       				$('#contactUsModal').modal('show');
 				},
 				error: function (message) {
 						console.log(message);
 					$(".captcha img").attr("src", message.captcha);
 					$("#contactUsModal .modal-body").html("<p>"+message+"</p>");
+       				$('#contactUsModal').modal('show');
 				}
 			});
         });
