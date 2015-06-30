@@ -77,13 +77,42 @@ class InquiriesController extends \BaseController {
 				$message->to(Input::get('email'), Input::get('name'))->subject('Thank you for you inquiry.');
 			});
 
-			return Redirect::to(URL::previous() . '#contact')
-                    ->with('message', 'Your inquiry has been sent.');
+			if(Request::ajax())
+	    	{
+	    		$response = array(
+		            'status' => 'success',
+		            'msg' => 'Your inquiry has been sent.',
+		        );
+	    		return Response::json($response);
+	    	}
+	    	else
+	    	{
+				return Redirect::to(URL::previous() . '#contact')
+	                    ->with('message', 'Your inquiry has been sent.');
+	    	}
 		}
 		//validator fails
-		return Redirect::to(URL::previous() . '#contact')
-                    ->with('message', 'Something went wrong.')
-                    ->withErrors($validator);
+		// return Redirect::to(URL::previous() . '#contact')
+  //                   ->with('message', 'Something went wrong.')
+  //                   ->withErrors($validator);
+
+		//validator fails
+		if(Request::ajax())
+    	{
+    		$response = array(
+	            'status' => 'fail',
+	            'msg' => 'Something went wrong.',
+	            'error' => $validator->messages(),
+	            'captcha' => Captcha::img(),
+	        );
+    		return Response::json($response);
+    	}
+    	else
+    	{
+			return Redirect::to(URL::previous() . '#contact')
+	                    ->with('message', 'Something went wrong.')
+	                    ->withErrors($validator);
+    	}
 	}
 
 	/**

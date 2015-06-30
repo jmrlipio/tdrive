@@ -423,10 +423,10 @@
 				{{ $errors->first('game_title', '<p class="form-error">:message</p>') }}
 			</div>
 
-			<div id="os-selection" class="select clearfix" required>
+			<div id="os-selection" class="select clearfix">
 				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
-				<select id="os-type" name="os-type">
-					<option value="1">Select OS</option>
+				<select id="os-type" name="os-type" required>
+					<option value="">Select OS</option>
 					<option value="iOS">iOS</option>
 					<option value="Android">Android</option>
 				</select>
@@ -523,6 +523,19 @@
 		<input type="hidden" id="ctr2" value="{{ $ctr2 }}">
 	@endif
 @endif
+
+<!-- contact us Modal -->
+<div class="modal fade" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @stop
 
 @section('javascripts')
@@ -541,20 +554,32 @@
 
 	<script>
 
-   //     $('#contact form').submit(function(e) {
-   //      	e.preventDefault();
-   //      	//console.log("yowww");
-
-			// $.ajax({
-			// 	type: 'POST',
-			// 	url: "<?php echo URL::route('reports.inquiries.store-inquiry' ); ?>",
-			// 	data: $("#contact form").serialize(),
-			// 	success: function(data) {
-			// 			//window.location = data.url;
-			// 			alert("Your download has started...");
-			// 	}
-			// });
-   //      });
+       $('#contact form').submit(function(e) {
+        	e.preventDefault();
+       		$('#contactUsModal').modal('show');
+        	var form_data = $(this).serialize();
+			$.ajax({
+				type: 'POST',
+				url: "<?php echo URL::route('reports.inquiries.store-inquiry' ); ?>",
+				data: form_data,
+				success: function(message) {
+       				$(".captcha img").attr("src", message.captcha);
+					//console.log(message);
+					if(message.status == "fail"){
+						console.log(message);
+						$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>"+"<p>"+message.error.captcha[0]+"</p>");
+					} else {
+						$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>");
+						console.log(message.msg);
+					}
+				},
+				error: function (message) {
+						console.log(message);
+					$(".captcha img").attr("src", message.captcha);
+					$("#contactUsModal .modal-body").html("<p>"+message+"</p>");
+				}
+			});
+        });
 
 		FastClick.attach(document.body);
 		
