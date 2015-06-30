@@ -82,6 +82,7 @@ class InquiriesController extends \BaseController {
 	    		$response = array(
 		            'status' => 'success',
 		            'msg' => 'Your inquiry has been sent.',
+	            	'captcha' => Captcha::img(),
 		        );
 	    		return Response::json($response);
 	    	}
