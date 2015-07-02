@@ -157,5 +157,19 @@ return array(
 	//Reset password
 	'old password' => 'penyelidikan',
 	'new password' => 'penyelidikan'
+	
+	//Dates
+	'Jan' => 'Jan',
+	'Feb' => 'Februari',
+	'Mar' => 'merusak',
+	'Apr' => 'April',
+	'May' => 'Mei',
+	'Jun' => 'Juni',
+	'Jul' => 'Juli',
+	'Aug' => 'Agustus',
+	'Sep' => 'September',
+	'Oct' => 'Oktober',
+	'Nov' => 'November',
+	'Dec' => 'Desember',
 
 );

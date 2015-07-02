@@ -11,6 +11,7 @@ return array(
 	'logout' => 'ออกจากระบบ',
 	'test' => ':content',
 	'Select Carrier' => 'เลือกผู้ให้บริการ',
+	'Select App Store' => 'กรุณาเลือก App Store',
 	'loading' => 'โหลด',
 	'name' => 'ชื่อ',
 	'email' => 'อีเมล์',
@@ -157,4 +158,17 @@ return array(
 	'old password' => 'การสอบสวน',
 	'new password' => 'การสอบสวน'
 
+	//Dates
+	'Jan' => 'ม.ค.',
+	'Feb' => 'กุมภาพันธ์',
+	'Mar' => 'ทำลาย',
+	'Apr' => 'เมษายน',
+	'May' => 'อาจ',
+	'Jun' => 'มิถุนายน',
+	'Jul' => 'กรกฎาคม',
+	'Aug' => 'สิงหาคม',
+	'Sep' => 'กันยายน',
+	'Oct' => 'ตุลาคม',
+	'Nov' => 'พฤศจิกายน',
+	'Dec' => 'ธันวาคม',
 );

@@ -157,4 +157,18 @@ return array(
 	'old password' => 'Xin chào',
 	'new password' => 'Xin chào'
 
+	//Dates
+	'Jan' => 'Jan',
+	'Feb' => 'Tháng Hai',
+	'Mar' => 'làm hư',
+	'Apr' => 'Tháng Tư',
+	'May' => 'có thể',
+	'Jun' => 'Tháng Sáu',
+	'Jul' => 'Tháng Bảy',
+	'Aug' => 'Tháng Tám',
+	'Sep' => 'Tháng Chín',
+	'Oct' => 'Tháng Mười',
+	'Nov' => 'Tháng mười một',
+	'Dec' => 'Tháng mười hai',
+
 );

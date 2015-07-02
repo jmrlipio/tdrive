@@ -590,6 +590,7 @@
 
 		$(window).load(function() {
 
+
 			// alert($(window).width());
 			// if($(window).width() <= 320) {
 			// 	$(".owl-carousel").owlCarousel({
@@ -607,19 +608,37 @@
 			// 	    }
 			// 	});
 			// } else {
-				$(".owl-carousel").owlCarousel({
-				center: true,
-				loop:true,
-				items:2,
-				autoplay: true,
-				dots: true,
-				dotEach: true,
-			    responsive:{
-			        600:{
-			            items:2
-			        }
-			    }
-			});
+				if (screen.width > 480){
+					$(".owl-carousel").owlCarousel({
+						center: true,
+						loop:true,
+						items:2,
+						autoplay: true,
+						dots: true,
+						dotEach: true,
+					    responsive:{
+					        600:{
+					            items:2
+					        }
+					    }
+					});
+				} else {
+					$(".owl-carousel").owlCarousel({
+						center: true,
+						loop:true,
+						items:1,
+						autoplay: true,
+						dots: true,
+						dotEach: true,
+					    responsive:{
+					        600:{
+					            items:1
+					        }
+					    }
+					});
+
+				}
+			
 			// }
 
 			$('#slider').show();
