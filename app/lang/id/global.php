@@ -156,7 +156,7 @@ return array(
 
 	//Reset password
 	'old password' => 'penyelidikan',
-	'new password' => 'penyelidikan'
+	'new password' => 'penyelidikan',
 	
 	//Dates
 	'Jan' => 'Jan',

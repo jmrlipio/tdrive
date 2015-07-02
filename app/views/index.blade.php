@@ -426,7 +426,7 @@
 			<div id="os-selection" class="select clearfix">
 				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 				<select id="os-type" name="os-type" required>
-					<option value="">Select OS</option>
+					<option value="">{{trans('global.Select OS')}}</option>
 					<option value="iOS">iOS</option>
 					<option value="Android">Android</option>
 				</select>

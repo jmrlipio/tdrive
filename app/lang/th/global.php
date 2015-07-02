@@ -31,6 +31,8 @@ return array(
 	'mobile_no' => 'หมายเลขโทรศัพท์มือถือ',
 	'confirm password' => 'ยืนยันรหัสผ่าน',
 	'Buy' => 'ปล่อย',
+	'Select OS' => 'กรุณาเลือกระบบปฎิบัติการ',
+	'os version' => 'เวอร์ชั่นของระบบปฎิบัติการ',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',
@@ -90,7 +92,7 @@ return array(
 	'FAQs' => 'คำถามที่ถามบ่อย',
 	'Find answers to Frequently Asked Questions about TDrive and our services below.' => 'ค้นหาคำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับ TDrive และบริการของเราดังต่อไปนี้',
 	'Contact us' => 'ติดต่อเรา',
-	'Your comments and suggestions are important to us. You can reach us via the contact points below.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง',
+	'Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง กรุณากรอกเป็นภาษาอังกฤษ',
 	'General Inquiry' => 'สอบถามข้อมูลทั่วไป',
 	'View' => 'ดู',
 	'type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
@@ -156,7 +158,7 @@ return array(
 
 	//Reset password
 	'old password' => 'การสอบสวน',
-	'new password' => 'การสอบสวน'
+	'new password' => 'การสอบสวน',
 
 	//Dates
 	'Jan' => 'ม.ค.',

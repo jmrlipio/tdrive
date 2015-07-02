@@ -155,7 +155,7 @@ return array(
 
 	//Reset password
 	'old password' => 'Xin chào',
-	'new password' => 'Xin chào'
+	'new password' => 'Xin chào',
 
 	//Dates
 	'Jan' => 'Jan',
