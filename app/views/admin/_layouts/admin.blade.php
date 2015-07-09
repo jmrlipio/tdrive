@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>TDrive</title>
 
-    {{ HTML::style("css/bootstrap.min.css"); }}
+    {{ HTML::style('css/bootstrap.min.css'); }}
     {{ HTML::style('css/dataTables.bootstrap.css') }}
-    {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::style('css/jquery-ui.css') }}
     {{ HTML::style('css/jquery-ui.structure.css') }}
     {{ HTML::style('css/jquery.fancybox.css') }}
@@ -16,6 +15,7 @@
     {{ HTML::style('css/dropzone.css') }}
     {{ HTML::style('css/admin.css') }}
     {{ HTML::style('css/chosen.css')}}
+    {{ HTML::style('css/toastr.css') }}
     {{ HTML::script('js/jquery-1.11.1.js') }}
     {{ HTML::script('js/jquery-ui.js') }}
     {{ HTML::script('js/ckeditor/ckeditor.js') }}
@@ -90,6 +90,7 @@
     <footer>
         
     </footer>
+
 @yield('scripts')
     <script>
         $( "#options-link" ).click(function(e) {

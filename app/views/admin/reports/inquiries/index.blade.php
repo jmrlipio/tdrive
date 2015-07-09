@@ -4,14 +4,15 @@
 	<div class="item-listing" >
 		<h2>Inquiries</h2>
 		<br>
-		@if (Session::has('success') ) 
-            
-       		<p class="center flash-success">{{ Session::get('success') }}</p> 
-
-	    @elseif(Session::has('fail') )   
-
-	    	<p class="center flash-fail">{{ Session::get('fail') }}</p>    
-
+		<?php 
+			$message = ""; 
+			$success = false;
+		?>
+		@if (Session::has('message') ) 
+            <?php 
+            	$success = true;
+            	$message = Session::get('message');            	
+            ?>
 	    @endif
 
 		<table id="table">
@@ -82,12 +83,21 @@
 
 		<a href="{{ URL::route('admin.reports.inquiries.settings') }}" class="mgmt-link" id="asettings">Autoresponder Settings</a>
 	</div>
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}	
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+	
 	<script>
 	$(document).ready(function(){
 	    $('#table').DataTable();
-		});
+
+	    var success = "{{ $success }}";
+		var message = "{{ $message }}";
+		getFlashMessage(success, message);
+
+	});
+
 	</script>
+	
 @stop

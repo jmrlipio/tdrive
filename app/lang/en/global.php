@@ -185,4 +185,4 @@ return array(
 	'Nov' => 'Nov',
 	'Dec' => 'Dec',
 
-	);
+);
