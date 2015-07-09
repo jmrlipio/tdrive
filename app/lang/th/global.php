@@ -11,6 +11,7 @@ return array(
 	'logout' => 'ออกจากระบบ',
 	'test' => ':content',
 	'Select Carrier' => 'เลือกผู้ให้บริการ',
+	'Select App Store' => 'กรุณาเลือก App Store',
 	'loading' => 'โหลด',
 	'name' => 'ชื่อ',
 	'email' => 'อีเมล์',
@@ -31,6 +32,7 @@ return array(
 	'confirm password' => 'ยืนยันรหัสผ่าน',
 	'Buy' => 'ปล่อย',
 	'Select OS' => 'กรุณาเลือกระบบปฎิบัติการ',
+	'os version' => 'เวอร์ชั่นของระบบปฎิบัติการ',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',
@@ -90,7 +92,7 @@ return array(
 	'FAQs' => 'คำถามที่ถามบ่อย',
 	'Find answers to Frequently Asked Questions about TDrive and our services below.' => 'ค้นหาคำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับ TDrive และบริการของเราดังต่อไปนี้',
 	'Contact us' => 'ติดต่อเรา',
-	'Your comments and suggestions are important to us. You can reach us via the contact points below.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง',
+	'Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง กรุณากรอกเป็นภาษาอังกฤษ',
 	'General Inquiry' => 'สอบถามข้อมูลทั่วไป',
 	'View' => 'ดู',
 	'type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
@@ -171,5 +173,8 @@ return array(
 	'Oct' => 'ตุลาคม',
 	'Nov' => 'พฤศจิกายน',
 	'Dec' => 'ธันวาคม',
+<<<<<<< HEAD
 
+=======
+>>>>>>> 596772c4b320534ef22e21b400a0dbd8d151b6f0
 );

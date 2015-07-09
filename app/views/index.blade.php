@@ -424,10 +424,10 @@
 				{{ $errors->first('game_title', '<p class="form-error">:message</p>') }}
 			</div>
 
-			<div id="os-selection" class="select clearfix" required>
+			<div id="os-selection" class="select clearfix">
 				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
-				<select id="os-type" name="os-type">
-					<option value="1">Select OS</option>
+				<select id="os-type" name="os-type" required>
+					<option value="">{{trans('global.Select OS')}}</option>
 					<option value="iOS">iOS</option>
 					<option value="Android">Android</option>
 				</select>
@@ -524,6 +524,19 @@
 		<input type="hidden" id="ctr2" value="{{ $ctr2 }}">
 	@endif
 @endif
+
+<!-- contact us Modal -->
+<div class="modal fade" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @stop
 
 @section('javascripts')
@@ -542,20 +555,33 @@
 
 	<script>
 
-   //     $('#contact form').submit(function(e) {
-   //      	e.preventDefault();
-   //      	//console.log("yowww");
-
-			// $.ajax({
-			// 	type: 'POST',
-			// 	url: "<?php echo URL::route('reports.inquiries.store-inquiry' ); ?>",
-			// 	data: $("#contact form").serialize(),
-			// 	success: function(data) {
-			// 			//window.location = data.url;
-			// 			alert("Your download has started...");
-			// 	}
-			// });
-   //      });
+       $('#contact form').submit(function(e) {
+        	e.preventDefault();
+        	var form_data = $(this).serialize();
+			$.ajax({
+				type: 'POST',
+				url: "<?php echo URL::route('reports.inquiries.store-inquiry' ); ?>",
+				data: form_data,
+				success: function(message) {
+       				$(".captcha img").attr("src", message.captcha);
+					//console.log(message);
+					if(message.status == "fail"){
+						console.log(message);
+						$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>"+"<p>"+message.error.captcha[0]+"</p>");
+					} else {
+						$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>");
+						console.log(message.msg);
+					}
+       				$('#contactUsModal').modal('show');
+				},
+				error: function (message) {
+						console.log(message);
+					$(".captcha img").attr("src", message.captcha);
+					$("#contactUsModal .modal-body").html("<p>"+message+"</p>");
+       				$('#contactUsModal').modal('show');
+				}
+			});
+        });
 
 		FastClick.attach(document.body);
 		
@@ -564,6 +590,7 @@
 		var ctr2 = $('#ctr2').val();
 
 		$(window).load(function() {
+
 
 			// alert($(window).width());
 			// if($(window).width() <= 320) {
@@ -582,19 +609,37 @@
 			// 	    }
 			// 	});
 			// } else {
-				$(".owl-carousel").owlCarousel({
-				center: true,
-				loop:true,
-				items:2,
-				autoplay: true,
-				dots: true,
-				dotEach: true,
-			    responsive:{
-			        600:{
-			            items:2
-			        }
-			    }
-			});
+				if (screen.width > 480){
+					$(".owl-carousel").owlCarousel({
+						center: true,
+						loop:true,
+						items:2,
+						autoplay: true,
+						dots: true,
+						dotEach: true,
+					    responsive:{
+					        600:{
+					            items:2
+					        }
+					    }
+					});
+				} else {
+					$(".owl-carousel").owlCarousel({
+						center: true,
+						loop:true,
+						items:1,
+						autoplay: true,
+						dots: true,
+						dotEach: true,
+					    responsive:{
+					        600:{
+					            items:1
+					        }
+					    }
+					});
+
+				}
+			
 			// }
 
 			$('#slider').show();

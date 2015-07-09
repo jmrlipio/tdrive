@@ -221,7 +221,7 @@
 }
 @media only screen and (max-device-width: 360px) {
   .owl-carousel .owl-item img {
-    height: 100px;
+    /*height: 100px;*/
   }
   .owl-carousel.owl-loaded {
       margin-top: -10px;
