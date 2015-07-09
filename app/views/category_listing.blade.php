@@ -105,6 +105,19 @@
 		@if($ctr == 1)
 			<h1 class="title">{{ trans('global.games') }}</h1>			
 
+			<div class="search-category">
+
+				{{ Form::open(array('action' => 'ListingController@searchGames', 'id' => 'search_form_games', 'class' => 'clearfix')) }}
+					{{ Form::input('text', 'search', null, array('placeholder' => trans('global.search game'))); }}
+					
+					<a href="javascript:{}" onclick="document.getElementById('search_form_games').submit(); return false;"><i class="fa fa-search"></i></a>
+
+					{{ Form::token() }}
+				{{ Form::close() }}
+
+			</div>
+			<div class="clear">
+			</div>
 			{{Form::open(array('id'=>'category'))}}		
 				<span id="custom-dd">	
 					<select class="select-category" id="select-category" >
@@ -163,7 +176,7 @@
 					</div>
 				@endforeach  
 			</div>
-			<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.More') }}+</a></div>
+			<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.More') }} +</a></div>
 		</div>
 	</div>
 @endforeach

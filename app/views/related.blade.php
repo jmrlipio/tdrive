@@ -14,6 +14,18 @@
 
 		<h1 class="title">{{ trans('global.Related games for ') }} {{ $game->main_title; }}</h1>
 
+		<div class="search-category">
+
+			{{ Form::open(array('action' => 'ListingController@searchRelatedGames', 'id' => 'search_form_related', 'class' => 'clearfix')) }}
+				{{ Form::input('text', 'search', null, array('placeholder' => trans('global.search game'))); }}
+				{{ Form::hidden('id', $category->id) }}
+				<a href="javascript:{}" onclick="document.getElementById('search_form_related').submit(); return false;"><i class="fa fa-search"></i></a>
+
+				{{ Form::token() }}
+			{{ Form::close() }}
+
+		</div>
+
 		<div id="token">{{ Form::token() }}</div>
 
 		<div class="grid">

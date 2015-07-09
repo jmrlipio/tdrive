@@ -57,6 +57,7 @@ Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searc
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
 
 Route::post('category/search', array('as' => 'search', 'uses' => 'ListingController@searchGamesByCategory'));
+Route::post('category/related', array('as' => 'search', 'uses' => 'ListingController@searchRelatedGames'));
 
 Route::post('language', array(
     'before' => 'csrf',

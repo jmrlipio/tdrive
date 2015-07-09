@@ -690,4 +690,11 @@ form .fw-li li {
   width: 100%;
   display: inline-block;
 }
-.fw-li li label
+.fw-li li label .tooltip-arrow, .tooltip > .tooltip-inner {
+	background-color: #465A65;
+	color: #fff;
+	font-size: 14px;
+}
+.tooltip.top .tooltip-arrow {
+      border-top-color: #465A65;
+}

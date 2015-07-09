@@ -230,7 +230,7 @@
 						</div>
 					@endforeach  
 				</div>
-				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.More') }}+</a></div>
+				<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.More') }} +</a></div>
 			</div>
 		</div>
 	@endforeach
