@@ -30,6 +30,7 @@ return array(
 	'mobile_no' => 'หมายเลขโทรศัพท์มือถือ',
 	'confirm password' => 'ยืนยันรหัสผ่าน',
 	'Buy' => 'ปล่อย',
+	'Select OS' => 'กรุณาเลือกระบบปฎิบัติการ',
 
 	//Categories
 	'Brain and Puzzle' => 'ปล่อย',
@@ -155,6 +156,20 @@ return array(
 
 	//Reset password
 	'old password' => 'การสอบสวน',
-	'new password' => 'การสอบสวน'
+	'new password' => 'การสอบสวน',
+
+	//Dates
+	'Jan' => 'ม.ค.',
+	'Feb' => 'กุมภาพันธ์',
+	'Mar' => 'ทำลาย',
+	'Apr' => 'เมษายน',
+	'May' => 'อาจ',
+	'Jun' => 'มิถุนายน',
+	'Jul' => 'กรกฎาคม',
+	'Aug' => 'สิงหาคม',
+	'Sep' => 'กันยายน',
+	'Oct' => 'ตุลาคม',
+	'Nov' => 'พฤศจิกายน',
+	'Dec' => 'ธันวาคม',
 
 );

@@ -301,7 +301,10 @@
 								<a class="news_link" href="{{ 'news/'. $item->id }}">
 									<div class="date">
 										<div class="vhparent">
-											<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+											<?php 
+												$date = Carbon::parse($item->created_at)->format('M');						
+												?>
+											<p class="vhcenter">{{  trans('global.'.str_limit($date, $limit = 3, $end = '...')).' '.Carbon::parse($item->created_at)->format('j')}}</p>
 										</div>	
 									</div>	
 								
@@ -395,18 +398,17 @@
 			</div>
 
 			<div class="select clearfix wbg">
-				<?php 
-					$countries = ['Indonesia', 'Thailand', 'Malaysia', 'Singapore', 'Republic of the Philippines', 'Vietnam', 'Myanmar', 'Brunei', 'Cambodia', 'Laos']; sort($countries);?>
-					<select name="country" class="clearfix" id="country" required>
-						<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
-						
-						@for($x = 0; $x < count($countries); $x++)
-							@if($countries[$x] != $default_location['name'])
-								<option value="{{$countries[$x]}}">{{$countries[$x]}}</option>
-							@endif
-						@endfor
-						
-					</select>
+				<?php $countries = Constant::getCountries(); ?>
+				<select name="country" class="clearfix" id="country" required>
+					<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
+					
+					@for($x = 0; $x < count($countries); $x++)
+						@if($countries[$x] != $default_location['name'])
+							<option value="{{$countries[$x]}}">{{$countries[$x]}}</option>
+						@endif
+					@endfor
+					
+				</select>
 
 				{{ $errors->first('country', '<p class="form-error">:message</p>') }}
 			</div>

@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 @section('content')
 	@include('admin._partials.reports-nav')
-	<div class="item-listing" id="categories-list">
+	<div class="item-listing">
 		<h2>Game Sales</h2>
 		<br>
 		<table id="table">
@@ -12,6 +12,7 @@
 				<th>Language</th>
 				<th>User</th>
 				<th>Price</th>
+				<th>Date</th>
 			</tr>
 			<thead>
 			<tbody>
@@ -22,6 +23,7 @@
 						<td style="width: 280px;">{{ $transaction->app->language->language  }}</td>
 						<td style="width: 180px;">{{ $transaction->user->username }}</td>
 						<td style="width: 180px;">{{ $transaction->app->price}}</td>
+						<td style="width: 180px;">{{ $transaction->created_at}}</td>
 					</tr>
 				@endforeach
 			</tbody>

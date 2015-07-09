@@ -30,6 +30,8 @@ return array(
 	'mobile_no' => 'tidak ada ponsel',
 	'confirm password' => 'konfirmasi kata sandi',
 	'Buy' => 'lepas',
+	'Select OS' => 'Pilih OS',
+
 
 	//Categories
 	'Brain and Puzzle' => 'Otak dan Puzzle',
@@ -156,6 +158,20 @@ return array(
 
 	//Reset password
 	'old password' => 'penyelidikan',
-	'new password' => 'penyelidikan'
+	'new password' => 'penyelidikan',
+
+	//Dates
+	'Jan' => 'Jan',
+	'Feb' => 'Februari',
+	'Mar' => 'Merusak',
+	'Apr' => 'April',
+	'May' => 'Mei',
+	'Jun' => 'Juni',
+	'Jul' => 'Juli',
+	'Aug' => 'Agustus',
+	'Sep' => 'September',
+	'Oct' => 'Oktober',
+	'Nov' => 'November',
+	'Dec' => 'Desember',
 
 );

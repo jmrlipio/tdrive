@@ -35,6 +35,7 @@ return array(
 	'Update Account' => 'update account',
 	'Transactions' => 'Transactions',
 	'Purchase History' => 'Purchase History',
+	'Select OS' => 'Select OS',
 
 
 	//Categories
@@ -169,4 +170,18 @@ return array(
 	//Contact Us
 	'Contact Us' => 'Contact Us',
 	'os version' => 'os version',
+
+	//Dates
+	'Jan' => 'Jan',
+	'Feb' => 'Feb',
+	'Mar' => 'Mar',
+	'Apr' => 'Apr',
+	'May' => 'May',
+	'Jun' => 'Jun',
+	'Jul' => 'Jul',
+	'Aug' => 'Aug',
+	'Sep' => 'Sep',
+	'Oct' => 'Oct',
+	'Nov' => 'Nov',
+	'Dec' => 'Dec',
 );

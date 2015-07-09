@@ -80,4 +80,12 @@ class Constant {
 		return $text;
 	}
 
+	public static function getCountries() 
+	{
+		$countries = ['Indonesia', 'Thailand', 'Malaysia', 'Singapore', 'Republic of the Philippines', 'Vietnam', 'Myanmar', 'Brunei', 'Cambodia', 'Laos'];
+		sort($countries);
+		
+		return $countries;
+	}
+
 }
