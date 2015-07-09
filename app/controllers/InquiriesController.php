@@ -144,7 +144,7 @@ class InquiriesController extends \BaseController {
 		Inquiry::destroy($id);
 
 		return Redirect::back()
-						->with('message', 'deleted!');
+						->with('message', 'Inquiry deleted!');
 	}
 
 	public function reply($id) 
