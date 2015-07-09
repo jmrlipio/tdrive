@@ -21,25 +21,39 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
+
+		{{ Form::open(array('route' => 'admin.reviews.game','class' => 'simple-form', 'id' => 'submit-game', 'method' => 'get')) }}
+			{{ Form::select('selected_game', $games, $selected, array('class' => 'select-filter', 'id' => 'select-game')) }}
+		{{ Form::close() }}
+
 		<br>
+		<br>
+		<br>
+		<br>
+
+
 	<div class="table-responsive">
 	<form method="POST" action="{{ URL::route('admin.destroy.review') }}">
 		{{ Form::token() }}
+
+		@if (count($reviews))
+
 		<table class="table table-striped table-bordered table-hover"  id="review_table">
 			<thead>
 				<tr>
 					<th><input id="select-all" type="checkbox"></th>
 					<th>Game Title</th>
 					<th>Name</th>
-					<th>Review</th>
 					<th>Approve</th>
 					<th>Rating</th>
 					<th>Date Created</th>
 				</tr>
 			</thead>
 
-			<tbody>			
+			<tbody>
+
 				@foreach($reviews as $review)
+								
 					<tr>
 						<td><input class="chckbox" type="checkbox" name="checked[]" value="{{ $review->id }}"></td>
 						<td>
@@ -66,7 +80,7 @@
 
 						<td>{{ $review->user->first_name . ' ' . $review->user->last_name }}</td>
 						
-						<td>{{ str_limit($review->review, $limit = 200, $end = '...') }}</td>
+						<!-- <td>{{ str_limit($review->review, $limit = 200, $end = '...') }}</td> -->
 
 						<td>
 							@if($review->status == 1)
@@ -92,6 +106,9 @@
 				@endforeach				
 			</tbody>
 		</table>
+		@else
+			<p>No reviews</p>
+		@endif
 		<button id="delete-btn" type="submit">Delete</button>
 	</div>
 		{{ $reviews->links() }}
@@ -126,6 +143,12 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function(){
+
+			$('#select-game').on('change', function() {
+				$('#submit-game').trigger('submit');
+				//alert("asd");
+			});
+
 			$('#delete-btn').on('click', function(e) {				
 			    
 			    if($("input[type='checkbox'].chckbox").is(':checked')){
@@ -176,6 +199,7 @@
 				}    
 			      
 			}); 
+
 
 		});
 

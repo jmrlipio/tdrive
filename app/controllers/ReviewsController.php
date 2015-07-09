@@ -24,10 +24,18 @@ class ReviewsController extends \BaseController {
 	public function admin_index()
 	{
 		$reviews = Review::orderBy('viewed')->paginate(10);
+		$all_games = Game::orderBy('main_title')->get();
+		$games = ['all' => 'All'];
+		
+		foreach ($all_games as $g) {
+			$games[$g->id] = ucfirst($g->main_title);
+		}
 
 		return View::make('admin.reviews.index')
+			->with('selected', 'all')
 			->with('page_title', 'Reviews - Admin')
 			->with('page_id', 'reviews')
+			->with('games', $games)
 			->with(compact('reviews'));
 
 	}
@@ -184,4 +192,33 @@ class ReviewsController extends \BaseController {
 		}	
 		
 	}
+
+	public function getReviewByGame() 
+    {
+		$selected_game = Input::get('selected_game');
+		$all_games = Game::All();
+		$games = ['all' => 'All'];
+		
+		foreach ($all_games as $g) {
+			$games[$g->id] = ucfirst($g->main_title);
+		}
+
+		if($selected_game != 'all'){
+			$reviews = Review::where('game_id', '=', $selected_game)
+				->orderBy('viewed')->paginate(10);   		
+    	} else {
+			$reviews = Review::orderBy('viewed')->paginate(10);   
+    	}
+
+		return View::make('admin.reviews.index')
+			->with('selected', $selected_game)
+			->with('page_title', 'Reviews - Admin')
+			->with('page_id', 'reviews')
+			->with('games', $games)
+			->with(compact('reviews'));
+    }
+
+
+
+
 }

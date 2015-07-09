@@ -85,6 +85,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('users/roles', array('as' => 'admin.users.roles', 'uses' => 'AdminUsersController@getUsersByRole'));
     Route::get('news/categories', array('as' => 'admin.news.category', 'uses' => 'NewsController@getNewsByCategory'));
     Route::get('game/categories', array('as' => 'admin.game.category', 'uses' => 'AdminGamesController@getGameByCategory'));
+    Route::get('review/game', array('as' => 'admin.reviews.game', 'uses' => 'ReviewsController@getReviewByGame'));
+
     Route::resource('users', 'AdminUsersController');
     Route::resource('games', 'AdminGamesController');
 
