@@ -42,8 +42,21 @@ $(document).ready(function(){
 	<?php if( Session::has('message') ) : ?>
 		var message = "{{ Session::get('message')}}";
 		var status = "{{ Session::get('sof') }}"
+		var success= "";
 		
-		var success = (status === 'success') ? '0' :'1';
+		switch(status)
+		{
+			case 'success':
+				success	= '1';
+			break;
+
+			case 'fail':
+				success	= '0';
+			break;
+
+			default:
+				success = '1';
+		}
 	
 		getFlashMessage(success, message);
 	<?php endif; ?>
