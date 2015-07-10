@@ -14,11 +14,6 @@
 			<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">Create Game</a>
 		@endif
 
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 		{{ Form::open(array('route' => 'admin.game.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
 			{{ Form::select('game_category', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
 		{{ Form::close() }}
@@ -86,6 +81,7 @@
 
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 
 	<script>
@@ -104,6 +100,11 @@
 		$('#select-cat').on('change', function() {
 			$('#submit-cat').trigger('submit');
 		});
+		<?php if( Session::has('message') ) : ?>
+			var message = "{{ Session::get('message')}}";
+			var success = '1';
+			getFlashMessage(success, message);
+		<?php endif; ?>
 	});
 
 	</script>

@@ -7,12 +7,6 @@
 			<div class='panel-container'>
 				<h3 class="center">{{ $game->main_title }} App</h3>
 
-				@if(Session::has('message'))
-				    <div class="flash-success">
-				        <p>{{ Session::get('message') }}</p>
-				    </div>
-				@endif
-
 				<li>
 					{{ Form::label('title', 'Title:') }}	
 					{{ Form::text('title', $values['title'], array('id' => 'title')) }}
@@ -58,12 +52,12 @@
 				</li>
 				<li>
 					{{ Form::label('currency_code', 'Currency:') }}
-			  		{{ Form::select('currency_code', $currencies, $values['currency_code'], array('id' => 'currency_code')) }}				
+			  		{{ Form::select('currency_code', $currencies, $values['currency_code']) }}				
 					{{ $errors->first('currency_code', '<p class="error">:message</p>') }}
 				</li>
 				<li>
 					{{ Form::label('price', 'Price: ') }}
-					{{ Form::text('price', $values['price'], array('id' => 'price')) }}
+					{{ Form::text('price', $values['price']) }}
 					{{ $errors->first('price', '<p class="error">:message</p>') }}
 				</li>
 				<li>
@@ -75,15 +69,19 @@
 					{{ $errors->first('status', '<p class="error">:message</p>') }}
 				</li>
 				<br>
-				{{ Form::submit('Save', array('id' => 'save')) }} <a href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Back</a>
+				<a href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Back</a>
+
+				{{ Form::submit('Save', array('id' => 'save')) }} 
 				
 				{{ Form::submit('Preview', array('id' => 'preview')) }}
-				<!-- <a href="{{ URL::route('admin.games.preview', array($game->id, $values['app_id'])) }}" target='blank') id="preview">Preview</a> -->
+
+				<!-- <a href="{{ URL::route('admin.games.preview', array($game->id, $values['app_id'])) }}" target='blank') class="custom-back">Preview</a> -->
 			</div>
 			
 		{{ Form::close() }}	
 		
 	</article>
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
 		CKEDITOR.replace('content');
@@ -117,7 +115,7 @@
 	</script>
 	<script>
 		$(document).ready(function(){
-			var save_url = "{{ URL::route('admin.games.update.app', $game->id, $app_id) }}";
+			var save_url = "{{ URL::route('admin.games.update.app', array($game->id, $values['app_id'])) }}";
 			var preview_url = "{{ URL::route('admin.games.preview', array($game->id, $values['app_id']))}}";
 			var form = $('.game_form');	
 				
@@ -130,6 +128,21 @@
 				form.submit();
 				
 			});
+
+			$('#save').click(function(e){
+
+				e.preventDefault();
+				form.attr('action',save_url);
+				form.attr('target','_self');				
+				form.submit();
+				
+			});
+
+			<?php if( Session::has('message') ) : ?>
+				var message = "{{ Session::get('message')}}";
+				var success = '1';
+				getFlashMessage(success, message);
+			<?php endif; ?>
 
 
 		});

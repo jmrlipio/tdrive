@@ -11,11 +11,6 @@
 
 	<article>
 		<h2>Edit Game</h2>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 		<br>
 		<div class='large-form tab-container' id='tab-container'>
 			<ul class='etabs'>
@@ -270,6 +265,7 @@
 	{{ HTML::script('js/jquery.easytabs.min.js') }}
 	{{ HTML::script('js/ckeditor/ckeditor.js') }}
 	{{ HTML::script('js/chosen.jquery.js') }}
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/form.min.js') }}
 	{{ HTML::script('js/image-uploader.js') }}
@@ -282,7 +278,11 @@
 	$(document).ready(function() {
 		// Initializes different tab sections
 		$('.tab-container, #carrier-tab, #content-tab').easytabs();
-
+		<?php if( Session::has('message') ) : ?>
+			var message = "{{ Session::get('message')}}";
+			var success = '1';
+			getFlashMessage(success, message);
+		<?php endif; ?>
 		
 
 		// Date picker for Release Date
