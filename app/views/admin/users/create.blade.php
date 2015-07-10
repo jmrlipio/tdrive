@@ -3,7 +3,7 @@
 @section('content')
 
 
-	{{ Form::open(array('route'=>'users.register', 'id' => 'register', 'class' => 'small-form')) }}
+	{{ Form::open(array('route'=>'admin.register.user', 'id' => 'register', 'class' => 'small-form')) }}
 
 		<div id="token">{{ Form::token() }}</div>
 

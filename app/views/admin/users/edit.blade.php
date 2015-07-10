@@ -4,11 +4,6 @@
 
 	{{ Form::model($user, array('route' => array('admin.users.update', $user->id), 'method' => 'put', 'class' => 'small-form')) }}
 		<h2>Edit User</h2>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 		<ul>
 			<li>
 				{{ Form::label('first_name', 'First Name: ') }}
@@ -35,4 +30,23 @@
 			</li>
 		</ul>
 	{{ Form::close() }}
+@stop
+
+@section('scripts')
+	{{ HTML::script('js/toastr.js') }}
+	{{ HTML::script('js/form-functions.js') }}
+
+<script>
+$(document).ready(function(){
+	
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var status = "{{ Session::get('sof') }}"
+		
+		var success = (status === 'success') ? '0' :'1';
+	
+		getFlashMessage(success, message);
+	<?php endif; ?>
+});
+</script>
 @stop

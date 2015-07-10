@@ -24,16 +24,6 @@
 
 	<div class="item-listing">
 		<h2>Users</h2>
-		<!-- <div id="search-box" class="pull-right">			
-			{{-- Form::open(array('route' => 'admin.users.search', 'id' => 'search')) --}}
-				{{-- Form::text('keyword', Input::old('keyword'), array('placeholder' => 'Search user..')) --}}
-			{{-- Form::close() --}}
-		</div> -->
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 		<br>
 
 		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
@@ -145,6 +135,7 @@
 @stop
 
 @section('scripts')
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
@@ -159,6 +150,12 @@
 				$('td input[type=checkbox').prop('checked', false);
 			}
 		});
+
+		<?php if( Session::has('message') ) : ?>
+			var message = "{{ Session::get('message')}}";
+			var success = '1';
+			getFlashMessage(success, message);
+		<?php endif; ?>
 	});
 
 		/*var user_list = $('tr#list');

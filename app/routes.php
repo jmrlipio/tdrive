@@ -215,7 +215,7 @@ Route::post('password/request/change', array('as' => 'password.request.change', 
 //Search route for admin
 Route::post('admin/users/search', array('as' => 'admin.users.search', 'uses' => 'AdminUsersController@postSearch'));
 //END
-
+Route::post('register/user', array('as' => 'admin.register.user', 'uses' => 'AdminUsersController@store'));
 /*END*/
 Route::get('login', array('as' => 'users.login', 'uses' => 'UsersController@getLogin'));
 Route::post('login', array('as' => 'login.post', 'uses' => 'UsersController@postLogin'));

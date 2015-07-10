@@ -53,9 +53,9 @@ class AdminUsersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		User::create($data);
+		$user = User::create($data);
 
-		return Redirect::route('admin.users.edit')->with('message', 'You have successfully added this user');
+		return Redirect::route('admin.users.edit', $user->id)->with('message', 'You have successfully added this user');
 	}
 
 	/**
