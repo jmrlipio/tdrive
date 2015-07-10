@@ -4,19 +4,6 @@
 	<div class="item-listing" >
 		<h2>Inquiries</h2>
 		<br>
-		<?php 
-			$message = ""; 
-			$success = false;
-			$flashMessage = false;
-		?>
-		@if (Session::has('message') ) 
-            <?php 
-            	$flashMessage = true;
-            	$success = true;
-            	$message = Session::get('message');
-            ?>
-	    @endif
-
 		<table id="table">
 			<thead>
 			<tr>
@@ -91,14 +78,15 @@
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	
 	<script>
-	var success = "{{ $success }}";
-	var message = "{{ $message }}";
-	var flashMessage = "{{ $flashMessage }}";
 	
 	$(document).ready(function(){
 	    $('#table').DataTable();
 
-		getFlashMessage(success, message);
+	    <?php if( Session::has('message') ) : ?>
+			var message = "{{ Session::get('message')}}";
+			var success = '1';
+			getFlashMessage(success, message);
+		<?php endif; ?>
 
 	});
 	

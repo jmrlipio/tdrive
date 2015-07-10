@@ -62,7 +62,7 @@ class NewsController extends \BaseController {
 			->with('selected', $selected_year);
     }
 
-	// public function show($id, $slug) {
+	// public function show($id, $slug, $lang) {
     public function show($id) {
 		$languages = Language::all();
 
@@ -245,12 +245,12 @@ class NewsController extends \BaseController {
 
 		$edit_rules = News::$rules;
 
-		/*$edit_rules['featured_image'] = '';
-		$edit_rules['homepage_image'] = '';*/
+		$edit_rules['featured_image'] = '';
+		$edit_rules['homepage_image'] = '';
 
 		$validator = Validator::make($data = Input::all(), $edit_rules);
 
-		/*if(Input::hasFile('featured_image')) {
+		if(Input::hasFile('featured_image')) {
 			$featured = Input::file('featured_image');
 			$filename = time() . "_" . $featured->getClientOriginalName();
 			$path = public_path('assets/news/' . $filename);
@@ -270,7 +270,7 @@ class NewsController extends \BaseController {
 			$data['homepage_image'] = $filename;
 		} else {
 			$data['homepage_image'] = $news->homepage_image;
-		}*/
+		}
 		
 		if ($validator->fails())
 		{
@@ -301,7 +301,7 @@ class NewsController extends \BaseController {
 		{
 			$news->delete();
 			Event::fire('audit.news.delete', Auth::user());
-
+			
 			$featured_img = public_path().'/assets/news/'.$news->featured_image;
 			$homepage_img = public_path().'/assets/news/'.$news->homepage_image;
 
@@ -309,12 +309,10 @@ class NewsController extends \BaseController {
 			{
 				File::delete($featured_img, $homepage_img);
 			}
-
+			
 			return Redirect::route('admin.news.index')
 				->with('message', 'News deleted')
 				->with('sof', 'success');	
-
-
 		}
 
 		return Redirect::route('admin.news.index')
@@ -538,6 +536,4 @@ class NewsController extends \BaseController {
 			return Response::json(array('message'=>"update successful"));
 		}
 	}
-
-
 }

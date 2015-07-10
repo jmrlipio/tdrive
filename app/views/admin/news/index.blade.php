@@ -5,11 +5,6 @@
 	<div class="item-listing" id="news-list">
 		<h2>News</h2>
 		<a href="{{ URL::route('admin.news.create') }}" class="mgmt-link">Create News</a>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 
 		{{ Form::open(array('route' => 'admin.news.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
 			{{ Form::select('cat', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
@@ -59,11 +54,11 @@
 @stop
 
 @section('scripts')
-
+	
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	{{ HTML::script('js/form-functions.js') }}
-
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('css/polyglot-language-switcher.css') }}
 	{{ HTML::script('js/bootstrap.min.js') }}
 
@@ -88,6 +83,12 @@
 		$('#select-cat').on('change', function() {
 			$('#submit-cat').trigger('submit');
 		});
+
+		<?php if( Session::has('message') ) : ?>
+			var message = "{{ Session::get('message')}}";
+			var success = '1';
+			getFlashMessage(success, message);
+		<?php endif; ?>
 	});
 
 	</script>

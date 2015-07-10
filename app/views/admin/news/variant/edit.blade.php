@@ -4,12 +4,6 @@
 	<ul id='game-content-form'>
 	{{ Form::open(array('route' => array('admin.news.variant.update', $news->id, $language_id), 'method' => 'put')) }}
 		<h3>Edit Variant</h3>
-
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 		<br>
 		<li>
 			{{ Form::label('main_title', 'Main Title:') }}
@@ -50,7 +44,21 @@
 
 		$('#delete-variant').on('click', function(e) {
 			if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
-		});
+		});		
 	</script>
+@stop
+
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/form-functions.js') }}	
+<script>
+$(document).ready(function() {
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
+});
+</script>
 @stop
 

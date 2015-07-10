@@ -7,11 +7,6 @@
 @section('content')
 	<article>
 	<h2>Edit News</h2>
-	@if(Session::has('message'))
-        <div class="flash-success">
-            <p>{{ Session::get('message') }}</p>           
-        </div>
-    @endif
 
 	<br>
 	<div class='large-form tab-container' id='tab-container'>
@@ -107,6 +102,7 @@
 	{{ HTML::script('js/tinymce/tinymce.min.js') }}
 	{{ HTML::script('js/jquery.easytabs.min.js') }}
 	{{ HTML::script('js/chosen.jquery.js') }}
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/image-uploader.js') }}
 
@@ -115,6 +111,12 @@
 		img_li;
 
 	$(document).ready(function() {
+
+		<?php if( Session::has('message') ) : ?>
+			var message = "{{ Session::get('message')}}";
+			var success = '1';
+			getFlashMessage(success, message);
+		<?php endif; ?>
 
 		// Date picker for Release Date
         $("#release_date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){

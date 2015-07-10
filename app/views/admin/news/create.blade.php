@@ -5,11 +5,7 @@
 		{{ Form::open(array('route' => 'admin.news.store', 'class' => 'large-form tab-container', 'id' => 'tab-container', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
 			<h2>Create News</h2>
 			<br>
-			@if(Session::has('message'))
-		        <div class="flash-success">
-		            <p>{{ Session::get('message') }}</p>
-		        </div>
-		    @endif
+
 			<div class='panel-container'>
 				<ul id="content">
 					<li>
@@ -61,6 +57,7 @@
 	{{ HTML::script('js/tinymce/tinymce.min.js') }}
 	{{ HTML::script('js/jquery.easytabs.min.js') }}
 	{{ HTML::script('js/chosen.jquery.js') }}
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 
 	<script>
@@ -72,7 +69,11 @@
             minValue.setDate(minValue.getDate()+1);
             $("#to").datepicker( "option", "minDate", minValue );
     	});
-
+        <?php if( Session::has('message') ) : ?>
+			var message = "{{ Session::get('message')}}";
+			var success = '1';
+			getFlashMessage(success, message);
+		<?php endif; ?>
 	});
     </script>
 @stop

@@ -15,8 +15,6 @@ $('.delete-btn').on('click', function(e) {
 });
 
 function getFlashMessage(success, message){
-	var success = success;
-	var message = message;
 
 	toastr.options = {
 	  "closeButton": false,
