@@ -31,7 +31,7 @@
 			{{ Form::textarea('message', '', array('id' => 'text-content')) }}
 		</li>
 		<li>
-			{{ Form::submit('Reply', array('id' => 'save-news')) }}
+			<a href="{{ URL::route('admin.reports.inquiries.index') }}" class="custom-back">Back</a>{{ Form::submit('Reply', array('id' => 'save-news')) }}
 		</li>
 	</ul>
 
@@ -39,16 +39,28 @@
 		
 	{{ Form::close() }}
 
+@stop
+
+@section('scripts')
+	{{ HTML::script('js/toastr.js') }}
+	{{ HTML::script('js/form-functions.js') }}	
 	{{ HTML::script('js/tinymce/tinymce.min.js') }}
 
 	<script>
 	$(document).ready(function() {
-		        // Initializes textarea editor for content and excerpt
+		// Initializes textarea editor for content and excerpt
         tinymce.init({
 			mode : "specific_textareas",
 			selector: "#text-content",
 			height : 300
 		});
+
+		<?php if( Session::has('error') ) : ?>
+			var message = "{{ Session::get('error')}}";
+			var success = '0';
+			getFlashMessage(success, message);
+
+		<?php endif; ?>
 
 	});
 

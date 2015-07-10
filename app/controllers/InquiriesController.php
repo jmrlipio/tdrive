@@ -126,7 +126,7 @@ class InquiriesController extends \BaseController {
 	public function show($id)
 	{
 		$inquiry = Inquiry::find($id);
-
+		
 		return View::make('admin.reports.inquiries.show')
 					->with('inquiry', $inquiry);
 	}
@@ -169,14 +169,14 @@ class InquiriesController extends \BaseController {
 
 			if(!$mail) 
 			{
-				//return Redirect::back()->with('message', 'Mail sent!');
-				return Redirect::to('admin/reports/inquiries')->with('success', 'Mail sent!');
+				
+				return Redirect::to('admin/reports/inquiries')->with('message', 'Mail sent!');
 			}
 
-			return Redirect::back()->with('message', 'Mail not sent');
+			return Redirect::back()->with('error', 'Mail not sent');
 		}
 		//validator fails
-		return Redirect::back()->withErrors($validator)->withInput();
+		return Redirect::back()->with('error', 'Mail not sent. Please add a message');
 		
 	}
 

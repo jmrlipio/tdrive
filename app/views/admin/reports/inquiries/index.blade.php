@@ -7,11 +7,13 @@
 		<?php 
 			$message = ""; 
 			$success = false;
+			$flashMessage = false;
 		?>
 		@if (Session::has('message') ) 
             <?php 
+            	$flashMessage = true;
             	$success = true;
-            	$message = Session::get('message');            	
+            	$message = Session::get('message');
             ?>
 	    @endif
 
@@ -89,15 +91,17 @@
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	
 	<script>
+	var success = "{{ $success }}";
+	var message = "{{ $message }}";
+	var flashMessage = "{{ $flashMessage }}";
+	
 	$(document).ready(function(){
 	    $('#table').DataTable();
 
-	    var success = "{{ $success }}";
-		var message = "{{ $message }}";
 		getFlashMessage(success, message);
 
 	});
-
+	
 	</script>
 	
 @stop
