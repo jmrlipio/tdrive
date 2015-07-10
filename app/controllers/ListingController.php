@@ -337,8 +337,58 @@ class ListingController extends \BaseController {
 	public function searchGames() 
 	{
 		$languages = Language::all();
+		$cid = Session::get('carrier');
 
-		$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(6)->get();
+		//$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(6)->get();
+		
+		$games = Game::whereHas('apps', function($q) use ($cid)
+		{
+		  $q->where('carrier_id', '=', $cid)
+		  	->where('main_title', 'LIKE', "%" . Input::get('search') . "%")
+		  	->where('status', '=', Constant::PUBLISH);
+
+		})->get();
+
+		$count = count($games);
+
+		$country = Country::find(Session::get('country_id'));
+
+		/* For getting discounts */
+		$dt = Carbon::now();
+		$discounts = Discount::whereActive(1)
+			->where('start_date', '<=', $dt->toDateString())
+			->where('end_date', '>=',  $dt->toDateString())  
+			->get();
+
+		$discounted_games = [];
+		foreach ($discounts as $data) {
+			foreach($data->games as $gm ) {
+				$discounted_games[$data->id][] = $gm->id; 
+			}
+		}
+
+		return View::make('search')
+			->with('page_title', 'Search results')
+			->with('page_id', 'game-listing')
+			->with('count', $count)
+			->with('country', $country)
+			->with(compact('games'))
+			->with(compact('languages','discounted_games'))
+			->with('search', Input::get('search'));
+	}
+
+	public function searchRelatedGames() 
+	{
+		$languages = Language::all();
+		$cid = Session::get('carrier');
+		$categories = Input::get('categories');
+
+		$games = Game::	whereHas('categories', function($q) use ($categories)
+		{
+		    $q->whereIn('category_id', $categories);
+
+		})->get();
+
 		$count = count($games);
 
 		$country = Country::find(Session::get('country_id'));
@@ -371,9 +421,21 @@ class ListingController extends \BaseController {
 	{
 		$id = Input::get('id');
 
+		$cid = Session::get('carrier');
 		$languages = Language::all();
 
-		$searched_games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->get();
+		// $searched_games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")
+		// 	->whereStatus(1)
+		// 	->get();
+
+		$searched_games = Game::whereHas('apps', function($q) use ($cid)
+		  {
+		      $q->where('carrier_id', '=', $cid)
+		      	->where('main_title', 'LIKE', "%" . Input::get('search') . "%")
+		      	->where('status', '=', Constant::PUBLISH);
+
+		  })->get();
+		
 		
 		$games = [];
 

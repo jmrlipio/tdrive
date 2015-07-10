@@ -57,6 +57,7 @@ Route::post('search', array('as' => 'search', 'uses' => 'ListingController@searc
 Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingController@searchMoreGames'));
 
 Route::post('category/search', array('as' => 'search', 'uses' => 'ListingController@searchGamesByCategory'));
+Route::post('category/related', array('as' => 'search', 'uses' => 'ListingController@searchRelatedGames'));
 
 Route::post('language', array(
     'before' => 'csrf',
@@ -85,6 +86,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('users/roles', array('as' => 'admin.users.roles', 'uses' => 'AdminUsersController@getUsersByRole'));
     Route::get('news/categories', array('as' => 'admin.news.category', 'uses' => 'NewsController@getNewsByCategory'));
     Route::get('game/categories', array('as' => 'admin.game.category', 'uses' => 'AdminGamesController@getGameByCategory'));
+    Route::get('review/game', array('as' => 'admin.reviews.game', 'uses' => 'ReviewsController@getReviewByGame'));
+
     Route::resource('users', 'AdminUsersController');
     Route::resource('games', 'AdminGamesController');
 

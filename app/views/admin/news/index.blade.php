@@ -43,11 +43,11 @@
 						</td>
 						<td>
 							@foreach($data->languages as $row)
-								<a class="{{strtolower($row->iso_code)}} flag-link" href="{{ URL::route('admin.news.variant.edit', array('news_id' => $data->id, 'variant_id' => $row->id)) }}"></a>
+								<a class="{{strtolower($row->iso_code)}} flag-link" data-toggle="tooltip" data-placement="top" title="{{$row->language}}" href="{{ URL::route('admin.news.variant.edit', array('news_id' => $data->id, 'variant_id' => $row->id)) }}"></a>
 							@endforeach
 						</td>
 						<td>{{ $data->NewsCategory->category }}</td>
-						<td>{{ $data->created_at }}</td>
+						<td >{{ $data->created_at }}</td>
 					</tr>		
 				@endforeach
 			</tbody>
@@ -65,9 +65,13 @@
 	{{ HTML::script('js/form-functions.js') }}
 
 	{{ HTML::script('css/polyglot-language-switcher.css') }}
+	{{ HTML::script('js/bootstrap.min.js') }}
 
 	<script>
+
 	$(document).ready(function(){
+
+		$('[data-toggle="tooltip"]').tooltip()
 
 		$('#news_table').DataTable({
 		        "order": [[ 3, "desc" ]]

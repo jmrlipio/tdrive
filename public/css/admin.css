@@ -685,20 +685,16 @@ a.vn {
 	border: 1px solid black;
 }
 
-
 form .fw-li li {
   width: 100%;
   display: inline-block;
 }
 a.custom-back{
-	/* color: #337ab7; */
 	text-decoration: none; 
 	line-height: 40px; 
 	display: inline-block; 
 	width: 60px; 
 	text-align: center; 
-	/* margin: 0 0 10px 0; */
-	/* float: right;  */
 	background: #4288CE; 
 	color: #fff !important; 
 	height: 40px; 
@@ -718,4 +714,12 @@ a.custom-back:hover{
 	-moz-transition: all 0.5s ease-in-out;
 	-o-transition: all 0.5s ease-in-out;
 	transition: all 0.5s ease-in-out;
+}
+.fw-li li label .tooltip-arrow, .tooltip > .tooltip-inner {
+	background-color: #465A65;
+	color: #fff;
+	font-size: 14px;
+}
+.tooltip.top .tooltip-arrow {
+      border-top-color: #465A65;
 }

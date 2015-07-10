@@ -1048,10 +1048,15 @@
 #game-listing .title {
   padding: 20px 0 15px;
 }
+.game-category > h1 {
+  width: auto;
+  float: left;
+} 
 #game-listing .search-category {
   padding: 0 0 20px;
 }
-#game-listing .search-category input {
+#game-listing .search-category input, .game-category .search-category input {
+  height: 18px;
   padding: 6px;
   margin-right: 5px;
   width: 88%;
@@ -1186,18 +1191,18 @@
     padding: 20px 0 15px;
     width: 54%;
   }
-  #game-listing .search-category {
+  #game-listing .search-category, .game-category .search-category {
     float: right;
     width: 46%;
     margin-top: 20px;
   }
-  #game-listing .search-category input {
+  #game-listing .search-category input, .game-category .search-category input {
     float: left;
-    width: 91%;
+    width: 90.5%;
   }
-  #game-listing .search-category a {
+  #game-listing .search-category a, .game-category .search-category a {
     float: right;
-    width: 6%;
+    width: 5%;
     margin-top: 8px;
   }
 
@@ -1217,11 +1222,11 @@
   #game-listing #back {
     margin-top: 15px;
   }
-  #game-listing .search-category input {
-    width: 91%;
+  #game-listing .search-category input, .game-category .search-category input {
+    width: 90.5%;
   }
   #game-listing .search-category a {
-    width: 6%;
+    width: 5%;
   }
 
   #news-listing #back {
@@ -1229,11 +1234,11 @@
   }
 }
 @media only screen and (min-width: 1024px) {
-  #game-listing .search-category input {
-    width: 94%;
+  #game-listing .search-category input, .game-category .search-category input {
+    width: 91%;
   }
   #game-listing .search-category a {
-    width: 4%;
+    width: 3%;
   }
 }
 #home .swiper-slide, #home .thumb, #home #news .top > div, #home #contact input[type="text"], #home #contact input[type="email"], #home #contact .select select, #home #contact textarea, #game-detail #featured, #game-detail #top .thumb, #game-detail #top .title, #game-detail #screenshots .swiper-slide, #game-detail #screenshots .item, #game-detail #statistics .top .social a, #game-detail #statistics .bottom > div .meter, #game-detail #statistics .bottom > div .meter .total, #game-detail #review .rating-control label, #game-detail #review form input[type="text"], #game-detail #review form textarea, #game-detail #review .captcha input, #game-detail #reviews .entry > div, #game-detail #related-games .swiper-slide, #game-detail #related-games .thumb, #news-detail .details .title > div, #game-listing .title, #game-listing .search-category, #game-listing .grid > .row .item, #game-listing .grid .thumb, #profile .thumb, #profile .details, #profile .grid > .row .item, #profile .grid .image, #reviews .entry > div {
