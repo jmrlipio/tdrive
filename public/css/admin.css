@@ -55,7 +55,7 @@ h1 { font-size: 24px; }
 h2 { font-size: 18px; }
 h3 { font-size: 15px; font-weight: bold; }
 button { cursor: pointer; }
-a.mgmt-link { text-decoration: none; line-height: 30px; display: inline-block; width: 120px; text-align: center; margin: 0 auto; float: right; background: #4288CE; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
+a.mgmt-link { text-decoration: none; line-height: 30px; display: inline-block; width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
 
 /* main sections */
 header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
@@ -64,20 +64,20 @@ header h1 { color: #fff; float: left; line-height: 80px; margin-left: 20px; }
 header img { float: left; height: 80px; width: 264px; }
 header a { color: #EECF40; }
 header h1 { float: left; }
-main { width: 82%; float: right; margin-top: 80px; background: #ccc; min-height: calc(100% - 100px); }
-main h2 { text-align: center; }
+main { width: 82%; float: right; margin-top: 80px; background: #fff; min-height: calc(100% - 100px); }
+main h2 { font-size: 32px;}
 footer { min-height: 50px; background-color: #ccc; }
 .container { width: 80%; margin: 0 auto; }
 
 /* general forms */
-article { width: 80%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; } 
-form h2 { text-align: center; }
+article { width: 80%; margin: 0 auto; padding: 3%; border-radius: 5px; margin-top: 50px; } 
+form h2 { margin-bottom: 20px; }
 form li { list-style-type: none; }
 form .error { display: inline-block; color: red; line-height: 30px; }
 form label { display: block; font-weight: bold; line-height: 30px; }
 input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 95%; }
 input[type="text"], input[type="email"], input[type="password"] { padding: 5px 10px; }
-input[type="submit"], #preview-game { background: #4288CE; color: #fff; height: 40px; line-height: 40px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
+input[type="submit"], #preview-game { background: #FFC0CB; color: #fff; height: 40px; line-height: 40px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 input[type="submit"]:hover, a.mgmt-link:hover { background: #333; cursor: pointer; }
 button { background: #CE8342; color: #fff; height: 30px; line-height: 31px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 button:hover { background: #92523F; cursor: pointer; }
@@ -90,8 +90,8 @@ textarea { padding: 5px 10px; }
 .login p.error { text-align: center; }
 
 /* Smaller Forms */
-.small-form { width: 40%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
-.medium-form { width: 60%; margin: 0 auto; padding: 3%; border: 1px solid #ddd; border-radius: 5px; margin-top: 50px; }
+.small-form { width: 40%; padding: 3%; margin-top: 50px; }
+.medium-form { width: 60%;  padding: 3%;  margin-top: 50px; }
 /* admin sidebar */
 #admin-panel { float: left; width: 18%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
@@ -127,7 +127,7 @@ textarea { padding: 5px 10px; }
 .item-listing td:hover a + ul { visibility: visible; opacity: 1; }
 .item-listing ul.actions { list-style: none; visibility: hidden; opacity: 0; transition: all 1s;}
 .item-listing ul.actions li { float: left; margin-right: 5px; }
-.item-listing ul.actions li a { color: #606060; font-size: 0.8em; }
+.item-listing ul.actions li a { color: #000; font-size: 0.8em; }
 .item-listing td > a { color: #E43C49; text-decoration:none;}
 
 textarea { width: 95%; resize: none; height: 150px; }
@@ -210,7 +210,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 .tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; text-decoration: none; color: #E43C49; }
 .tab.active { background: #fff; padding-top: 6px; position: relative; top: 1px; border-color: #666; }
 .tab a.active { font-weight: bold; }
-.tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; }
+.tab-container .panel-container { background: #fff;  -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; }
 .chosen-container { width: 300px !important; }
 .search-field { height: 100px; }
 .prices { width: 20% !important; }
@@ -301,7 +301,7 @@ p#generated-password {
 
 .panel-container  ul {
 	list-style: none;
-	padding: 10px;
+	
 }
 
 .panel-container li {
@@ -722,4 +722,15 @@ a.custom-back:hover{
 }
 .tooltip.top .tooltip-arrow {
       border-top-color: #465A65;
+}
+.table th,
+.dataTable {
+	background-color: #FFC0CB;
+}
+
+.dataTable td, .table td {
+	background-color: rgb(244, 244, 244);
+}
+.table-responsive {
+	overflow: hidden;
 }
