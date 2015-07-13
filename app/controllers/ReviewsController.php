@@ -30,6 +30,7 @@ class ReviewsController extends \BaseController {
 		foreach ($all_games as $g) {
 			$games[$g->id] = ucfirst($g->main_title);
 		}
+		sort($games);
 
 		return View::make('admin.reviews.index')
 			->with('selected', 'all')
@@ -115,33 +116,46 @@ class ReviewsController extends \BaseController {
     public function destroy($id)
 	{
 		$review = Review::find($id);
-		
+		$all_games = Game::orderBy('main_title')->get();
+		$games = ['all' => 'All'];
+
+		foreach ($all_games as $g) {
+			$games[$g->id] = ucfirst($g->main_title);
+		}   
+		sort($games);   
+
 		if($review) {
 
-			$review->delete();
+			//$review->delete();
 			
 			$reviews = Review::orderBy('viewed')->paginate(10);
 	
-		}
+		} 
 
-		return View::make('admin.reviews.index')
-			->with('page_title', 'Reviews - Admin')
-			->with('page_id', 'reviews')
-			->with(compact('reviews'));
+		return Redirect::route('admin.reviews.index')
+			->with('message', 'Review Deleted');
 
 	}
 
 	 public function handleDestroy() {
-	    $checked = Input::only('checked')['checked'];        
+	    $checked = Input::only('checked')['checked'];  
+	    $all_games = Game::orderBy('main_title')->get();
+		$games = ['all' => 'All'];
 
-			Review::whereIn('id', $checked)->delete();
+		foreach ($all_games as $g) {
+			$games[$g->id] = ucfirst($g->main_title);
+		}   
+		sort($games);   
+		if($checked != null)
+		{
+			//Review::whereIn('id', $checked)->delete();
 			$reviews = Review::orderBy('viewed')->paginate(10);
-
-			return View::make('admin.reviews.index')
-				->with('page_title', 'Reviews - Admin')
-				->with('page_id', 'reviews')
-				->with(compact('reviews'));
-
+			return Redirect::back()				
+				->with('message', 'Review Deleted');
+		} else {
+			return Redirect::back()		
+				->with('sof', 'failed');
+		}
     }
 
      public function delete_front($game_id, $user_id)

@@ -16,14 +16,7 @@
 
 	<div class="item-listing" id="news-list">
 		
-		<h2>Notifications</h2>
-
-		@if (Session::has('success') ) 
-            
-        	<h3 class="center flash-success">{{ Session::get('success') }}</h3>
-
-        @endif
-		
+		<h2>Notifications</h2>		
 		<br>
 
 		<p><strong>Game Title:</strong> {{ $review->game->main_title }}</p>	<br>	
@@ -84,11 +77,24 @@
 @stop
 
 @section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/form-functions.js') }}
 
 <script type="text/javascript">
-		$('.delete-button').on('click', function(e) {
-			if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
-		});
-	</script>
+$(document).ready(function(){
+	<?php if( Session::has('success') ) : ?>
+		var message = "{{ Session::get('success')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
+
+});
+
+$('.delete-button').on('click', function(e) {
+	if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
+});
+
+
+</script>
 
 @stop
