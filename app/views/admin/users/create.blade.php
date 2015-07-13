@@ -4,7 +4,7 @@
 
 
 	{{ Form::open(array('route'=>'admin.register.user', 'id' => 'register', 'class' => 'small-form')) }}
-
+		<h2>Create User</h2>
 		<div id="token">{{ Form::token() }}</div>
 
 		<div class="control">

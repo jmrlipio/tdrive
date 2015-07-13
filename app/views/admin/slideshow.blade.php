@@ -2,16 +2,17 @@
 
 @section('content')
 	@include('admin._partials.options-nav')
-	<article>
-		<h2>Homepage</h2>
 		@if(Session::has('message'))
 		    <div class="flash-success">
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
 
-		<br>
 		<div class='large-form tab-container' id='tab-container'>
+
+			<h2>Homepage</h2>
+			<br><br>
+
 			<ul class='etabs'>
 				<li class='tab'><a href="#slider">Slider</a></li>
 				<li class='tab'><a href="#categories">Categories</a></li>
@@ -86,7 +87,7 @@
 				</ul>
 			</div>
 		</div>
-	</article>
+
 	{{ HTML::script('js/jquery.easytabs.min.js') }}
 	{{ HTML::script('js/chosen.jquery.js') }}
 	<script>

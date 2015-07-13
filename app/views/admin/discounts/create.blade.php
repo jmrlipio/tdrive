@@ -2,10 +2,9 @@
 
 @section('content')
 	@include('admin._partials.game-nav')
-	<article>
+
 		{{ Form::open(array('route' => 'admin.discounts.store', 'class' => 'large-form tab-container', 'id' => 'tab-container', 'files' => true, 'enctype'=> 'multipart/form-data')) }}
 			<h2>Create New Discount</h2>
-			<br>
 			@if(Session::has('message'))
 			    <div class="flash-success">
 			        <p>{{ Session::get('message') }}</p>
@@ -68,7 +67,7 @@
 				</ul>
 			</div>
 		{{ Form::close() }}
-	</article>
+
 	
 	{{ HTML::script('js/chosen.jquery.js') }}
 	{{ HTML::script('js/form-functions.js') }}

@@ -338,8 +338,6 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 		$cid = Session::get('carrier');
-
-		//$games = Game::where('main_title', 'LIKE', "%" . Input::get('search') . "%")->take(6)->get();
 		
 		$games = Game::whereHas('apps', function($q) use ($cid)
 		{
@@ -381,23 +379,32 @@ class ListingController extends \BaseController {
 	{
 		$languages = Language::all();
 		$cid = Session::get('carrier');
-		$categories = Input::get('categories');
+		$country = Country::find(Session::get('country_id'));
+		$id = Input::get('game');
+		$game = Game::find($id);
 
-		$games = Game::	whereHas('categories', function($q) use ($categories)
+		$categories = array();
+		foreach($game->categories as $cat) 
+		{
+			$categories[] = $cat->id;
+		}
+
+		$games = Game::whereHas('categories', function($q) use ($categories)
 		{
 		    $q->whereIn('category_id', $categories);
+		})->whereHas('apps', function($q) use ($cid)
+		{
+			$q->where('carrier_id', '=', $cid)
+				->where('main_title', 'LIKE', "%" . Input::get('search') . "%")
+				->where('status', '=', Constant::PUBLISH);
 
 		})->get();
-
-		$count = count($games);
-
-		$country = Country::find(Session::get('country_id'));
 
 		/* For getting discounts */
 		$dt = Carbon::now();
 		$discounts = Discount::whereActive(1)
 			->where('start_date', '<=', $dt->toDateString())
-			->where('end_date', '>=',  $dt->toDateString())  
+			->where('end_date', '>=',  $dt->toDateString())		
 			->get();
 
 		$discounted_games = [];
@@ -407,13 +414,16 @@ class ListingController extends \BaseController {
 			}
 		}
 
+		$count = count($games);
+
 		return View::make('search')
 			->with('page_title', 'Search results')
 			->with('page_id', 'game-listing')
 			->with('count', $count)
 			->with('country', $country)
-			->with(compact('games'))
-			->with(compact('languages','discounted_games'))
+			->with('game_id', $game->id)
+			->with(compact('games', 'discounted_games','games', 'game', 'page'))
+			->with(compact('languages'))
 			->with('search', Input::get('search'));
 	}
 

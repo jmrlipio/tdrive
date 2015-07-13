@@ -3,6 +3,7 @@
 	<style>
 		p.published {color: green;}
 		p.draft {color: #555;}
+		tr th:first-of-type { width: 25px !important; }
 	</style>
 @stop
 @section('content')

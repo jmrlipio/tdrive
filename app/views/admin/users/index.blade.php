@@ -16,6 +16,7 @@
 		.fl { float: left; }
 		.clear {clear: both;}
 
+		tr > th:first-of-type { width: 25px !important; }
 	</style>
 
 @stop

@@ -18,7 +18,7 @@
 
 			{{ Form::open(array('action' => 'ListingController@searchRelatedGames', 'id' => 'search_form_related', 'class' => 'clearfix')) }}
 				{{ Form::input('text', 'search', null, array('placeholder' => trans('global.search game'))); }}
-				{{ Form::hidden('id', $category->id) }}
+				{{ Form::hidden('game', $game->id) }}
 				<a href="javascript:{}" onclick="document.getElementById('search_form_related').submit(); return false;"><i class="fa fa-search"></i></a>
 
 				{{ Form::token() }}
