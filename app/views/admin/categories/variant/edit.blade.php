@@ -3,11 +3,7 @@
 @section('content')
 	{{ Form::model($variant, array('route' => array('admin.categories.variant.update', $variant->id), 'method' => 'put', 'class' => 'medium-form')) }}
 		<h2>Add Variant</h2>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
+
 		<ul>
 			<li>
 				{{ Form::label('category', 'Category: ') }}
@@ -25,9 +21,26 @@
 			</li>
 			<li>
 				{{ Form::submit('Save') }}
-				<a href="{{ URL::route('admin.categories.variant.delete', $variant->id) }}">Delete</a>
+				<a href="{{ URL::route('admin.categories.variant.delete', $variant->id) }}" class="delete-btn">Delete</a>
 			</li>
 		</ul>
 
 	{{ Form::close() }}
+@stop
+
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/form-functions.js') }}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
+
+});	
+</script>
 @stop

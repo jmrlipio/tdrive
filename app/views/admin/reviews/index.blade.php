@@ -16,12 +16,6 @@
 	<div class="item-listing" id="games-list">
 		<h2>Reviews</h2>
 
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
-
 		{{ Form::open(array('route' => 'admin.reviews.game','class' => 'simple-form', 'id' => 'submit-game', 'method' => 'get')) }}
 			{{ Form::select('selected_game', $games, $selected, array('class' => 'select-filter', 'id' => 'select-game')) }}
 		{{ Form::close() }}
