@@ -171,7 +171,8 @@ class CategoriesController extends \BaseController {
 			    		)
 			);
 
-		return Redirect::route('admin.categories.index');
+		return Redirect::route('admin.categories.index')
+			->with('message', 'Variant added.');
 
 	}
 
@@ -194,7 +195,7 @@ class CategoriesController extends \BaseController {
 					 ->update(array('variant' => Input::get('variant')));
 
 		return Redirect::back()
-						->with('message', 'Update Successfully');
+						->with('message', 'Update Successful');
 	}
 
 	public function deleteVariant($id) 
@@ -202,7 +203,8 @@ class CategoriesController extends \BaseController {
 		$variant = DB::table('category_languages')
 					->where('id', $id)
 					->delete();
-		return Redirect::route('admin.categories.index');
+		return Redirect::route('admin.categories.index')
+			->with('message', 'Variant Deleted.');
 	}
 
 }

@@ -126,7 +126,7 @@ class ReviewsController extends \BaseController {
 
 		if($review) {
 
-			//$review->delete();
+			$review->delete();
 			
 			$reviews = Review::orderBy('viewed')->paginate(10);
 	
@@ -148,7 +148,7 @@ class ReviewsController extends \BaseController {
 		sort($games);   
 		if($checked != null)
 		{
-			//Review::whereIn('id', $checked)->delete();
+			Review::whereIn('id', $checked)->delete();
 			$reviews = Review::orderBy('viewed')->paginate(10);
 			return Redirect::back()				
 				->with('message', 'Review Deleted');

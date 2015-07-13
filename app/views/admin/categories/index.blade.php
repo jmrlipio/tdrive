@@ -10,11 +10,6 @@
 		@endif
 		<div class="clear"></div>
 
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 		<br>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover"  id="game_table">
@@ -85,14 +80,26 @@
 	    	// });
 		});
 	</script>
-	{{ HTML::script('js/form-functions.js') }}
-	{{ HTML::script('js/jquery.dataTables.js') }}
-	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script>
-		$(document).ready(function(){
-		    $('#game_table').DataTable();
-		});
-	</script>
 
+@stop
+
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/form-functions.js') }}
+{{ HTML::script('js/jquery.dataTables.js') }}
+{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#game_table').DataTable();
+	
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
+
+});	
+</script>
 @stop
