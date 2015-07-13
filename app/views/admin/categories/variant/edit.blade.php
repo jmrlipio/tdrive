@@ -21,7 +21,7 @@
 			</li>
 			<li>
 				{{ Form::submit('Save') }}
-				<a href="{{ URL::route('admin.categories.variant.delete', $variant->id) }}">Delete</a>
+				<a href="{{ URL::route('admin.categories.variant.delete', $variant->id) }}" class="delete-btn">Delete</a>
 			</li>
 		</ul>
 
