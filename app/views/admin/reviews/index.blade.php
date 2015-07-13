@@ -137,12 +137,19 @@
 	    	});
 		});
 	</script>
+	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function(){
+
+			<?php if( Session::has('message') ) : ?>
+				var message = "{{ Session::get('message')}}";
+				var success = '1';
+				getFlashMessage(success, message);
+			<?php endif; ?>
 
 			$('#select-game').on('change', function() {
 				$('#submit-game').trigger('submit');
