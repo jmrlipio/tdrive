@@ -9,11 +9,6 @@
 			<a href="{{ URL::route('admin.carriers.create') }}" class="mgmt-link">New Carrier</a>
 		@endif
 		
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 		<br>
 		<table class="table table-striped table-bordered table-hover">
 			<tr>
@@ -46,5 +41,22 @@
 		<br>
 		
 	</div>
-	{{ HTML::script('js/form-functions.js') }}
+
+@stop
+
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/form-functions.js') }}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
+
+});	
+</script>
 @stop

@@ -2,7 +2,8 @@
 
 @section('content')
 	@include('admin._partials.game-nav')
-	<div class="item-listing" id="categories-list">
+	<!-- <div class="item-listing" id="categories-list"> -->
+	<div class="item-listing">
 		<h2>Categories</h2>
 		
 		@if(Auth::user()->role != 'admin')
@@ -11,8 +12,8 @@
 		<div class="clear"></div>
 
 		<br>
-		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-hover"  id="game_table">
+		<div class="category_table_container">
+			<table class="table table-striped table-bordered table-hover"  id="category_table">
 				<thead>
 					<tr>
 						<!--<th><input type="checkbox"></th>-->
@@ -32,7 +33,7 @@
 									<ul class="actions">
 										<li><a href="{{ URL::route('admin.categories.variant.create', $category->id) }}">Add Variant</a></li>
 										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>
-										<li><a href="">View</a></li>
+										<!-- <li><a href="">View</a></li> -->
 										<li>
 											{{ Form::open(array('route' => array('admin.categories.destroy', $category->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 												{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
@@ -82,7 +83,6 @@
 	</script>
 
 @stop
-
 @section('scripts')
 {{ HTML::script('js/toastr.js') }}
 {{ HTML::script('js/form-functions.js') }}
@@ -92,7 +92,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#game_table').DataTable();
+	$('#category_table').DataTable();
 	
 	<?php if( Session::has('message') ) : ?>
 		var message = "{{ Session::get('message')}}";

@@ -41,5 +41,21 @@
 		<br>
 		
 	</div>
-	{{ HTML::script('js/form-functions.js') }}
+
+@stop
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/form-functions.js') }}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
+
+});	
+</script>
 @stop

@@ -4,11 +4,7 @@
 	@include('admin._partials.game-nav')
 	{{ Form::model($carrier, array('route' => array('admin.carriers.update', $carrier->id), 'method' => 'put', 'class' => 'small-form')) }}
 		<h2>Edit Carrier</h2>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
+
 		<ul>
 			<li>
 				{{ Form::label('id', 'Carrier ID:') }}
@@ -37,12 +33,24 @@
 		
 
 	{{ Form::close() }}
-	{{ HTML::script('js/chosen.jquery.js') }}
-	{{ HTML::script('js/form-functions.js') }}
-	<script>
-	$(document).ready(function(){
-		$(".chosen-select").chosen();
-	});
-	</script>
 
+@stop
+
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/chosen.jquery.js') }}
+{{ HTML::script('js/form-functions.js') }}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".chosen-select").chosen();
+
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
+
+});	
+</script>
 @stop

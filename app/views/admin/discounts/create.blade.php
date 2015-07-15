@@ -6,11 +6,7 @@
 		{{ Form::open(array('route' => 'admin.discounts.store', 'class' => 'large-form tab-container', 'id' => 'tab-container', 'files' => true, 'enctype'=> 'multipart/form-data')) }}
 			<h2>Create New Discount</h2>
 			<br>
-			@if(Session::has('message'))
-			    <div class="flash-success">
-			        <p>{{ Session::get('message') }}</p>
-			    </div>
-			@endif
+
 			<div class='panel-container'>
 				<ul>
 					<li>
@@ -70,13 +66,17 @@
 		{{ Form::close() }}
 	</article>
 	
-	{{ HTML::script('js/chosen.jquery.js') }}
-	{{ HTML::script('js/form-functions.js') }}
-	{{ HTML::script('js/chosen.jquery.js') }}
+@stop
 
-	<script>
-	(function(){
-		$(".chosen-select").chosen();
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/chosen.jquery.js') }}
+{{ HTML::script('js/form-functions.js') }}
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$(".chosen-select").chosen();
 
 		$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
             var minValue = $(this).val();
@@ -88,7 +88,13 @@
     	CKEDITOR.replace('content');
 
     	$(".chosen-select").chosen();
-	})();
-	</script>
+	
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var success = '1';
+		getFlashMessage(success, message);
+	<?php endif; ?>
 
+});	
+</script>
 @stop

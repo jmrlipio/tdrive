@@ -170,11 +170,17 @@ class DiscountsController extends \BaseController {
 		
 		if($discount)
 		{
-			$discount->delete();
+			
+			$featured_img = public_path().'/assets/discounts/'.$discount->featured_image;
+			
+			if($featured_img)
+			{
+				File::delete($featured_img);
+			}
 			// Event::fire('audit.discount.delete', Auth::user());
-
+			$discount->delete();
 			return Redirect::route('admin.discounts.index')
-				->with('message', 'News deleted')
+				->with('message', 'Discount deleted.')
 				->with('sof', 'success');	
 		}
 

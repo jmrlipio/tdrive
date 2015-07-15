@@ -38,12 +38,17 @@ class LanguagesController extends \BaseController {
 
 		if ($validator->fails())
 		{
-			return Redirect::back()->withErrors($validator)->withInput();
+			return Redirect::back()
+				->withErrors($validator)
+				->withInput()
+				->with('message', 'Adding language failed.')
+				->with('sof', 'fail');
+
 		}
 
 		Language::create($data);
 
-		return Redirect::route('admin.languages.create')->with('message', 'You have successfully added a language.');
+		return Redirect::back()->with('message', 'You have successfully added a language.');
 	}
 
 	/**
@@ -83,11 +88,7 @@ class LanguagesController extends \BaseController {
 	{
 		$language = Language::findOrFail($id);
 
-		$rules = array(
-		        'language'=>'required|unique:languages,language,'.$id 
-		        );
-
-		$validator = Validator::make($data = Input::all(), $rules);
+		$validator = Validator::make($data = Input::all(), Language::$rules);
 
 		if ($validator->fails())
 		{
@@ -119,7 +120,7 @@ class LanguagesController extends \BaseController {
 
 		return Redirect::route('admin.languages.index')
 			->with('message', 'Something went wrong. Try again.')
-			->with('sof', 'success');
+			->with('sof', 'fail');
 	}
 
 	public function chooseLanguage()

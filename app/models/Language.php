@@ -3,13 +3,18 @@
 use Jarektkaczyk\TriplePivot\TriplePivotTrait;
 
 class Language extends \Eloquent {
-	protected $fillable = ['language','iso_code'];
-    public static $rules = [
+    /*protected $fillable = ['language','iso_code'];*/  
+   /* public static $rules = [
         'language' => 'required|min:3|unique:languages|max:255',
         'iso_code' => 'required|min:2',
+    ];*/
+    protected $fillable = ['language'];
+    public static $rules = [
+        'language' => 'required|min:3|unique:languages|max:255',
     ];
 
-	public function games()
+
+    public function games()
     {
         return $this->morphedByMany('Game', 'languagable');
     }
@@ -67,12 +72,6 @@ class Language extends \Eloquent {
             return $variant->variant;
         }
         return false;
-    }
-
-    public static function getLangText($id) 
-    {
-        $lang = Language::find($id);
-        return $lang->language;
     }
 
 }

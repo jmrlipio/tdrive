@@ -4,11 +4,7 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="faq-list">
 		<h2>Discounts</h2>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
+
 		<a href="{{ URL::route('admin.discounts.create') }}" class="mgmt-link">Create Discount</a>
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
 			<thead>
@@ -58,5 +54,37 @@
 		</table>
 	</div>
 
-	{{ HTML::script('js/form-functions.js') }}
+@stop
+
+@section('scripts')
+{{ HTML::script('js/toastr.js') }}
+{{ HTML::script('js/form-functions.js') }}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	<?php if( Session::has('message') ) : ?>
+		var message = "{{ Session::get('message')}}";
+		var status = "{{ Session::get('sof') }}"
+		var success= "";
+		
+		switch(status)
+		{
+			case 'success':
+				success	= '1';
+			break;
+
+			case 'failed':
+				success	= '0';
+			break;
+
+			default:
+				success = '1';
+		}
+	
+		getFlashMessage(success, message);
+	<?php endif; ?>
+
+});	
+</script>
 @stop
