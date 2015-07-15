@@ -87,9 +87,9 @@
 
     <div class="clear"></div>
 
-    <footer>
+   <!--  <footer>
         
-    </footer>
+    </footer> -->
 
 @yield('scripts')
     <script>

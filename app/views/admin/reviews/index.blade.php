@@ -147,7 +147,6 @@
 
 			$('#select-game').on('change', function() {
 				$('#submit-game').trigger('submit');
-				//alert("asd");
 			});
 
 			$('#delete-btn').on('click', function(e) {				

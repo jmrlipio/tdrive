@@ -1,7 +1,6 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	<article>
 		{{ Form::open(array('route' => 'admin.news.store', 'class' => 'large-form tab-container', 'id' => 'tab-container', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
 			<h2>Create News</h2>
 			<br>
@@ -51,7 +50,6 @@
 			</div>
 			{{ Form::hidden('user_id', Auth::user()->id) }}
 		{{ Form::close() }}
-	</article>
 
 	@include('admin._partials.image-select')
 	{{ HTML::script('js/tinymce/tinymce.min.js') }}

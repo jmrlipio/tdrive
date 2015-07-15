@@ -1,13 +1,10 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	<article>
 
 		{{ Form::open(array('route' => array('admin.games.store.app', $game->id), 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
 			<div class='panel-container'>
-				<h3 class="center">{{ $game->main_title }} App</h3>
-
-				<br>
+				<h2>{{ $game->main_title }} App</h2>
 
 				@if(Session::has('message'))
 				    <div class="flash-success">
@@ -71,7 +68,7 @@
 			</div>
 			{{ Form::submit('Save') }}
 		{{ Form::close() }}
-	</article>
+	
 	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
 		CKEDITOR.replace('content');

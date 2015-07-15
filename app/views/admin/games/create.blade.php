@@ -2,16 +2,15 @@
 
 @section('content')
 	@include('admin._partials.game-nav')
-		<article class='large-form tab-container' id='create-game'>
-			<h2>Create New Game</h2>
-			<br>
 			@if(Session::has('message'))
 			    <div class="flash-success">
 			        <p>{{ Session::get('message') }}</p>
 			    </div>
 			@endif
 			<div class='panel-container'>
-				{{ Form::open(array('route' => 'admin.games.store')) }}
+				{{ Form::open(array('route' => 'admin.games.store', 'class' => 'small-form')) }}
+					<h2>Create Game</h2>
+
 					<ul id="custom-fields">
 						<li>
 							{{ Form::label('main_title', 'Main Title: ') }}
@@ -52,8 +51,6 @@
 					{{ Form::submit('Save', array('id' => 'save-game')) }}
 				{{ Form::close() }}
 		</div>
-	</article>
-
 	@include('admin._partials.image-select')
 
 	{{ HTML::script('js/jquery.easytabs.min.js') }}

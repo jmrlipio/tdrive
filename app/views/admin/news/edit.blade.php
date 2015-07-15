@@ -5,11 +5,11 @@
 	</style>
 @stop
 @section('content')
-	<article>
-	<h2>Edit News</h2>
-
-	<br>
 	<div class='large-form tab-container' id='tab-container'>
+
+		<h2>Edit News</h2>
+		<br>
+		<br>
 		<div class='panel-container'>
 			<ul id="content">				
 					<li>
@@ -94,10 +94,6 @@
 			</ul>
 		</div>
 		
-	
-
-	</article>
-
 	@include('admin._partials.image-select')
 	{{ HTML::script('js/tinymce/tinymce.min.js') }}
 	{{ HTML::script('js/jquery.easytabs.min.js') }}

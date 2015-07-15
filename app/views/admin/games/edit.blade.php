@@ -9,10 +9,11 @@
 	@include('admin._partials.game-nav')
 	@include('admin._scripts.scripts')
 
-	<article>
-		<h2>Edit Game</h2>
-		<br>
 		<div class='large-form tab-container' id='tab-container'>
+
+			<h2>Edit Game</h2>
+			<br><br>
+			
 			<ul class='etabs'>
 				<li class='tab'><a href="#details">Details</a></li>
 				<li class='tab'><a href="#apps">Apps</a></li>
@@ -258,7 +259,6 @@
 				</ul>
 			</div>
 		</div>
-	</article>
 
 	@include('admin._partials.image-select')
     {{ HTML::script('js/tinymce/tinymce.min.js') }}
