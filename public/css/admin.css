@@ -734,3 +734,10 @@ a.custom-back:hover{
 .table-responsive {
 	overflow: hidden;
 }
+
+/*google analytics*/
+.chart-1 {
+	float: left;
+	width: 40%;
+	
+}
