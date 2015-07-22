@@ -15,7 +15,7 @@
 	        };
       		    jQuery.ajax({
                   type: "POST",
-                  url: 'sales/chart/overall',
+                  url: 'chart/overall',
                   success : function(data) {
                   		var dt = new google.visualization.DataTable(data, 0.6);
         				chart.draw(dt, options);
@@ -24,17 +24,19 @@
                 }, "json");
 
       		 $('.game_selection').change(function() {
+             console.log("a");
       		 	game_id = $(this).val();
       		 	var ajax_url = 'chart/' + game_id + '/' + filter;
       		 	if(game_id == '0') 
       		 	{
-      		 		ajax_url = 'sales/chart/overall';
+      		 		ajax_url = 'chart/overall';
       		 	}
 
       		 	jQuery.ajax({
                   type: "POST",
                   url: ajax_url,
                   success : function(data) {
+                     console.log(data);
                   		var dt = new google.visualization.DataTable(data, 0.6);
         				chart.draw(dt, options);
                   }
@@ -42,12 +44,14 @@
       		 }); 
 
       		 $('.filter_selection').change(function() {
+
       		 	filter = $(this).val();
       		 	var ajax_url = 'chart/' + game_id + '/' + filter;
       		 	jQuery.ajax({
                   type: "POST",
                   url: ajax_url,
                   success : function(data) {
+                   
                   		var dt = new google.visualization.DataTable(data, 0.6);
         				chart.draw(dt, options);
                   }
