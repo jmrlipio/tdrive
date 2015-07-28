@@ -39,7 +39,7 @@ class HomeController extends BaseController {
 			}
 		}
 
-		/*if(!$selected_carriers || in_array($_SERVER['REMOTE_ADDR'], $filters)) 
+		if(!$selected_carriers || in_array($_SERVER['REMOTE_ADDR'], $filters)) 
 		{	
 			unset($selected_carriers);
 			$carriers_all = Carrier::all();
@@ -48,7 +48,7 @@ class HomeController extends BaseController {
 				$selected_carriers[] = $carrier;
 			}
 
-		}*/
+		}
 
 		$carrier_all = [];
 
