@@ -55,8 +55,7 @@ class HomeController extends BaseController {
 		foreach(Carrier::all() as $crr) {
 			$carrier_all[$crr->id] = $crr->carrier;
 		}
-
-		$app_store = "";		
+		
 		$carrier_count = 0;
 		$arr_store = array();
 
@@ -74,8 +73,8 @@ class HomeController extends BaseController {
 			$carrier = Carrier::find($arr_store[0]['id']);
 			Session::put('carrier', $arr_store[0]['id']);
 			Session::put('locale', strtolower($carrier->language->iso_code));	
-			return $this->home();
 			
+			return $this->home();
 		}
 		
 
