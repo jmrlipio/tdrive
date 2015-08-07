@@ -266,7 +266,7 @@
 						<div>
 							<div class="date">
 								<div class="vhparent">
-									<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+									<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j Y') }}</p>
 								</div>
 							</div>
 

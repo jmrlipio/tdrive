@@ -33,10 +33,9 @@ class HomeController extends BaseController {
 		$carriers = Country::with('carriers')->where('country_code', '=', $country_id)->get();
 
 		$selected_carriers = [];
-
 		foreach($carriers as $c) {
 			foreach($c->carriers as $i) {
-				$selected_carriers[] = $i;
+				$selected_carriers[] = $i;				
 			}
 		}
 
@@ -56,6 +55,28 @@ class HomeController extends BaseController {
 		foreach(Carrier::all() as $crr) {
 			$carrier_all[$crr->id] = $crr->carrier;
 		}
+		
+		$carrier_count = 0;
+		$arr_store = array();
+
+		foreach($selected_carriers as $sc)
+		{
+			$carrier_count++;
+			$arr_store[] = array(
+				'id' => $sc->id,
+				'store' => $sc->carrier 
+			);		
+		}
+
+		if($carrier_count == 1)
+		{	
+			$carrier = Carrier::find($arr_store[0]['id']);
+			Session::put('carrier', $arr_store[0]['id']);
+			Session::put('locale', strtolower($carrier->language->iso_code));	
+			
+			return $this->home();
+		}
+		
 
 		return View::make('carrier')
 			->with('page_title', 'Select App Store')
@@ -97,7 +118,6 @@ class HomeController extends BaseController {
 		}
 
 		$carrier = Carrier::find(Session::get('carrier'));
-
 		$countries = [];
 
 		//Redirects to / if carrier is null
