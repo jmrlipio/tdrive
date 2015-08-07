@@ -420,14 +420,15 @@
 				</div>
 
 				<div class="control">
-					<textarea name="review" placeholder="write a review" required></textarea>
+					<textarea name="review" placeholder="{{trans("global.write a review")}}" required></textarea>
 
 					{{ $errors->first('review', '<p class="form-error">:message</p>') }}
 				</div>
 
 				<div class="captcha control clearfix">
 					{{ HTML::image(Captcha::img(), 'Captcha image') }}
-					{{ Form::text('captcha', null, array('placeholder' => 'Type what you see...', 'required' => 'required')) }}
+					<input placeholder="{{trans("global.Type what you see...")}}" required="required" name="captcha" type="text">
+					<!-- {{ Form::text('captcha', null, array('placeholder' => '', 'required' => 'required')) }} -->
 
 					{{ $errors->first('captcha', '<p class="form-error">:message</p>') }}
 				</div>

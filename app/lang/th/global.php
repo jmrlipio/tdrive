@@ -73,6 +73,7 @@ return array(
 	'Share' => 'หุ้น',
 	'Share the game to the following social networks' => 'แบ่งปันเกมต่อไปนี้เครือข่ายทางสังคม',
 	'Rating' => 'อันดับ',
+	'write a review' => 'ความคิดเห็น',
 	'Login to write a review' => 'เข้าสู่ระบบก่อนแสดงความคิดเห็น',
 	'See all reviews' => 'ดูความคิดเห็นทั้งหมด',
 	'Related games for ' => 'เกมที่เกี่ยวข้อง',
@@ -95,6 +96,7 @@ return array(
 	'Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง กรุณากรอกเป็นภาษาอังกฤษ',
 	'General Inquiry' => 'สอบถามข้อมูลทั่วไป',
 	'View' => 'ดู',
+	'Type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
 	'type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
 	
 	//Login Blade (login.blade.php)
@@ -173,8 +175,20 @@ return array(
 	'Oct' => 'ตุลาคม',
 	'Nov' => 'พฤศจิกายน',
 	'Dec' => 'ธันวาคม',
-<<<<<<< HEAD
 
-=======
->>>>>>> 596772c4b320534ef22e21b400a0dbd8d151b6f0
+	//Dates
+
+	'January' => 'มกราคม',
+	'February' => 'กุมภาพันธ์',
+	'March' => 'มีนาคม',
+	'April' => 'เมษายน',
+	'May' => 'พฤษภาคม',
+	'June' => 'มิถุนายน',
+	'July' => 'กรกฏาคม',
+	'August' => 'สิงหาคม',
+	'September' => 'กันยายน',
+	'October' => 'ตุลาคม',
+	'November' => 'พฤศจิกายน',
+	'December' => 'ธันวาคม',
+
 );

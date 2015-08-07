@@ -54,7 +54,13 @@
 		<div class="control">
 			<?php $current_year = date("Y"); ?>
 			{{ Form::label('birthdate', trans('global.birthdate')) }}
-			{{ Form::selectMonth('month', 1, ['class' => 'field','id'=>'month']) }}			
+			<!-- {{ Form::selectMonth('month', 1, ['class' => 'field','id'=>'month']) }} -->
+			<select class="field" id="month" name="month">
+				@for ($i = 1; $i < 13; $i++)
+				    <option value="{{$i}}">{{ trans('global.'.strftime('%B', mktime(0, 0, 0, $i, 1 ))) }}</option>
+				@endfor
+			</select>
+
 			{{ Form::select('day', range(1,31), 0, array('id'=>'day')) }}
 			{{ Form::selectYear('year', 1940, $current_year, $current_year, ['class' => 'field','id'=>'year']) }}
 			{{ $errors->first('birthday', '<p class="error">:message</p>') }}
