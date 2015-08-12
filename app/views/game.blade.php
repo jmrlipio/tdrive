@@ -191,7 +191,7 @@
 		{{-- @foreach($game->contents as $item)
 			@if(Session::has('locale'))
 				@if(Session::get('locale') == strtolower($item->iso_code))
-					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">Read more</a></div>
+					<div class="content">{{ htmlspecialchars_decode($item->pivot->excerpt) }} <a href="" class="readmore">{{ trans('global.Read more') }}</a></div>
 					
 				@endif
 			@else
@@ -204,7 +204,7 @@
   		@foreach($game->apps as $app)
 
 			@if($app->pivot->app_id == $app_id)
-			<div class="content hey"><p id="excerpt">{{ htmlspecialchars_decode($app->pivot->excerpt) }}</p> <a href="" class="readmore">Read more</a></div>
+			<div class="content hey"><p id="excerpt">{{ htmlspecialchars_decode($app->pivot->excerpt) }}</p> <a href="" class="readmore">{{ trans('global.Read more') }}</a></div>
 			<p id="excerpt"><?php $game_excerpt = htmlspecialchars_decode($app->pivot->excerpt); ?></p>
 			@endif
 
@@ -291,7 +291,7 @@
 
 				<a href="#share" id="inline" class="share" >
 					{{ HTML::image('images/share.png', 'Share', array('class' => 'auto')) }}
-					<span>{{ trans('global.Share') }}</span>
+					<span>Share</span>
 				</a>
 				
 				<div style="display:none">
@@ -407,7 +407,7 @@
 				{{ Form::hidden('user_id', Auth::id()) }}
 
 				<div class="rating-control clearfix control">
-					<label class="rating" for="rating">Rating</label>
+					<label class="rating" for="rating">{{trans("global.Rating")}}</label>
 					<select name="rating">
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -435,7 +435,7 @@
 
 
 				<div class="control">
-					 {{ Form::submit('Submit') }}
+					 {{ Form::submit(trans("global.Submit")) }}
 				</div>
 			 {{ Form::close() }}
 
@@ -514,7 +514,7 @@
 			@endif
 		@empty
 
-			<p class="center">be the first one to add a review!</p> 
+			<p class="center">{{ trans('global.be the first one to add a review!') }}</p> 
 
 		@endforelse
 		

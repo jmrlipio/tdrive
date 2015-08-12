@@ -266,8 +266,11 @@
 						<div>
 							<div class="date">
 								<div class="vhparent">
-									<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j Y') }}</p>
-								</div>
+									<?php 
+										$date = Carbon::parse($item->created_at)->format('M');						
+										?>
+									<p class="vhcenter">{{  trans('global.'.str_limit($date, $limit = 3, $end = '...')).' '.Carbon::parse($item->created_at)->format('j')}}</p>
+								</div>	
 							</div>
 
 							<img src="assets/news/{{ $item->featured_image }}" alt="{{ $item->main_title }}">
@@ -400,11 +403,11 @@
 			<div class="select clearfix wbg">
 				<?php $countries = Constant::getCountries(); ?>
 				<select name="country" class="clearfix" id="country" required>
-					<option value="{{ $default_location['name'] }}">{{ $default_location['name'] }}</option>
+					<option value="{{ $default_location['name'] }}">{{ trans('global.'.$default_location["name"]) }}</option>
 					
 					@for($x = 0; $x < count($countries); $x++)
 						@if($countries[$x] != $default_location['name'])
-							<option value="{{$countries[$x]}}">{{$countries[$x]}}</option>
+							<option value="{{$countries[$x]}}">{{ trans('global.'.$countries[$x]) }}</option>
 						@endif
 					@endfor
 					
@@ -429,7 +432,7 @@
 				<select id="os-type" name="os-type" required>
 					<option value="">{{trans('global.Select OS')}}</option>
 					<option value="iOS">iOS</option>
-					<option value="Android">Android</option>
+					<option value="Android">{{ trans('global.Android') }}</option>
 				</select>
 			</div>
 

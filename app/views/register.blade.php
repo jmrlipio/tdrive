@@ -47,7 +47,7 @@
 
 		<div class="control">
 			{{ Form::label('gender', trans('global.gender')) }}
-			{{ Form::select('gender', array('M' => 'Male', 'F' => 'Female'), 'M', array('class'=>'select_gender')) }}
+			{{ Form::select('gender', array('M' => trans('global.Male'), 'F' => trans('global.Female')), 'M', array('class'=>'select_gender')) }}
 			{{ $errors->first('gender', '<p class="error">:message</p>') }}
 		</div>
 

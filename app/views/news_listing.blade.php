@@ -33,22 +33,34 @@
 		<div id="token">{{ Form::token() }}</div>
 
 		<div id="scroll">		
-
 			@foreach ($live_news as $item)
-				@foreach ($item->contents as $content)
+
+				@foreach($item->languages as $content)
+					<?php $iso_code = ''; ?>
+					@foreach($languages as $language)
+						@if($language->id == $content->pivot->language_id)
+							<?php $iso_code = strtolower($language->iso_code); ?>
+						@endif
+					@endforeach
+
+
+					@if($iso_code == Session::get('locale'))
 
 					<div class="item">
 						<a class="news_link" href="{{ '/news/'. $item->id }}">
 							<div class="date">
 								<div class="vhparent">
-									<p class="vhcenter">{{ Carbon::parse($item->created_at)->format('M j') }}</p>
+									<?php 
+										$date = Carbon::parse($item->created_at)->format('M');						
+										?>
+									<p class="vhcenter">{{  trans('global.'.str_limit($date, $limit = 3, $end = '...')).' '.Carbon::parse($item->created_at)->format('j')}}</p>
 								</div>	
 							</div>	
 
 							<div class="details">
 								<div class="vparent">
 									<div class="vcenter">
-										<h3>{{{ $item->main_title }}}</h3>
+										<h3>{{ $content->pivot->title }}</h3>
 										<p>{{{ $content->pivot->excerpt }}}</p>
 									</div>	
 								</div>
@@ -61,6 +73,7 @@
 							</a>
 						</div>
 					</div>
+					@endif
 
 				@endforeach
 			@endforeach
