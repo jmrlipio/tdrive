@@ -6,13 +6,9 @@
 
 @section('content')
 
-	@if (Session::has('success') ) 
-            
-        <h3 class="center flash-success">{{ Session::get('success') }}</h3> 
+	@if(Session::has('fail') )   
 
-    @elseif(Session::has('fail') )   
-
-    	<h3 class="center flash-fail">{{ Session::get('fail') }} </h3>    
+    	<h3 class="center flash-fail">{{ trans('global.'.Session::get('fail')) }} </h3>    
 
     @endif
                          

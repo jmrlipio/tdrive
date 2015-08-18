@@ -4,7 +4,7 @@
 
 	<div class="container">
 
-		<h1 class="title">{{{ $title }}}</h1>
+		<h1 class="title">{{{ $title }}} {{  trans('global.news archive') }}</h1>
 
 		<div id="scroll" class="clearfix">
 

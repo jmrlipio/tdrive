@@ -155,7 +155,7 @@
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">Free</a>
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">{{ trans('global.Free') }}</a>
 								@else
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 								@endif
@@ -222,7 +222,7 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" class="game-free">Free</a>
+									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" class="game-free">{{ trans('global.Free') }}</a>
 								@else
 									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 								@endif
@@ -486,7 +486,7 @@
 						    <p> {{ str_limit($data['description'], $limit = 200, $end = '...') }} </p>
 							
 							<div class="fancybox-close-btn">
-								<a title="Close" data-dismiss="modal" aria-label="Close"> Close </a>
+								<a title="Close" data-dismiss="modal" aria-label="Close"> {{trans('global.Close')}} </a>
 							</div>
 
 						</div>
@@ -517,7 +517,7 @@
 						  		<p> {{ htmlspecialchars_decode(str_limit($row->pivot->content, $limit = 200, $end = '...')) }}</p>
 						    @endforeach					
 							<div id="btn-link">
-								<a href="{{ 'news/'. $data->id }}">View</a>
+								<a href="{{ 'news/'. $data->id }}">{{trans('global.View')}}</a>
 							</div>   		  										
 						</div>					 
 					</div>
@@ -534,7 +534,7 @@
     <div class="modal-content">
       <div class="modal-body"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('global.Close')}}</button>
       </div>
     </div>
   </div>
@@ -558,6 +558,7 @@
 
 	<script>
 
+
        $('#contact form').submit(function(e) {
         	e.preventDefault();
         	var form_data = $(this).serialize();
@@ -570,9 +571,11 @@
 					//console.log(message);
 					if(message.status == "fail"){
 						console.log(message);
-						$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>"+"<p>"+message.error.captcha[0]+"</p>");
+						//$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>"+"<p>"+message.error.captcha[0]+"</p>");
+						$("#contactUsModal .modal-body").html("{{ trans('global.Something went wrong.') }}");
 					} else {
-						$("#contactUsModal .modal-body").html("<p>"+message.msg+"</p>");
+						//$("#contactUsModal .modal-body").html("{{ trans('global."+message.msg+"') }}");
+						$("#contactUsModal .modal-body").html("{{ trans('global.Your inquiry has been sent.') }}");
 						console.log(message.msg);
 					}
        				$('#contactUsModal').modal('show');

@@ -63,7 +63,7 @@
 							@endif
 		            	 <div style="position:relative; width: 100px; top: -22px">
 		              		<a class='btn btn-primary upload-trigger' href='javascript:;'>
-		                    <span class="screenshot-loader" >change</span>
+		                    <span class="screenshot-loader" >{{ trans('global.change') }}</span>
 		                    <input type="file" name="profile_image" id="profile_image" class="media-file" style='width:61%;position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="60"  onchange='$("#upload-file-info").html($(this).val());'>
 		             		</a>
 		             	</div>
@@ -115,7 +115,7 @@
 					</div>
 				</div>
 			@else
-				<p>You haven't bought any games yet.</p>
+				<p>{{ trans("global.You haven't bought any games yet.")}}</p>
 			@endif
 
 

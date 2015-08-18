@@ -31,7 +31,7 @@
 
 	@endif
 
-	<h3 class="center">Change password</h3>
+	<h3 class="center">{{ trans('global.Change password') }}</h3>
 	 
 	{{ Form::open(array('route' => 'password.request.change', 'class' => 'change-password', 'id' => 'register')) }} 
 		<input type="hidden" name="id" value="{{Auth::User()->id}}">
@@ -53,7 +53,7 @@
 		</div>
 
 		<div class="control-item" id="btn_container">
-			 {{ Form::submit('Change Password') }}
+			 {{ Form::submit( trans('global.Change Password') ) }}
 		</div>
 	 
 	{{ Form::close() }}
