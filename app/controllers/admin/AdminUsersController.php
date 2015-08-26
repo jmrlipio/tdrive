@@ -106,15 +106,16 @@ class AdminUsersController extends \BaseController {
 									->get();
 		$downloaded_games = array();
 		$data = array();
+		$date = array();
 		foreach($downloaded as $d) 
 		{
-			//$downloaded_games[] = $d->app;
-			$date = Carbon::parse($d->created_at)->format('M j Y');			
+			//$downloaded_games[] = $d->app;						
 			$data[] = $d->app;
+			$date[] = Carbon::parse($d->created_at)->format('M j Y');
 			
 			$downloaded_games = array(
 				"data"=> $data,
-				"purchased_date" => $date 
+				"purchased_date" => $date
 			);
 		}
 
