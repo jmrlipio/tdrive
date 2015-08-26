@@ -218,4 +218,15 @@ return array(
 	'top downloads' => 'top downloads',
 	'Male' => 'Male',
 	'Female' => 'Female',
+
+	'Republic of the Philippines' => 'Republic of the Philippines',
+	'Brunei' => 'Brunei',
+	'Cambodia' => 'Cambodia',
+	'Indonesia' => 'Indonesia',
+	'Laos' => 'Laos',
+	'Malaysia' => 'Malaysia',
+	'Myanmar' => 'Myanmar',
+	'Singapore' => 'Singapore',
+	'Thailand' => 'Thailand',
+	'Vietnam' => 'Vietnam',
 );
