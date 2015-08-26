@@ -10,6 +10,7 @@
 				<th style="width: 300px;">Game</th>
 				<th>Buy Clicks</th>
 				<th>Download Clicks</th>
+				<th>Hits</th>
 			</tr>
 			<thead>
 			<tbody>
@@ -18,6 +19,7 @@
 						<td style="width: 1000px">{{ $game->main_title }}</td>
 						<td style="width: 150px"><a href="{{ URL::route('admin.reports.visitors.statistics.buy', $game->id) }}">{{ Transaction::countTransaction($game->id) }}</a></td>
 						<td style="width: 300px"><a href="{{ URL::route('admin.reports.visitors.statistics.download', $game->id) }}">{{ Download::getTotal($game->id) }}</a></td>
+						<td style="width: 150px">{{ $game->hits }}</td>
 					</tr>
 				@endforeach	
 			</tbody>

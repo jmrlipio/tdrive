@@ -59,13 +59,16 @@ class GamesController extends \BaseController {
 	 */
 	public function show($id, $app_id)
 	{
-
 		$languages = Language::all();
 		$game = Game::find($id);
 		$current_game = Game::find($id);
 		$categories = [];
 		$user_id = (Auth::check()) ? Auth::user()->id : 0;
 		$show = 0;
+
+		/* Update game hits everytime this controller is fired */
+			Event::fire('user.visits.game', array($game));
+		/* END */
 
 		$has_appid = GameApp::where('app_id', '=', $app_id)
 					->first();

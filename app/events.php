@@ -23,3 +23,12 @@ Event::listen('user.*', function($user) {
 	return false;
 });
 
+Event::listen('user.visits.game', function($game) 
+{
+
+	$hits = $game->hits;
+	$game->hits = $hits + 1;
+	$game->save();
+
+});
+
