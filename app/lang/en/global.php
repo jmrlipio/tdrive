@@ -215,4 +215,7 @@ return array(
 
 	'Free' => 'free',
 	'free' => 'free',
+	'top downloads' => 'top downloads',
+	'Male' => 'Male',
+	'Female' => 'Female',
 );

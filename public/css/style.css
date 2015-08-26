@@ -63,6 +63,10 @@
 #home #latest-games {
   background: #465a65;
   color: #fff;
+}
+#home #top-downloads {
+  background: #465a65;
+  color: #fff;
   border-bottom: 4px solid #e9548e;
 }
 #home #games-heading {

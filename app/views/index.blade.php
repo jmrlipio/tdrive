@@ -170,10 +170,26 @@
 			@endif		
 		</div>
 
-		<!-- <div class="more"><a href="{{ route('games.all') }}">{{ trans('global.More') }} +</a></div> -->
-		<div class="more"><a href="{{ route('categories.all') }}">{{ trans('global.More') }} +</a></div>
+
 		
 	</div><!-- end #latest-games -->
+
+	<div id="top-downloads" class="bb container">
+		<h1 class="title fleft">{{ trans('global.top downloads') }}</h1>
+		<div class="clear"></div>
+			<div class="swiper-container thumbs-container">
+				<div class="swiper-wrapper">
+						
+				</div>
+				<div class="container mtop_15">
+					<p class="no-games">no games downloaded on your country.</p>
+				</div>
+			</div>
+
+		<div class="more"><a href="{{ route('categories.all') }}">{{ trans('global.More') }} +</a></div>
+	</div>
+
+	
 
 	{{-- <div id="games-heading" class="container"> --}}
 		{{-- <h1 class="title">{{ trans('global.Games') }}</h1> --}}
