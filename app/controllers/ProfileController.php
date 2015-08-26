@@ -4,32 +4,40 @@ class ProfileController extends \BaseController {
 
 	public function index($id)
 	{
-		$user = User::find($id);
-		$languages = Language::all();
-		$page = 3;
-		$count = 6;
-		$country = Country::find(Session::get('country_id'));
-
-		$cid = Session::get('carrier');
-	
-		$games = Game::paginate($count);
-
-		$count = count($games);
-		$downloaded = Transaction::where('user_id', '=', $id )
-									->where('status', '=', '1')
-									->get();
-		$downloaded_games = array();
-		foreach($downloaded as $d) 
+		if(Auth::check()) 
 		{
-			$downloaded_games[] = $d->app;
+			$user = User::find($id);
+			$languages = Language::all();
+			$page = 3;
+			$count = 6;
+			$country = Country::find(Session::get('country_id'));
+
+			$cid = Session::get('carrier');
+		
+			$games = Game::paginate($count);
+
+			$count = count($games);
+			$downloaded = Transaction::where('user_id', '=', $id )
+										->where('status', '=', '1')
+										->get();
+			$downloaded_games = array();
+			foreach($downloaded as $d) 
+			{
+				$downloaded_games[] = $d->app;
+			}
+
+			return View::make('profile')
+				->with('page_title', $user->username)
+				->with('page_id', 'profile')
+				->with('user', $user)
+				->with(compact('games', 'downloaded_games'))
+				->with(compact('languages','count', 'page'));
+		}
+		else 
+		{
+			return Redirect::to('/');
 		}
 
-		return View::make('profile')
-			->with('page_title', $user->username)
-			->with('page_id', 'profile')
-			->with('user', $user)
-			->with(compact('games', 'downloaded_games'))
-			->with(compact('languages','count', 'page'));
 	}
 
 	public function changeProfile($id)
