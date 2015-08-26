@@ -20,6 +20,7 @@ class CreateGamesTable extends Migration {
 			$table->string('main_title');
 			$table->string('slug');
 			$table->float('default_price');
+			$table->integer('hits')->default(0);
 			$table->string('status');
 			$table->boolean('featured');
 			$table->date('release_date');
