@@ -57,7 +57,7 @@
 
 		<div class="control">
 			{{ Form::label('gender', trans('global.gender')) }}
-			{{ Form::select('gender', array('M' => 'Male', 'F' => 'Female'), $gender, array('class'=>'select_gender')) }}
+			{{ Form::select('gender', array('M' => trans('global.Male'), 'F' => trans('global.Female')), $gender, array('class'=>'select_gender')) }}
 			{{ $errors->first('gender', '<p class="error">:message</p>') }}
 		</div>
 
@@ -71,7 +71,14 @@
 				str[2] = days 
 			-->
 			{{ Form::label('birthdate', null , array('id'=>'birthday'), trans('global.birthdate')) }}
-			{{ Form::selectMonth('month', $str[1], ['class' => 'field','id'=>'month']) }}
+	<!-- 		{{ Form::selectMonth('month', $str[1], ['class' => 'field','id'=>'month']) }} -->
+
+			<select class="field" id="month" name="month">
+				@for ($i = 1; $i < 13; $i++)
+				    <option value="{{$i}}">{{ trans('global.'.strftime('%B', mktime(0, 0, 0, $i, 1 ))) }}</option>
+				@endfor
+			</select>	
+			
 			{{ Form::select('day', range(1,31), $str[2], array('id'=>'day')) }}
 			{{ Form::selectYear('year', 1940, $current_year, $str[0], ['class' => 'field','id'=>'year']) }}			
 			{{ $errors->first('birthday', '<p class="error">:message</p>') }}

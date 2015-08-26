@@ -38,7 +38,7 @@
 			<div class="control-group clearfix">                    
 
 			    <div class="control-item">
-			         {{ Form::submit('Submit',  ['class' => 'button button-pink']) }}
+			         {{ Form::submit(trans('global.Submit'),  ['class' => 'button button-pink']) }}
 			    </div>
 			</div>
 

@@ -9,9 +9,9 @@
 
 				<thead>
 					<tr>
-						<td>Game</td>
-						<td>Date</td>
-						<td>Status</td>
+						<td>{{ trans('global.Game')}}</td>
+						<td>{{ trans('global.Date')}}</td>
+						<td>{{ trans('global.Status')}}</td>
 					</tr>
 				</thead>
 
@@ -20,14 +20,14 @@
 					<tr>
 						<td>{{ $transaction->app->title }}</td>
 						<td>{{ $transaction->created_at->format(' M d, Y') }}</td>
-						<td><span class="<?php echo ($transaction->status == 1) ? 'green' : '';  ?>">{{ Constant::status($transaction->status) }}</span></td>
+						<td><span class="<?php echo ($transaction->status == 1) ? 'green' : '';  ?>">{{ trans('global.'.Constant::status($transaction->status)) }}</span></td>
 					</tr>	
 					@endforeach
 				</tbody>
 
 			</table>
 		@else
-			no transactions
+			{{ trans('global.no transactions') }}
 		@endif
 
 

@@ -33,7 +33,7 @@
 		</div>
 
 		<div class="control-item pad_10" id="btn_container">
-			 {{ Form::submit('Submit') }}
+			 {{ Form::submit(trans('global.Submit')) }}
 		</div>
 	 
 	{{ Form::close() }}
