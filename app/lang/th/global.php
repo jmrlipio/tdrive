@@ -251,5 +251,8 @@ return array(
 	'Your username/password was incorrect' => 'รหัสผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง',
 	'Your inquiry has been sent.' => 'ข้อมูลถูกส่งเรียบร้อย',
 	'Date' => 'วันที่',
+	'Free' => 'ฟรี',
+	'free' => 'ฟรี',
+	'FREE' => 'ฟรี',
 
 );

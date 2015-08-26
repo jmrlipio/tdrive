@@ -213,4 +213,6 @@ return array(
 
 	'no games, please choose another carrier or another language for the selected carrier' => 'no games, please choose another carrier or another language for the selected carrier',
 
+	'Free' => 'free',
+	'free' => 'free',
 );
