@@ -105,9 +105,17 @@ class AdminUsersController extends \BaseController {
 									->where('status', '=', '1')
 									->get();
 		$downloaded_games = array();
+		$data = array();
 		foreach($downloaded as $d) 
 		{
-			$downloaded_games[] = $d->app;
+			//$downloaded_games[] = $d->app;
+			$date = Carbon::parse($d->created_at)->format('M j Y');			
+			$data[] = $d->app;
+			
+			$downloaded_games = array(
+				"data"=> $data,
+				"purchased_date" => $date 
+			);
 		}
 
 		return View::make('admin.users.view')

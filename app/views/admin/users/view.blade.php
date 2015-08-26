@@ -34,18 +34,18 @@
 							<th>Game Title</th>
 							<th>Carrier</th>							
 							<th>Price</th>
+							<th>Purchased Date</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						@foreach($downloaded_games as $app)
-							
+						@foreach($downloaded_games["data"] as $app)							
 							<tr>
 								<td>{{ $app->title }}</td>
 								<td>{{ $app->carrier->carrier }}</td>								
 								<td>{{ $app->price.$app->currency_code }}</td>
-								
-							</tr>
+								<td>{{ $downloaded_games["purchased_date"] }}</td>									
+							</tr>				
 						@endforeach
 					</tbody>
 				</table>
