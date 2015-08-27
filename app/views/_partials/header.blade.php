@@ -204,29 +204,8 @@ fjs.parentNode.insertBefore(js, fjs);
 				
 				<div id="polyglotLanguageSwitcher1" class="polyglotLanguageSwitcher">
 	
-					<?php 
-
-						$cid = Session::get('carrier');
-
-						$games = Game::whereHas('apps', function($q) use ($cid)
-						  {
-						      $q->where('carrier_id', '=', $cid);
-
-						  })->get();
-						//$games = Game::whereCarrierId(Session::get('carrier'))->get();	
-						$arr_id = [];
-
-						foreach($games as $game){								
-							foreach($game->apps as $app) {
-								if($app->pivot->status == Constant::PUBLISH ) 
-								{
-									$arr_id[] = $app->pivot->language_id;
-								}						
-							}
-						}
-					
-					$lang_id = array_unique($arr_id);
-					$languages = Language::whereIn('id', $lang_id)->get();
+				<?php 
+					$languages = Language::getLanguage(Session::get('carrier'));
 				?>
 				<form action="{{ URL::route('choose_language') }}" id="locale" class="language" method="post">
 					<select name="locale" id="polyglot-language-options">
