@@ -75,10 +75,8 @@ class Language extends \Eloquent {
     }
 
     public static function getLanguage($cid) 
-    {
-        
+    {   
         $games = Game::all();
-
         $arr_id = [];
 
         foreach($games as $game){                               
