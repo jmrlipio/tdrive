@@ -75,8 +75,14 @@ class Language extends \Eloquent {
     }
 
     public static function getLanguage($cid) 
-    {   
-        $games = Game::all();
+    {
+
+        $games = Game::whereHas('apps', function($q) use ($cid)
+        {
+            $q->where('carrier_id', '=', $cid);
+
+        })->get();
+
         $arr_id = [];
 
         foreach($games as $game){                               
