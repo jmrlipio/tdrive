@@ -99,6 +99,4 @@ class Language extends \Eloquent {
         
         return $output;
     }
-
-
 }

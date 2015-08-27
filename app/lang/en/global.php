@@ -229,4 +229,5 @@ return array(
 	'Singapore' => 'Singapore',
 	'Thailand' => 'Thailand',
 	'Vietnam' => 'Vietnam',
+	'United States of America' => 'United States of America',
 );

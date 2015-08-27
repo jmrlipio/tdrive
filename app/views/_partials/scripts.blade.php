@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		var url ='{{ Request::segment(1) }}';
 		var msg="";
 		var elements = document.getElementsByTagName("INPUT");
 
@@ -76,6 +76,21 @@
 			$('.tablet ul.menu li').find('a').css('padding', '50px 0 5px');
 			  
 		}
+		/* For fixing incomplete translation on page load */
+		/* Check if the current URL contains '#' */
+	    if(url == 'home')
+		{
+		    if(document.URL.indexOf("#")==-1)
+		    {
+			    // Set the URL to whatever it was plus "#".
+			    url = document.URL+"#";
+			    location = "#";
+
+			    //Reload the page
+			    location.reload(true);
+			}
+		}
 
 	});
+
 </script>
