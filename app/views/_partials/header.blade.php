@@ -203,7 +203,7 @@ fjs.parentNode.insertBefore(js, fjs);
 				</div>
 				
 				<div id="polyglotLanguageSwitcher1" class="polyglotLanguageSwitcher">
-	
+				
 				<?php 
 					$languages = Language::getLanguage(Session::get('carrier'));
 				?>
