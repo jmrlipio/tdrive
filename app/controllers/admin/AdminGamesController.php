@@ -587,10 +587,14 @@ class AdminGamesController extends \BaseController {
 			->with('selected', $selected_cat);
     }
 
-    public function getGameReviews($id) {
+    public function getGameReviews($id) 
+    {
     	$game = Game::find($id);
     	$data = array();
-    	
+    	$output = array();
+		$count = 0;
+ 		
+ 		/* For pie chart */   	
     	foreach($game->review as $review)
     	{
     		$data[] = $review->pivot->rating;   	
@@ -598,9 +602,6 @@ class AdminGamesController extends \BaseController {
 
     	$unique = array_count_values($data);
     	sort($unique);
-    	
-		$output = array();
-		$count = 0;
 
         $data = array(
         	'cols' => array( 
@@ -609,6 +610,7 @@ class AdminGamesController extends \BaseController {
 	            ),
             'rows' => array()
         );
+
     	foreach($unique as $key => $row)
     	{
     		$count++;
@@ -618,7 +620,7 @@ class AdminGamesController extends \BaseController {
 
     	$output = json_encode($data);
 
-
+    	/* END */
 
     	return View::make('admin.games.reviews')
     		->with('game', $game)
