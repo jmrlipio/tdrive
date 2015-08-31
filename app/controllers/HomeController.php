@@ -74,7 +74,8 @@ class HomeController extends BaseController {
 			Session::put('carrier', $arr_store[0]['id']);
 			Session::put('locale', strtolower($carrier->language->iso_code));	
 			
-			return $this->home();
+			//return $this->home();
+			return Redirect::route('home.lang');
 		}
 		
 
@@ -95,39 +96,7 @@ class HomeController extends BaseController {
 		$faqs = Faq::all();
 		$year = News::all();
 
-		/* TODO: check if session has carrier */
-		if (!Session::has('carrier')) {
-			
-			Session::put('country_id', Input::get('country_id'));
-			Session::put('carrier', Input::get('selected_carrier'));
-			$country = Country::find(Input::get('country_id'));
-			$first_visit = true;
-					
-		} else {			
-			
-			$country = Country::find(Session::get('country_id'));
-			$first_visit = false;
-		}
-
-
-
-		if(!Session::has('country_id')) {
-			$user_location = GeoIP::getLocation();
-			$country = Country::where('name', $user_location['country'])->first();
-			$country_id = $country->id;
-		}
-
-		$carrier = Carrier::find(Session::get('carrier'));
-		$countries = [];
-
-		//Redirects to / if carrier is null
-		if(!Session::has('carrier')) {
-			return Redirect::to('/');	
-		}
-
-		if(!Session::has('locale')) {
-			Session::put('locale', strtolower($carrier->language->iso_code));
-		}
+		
 
 		$locale = Language::where('iso_code', '=', strtoupper(Session::get('locale')))->first();
 
@@ -201,8 +170,14 @@ class HomeController extends BaseController {
 		
 		
 		
-		Session::put('carrier_name', $carrier->carrier);		
-		Session::put('user_country', $country->full_name);
+		if (!Session::has('carrier')) 
+		{			
+			$first_visit = true;
+		} 
+		else 
+		{		
+			$first_visit = false;
+		}
 
 		/* For displaying slider images dynamically ordered from database */
 

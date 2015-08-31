@@ -78,7 +78,7 @@
 		}
 		/* For fixing incomplete translation on page load */
 		/* Check if the current URL contains '#' */
-	    if(url == 'home')
+	   /* if(url == 'home')
 		{
 		    if(document.URL.indexOf("#")==-1)
 		    {
@@ -89,7 +89,7 @@
 			    //Reload the page
 			    location.reload(true);
 			}
-		}
+		}*/
 
 	});
 

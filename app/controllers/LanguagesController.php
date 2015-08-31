@@ -129,4 +129,46 @@ class LanguagesController extends \BaseController {
 		Session::put('locale', Input::get('locale'));
 	}
 
+	public function getLanguage()
+	{
+		/* TODO: check if session has carrier */
+		if (!Session::has('carrier')) {
+			
+			Session::put('country_id', Input::get('country_id'));
+			Session::put('carrier', Input::get('selected_carrier'));
+			$country = Country::find(Input::get('country_id'));
+			$first_visit = true;
+					
+		} else {			
+			
+			$country = Country::find(Session::get('country_id'));
+			$first_visit = false;
+		}
+
+
+
+		if(!Session::has('country_id')) {
+			$user_location = GeoIP::getLocation();
+			$country = Country::where('name', $user_location['country'])->first();
+			$country_id = $country->id;
+		}
+
+		$carrier = Carrier::find(Session::get('carrier'));
+		$countries = [];
+
+		//Redirects to / if carrier is null
+		if(!Session::has('carrier')) {
+			return Redirect::to('/');	
+		}
+
+		if(!Session::has('locale')) {
+			Session::put('locale', strtolower($carrier->language->iso_code));
+		}
+
+		Session::put('carrier_name', $carrier->carrier);		
+		Session::put('user_country', $country->full_name);
+
+		return Redirect::route('home.show');
+	}
+
 }

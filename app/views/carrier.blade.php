@@ -28,7 +28,7 @@
     @endif
 </div>
 	<br>
-	{{ Form::open(array('action' => 'HomeController@home')) }}
+	{{ Form::open(array('action' => 'LanguagesController@getLanguage')) }}
 		{{ Form::token() }}
 
 		<div class="control">
