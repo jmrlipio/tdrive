@@ -156,11 +156,6 @@ class LanguagesController extends \BaseController {
 		$carrier = Carrier::find(Session::get('carrier'));
 		$countries = [];
 
-		//Redirects to / if carrier is null
-		if(!Session::has('carrier')) {
-			return Redirect::to('/');	
-		}
-
 		if(!Session::has('locale')) {
 			Session::put('locale', strtolower($carrier->language->iso_code));
 		}

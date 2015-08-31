@@ -168,7 +168,10 @@ class HomeController extends BaseController {
 
 		/*BaseController::test(Input::get('country_id'));*/
 		
-		
+		//Redirects to / if carrier is null
+		if(!Session::has('carrier')) {
+			return Redirect::to('/');	
+		}
 		
 		if (!Session::has('carrier')) 
 		{			

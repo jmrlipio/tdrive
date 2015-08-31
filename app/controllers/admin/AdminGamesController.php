@@ -589,9 +589,40 @@ class AdminGamesController extends \BaseController {
 
     public function getGameReviews($id) {
     	$game = Game::find($id);
+    	$data = array();
+    	
+    	foreach($game->review as $review)
+    	{
+    		$data[] = $review->pivot->rating;   	
+    	}
+
+    	$unique = array_count_values($data);
+    	sort($unique);
+    	
+		$output = array();
+		$count = 0;
+
+        $data = array(
+        	'cols' => array( 
+	        		array('label' => 'Ratings', 'type' => 'string'),
+	                array('label' => 'Count', 'type' => 'number')
+	            ),
+            'rows' => array()
+        );
+    	foreach($unique as $key => $row)
+    	{
+    		$count++;
+			$data['rows'][] = array('c' => array(array('v' => $count.":stars"), array('v' => $row)));
+
+    	}
+
+    	$output = json_encode($data);
+
+
 
     	return View::make('admin.games.reviews')
-    		->with('game', $game);
+    		->with('game', $game)
+    		->with('output', $output);
     	
     }
 
