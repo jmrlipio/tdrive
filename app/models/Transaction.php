@@ -70,6 +70,39 @@ class Transaction extends \Eloquent {
             return $count;
     }
 
+    public static function getTransactionByCarrier($game_id, $carrier_id) 
+    {
+
+        $game = GameApp::where('game_id', $game_id)
+                        ->get();
+        $games = array();
+        $counter = 0;
+        foreach($game as $app) 
+        {
+            $sales = Transaction::where('app_id', $app->app_id)
+                                ->where('status', 1)
+                                ->get();
+                                // var_dump($sales);
+               foreach($sales as $sale) 
+               {
+                      $_app = GameApp::where('app_id', $sale->app_id)
+                                    ->first();
+                                   // dd($_app);
+                        if($_app->carrier_id == $carrier_id) 
+                        {
+                            $counter++;
+                        }
+                        else 
+                        {
+                            continue;
+                        }
+               }                 
+        }
+       // dd("s");
+        return $counter;
+
+    }
+
     public static function getTransaction($game_id) 
     {
         $game = GameApp::where('game_id', $game_id)
