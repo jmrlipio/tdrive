@@ -5,6 +5,14 @@
 		width: 80%;
 		min-height: 350px;
 		margin-bottom: 20px;
+		text-align: center;
+	}
+
+	#loading{
+		margin-top: 70px;
+		color: #2F3A40;
+		position: relative;
+    	left: 10%;
 	}
 
 </style>
@@ -14,7 +22,7 @@
 	<div class="item-listing" id="games-list">
 		<h2>{{ $game->main_title}} Reviews</h2><br>
 
-		<div id="pie_wrapper">
+		<div id="pie_wrapper"> <i id='loading' class='fa fa-spinner fa-spin fa-5x'></i>
 			<div id="chart_div"></div>
 		</div>
 	
@@ -57,8 +65,12 @@
 
 	<script type="text/javascript">
 	google.load('visualization', '1', { 'packages': ['corechart'] });
+	var hasContent = false;
+	var loading = $("#loading");
+	var container = $('#chart_div');
 	
 	$(document).ready(function(){
+		
 		$('#game_table').DataTable();
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
@@ -76,7 +88,7 @@
 
 		var jsonData = {{ $output }};
 		var data = new google.visualization.DataTable(jsonData);
-
+		
 		var options = {
 			'title':'Ratings',
 			 chartArea:{left:10,top:30,width:"100%",height:"85%"},			 
@@ -88,6 +100,12 @@
 		chart.draw(data,options); 
 
 		/* END */
+
+		if(container.children.length > 0)
+		{
+			loading.css("display", "none");
+		}
+				
 	});
 
 	</script>
