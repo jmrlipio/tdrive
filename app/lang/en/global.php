@@ -184,5 +184,7 @@ return array(
 	'Oct' => 'Oct',
 	'Nov' => 'Nov',
 	'Dec' => 'Dec',
+	
+	'Related games for' => 'Related games for',
 
 );
