@@ -70,6 +70,40 @@ class Transaction extends \Eloquent {
             return $count;
     }
 
+    public static function getTransactionByCarrier($game_id, $carrier_id) 
+    {
+
+        $game = GameApp::where('game_id', $game_id)->get();
+        $games = array();
+        $counter = 0;
+        
+        foreach($game as $app) 
+        {
+            $sales = Transaction::where('app_id', $app->app_id)
+                                ->where('status',1)
+                                ->whereRaw('created_at >= last_day(now()) + interval 1 day - interval 3 month')
+                                ->get();
+                                //var_dump($sales);
+
+            foreach($sales as $sale) 
+            {
+                $_app = GameApp::where('app_id', $sale->app_id)->first();
+                           // dd($_app);
+                if($_app->carrier_id == $carrier_id) 
+                {
+                    $counter++;
+                }
+                else 
+                {
+                    continue;
+                }
+            }                 
+        }
+       // dd("s");
+        return $counter;
+
+    }
+
     public static function getTransaction($game_id) 
     {
         $game = GameApp::where('game_id', $game_id)
@@ -96,6 +130,69 @@ class Transaction extends \Eloquent {
                 );
         }
         return $games;
+    }
+
+    public static function getLastTransactionDates() 
+    {
+
+        $game = GameApp::all();
+        $data = array();
+        $id = array();
+        foreach($game as $app) 
+        {
+            $sales = Transaction::where('status', 1)
+                    ->whereRaw('created_at >= last_day(now()) + interval 1 day - interval 3 month')
+                    ->get();    
+        }
+        foreach($sales as $sale)
+        {
+            $date[] = Carbon::parse($sale->created_at)->format('M j, Y');         
+        }
+        $unique_date = array_unique($date);
+        foreach($unique_date as $ud)
+        {
+            $data[] = array(
+                'date' => $ud
+            );
+        }
+       
+        return $data;
+
+    }
+
+    public static function getSalesStore($game_id, $carrier_id) 
+    {
+
+        $game = GameApp::where('game_id', $game_id)->get();
+        $games = array();
+        $counter = 0;
+        $store = array();
+        
+        foreach($game as $app) 
+        {
+            $sales = Transaction::where('app_id', $app->app_id)
+                                ->where('status',1)
+                                ->whereRaw('created_at >= last_day(now()) + interval 1 day - interval 3 month')
+                                ->get();
+                                //var_dump($sales);
+
+            foreach($sales as $sale) 
+            {
+                $_app = GameApp::where('app_id', $sale->app_id)->first();
+
+                if($_app->carrier_id == $carrier_id) 
+                {
+                    $store[] = $_app->carrier;
+                }
+                else 
+                {
+                    continue;
+                }
+            }                 
+        }
+
+        return $store;
+
     }
 
 

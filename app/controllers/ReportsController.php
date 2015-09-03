@@ -4,6 +4,10 @@ class ReportsController extends \BaseController {
 
 	public function index()
 	{
+		//$users = Tracker::users(60 * 24);
+		//echo "<pre>";
+		//dd( $users );
+
 		return View::make('admin.reports.index');
 	}
 
@@ -70,82 +74,65 @@ class ReportsController extends \BaseController {
 
 	public function salesFilter($game_id, $filter) 
 	{
-	   $game_data = '';
-	   $array = array();
-	   $rows = array();	
+	    $game_data = '';
 	   
-	   $array['cols'] = array(
-	   						 array(
-	   						 	'id' => "games", 
-	   						 	'label' => 'Games', 
-	   						 	'type' => 'string'
-	   						 		),
-	    					array(
-	    						'id' => "downloads", 
-	    						'label' => 'Downloads', 
-	    						'type' => 'number'
-	    						)
-	    					);
+	    $output = array();
 	    
 	    if($filter == 'carrier') 
 		{	
 			$game_data = Game::find($game_id);
-			foreach($game_data->carriers as $carrier) 
-	    	{
-		    	$prices = GameSales::where('game_id', '=', $game_id)
-		    						->where('carrier_id', '=', $carrier->id)
-		    						->get();
-		    		$total = 0;
-		    		foreach($prices as $_prices) 
-		    		{
-		    			$sales 	= Sales::where('game_price_id', '=', $_prices->id)
-		    							->get();
-		    			$count = count($sales->toArray());
-		    			$total = $total + $count;
-		    		}	
+			$dates = Transaction::getLastTransactionDates();
 
-		     	$temp = array();
-			    $temp[] = array('v' => $carrier->carrier, 'f' => NULL);
-			    $temp[] = array('v' => $total, 'f' => NULL);
-			    $rows[] = array('c' => $temp);	
-	    	}
+			for($x = 0; $x < count($dates); $x++)
+			{
+				$rows = array();
+				$columns = array();
+        		$columns[] = array('label' => 'Store', 'type' => 'number');
+				
+				foreach($game_data->apps as $app) 
+		    	{
+		    		$temp = array();
+		    		$temp[] = array('v' => $dates[$x], 'f' => NULL);		    		 
+		    		
+		    		$download = Transaction::getTransactionByCarrier($app->pivot->game_id, $app->pivot->carrier_id);
+		    		$stores = Transaction::getSalesStore($app->pivot->game_id, $app->pivot->carrier_id);
+		    		
+		    		foreach($stores as $store)
+		    		{
+		    			$columns[] = array('label' => $store->carrier, 'type' => 'number');    	
+		    		}
+				    
+				    $temp[] = array('v' => $download, 'f' => NULL);
+				    $rows[] = array('c' => $temp);		    
+		    	}
+		    	
+		    }
+
+		    $output['cols'] = $columns;
+		    $output['rows'] = $rows;
+
 		}
-		else if($filter == 'country')
+		/*else if($filter == 'country')
 		{
 			$game_data = Game::find($game_id);
-			foreach($game_data->carriers as $carrier) 
+			
+			//dd($game_data->apps->toArray());
+			foreach($game_data->apps as $app) 
 	    	{
-				foreach($carrier->countries as $country) 
-		    	{
+		    	
+	    		$download = Transaction::getTransactionByCarrier($app->pivot->game_id, $app->pivot->carrier_id );
+	    		//dd($app->pivot->game_id);
+		     	$temp = array();
+			    $temp[] = array('v' => $app->carrier);
+			    $temp[] = array('v' => $download , 'f' => NULL);
+			    $rows[] = array('c' => $temp);	
+	    	}
+		}*/
 
-			    	$prices = GameSales::where('game_id', '=', $game_id)
-			    						->where('country_id', '=', $country->id)
-			    						->get();
-			    	$total = 0;
-			    	if($prices) 
-			    	{
-			    		foreach($prices as $_prices) 
-			    		{
-			    			$sales 	= Sales::where('game_price_id', '=', $_prices->id)
-			    							->get();
-			    			$count = count($sales->toArray());
-			    			$total = $total + $count;
-			    		}	
-
-				     	$temp = array();
-					    $temp[] = array('v' => $country->capital . '(' . $carrier->carrier . ')', 'f' => NULL);
-					    $temp[] = array('v' => $total, 'f' => NULL);
-					    $rows[] = array('c' => $temp);	
-			    	}
-
-		    	}
-	    	 }
-		}
-
-	    $array['rows'] = $rows;
-	    $json_data = json_encode($array);
+	    //$json_data = json_encode($output);
 	    
-	    return  $json_data;
+	    //return $json_data;
+	    return json_encode($output); 
 	}
 
 

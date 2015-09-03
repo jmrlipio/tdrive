@@ -178,6 +178,8 @@ return array(
 	'nov' => 'พ.ย.',
 	'dec' => 'ธ.ค.',
 
+	'no games, please choose another carrier or another language for the selected carrier' => 'ไม่มีเกม โปรดเลือก ผู้ให้บริการอื่น หรือ ภาษาอื่น สำหรับผู้ให้บริการ ที่เลือก',
+
 	//Dates
 
 	'January' => 'มกราคม',
@@ -249,7 +251,8 @@ return array(
 	'Your username/password was incorrect' => 'รหัสผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง',
 	'Your inquiry has been sent.' => 'ข้อมูลถูกส่งเรียบร้อย',
 	'Date' => 'วันที่',
-
-
+	'Free' => 'ฟรี',
+	'free' => 'ฟรี',
+	'FREE' => 'ฟรี',
 
 );

@@ -736,6 +736,7 @@ a.custom-back:hover{
 .table-responsive {
 	overflow: hidden;
 }
+
 #faq-list tr:first-of-type th {
 	background-color: #FFC0CB;
 }
@@ -744,4 +745,10 @@ a.custom-back:hover{
 }
 #faq-list.item-listing td, #faq-list.item-listing th {
 	border: 1px solid #ddd;
+}
+/*google analytics*/
+.chart-1 {
+	float: left;
+	width: 40%;
+	
 }

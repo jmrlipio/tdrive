@@ -31,4 +31,6 @@ class GameApp extends \Eloquent {
     	return $this->belongsTo('Language');
     }
 
+ 
+
 }

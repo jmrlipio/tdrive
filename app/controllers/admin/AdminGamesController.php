@@ -587,11 +587,42 @@ class AdminGamesController extends \BaseController {
 			->with('selected', $selected_cat);
     }
 
-    public function getGameReviews($id) {
+    public function getGameReviews($id) 
+    {
     	$game = Game::find($id);
+    	$data = array();
+    	$output = array();
+		$rating = array();
+
+ 		/* For pie chart */   	
+    	foreach($game->review as $review)
+    	{
+    		$rating[$review->id] = $review->pivot->rating; 	
+    	}
+    	
+    	$unique = array_count_values($rating);
+    	ksort($unique);
+
+        $data = array(
+        	'cols' => array( 
+	        		array('label' => 'Ratings', 'type' => 'string'),
+	                array('label' => 'Count', 'type' => 'number')
+	            ),
+            'rows' => array()
+        );
+
+    	foreach($unique as $key => $row)
+    	{    		
+    		$data['rows'][] = array('c' => array(array('v' => $key.":stars"), array('v' => $row)));			
+    	}
+
+    	$output = json_encode($data);
+
+    	/* END */
 
     	return View::make('admin.games.reviews')
-    		->with('game', $game);
+    		->with('game', $game)
+    		->with('output', $output);
     	
     }
 

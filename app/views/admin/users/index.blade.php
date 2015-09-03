@@ -38,12 +38,13 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox"></th>
+					<th>Id</th>					
 					<th>Name</th>
 					<th>Username</th>
 					<th>Email</th>
+					<th>Mobile No,</th>
 					<th>Role</th>
-					<th>Last Login</th>					
-					<th>Registration Date</th>
+					<th>Last Login</th>
 				</tr>
 			</thead>
 
@@ -51,6 +52,7 @@
 				@forelse($users as $user)
 					<tr class="result">
 						<td><input type="checkbox"></td>
+						<td>{{ $user->id }}</td>
 						<td>
 							<a href="{{ URL::route('admin.users.show', $user->id) }}">{{ $user->first_name . ' ' . $user->last_name }}</a>
 							<ul class="actions">
@@ -62,12 +64,12 @@
 										{{ Form::close() }}	
 								</li>
 							</ul>
-						</td>
+						</td>						
 						<td>{{ $user->username }}</td>
 						<td>{{ $user->email }}</td>
+						<td>{{ $user->mobile_no }}</td>
 						<td>{{ $user->role }}</td>
 						<td>{{ $user->last_login }}</td>
-						<td>{{ $user->created_at }}</td>
 					</tr>
 
 					@empty

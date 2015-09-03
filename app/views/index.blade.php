@@ -155,7 +155,7 @@
 							</div>
 							<div class="game-button">
 								@if ($game['price'] == 0)
-									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">{{ trans('global.Free') }}</a>
+									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}"  class="game-free">{{ trans('global.free') }}</a>
 								@else
 									<a href="{{ URL::route('game.show', array('id' => $game['id'], $game['app_id'])) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 								@endif
@@ -169,11 +169,11 @@
 				</div>
 			@endif		
 		</div>
-
-		<!-- <div class="more"><a href="{{ route('games.all') }}">{{ trans('global.More') }} +</a></div> -->
+		
 		<div class="more"><a href="{{ route('categories.all') }}">{{ trans('global.More') }} +</a></div>
 		
 	</div><!-- end #latest-games -->
+
 
 	{{-- <div id="games-heading" class="container"> --}}
 		{{-- <h1 class="title">{{ trans('global.Games') }}</h1> --}}
@@ -222,7 +222,7 @@
 							</div>
 							<div class="game-button">
 								@if ($app->pivot->price == 0)
-									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" class="game-free">{{ trans('global.Free') }}</a>
+									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" class="game-free">{{ trans('global.free') }}</a>
 								@else
 									<a href="{{ URL::route('game.show', array('id' => $app->pivot->game_id, $app->pivot->app_id)) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }} </a>	
 								@endif

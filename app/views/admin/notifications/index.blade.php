@@ -6,15 +6,23 @@
 		.fl { float: left; }
 		.clear { clear:both; }
 		form.login { width: 15%; }
-		input:disabled:hover { background: #5cb85c; cursor: not-allowed;}
-		input:disabled { background: #5cb85c; }
+		input:disabled:hover, button:disabled:hover { background: #5cb85c; cursor: not-allowed;}
+		input:disabled, button:disabled { background: #5cb85c; color: #fff; }
   		h3.flash-success { color: green !important; line-height: 40px; }
+  		button { background: #FFC0CB; color: #333; width: 86%; height: 32px;}
+  		button:hover {background: #333; color: #fff;}
+  		button .fa { padding-right: 5px; }
+  		button.disapprove { background: #333; color: #fff;}
+  		button.disapprove:hover { background: #FFC0CB; color: #333;}
+  		button.disapprove:disabled:hover { background: #333; color: #fff;}
+  		button.delete-button { background: #CC0001; color: #fff;}
+  		button.delete-button:hover { background: #333; color: #fff;}
 	</style>
 @stop
 
 @section('content')
 
-	<div class="item-listing" id="news-list">
+	<div class="item-listing">
 		
 		<h2>Notifications</h2>		
 		<br>
@@ -30,26 +38,18 @@
 
 			@if($review->status == '1')			
 
-				<div class="control-item submit-btn">
-							
-					<input type="hidden" name="id" value="{{$review->id}}" />	
-						
-						{{ Form::submit('Approved', array('disabled')) }}
-						
+				<div class="control-item submit-btn">							
+					<input type="hidden" name="id" value="{{$review->id}}" />
+					{{-- Form::submit('Approved', array('disabled')) --}}
+					<button type="submit" disabled><i class="fa fa-check"></i>Approve</button>						
 				</div>
-
-				
 
 			@else
 
-				<div class="control-item submit-btn">
-							
-					<input type="hidden" name="id" value="{{$review->id}}" />	
-						
-						{{ Form::submit('Approve') }}		
-
+				<div class="control-item submit-btn">							
+					<input type="hidden" name="id" value="{{$review->id}}" />
+					<button type="submit"><i class="fa fa-check"></i>Approve</button>
 				</div>	
-
 
 			@endif			
 
@@ -59,13 +59,27 @@
 		{{ Form::open(array('route' => 'review.disapprove', 'class' => 'fl login')) }}
 			<input type="hidden" name="id" value="{{$review->id}}" />	
 			
-			{{ Form::submit('Disapprove') }}					
+			{{-- Form::submit('Disapprove') --}}
+			@if($review->status == '0')	
+				<div class="control-item submit-btn">	
+					<button type="submit" class="disapprove" disabled><i class="fa fa-times"></i></i>Disapprove</button>
+				</div>
+			@else
+				<div class="control-item submit-btn">	
+					<button type="submit" class="disapprove colorized"><i class="fa fa-times"></i></i>Disapprove</button>
+				</div>
+			
+			@endif
+
 
 		{{ Form::close() }}
 
 		{{ Form::open(array('route' => array('review.destroy', $review->id), 'method' => 'delete', 'class' => 'fl login')) }}
 				
-			{{ Form::submit('Delete', array('class' => 'delete-button')) }}					
+			{{-- Form::submit('Delete', array('class' => 'delete-button')) --}}
+			<div class="control-item submit-btn">
+				<button type="submit" class="delete-button"><i class="fa fa-trash-o"></i>Delete</button>
+			</div>					
 
 		{{ Form::close() }}
 

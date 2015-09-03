@@ -27,6 +27,7 @@
 		</table>
 		<h2>Game Purchased</h2>
 		@if(!empty($downloaded_games))
+		<?php $ctr = 0; ?>	
 			<div class="purchased_cont">
 				<table class="table table-striped table-bordered table-hover purchased_games"  id="purchased_games">
 					<thead>
@@ -34,19 +35,20 @@
 							<th>Game Title</th>
 							<th>Carrier</th>							
 							<th>Price</th>
+							<th>Purchase Date</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						@foreach($downloaded_games as $app)
-							
+						@foreach($downloaded_games["data"] as $app)							
 							<tr>
 								<td>{{ $app->title }}</td>
 								<td>{{ $app->carrier->carrier }}</td>								
 								<td>{{ $app->price.$app->currency_code }}</td>
-								
+								<td>{{ $downloaded_games["purchased_date"][$ctr] }}</td>									
 							</tr>
-						@endforeach
+							<?php $ctr++ ?>				
+						@endforeach						
 					</tbody>
 				</table>
 			</div>

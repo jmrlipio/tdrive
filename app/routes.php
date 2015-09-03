@@ -59,6 +59,8 @@ Route::post('search/more', array('as' => 'search.more', 'uses' => 'ListingContro
 Route::post('category/search', array('as' => 'search', 'uses' => 'ListingController@searchGamesByCategory'));
 Route::post('category/related', array('as' => 'search', 'uses' => 'ListingController@searchRelatedGames'));
 
+Route::post('home/language', array('as' => 'home.lang', 'uses' => 'LanguagesController@getLanguage'));
+
 Route::post('language', array(
     'before' => 'csrf',
     'as' => 'choose_language',
