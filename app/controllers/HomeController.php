@@ -181,6 +181,7 @@ class HomeController extends BaseController {
 		{		
 			$first_visit = false;
 		}
+		$carrier = Carrier::find(Session::get('carrier'));
 
 		/* For displaying slider images dynamically ordered from database */
 
@@ -253,6 +254,7 @@ class HomeController extends BaseController {
 		}
 
 		/* END */
+
 
 		return View::make('index')
 			->with('page_title', 'Home')

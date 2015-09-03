@@ -65,7 +65,6 @@
 
 	<script type="text/javascript">
 	google.load('visualization', '1', { 'packages': ['corechart'] });
-	var hasContent = false;
 	var loading = $("#loading");
 	var container = $('#chart_div');
 	

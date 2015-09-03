@@ -145,8 +145,6 @@ class LanguagesController extends \BaseController {
 			$first_visit = false;
 		}
 
-
-
 		if(!Session::has('country_id')) {
 			$user_location = GeoIP::getLocation();
 			$country = Country::where('name', $user_location['country'])->first();

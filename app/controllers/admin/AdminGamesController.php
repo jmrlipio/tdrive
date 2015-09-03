@@ -592,16 +592,16 @@ class AdminGamesController extends \BaseController {
     	$game = Game::find($id);
     	$data = array();
     	$output = array();
-		$count = 0;
- 		
+		$rating = array();
+
  		/* For pie chart */   	
     	foreach($game->review as $review)
     	{
-    		$data[] = $review->pivot->rating;   	
+    		$rating[$review->id] = $review->pivot->rating; 	
     	}
-
-    	$unique = array_count_values($data);
-    	sort($unique);
+    	
+    	$unique = array_count_values($rating);
+    	ksort($unique);
 
         $data = array(
         	'cols' => array( 
@@ -612,10 +612,8 @@ class AdminGamesController extends \BaseController {
         );
 
     	foreach($unique as $key => $row)
-    	{
-    		$count++;
-			$data['rows'][] = array('c' => array(array('v' => $count.":stars"), array('v' => $row)));
-
+    	{    		
+    		$data['rows'][] = array('c' => array(array('v' => $key.":stars"), array('v' => $row)));			
     	}
 
     	$output = json_encode($data);

@@ -74,41 +74,45 @@ class ReportsController extends \BaseController {
 
 	public function salesFilter($game_id, $filter) 
 	{
-	   $game_data = '';
-	   $array = array();
-	   $rows = array();	
+	    $game_data = '';
 	   
-	   $array['cols'] = array(
-	   						 array(
-	   						 	'id' => "games", 
-	   						 	'label' => 'Games', 
-	   						 	'type' => 'string'
-	   						 		),
-	    					array(
-	    						'id' => "downloads", 
-	    						'label' => 'Downloads', 
-	    						'type' => 'number'
-	    						)
-	    					);
+	    $output = array();
 	    
 	    if($filter == 'carrier') 
 		{	
 			$game_data = Game::find($game_id);
-			
-			//dd($game_data->apps->toArray());
-			foreach($game_data->apps as $app) 
-	    	{
+			$dates = Transaction::getLastTransactionDates();
+
+			for($x = 0; $x < count($dates); $x++)
+			{
+				$rows = array();
+				$columns = array();
+        		$columns[] = array('label' => 'Store', 'type' => 'number');
+				
+				foreach($game_data->apps as $app) 
+		    	{
+		    		$temp = array();
+		    		$temp[] = array('v' => $dates[$x], 'f' => NULL);		    		 
+		    		
+		    		$download = Transaction::getTransactionByCarrier($app->pivot->game_id, $app->pivot->carrier_id);
+		    		$stores = Transaction::getSalesStore($app->pivot->game_id, $app->pivot->carrier_id);
+		    		
+		    		foreach($stores as $store)
+		    		{
+		    			$columns[] = array('label' => $store->carrier, 'type' => 'number');    	
+		    		}
+				    
+				    $temp[] = array('v' => $download, 'f' => NULL);
+				    $rows[] = array('c' => $temp);		    
+		    	}
 		    	
-	    		$download = Transaction::getTransactionByCarrier($app->pivot->game_id, $app->pivot->carrier_id );
-	    		//dd($app->pivot->game_id);
-		     	$temp = array();
-			    $temp[] = array('v' => $app->carrier);
-			    $temp[] = array('v' => $download , 'f' => NULL);
-			    $rows[] = array('c' => $temp);	
-	    	}
+		    }
+
+		    $output['cols'] = $columns;
+		    $output['rows'] = $rows;
 
 		}
-		else if($filter == 'country')
+		/*else if($filter == 'country')
 		{
 			$game_data = Game::find($game_id);
 			
@@ -123,15 +127,12 @@ class ReportsController extends \BaseController {
 			    $temp[] = array('v' => $download , 'f' => NULL);
 			    $rows[] = array('c' => $temp);	
 	    	}
-		}
+		}*/
 
-	    $array['rows'] = $rows;
-	    $json_data = json_encode($array);
+	    //$json_data = json_encode($output);
 	    
-
-
-	    //dd( $json_data);
-	    return  $json_data;
+	    //return $json_data;
+	    return json_encode($output); 
 	}
 
 
