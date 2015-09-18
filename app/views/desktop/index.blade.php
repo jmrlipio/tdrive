@@ -6,13 +6,13 @@
 </head>
 
 <body>
-
+	
 	<div id="container">
 		<div id="content">
 			
 			<br>
-			<h2 class="center">Ooops, Desktop view is not available.</h2>
-		    <h2 class="center">Please view this on mobile or tablet</h2><br>
+			<h2 class="center">{{ trans('global.Ooops, Desktop view is not available.') }}</h2>
+		    <h2 class="center">{{ trans('global.Please view this on mobile or tablet.') }}</h2><br>
 
 		</div><!-- end #content -->
 

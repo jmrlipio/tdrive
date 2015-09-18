@@ -125,8 +125,8 @@ return array(
 	'All rights reserved' => 'สงวนลิขสิทธิ์',
 
 	//Desktop (desktop/index.blade.php)
-	'Ooops, Desktop view is not available' => 'Ooops มุมมองสก์ท็อปจะไม่สามารถใช้ได้',
-	'Please view this on mobile or tablet' => 'กรุณาดูนี้บนมือถือหรือแท็บเล็',
+	'Ooops, Desktop view is not available.' => 'ขออภัย มุมมองสก์ท็อปจะไม่สามารถใช้ได้',
+	'Please view this on mobile or tablet.' => 'กรุณาดูนี้บนมือถือหรือแท็บเล็',
 
 	//Emails (auth/activate.blade.php)
 	'Hello' => 'สวัสดี',
