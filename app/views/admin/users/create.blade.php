@@ -83,3 +83,21 @@
 	
 
 @stop
+
+@section('scripts')
+
+	<script>
+		var token = $('input[name="_token"]').val();
+
+		$( document ).ready(function() {
+			$('.mobile_no').keyup(function () {     
+			  if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+			       this.value = this.value.replace(/[^0-9\.]/g, '');
+			    }
+			});
+
+			
+		});
+
+	</script>
+@stop

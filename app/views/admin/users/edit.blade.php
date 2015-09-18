@@ -22,7 +22,7 @@
 			</li>
 			<li>
 				{{ Form::label('mobile_no', 'Mobile No.:') }}
-				{{ Form::text('mobile_no') }}
+				{{ Form::text('mobile_no', null, array('class' => 'mobile_no','maxlength'=>"12")) }}
 				{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
 			</li>
 			<li>
@@ -38,6 +38,12 @@
 
 <script>
 $(document).ready(function(){
+
+	$('.mobile_no').keyup(function () {     
+	  if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+	       this.value = this.value.replace(/[^0-9\.]/g, '');
+	    }
+	});
 	
 	<?php if( Session::has('message') ) : ?>
 		var message = "{{ Session::get('message')}}";
