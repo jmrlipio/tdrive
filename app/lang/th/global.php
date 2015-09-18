@@ -126,7 +126,7 @@ return array(
 
 	//Desktop (desktop/index.blade.php)
 	'Ooops, Desktop view is not available.' => 'ขออภัย มุมมองสก์ท็อปจะไม่สามารถใช้ได้',
-	'Please view this on mobile or tablet.' => 'กรุณาดูนี้บนมือถือหรือแท็บเล็',
+	'Please view this on mobile or tablet.' => 'กรุณาเข้าใช้จากสมาร์ทโฟน หรือ แท็บเล็ต',
 
 	//Emails (auth/activate.blade.php)
 	'Hello' => 'สวัสดี',
