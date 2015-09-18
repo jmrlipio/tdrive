@@ -24,6 +24,15 @@
 				<td><strong>Role:</strong></td>
 				<td>{{ $user->role }}</td>
 			</tr>
+			<tr>
+				<td><strong>Mobile Number:</strong></td>
+				<td>{{ $user->mobile_no }}</td>				
+			</tr>
+			<tr>
+				<td><strong>Registration Date:</strong></td>
+				<td>{{ Carbon::parse($user->created_at)->format('M d, Y') }}</td>				
+			</tr>
+
 		</table>
 		<h2>Game Purchased</h2>
 		@if(!empty($downloaded_games))

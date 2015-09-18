@@ -13,10 +13,7 @@
 
 App::before(function($request)
 {
-	$user_location = GeoIP::getLocation();
-	Session::put('locale', $user_location['isoCode']);
-	$locale = strtolower(Session::get('locale'));
-	Lang::setLocale($locale);
+	Lang::setLocale(Session::get('locale'));
 
 	/** 		   
 		* Purpose: For detecting users device
@@ -25,6 +22,10 @@ App::before(function($request)
 
 	if(Agent::isDesktop() && Request::segment(1) != 'admin' )
 	{
+		$user_location = GeoIP::getLocation();
+		Session::put('locale', $user_location['isoCode']);
+		$locale = strtolower(Session::get('locale'));
+		Lang::setLocale($locale);
 		
 		return View::make('desktop.index')
 	 		->with('page_title', 'Desktop')

@@ -171,6 +171,10 @@ return array(
 	'Contact Us' => 'Contact Us',
 	'os version' => 'os version',
 
+	//User Profile
+	'Change' => 'Change',
+	'change' => 'change',
+
 	//Dates
 	'January' => 'January',
 	'February' => 'February',
