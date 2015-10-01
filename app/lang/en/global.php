@@ -141,8 +141,8 @@ return array(
 	'All rights reserved' => 'All rights reserved',
 
 	//Desktop (desktop/index.blade.php)
-	'Ooops, Desktop view is not available' => 'Ooops, Desktop view is not available',
-	'Please view this on mobile or tablet' => 'Please view this on mobile or tablet',
+	'Ooops, Desktop view is not available.' => 'Ooops, Desktop view is not available.',
+	'Please view this on mobile or tablet.' => 'Please view this on mobile or tablet.',
 
 	//Emails (auth/activate.blade.php)
 	'Hello' => 'Hello',

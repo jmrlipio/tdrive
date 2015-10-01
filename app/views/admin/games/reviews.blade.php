@@ -107,5 +107,9 @@
 				
 	});
 
+	$('.close').click(function (){
+		alert('modal closed');
+	});
+
 	</script>
 @stop
