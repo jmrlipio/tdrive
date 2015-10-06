@@ -244,5 +244,6 @@ return array(
 	'Thailand' => 'Thailand',
 	'Vietnam' => 'Vietnam',
 	'United States of America' => 'United States of America',
->>>>>>> 4161d7b33fb3c32c2647e16285b7d775def8c0d9
+	
+	'Your username/password was incorrect' => 'Your username/password was incorrect',
 );
