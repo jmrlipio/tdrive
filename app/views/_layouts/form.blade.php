@@ -21,7 +21,7 @@
 		e=o.createElement(i);r=o.getElementsByTagName(i)[0];
 		e.src='//www.google-analytics.com/analytics.js';
 		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-		ga('create','(UA-58420474-1','auto');ga('send','pageview');
+		ga('create','(UA-64600222-1','auto');ga('send','pageview');
 	</script>
 
 @include('_partials/scripts')

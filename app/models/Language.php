@@ -48,9 +48,13 @@ class Language extends \Eloquent {
 
     public static function getLangID($locale) 
     {
-        $id = Language::where('iso_code', '=', $locale)
-                        ->first();
-        return $id->id;
+        try
+        {
+            $id = Language::where('iso_code', '=', $locale)->first();
+            return $id->id;
+        }
+        catch(Exception $e) { }
+        
     }
 
     public static function getVariant($cat_id, $lang_id) 

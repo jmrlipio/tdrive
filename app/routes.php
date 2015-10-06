@@ -253,7 +253,7 @@ Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'Games
 
 
 Route::get('categories', array('as' => 'categories.all', 'uses' => 'ListingController@showGameCategories'));
-Route::post('export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
+Route::post('admin/export', array('as' => 'admin.export.selectedDB', 'uses' => 'AdminUsersController@exportDB'));
 Route::post('approve/review', array('as' => 'review.approve', 'uses' => 'ReviewsController@approveReview'));
 Route::post('disapprove/review', array('as' => 'review.disapprove', 'uses' => 'ReviewsController@disapproveReview'));
 route::resource('review', 'ReviewsController');
