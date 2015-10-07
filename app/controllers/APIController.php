@@ -159,7 +159,7 @@ class APIController extends \BaseController {
 	private function object2array($object) 
 	{ 
 		return @json_decode(@json_encode($object),1); 
-	} 
+	}
 
 }
 

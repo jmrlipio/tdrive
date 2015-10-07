@@ -132,6 +132,7 @@ class LanguagesController extends \BaseController {
 	public function getLanguage()
 	{
 		/* TODO: check if session has carrier */
+		Session::forget('carrier');
 		if (!Session::has('carrier')) {
 			
 			Session::put('country_id', Input::get('country_id'));
@@ -154,9 +155,7 @@ class LanguagesController extends \BaseController {
 		$carrier = Carrier::find(Session::get('carrier'));
 		$countries = [];
 
-		if(!Session::has('locale')) {
-			Session::put('locale', strtolower($carrier->language->iso_code));
-		}
+		Session::put('locale', strtolower($carrier->language->iso_code));
 
 		Session::put('carrier_name', $carrier->carrier);		
 		Session::put('user_country', $country->full_name);
