@@ -246,4 +246,8 @@ return array(
 	'United States of America' => 'United States of America',
 	
 	'Your username/password was incorrect' => 'Your username/password was incorrect',
+	
+	'Purchase successful...' => 'Purchase successful...',
+	'You are now going to be redirected back to the game page so that you can download the game.' => 'You are now going to be redirected back to the game page so that you can download the game.',
+	'You are being redirected in 10 seconds.' => 'You are being redirected in 10 seconds.',
 );

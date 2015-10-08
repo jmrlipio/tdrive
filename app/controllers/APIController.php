@@ -161,6 +161,14 @@ class APIController extends \BaseController {
 		return @json_decode(@json_encode($object),1); 
 	}
 
+	public function purchaseSuccess() {
+
+		return View::make('purchase-success')
+			->with('page_title', 'Success')
+			->with('page_id', 'success');
+
+	}
+
 }
 
 
