@@ -102,6 +102,9 @@ return array(
 	'General Inquiry' => 'General Inquiry',
 	'View' => 'View',
 	'type what you see...' => 'type what you see...',
+	'Time it happened:' => 'Time it happened:',
+	'Facebook / Game Account name:' => 'Facebook / Game Account name:',
+	'Device used (if possible):' => 'Device used (if possible):',
 
 	//Login Blade (login.blade.php)
 	'Forgot your password?' => 'Forgot your password?',
@@ -234,4 +237,5 @@ return array(
 	'Thailand' => 'Thailand',
 	'Vietnam' => 'Vietnam',
 	'United States of America' => 'United States of America',
+	'Japan' => 'Japan',
 );
