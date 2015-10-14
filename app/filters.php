@@ -20,7 +20,9 @@ App::before(function($request)
 		* Date: 01/16/2015
 	*/
 
-	if(Agent::isDesktop() && Request::segment(1) != 'admin' )
+	$filters = IPFilter::lists('ip_address');
+
+	if(Agent::isDesktop() && Request::segment(1) != 'admin' && !in_array($_SERVER['REMOTE_ADDR'], $filters) )
 	{
 		$user_location = GeoIP::getLocation();
 		Session::put('locale', $user_location['isoCode']);

@@ -184,6 +184,16 @@ return array(
 	'March' => 'March',
 	'April' => 'April',
 	'May' => 'May',
+	'Jun' => 'Jun',
+	'Jul' => 'Jul',
+	'Aug' => 'Aug',
+	'Sep' => 'Sep',
+	'Oct' => 'Oct',
+	'Nov' => 'Nov',
+	'Dec' => 'Dec',
+	
+	'Related games for' => 'Related games for',
+
 	'June' => 'June',
 	'July' => 'July',
 	'August' => 'August',
@@ -238,4 +248,9 @@ return array(
 	'Vietnam' => 'Vietnam',
 	'United States of America' => 'United States of America',
 	'Japan' => 'Japan',
+	'Your username/password was incorrect' => 'Your username/password was incorrect',	
+	'Purchase successful...' => 'Purchase successful...',
+	'You are now going to be redirected back to the game page so that you can download the game.' => 'You are now going to be redirected back to the game page so that you can download the game.',
+	'You are being redirected in 10 seconds.' => 'You are being redirected in 10 seconds.',
+
 );
