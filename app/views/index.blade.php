@@ -417,10 +417,11 @@
 			</div>
 			
 			<div class="select clearfix">
+
 				<select name="game_title" class="clearfix" id="game" required>
 					<option value="General Inquiry">{{ trans('global.General Inquiry') }}</option>
-					@foreach($games as $game)
-						<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
+					@foreach($game_list as $game)
+						<option value="{{ $game }}">{{ $game}}</option>
 					@endforeach
 				</select>
 
