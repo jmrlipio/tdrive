@@ -262,7 +262,12 @@ class HomeController extends BaseController {
 			{
 				if(Language::getLangID(Session::get('locale')) == $app->pivot->language_id)
 				{
-					$game_list[] = ( $has_app ? $app->pivot->title : $game->main_title );
+					$app_title = $app->pivot->title;
+					$game_title = $game->main_title;
+					if(!in_array($app_title, $game_list) || !in_array($game_title, $game_list))
+			        {
+			        	$game_list[] = ( $has_app ? $app->pivot->title : $game->main_title );
+			        }
 				}				
 			}
 		}
