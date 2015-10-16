@@ -13,6 +13,7 @@ return array(
 	'test' => '',
 	'Select Carrier' => '',
 	'Select app store' => 'プラットフォームを選択',
+	'Select App Store' => 'プラットフォームを選択',
 	'loading' => '',
 	'name' => 'お名前',
 	'email' => 'メールアドレス',

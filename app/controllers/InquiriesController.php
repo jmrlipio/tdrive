@@ -229,10 +229,28 @@ class InquiriesController extends \BaseController {
 		$page_title = 'Contact Us';
 		$page_id = 'form';
 
+		$game_list = array();
+		$has_app = true;
+		foreach($games as $game)
+		{
+			foreach($game->apps as $app)
+			{
+				if(Language::getLangID(Session::get('locale')) == $app->pivot->language_id)
+				{
+					$app_title = $app->pivot->title;
+					$game_title = $game->main_title;
+					if(!in_array($app_title, $game_list) || !in_array($game_title, $game_list))
+			        {
+			        	$game_list[] = ( $has_app ? $app->pivot->title : $game->main_title );
+			        }
+				}				
+			}
+		}
+
 		return View::make('contact-us')
 					->with('page_title', $page_title)
 					->with('page_id', $page_id)
-					->with('games', $games)
+					->with('game_list', $game_list)
 					->with('countries', $countries)
 					->with('carriers', $carriers)
 					->with('default_location', $default_location);
