@@ -103,7 +103,7 @@ return array(
 	'View' => 'View',
 	'type what you see...' => 'type what you see...',
 	'Time it happened:' => 'Time it happened:',
-	'Facebook / Game Account name:' => 'Facebook / Game Account name:',
+	'Facebook/Game Account name:' => 'Facebook / Game Account name:',
 	'Device used (if possible):' => 'Device used (if possible):',
 
 	//Login Blade (login.blade.php)
@@ -252,5 +252,7 @@ return array(
 	'Purchase successful...' => 'Purchase successful...',
 	'You are now going to be redirected back to the game page so that you can download the game.' => 'You are now going to be redirected back to the game page so that you can download the game.',
 	'You are being redirected in 10 seconds.' => 'You are being redirected in 10 seconds.',
+
+	'Android' => 'Android',
 
 );
