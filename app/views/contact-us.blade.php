@@ -64,7 +64,7 @@
 				<div class="select clearfix wbg">
 					<select name="game_title" class="clearfix" id="game" required>
 						<option value="General Inquiry">{{ trans('global.General Inquiry') }}</option>
-						@foreach($game_list as $game)
+					@foreach($game_list as $game)
 						<option value="{{ $game }}">{{ $game}}</option>
 					@endforeach
 					</select>
