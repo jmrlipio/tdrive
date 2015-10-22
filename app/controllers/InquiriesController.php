@@ -224,7 +224,6 @@ class InquiriesController extends \BaseController {
 		$countries = Country::all();
 		$carriers = Carrier::all();
 
-		//$user_location = GeoIP::getLocation('210.171.132.13');
 		$user_location = Inquiry::getUserIp();
 		$_default_location = Country::where('iso_3166_2','=', $user_location['isoCode'])->get();
 		$default_location = array();
