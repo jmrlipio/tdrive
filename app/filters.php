@@ -26,15 +26,7 @@ App::before(function($request)
 	{
 		$user_location = GeoIP::getLocation();
 		Session::put('locale', $user_location['isoCode']);
-		
-		if(Session::has('locale'))
-		{
-			$locale = strtolower(Session::get('locale'));
-		}
-		else
-		{
-			$locale = 'en';
-		}
+		$locale = strtolower(Session::get('locale'));
 		Lang::setLocale($locale);
 		
 		return View::make('desktop.index')
