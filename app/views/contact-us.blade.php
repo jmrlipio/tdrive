@@ -4,9 +4,11 @@
 	{{ HTML::style('css/form.css') }}
 @stop
 
+
+
 @section('content')
     <h1 class="title">{{ trans('global.Contact Us') }}</h1>
-	
+    
 		<p>{{ trans('global.Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.') }}</p>
 		{{ Form::open(array('route'=>'contact-us.user-inquiry', 'method' => 'post', 'id'=> 'register')) }}
 

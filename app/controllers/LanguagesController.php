@@ -163,4 +163,12 @@ class LanguagesController extends \BaseController {
 		return Redirect::route('home.show');
 	}
 
+	public function getLanguageTranslation()
+	{
+		$user_location = Inquiry::getUserIp();
+		Session::put('locale', strtolower($user_location['isoCode']));
+		
+		return Redirect::route('contact-us');
+	}
+
 }

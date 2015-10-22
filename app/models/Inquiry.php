@@ -20,4 +20,10 @@ class Inquiry extends \Eloquent {
 		'message' => 'required|min:3',
 	];
 
+	public static function getUserIp() 
+	{
+		$user_location = GeoIP::getLocation();
+		
+		return $user_location;
+	}
 }

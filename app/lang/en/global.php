@@ -13,6 +13,7 @@ return array(
 	'test' => ':content',
 	'Select Carrier' => 'Select Carrier',
 	'Select app store' => 'Select app store',
+	'Select App Store' => 'Select App Store',
 	'loading' => 'loading',
 	'name' => 'name',
 	'email' => 'email',
