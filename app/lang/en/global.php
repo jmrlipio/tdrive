@@ -13,6 +13,7 @@ return array(
 	'test' => ':content',
 	'Select Carrier' => 'Select Carrier',
 	'Select app store' => 'Select app store',
+	'Select App Store' => 'Select App Store',
 	'loading' => 'loading',
 	'name' => 'name',
 	'email' => 'email',
@@ -102,6 +103,9 @@ return array(
 	'General Inquiry' => 'General Inquiry',
 	'View' => 'View',
 	'type what you see...' => 'type what you see...',
+	'Time it happened:' => 'Time it happened:',
+	'Facebook/Game Account name:' => 'Facebook / Game Account name:',
+	'Device used (if possible):' => 'Device used (if possible):',
 
 	//Login Blade (login.blade.php)
 	'Forgot your password?' => 'Forgot your password?',
@@ -181,6 +185,16 @@ return array(
 	'March' => 'March',
 	'April' => 'April',
 	'May' => 'May',
+	'Jun' => 'Jun',
+	'Jul' => 'Jul',
+	'Aug' => 'Aug',
+	'Sep' => 'Sep',
+	'Oct' => 'Oct',
+	'Nov' => 'Nov',
+	'Dec' => 'Dec',
+	
+	'Related games for' => 'Related games for',
+
 	'June' => 'June',
 	'July' => 'July',
 	'August' => 'August',
@@ -234,4 +248,12 @@ return array(
 	'Thailand' => 'Thailand',
 	'Vietnam' => 'Vietnam',
 	'United States of America' => 'United States of America',
+	'Japan' => 'Japan',
+	'Your username/password was incorrect' => 'Your username/password was incorrect',	
+	'Purchase successful...' => 'Purchase successful...',
+	'You are now going to be redirected back to the game page so that you can download the game.' => 'You are now going to be redirected back to the game page so that you can download the game.',
+	'You are being redirected in 10 seconds.' => 'You are being redirected in 10 seconds.',
+
+	'Android' => 'Android',
+
 );

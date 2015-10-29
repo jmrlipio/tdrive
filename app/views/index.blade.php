@@ -417,10 +417,11 @@
 			</div>
 			
 			<div class="select clearfix">
+
 				<select name="game_title" class="clearfix" id="game" required>
 					<option value="General Inquiry">{{ trans('global.General Inquiry') }}</option>
-					@foreach($games as $game)
-						<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
+					@foreach($game_list as $game)
+						<option value="{{ $game }}">{{ $game}}</option>
 					@endforeach
 				</select>
 
@@ -450,7 +451,9 @@
 			</div>
 
 			<div class="control clearfix">
-				<textarea name="message" id="message" placeholder="{{ trans('global.message') }}" required></textarea>
+			<textarea name="message" id="message" placeholder="{{ trans('global.Time it happened:') }}
+{{ trans('global.Facebook/Game Account name:') }} 
+{{ trans('global.Device used (if possible):') }}" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>

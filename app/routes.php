@@ -273,7 +273,10 @@ Route::post('games/{id?}/download', array('as' => 'games.download', 'uses' => 'A
 Route::post('games/carrier-select', array('as' => 'games.carrier-select', 'uses' => 'APIController@redirectToCarrier'));
 //Route::post('authorize/{appid}/{token}', array('as' => 'authorize.user', 'uses' => 'APIController@authorizeLoginPost'));
 
+Route::get('games/download/success', array('as' => 'games.download.success', 'uses' => 'APIController@purchaseSuccess'));
+
 //Review Delete in Front End
 // Route::delete('reviews/{app_id}/{id}/delete', array('as' => 'reviews.front.index', 'uses' => 'ReviewsController@delete_front'));
 Route::get('contact-us', array('as' => 'contact-us', 'uses' => 'InquiriesController@userContact'));
+Route::get('contact-us/language', array('as' => 'contact-us.lang', 'uses' => 'LanguagesController@getLanguageTranslation'));
 Route::post('contact-us/inquiries', array('as' => 'contact-us.user-inquiry', 'uses' => 'InquiriesController@userInquiry'));

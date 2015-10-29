@@ -210,11 +210,21 @@ class InquiriesController extends \BaseController {
 
 	public function userContact() 
 	{
+
+		if(Session::get('locale') == null)
+		{
+			return Redirect::route('contact-us.lang');
+		}
+		else
+		{
+			Session::forget('locale');
+		}
+
 		$games = Game::orderBy('main_title','ASC')->get();
 		$countries = Country::all();
 		$carriers = Carrier::all();
 
-		$user_location = GeoIP::getLocation();
+		$user_location = Inquiry::getUserIp();
 		$_default_location = Country::where('iso_3166_2','=', $user_location['isoCode'])->get();
 		$default_location = array();
 		
@@ -224,15 +234,38 @@ class InquiriesController extends \BaseController {
 				'id' => $df->id,
 				'name' => $df->full_name
 			);
-		}
+		}	
+
 
 		$page_title = 'Contact Us';
 		$page_id = 'form';
 
+		$game_list = array();
+				
+		foreach($games as $game)
+		{
+			$game_title = $game->main_title;	
+			$lang_id = Language::getLangID($user_location['isoCode']);
+
+			$app = GameApp::where('language_id', $lang_id)
+					->where('game_id', $game->id)
+					->first();
+			
+			if($app)
+			{
+				$game_list[] = $app->title;
+			}
+			else
+			{
+				$game_list[] = $game_title;
+			}					
+			
+		}
+
 		return View::make('contact-us')
 					->with('page_title', $page_title)
 					->with('page_id', $page_id)
-					->with('games', $games)
+					->with('game_list', $game_list)
 					->with('countries', $countries)
 					->with('carriers', $carriers)
 					->with('default_location', $default_location);

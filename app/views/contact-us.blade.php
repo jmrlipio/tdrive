@@ -4,9 +4,11 @@
 	{{ HTML::style('css/form.css') }}
 @stop
 
+
+
 @section('content')
     <h1 class="title">{{ trans('global.Contact Us') }}</h1>
-	
+    
 		<p>{{ trans('global.Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.') }}</p>
 		{{ Form::open(array('route'=>'contact-us.user-inquiry', 'method' => 'post', 'id'=> 'register')) }}
 
@@ -33,7 +35,7 @@
 			</div>
 			<div class="select wbg">
 				<select name="app_store" required id="carrier">
-					<option value="">Select App Store</option>
+					<option value="">{{ trans('global.Select App Store') }}</option>
 
 					@foreach ($carriers as $carrier)			
 						<option value="{{ $carrier->carrier }}">{{ $carrier->carrier }}</option>
@@ -64,9 +66,9 @@
 				<div class="select clearfix wbg">
 					<select name="game_title" class="clearfix" id="game" required>
 						<option value="General Inquiry">{{ trans('global.General Inquiry') }}</option>
-						@foreach($games as $game)
-							<option value="{{ $game->main_title }}">{{ $game->main_title }}</option>
-						@endforeach
+					@foreach($game_list as $game)
+						<option value="{{ $game }}">{{ $game}}</option>
+					@endforeach
 					</select>
 
 					{{ $errors->first('game_title', '<p class="form-error">:message</p>') }}
@@ -77,7 +79,7 @@
 			
 				<div id="os-selection" class="select clearfix">
 					<select id="os-type" name="os-type" required>
-						<option value="1">Select OS</option>
+						<option value="1">{{trans('global.Select OS')}}</option>
 						<option value="iOS">iOS</option>
 						<option value="Android">Android</option>
 					</select>
@@ -98,7 +100,10 @@
 			</div>
 
 			<div class="control clearfix">
-				<textarea name="message" id="contact-message" placeholder="{{ trans('global.message') }}" required></textarea>
+				<textarea name="message" id="contact-message" placeholder="{{ trans('global.Time it happened:') }}
+{{ trans('global.Facebook/Game Account name:') }} 
+{{ trans('global.Device used (if possible):') }}		
+				" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>
