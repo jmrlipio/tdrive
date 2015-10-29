@@ -20,7 +20,7 @@ App::before(function($request)
 		* Date: 01/16/2015
 	*/
 
-	if(Agent::isDesktop() && Request::segment(1) != 'admin' )
+	/*if(Agent::isDesktop() && Request::segment(1) != 'admin' )
 	{
 		$user_location = GeoIP::getLocation();
 		Session::put('locale', $user_location['isoCode']);
@@ -30,7 +30,7 @@ App::before(function($request)
 		return View::make('desktop.index')
 	 		->with('page_title', 'Desktop')
 	 		->with('page_id', 'form');
-	}
+	}*/
 
 });
 
