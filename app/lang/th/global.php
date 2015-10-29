@@ -18,7 +18,6 @@ return array(
 	'password' => 'รหัสผ่าน',
 	'Sign In' => 'เข้าสู่ระบบ',
 	'submit' => 'ส่ง',
-	'All games' => 'เกมทุกเกม',
 	'All Categories' => 'ทุกประเภท',
 	'your email/password was incorrect' => 'อีเมลของคุณ / รหัสผ่านไม่ถูกต้อง',
 	'Please select' => 'กรุณาเลือก',
@@ -28,7 +27,7 @@ return array(
 	'last_name' => 'นามสกุล',
 	'mobile_no' => 'หมายเลขโทรศัพท์มือถือ',
 	'confirm password' => 'ยืนยันรหัสผ่าน',
-	'Buy' => 'ปล่อย',
+	'Buy' => 'ซื้อ',
 	'Select OS' => 'กรุณาเลือกระบบปฎิบัติการ',
 	'os version' => 'เวอร์ชั่นของระบบปฎิบัติการ',
 
@@ -67,7 +66,8 @@ return array(
 
 	//Game Blade (game.blade.php)
 	'Downloads' => 'ดาวน์โหลด',
-	'Share' => 'หุ้น',
+	// 'Share' => 'หุ้น',
+	'Share' => 'Share',
 	'Share the game to the following social networks' => 'แบ่งปันเกมต่อไปนี้เครือข่ายทางสังคม',
 	'write a review' => 'ความคิดเห็น',
 	'See all reviews' => 'ดูความคิดเห็นทั้งหมด',
@@ -82,11 +82,15 @@ return array(
 	'latest news' => 'ข่าวล่าสุด',
 	'FAQs' => 'คำถามที่ถามบ่อย',
 	'Contact us' => 'ติดต่อเรา',
+	'Your comments and suggestions are important to us. You can reach us via the contact points below.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง',
 	'Your comments and suggestions are important to us. You can reach us via the contact points below. Please use English.' => 'ความคิดเห็นและข้อเสนอแนะของคุณมีความสำคัญกับเรา คุณสามารถติดต่อเราผ่านจุดติดต่อด้านล่าง กรุณากรอกเป็นภาษาอังกฤษ',
 	'General Inquiry' => 'สอบถามข้อมูลทั่วไป',
 	'View' => 'ดู',
-	'Type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
 	'type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
+	'Type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
+	'Time it happened:' => 'เวลาที่เกิดเหตุการณ์:',
+	'Facebook/Game Account name:' => 'ชื่อบัญชีเกม หรือ เฟสบุ๊ค:',
+	'Device used (if possible):' => 'รุ่นของอุปกรณ์ที่ใช้:',
 	
 	//Login Blade (login.blade.php)
 	'Forgot your password?' => 'ลืมรหัสผ่าน?',
@@ -111,10 +115,10 @@ return array(
 	'password_confirmation' => 'ยืนยันรหัสผ่าน',
 
 	//Related Blade (related.blade.php)
-	'Related games' => 'สร้างบัญชีใหม่',
+	'Related games' => 'เกมส์ที่แนะนำ',
 
 	//Reviews Blade (reviews.blade.php)
-	'All reviews for' => 'สร้างบัญชีใหม่',
+	//'All reviews for' => 'สร้างบัญชีใหม่',
 
 	//Search Blade (search template.php)
 	'Search results' => 'ผลการค้นหา',
@@ -126,7 +130,7 @@ return array(
 
 	//Desktop (desktop/index.blade.php)
 	'Ooops, Desktop view is not available.' => 'ขออภัย คุณไม่สามารถเข้าใช้บนเดสท็อปได้', 
-	'Please view this on mobile or tablet.' => 'กรุณาเข้าใช้จากสมาร์ทโฟน หรือ แท็บเล็ต',
+	'Please view this on mobile or tablet.' => 'กรุณาเข้าใช้จากสมาร์ทโฟน หรือ แท็บเล็ต', 
 
 	//Emails (auth/activate.blade.php)
 	'Hello' => 'สวัสดี',
@@ -178,10 +182,6 @@ return array(
 	'nov' => 'พ.ย.',
 	'dec' => 'ธ.ค.',
 
-	'no games, please choose another carrier or another language for the selected carrier' => 'ไม่มีเกม โปรดเลือก ผู้ให้บริการอื่น หรือ ภาษาอื่น สำหรับผู้ให้บริการ ที่เลือก',
-
-	//Dates
-
 	'January' => 'มกราคม',
 	'February' => 'กุมภาพันธ์',
 	'March' => 'มีนาคม',
@@ -195,7 +195,9 @@ return array(
 	'November' => 'พฤศจิกายน',
 	'December' => 'ธันวาคม',
 
-	//additional, changed translation
+	'no games, please choose another carrier or another language for the selected carrier' => 'ไม่มีเกม โปรดเลือก ผู้ให้บริการอื่น หรือ ภาษาอื่น สำหรับผู้ให้บริการ ที่เลือก',
+
+	//additional
 	'All Games' => 'เกมทั้งหมด',
 	'More' => 'เพิ่มเติม',
 	'Read more' => 'อ่านต่อ',
@@ -208,6 +210,7 @@ return array(
 	'Submit' => 'ส่ง',
 	'total' => 'รวมทั้งหมด',
 	'gender' => 'เพศ',
+	'Birthdate' => 'วันเกิด',
 	'birthdate' => 'วันเกิด',
 	'Male' => 'ชาย',
 	'Female' => 'หญิง',
@@ -222,7 +225,7 @@ return array(
 	'Singapore' => 'สิงคโปร์',
 	'Thailand' => 'ไทย',
 	'Vietnam' => 'เวียดนาม',
-
+	
 	'Android' => 'แอนดรอยด์',
 	'be the first one to add a review!' => 'เป็นท่านแรกในการแสดงความคิดเห็น',
 	'Find answers to Frequently Asked Questions about TDrive and our services below.' => 'คำถามที่พบบ่อยเกียวกับ Tdrive และบริการของเราได้ดังต่อไปนี้',
@@ -243,16 +246,11 @@ return array(
 	'Game' => 'เกม',
 	'Status' => 'สถานะ',
 	'Date' => 'วันที่',
-	'Please fill out this field.' => 'กรุณากรอกข้อมูล',
-	//'PURCHASED' => 'ดู',
-	//'PROCESSING' => 'ดู',
-	//'ERROR ON PROCESS' => 'ดู',
-	//'Free' => 'ฟรี',
-	'Your username/password was incorrect' => 'รหัสผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง',
-	'Your inquiry has been sent.' => 'ข้อมูลถูกส่งเรียบร้อย',
-	'Date' => 'วันที่',
 	'Free' => 'ฟรี',
 	'free' => 'ฟรี',
 	'FREE' => 'ฟรี',
+	'Please fill out this field.' => 'กรุณากรอกข้อมูล',
+	'Your username/password was incorrect' => 'รหัสผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง',
+	'Your inquiry has been sent.' => 'ข้อมูลถูกส่งเรียบร้อย',
 
 );

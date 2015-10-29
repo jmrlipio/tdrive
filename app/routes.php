@@ -229,6 +229,7 @@ Route::post('update', array('as' => 'users.update.account.post', 'uses' => 'User
 
 Route::group(array('before' => 'auth'), function(){
     Route::resource('users', 'UsersController');
+    Route::get('games/purchase/success', array('as' => 'games.purchase.success', 'uses' => 'APIController@purchaseSuccess'));
 });
 
 Route::post('reports/inquiries', array('as' => 'reports.inquiries.store-inquiry', 'uses' => 'InquiriesController@storeInquiry'));
@@ -238,7 +239,6 @@ Route::post('games/post/carrier', array('as' => 'games.carrier', 'uses' => 'Game
 //original link is from above
 Route::post('games/{id}/carrier/details', array('as' => 'games.carrier.details', 'uses' => 'GamesController@getCarrierDetails'));
 //end
-Route::get('games/{id}/status', array('as' => 'games.status', 'uses' => 'GamesController@getPurchaseStatus'));
 
 Route::get('games/{id}/payment', array('as' => 'games.payment', 'uses' => 'GamesController@getPaymentInfo'));
 
@@ -273,7 +273,7 @@ Route::post('games/{id?}/download', array('as' => 'games.download', 'uses' => 'A
 Route::post('games/carrier-select', array('as' => 'games.carrier-select', 'uses' => 'APIController@redirectToCarrier'));
 //Route::post('authorize/{appid}/{token}', array('as' => 'authorize.user', 'uses' => 'APIController@authorizeLoginPost'));
 
-Route::get('games/download/success', array('as' => 'games.download.success', 'uses' => 'APIController@purchaseSuccess'));
+
 
 //Review Delete in Front End
 // Route::delete('reviews/{app_id}/{id}/delete', array('as' => 'reviews.front.index', 'uses' => 'ReviewsController@delete_front'));
