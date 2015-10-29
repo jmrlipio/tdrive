@@ -450,7 +450,7 @@
 			</div>
 
 			<div class="control clearfix">
-				<textarea name="message" id="message" placeholder="Hello,\nThis is multiligne example\n\nHave Fun" required></textarea>
+				<textarea name="message" id="message" placeholder="Time it happened / Facebook or Game Account / Device used" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>
