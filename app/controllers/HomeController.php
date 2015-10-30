@@ -254,8 +254,24 @@ class HomeController extends BaseController {
 		}
 
 		/* END */
-
-
+		$game_list = array();
+		$has_app = true;
+		foreach($games as $game)
+		{
+			foreach($game->apps as $app)
+			{
+				if(Language::getLangID(Session::get('locale')) == $app->pivot->language_id)
+				{
+					$app_title = $app->pivot->title;
+					$game_title = $game->main_title;
+					if(!in_array($app_title, $game_list) || !in_array($game_title, $game_list))
+			        {
+			        	$game_list[] = ( $has_app ? $app->pivot->title : $game->main_title );
+			        }
+				}				
+			}
+		}
+		
 		return View::make('index')
 			->with('page_title', 'Home')
 			->with('page_id', 'home')
@@ -270,7 +286,7 @@ class HomeController extends BaseController {
 			->with('discounts', $discounts)
 			->with('limit', $limit)
 			->with('selected_carriers', $selected_carriers)
-			->with(compact('games','featured_games', 'faqs', 'languages', 'games_slide','news_slide','sliders', 'default_location'));
+			->with(compact('game_list','games','featured_games', 'faqs', 'languages', 'games_slide','news_slide','sliders', 'default_location'));
 	
 	}
 

@@ -87,9 +87,14 @@ return array(
 	'General Inquiry' => 'สอบถามข้อมูลทั่วไป',
 	'View' => 'ดู',
 	'type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
-	'Type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
+
+	// 'Type what you see...' => 'พิมพ์สิ่งที่คุณเห็น ...',
+	// 'Time it happened:' => 'เวลาที่เกิดเหตุการณ์:',
+	// 'Facebook/Game Account name:' => 'ชื่อบัญชีเกม หรือ เฟสบุ๊ค:',
+
+	//FILE FROM LIVE IS MORE UPDATED
 	'Time it happened:' => 'เวลาที่เกิดเหตุการณ์:',
-	'Facebook/Game Account name:' => 'ชื่อบัญชีเกม หรือ เฟสบุ๊ค:',
+	'Facebook/Game Account name' => 'ชื่อบัญชีเกม หรือ เฟสบุ๊ค:',
 	'Device used (if possible):' => 'รุ่นของอุปกรณ์ที่ใช้:',
 	
 	//Login Blade (login.blade.php)

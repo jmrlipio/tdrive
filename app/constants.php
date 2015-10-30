@@ -82,7 +82,11 @@ class Constant {
 
 	public static function getCountries() 
 	{
-		$countries = ['Indonesia', 'Thailand', 'Malaysia', 'Singapore', 'Republic of the Philippines', 'Vietnam', 'Myanmar', 'Brunei', 'Cambodia', 'Laos'];
+		$countries = ['Indonesia', 'Thailand', 'Malaysia', 
+		'Singapore', 'Republic of the Philippines', 'Vietnam', 
+		'Myanmar', 'Brunei', 'Cambodia', 
+		'Laos', 'Japan'];
+		
 		sort($countries);
 		
 		return $countries;
