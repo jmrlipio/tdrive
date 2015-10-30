@@ -23,7 +23,7 @@
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
 			<thead>
 				<tr>
-					<th><input type="checkbox"></th>
+					<th class="no-sort"><input type="checkbox"></th>
 					<th>Game Name</th>
 					<th>Status</th>
 					<th>Categories</th>

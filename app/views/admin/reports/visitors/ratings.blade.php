@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 @section('content')
 	@include('admin._partials.reports-nav')
-	<div class="item-listing" id="categories-list">
+	<div class="item-listing table" id="categories-list">
 		<h2>Total Game Ratings</h2>
 		<br>
 		<table id="table">
