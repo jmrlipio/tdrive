@@ -5,14 +5,19 @@
 	<style>
 
 		div#btn-export {
-			/* background: #e9548e; */
+			 /*background: #e9548e; 
 			width: 50%;
 			text-align: center;
-			/* margin: 0 auto; */
+			 margin: 0 auto; 
 			padding: 8px;
-			margin-top:10px;
+			margin-top:10px;*/
+			margin-bottom: 5px;
 		}
-
+		div#btn-export >form {
+			width: auto;
+			display: initial;
+			margin-right: 5px;
+		}
 		.fl { float: left; }
 		.clear {clear: both;}
 
@@ -26,23 +31,80 @@
 	<div class="item-listing">
 		<h2>Users</h2>
 		<br>
-
+	
 		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
-		{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
-			{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
-		{{ Form::close() }}
-		<br><br><br><br>
+		<div class="pull-left">
+
+			<div id="btn-export">
+			
+				{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
+					{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
+				{{ Form::close() }}
+				<!-- Export as xls or excel -->	
+
+				{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
+			
+					<div class="control-item submit-btn">
+						<input type="hidden" name="file_type" value="xls" />
+						<input type="hidden" name="data_type" value="user" />
+						<button type="submit">
+						  <i class="fa fa-file-excel-o"></i> Export as Excel
+						</button>
+					</div>
+			
+				{{ Form::close() }}
+
+				<!-- End -->
+
+				<!-- Export as csv -->	
+			
+				{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
+			
+					<div class="control-item submit-btn">
+						<input type="hidden" name="file_type" value="csv" />
+						<input type="hidden" name="data_type" value="user" />
+						<button type="submit">
+						  <i class="fa fa-file-text-o"></i> Export as Csv
+						</button>
+					</div>
+			
+				{{ Form::close() }}
+
+				<!-- End -->
+
+				<!-- Export as pdf -->	
+			
+				{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
+			
+					<div class="control-item submit-btn">
+						<input type="hidden" name="file_type" value="pdf" />
+						<input type="hidden" name="data_type" value="user" />
+						<button type="submit">
+						  <i class="fa fa-file-pdf-o"></i> Export as Pdf
+						</button>
+					</div>
+			
+				{{ Form::close() }}
+
+				<!-- End -->
+			
+				<div class="clear"></div>
+
+			</div>
+		</div>
+		<div class="clear"></div>
+
 	<div id="user_tbl_container">
 		
 		<table class="table table-striped table-bordered table-hover"  id="user_table">
 			<thead>
 				<tr>
-					<th><input type="checkbox"></th>
+					<th class="no-sort"><input type="checkbox"></th>
 					<th>Id</th>					
 					<th>Name</th>
 					<th>Username</th>
 					<th>Email</th>
-					<th>Mobile No,</th>
+					<th>Mobile No.</th>
 					<th>Role</th>
 					<th>Last Login</th>
 				</tr>
@@ -83,54 +145,6 @@
 		
 	</div>
 
-	<div id="btn-export">
-	
-		<!-- Export as xls or excel -->	
-
-		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
-	
-			<div class="control-item submit-btn">
-				<input type="hidden" name="file_type" value="xls" />
-				<input type="hidden" name="data_type" value="user" />
-				{{ Form::submit('Export as Excel') }}
-			</div>
-	
-		{{ Form::close() }}
-
-		<!-- End -->
-
-		<!-- Export as csv -->	
-	
-		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
-	
-			<div class="control-item submit-btn">
-				<input type="hidden" name="file_type" value="csv" />
-				<input type="hidden" name="data_type" value="user" />
-				{{ Form::submit('Export as Csv') }}
-			</div>
-	
-		{{ Form::close() }}
-
-		<!-- End -->
-
-		<!-- Export as pdf -->	
-	
-		{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
-	
-			<div class="control-item submit-btn">
-				<input type="hidden" name="file_type" value="pdf" />
-				<input type="hidden" name="data_type" value="user" />
-				{{ Form::submit('Export as Pdf') }}
-			</div>
-	
-		{{ Form::close() }}
-
-		<!-- End -->
-	
-		<div class="clear"></div>
-
-	</div>
-	
 		<br>
 		
 	</div>
@@ -145,7 +159,13 @@
 
 	<script>
 	$(document).ready(function(){
-		$('#user_table').DataTable();
+		$('#user_table').DataTable( {
+	      "aoColumnDefs": [
+	          { 'bSortable': false, 'aTargets': [ 0 ] },
+	          { 'aaSorting': [ "desc"], 'aTargets': [ 6 ] }
+	       ]
+		});
+
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
 				$('td input[type=checkbox').prop('checked', true);

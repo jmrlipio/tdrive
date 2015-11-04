@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 @section('content')
 	@include('admin._partials.reports-nav')
-	<div class="item-listing" >
+	<div class="item-listing table" >
 		<h2>User Activity Logs</h2>
 		<br>
 		<table id="table">

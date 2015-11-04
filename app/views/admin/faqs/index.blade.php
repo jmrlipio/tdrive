@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	<div class="item-listing" id="faq-list">
+	<div class="item-listing table" id="faq-list">
 		<h2>FAQs</h2>
 		@if(Session::has('message'))
 		    <div class="flash-success">

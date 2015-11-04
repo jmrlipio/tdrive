@@ -61,20 +61,20 @@
             <ul>
                 @if(Auth::user()->role == 'admin')
                                
-                    <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>            
-                    <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>
+                    <li><a href="{{ URL::route('admin.games.index') }}"><i class="fa fa-gamepad"></i> Games</a></li>            
+                    <li><a href="{{ URL::route('admin.reports.index') }}"><i class="fa fa-file-text-o"></i> Reports</a></li>
 
                 @elseif(Auth::user()->role == 'editor') 
                    
-                    <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>
+                    <li><a href="{{ URL::route('admin.news.index') }}"><i class="fa fa-newspaper-o"></i> News</a></li>
 
                 @else
-                    <li><a href="{{ URL::route('admin.users.index') }}">Users</a></li>                
-                    <li><a href="{{ URL::route('admin.games.index') }}">Games</a></li>               
-                    <li><a href="{{ URL::route('admin.news.index') }}">News</a></li>        
-                    <li><a href="{{ URL::route('admin.reports.index') }}">Reports</a></li>               
-                    <li><a href="{{ URL::route('admin.general-settings') }}">Site Options</a></li>
-                    <li><a href="{{ URL::route('admin.faqs.index') }}">FAQ</a></li>
+                    <li><a href="{{ URL::route('admin.users.index') }}"><i class="fa fa-user"></i> Users</a></li>                
+                    <li><a href="{{ URL::route('admin.games.index') }}"><i class="fa fa-gamepad"></i> Games</a></li>               
+                    <li><a href="{{ URL::route('admin.news.index') }}"><i class="fa fa-newspaper-o"></i> News</a></li>        
+                    <li><a href="{{ URL::route('admin.reports.index') }}"><i class="fa fa-file-text-o"></i> Reports</a></li>               
+                    <li><a href="{{ URL::route('admin.general-settings') }}"><i class="fa fa-cogs"></i> Site Options</a></li>
+                    <li><a href="{{ URL::route('admin.faqs.index') }}"><i class="fa fa-question-circle"></i> FAQ</a></li>
                 @endif
 
             </ul>
