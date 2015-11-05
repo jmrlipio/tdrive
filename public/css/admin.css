@@ -64,7 +64,7 @@ header h1 { color: #fff; float: left; line-height: 80px; margin-left: 20px; }
 header img { float: left; height: 80px; width: 264px; }
 header a { color: #EECF40; }
 header h1 { float: left; }
-main { width: 82%; float: right; margin-top: 80px; background: #fff; min-height: calc(100% - 100px); }
+main { width: 88%; float: right; margin-top: 80px; background: #fff; min-height: calc(100% - 100px); }
 main h2 { font-size: 32px;}
 footer { min-height: 50px; background-color: #ccc; }
 .container { width: 80%; margin: 0 auto; }
@@ -77,7 +77,8 @@ form .error { display: inline-block; color: red; line-height: 30px; }
 form label { display: block; font-weight: bold; line-height: 30px; }
 input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 95%; }
 input[type="text"], input[type="email"], input[type="password"] { padding: 5px 10px; }
-input[type="submit"], #preview-game { background: #FFC0CB; color: #000; height: 40px; line-height: 40px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
+button[type="submit"], #preview-game { background: #e9548e; color: #fff; height: 30px; line-height: 30px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
+button[type="submit"]:hover, #preview-game:hover { background: #FFC0CB; color: #000;}
 input[type="submit"]:hover, a.mgmt-link:hover { background: #333; color: #fff; cursor: pointer; }
 button { background: #CE8342; color: #fff; height: 30px; line-height: 31px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 button:hover { background: #92523F; cursor: pointer; }
@@ -94,7 +95,7 @@ textarea { padding: 5px 10px; }
 .medium-form { width: 60%;  padding: 3%;  margin-top: 50px; }
 .large-form { width: 90%; padding: 3%; margin-top: 50px; }
 /* admin sidebar */
-#admin-panel { float: left; width: 18%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
+#admin-panel { float: left; width: 12%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
 #admin-panel ul li { width: 100%; display: block; }
 #admin-panel ul li a { display: block; line-height: 35px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
@@ -122,14 +123,16 @@ textarea { padding: 5px 10px; }
 /* item listing - index pages of tables */
 .item-listing, .profile { width: 90%; margin-top: 50px; }
 .item-listing table { width: 100%; margin: 0 auto;  }
-.item-listing th { background-color: lightyellow; line-height: 30px; padding: 5px 15px; text-align: left; border: 2px solid #fff; }
-.item-listing td { background-color: lightblue; line-height: 20px; padding: 5px 15px; border: 2px solid #fff; }
+.item-listing th { background-color: lightyellow; line-height: 30px; padding: 5px 15px; text-align: left; border: 1px solid #fff; }
+.item-listing td { background-color: lightblue; line-height: 20px; padding: 5px 15px; border: 1px solid #fff; }
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>td,.table-bordered>tbody>tr>th {border: 1px solid #fff !important;}
+
 .item-listing input[type=checkbox] { vertical-align: middle; cursor: pointer; }
 .item-listing td:hover a + ul { visibility: visible; opacity: 1; }
 .item-listing ul.actions { list-style: none; visibility: hidden; opacity: 0; transition: all 1s;}
 .item-listing ul.actions li { float: left; margin-right: 5px; }
 .item-listing ul.actions li a { color: #000; font-size: 0.8em; }
-.item-listing td > a { color: #E43C49; text-decoration:none;}
+.item-listing td > a { color: #337ab7; text-decoration:none;}
 
 textarea { width: 95%; resize: none; height: 150px; }
 
@@ -208,7 +211,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 .etabs { margin: 0; padding: 0; }
 .tab { display: inline-block; zoom:1; *display:inline; background: #eee; border: solid 1px #999; border-bottom: none; -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; }
-.tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; text-decoration: none; color: #E43C49; }
+.tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; text-decoration: none; color: #337ab7; }
 .tab.active { background: #fff; padding-top: 6px; position: relative; top: 1px; border-color: #ddd; }
 .tab a.active { font-weight: bold; }
 .tab-container .panel-container { background: #fff;  -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; padding: 10px; border: 1px solid #ddd; }
@@ -279,6 +282,7 @@ p#generated-password {
 	display: inline-block;
 	height: 30px;
 	margin: 10px 0px;
+	margin-right: 5px;
 }
 
 .simple-form {
@@ -727,7 +731,10 @@ a.custom-back:hover{
 }
 .table th,
 .dataTable {
-	background-color: #FFC0CB;
+	background-color: #337ab7;
+}
+.game-sales-div th, table.table th, .item-listing.table th {
+	color: #fff!important;
 }
 
 .dataTable td, .table td {
@@ -737,18 +744,23 @@ a.custom-back:hover{
 	overflow: hidden;
 }
 
-#faq-list tr:first-of-type th {
+/*#faq-list tr:first-of-type th {
 	background-color: #FFC0CB;
-}
+}*/
 #faq-list.item-listing td {
 	background-color: #f5f5f5;
 }
-#faq-list.item-listing td, #faq-list.item-listing th {
+/*#faq-list.item-listing td, #faq-list.item-listing th {
 	border: 1px solid #ddd;
-}
+}*/
 /*google analytics*/
 .chart-1 {
 	float: left;
 	width: 40%;
 	
 }
+/*data tables*/
+.dataTables_filter>label {
+	margin-bottom: 15px;
+}
+.no-sort { background : none!important; }

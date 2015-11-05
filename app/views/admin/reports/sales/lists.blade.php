@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 @section('content')
 	@include('admin._partials.reports-nav')
-	<div class="item-listing">
+	<div class="item-listing game-sales-div">
 		<h2>Game Sales</h2>
 		<br>
 		<table id="table">
@@ -21,7 +21,15 @@
 						<td style="width: 300px;">{{ $transaction->app->title }}</td>
 						<td style="width: 80px;" >{{ $transaction->app->carrier->carrier }}</td>
 						<td style="width: 280px;">{{ $transaction->app->language->language  }}</td>
-						<td style="width: 180px;"><a href="{{ URL::route('admin.users.show', $transaction->user->id) }}">{{ $transaction->user->username }}</td>
+						<td style="width: 180px;">
+							@if($transaction->user != null)
+								<a href="{{ URL::route('admin.users.show', $transaction->user->id) }}">
+									{{ $transaction->user->username }}
+								</a>
+							@else								
+									<i>User deleted.</i>								
+							@endif
+						</td>
 						<td style="width: 180px;">{{ $transaction->app->price}}</td>
 						<td style="width: 180px;">{{ $transaction->created_at}}</td>
 					</tr>

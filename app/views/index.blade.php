@@ -431,7 +431,7 @@
 			<div id="os-selection" class="select clearfix">
 				<!-- <input list="os-version" type="text" placeholder="select OS version"> -->
 				<select id="os-type" name="os-type" required>
-					<option value="">{{trans('global.Select OS')}}</option>
+					<option value="placeholder"  disabled selected hidden>{{trans('global.Select OS')}}</option>
 					<option value="iOS">iOS</option>
 					<option value="Android">{{ trans('global.Android') }}</option>
 				</select>
@@ -451,9 +451,7 @@
 			</div>
 
 			<div class="control clearfix">
-			<textarea name="message" id="message" placeholder="{{ trans('global.Time it happened:') }}
-{{ trans('global.Facebook/Game Account name:') }} 
-{{ trans('global.Device used (if possible):') }}" required></textarea>
+				<textarea name="message" id="message" placeholder="Time it happened / Facebook or Game Account / Device used" required></textarea>
 
 				{{ $errors->first('message', '<p class="form-error">:message</p>') }}
 			</div>
@@ -559,8 +557,14 @@
 	
 	@include('_partials/scripts')
 
-	<script>
+	<script>	
+		// $("#os-type").on('click', function() {
 
+		// 	$(this).('option').each(function() {
+		// 		if($(this).val()=="placeholder")
+		// 			$(this).hide();
+		// 	});
+		// });
 
        $('#contact form').submit(function(e) {
         	e.preventDefault();

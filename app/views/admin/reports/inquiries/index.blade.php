@@ -1,13 +1,13 @@
 @extends('admin._layouts.admin')
 @section('content')
 	@include('admin._partials.reports-nav')
-	<div class="item-listing" >
+	<div class="item-listing table" >
 		<h2>Inquiries</h2>
 		<br>
 		<table id="table">
 			<thead>
 			<tr>
-				<th><input type="checkbox"></th>
+				<th class="no-sort"><input type="checkbox"></th>
 				<th>Email</th>
 				<th>Name</th>
 				<th>Country</th>
@@ -80,7 +80,11 @@
 	<script>
 	
 	$(document).ready(function(){
-	    $('#table').DataTable();
+	    $('#table').DataTable({
+	    	"columnDefs": [
+			    { "width": "80px", "targets": 6 }
+			  ]
+	    });
 
 	    <?php if( Session::has('message') ) : ?>
 			var message = "{{ Session::get('message')}}";
