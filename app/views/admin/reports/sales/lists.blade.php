@@ -58,7 +58,9 @@
             $("#to").datepicker( "option", "minDate", minValue );
     	});
 
-    	 $('#table').DataTable();
+    	$('#table').DataTable({
+	        "order": [[ 5, "desc" ]]
+	    });
 
 	});
 	</script>

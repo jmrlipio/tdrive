@@ -36,7 +36,9 @@
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	<script>
 	$(document).ready(function() {
-    	 $('#table').DataTable();
+    	 $('#table').DataTable({
+	        "order": [[ 0, "desc" ]]
+	    });
 	});
 	</script>
 @stop

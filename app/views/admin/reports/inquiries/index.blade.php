@@ -83,7 +83,8 @@
 	    $('#table').DataTable({
 	    	"columnDefs": [
 			    { "width": "80px", "targets": 6 }
-			  ]
+			  ],
+			  "order": [[ 7, "desc" ]]
 	    });
 
 	    <?php if( Session::has('message') ) : ?>

@@ -35,7 +35,7 @@
 		<table class="table table-striped table-bordered table-hover"  id="review_table">
 			<thead>
 				<tr>
-					<th><input id="select-all" type="checkbox"></th>
+					<th class="no-sort"><input id="select-all" type="checkbox"></th>
 					<th>Game Title</th>
 					<th>Name</th>
 					<th>Approve</th>
@@ -176,7 +176,7 @@
 			*/
 
 			$('#review_table').dataTable({
-		        "order": [[ 6, "desc" ]]
+		        "order": [[ 5, "desc" ]]
 		    });
 
 		   $('#select-all').click(function(){			   

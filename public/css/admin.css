@@ -77,8 +77,8 @@ form .error { display: inline-block; color: red; line-height: 30px; }
 form label { display: block; font-weight: bold; line-height: 30px; }
 input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 95%; }
 input[type="text"], input[type="email"], input[type="password"] { padding: 5px 10px; }
-button[type="submit"], #preview-game { background: #e9548e; color: #fff; height: 30px; line-height: 30px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
-button[type="submit"]:hover, #preview-game:hover { background: #FFC0CB; color: #000;}
+input[type="submit"], button[type="submit"], #preview-game { background: #e9548e; color: #fff; height: 30px; line-height: 30px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
+input[type="submit"]:hover, button[type="submit"]:hover, #preview-game:hover { background: #FFC0CB; color: #000;}
 input[type="submit"]:hover, a.mgmt-link:hover { background: #333; color: #fff; cursor: pointer; }
 button { background: #CE8342; color: #fff; height: 30px; line-height: 31px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 button:hover { background: #92523F; cursor: pointer; }

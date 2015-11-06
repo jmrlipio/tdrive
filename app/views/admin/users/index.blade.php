@@ -163,7 +163,8 @@
 	      "aoColumnDefs": [
 	          { 'bSortable': false, 'aTargets': [ 0 ] },
 	          { 'aaSorting': [ "desc"], 'aTargets': [ 6 ] }
-	       ]
+	       ],
+	       "order": [[ 7, "desc" ]]
 		});
 
 		$('th input[type=checkbox]').click(function(){

@@ -69,8 +69,8 @@
 		$('[data-toggle="tooltip"]').tooltip()
 
 		$('#news_table').DataTable({
-		        "order": [[ 3, "desc" ]]
-		    });
+	        "order": [[ 4, "desc" ]]
+	    });
 
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
