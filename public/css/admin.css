@@ -55,8 +55,9 @@ h1 { font-size: 24px; }
 h2 { font-size: 18px; }
 h3 { font-size: 15px; font-weight: bold; }
 button { cursor: pointer; }
-a.mgmt-link { text-decoration: none; line-height: 30px; display: inline-block; width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
-
+a.mgmt-link,a.graph-link { font-size:14px; font-weight: normal; text-decoration: none; line-height: 30px; display: inline-block; min-width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
+a.graph-link { margin-bottom: 15px; background: #e9548e; }
+a.graph-link:hover { background: #FFC0CB; color: #000; }
 /* main sections */
 header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
 header div { padding: 10px; }
@@ -105,7 +106,7 @@ textarea { padding: 5px 10px; }
 #site-options li a { padding-left: 40px !important; }
 /*#options-link:hover ul { display: block;  }*/
 
-#user-menu { float: right; }
+#user-menu { float: right; line-height: 60px; }
 #dashboard { width: 100%; }
 #dashboard section { border: 1px solid #ccc; width: 25%; padding: 1%; border-radius: 3px; float: left; min-height: 200px;  margin: 10px; }
 #dashboard h2 { text-align: center; }
@@ -229,6 +230,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 #img-close { position: absolute; right: 5px; top: 5px; background: url('../images/close.png') no-repeat; background-size: 20px 20px; width:20px; height:20px; }
 
 .sub-nav { position: fixed; z-index: 10; width: 100%; height: 30px; padding: 0; margin: 0; background-color: #888; }
+.sub-nav.options li { width: 12.65%; }
 .sub-nav ul { list-style: none; }
 .sub-nav li { float: left; width: 13.65%; }
 .sub-nav li a { display: block; text-align: center; line-height: 30px; text-decoration: none; color: #fff; position: relative; }

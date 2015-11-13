@@ -3,7 +3,9 @@
 	@include('admin._partials.reports-nav')
 	<div class="item-listing game-sales-div">
 		<h2>Game Sales</h2>
-		<br>
+			<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">Game Sales Graph</a>
+		<br><br>
+		<div class="clear"></div>
 		<table id="table">
 			<thead>
 			<tr>
