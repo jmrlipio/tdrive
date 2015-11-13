@@ -5,7 +5,7 @@
 		<li><a href="{{ URL::route('admin.game-settings') }}">Game Page</a>
 			<ul class="dropdown">
 				<li><a href="{{ URL::route('admin.carriers.index')}}">Carriers</a></li>
-				<li><a href="">Game Variables</a></li>
+				<li><a href="{{URL::route('admin.game-settings')}}">Game Variables</a></li>
 			</ul>
 		</li>
 		<li><a href="{{ URL::route('admin.ip-filters') }}">IP Filters</a></li>
