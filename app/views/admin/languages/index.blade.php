@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	@include('admin._partials.game-nav')
+	@include('admin._partials.options-nav')
 	<div class="item-listing" id="languages-list">
 		<h2>Languages</h2>
 
