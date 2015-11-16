@@ -10,10 +10,10 @@
 		</li>
 		<li><a href="{{ URL::route('admin.ip-filters') }}">IP Filters</a></li>
 		<li><a href="{{ URL::route('admin.languages.index') }}">Languages</a></li>
-		<li><a href="{{ URL::route('admin.variables') }}">Variables</a>
+		<li><a href="#">Variables</a>
 			<ul class="dropdown">
 				<li><a href="{{ URL::route('admin.general-settings') }}">Website</a></li>
-				<li><a href="">Social Media</a></li>
+				<li><a href="{{ URL::route('admin.variables') }}">Social Media</a></li>
 			</ul>
 		</li>
 		<li><a href="">Mail Server Settings</a></li>

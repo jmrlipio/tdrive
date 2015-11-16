@@ -12,11 +12,6 @@
 		<h2>IP Address Whitelist</h2><br>
 		<p><i>IP Address Whitelist are list of IPs that can access the website in desktop view and can access all carrier.</i></p>
 		<br><br>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
 
 		<table class="table table-striped table-bordered table-hover" id="filter-table">
 			<thead>
@@ -39,7 +34,7 @@
 									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
 								{{ Form::close() }}
 							</td>
-							<td>{{ ($filter->added_by != null ? $filter->user->first_name. ' '. $filter->user->last_name : 'n/a') }}</td>
+							<td>{{ ($filter->added_by != 0 ? $filter->user->first_name. ' '. $filter->user->last_name : 'n/a') }}</td>
 							<td>{{ ($filter->created_at != null ? $filter->created_at : 'n/a') }}</td>
 						</tr>
 					@endforeach
@@ -57,6 +52,7 @@
 @stop
 
 @section('scripts')
+{{ HTML::script('js/toastr.js') }}
 {{ HTML::script('js/form-functions.js') }}
 {{ HTML::script('js/jquery.dataTables.js') }}
 {{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
