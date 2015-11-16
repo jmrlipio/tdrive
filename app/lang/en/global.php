@@ -115,6 +115,7 @@ return array(
 
 	//News Listing Blade (news_listing.blade.php)
 	'Latest news' => 'Latest news',
+	'news archive' => 'news archive',
 
 	//Payment Blade (payment.blade.php)
 	'Payment Information' => 'Payment Information',
