@@ -2,10 +2,10 @@
 	<ul>
 		<li><a href="{{ URL::route('admin.reports.sales.list') }}">Games</a>
 			<ul class="dropdown">
-				<li><a href="{{ URL::route('admin.reports.sales.list') }}">Game Sales</a></li>
-				<li><a href="{{ URL::route('admin.reports.downloads') }}">Game Downloads</a></li>
+				<li><a href="{{ URL::route('admin.reports.sales.list') }}">Sales Report</a></li>
+				<li><a href="{{ URL::route('admin.reports.downloads') }}">Download Report</a></li>
 				<li><a href="{{ URL::route('admin.reports.visitors.ratings') }}">Game Ratings</a></li>
-				<!-- <li><a href="{{ URL::route('admin.reports.sales.chart') }}">Graphs</a></li> -->
+				<li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Game Page Views</a></li>
 			</ul>
 		</li>
 		<li></li>
@@ -17,7 +17,7 @@
 		</li> -->
 		<li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Website</a>
 			<ul class="dropdown">
-				<li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Game Page Analytics</a></li>
+				<!-- <li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Game Page Analytics</a></li> -->
 				<li><a href="{{ URL::route('admin.reports.visitors.analytics') }}">Google Analytics</a></li>
 				<li><a href="{{ URL::route('admin.reports.adminlogs') }}">Admin Login Activity</a></li>
 				<li><a href="{{ URL::route('admin.reports.visitors.activity') }}">User Login Activity</a></li>

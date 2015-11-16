@@ -3,8 +3,7 @@
 	@include('admin._partials.reports-nav')
 	<div class="item-listing game-sales-div">
 		<h2>Game Sales</h2>
-			<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">Game Sales Graph</a>
-		<br><br>
+		<br>
 		<div class="clear"></div>
 		<table id="table">
 			<thead>
@@ -48,6 +47,7 @@
 	<script>
 	$(document).ready(function() {
 		// Date picker for Release Date
+
         $("#date_from").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
             var minValue = $(this).val();
             minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
@@ -65,6 +65,8 @@
     	$('#table').DataTable({
 	        "order": [[ 5, "desc" ]]
 	    });
+		var link = '<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">View Graphs</a>'
+		$("#table_length label").append(link);
 
 	});
 	</script>
