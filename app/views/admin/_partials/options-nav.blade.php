@@ -13,7 +13,7 @@
 		<li><a href="{{ URL::route('admin.variables') }}">Variables</a>
 			<ul class="dropdown">
 				<li><a href="{{ URL::route('admin.general-settings') }}">Website</a></li>
-				<li><a href="">Social Media</a></li>
+				<li><a href="{{ URL::route('admin.variables') }}">Social Media</a></li>
 			</ul>
 		</li>
 		<li><a href="{{ URL::route('admin.mail-settings') }}">Mail Server Settings</a></li>

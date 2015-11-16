@@ -57,6 +57,7 @@ h3 { font-size: 15px; font-weight: bold; }
 button { cursor: pointer; }
 a.mgmt-link,a.graph-link { font-size:14px; font-weight: normal; text-decoration: none; line-height: 30px; display: inline-block; min-width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
 a.graph-link { background: #e9548e; float: none; margin: 0; }
+a.mgmt-link:hover, a.graph-link:hover { text-decoration: none !important; }
 a.graph-link:hover { background: #FFC0CB; color: #000; }
 #table_length label { position: relative; color: white; }
 #table_length label a.graph-link { position: absolute; left: 80px; width: 100px; }
@@ -168,7 +169,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 #languages-list td:last-child, #languages-list th:last-child, #countries-list th:last-child, #carriers-list th:last-child { width: 90%; }
 #languages-list td:first-child, #carriers-list td:first-child, #languages-list th:first-child, #carriers-list th:first-child { width: 5% !important; }
-#faq-list a:hover { text-decoration: underline; }
+/*#faq-list a:hover { text-decoration: underline; }*/
 #login { background: #ccc; height: 100%; }
 #login form { position: relative; top: 120px; background: #fff; }
 
@@ -252,7 +253,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 .delete-form { border: 0; padding: 0; margin: 0; }
 .delete-btn { display: inline-block; padding: 0 !important; margin: 0 !important; border: none;  width: auto; line-height: 15px !important; height: 15px !important; background: none !important; font-size: 0.8em; /*text-decoration: underline;*/ color: #000 !important; }
 .edit-btn { display: inline-block; padding: 0 5px 0 0 !important; margin: 0 !important; border: none;  width: auto; line-height: 16px !important; height: 15px !important; background: none !important; font-size: 0.8em; text-decoration: underline; color: #606060 !important; }
-.actions .delete-btn:hover { text-decoration: underline; }
+/*.actions .delete-btn:hover { text-decoration: underline; }*/
 
 .flash-success, .flash-fail { height: 40px; width: 100%; text-align: center; }
 .flash-success p { color: green; line-height: 40px; }
