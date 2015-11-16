@@ -33,7 +33,8 @@ class RemindersController extends Controller {
 		
 		{
 			case Password::INVALID_USER:
-				return Redirect::back()->with('fail', Lang::get($response));
+				//return Redirect::back()->with('fail', Lang::get($response));
+				return Redirect::back()->with('fail', 'we can not find a user with that e-mail address.');
 
 			case Password::REMINDER_SENT:
 				//return Redirect::back()->with('status', Lang::get($response));

@@ -13,13 +13,13 @@
 
 	@if (Session::has('fail'))
 
-	  <p class="flash-fail">{{ Session::get('fail') }}</p>
+	  <p class="flash-fail">{{ trans('global.'.Session::get('fail')) }}</p>
 
 	@endif
 
 	@if(Session::has('success'))
 
-	  <h3 class="center flash-success">{{ Session::get('success') }}</h3>
+	  <h3 class="center flash-success">{{ trans('global.'.Session::get('success')) }}</h3>
 
 	@endif
 
