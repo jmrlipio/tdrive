@@ -2,7 +2,7 @@
 @section('content')
 	@include('admin._partials.reports-nav')
 	<div class="item-listing">
-		<h2>Admin Logs</h2>
+		<h2>Admin Login Activity</h2>
 		<br>
 		<table class="table table-striped table-bordered table-hover" id="logs_table">
 			<thead>

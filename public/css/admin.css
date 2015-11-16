@@ -45,7 +45,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
+ i.u-deleted, p.gray { color: gray ;}
 
 /* general styles */
 * { font-size: 14px; font-family: 'Arial'; }
@@ -451,6 +451,7 @@ p#generated-password {
 
 #ribbon, #sale {
 	margin-top: 10px;
+	margin-right: 10px;
 	width: 100px;
 	height: 100px;
 }
@@ -508,7 +509,7 @@ a#back {
 	margin-top: 10px;
 }
 
-#review_table .fa{ color: #FF7F00 !important;}
+#review_table .fa, #categories-list td .fa { color: #FF7F00 !important;}
 .ml5{margin-left: 5px;}
 .link{
 	color: #E43C49;
@@ -763,11 +764,13 @@ a.custom-back:hover{
 /*google analytics*/
 .chart-1 {
 	float: left;
-	width: 40%;
-	
+	margin-left: 0 !important;	
+	width: 100% !important;
 }
 /*data tables*/
 .dataTables_filter>label {
 	margin-bottom: 15px;
 }
 .no-sort { background : none!important; }
+
+#embed-api-auth-container { margin: 15px 0; }

@@ -84,6 +84,12 @@ class SiteOptionsController extends \BaseController {
 		return View::make('admin.game-settings')->with('settings', $game_settings);
 	}
 
+	public function showMailSettings() {
+		$game_settings = GameSetting::find(1);
+
+		return View::make('admin.mail-settings')->with('settings', $game_settings);
+	}
+
 	public function updateGameSettings($id) {
 		$game_settings = GameSetting::find($id);
 

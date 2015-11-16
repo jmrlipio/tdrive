@@ -108,6 +108,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('variables', array('as' => 'admin.variables', 'uses' => 'SiteOptionsController@showVariables'));
     Route::post('variables', array('as' => 'admin.variables.update', 'uses' => 'SiteOptionsController@updateVariables'));
     Route::get('game-settings', array('as' => 'admin.game-settings', 'uses' => 'SiteOptionsController@showGameSettings'));
+    Route::get('mail-settings', array('as' => 'admin.mail-settings', 'uses' => 'SiteOptionsController@showMailSettings'));
     Route::put('game-settings/{id}/edit', array('as' => 'admin.game-settings.update', 'uses' => 'SiteOptionsController@updateGameSettings'));
     Route::get('featured', array('as' => 'admin.featured', 'uses' => 'SiteOptionsController@showFeatured'));
     Route::post('featured', array('as' => 'admin.featured.update', 'uses' => 'SiteOptionsController@updateFeatured'));
