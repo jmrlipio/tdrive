@@ -115,6 +115,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('featured/categories', array('as' => 'admin.featured.categories.update', 'uses' => 'SiteOptionsController@updateCategories'));
 
     Route::get('ip-filters', array('as' => 'admin.ip-filters', 'uses' => 'SiteOptionsController@getIPfilters'));
+    Route::get('ip-filters/create', array('as' => 'admin.ip-filters.get-create', 'uses' => 'SiteOptionsController@getCreateIPfilters'));
     Route::post('ip-filters', array('as' => 'admin.ip-filters.create', 'uses' => 'SiteOptionsController@addIPfilters'));
     Route::delete('ip-filters/{id}', array('as' => 'admin.ip-filters.delete', 'uses' => 'SiteOptionsController@deleteIPFilter'));
 
