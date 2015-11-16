@@ -13,6 +13,7 @@
 				<th>Carrier</th>
 				<th>Language</th>
 				<th>User</th>
+				<th>Mobile No.</th>
 				<th>Price</th>
 				<th>Date</th>
 			</tr>
@@ -32,6 +33,7 @@
 									<i>User deleted.</i>								
 							@endif
 						</td>
+						<td>{{ ($transaction->user != null ? $transaction->user->mobile_no : '<i>User deleted.</i>') }}</td>
 						<td style="width: 180px;">{{ $transaction->app->price}}</td>
 						<td style="width: 180px;">{{ $transaction->created_at}}</td>
 					</tr>
