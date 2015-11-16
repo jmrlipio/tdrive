@@ -65,7 +65,7 @@ header h1 { color: #fff; float: left; line-height: 80px; margin-left: 20px; }
 header img { float: left; height: 80px; width: 264px; }
 header a { color: #EECF40; }
 header h1 { float: left; }
-main { width: 88%; float: right; margin-top: 80px; background: #fff; min-height: calc(100% - 100px); }
+main { width: 86%; float: right; margin-top: 80px; background: #fff; min-height: calc(100% - 100px); }
 main h2 { font-size: 32px;}
 footer { min-height: 50px; background-color: #ccc; }
 .container { width: 80%; margin: 0 auto; }
@@ -88,6 +88,7 @@ form.destroy input[type="submit"] { margin-left: 10px; background: #999; display
 form.destroy input[type="submit"]:hover { background: red; }
 form.login { width: 30%; }
 textarea { padding: 5px 10px; }
+.actions li a:hover { text-decoration: none; }
 #login form { margin: 0 auto 0; padding: 20px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .login p.error { text-align: center; }
 
@@ -96,18 +97,18 @@ textarea { padding: 5px 10px; }
 .medium-form { width: 60%;  padding: 3%;  margin-top: 50px; }
 .large-form { width: 90%; padding: 3%; margin-top: 50px; }
 /* admin sidebar */
-#admin-panel { float: left; width: 12%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
+#admin-panel { float: left; width: 14%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
 #admin-panel ul li { width: 100%; display: block; }
 #admin-panel ul li a { display: block; line-height: 35px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
 #admin-panel ul li a:hover { background-color: #2F3A40; }
-#admin-panel .fa { width: 20px; }
+#admin-panel .fa { width: 18px; }
 
 #site-options { display: none; /*-webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out;*/ }
 #site-options li a { padding-left: 40px !important; }
 /*#options-link:hover ul { display: block;  }*/
 
-#user-menu { float: right; line-height: 60px; }
+#user-menu { float: right; height: 35px; padding-top: 30px; }
 #dashboard { width: 100%; }
 #dashboard section { border: 1px solid #ccc; width: 25%; padding: 1%; border-radius: 3px; float: left; min-height: 200px;  margin: 10px; }
 #dashboard h2 { text-align: center; }
