@@ -1,7 +1,6 @@
 @extends('_layouts/single')
 @section('stylesheets')
 
-	<!-- REALLY?! remove and add in external -->
 	<style>
 		.name h1 {padding: 0 0 10px 0 !important; font-size: 24px;}
 		#profile .details > div {
@@ -49,11 +48,6 @@
 	<div class="container">
 		<div class="relative">
 			<div class="thumb media-box">
-			<!-- 	@if(Auth::user()->prof_pic != '')
-				<img src="{{ Request::root() }}/images/avatars/{{ Auth::user()->prof_pic }}" id="profile_img">
-			@else
-				<img src="{{ Request::root() }}/images/avatars/placeholder.jpg" id="profile_img">
-			@endif -->
 
 					{{ Form::open(array('files' => true, 'id' => 'update-media', 'class' => 'post-media-form')) }}
 							@if(Auth::user()->prof_pic != '')
@@ -75,19 +69,13 @@
 				<div class="name"><h1 class="title">{{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}}</h1></div>
 				<div class="email">{{{ Auth::user()->email }}}</div>
 				
-				<div class="update_account"><a href="{{ route('users.update.account') }}">{{ trans('global.Update Profile') }}</a></div>
+				<div class="update_account"><a href="{{ URL::route('users.update.account') }}">{{ trans('global.Update Profile') }}</a></div>
 				
-				<div class="change_password"><a href="{{ route('password.change') }}">{{ trans('global.Change Password') }}</a>
+				<div class="change_password"><a href="{{ URL::route('password.change') }}">{{ trans('global.Change Password') }}</a>
 				
-			<!-- 	{{ Form::open(array('route' => array('user.profile.change', Auth::user()->id), 'method' => 'post', 'files' => true, 'id' => 'update-media')) }}
-			
-				 {{ Form::file('image', array('onchange' => 'readURL(this);', 'required')) }}
-			
-				{{ Form::submit("Save", array("id" => "save-image")) }}
-			{{ Form::close()}} -->
 				</div>
 
-				<div class="transactions"><a href="{{ route('profile.transactions', Auth::user()->id) }}">{{ trans('global.Transactions') }}</a></div>
+				<div class="transactions"><a href="{{ URL::route('profile.transactions', Auth::user()->id) }}">{{ trans('global.Transactions') }}</a></div>
 
 			</div>
 		</div>
@@ -118,8 +106,6 @@
 				<p>{{ trans("global.You haven't bought any games yet.")}}</p>
 			@endif
 
-
-		<!-- <div id="loadmore" class="button center"><a href="#">{{ trans('global.More') }} +</a></div> -->
 		<div class="ajax-loader center"><i class="fa fa-cog fa-spin"></i> loading&hellip;</div>
 	</div>
 </div>
@@ -136,43 +122,6 @@
 	<script>
 		FastClick.attach(document.body);
 		var token = $('input[name="_token"]').val();
-		
-		/*function readURL(input) {
-		    if (input.files && input.files[0]) {
-		        var reader = new FileReader();
-		        reader.onload = function (e) {
-		            $('#profile_img').attr('src', e.target.result);
-		        };
-		        reader.readAsDataURL(input.files[0]);
-		   	}
-		}*/
-
-	/*	var load = 0;
-		var num = {{ $count }};
-		var page = {{ $page }};
-		var token = $('input[name="_token"]').val();
-
-		$(window).scroll(function() {
-			var bottom = 50;
-				if ($(window).scrollTop() + $(window).height() > $(document).height() - bottom) 
-				{
-					$.ajax({
-						url: "{{ URL::current() }}/downloaded/games",
-						type: "POST",
-						data: {
-							page: page,
-							_token: token
-						},
-
-						success: function(data) {
-							console.log(data);
-							page++;
-							$('#scrl').append(data);
-							$('.ajax-loader').hide();
-						}
-					});
-				}
-			});*/
 
 	</script>
 
