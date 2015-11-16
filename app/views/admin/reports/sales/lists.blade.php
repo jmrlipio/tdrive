@@ -2,7 +2,7 @@
 @section('content')
 	@include('admin._partials.reports-nav')
 	<div class="item-listing game-sales-div">
-		<h2>Game Sales</h2>
+		<h2>Sales Report</h2>
 		<br>
 		<div class="clear"></div>
 		<table id="table">
@@ -29,10 +29,10 @@
 									{{ $transaction->user->username }}
 								</a>
 							@else								
-									<i>User deleted.</i>								
+									<i class="u-deleted">User deleted</i>								
 							@endif
 						</td>
-						<td>{{ ($transaction->user != null ? $transaction->user->mobile_no : '<i>User deleted.</i>') }}</td>
+						<td>{{ ($transaction->user != null ? $transaction->user->mobile_no : '<i class="u-deleted">User deleted</i>') }}</td>
 						<td style="width: 180px;">{{ $transaction->app->price}}</td>
 						<td style="width: 180px;">{{ $transaction->created_at}}</td>
 					</tr>
@@ -63,7 +63,12 @@
     	});
 
     	$('#table').DataTable({
-	        "order": [[ 5, "desc" ]]
+	        "order": [[ 5, "desc" ]],
+        	"bAutoWidth": false,
+	        "aoColumnDefs": [
+	            { "sWidth": "7%", "aTargets": [ 5 ] },
+	            { "sWidth": "10%", "aTargets": [ 1,2,3 ] }
+	        ]
 	    });
 		var link = '<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">View Graphs</a>'
 		$("#table_length label").append(link);

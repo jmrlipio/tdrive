@@ -125,9 +125,6 @@
 										<a href="{{ URL::route('admin.games.edit.app', array('game_id' => $game->id, 'app_id' => $app->pivot->app_id)) }}" class='edit-btn fleft'>
 											Edit
 										</a>
-										<a href="{{ URL::route('admin.games.appslink.create', $app->id) }}" class='edit-btn fleft'>
-											Add links
-										</a>
 										{{ Form::open(array('route' => array('admin.games.delete.app', $game->id, $app->pivot->app_id), 'method' => 'delete', 'class' => 'delete-form')) }}
 											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
 										{{ Form::close() }}

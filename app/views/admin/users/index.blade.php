@@ -51,7 +51,7 @@
 						  <i class="fa fa-file-excel-o"></i> Export as Excel
 						</button>
 					</div>
-			
+
 				{{ Form::close() }}
 
 				<!-- End -->

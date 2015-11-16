@@ -8,7 +8,6 @@
 				<li><a href="{{ URL::route('admin.reports.visitors.statistics') }}">Game Page Views</a></li>
 			</ul>
 		</li>
-		<li></li>
 		<!-- <li><a href="{{ URL::route('admin.reports.adminlogs') }}">Logs</a>
 			<ul class="dropdown">
 				<li><a href="{{ URL::route('admin.reports.adminlogs') }}">Admin Logs</a></li>

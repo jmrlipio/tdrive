@@ -11,12 +11,14 @@
 		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
 		<table>
 			<tr>
+				<th class="no-sort"><input type="checkbox"></th>
 				<th>Question</th>
 				<th>Variants</th>
 			</tr>
 			@foreach($faqs as $faq)
 				
 					<tr>
+						<td><input type="checkbox"></td>
 						<td>
 							<a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">{{ $faq->main_question }}</a>
 							<ul class="actions">
@@ -31,8 +33,7 @@
 						</td>
 						<td>
 							@foreach($faq->languages as $fq)
-								<a href="{{ URL::route('admin.faqs.variant.edit', array('faq_id' => $faq->id, 'language_id' => $fq->id)) }}">{{ $fq->language }}</a>
-								
+								<a class="{{strtolower($fq->iso_code)}} flag-link" data-toggle="tooltip" data-placement="top" title="{{$fq->id}}" href="{{ URL::route('admin.faqs.variant.edit', array('faq_id' => $faq->id, 'language_id' => $fq->id)) }}"></a>
 							@endforeach
 						</td>
 					</tr>
@@ -45,4 +46,12 @@
 
 @section('scripts')
 	{{ HTML::script('js/form-functions.js') }}
+	
+		$('th input[type=checkbox]').click(function(){
+			if($(this).is(':checked')) {
+				$('td input[type=checkbox').prop('checked', true);
+			} else {
+				$('td input[type=checkbox').prop('checked', false);
+			}
+		});
 @stop
