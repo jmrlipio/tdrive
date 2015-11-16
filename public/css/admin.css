@@ -56,8 +56,11 @@ h2 { font-size: 18px; }
 h3 { font-size: 15px; font-weight: bold; }
 button { cursor: pointer; }
 a.mgmt-link,a.graph-link { font-size:14px; font-weight: normal; text-decoration: none; line-height: 30px; display: inline-block; min-width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
-a.graph-link { margin-bottom: 15px; background: #e9548e; }
+a.graph-link { background: #e9548e; float: none; margin: 0; }
 a.graph-link:hover { background: #FFC0CB; color: #000; }
+#table_length label { position: relative; color: white; }
+#table_length label a.graph-link { position: absolute; left: 80px; width: 100px; }
+
 /* main sections */
 header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
 header div { padding: 10px; }
