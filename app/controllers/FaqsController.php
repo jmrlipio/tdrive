@@ -129,6 +129,23 @@ class FaqsController extends \BaseController {
 			->with('sof', 'success');
 	}
 
+	public function multipleDestroy()
+	{
+		$ids = Input::get('ids');
+		//dd($ids);
+		foreach($ids as $id) {
+			$faq = Faq::find($id);
+			$faq->delete();
+
+			Event::fire('audit.faqs.delete', Auth::user());
+		}
+
+		return Redirect::route('admin.faqs.index')
+			->with('message', 'Faq deleted')
+			->with('sof', 'success');
+	}
+
+
 	public function addVariant($id) {
 		$faq = Faq::findOrFail($id);
 		$languages = [];

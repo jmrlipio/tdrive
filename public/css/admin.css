@@ -58,6 +58,8 @@ button { cursor: pointer; }
 a.mgmt-link,a.graph-link { font-size:14px; font-weight: normal; text-decoration: none; line-height: 30px; display: inline-block; min-width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
 a.graph-link { background: #e9548e; float: none; margin: 0; }
 a.mgmt-link:hover, a.graph-link:hover { text-decoration: none !important; }
+a.mgmt-link.del { background: #cc0001; float: left; }
+a.mgmt-link.del.disabled { background: gray; pointer-events: none; }
 a.graph-link:hover { background: #FFC0CB; color: #000; }
 #table_length label { position: relative; color: white; }
 #table_length label a.graph-link { position: absolute; left: 80px; width: 100px; }
@@ -740,7 +742,7 @@ a.custom-back:hover{
 }
 .table th,
 .dataTable {
-	background-color: #337ab7;
+	background-color: #337ab7 !important;
 }
 .game-sales-div th, table.table th, .item-listing.table th {
 	color: #fff!important;
@@ -772,6 +774,6 @@ a.custom-back:hover{
 .dataTables_filter>label {
 	margin-bottom: 15px;
 }
-.no-sort { background : none!important; }
-
+tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; width: 10px; width: 14px !important; padding: 5px 15px; vertical-align: initial; }
+#user_tbl_container .table>tbody>tr>td, #game_table.table>tbody>tr>td, #review_table.table>tbody>tr>td { padding: 5px 15px; }
 #embed-api-auth-container { margin: 15px 0; }

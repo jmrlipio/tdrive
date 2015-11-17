@@ -133,6 +133,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::delete('news/{id}/delete/variant/{language}', array('as' => 'admin.news.variant.delete', 'uses' => 'NewsController@deleteVariant'));
     
     Route::resource('faqs', 'FaqsController');
+    Route::post('faq/multiple-delete', array('as' => 'admin.faqs.multiple-delete', 'uses' => 'FaqsController@multipleDestroy'));
     Route::get('faq/{id}/variant', array('as' => 'admin.faqs.variant', 'uses' => 'FaqsController@addVariant'));
     Route::get('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.create', 'uses' => 'FaqsController@addVariant'));
     Route::post('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.store', 'uses' => 'FaqsController@storeVariant'));
