@@ -84,6 +84,12 @@ class SiteOptionsController extends \BaseController {
 		return View::make('admin.game-settings')->with('settings', $game_settings);
 	}
 
+	public function showMailSettings() {
+		$game_settings = GameSetting::find(1);
+
+		return View::make('admin.mail-settings')->with('settings', $game_settings);
+	}
+
 	public function updateGameSettings($id) {
 		$game_settings = GameSetting::find($id);
 
@@ -221,25 +227,37 @@ class SiteOptionsController extends \BaseController {
 		return Redirect::back()->with('message', 'You have successfully updated the featured categories.');
 	}
 
-	public function getIPfilters() {
+	public function getCreateIPfilters() {
+
+
+		return View::make('admin.ip-filters.create');
+	}
+
+	public function getIPfilters() 
+	{
 		$filters = IPFilter::all();
 
 		return View::make('admin.ip-filters')
 				->with(compact('filters'));
 	}
 
-	public function addIPfilters() {
+	public function addIPfilters() 
+	{
 
 		$validator = Validator::make($data = Input::all(), IPFilter::$rules);
-
+		date_default_timezone_set('Asia/Manila');
+		
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 		
-		$filter = IPFilter::create($data);
+		$filter = new IPFilter();
+		$filter->ip_address = Input::get('ip_address');
+		$filter->added_by = Auth::user()->id;
+		$filter->save();
 
-		return Redirect::back()->with('message', 'You have added an IP address.');
+		return Redirect::to('admin/ip-filters')->with('message', 'You have added an IP address.');
 	}
 
 	public function deleteIPFilter($id) {

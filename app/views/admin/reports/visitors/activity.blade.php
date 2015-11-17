@@ -2,7 +2,7 @@
 @section('content')
 	@include('admin._partials.reports-nav')
 	<div class="item-listing table" >
-		<h2>User Activity Logs</h2>
+		<h2>User Login Activity</h2>
 		<br>
 		<table id="table">
 			<thead>
@@ -36,7 +36,9 @@
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	<script>
 	$(document).ready(function() {
-    	 $('#table').DataTable();
+    	 $('#table').DataTable({
+	        "order": [[ 0, "desc" ]]
+	    });
 	});
 	</script>
 @stop

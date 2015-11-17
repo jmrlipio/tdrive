@@ -45,7 +45,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
+ i.u-deleted, p.gray { color: gray ;}
 
 /* general styles */
 * { font-size: 14px; font-family: 'Arial'; }
@@ -55,7 +55,14 @@ h1 { font-size: 24px; }
 h2 { font-size: 18px; }
 h3 { font-size: 15px; font-weight: bold; }
 button { cursor: pointer; }
-a.mgmt-link { text-decoration: none; line-height: 30px; display: inline-block; width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
+a.mgmt-link,a.graph-link { font-size:14px; font-weight: normal; text-decoration: none; line-height: 30px; display: inline-block; min-width: 120px; text-align: center; margin: 0 auto; float: right; background: #10B619; color: #fff; height: 30px; border: none; border-radius: 3px; padding: 0 5px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin: 10px 0;}
+a.graph-link { background: #e9548e; float: none; margin: 0; }
+a.mgmt-link:hover, a.graph-link:hover { text-decoration: none !important; }
+a.mgmt-link.del { background: #cc0001; float: left; }
+a.mgmt-link.del.disabled { background: gray; pointer-events: none; }
+a.graph-link:hover { background: #FFC0CB; color: #000; }
+#table_length label { position: relative; color: white; }
+#table_length label a.graph-link { position: absolute; left: 80px; width: 100px; }
 
 /* main sections */
 header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
@@ -64,7 +71,7 @@ header h1 { color: #fff; float: left; line-height: 80px; margin-left: 20px; }
 header img { float: left; height: 80px; width: 264px; }
 header a { color: #EECF40; }
 header h1 { float: left; }
-main { width: 88%; float: right; margin-top: 80px; background: #fff; min-height: calc(100% - 100px); }
+main { width: 86%; float: right; margin-top: 80px; background: #fff; min-height: calc(100% - 100px); }
 main h2 { font-size: 32px;}
 footer { min-height: 50px; background-color: #ccc; }
 .container { width: 80%; margin: 0 auto; }
@@ -77,8 +84,8 @@ form .error { display: inline-block; color: red; line-height: 30px; }
 form label { display: block; font-weight: bold; line-height: 30px; }
 input[type="text"], input[type="email"], input[type="password"], textarea { border: 1px solid #ccc; border-radius: 3px; width: 95%; }
 input[type="text"], input[type="email"], input[type="password"] { padding: 5px 10px; }
-button[type="submit"], #preview-game { background: #e9548e; color: #fff; height: 30px; line-height: 30px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
-button[type="submit"]:hover, #preview-game:hover { background: #FFC0CB; color: #000;}
+input[type="submit"], button[type="submit"], #preview-game { background: #e9548e; color: #fff; height: 30px; line-height: 30px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
+input[type="submit"]:hover, button[type="submit"]:hover, #preview-game:hover { background: #FFC0CB; color: #000;}
 input[type="submit"]:hover, a.mgmt-link:hover { background: #333; color: #fff; cursor: pointer; }
 button { background: #CE8342; color: #fff; height: 30px; line-height: 31px; border: none; border-radius: 3px; padding: 0 20px; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; margin-top: 10px; }
 button:hover { background: #92523F; cursor: pointer; }
@@ -87,6 +94,7 @@ form.destroy input[type="submit"] { margin-left: 10px; background: #999; display
 form.destroy input[type="submit"]:hover { background: red; }
 form.login { width: 30%; }
 textarea { padding: 5px 10px; }
+.actions li a:hover { text-decoration: none; }
 #login form { margin: 0 auto 0; padding: 20px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .login p.error { text-align: center; }
 
@@ -95,17 +103,18 @@ textarea { padding: 5px 10px; }
 .medium-form { width: 60%;  padding: 3%;  margin-top: 50px; }
 .large-form { width: 90%; padding: 3%; margin-top: 50px; }
 /* admin sidebar */
-#admin-panel { float: left; width: 12%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
+#admin-panel { float: left; width: 14%; background-color: #465A65; height: 100vh; position: fixed; top: 80px; padding-top: 20px; }
 #admin-panel ul { list-style: none; width: 100%; }
 #admin-panel ul li { width: 100%; display: block; }
 #admin-panel ul li a { display: block; line-height: 35px; text-decoration: none; color: #fff; padding-left: 20px; font-size: 1em;}
 #admin-panel ul li a:hover { background-color: #2F3A40; }
+#admin-panel .fa { width: 18px; }
 
 #site-options { display: none; /*-webkit-transition: display 2s ease-in-out; -moz-transition: display 2s ease-in-out; -o-transition: display 2s ease-in-out; transition: display 2s ease-in-out;*/ }
 #site-options li a { padding-left: 40px !important; }
 /*#options-link:hover ul { display: block;  }*/
 
-#user-menu { float: right; }
+#user-menu { float: right; height: 35px; padding-top: 30px; }
 #dashboard { width: 100%; }
 #dashboard section { border: 1px solid #ccc; width: 25%; padding: 1%; border-radius: 3px; float: left; min-height: 200px;  margin: 10px; }
 #dashboard h2 { text-align: center; }
@@ -162,7 +171,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 #languages-list td:last-child, #languages-list th:last-child, #countries-list th:last-child, #carriers-list th:last-child { width: 90%; }
 #languages-list td:first-child, #carriers-list td:first-child, #languages-list th:first-child, #carriers-list th:first-child { width: 5% !important; }
-#faq-list a:hover { text-decoration: underline; }
+/*#faq-list a:hover { text-decoration: underline; }*/
 #login { background: #ccc; height: 100%; }
 #login form { position: relative; top: 120px; background: #fff; }
 
@@ -229,6 +238,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 #img-close { position: absolute; right: 5px; top: 5px; background: url('../images/close.png') no-repeat; background-size: 20px 20px; width:20px; height:20px; }
 
 .sub-nav { position: fixed; z-index: 10; width: 100%; height: 30px; padding: 0; margin: 0; background-color: #888; }
+.sub-nav.options li { width: 12.65%; }
 .sub-nav ul { list-style: none; }
 .sub-nav li { float: left; width: 13.65%; }
 .sub-nav li a { display: block; text-align: center; line-height: 30px; text-decoration: none; color: #fff; position: relative; }
@@ -245,7 +255,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 .delete-form { border: 0; padding: 0; margin: 0; }
 .delete-btn { display: inline-block; padding: 0 !important; margin: 0 !important; border: none;  width: auto; line-height: 15px !important; height: 15px !important; background: none !important; font-size: 0.8em; /*text-decoration: underline;*/ color: #000 !important; }
 .edit-btn { display: inline-block; padding: 0 5px 0 0 !important; margin: 0 !important; border: none;  width: auto; line-height: 16px !important; height: 15px !important; background: none !important; font-size: 0.8em; text-decoration: underline; color: #606060 !important; }
-.actions .delete-btn:hover { text-decoration: underline; }
+/*.actions .delete-btn:hover { text-decoration: underline; }*/
 
 .flash-success, .flash-fail { height: 40px; width: 100%; text-align: center; }
 .flash-success p { color: green; line-height: 40px; }
@@ -444,6 +454,7 @@ p#generated-password {
 
 #ribbon, #sale {
 	margin-top: 10px;
+	margin-right: 10px;
 	width: 100px;
 	height: 100px;
 }
@@ -501,7 +512,7 @@ a#back {
 	margin-top: 10px;
 }
 
-#review_table .fa{ color: #FF7F00 !important;}
+#review_table .fa, #categories-list td .fa { color: #FF7F00 !important;}
 .ml5{margin-left: 5px;}
 .link{
 	color: #E43C49;
@@ -731,7 +742,7 @@ a.custom-back:hover{
 }
 .table th,
 .dataTable {
-	background-color: #337ab7;
+	background-color: #337ab7 !important;
 }
 .game-sales-div th, table.table th, .item-listing.table th {
 	color: #fff!important;
@@ -756,11 +767,13 @@ a.custom-back:hover{
 /*google analytics*/
 .chart-1 {
 	float: left;
-	width: 40%;
-	
+	margin-left: 0 !important;	
+	width: 100% !important;
 }
 /*data tables*/
 .dataTables_filter>label {
 	margin-bottom: 15px;
 }
-.no-sort { background : none!important; }
+tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; width: 10px; width: 14px !important; padding: 5px 15px; vertical-align: initial; }
+#user_tbl_container .table>tbody>tr>td, #game_table.table>tbody>tr>td, #review_table.table>tbody>tr>td { padding: 5px 15px; }
+#embed-api-auth-container { margin: 15px 0; }

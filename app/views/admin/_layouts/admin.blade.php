@@ -39,15 +39,6 @@
                     <a href="{{ URL::route('admin.users.show', Auth::user()->id) }}">{{ Auth::user()->first_name }}</a> | 
                     {{ link_to_route('admin.logout', 'Sign Out') }}                    
                 </p>
-                <p> 
-                    @if( Review::whereViewed(0)->count() >= 1 )
-                        <a href="{{ URL::route('admin.reviews.index')}}">{{ 'You have '. Review::whereViewed(0)->count() .' new notification(s)'}}</a>
-                    @else
-
-                        <a style="display:none" href="{{ URL::route('admin.reviews.index')}}"></a>
-
-                    @endif                   
-                </p>
             @else
                 <p>     
                     {{ HTML::link('users/signin', 'Sign In') }}
@@ -68,13 +59,21 @@
                    
                     <li><a href="{{ URL::route('admin.news.index') }}"><i class="fa fa-newspaper-o"></i> News</a></li>
 
-                @else
-                    <li><a href="{{ URL::route('admin.users.index') }}"><i class="fa fa-user"></i> Users</a></li>                
-                    <li><a href="{{ URL::route('admin.games.index') }}"><i class="fa fa-gamepad"></i> Games</a></li>               
-                    <li><a href="{{ URL::route('admin.news.index') }}"><i class="fa fa-newspaper-o"></i> News</a></li>        
-                    <li><a href="{{ URL::route('admin.reports.index') }}"><i class="fa fa-file-text-o"></i> Reports</a></li>               
-                    <li><a href="{{ URL::route('admin.general-settings') }}"><i class="fa fa-cogs"></i> Site Options</a></li>
-                    <li><a href="{{ URL::route('admin.faqs.index') }}"><i class="fa fa-question-circle"></i> FAQ</a></li>
+                @else            
+                    <li><a href="{{ URL::route('admin.games.index') }}"><i class="fa fa-gamepad"></i> Games</a></li>    
+                    <li><a href="{{ URL::route('admin.users.index') }}"><i class="fa fa-user"></i> Users</a></li>       
+                    <li><a href="{{ URL::route('admin.reports.inquiries') }}"><i class="fa fa-envelope"></i> Inquiries</a></li>    
+                    <li><a href="{{ URL::route('admin.news.index') }}"><i class="fa fa-newspaper-o"></i> News</a></li>          
+                    <li><a href="{{ URL::route('admin.faqs.index') }}"><i class="fa fa-question-circle"></i> FAQ</a></li>   
+                    <li>
+                        @if( Review::whereViewed(0)->count() >= 1 )
+                            <a href="{{ URL::route('admin.reviews.index')}}"><i class="fa fa-exclamation-triangle"></i> Notifications ({{Review::whereViewed(0)->count()}}) <i class="fa fa-exclamation"></i></a>
+                        @else
+                            <a href="{{ URL::route('admin.reviews.index')}}"><i class="fa fa-exclamation-triangle"></i> Notifications</a>
+                        @endif   
+                    </a></li>                 
+                    <li><a href="{{ URL::route('admin.reports.index') }}"><i class="fa fa-file-text-o"></i> Reports</a></li>    
+                    <li><a href="{{ URL::route('admin.featured') }}"><i class="fa fa-cogs"></i> Settings</a></li>
                 @endif
 
             </ul>

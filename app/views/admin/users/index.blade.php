@@ -51,7 +51,7 @@
 						  <i class="fa fa-file-excel-o"></i> Export as Excel
 						</button>
 					</div>
-			
+
 				{{ Form::close() }}
 
 				<!-- End -->
@@ -163,7 +163,8 @@
 	      "aoColumnDefs": [
 	          { 'bSortable': false, 'aTargets': [ 0 ] },
 	          { 'aaSorting': [ "desc"], 'aTargets': [ 6 ] }
-	       ]
+	       ],
+	       "order": [[ 7, "desc" ]]
 		});
 
 		$('th input[type=checkbox]').click(function(){

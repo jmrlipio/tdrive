@@ -1,6 +1,6 @@
 @extends('admin._layouts.admin')
 @section('content')
-	@include('admin._partials.reports-nav')
+
 	<div class="item-listing table" >
 		<h2>Inquiries</h2>
 		<br>
@@ -70,7 +70,6 @@
 		</tbody>
 		</table>
 
-		<a href="{{ URL::route('admin.reports.inquiries.settings') }}" class="mgmt-link" id="asettings">Autoresponder Settings</a>
 	</div>
 	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}	
@@ -83,7 +82,8 @@
 	    $('#table').DataTable({
 	    	"columnDefs": [
 			    { "width": "80px", "targets": 6 }
-			  ]
+			  ],
+			  "order": [[ 7, "desc" ]]
 	    });
 
 	    <?php if( Session::has('message') ) : ?>

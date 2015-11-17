@@ -45,13 +45,13 @@
 
 		<div class="control">
 			{{ Form::label('first_name', trans('global.first_name')) }}
-			{{ Form::text('first_name', null, array('class'=> 'form-control', 'required', 'placeholder' => Auth::user()->first_name)) }}
+			{{ Form::text('first_name', Auth::user()->first_name, array('class'=> 'form-control', 'required', 'placeholder' => Auth::user()->first_name)) }}
 			{{ $errors->first('first_name', '<p class="error">:message</p>') }}
 		</div>
 		
 		<div class="control">
 			{{ Form::label('last_name', trans('global.last_name')) }}
-			{{ Form::text('last_name', null, array('class'=> 'form-control', 'required', 'placeholder' => Auth::user()->last_name )) }}
+			{{ Form::text('last_name', Auth::user()->last_name, array('class'=> 'form-control', 'required', 'placeholder' => Auth::user()->last_name )) }}
 			{{ $errors->first('last_name', '<p class="error">:message</p>') }}
 		</div>
 
@@ -87,7 +87,7 @@
 
 		<div class="control">
 			{{ Form::label('mobile_no', trans('global.mobile_no')) }}
-			{{ Form::text('mobile_no', null, array('class' => 'mobile_no','maxlength'=>"12", 'placeholder' => $mobile)) }}
+			{{ Form::text('mobile_no', $mobile, array('class' => 'mobile_no','maxlength'=>"12", 'placeholder' => $mobile)) }}
 			{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
 		</div>
 		<div id="btn-submit">

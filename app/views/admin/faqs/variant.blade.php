@@ -10,28 +10,28 @@
 		@endif
 		<ul>
 			<li>
-				{{ Form::label('main_question', 'Main Question: ') }}
+				{{ Form::label('main_question', 'Main Question ') }}
 				<p>{{ $faq->main_question }}</p>
 				{{ $errors->first('main_question', '<p class="error">:message</p>') }}
 			</li>
 			<br>
 			<li>
-				{{ Form::label('language', 'Language:') }}
+				{{ Form::label('language', 'Language') }}
 		  		{{ Form::select('language_id', $languages) }}				
 				{{ $errors->first('language', '<p class="error">:message</p>') }}
 			</li>
 			<li>
-				{{ Form::label('question', 'Question: ') }}
+				{{ Form::label('question', 'Question ') }}
 				{{ Form::text('question') }}
 				{{ $errors->first('question', '<p class="error">:message</p>') }}
 			</li>
 			<li>
-				{{ Form::label('answer', 'Answer: ') }}
+				{{ Form::label('answer', 'Answer ') }}
 				{{ Form::textarea('answer', null, array('class' => 'answer')) }}
 				{{ $errors->first('answer', '<p class="error">:message</p>') }}
 			</li>
 			<li>
-				{{ Form::label('default', 'Set as Default:')}}
+				{{ Form::label('default', 'Set as Default')}}
 				{{ Form::checkbox('default', 'default') }}
 			</li>
 			<li>

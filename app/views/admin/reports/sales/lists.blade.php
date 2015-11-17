@@ -2,8 +2,9 @@
 @section('content')
 	@include('admin._partials.reports-nav')
 	<div class="item-listing game-sales-div">
-		<h2>Game Sales</h2>
+		<h2>Sales Report</h2>
 		<br>
+		<div class="clear"></div>
 		<table id="table">
 			<thead>
 			<tr>
@@ -11,6 +12,7 @@
 				<th>Carrier</th>
 				<th>Language</th>
 				<th>User</th>
+				<th>Mobile No.</th>
 				<th>Price</th>
 				<th>Date</th>
 			</tr>
@@ -27,9 +29,10 @@
 									{{ $transaction->user->username }}
 								</a>
 							@else								
-									<i>User deleted.</i>								
+									<i class="u-deleted">User deleted</i>								
 							@endif
 						</td>
+						<td>{{ ($transaction->user != null ? $transaction->user->mobile_no : '<i class="u-deleted">User deleted</i>') }}</td>
 						<td style="width: 180px;">{{ $transaction->app->price}}</td>
 						<td style="width: 180px;">{{ $transaction->created_at}}</td>
 					</tr>
@@ -44,6 +47,7 @@
 	<script>
 	$(document).ready(function() {
 		// Date picker for Release Date
+
         $("#date_from").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
             var minValue = $(this).val();
             minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
@@ -58,7 +62,16 @@
             $("#to").datepicker( "option", "minDate", minValue );
     	});
 
-    	 $('#table').DataTable();
+    	$('#table').DataTable({
+	        "order": [[ 5, "desc" ]],
+        	"bAutoWidth": false,
+	        "aoColumnDefs": [
+	            { "sWidth": "7%", "aTargets": [ 5 ] },
+	            { "sWidth": "10%", "aTargets": [ 1,2,3 ] }
+	        ]
+	    });
+		var link = '<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">View Graphs</a>'
+		$("#table_length label").append(link);
 
 	});
 	</script>

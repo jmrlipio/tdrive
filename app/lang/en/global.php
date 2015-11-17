@@ -60,6 +60,8 @@ return array(
 	'Password request has been submitted' => 'Password request has been submitted',
 	'Email not found' => 'Email not found',
 	'Resend verification code' => 'Resend verification code',
+	'Email sent to reset password' => 'Email sent to reset password',
+	'we can not find a user with that e-mail address.' => 'we can not find a user with that e-mail address.',
 
 	//404 Error Blade (404.blade.php)
 	'Page Not Found!' => 'Page Not Found!',
@@ -115,6 +117,7 @@ return array(
 
 	//News Listing Blade (news_listing.blade.php)
 	'Latest news' => 'Latest news',
+	'news archive' => 'news archive',
 
 	//Payment Blade (payment.blade.php)
 	'Payment Information' => 'Payment Information',
