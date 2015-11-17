@@ -260,12 +260,64 @@ class SiteOptionsController extends \BaseController {
 		return Redirect::to('admin/ip-filters')->with('message', 'You have added an IP address.');
 	}
 
-	public function deleteIPFilter($id) {
+	public function deleteIPFilter($id) 
+	{
 		$filter = IPFilter::find($id);
 
 		$filter->delete();
 		
 		return Redirect::back()->with('message', 'You have delete an IP address.');
 	}
+
+	public function showDebugSettings()
+	{
+		$debug_settings = Option::where('option_name','debug')->get();	
+		$app = App::environment();
+
+		return View::make('admin.debug-settings')
+			->with('debug_settings', $debug_settings);
+	}
+
+	/*public function updateDebugSettings()
+	{
+		$is_true = Input::get('settings');
+		$option = Option::where('option_name', 'debug')->get();
+		$_option = new Option;
+
+		if(count($option) == null)
+		{
+			$_option->option_name = 'debug';
+			$_option->option_value = $is_true;
+			$_option->save();
+			if($is_true == 0)
+			{
+				file_put_contents('../.env', 'APP_DEBUG=FALSE');
+			}
+			else
+			{
+				file_put_contents('../.env', 'APP_DEBUG=TRUE');
+			}
+			
+		}
+		else
+		{
+			$update_option = Option::find(Input::get('option_id'));
+
+			switch($is_true)
+			{
+				case '0':
+					$update_option->option_value = '0';					
+				break;
+
+				case '1':
+					$update_option->option_value = '1';
+				break;
+			}
+			$update_option->save();
+			
+		}
+
+		return Redirect::back()->with('message', 'Debug settings updated.');
+	}*/
 
 }

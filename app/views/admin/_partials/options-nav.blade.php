@@ -21,7 +21,6 @@
 				<li><a href="{{ URL::route('admin.mail-settings') }}">Mail Server Settings</a></li>
 				<li><a href="{{ URL::route('admin.reports.inquiries.settings') }}">Auto Responder</a></li>
 			</ul>
-		<li><a href="">Debug Mode</a></li>
 	</ul>
 </nav>
 <script>
