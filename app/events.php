@@ -4,20 +4,34 @@ Event::listen('user.*', function($user) {
 
 	if( Event::firing() == 'user.registered' )
 	{
-
-		Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $user->code), 'username' => $user->username), function ($message) use ($user){
-			$message->to($user->email, $user->username)			 
-			 ->subject('Welcome to Tdrive!');
-		});
+		try 
+		{
+			Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $user->code), 'username' => $user->username), function ($message) use ($user){
+				$message->to($user->email, $user->username)			 
+				 ->subject('Welcome to Tdrive!');
+			});
+		}
+		catch (Exception $e) 
+		{
+			echo $e->getMessage();
+		}
+		
 
 	}
 	elseif( Event::firing() == 'user.resend.code' )
 	{
-
-		Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $user->code), 'username' => $user->username), function ($message) use ($user){
-			$message->to($user->email, $user->username)			 
-			 ->subject('Activate your account');
-		});
+		try 
+		{
+			Mail::send('emails.auth.activate', array('link' => URL::route('account.activate', $user->code), 'username' => $user->username), function ($message) use ($user){
+				$message->to($user->email, $user->username)			 
+				 ->subject('Activate your account');
+			});
+		}
+		catch (Exception $e) 
+		{
+			echo $e->getMessage();
+		}
+		
 
 	}
 	return false;
