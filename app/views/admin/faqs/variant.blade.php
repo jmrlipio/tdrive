@@ -32,7 +32,7 @@
 			</li>
 			<li>
 				{{ Form::label('default', 'Set as Default')}}
-				{{ Form::checkbox('default', 'default') }}
+				{{ Form::select('default', array('0' => 'No', '1' => 'Yes')) }}
 			</li>
 			<li>
 				{{ Form::submit('Save') }}

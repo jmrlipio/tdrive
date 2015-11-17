@@ -5,25 +5,25 @@
 			<h2>Create News</h2>
 			<br>
 
-			<div class='panel-container'>
+			<div>
 				<ul id="content">
 					<li>
-						{{ Form::label('main_title', 'Main Title: ') }}
+						{{ Form::label('main_title', 'Main Title ') }}
 						{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 						{{ $errors->first('main_title', '<p class="error">:message</p>') }}
 					</li>
 					<li>
-						{{ Form::label('slug', 'Slug: ') }}
+						{{ Form::label('slug', 'Slug ') }}
 						{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
 						{{ $errors->first('slug', '<p class="error">:message</p>') }}
 					</li>
 					<li>
-						{{ Form::label('news_category', 'Category:') }}
+						{{ Form::label('news_category', 'Category') }}
 				  		{{ Form::select('news_category_id', $news_categories, null) }}				
 						{{ $errors->first('news_category', '<p class="error">:message</p>') }}
 					</li>
 					<li>
-						{{ Form::label('status', 'Status: ') }}
+						{{ Form::label('status', 'Status ') }}
 						{{ Form::select('status', array('1' => 'Draft', '2' => 'Live'))  }}
 						{{ $errors->first('status', '<p class="error">:message</p>') }}
 					</li>
@@ -40,12 +40,13 @@
 						{{ $errors->first('featured_image', '<p class="error">:message</p>') }}
 					</li>
 					<li>
-						{{ Form::label('homepage_image', 'Homepage Image:') }}
+						{{ Form::label('homepage_image', 'Homepage Image') }}
 						{{ Form::file('homepage_image') }}
 						{{ $errors->first('homepage_image', '<p class="error">:message</p>') }}
 					</li>
 				</ul>
 
+				<a class="custom-back" href="{{ URL::route('admin.news.index') }}">Back</a>
 				{{ Form::submit('Save', array('id' => 'save-news')) }}
 			</div>
 			{{ Form::hidden('user_id', Auth::user()->id) }}

@@ -2,8 +2,8 @@
 
 @section('content')
 	<ul id='game-content-form'>
-	{{ Form::open(array('route' => array('admin.news.variant.update', $news->id, $language_id), 'method' => 'put')) }}
-		<h3>Edit Variant</h3>
+	{{ Form::open(array('route' => array('admin.news.variant.update', $news->id, $language_id),'class' => 'large-form tab-container', 'method' => 'put')) }}
+		<h2>Edit Variant</h2>
 		<br>
 		<li>
 			{{ Form::label('main_title', 'Main Title:') }}
@@ -31,9 +31,9 @@
 
 		{{ Form::submit('Update Variant', array('class' => 'fleft')) }}
 	{{ Form::close() }}
-	
+	<div class="clear"></div>
 	{{ Form::open(array('route' => array('admin.news.variant.delete', $news->id, $language_id), 'method' => 'delete', 'class' => 'delete-form')) }}
-		{{ Form::submit('Delete', array('id' => 'delete-variant')) }}
+		{{ Form::submit('Delete', array('id' => 'delete-variant', 'class' => 'custom-back')) }}
 	{{ Form::close() }}
 	
 

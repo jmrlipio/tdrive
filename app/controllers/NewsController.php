@@ -320,6 +320,31 @@ class NewsController extends \BaseController {
 			->with('sof', 'failed');
 	}
 
+	public function multipleDestroy()
+	{
+		$ids = Input::get('ids');
+
+		foreach($ids as $id) {
+			$news = News::find($id);
+			$news->delete();
+			Event::fire('audit.news.delete', Auth::user());
+			
+			$featured_img = public_path().'/assets/news/'.$news->featured_image;
+			$homepage_img = public_path().'/assets/news/'.$news->homepage_image;
+
+			if($featured_img && $homepage_img)
+			{
+				File::delete($featured_img, $homepage_img);
+			}
+				
+		}
+
+		return Redirect::route('admin.news.index')
+			->with('message', 'News deleted')
+			->with('sof', 'success');
+	}
+
+
 	public function updateFields($id)
 	{
 		$news = News::find($id);
@@ -536,4 +561,6 @@ class NewsController extends \BaseController {
 			return Response::json(array('message'=>"update successful"));
 		}
 	}
+
+
 }

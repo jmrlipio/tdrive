@@ -70,7 +70,6 @@
 
         	if(confirm("Are you sure you want to remove this assignment?")) {
 				var ids = new Array();
-				checked = $('input[name="faq"]:checked');
 
 			    $('input[name="faq"]:checked').each(function() {
 			        ids.push($(this).attr("fq-id"));
