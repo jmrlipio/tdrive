@@ -61,8 +61,8 @@ a.mgmt-link:hover, a.graph-link:hover { text-decoration: none !important; }
 a.mgmt-link.del { background: #cc0001; float: left; }
 a.mgmt-link.del.disabled { background: gray; pointer-events: none; }
 a.graph-link:hover { background: #FFC0CB; color: #000; }
-#table_length label { position: relative; color: white; }
-#table_length label a.graph-link { position: absolute; left: 80px; width: 100px; }
+#table_length label, #news_table_length label { position: relative; color: white; }
+#table_length label a.graph-link, #news_table_length label a.graph-link { position: absolute; left: 80px; width: 100px; }
 
 /* main sections */
 header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
@@ -254,7 +254,7 @@ textarea { width: 95%; resize: none; height: 150px; }
 
 .delete-form { border: 0; padding: 0; margin: 0; }
 .delete-btn { display: inline-block; padding: 0 !important; margin: 0 !important; border: none;  width: auto; line-height: 15px !important; height: 15px !important; background: none !important; font-size: 0.8em; /*text-decoration: underline;*/ color: #000 !important; }
-.edit-btn { display: inline-block; padding: 0 5px 0 0 !important; margin: 0 !important; border: none;  width: auto; line-height: 16px !important; height: 15px !important; background: none !important; font-size: 0.8em; text-decoration: underline; color: #606060 !important; }
+.edit-btn { display: inline-block; padding: 0 5px 0 0 !important; margin: 0 !important; border: none;  width: auto; line-height: 16px !important; height: 15px !important; background: none !important; font-size: 0.8em; /*text-decoration: underline;*/ color: #606060 !important; }
 /*.actions .delete-btn:hover { text-decoration: underline; }*/
 
 .flash-success, .flash-fail { height: 40px; width: 100%; text-align: center; }
@@ -339,17 +339,17 @@ p#generated-password {
 }
 
 #game-content-form {
-	width: 80%;
+	/*width: 80%;
 	margin-top: 30px !important;
 	padding: 20px;
-	/*border: 1px solid #fff;*/
+	border: 1px solid #fff;
 	margin: 0 auto;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	border-radius: 5px;
+	border-radius: 5px;*/
 }
 
-#game-content-form h3, #game-content-form h4 {
+/*#game-content-form h3, #game-content-form h4 {
 	text-align: center;
 	padding: 5px;
 }
@@ -360,7 +360,7 @@ p#generated-password {
 
 #game-content-form input[type=text], #game-content-form textarea {
 	width: 97.5%;
-}
+}*/
 
 .small-text {
 	width: 30% !important;
@@ -531,12 +531,13 @@ a#back {
 }
 
 #delete-variant {
-	background: none;
-	color: #4288CE;
+	/*background: none;
+	color: #4288CE;*/
+	margin-left: 35px;
 }
 
 #delete-variant {
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 
 .fleft {
@@ -706,15 +707,15 @@ form .fw-li li {
   width: 100%;
   display: inline-block;
 }
-a.custom-back{
+a.custom-back, input.custom-back{
 	text-decoration: none; 
-	line-height: 40px; 
+	line-height: 30px; 
 	display: inline-block; 
 	width: 60px; 
 	text-align: center; 
 	background: #4288CE; 
 	color: #fff !important; 
-	height: 40px; 
+	height: 30px; 
 	border: none; 
 	border-radius: 3px; 
 	padding: 0 5px; 
@@ -775,6 +776,7 @@ a.custom-back:hover{
 	margin-bottom: 15px;
 }
 tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; width: 10px; width: 14px !important; padding: 5px 15px; vertical-align: initial; }
+
 #user_tbl_container .table>tbody>tr>td, #game_table.table>tbody>tr>td, #review_table.table>tbody>tr>td { padding: 5px 15px; }
 #embed-api-auth-container { margin: 15px 0; }
 
@@ -819,3 +821,6 @@ tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; 
     transition: all 0.5s ease-in-out;
     margin-top: 10px;
 }
+
+
+

@@ -4,16 +4,25 @@
 
 	<div class="item-listing" id="news-list">
 		<h2>News</h2>
-		<a href="{{ URL::route('admin.news.create') }}" class="mgmt-link">Create News</a>
 
+		@if(Session::has('message'))
+		    <div class="flash-success">
+		        <p>{{ Session::get('message') }}</p>
+		    </div>
+		@endif
+
+		<br><br>
+		{{ Form::label('cat', 'Type') }}
 		{{ Form::open(array('route' => 'admin.news.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
 			{{ Form::select('cat', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
 		{{ Form::close() }}
+		<a href="{{ URL::route('admin.news.create') }}" class="mgmt-link">Create News</a>
 		<br><br><br><br>
 
 		<table class="table table-striped table-bordered table-hover"  id="news_table">
 			<thead>
 				<tr>
+					<th class="no-sort"><input type="checkbox"></th>
 					<th>Title</th>
 					<th>Languages</th>
 					<th>Category</th>
@@ -24,6 +33,7 @@
 			<tbody>
 				@foreach($news as $data)					
 					<tr>
+						<td><input type="checkbox" name="news" news-id="{{$data->id}}"></td>
 						<td>
 							<a href="{{ URL::route('admin.news.edit', $data->id) }}">{{ $data->main_title }}</a>
 							<ul class="actions">
@@ -89,6 +99,50 @@
 			var success = '1';
 			getFlashMessage(success, message);
 		<?php endif; ?>
+
+		//multiple delete 
+		$('th input[type=checkbox]').click(function(){
+			if($(this).is(':checked')) {
+				$('td input[type=checkbox').prop('checked', true);
+			} else {
+				$('td input[type=checkbox').prop('checked', false);
+			}
+		});
+		$('#news_table input[type="checkbox"]').click(function(){
+			var checked = $('#news_table input[type="checkbox"]:checked');
+			if(checked.length > 0){
+				$("a.del").removeClass("disabled");
+			}else {
+				$("a.del").addClass("disabled");
+			}
+		});
+
+	    $(document).on('click', 'a.del', function() {
+	    	
+        	if(confirm("Are you sure you want to remove this news?")) {
+				var ids = new Array();
+
+			    $('input[name="news"]:checked').each(function() {
+			        ids.push($(this).attr("news-id"));
+			    });
+
+				$.ajax({
+					url: "{{ URL::route('admin.news.multiple-delete') }}",
+					type: "POST", 
+					data: { ids: ids },
+					success: function(response) {
+						location.reload();
+					},
+					error: function(response) {
+						console.log(response);
+					}
+				});
+			}
+			return false;
+	    });
+
+		var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
+		$("#news_table_length label").append(link);
 	});
 
 	</script>

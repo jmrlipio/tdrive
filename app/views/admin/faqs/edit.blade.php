@@ -36,7 +36,7 @@
 				</li>
 				<li>
 					{{ Form::label('default', 'Set as Default:')}}
-					{{ Form::checkbox('default', 'default', $default) }}
+					{{ Form::select('default', array('0' => 'No', '1' => 'Yes'), $default) }}
 				</li>
 				{{ Form::submit('Save', array('class' => 'fleft')) }}
 			{{ Form::close() }}

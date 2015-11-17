@@ -2,7 +2,7 @@
 @section('content')
 	@include('admin._partials.reports-nav')
 	<div class="item-listing table" id="categories-list">
-		<h2>Download Reports</h2>
+		<h2>Download Report</h2>
 		<br>
 		<table id="table">
 			<thead>
@@ -29,7 +29,12 @@
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	<script>
 	$(document).ready(function(){
-	    $('#table').DataTable();
-		});
+    	 $('#table').DataTable({
+        	"bAutoWidth": false,
+	        "aoColumnDefs": [
+	            { "sWidth": "18%", "aTargets": [ 1,2 ] }
+	        ]
+    	 });
+	});
 	</script>
 @stop
