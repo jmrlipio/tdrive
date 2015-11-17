@@ -119,6 +119,9 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('ip-filters', array('as' => 'admin.ip-filters.create', 'uses' => 'SiteOptionsController@addIPfilters'));
     Route::delete('ip-filters/{id}', array('as' => 'admin.ip-filters.delete', 'uses' => 'SiteOptionsController@deleteIPFilter'));
 
+    /*Route::get('debug-settings', array('as' => 'admin.debug-settings', 'uses' => 'SiteOptionsController@showDebugSettings'));
+    Route::post('set/debug-settings', array('as' => 'admin.debug-settings.update', 'uses' => 'SiteOptionsController@updateDebugSettings'));*/
+
     //added for admin reviews - transfer later on
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));
     Route::get('reviews', array('as' => 'admin.reviews.index', 'uses' => 'ReviewsController@admin_index'));

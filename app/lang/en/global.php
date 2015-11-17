@@ -37,6 +37,7 @@ return array(
 	'Transactions' => 'Transactions',
 	'Purchase History' => 'Purchase History',
 	'Select OS' => 'Select OS',
+	'Submit' => 'submit',
 
 
 	//Categories
