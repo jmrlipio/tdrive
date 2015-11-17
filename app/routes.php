@@ -31,6 +31,7 @@ Route::post('profile/{id}/change', array('as' => 'user.profile.change', 'uses' =
 
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
+Route::get('reviews/{id}/delete', array('as' => 'reviews.delete', 'uses' => 'ReviewsController@delete'));
 Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
 
 Route::group(array('before' => 'auth_trans'), function() {
@@ -101,6 +102,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('discounts/{id}/edit-media-post', array('as' => 'admin.discounts.postupdate-media', 'uses' => 'DiscountsController@updatePostMedia'));
     Route::post('news/{id}/edit-media-post', array('as' => 'admin.news.postupdate-media', 'uses' => 'NewsController@updatePostMedia'));
 
+    Route::post('news/multiple-delete', array('as' => 'admin.news.multiple-delete', 'uses' => 'NewsController@multipleDestroy'));
 
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));
@@ -136,6 +138,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::delete('news/{id}/delete/variant/{language}', array('as' => 'admin.news.variant.delete', 'uses' => 'NewsController@deleteVariant'));
     
     Route::resource('faqs', 'FaqsController');
+    Route::post('faq/multiple-delete', array('as' => 'admin.faqs.multiple-delete', 'uses' => 'FaqsController@multipleDestroy'));
     Route::get('faq/{id}/variant', array('as' => 'admin.faqs.variant', 'uses' => 'FaqsController@addVariant'));
     Route::get('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.create', 'uses' => 'FaqsController@addVariant'));
     Route::post('faq/{id}/create/variant', array('as' => 'admin.faqs.variant.store', 'uses' => 'FaqsController@storeVariant'));

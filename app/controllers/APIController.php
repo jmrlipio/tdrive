@@ -3,11 +3,6 @@
 class APIController extends \BaseController {
 
 
-	public function getUser($token, $app_id) 
-	{	
-
-	}
-
 	public function authorizeToken($token) 
 	{
 		$auth = Authentication::getUser($token);
@@ -117,7 +112,6 @@ class APIController extends \BaseController {
 		if($transaction) 
 		{
 			$url = 'http://106.187.43.219/tdrive_api/download.php?transaction_id=' . $transaction->transaction_id . '&receipt=' . $transaction->receipt_id  . '&uuid=' . Auth::user()->id;
-			$url ="http://106.187.43.219/tdrive_api/download.php?transaction_id=bdd694885efec39a89b514a511c390fc&receipt=1432550380797&uuid=1";
 			$response = file_get_contents($url);	
 			
 			if($response == '-1001' || $response == '-1') 

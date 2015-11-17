@@ -8,6 +8,7 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
+		<a href="#" class="mgmt-link del disabled">Delete Selected</a>
 		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
 		<table>
 			<tr>
@@ -18,7 +19,7 @@
 			@foreach($faqs as $faq)
 				
 					<tr>
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox" name="faq" fq-id="{{$faq->id}}"></td>
 						<td>
 							<a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">{{ $faq->main_question }}</a>
 							<ul class="actions">
@@ -44,9 +45,11 @@
 	</div>
 @stop
 
+
 @section('scripts')
 	{{ HTML::script('js/form-functions.js') }}
-	
+	<script>
+	$(document).ready(function(){
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
 				$('td input[type=checkbox').prop('checked', true);
@@ -54,4 +57,36 @@
 				$('td input[type=checkbox').prop('checked', false);
 			}
 		});
+		$('#faq-list input[type="checkbox"]').click(function(){
+			var checked = $('#faq-list input[type="checkbox"]:checked');
+			if(checked.length > 0){
+				$("a.del").removeClass("disabled");
+			}else {
+				$("a.del").addClass("disabled");
+			}
+		});
+
+	    $('a.del').on('click', function() {
+
+        	if(confirm("Are you sure you want to remove this assignment?")) {
+				var ids = new Array();
+
+			    $('input[name="faq"]:checked').each(function() {
+			        ids.push($(this).attr("fq-id"));
+			    });
+
+				$.ajax({
+					url: "{{ URL::route('admin.faqs.multiple-delete') }}",
+					type: "POST", 
+					data: { ids: ids },
+					success: function(response) {
+						location.reload();
+					}
+				});
+			}
+			return false;
+	    });
+
+	});
+	</script>
 @stop

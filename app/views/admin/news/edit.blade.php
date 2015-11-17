@@ -10,13 +10,43 @@
 		<h2>Edit News</h2>
 		<br>
 		<br>
-		<div class='panel-container'>
-			<ul id="content">				
+		<div>
+			<ul id="content">	
+
+				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
+					<li>
+						{{ Form::label('main_title', 'Title ') }}
+						{{ Form::text('main_title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}
+						{{ $errors->first('main_title', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('slug', 'Slug ') }}
+						{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
+						{{ $errors->first('slug', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('news_category', 'Category') }}
+				  		{{ Form::select('news_category_id', $news_categories, $news->news_category_id) }}				
+						{{ $errors->first('news_category', '<p class="error">:message</p>') }}
+					</li>
+					<li>
+						{{ Form::label('status', 'Status ') }}
+						{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
+						{{ $errors->first('status', '<p class="error">:message</p>') }}
+					</li>
+					<!--
+					<li>
+						{{-- Form::label('release_date', 'Release Date:') --}}
+						{{-- Form::text('release_date', null, array('id' => 'release_date')) --}}
+						{{-- $errors->first('release_date', '<p class="error">:message</p>') --}}
+					</li>
+					-->					
+
 					<li>
 
 						<?php $image = $news->featured_image; ?>
 						
-						{{ Form::label('featured_image', 'Featured Image: (1024x500)') }}
+						{{ Form::label('featured_image', 'Featured Image (1024x500)') }}
 
 						<div class="media-box" id="featured_imagec">
 							
@@ -39,7 +69,7 @@
 					<li>
 						<?php $homepage_image = $news->homepage_image; ?>
 						
-						{{ Form::label('homepage_image', 'Homepage Image: (1024x500)') }}
+						{{ Form::label('homepage_image', 'Homepage Image (1024x500)') }}
 
 						<div class="media-box" id="featured_imagec">
 							
@@ -59,36 +89,9 @@
 			            </div>
 						<div class="clear"></div>
 					</li>
-
-				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
-					<li>
-						{{ Form::label('main_title', 'Title: ') }}
-						{{ Form::text('main_title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}
-						{{ $errors->first('main_title', '<p class="error">:message</p>') }}
-					</li>
-					<li>
-						{{ Form::label('slug', 'Slug: ') }}
-						{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug ')) }}
-						{{ $errors->first('slug', '<p class="error">:message</p>') }}
-					</li>
-					<li>
-						{{ Form::label('news_category', 'Category:') }}
-				  		{{ Form::select('news_category_id', $news_categories, $news->news_category_id) }}				
-						{{ $errors->first('news_category', '<p class="error">:message</p>') }}
-					</li>
-					<li>
-						{{ Form::label('status', 'Status: ') }}
-						{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
-						{{ $errors->first('status', '<p class="error">:message</p>') }}
-					</li>
-					<!--
-					<li>
-						{{-- Form::label('release_date', 'Release Date:') --}}
-						{{-- Form::text('release_date', null, array('id' => 'release_date')) --}}
-						{{-- $errors->first('release_date', '<p class="error">:message</p>') --}}
-					</li>
-					-->					
+					
 					{{ Form::hidden('user_id', Auth::user()->id) }}
+					<a class="custom-back" href="{{ URL::route('admin.news.index') }}">Back</a>
 					{{ Form::submit('Save') }}
 				{{ Form::close() }}
 			</ul>

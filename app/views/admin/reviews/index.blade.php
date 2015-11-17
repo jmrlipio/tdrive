@@ -2,8 +2,8 @@
 
 @section('stylesheets')
 	<style>
-		button{ background: #4288CE !important; }
-		button:hover {background: #333333 !important; }
+		/*button{ background: #4288CE !important; }
+		button:hover {background: #333333 !important; }*/
 		
 		p.approved {color: green !important;}
 		p.pending {color: #555 !important;}
@@ -15,18 +15,19 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
 		<h2>Reviews</h2>
-
+		<div  class="fleft label-dropdown">
+			Games 
+		</div>
+		<div class="fleft ">
 		{{ Form::open(array('route' => 'admin.reviews.game','class' => 'simple-form', 'id' => 'submit-game', 'method' => 'get')) }}
 			{{ Form::select('selected_game', $games, $selected, array('class' => 'select-filter', 'id' => 'select-game')) }}
 		{{ Form::close() }}
-
-		<br>
-		<br>
-		<br>
-		<br>
+		</div>
+		<div class="clear"></div>
 
 
 	<div class="table-responsive">
+		<button id="delete-btn" class="btn-delete">Delete</button>
 	<form method="POST" action="{{ URL::route('admin.destroy.review') }}">
 		{{ Form::token() }}
 
@@ -38,7 +39,7 @@
 					<th class="no-sort"><input id="select-all" type="checkbox"></th>
 					<th>Game Title</th>
 					<th>Name</th>
-					<th>Approve</th>
+					<th>Status</th>
 					<th>Rating</th>
 					<th>Date Created</th>
 				</tr>
@@ -65,9 +66,8 @@
 
 							</a>
 							<ul class="actions">	
-
 								<li><a href="{{ URL::route('review.show', $review->id) }}">View</a></li>
-
+								<li><a class="red" href="{{ URL::route('reviews.delete', $review->id) }}">Delete</a></li>
 							</ul>
 							
 						</td>
@@ -94,7 +94,7 @@
 						</td>
 
 						<td>	
-							{{ $review->created_at }}			
+							{{ Carbon::parse($review->created_at)->format('M, j Y h:i A') }}			
 						</td>
 					</tr>
 				@endforeach				
@@ -103,7 +103,7 @@
 		@else
 			<p>No reviews</p>
 		@endif
-		<button id="delete-btn" type="submit">Delete</button>
+		
 	</div>
 		{{ $reviews->links() }}
 		<br>
@@ -149,6 +149,13 @@
 				$('#submit-game').trigger('submit');
 			});
 
+			if(!$("input[type='checkbox'].chckbox").is(':checked'))
+			{
+				$('#delete-btn').prop('disabled', true);
+				$('#delete-btn').addClass('btn-disabled');
+
+			}
+
 			$('#delete-btn').on('click', function(e) {				
 			    
 			    if($("input[type='checkbox'].chckbox").is(':checked')){
@@ -176,11 +183,13 @@
 			*/
 
 			$('#review_table').dataTable({
-		        "order": [[ 5, "desc" ]]
+		        "order": [[ 5, "desc" ]],
+		        "bLengthChange": false
 		    });
 
 		   $('#select-all').click(function(){			   
 		
+
 				if(this.checked) { // check select status
 
 					$('.chckbox').each(function() { //loop through each checkbox
@@ -196,9 +205,37 @@
 					    this.checked = false; //deselect all checkboxes with class "chckbox"  
 
 					});  
-				}    
+				}   
+				if(!$("input[type='checkbox'].chckbox").is(':checked'))
+				{
+					$('#delete-btn').prop('disabled', true);
+					$('#delete-btn').addClass('btn-delete-disabled');
+					$('#delete-btn').removeClass('btn-delete-enabled');
+				}
+				else 
+				{
+					$('#delete-btn').prop('disabled', false);
+					$('#delete-btn').removeClass('btn-delete-disabled');
+					$('#delete-btn').addClass('btn-delete-enabled');
+				}
 			      
-			}); 
+			});
+
+			$('.chckbox').change(function() {
+				if(!$("input[type='checkbox'].chckbox").is(':checked'))
+				{
+					$('#delete-btn').prop('disabled', true);
+					$('#delete-btn').addClass('btn-delete-disabled');
+					$('#delete-btn').removeClass('btn-delete-enabled');
+				}
+				else 
+				{
+					$('#delete-btn').prop('disabled', false);
+					$('#delete-btn').removeClass('btn-delete-disabled');
+					$('#delete-btn').addClass('btn-delete-enabled');
+				}
+
+			}) 
 
 
 		});
