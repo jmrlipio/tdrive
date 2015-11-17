@@ -4,7 +4,7 @@
 	<div class="item-listing table" >
 		<h2>Inquiries</h2>
 		<br>
-		<table id="table">
+		<table id="table" class="inquiries-table">
 			<thead>
 			<tr>
 				<th class="no-sort"><input type="checkbox"></th>
@@ -21,7 +21,8 @@
 
 			@foreach($inquiries as $inquiry)
 				<tr>
-					<td><input type="checkbox"></td>
+
+					<td><input name="inquiry" type="checkbox" inquiry-id="{{$inquiry->id}}"></td>
 					<td>
 						<a href="{{ URL::route('admin.reports.inquiries.show', $inquiry->id) }}">{{ $inquiry->email }}</a>
 						<ul class="actions">
@@ -79,6 +80,22 @@
 	<script>
 	
 	$(document).ready(function(){
+		$('th input[type=checkbox]').click(function(){
+			if($(this).is(':checked')) {
+				$('td input[type=checkbox').prop('checked', true);
+			} else {
+				$('td input[type=checkbox').prop('checked', false);
+			}
+		});
+		$('.inquiries-table input[type="checkbox"]').click(function(){
+			var checked = $('.inquiries-table input[type="checkbox"]:checked');
+			if(checked.length > 0){
+				$("a.del").removeClass("disabled");
+			}else {
+				$("a.del").addClass("disabled");
+			}
+		});
+
 	    $('#table').DataTable({
 	    	"columnDefs": [
 			    { "width": "80px", "targets": 6 }
@@ -92,6 +109,32 @@
 			getFlashMessage(success, message);
 		<?php endif; ?>
 
+	    $(document).on('click', 'a.del', function() {
+	    	
+        	if(confirm("Are you sure you want to remove this inquiry?")) {
+				var ids = new Array();
+
+			    $('input[name="inquiry"]:checked').each(function() {
+			        ids.push($(this).attr("inquiry-id"));
+			    });
+
+				$.ajax({
+					url: "{{ URL::route('admin.inquiry.multiple-delete') }}",
+					type: "POST", 
+					data: { ids: ids },
+					success: function(response) {
+						location.reload();
+					},
+					error: function(response) {
+						console.log(response);
+					}
+				});
+			}
+			return false;
+	    });
+
+		var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
+		$("#table_length label").html(link);
 	});
 	
 	</script>

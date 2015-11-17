@@ -71,7 +71,7 @@
 	        ]
 	    });
 		var link = '<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">View Graphs</a>'
-		$("#table_length label").append(link);
+		$("#table_length label").html(link);
 
 	});
 	</script>

@@ -62,7 +62,7 @@ a.mgmt-link.del { background: #cc0001; float: left; }
 a.mgmt-link.del.disabled { background: gray; pointer-events: none; }
 a.graph-link:hover { background: #FFC0CB; color: #000; }
 #table_length label, #news_table_length label { position: relative; color: white; }
-#table_length label a.graph-link, #news_table_length label a.graph-link { position: absolute; left: 80px; width: 100px; }
+#table_length label a.graph-link, #news_table_length label a.graph-link { position: absolute; width: 100px; }
 
 /* main sections */
 header { padding: 0; background: #cc0001; min-height: 80px; color: #fff; position: fixed; width: 100%; z-index: 100; }
@@ -778,3 +778,5 @@ a.custom-back:hover{
 tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; width: 10px; width: 14px !important; padding: 5px 15px; vertical-align: initial; }
 #user_tbl_container .table>tbody>tr>td, #game_table.table>tbody>tr>td, #review_table.table>tbody>tr>td, #news_table>tbody>tr>td { padding: 5px 15px; }
 #embed-api-auth-container { margin: 15px 0; }
+.show-inquiry li { margin: 5px 0; }
+.show-inquiry h3 span { font-weight: normal; }
