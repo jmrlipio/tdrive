@@ -31,6 +31,7 @@ Route::post('profile/{id}/change', array('as' => 'user.profile.change', 'uses' =
 
 
 Route::get('reviews/{id}', array('as' => 'reviews', 'uses' => 'ReviewsController@index'));
+Route::get('reviews/{id}/delete', array('as' => 'reviews.delete', 'uses' => 'ReviewsController@delete'));
 Route::post('review/{id}/{app_id}/post', array('as' => 'review.post', 'uses' => 'ReviewsController@postReview'));
 
 Route::group(array('before' => 'auth_trans'), function() {

@@ -244,6 +244,7 @@ class GamesController extends \BaseController {
 		//
 	}
 
+	/*deprecated*/
 	public function loadGameContent() 
 	{
 		$game = Game::find(Input::get('id'));
@@ -256,6 +257,7 @@ class GamesController extends \BaseController {
 		}
 	}
 
+	/*deprecated*/
 	public function loadGames() 
 	{
 		$games = Game::with('media')->get();
@@ -263,46 +265,11 @@ class GamesController extends \BaseController {
 		return $games->toJson();
 	}
 
-	public function getAPICarrier($id) {
 
-		// $url = 'http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id' . $id;
-
-		$ch = curl_init();
-		// curl_setopt($ch, CURLOPT_URL,'http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id=1');
-		curl_setopt($ch, CURLOPT_URL,'http://106.186.24.12/tdrive_api/select_carrier.php?app_id=1');
-		curl_setopt($ch, CURLOPT_FAILONERROR,1);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-		curl_setopt($ch, CURLOPT_SSLVERSION, 3);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-		$response = curl_exec($ch);    
-		curl_close($ch);
-
-		// $response = file_get_contents('http://122.54.250.228:60000/tdrive_api/select_carrier.php?app_id=1');
-
-		$xml = simplexml_load_string($response);
-
-		$values = $this->object2array($xml);
-
-		$carrier_ids = [];
-
-		foreach($xml as $crr) {
-			$carrier_ids[] = intval($crr->attributes()->id);
-		}
-
-		$carriers = [];
-
-		for($i = 0; $i < count($values['carrier']); $i++) {
-			$carriers[$carrier_ids[$i]] = $values['carrier'][$i];
-		}
-
-		return json_encode($carriers);
-	}
 
 	public function getCarrier() 
 	{
+		//dd('carrier');
 		$game = Game::find(Input::get('id'));
 		$languages = Language::all();
 
@@ -331,14 +298,20 @@ class GamesController extends \BaseController {
 
 	}
 
-
+	/**
+	 * Check for app purchase details.
+	 * POST games/{id}/carrier/details
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function getCarrierDetails($id) {	
-		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=' . $id . '&carrier_id=' . Input::get('carrier_id') . '&uuid=' . Auth::user()->id;
+
+		
 		$data = explode("-",Input::get('selected-carrier'));
 		$app_id = $data[0];
 		$carrier_id = $data[1];
 
-		//$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id=1&carrier_id=1&uuid=1';
 		$url = 'http://122.54.250.228:60000/tdrive_api/process_billing.php?app_id='.$app_id.'&carrier_id='.$carrier_id.'&uuid='.Auth::user()->id;
 		
 		$response = file_get_contents($url);
@@ -357,6 +330,14 @@ class GamesController extends \BaseController {
 			->with('app_id', $id);
 	}
 
+	/**
+	 * Check for app purchase details per user.
+	 * POST games/{id}/carrier/details
+	 *
+	 * @param  int  $_app_id
+	 * @param  int  $_uuid
+	 * @return Response
+	 */
 	private function getPurchaseStatus($_app_id, $_uuid) {
 		
 		$url = sprintf(Constant::API_PURCHASE_STATUS, $_uuid, $_app_id);
@@ -395,9 +376,6 @@ class GamesController extends \BaseController {
 				'status' => $values['transaction'][$l - 1]['status'],
 			);
 		}
-
-
-
 		return $arr;
 	}
 }

@@ -24,14 +24,14 @@
 
 	<div class="item-listing">
 		
-		<h2>Notifications</h2>		
+		<h2>Review Notification</h2>		
 		<br>
 
-		<p><strong>Game Title:</strong> {{ $review->game->main_title }}</p>	<br>	
+		<p><strong>Game Title:</strong> <br/>{{ $review->game->main_title }}</p>	<br/>	
 		
- 		<p><strong>Review by:</strong> {{ $review->user->first_name  }}</p> <br>
+ 		<p><strong>Review by:</strong> <br/>{{ $review->user->first_name  }}</p> <br/>
 
- 		<p><strong>Review:</strong> {{ $review->review }}</p> <br>
+ 		<p><strong>Review:</strong> <br/>{{ $review->review }}</p> <br/>
 
 
  		{{ Form::open(array('route' => 'review.approve', 'class' => 'login fl' )) }}
@@ -62,11 +62,11 @@
 			{{-- Form::submit('Disapprove') --}}
 			@if($review->status == '0')	
 				<div class="control-item submit-btn">	
-					<button type="submit" class="disapprove" disabled><i class="fa fa-times"></i></i>Disapprove</button>
+					<button type="submit" class="disapprove" disabled><i class="fa fa-times"></i></i>Reject</button>
 				</div>
 			@else
 				<div class="control-item submit-btn">	
-					<button type="submit" class="disapprove colorized"><i class="fa fa-times"></i></i>Disapprove</button>
+					<button type="submit" class="disapprove colorized"><i class="fa fa-times"></i></i>Reject</button>
 				</div>
 			
 			@endif

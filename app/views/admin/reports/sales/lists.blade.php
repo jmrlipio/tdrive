@@ -47,7 +47,7 @@
 	<script>
 	$(document).ready(function() {
 		// Date picker for Release Date
-
+				
         $("#date_from").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
             var minValue = $(this).val();
             minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
