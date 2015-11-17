@@ -97,11 +97,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsToMany('GamePrice', 'game_sales');
     }
 
-    public function ipfilters() {
-
-        return $this->hasMany('IPFilter');
-    }
-
     public static function updateLastLogin($id) 
     {
         $user = User::find($id);
@@ -110,6 +105,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $user->save();
 
         return $user;
+    }
+
+    public function ipfilters() {
+
+        return $this->hasMany('IPFilter');
     }
 
 }
