@@ -214,7 +214,7 @@ class AdminUsersController extends \BaseController {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password'))))
+        if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password') )))
         {
             //Audit log
             Event::fire('audit.login', Auth::user());

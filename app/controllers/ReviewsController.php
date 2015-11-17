@@ -116,6 +116,7 @@ class ReviewsController extends \BaseController {
     public function destroy($id)
 	{
 		$review = Review::find($id);
+
 		$all_games = Game::orderBy('main_title')->get();
 		$games = ['all' => 'All'];
 
@@ -135,6 +136,15 @@ class ReviewsController extends \BaseController {
 		return Redirect::route('admin.reviews.index')
 			->with('message', 'Review Deleted');
 
+	}
+
+	public function delete($id) 
+	{
+		dd('df');
+		$review = Review::find($id);
+		$review->delete();
+
+		return Redirect::back();
 	}
 
 	 public function handleDestroy() {
