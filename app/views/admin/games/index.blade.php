@@ -16,9 +16,13 @@
 		@endif
 
 		{{ Form::open(array('route' => 'admin.game.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
+			{{ Form::label('game_category', 'Category') }}
 			{{ Form::select('game_category', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
 		{{ Form::close() }}
-		<br><br><br><br>
+		
+		<button id="delete-btn" class="btn-delete">Delete Selected</button>
+		<form method="POST" action="{{ URL::route('admin.games.destroy') }}">
+		{{ Form::token() }}
 
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
 			<thead>
@@ -34,7 +38,7 @@
 			</thead>
 
 			<tbody>
-
+				
 				@foreach($games as $game)	
 					<tr>
 						<td><input type="checkbox"></td>
@@ -57,8 +61,9 @@
 						</td>
 						<td>
 							@foreach($game->categories as $gc)
-								{{ $gc->category }}
+								<a href="{{ Request::root().'/admin/game/categories?game_category='.$gc->id }}">{{ $gc->category. (count($game->categories) > 1 ? ',' : '') }}</a>								
 							@endforeach
+
 						</td>
 						<td>{{ $game->user->username }}</td>
 						<td>{{ $game->release_date }}</td>
@@ -67,7 +72,7 @@
 					</tr>
 				
 				@endforeach
-
+				<?php $ctr = 0; ?>
 			</tbody>
 		</table>
 
@@ -88,15 +93,49 @@
 	<script>
 	$(document).ready(function(){
 		$('#game_table').DataTable({
-	        "order": [[ 6, "desc" ]]
+	        "order": [[ 6, "desc" ]],
+	        "bLengthChange": false,
 	    });
 		$('th input[type=checkbox]').click(function(){
-			if($(this).is(':checked')) {
+			
+			if($(this).is(':checked')) 
+			{
 				$('td input[type=checkbox').prop('checked', true);
-			} else {
+			} 
+			else 
+			{
 				$('td input[type=checkbox').prop('checked', false);
 			}
+
+			if(!$("input[type='checkbox'].chckbox").is(':checked'))
+			{
+				$('#delete-btn').prop('disabled', true);
+				$('#delete-btn').addClass('btn-delete-disabled');
+				$('#delete-btn').removeClass('btn-delete-enabled');
+			}
+			else 
+			{
+				$('#delete-btn').prop('disabled', false);
+				$('#delete-btn').removeClass('btn-delete-disabled');
+				$('#delete-btn').addClass('btn-delete-enabled');
+			}
 		});
+
+		$('.chckbox').change(function() {
+			if(!$("input[type='checkbox'].chckbox").is(':checked'))
+			{
+				$('#delete-btn').prop('disabled', true);
+				$('#delete-btn').addClass('btn-delete-disabled');
+				$('#delete-btn').removeClass('btn-delete-enabled');
+			}
+			else 
+			{
+				$('#delete-btn').prop('disabled', false);
+				$('#delete-btn').removeClass('btn-delete-disabled');
+				$('#delete-btn').addClass('btn-delete-enabled');
+			}
+
+		}) 
 
 		$('#select-cat').on('change', function() {
 			$('#submit-cat').trigger('submit');
