@@ -3,7 +3,7 @@
 @section('content')
 	@include('admin._scripts.scripts')
 
-		{{ Form::open(array('route' => array('admin.games.update.app', $game->id, $app_id), 'class' => 'large-form tab-container game_form', 'target'=>'_self', 'id' => 'tab-container')) }}
+		{{ Form::open(array('route' => array('admin.games.update.app', $game->id, $app_id), 'class' => 'item-listing tab-container game_form', 'target'=>'_self', 'id' => 'tab-container')) }}
 			<div class='panel-container no-border'>
 				<h2>{{ $game->main_title }} App</h2>
 

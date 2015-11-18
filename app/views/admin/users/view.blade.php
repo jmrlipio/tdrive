@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-	<div class='large-form users-lf' id='tab-container'>
+	<div class='item-listing users-lf' id='tab-container'>
 
 		<div id="user-account" class="tab-container">
 

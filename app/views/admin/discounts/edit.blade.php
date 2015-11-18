@@ -7,7 +7,7 @@
 @section('content')
 	@include('admin._partials.game-nav')
 		
-		{{ Form::model($discount, array('route' => array('admin.discounts.update', $discount->id), 'method' => 'put', 'enctype'=> 'multipart/form-data', 'files' => true, 'id' => 'tab-container', 'class' => 'large-form tab-container')) }}
+		{{ Form::model($discount, array('route' => array('admin.discounts.update', $discount->id), 'method' => 'put', 'enctype'=> 'multipart/form-data', 'files' => true, 'id' => 'tab-container', 'class' => 'item-listing tab-container')) }}
 		<h2>Edit Discount</h2>
 		<br>
 

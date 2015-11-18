@@ -3,7 +3,7 @@
 @section('content')
 	@include('admin._partials.game-nav')
 
-		{{ Form::open(array('route' => 'admin.discounts.store', 'class' => 'large-form tab-container', 'id' => 'tab-container', 'files' => true, 'enctype'=> 'multipart/form-data')) }}
+		{{ Form::open(array('route' => 'admin.discounts.store', 'class' => 'item-listing tab-container', 'id' => 'tab-container', 'files' => true, 'enctype'=> 'multipart/form-data')) }}
 			<h2>Create New Discount</h2>
 			<br>
 			<div>

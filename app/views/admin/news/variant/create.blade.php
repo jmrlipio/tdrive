@@ -2,7 +2,7 @@
 
 @section('content')
 	
-	{{ Form::open(array('route' => array('admin.news.variant.store', $news->id), 'method' => 'post','class' => 'large-form tab-container', 'id' => 'game-content-form')) }}
+	{{ Form::open(array('route' => array('admin.news.variant.store', $news->id), 'method' => 'post','class' => 'item-listing tab-container', 'id' => 'game-content-form')) }}
 		<h2>Add Variant</h2>
 
 		@if(Session::has('message'))

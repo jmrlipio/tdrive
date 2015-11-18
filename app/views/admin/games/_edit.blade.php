@@ -12,7 +12,7 @@
 		    </div>
 		@endif
 		<br>
-		<div class='large-form tab-container' id='tab-container'>
+		<div class='item-listing tab-container' id='tab-container'>
 			<ul class='etabs'>
 				<li class='tab'><a href="#details">Details</a></li>
 				<li class='tab'><a href="#custom-fields">Custom Fields</a></li>
