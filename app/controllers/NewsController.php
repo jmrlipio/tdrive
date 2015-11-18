@@ -241,7 +241,7 @@ class NewsController extends \BaseController {
 	{
 		$news = News::find($id);
 
-		// dd(Input::all());
+		dd(Input::all());
 
 		$edit_rules = News::$rules;
 

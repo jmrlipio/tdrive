@@ -838,3 +838,15 @@ tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; 
 div.no-border{
 	border: none !important;
 }
+a.c-button{
+	margin-right: 5px;
+    width: auto;
+    padding: 0;
+}
+textarea#excerpt{
+	width: 97.8%;
+}
+
+select#currency_code{
+	width: 42.2%
+}
