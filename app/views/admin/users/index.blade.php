@@ -131,7 +131,10 @@
 						<td>{{ $user->email }}</td>
 						<td>{{ $user->mobile_no }}</td>
 						<td>{{ $user->role }}</td>
-						<td>{{ $user->last_login }}</td>
+						<td>
+							{{ Carbon::parse($user->last_login)->format('M j, Y') }} <br>
+							{{ Carbon::parse($user->last_login)->format('g:i A') }}
+						</td>
 					</tr>
 
 					@empty
@@ -162,9 +165,11 @@
 		$('#user_table').DataTable( {
 	      "aoColumnDefs": [
 	          { 'bSortable': false, 'aTargets': [ 0 ] },
-	          { 'aaSorting': [ "desc"], 'aTargets': [ 6 ] }
+	          { 'aaSorting': [ "desc"], 'aTargets': [ 7 ] }
 	       ],
-	       "order": [[ 7, "desc" ]]
+	       "oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            }
 		});
 
 		$('th input[type=checkbox]').click(function(){

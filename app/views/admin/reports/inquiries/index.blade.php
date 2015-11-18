@@ -64,7 +64,10 @@
 
 					@endif <!-- //END of first condition -->
 					
-					<td>{{ $inquiry->created_at }}</td>
+					<td>
+						{{ Carbon::parse($inquiry->created_at)->format('M j, Y') }} <br>
+						{{ Carbon::parse($inquiry->created_at)->format('g:i A') }}
+					</td>
 				</tr>
 			@endforeach
 			

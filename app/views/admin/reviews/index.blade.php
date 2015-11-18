@@ -92,9 +92,9 @@
 		                    @endfor      
 													
 						</td>
-
-						<td>	
-							{{ Carbon::parse($review->created_at)->format('M, j Y h:i A') }}			
+						<td>
+							{{ Carbon::parse($review->created_at)->format('M j, Y') }} <br>
+							{{ Carbon::parse($review->created_at)->format('g:i A') }}
 						</td>
 					</tr>
 				@endforeach				
@@ -184,7 +184,10 @@
 
 			$('#review_table').dataTable({
 		        "order": [[ 5, "desc" ]],
-		        "bLengthChange": false
+		        "bLengthChange": false,
+		        "oLanguage": {
+	                "sSearch": "<span>Search  </span> _INPUT_", //search
+	            }
 		    });
 
 		   $('#select-all').click(function(){			   

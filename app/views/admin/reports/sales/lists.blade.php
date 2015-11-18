@@ -34,7 +34,10 @@
 						</td>
 						<td>{{ ($transaction->user != null ? $transaction->user->mobile_no : '<i class="u-deleted">User deleted</i>') }}</td>
 						<td style="width: 180px;">{{ $transaction->app->price}}</td>
-						<td style="width: 180px;">{{ $transaction->created_at}}</td>
+						<td style="width: 180px;">
+							{{ Carbon::parse($transaction->created_at)->format('M j, Y') }} <br>
+							{{ Carbon::parse($transaction->created_at)->format('g:i A') }}
+						</td>
 					</tr>
 				@endforeach
 			</tbody>
@@ -67,8 +70,11 @@
         	"bAutoWidth": false,
 	        "aoColumnDefs": [
 	            { "sWidth": "7%", "aTargets": [ 5 ] },
-	            { "sWidth": "10%", "aTargets": [ 1,2,3 ] }
-	        ]
+	            { "sWidth": "10%", "aTargets": [ 1,2,3 ] },
+	        ],
+	        "oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            }
 	    });
 		var link = '<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">View Graphs</a>'
 		$("#table_length label").html(link);
