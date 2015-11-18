@@ -57,9 +57,15 @@
 					{{ $errors->first('price', '<p class="error">:message</p>') }}
 				</li>
 				<br>
+				<a class="pull-left mgmt-link c-button" href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Cancel</a>
+				{{ Form::submit('Save') }}
 			</div>
-			{{ Form::submit('Save') }}
+			
 		{{ Form::close() }}
+
+@stop
+
+@section('scripts')
 	
 	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
@@ -92,4 +98,5 @@
 	});
 
 	</script>
+
 @stop

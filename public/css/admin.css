@@ -844,3 +844,16 @@ div.no-border{
 .users-lf.large-form { margin-top: 0; }
 #login-history, #activity-history, div#purchase { margin-bottom: 45px; }
 .users-il .pull-left { width: 80%; }
+
+a.c-button{
+	margin-right: 5px;
+    width: auto;
+    padding: 0;
+}
+textarea#excerpt{
+	width: 97.8%;
+}
+
+select#currency_code{
+	width: 42.2%
+}

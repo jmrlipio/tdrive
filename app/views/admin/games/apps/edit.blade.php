@@ -69,7 +69,7 @@
 					{{ $errors->first('status', '<p class="error">:message</p>') }}
 				</li>
 				<br>
-				<a href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Back</a>
+				<a class="pull-left mgmt-link c-button" href="{{ URL::route('admin.games.edit', $game->id) . '#apps' }}">Cancel</a>
 
 				{{ Form::submit('Save', array('id' => 'save')) }} 
 				

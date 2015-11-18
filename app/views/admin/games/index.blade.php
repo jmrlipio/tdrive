@@ -62,13 +62,13 @@
 
 						</td>
 						<td>{{ $game->user->username }}</td>
-						<td>{{ $game->release_date }}</td>
-						<td>{{ $game->updated_at }}</td>						
+						<td><br>{{ Carbon::parse($game->release_date)->format('M j, Y') }}</td>
+						<td><br>{{ Carbon::parse($game->updated_at)->format('M j, Y g:i A') }}</td>						
 					
 					</tr>
 				
 				@endforeach
-				<?php $ctr = 0; ?>
+
 			</tbody>
 		</table>
 
@@ -90,6 +90,9 @@
 	$(document).ready(function(){
 		$('#game_table').DataTable({
 	        "order": [[ 6, "desc" ]],
+	        "oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            }
 	    });
 
 	    $('th input[type=checkbox]').click(function(){
@@ -103,6 +106,7 @@
 			}
 		});
 		 
+
 		$('#game_table input[type="checkbox"]').click(function(){
 			var checked = $('#game_table input[type="checkbox"]:checked');
 			
@@ -138,7 +142,7 @@
 							var success = '1';
 							getFlashMessage(success, message);
 						<?php endif; ?>
-						
+
 					},
 					error: function(response) {
 						console.log(response);
