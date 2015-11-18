@@ -62,7 +62,7 @@
 
 						</td>
 						<td>{{ $game->user->username }}</td>
-						<td><br>{{ Carbon::parse($game->release_date)->format('M j, Y') }}</td>
+						<td>{{ Carbon::parse($game->release_date)->format('M j, Y') }}</td>
 						<td>
 							{{ Carbon::parse($game->updated_at)->format('M j, Y') }} <br>
 							{{ Carbon::parse($game->updated_at)->format('g:i A') }}
