@@ -31,13 +31,19 @@
 		</table>
 		<div class="clear"></div>
 	</div>
-	{{ HTML::script('js/form-functions.js') }}
+
+@stop
+@section('scripts')
+{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 	<script>
 	$(document).ready(function() {
     	 $('#table').DataTable({
-	        "order": [[ 0, "desc" ]]
+	        "order": [[ 0, "desc" ]],
+	        "oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            }
 	    });
 	});
 	</script>
