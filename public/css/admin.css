@@ -825,3 +825,17 @@ tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; 
     margin-top: 10px;
 }
 #register div.control, form.edit-user li { padding: 5px 0; }
+
+#games-list select#select-cat {
+	margin: 0 10px 0 0;
+}
+#games-list label{
+	margin-top: 10px;
+}
+
+#games-list form#submit-cat{
+	margin-bottom: 30px;
+}
+div.no-border{
+	border: none !important;
+}

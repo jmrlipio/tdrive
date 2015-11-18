@@ -24,41 +24,41 @@
 					{{ Form::token() }}
 					{{ Form::model($game, array('route' => array('admin.games.update', $game->id), 'method' => 'put')) }}
 						<li>
-							{{ Form::label('id', 'Game ID:') }}
+							{{ Form::label('id', 'Game ID') }}
 							<p>{{ str_pad($game->id, 4, '0', STR_PAD_LEFT) }}</p>
 						</li>
 						<li>
-							{{ Form::label('main_title', 'Main Title: ') }}
+							{{ Form::label('main_title', 'Main Title') }}
 							{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 							{{ $errors->first('main_title', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('slug', 'Slug: ') }}
+							{{ Form::label('slug', 'Slug') }}
 							{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug')) }}
 							{{ $errors->first('slug', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('category_id', 'Categories: ') }}
+							{{ Form::label('category_id', 'Categories') }}
 							{{ Form::select('category_id[]', $categories, $selected_categories, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose category(s)...'))  }}
 							{{ $errors->first('category_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('status', 'Status: ') }}
+							{{ Form::label('status', 'Status') }}
 							{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 							{{ $errors->first('status', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('release_date', 'Release Date:') }}
+							{{ Form::label('release_date', 'Release Date') }}
 							{{ Form::text('release_date', null, array('id' => 'release_date')) }}
 							{{ $errors->first('release_date', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('downloads', 'Displayed Number of Downloads: ') }}
+							{{ Form::label('downloads', 'Displayed Number of Downloads') }}
 							{{ Form::text('downloads') }}
 							{{ $errors->first('downloads', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('default_price', 'Default Price: ') }}
+							{{ Form::label('default_price', 'Default Price') }}
 							{{ Form::text('default_price') }}
 						</li>
 						{{ Form::submit('Save', array('id' => 'save-game')) }}
@@ -141,7 +141,7 @@
 				</ul>
 				<ul id="media">
 						<li>
-							{{ Form::label('video', 'Video URL: ', array('class' => 'media-label')) }}
+							{{ Form::label('video', 'Video URL', array('class' => 'media-label')) }}
 							@foreach($selected_media as $media)
 								@if($media['type'] == 'video')
 									<?php $video = $media['media_url']; ?>
@@ -153,7 +153,7 @@
 						</li>
 						<div class="clear"></div>
 						<li>
-							{{ Form::label('promo', 'Promo Image: (1024x500)', array('class' => 'media-label')) }}
+							{{ Form::label('promo', 'Promo Image (1024x500)', array('class' => 'media-label')) }}
 							<input type="hidden" value="this is a text" name="promo-code" />
 							<div id="message"></div>
 								<?php $image = Media::getGameImages($game->id, 'promos'); ?>
@@ -176,7 +176,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('icon', 'Icon: (512x512)', array('class' => 'media-label')) }}
+							{{ Form::label('icon', 'Icon (512x512)', array('class' => 'media-label')) }}
 								<?php $image = Media::getGameImages($game->id, 'icons'); ?>
 									<div class="media-box media-icon" id="iconc">
 										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
@@ -197,7 +197,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('homepage', 'Homepage Image: (1024x768)', array('class' => 'media-label')) }}
+							{{ Form::label('homepage', 'Homepage Image (1024x768)', array('class' => 'media-label')) }}
 								<?php $image = Media::getGameImages($game->id, 'homepage'); ?>
 									<div class="media-box" id="homepagec">
 										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
@@ -218,13 +218,13 @@
 							<div class="clear"></div>
 						</li>
 						<li>
-							{{ Form::label('image_orientation', 'Orientation: ') }}
+							{{ Form::label('image_orientation', 'Orientation ') }}
 							{{ Form::select('image_orientation', array('portrait' => 'Portrait', 'landscape' => 'Landscape'), $game->image_orientation, array('id' => 'orientation'))  }}
 							{{ $errors->first('orientation', '<p class="error">:message</p>') }}
 						</li>
 						<li>
 							
-							{{ Form::label('screenshots', 'Screenshots: (portrait: 480x800, landscape: 800x480)') }}
+							{{ Form::label('screenshots', 'Screenshots (portrait 480x800, landscape 800x480)') }}
 							<div class="screenshot-box">
 								@foreach($selected_media as $media)
 									@if($media['type'] == 'screenshots')
@@ -258,7 +258,11 @@
 		</div>
 
 	@include('admin._partials.image-select')
-    {{ HTML::script('js/tinymce/tinymce.min.js') }}
+
+@stop
+
+@section('scripts')
+	{{ HTML::script('js/tinymce/tinymce.min.js') }}
 	{{ HTML::script('js/jquery.easytabs.min.js') }}
 	{{ HTML::script('js/ckeditor/ckeditor.js') }}
 	{{ HTML::script('js/chosen.jquery.js') }}
@@ -304,8 +308,10 @@
 		});
 
 		$('#tab-container > .etabs a').click(function() {
-			$('body').scrollTop(0);
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+     		return false;
 		});
+		
 
 	    $('#update-media').on('submit', function() {
 	    	$('.screenshot').each(function() {
@@ -473,5 +479,4 @@
 		});
 
     </script>
-
 @stop

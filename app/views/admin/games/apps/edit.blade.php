@@ -2,19 +2,19 @@
 
 @section('content')
 	@include('admin._scripts.scripts')
-	<article>
+
 		{{ Form::open(array('route' => array('admin.games.update.app', $game->id, $app_id), 'class' => 'large-form tab-container game_form', 'target'=>'_self', 'id' => 'tab-container')) }}
-			<div class='panel-container'>
-				<h3 class="center">{{ $game->main_title }} App</h3>
+			<div class='panel-container no-border'>
+				<h2>{{ $game->main_title }} App</h2>
 
 				<li>
-					{{ Form::label('title', 'Title:') }}	
+					{{ Form::label('title', 'Title') }}	
 					{{ Form::text('title', $values['title'], array('id' => 'title')) }}
 					{{ $errors->first('title', '<p class="error">:message</p>') }}
 				</li>
 				<li>
 
-					{{ Form::label('carrier_id', 'Carrier:') }}
+					{{ Form::label('carrier_id', 'Carrier') }}
 
 					<select name="carrier_id" id="carrier">
 						@foreach($carriers as $carrier)
@@ -26,7 +26,7 @@
 					{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('language_id', 'Language:') }}
+					{{ Form::label('language_id', 'Language') }}
 					<select name="language_id" id="language">
 						@foreach($languages as $language)
 							<?php $selected = ($language->id == $values['language_id']) ? 'selected' : ''; ?>
@@ -35,33 +35,33 @@
 					</select>
 				</li>
 				<li>
-					{{ Form::label('app_id', 'App ID:') }}	
+					{{ Form::label('app_id', 'App ID') }}	
 					{{ Form::text('app_id', $values['app_id'], array('id' => 'app_id')) }}
 					{{ $errors->first('app_id', '<p class="error">:message</p>') }}
 				</li>
 				
 				<li>
-					{{ Form::label('content', 'Content:') }}	
+					{{ Form::label('content', 'Content') }}	
 					{{ Form::textarea('content', $values['content'], array('id' => 'content')) }}
 					{{ $errors->first('content', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('excerpt', 'Excerpt:') }}	
+					{{ Form::label('excerpt', 'Excerpt') }}	
 					{{ Form::textarea('excerpt', $values['excerpt'], array('id' => 'excerpt')) }}
 					{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('currency_code', 'Currency:') }}
+					{{ Form::label('currency_code', 'Currency') }}
 			  		{{ Form::select('currency_code', $currencies, $values['currency_code']) }}				
 					{{ $errors->first('currency_code', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('price', 'Price: ') }}
+					{{ Form::label('price', 'Price') }}
 					{{ Form::text('price', $values['price']) }}
 					{{ $errors->first('price', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('status', 'Status: ') }}
+					{{ Form::label('status', 'Status') }}
 					<select name="status" c="{{ $values['status'] }}">
 						<option value="1" {{ ($values['status'] == 1 ) ? 'selected' : '' }}>Published</option>
 						<option value="2" {{ ($values['status'] != 1 ) ? 'selected' : '' }}>Draft</option>
@@ -75,12 +75,12 @@
 				
 				{{ Form::submit('Preview', array('id' => 'preview')) }}
 
-				<!-- <a href="{{ URL::route('admin.games.preview', array($game->id, $values['app_id'])) }}" target='blank') class="custom-back">Preview</a> -->
 			</div>
 			
 		{{ Form::close() }}	
-		
-	</article>
+@stop
+@section('scripts')
+
 	{{ HTML::script('js/toastr.js') }}
 	{{ HTML::script('js/form-functions.js') }}
 	<script type="text/javascript">
@@ -148,4 +148,5 @@
 		});
 
 	</script>
+@stop
 @stop

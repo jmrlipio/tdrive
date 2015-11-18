@@ -79,6 +79,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('users', 'AdminUsersController');
     Route::resource('games', 'AdminGamesController');
 
+
+    Route::post('games/multiple-delete', array('as' => 'admin.games.multiple-delete', 'uses' => 'AdminGamesController@multipleDestroy'));
     Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
     Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
     Route::post('games/{id}/edit-media-post', array('as' => 'admin.games.postupdate-media', 'uses' => 'AdminGamesController@updatePostMedia'));

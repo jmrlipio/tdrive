@@ -3,25 +3,17 @@
 @section('content')
 
 		{{ Form::open(array('route' => array('admin.games.store.app', $game->id), 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
-			<div class='panel-container'>
+			<div class='panel-container no-border'>
 				<h2>{{ $game->main_title }} App</h2>
 
-				@if(Session::has('message'))
-				    <div class="flash-success">
-				        <p>{{ Session::get('message') }}</p>
-				    </div>
-				@endif
-				<br>
 				<li>
-					{{ Form::label('title', 'Title:') }}	
+					{{ Form::label('title', 'Title') }}	
 					{{ Form::text('title', $game->main_title) }}
 					{{ $errors->first('title', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('carrier_id', 'Carrier:') }}
+					{{ Form::label('carrier_id', 'Carrier') }}
 					
-			  		<!-- {{ Form::select('carrier_id', $carriers, null, array('id' => 'carrier')) }}	 -->
-
 					<select name="carrier_id" id="carrier">
 						@foreach($carriers as $carrier)
 							<option value="{{ str_pad($carrier['id'], 2, '0', STR_PAD_LEFT) }}" >{{ $carrier['carrier'] }}</option>
@@ -31,7 +23,7 @@
 					{{ $errors->first('carrier_id', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('language_id', 'Language:') }}
+					{{ Form::label('language_id', 'Language') }}
 					<select name="language_id" id="language">
 						@foreach($languages as $language)
 							<option value="{{ str_pad($language->id, 2, '0', STR_PAD_LEFT) }}" data-isocode="{{ strtolower($language->iso_code) }}">{{ $language->language }}</option>
@@ -39,28 +31,28 @@
 					</select>
 				</li>
 				<li>
-					{{ Form::label('app_id', 'App ID:') }}	
+					{{ Form::label('app_id', 'App ID') }}	
 					{{ Form::text('app_id', null, array('id' => 'app_id')) }}
 					{{ $errors->first('app_id', '<p class="error">:message</p>') }}
 				</li>
 				
 				<li>
-					{{ Form::label('content', 'Content:') }}	
+					{{ Form::label('content', 'Content') }}	
 					{{ Form::textarea('content', null, array('id' => 'content')) }}
 					{{ $errors->first('content', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('excerpt', 'Excerpt:') }}	
+					{{ Form::label('excerpt', 'Excerpt') }}	
 					{{ Form::textarea('excerpt') }}
 					{{ $errors->first('excerpt', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('currency_code', 'Currency:') }}
+					{{ Form::label('currency_code', 'Currency') }}
 			  		{{ Form::select('currency_code', $currencies) }}				
 					{{ $errors->first('currency_code', '<p class="error">:message</p>') }}
 				</li>
 				<li>
-					{{ Form::label('price', 'Price: ') }}
+					{{ Form::label('price', 'Price') }}
 					{{ Form::text('price', $default_price) }}
 					{{ $errors->first('price', '<p class="error">:message</p>') }}
 				</li>
