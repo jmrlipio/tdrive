@@ -57,12 +57,8 @@
 					{{ Form::text('end_date', null, array('id' => 'end_date', 'class' => 'datepicker')) }}
 					{{ $errors->first('end_date', '<p class="error">:message</p>') }}
 				</li>
-				
-
-				<li>
-					{{ Form::submit('Save') }}
-				</li>			
-				
+							
+				{{ Form::close() }}
 				<li>
 					<?php $image = $discount->featured_image; ?>
 					
@@ -88,10 +84,14 @@
 					<div class="clear"></div>
 
 				</li>
+
+				<li>
+					{{ Form::submit('Save', array('class' => 'submit')) }}
+				</li>
 			</ul>
 		</div>
 
-	{{ Form::close() }}
+	
 
 @stop
 
