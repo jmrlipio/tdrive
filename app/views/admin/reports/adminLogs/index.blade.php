@@ -24,7 +24,10 @@
 
 						</td>
 						<td>{{ $log->activity }}</td>
-						<td>{{ $log->created_at }}</td>
+						<td>
+							{{ Carbon::parse($log->created_at)->format('M j, Y') }} <br>
+							{{ Carbon::parse($log->created_at)->format('g:i A') }}
+						</td>
 					</tr>
 				@endforeach
 			</tbody>
@@ -39,7 +42,13 @@
 	
 	<script>
 	(function(){
-		$('#logs_table').DataTable();
+		$('#logs_table').DataTable( {
+			"order": [[ 2, "desc" ]],
+	         "oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            }
+
+		});
 	})();
 	</script>
 @stop
