@@ -835,3 +835,6 @@ tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; 
 #games-list form#submit-cat{
 	margin-bottom: 30px;
 }
+div.no-border{
+	border: none !important;
+}

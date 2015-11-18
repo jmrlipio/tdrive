@@ -44,8 +44,7 @@
 			{{ Form::select('day', range(1,31), 0, array('id'=>'day')) }}
 			{{ Form::selectYear('year', 1940, $current_year, $current_year, ['class' => 'field','id'=>'year']) }}
 			{{ $errors->first('birthday', '<p class="error">:message</p>') }}
-			<!-- {{ Form::text('birthday', null, array('id' => 'birthday', 'class' => 'datepicker','placeholder' => 'YYYY-MM-DD')) }}
-			{{ $errors->first('birthday', '<p class="error">:message</p>') }} -->
+
 		</div>
 
 		<div class="control">
@@ -59,23 +58,13 @@
 			{{ Form::password('password', array('required')) }}
 		</div>
 		
-		<!--<input class="button button-pink" type="button" value="Generate password" onClick="randomString();"><br/>-->
-		
 		{{ $errors->first('password', '<p class="error">:message</p>') }}
 
 		<div class="control">
 			{{ Form::label('confirm password', trans('global.confirm password')) }}
 			{{ Form::password('password_confirmation') }}
 		</div>
-		
-		{{--
-		<div class="control">
-			{{ Form::label('prof_pic', 'Profile Image:') }}
-			{{ Form::file('prof_pic') }}
-			{{ $errors->first('homepage_image', '<p class="error">:message</p>') }}
-		</div>
-		--}}
-		
+
 		{{ Form::submit(trans('global.Create new account'), array('class' => 'no-radius')) }}
 
 	{{ Form::close() }}

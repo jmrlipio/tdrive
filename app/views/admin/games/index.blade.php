@@ -20,14 +20,10 @@
 			{{ Form::select('game_category', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
 		{{ Form::close() }}
 		
-		<button id="delete-btn" class="btn-delete">Delete Selected</button>
-		<form method="POST" action="{{ URL::route('admin.games.destroy') }}">
-		{{ Form::token() }}
-
-		<table class="table table-striped table-bordered table-hover"  id="game_table">
+		<table class="table table-striped table-bordered table-hover" id="game_table">
 			<thead>
 				<tr>
-					<th class="no-sort"><input type="checkbox"></th>
+					<th class="no-sort"><input id="select-all" type="checkbox"></th>
 					<th>Game Name</th>
 					<th>Status</th>
 					<th>Categories</th>
@@ -41,7 +37,7 @@
 				
 				@foreach($games as $game)	
 					<tr>
-						<td><input type="checkbox"></td>
+						<td><input name="game" type="checkbox" data-id="{{ $game->id }}"></td>
 						<td>
 							<a href="{{ URL::route('admin.games.edit', $game->id) }}">{{ $game->main_title }}</a>
 							@if(Auth::user()->role != 'admin')
@@ -94,10 +90,9 @@
 	$(document).ready(function(){
 		$('#game_table').DataTable({
 	        "order": [[ 6, "desc" ]],
-	        "bLengthChange": false,
 	    });
-		$('th input[type=checkbox]').click(function(){
-			
+
+	    $('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) 
 			{
 				$('td input[type=checkbox').prop('checked', true);
@@ -106,40 +101,60 @@
 			{
 				$('td input[type=checkbox').prop('checked', false);
 			}
-
-			if(!$("input[type='checkbox'].chckbox").is(':checked'))
+		});
+		 
+		$('#game_table input[type="checkbox"]').click(function(){
+			var checked = $('#game_table input[type="checkbox"]:checked');
+			
+			if(checked.length > 0)
 			{
-				$('#delete-btn').prop('disabled', true);
-				$('#delete-btn').addClass('btn-delete-disabled');
-				$('#delete-btn').removeClass('btn-delete-enabled');
+				$("a.del").removeClass("disabled");
 			}
 			else 
 			{
-				$('#delete-btn').prop('disabled', false);
-				$('#delete-btn').removeClass('btn-delete-disabled');
-				$('#delete-btn').addClass('btn-delete-enabled');
+				$("a.del").addClass("disabled");
 			}
+
 		});
 
-		$('.chckbox').change(function() {
-			if(!$("input[type='checkbox'].chckbox").is(':checked'))
-			{
-				$('#delete-btn').prop('disabled', true);
-				$('#delete-btn').addClass('btn-delete-disabled');
-				$('#delete-btn').removeClass('btn-delete-enabled');
-			}
-			else 
-			{
-				$('#delete-btn').prop('disabled', false);
-				$('#delete-btn').removeClass('btn-delete-disabled');
-				$('#delete-btn').addClass('btn-delete-enabled');
-			}
+		$(document).on('click', 'a.del', function() {
+	    	
+        	if(confirm("Are you sure you want to remove this game?")) {
+				var ids = new Array();
 
-		}) 
+			    $('input[name="game"]:checked').each(function() {
+			        ids.push($(this).attr("data-id"));
+			    });
 
+				$.ajax({
+					url: "{{ URL::route('admin.games.multiple-delete') }}",
+					type: "POST", 
+					data: { ids: ids },
+					success: function(response) {
+						
+						location.reload();
+						<?php if( Session::has('message') ) : ?>
+							var message = "{{ Session::get('message')}}";
+							var success = '1';
+							getFlashMessage(success, message);
+						<?php endif; ?>
+						
+					},
+					error: function(response) {
+						console.log(response);
+					}
+				});
+			}
+			return false;
+	    });
+
+		var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
+		$("#game_table_length label").html(link);
+		
 		$('#select-cat').on('change', function() {
 			$('#submit-cat').trigger('submit');
 		});
+
 		<?php if( Session::has('message') ) : ?>
 			var message = "{{ Session::get('message')}}";
 			var success = '1';

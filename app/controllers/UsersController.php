@@ -85,7 +85,6 @@ class UsersController extends \BaseController {
 
 
 /** 
-* Added by: Jone   
 * Purpose: For user registration
 * Date: 12/04/2014
 */

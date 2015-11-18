@@ -48,12 +48,6 @@ class AdminUsersController extends \BaseController {
 	{
 		$validator = Validator::make($data = Input::all(), User::$rules);
 
-		/*if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$user = User::create($data);*/
 		$user = new User;
 		$birthday = Input::get('year').'-'.Input::get('month').'-'.((int)Input::get('day') + 1);
 
