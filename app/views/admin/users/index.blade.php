@@ -28,7 +28,7 @@
 
 @section('content')
 
-	<div class="item-listing">
+	<div class="item-listing users-il">
 		<h2>Users</h2>
 		<br>
 	
@@ -36,10 +36,12 @@
 		<div class="pull-left">
 
 			<div id="btn-export">
-			
-				{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
-					{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
-				{{ Form::close() }}
+				<div>
+					{{ Form::label('role', 'Type: ') }}
+					{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
+						{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
+					{{ Form::close() }}
+				</div>
 				<!-- Export as xls or excel -->	
 
 				{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
@@ -163,13 +165,17 @@
 	<script>
 	$(document).ready(function(){
 		$('#user_table').DataTable( {
-	      "aoColumnDefs": [
-	          { 'bSortable': false, 'aTargets': [ 0 ] },
-	          { 'aaSorting': [ "desc"], 'aTargets': [ 7 ] }
-	       ],
-	       "oLanguage": {
+
+	      	"aoColumnDefs": [
+				{ 'bSortable': false, 'aTargets': [ 0 ] },
+				{ 'aaSorting': [ "desc"], 'aTargets': [ 7 ] },
+				{ "sWidth": "5%", "aTargets": [ 1 ] }
+	       	],
+	    	"bAutoWidth": false,
+	         "oLanguage": {
                 "sSearch": "<span>Search  </span> _INPUT_", //search
             }
+
 		});
 
 		$('th input[type=checkbox]').click(function(){
@@ -180,11 +186,24 @@
 			}
 		});
 
+		$('#user_table input[type="checkbox"]').click(function(){
+			var checked = $('#user_table input[type="checkbox"]:checked');
+			if(checked.length > 0){
+				$("a.del").removeClass("disabled");
+			}else {
+				$("a.del").addClass("disabled");
+			}
+		});
+
 		<?php if( Session::has('message') ) : ?>
 			var message = "{{ Session::get('message')}}";
 			var success = '1';
 			getFlashMessage(success, message);
 		<?php endif; ?>
+
+		var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
+		$("#user_table_length label").html(link);
+
 	});
 
 		/*var user_list = $('tr#list');
@@ -224,6 +243,8 @@
 		$('#select-role').on('change', function() {
 			$('#submit-role').trigger('submit');
 		});
+
+
 	</script>
 
 @stop

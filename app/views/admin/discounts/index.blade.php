@@ -6,9 +6,11 @@
 		<h2>Discounts</h2>
 
 		<a href="{{ URL::route('admin.discounts.create') }}" class="mgmt-link">Create Discount</a>
+		<div class="clear"></div>
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
 			<thead>
 				<tr>
+					<th class="no-sort"><input type="checkbox"></th>
 					<th>Discount Name</th>
 					<th>Carrier</th>
 					<th>Games</th>
@@ -22,6 +24,7 @@
 				@if(!$discounts->isEmpty())
 					@foreach($discounts as $discount)	
 						<tr>
+							<td><input type="checkbox" name="news" news-id="{{$discount->id}}"></td>
 							<td>
 								<a href="{{ URL::route('admin.discounts.edit', $discount->id) }}">{{ $discount->title }}</a>
 								@if(Auth::user()->role != 'admin')
@@ -57,13 +60,13 @@
 @stop
 
 @section('scripts')
+{{ HTML::script('js/jquery.dataTables.js') }}
+{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
 {{ HTML::script('js/toastr.js') }}
 {{ HTML::script('js/form-functions.js') }}
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	$('#game_table').DataTable();
 	
 	<?php if( Session::has('message') ) : ?>
 		var message = "{{ Session::get('message')}}";
@@ -86,6 +89,52 @@ $(document).ready(function(){
 	
 		getFlashMessage(success, message);
 	<?php endif; ?>
+
+	$('#game_table').dataTable();
+	
+	var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>';
+	$("#game_table_length label").html(link);
+
+	//multiple delete 
+	$('th input[type=checkbox]').click(function(){
+		if($(this).is(':checked')) {
+			$('td input[type=checkbox').prop('checked', true);
+		} else {
+			$('td input[type=checkbox').prop('checked', false);
+		}
+	});
+	$('#game_table input[type="checkbox"]').click(function(){
+		var checked = $('#game_table input[type="checkbox"]:checked');
+		if(checked.length > 0){
+			$("a.del").removeClass("disabled");
+		}else {
+			$("a.del").addClass("disabled");
+		}
+	});
+
+    $(document).on('click', 'a.del', function() {
+    	
+    	if(confirm("Are you sure you want to remove this discount?")) {
+			var ids = new Array();
+
+		    $('input[name="news"]:checked').each(function() {
+		        ids.push($(this).attr("news-id"));
+		    });
+
+			$.ajax({
+				url: "{{ URL::route('admin.discount.multiple-delete') }}",
+				type: "POST", 
+				data: { ids: ids },
+				success: function(response) {
+					location.reload();
+				},
+				error: function(response) {
+					console.log(response);
+				}
+			});
+		}
+		return false;
+    });
 
 });	
 </script>

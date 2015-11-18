@@ -129,7 +129,7 @@ class AdminUsersController extends \BaseController {
 		{
 			//$downloaded_games[] = $d->app;						
 			$data[] = $d->app;
-			$date[] = Carbon::parse($d->created_at)->format('M j Y');
+			$date[] = Carbon::parse($d->created_at)->format('M j, Y');
 			
 			$downloaded_games = array(
 				"data"=> $data,

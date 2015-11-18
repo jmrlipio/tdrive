@@ -132,7 +132,6 @@ class FaqsController extends \BaseController {
 	public function multipleDestroy()
 	{
 		$ids = Input::get('ids');
-		//dd($ids);
 		foreach($ids as $id) {
 			$faq = Faq::find($id);
 			$faq->delete();
