@@ -142,7 +142,7 @@
 	    });
 
 		var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
-		$("#news_table_length label").append(link);
+		$("#news_table_length label").html(link);
 	});
 
 	</script>

@@ -104,6 +104,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
 
     Route::post('news/multiple-delete', array('as' => 'admin.news.multiple-delete', 'uses' => 'NewsController@multipleDestroy'));
     Route::post('inquiry/multiple-delete', array('as' => 'admin.inquiry.multiple-delete', 'uses' => 'InquiriesController@multipleDestroy'));
+    Route::post('discount/multiple-delete', array('as' => 'admin.discount.multiple-delete', 'uses' => 'DiscountsController@multipleDestroy'));
 
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));
