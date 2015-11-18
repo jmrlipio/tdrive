@@ -103,6 +103,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('news/{id}/edit-media-post', array('as' => 'admin.news.postupdate-media', 'uses' => 'NewsController@updatePostMedia'));
 
     Route::post('news/multiple-delete', array('as' => 'admin.news.multiple-delete', 'uses' => 'NewsController@multipleDestroy'));
+    Route::post('inquiry/multiple-delete', array('as' => 'admin.inquiry.multiple-delete', 'uses' => 'InquiriesController@multipleDestroy'));
 
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));

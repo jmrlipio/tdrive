@@ -63,6 +63,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	$('#game_table').DataTable();
+	
 	<?php if( Session::has('message') ) : ?>
 		var message = "{{ Session::get('message')}}";
 		var status = "{{ Session::get('sof') }}"

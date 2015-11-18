@@ -7,7 +7,7 @@
 	<h2>Auto Responder Settings </h2>
 
 	<br>
-<div class='panel-container'>
+<div >
 		
 	<ul>
 		<li>

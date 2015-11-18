@@ -47,7 +47,7 @@
 	<script>
 	$(document).ready(function() {
 		// Date picker for Release Date
-
+				
         $("#date_from").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
             var minValue = $(this).val();
             minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
@@ -71,7 +71,7 @@
 	        ]
 	    });
 		var link = '<a href="{{ URL::route('admin.reports.sales.chart') }}"  class="pull-right graph-link">View Graphs</a>'
-		$("#table_length label").append(link);
+		$("#table_length label").html(link);
 
 	});
 	</script>
