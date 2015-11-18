@@ -13,7 +13,7 @@
 		<div>
 			<ul id="content">	
 
-				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
+				{{ Form::model($news, array('route' => array('admin.news.update', $news->id), 'method' => 'put', 'files'=>true, 'enctype'=> 'multipart/form-data', 'class' => 'editForm')) }}
 					<li>
 						{{ Form::label('main_title', 'Title ') }}
 						{{ Form::text('main_title', $news->main_title , array('id' => 'title', 'class' => 'slug-reference')) }}
@@ -34,16 +34,14 @@
 						{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 						{{ $errors->first('status', '<p class="error">:message</p>') }}
 					</li>
-					<!--
-					<li>
-						{{-- Form::label('release_date', 'Release Date:') --}}
-						{{-- Form::text('release_date', null, array('id' => 'release_date')) --}}
-						{{-- $errors->first('release_date', '<p class="error">:message</p>') --}}
-					</li>
-					-->					
+					
+					{{ Form::hidden('user_id', Auth::user()->id) }}
+
+				{{ Form::close() }}
+
+				<br/>
 
 					<li>
-
 						<?php $image = $news->featured_image; ?>
 						
 						{{ Form::label('featured_image', 'Featured Image (1024x500)') }}
@@ -89,11 +87,9 @@
 			            </div>
 						<div class="clear"></div>
 					</li>
-					
-					{{ Form::hidden('user_id', Auth::user()->id) }}
-					<a class="custom-back" href="{{ URL::route('admin.news.index') }}">Back</a>
-					{{ Form::submit('Save') }}
-				{{ Form::close() }}
+
+				<a class="custom-back" href="{{ URL::route('admin.news.index') }}">Back</a>
+				{{ Form::submit('Save', array('class' => 'submit')) }}
 			</ul>
 		</div>
 		
@@ -110,6 +106,10 @@
 		img_li;
 
 	$(document).ready(function() {
+
+		$(".submit").on('click', function() {
+			$(".editForm").submit();
+		});
 
 		<?php if( Session::has('message') ) : ?>
 			var message = "{{ Session::get('message')}}";

@@ -125,8 +125,8 @@ textarea { padding: 5px 10px; }
 #user-account, .item-listing, .review-listing { padding: 20px 10px 35px; width: 100%; margin: 0 auto; background-color: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 #user-account table.account-table { border-collapse: inherit !important; border-spacing: 2px !important;}
 #user-account td, #user-account th { padding: 5px; }
-#user-account tr:nth-child(even) {background: #E1E1E1}
-#user-account tr:nth-child(odd) {background: #FFC0CB}
+/*#user-account tr:nth-child(even) {background: #E1E1E1}
+#user-account tr:nth-child(odd) {background: #FFC0CB}*/
 #user-account h2 { text-align: left; margin: 10px 5px;}
 
 /* item listing - index pages of tables */
@@ -518,9 +518,10 @@ a#back {
 	color: #E43C49;
 	text-decoration: none;
 }
+/*
 .purchased_cont{width: 90%;}
 .purchased_games{width:100%;}
-
+*/
 #options-nav li {
 	width: 20.5%;
 }
@@ -839,3 +840,6 @@ tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; 
 div.no-border{
 	border: none !important;
 }
+.users-lf.large-form { margin-top: 0; }
+#login-history, #activity-history, div#purchase { margin-bottom: 45px; }
+.users-il .pull-left { width: 80%; }

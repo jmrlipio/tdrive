@@ -28,7 +28,7 @@
 
 @section('content')
 
-	<div class="item-listing">
+	<div class="item-listing users-il">
 		<h2>Users</h2>
 		<br>
 	
@@ -36,10 +36,12 @@
 		<div class="pull-left">
 
 			<div id="btn-export">
-			
-				{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
-					{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
-				{{ Form::close() }}
+				<div>
+					{{ Form::label('role', 'Type: ') }}
+					{{ Form::open(array('route' => 'admin.users.roles','class' => 'simple-form', 'id' => 'submit-role', 'method' => 'get')) }}
+						{{ Form::select('role', $roles, $selected, array('class' => 'select-filter', 'id' => 'select-role')) }}
+					{{ Form::close() }}
+				</div>
 				<!-- Export as xls or excel -->	
 
 				{{ Form::open(array('route' => 'admin.export.selectedDB', 'class' => 'login fl' )) }}
