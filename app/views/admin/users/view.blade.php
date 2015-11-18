@@ -2,7 +2,7 @@
 
 @section('content')
 	<div id="user-account">
-		<h2>Account Information</h2>
+		<h2>{{ $user->username }}</h2>
 		<table border="1" class="account-table">
 			<tr>
 				<td><strong>Email:</strong></td>

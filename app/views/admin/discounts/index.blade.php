@@ -92,7 +92,7 @@ $(document).ready(function(){
 
 	$('#game_table').dataTable();
 	
-	var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
+	var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>';
 	$("#game_table_length label").html(link);
 
 	//multiple delete 
