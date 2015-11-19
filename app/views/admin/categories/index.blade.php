@@ -2,7 +2,6 @@
 
 @section('content')
 	@include('admin._partials.game-nav')
-	<!-- <div class="item-listing" id="categories-list"> -->
 	<div class="item-listing">
 		<h2>Categories</h2>
 		
@@ -16,7 +15,6 @@
 			<table class="table table-striped table-bordered table-hover"  id="category_table">
 				<thead>
 					<tr>
-						<!--<th><input type="checkbox"></th>-->
 						<th>Category Name</th>
 						<th>Slug</th>
 						<th>Variant</th>
@@ -26,14 +24,12 @@
 				<tbody>
 					@foreach($categories as $category)
 						<tr>
-							<!--<td><input type="checkbox"></td>-->
 							<td>
 								<a href="{{ URL::route('admin.categories.edit', $category->id) }}">{{ $category->category }}</a>
 								@if(Auth::user()->role != 'admin')
 									<ul class="actions">
 										<li><a href="{{ URL::route('admin.categories.variant.create', $category->id) }}">Add Variant</a></li>
 										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>
-										<!-- <li><a href="">View</a></li> -->
 										<li>
 											{{ Form::open(array('route' => array('admin.categories.destroy', $category->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 												{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
@@ -55,32 +51,8 @@
 				</tbody>
 			</table>
 		</div>
-		{{ $categories->links() }}
 		<br>
 	</div>
-	<script>
-		$("document").ready(function(){
-	     //    $('.featured').on('click', function() {
-
-	     //    	var id = $(this).attr('id');
-	     //    	var checked = ($(this).is(':checked')) ? 1 : 0;
-
-	     //    	// alert(id + ' ' + checked)
-
-	     //        $.ajax({
-	     //            type: "POST",
-	     //            url : "{{ URL::route('admin.categories.featured') }}",
-	     //            data :{
-	     //            	"featured": checked,
-	     //            	"id": id
-	     //            },
-	     //            success : function(data){
-	     //                console.log('data');
-	     //            }
-	     //        });
-	    	// });
-		});
-	</script>
 
 @stop
 @section('scripts')
@@ -88,9 +60,8 @@
 {{ HTML::script('js/form-functions.js') }}
 {{ HTML::script('js/jquery.dataTables.js') }}
 {{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
+<script>
 $(document).ready(function(){
 
 	$('#category_table').DataTable( {

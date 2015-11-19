@@ -5,12 +5,6 @@
 	<div class="item-listing" id="news-list">
 		<h2>News</h2>
 
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
-
 		<br><br>
 		{{ Form::label('cat', 'Type') }}
 		{{ Form::open(array('route' => 'admin.news.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
