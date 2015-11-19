@@ -18,7 +18,7 @@
 		</li>
 		<li><a href="#">Mail</a>
 			<ul class="dropdown">
-				<li><a href="{{ URL::route('admin.mail-settings') }}">Mail Server Settings</a></li>
+				<li><a href="{{ URL::route('admin.mail-settings') }}">Mail Settings</a></li>
 				<li><a href="{{ URL::route('admin.reports.inquiries.settings') }}">Auto Responder</a></li>
 			</ul>
 	</ul>

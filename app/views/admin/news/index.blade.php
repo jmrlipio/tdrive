@@ -24,7 +24,7 @@
 				<tr>
 					<th class="no-sort"><input type="checkbox"></th>
 					<th>Title</th>
-					<th>Languages</th>
+					<th>Variants</th>
 					<th>Category</th>
 					<th>Date</th>
 				</tr>

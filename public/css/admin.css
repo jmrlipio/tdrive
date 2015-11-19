@@ -134,7 +134,7 @@ textarea { padding: 5px 10px; }
 .item-listing, .profile { width: 95%; margin-top: 50px; }
 .item-listing table { width: 100%; margin: 0 auto;  }
 .item-listing th { background-color: lightyellow; line-height: 30px; padding: 5px 15px; text-align: left; border: 1px solid #fff; }
-.item-listing td { background-color: lightblue; line-height: 20px; padding: 5px 15px; border: 1px solid #fff; }
+.item-listing td { /*background-color: lightblue;*/ line-height: 20px; padding: 5px 15px; border: 1px solid #fff; }
 .table-bordered>thead>tr>th, .table-bordered>tbody>tr>td,.table-bordered>tbody>tr>th {border: 1px solid #fff !important;}
 
 .item-listing input[type=checkbox] { vertical-align: middle; cursor: pointer; }
