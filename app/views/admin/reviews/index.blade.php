@@ -148,7 +148,7 @@
 			$('#review_table').dataTable({
 				"iDisplayLength": 50,
 		        "order": [[ 5, "desc" ]],
-		       
+		       "bPaginate" : false,
 		        "oLanguage": {
 	                "sSearch": "<span>Search  </span> _INPUT_", //search
 	            }
