@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-		{{ Form::open(array('route' => 'admin.news.store', 'class' => 'large-form tab-container', 'id' => 'tab-container', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
+		{{ Form::open(array('route' => 'admin.news.store', 'class' => 'item-listing tab-container', 'id' => 'tab-container', 'files'=>true, 'enctype'=> 'multipart/form-data')) }}
 			<h2>Create News</h2>
 			<br>
 

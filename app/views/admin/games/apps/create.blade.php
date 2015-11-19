@@ -2,7 +2,7 @@
 
 @section('content')
 
-		{{ Form::open(array('route' => array('admin.games.store.app', $game->id), 'class' => 'large-form tab-container', 'id' => 'tab-container')) }}
+		{{ Form::open(array('route' => array('admin.games.store.app', $game->id), 'class' => 'item-listing tab-container', 'id' => 'tab-container')) }}
 			<div class='panel-container no-border'>
 				<h2>{{ $game->main_title }} App</h2>
 

@@ -1,7 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-{{ Form::model($inquiry, array('route' => array('admin.reports.inquiries.reply', $inquiry->id), 'method' => 'post', 'class' => 'large-form tab-container','id' => 'tab-container')) }}
+{{ Form::model($inquiry, array('route' => array('admin.reports.inquiries.reply', $inquiry->id), 'method' => 'post', 'class' => 'item-listing tab-container','id' => 'tab-container')) }}
 	<h2>Inquiry </h2>
 	@if(Session::has('message'))
         <div class="flash-success">

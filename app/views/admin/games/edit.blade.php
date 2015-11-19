@@ -9,7 +9,7 @@
 	@include('admin._partials.game-nav')
 	@include('admin._scripts.scripts')
 
-		<div class='large-form tab-container' id='tab-container'>
+		<div class='item-listing tab-container' id='tab-container'>
 
 			<h2>Edit Game</h2>
 			<br><br>

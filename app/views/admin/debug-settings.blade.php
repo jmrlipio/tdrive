@@ -4,7 +4,7 @@
 
 @include('admin._partials.options-nav')
 
-<div class='large-form tab-container' id='tab-container'>
+<div class='item-listing tab-container' id='tab-container'>
 	
 	<h2>Debug Settings</h2>
 	<br><br>

@@ -5,7 +5,7 @@
 	</style>
 @stop
 @section('content')
-	<div class='large-form tab-container' id='tab-container'>
+	<div class='item-listing tab-container' id='tab-container'>
 
 		<h2>Edit News</h2>
 		<br>
