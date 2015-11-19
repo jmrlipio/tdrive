@@ -27,16 +27,16 @@
 
 
 	<div class="table-responsive">
-		<button id="delete-btn" class="btn-delete">Delete</button>
+		<!-- <button id="delete-btn" class="btn-delete">Delete</button> -->
 	<form method="POST" action="{{ URL::route('admin.destroy.review') }}">
 		{{ Form::token() }}
 
 		@if (count($reviews))
 
-		<table class="table table-striped table-bordered table-hover"  id="review_table">
+		<table class="table reviews-table"  id="review_table">
 			<thead>
 				<tr>
-					<th class="no-sort"><input id="select-all" type="checkbox"></th>
+					<th class="no-sort"><input type="checkbox"></th>
 					<th>Game Title</th>
 					<th>Name</th>
 					<th>Status</th>
@@ -50,7 +50,7 @@
 				@foreach($reviews as $review)
 								
 					<tr>
-						<td><input class="chckbox" type="checkbox" name="checked[]" value="{{ $review->id }}"></td>
+						<td><input name="review" type="checkbox" inquiry-id="{{$review->id}}"></td>
 						<td>
 							
 							<a href="{{ URL::route('review.show', $review->id) }}">
@@ -135,7 +135,7 @@
 	{{ HTML::script('js/form-functions.js') }}
 	{{ HTML::script('js/jquery.dataTables.js') }}
 	{{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
 	<script>
 		$(document).ready(function(){
 
@@ -145,102 +145,58 @@
 				getFlashMessage(success, message);
 			<?php endif; ?>
 
-			$('#select-game').on('change', function() {
-				$('#submit-game').trigger('submit');
-			});
-
-			if(!$("input[type='checkbox'].chckbox").is(':checked'))
-			{
-				$('#delete-btn').prop('disabled', true);
-				$('#delete-btn').addClass('btn-disabled');
-
-			}
-
-			$('#delete-btn').on('click', function(e) {				
-			    
-			    if($("input[type='checkbox'].chckbox").is(':checked')){
-
-			    	if(!confirm("Are you sure you want to delete this item?")) e.preventDefault();
-			  
-			    } else {
-
-			       alert("Please select the box that you want to delete");
-			   
-			    }								
-				
-			});
-
-		   /**  
-				* Purpose: Fixed sorting on the rating column
-				* Date: 01/22/2015
-			
-		   $('#review_table').dataTable( {
-		      "aoColumnDefs": [
-		          { 'bSortable': true, 'aTargets': [ 5 ], "sType": "formatted-num" }
-		        
-		       ]
-			});
-			*/
-
 			$('#review_table').dataTable({
 				"iDisplayLength": 50,
 		        "order": [[ 5, "desc" ]],
-		        "bLengthChange": false,
+		       
 		        "oLanguage": {
 	                "sSearch": "<span>Search  </span> _INPUT_", //search
 	            }
 		    });
 
-		   $('#select-all').click(function(){			   
-		
-
-				if(this.checked) { // check select status
-					$('.chckbox').each(function() { //loop through each checkbox
-
-				   		this.checked = true;  //select all checkboxes with class "chckbox"   
-
-					});
-
+			$('th input[type=checkbox]').click(function(){
+				if($(this).is(':checked')) {
+					$('td input[type=checkbox').prop('checked', true);
 				} else {
-
-					$('.chckbox').each(function() { //loop through each checkbox
-
-					    this.checked = false; //deselect all checkboxes with class "chckbox"  
-
-					});  
-				}   
-				if(!$("input[type='checkbox'].chckbox").is(':checked'))
-				{
-					$('#delete-btn').prop('disabled', true);
-					$('#delete-btn').addClass('btn-delete-disabled');
-					$('#delete-btn').removeClass('btn-delete-enabled');
+					$('td input[type=checkbox').prop('checked', false);
 				}
-				else 
-				{
-					$('#delete-btn').prop('disabled', false);
-					$('#delete-btn').removeClass('btn-delete-disabled');
-					$('#delete-btn').addClass('btn-delete-enabled');
+			});
+			$('.reviews-table input[type="checkbox"]').click(function(){
+				console.log('checked');
+				var checked = $('.reviews-table input[type="checkbox"]:checked');
+				if(checked.length > 0){
+					$("a.del").removeClass("disabled");
+				}else {
+					$("a.del").addClass("disabled");
 				}
-			      
 			});
 
-			$('.chckbox').change(function() {
-				if(!$("input[type='checkbox'].chckbox").is(':checked'))
-				{
-					$('#delete-btn').prop('disabled', true);
-					$('#delete-btn').addClass('btn-delete-disabled');
-					$('#delete-btn').removeClass('btn-delete-enabled');
-				}
-				else 
-				{
-					$('#delete-btn').prop('disabled', false);
-					$('#delete-btn').removeClass('btn-delete-disabled');
-					$('#delete-btn').addClass('btn-delete-enabled');
-				}
+			$(document).on('click', 'a.del', function() {
+	    	
+        	if(confirm("Are you sure you want to remove this review?")) {
+				var ids = new Array();
 
-			}) 
+			    $('input[name="review"]:checked').each(function() {
+			        ids.push($(this).attr("inquiry-id"));
+			    });
 
+				$.ajax({
+					url: "{{ URL::route('admin.review.multiple-delete') }}",
+					type: "POST", 
+					data: { ids: ids },
+					success: function(response) {
+						location.reload();
+					},
+					error: function(response) {
+						console.log(response);
+					}
+				});
+			}
+			return false;
+	    });
 
+			var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
+			$(".dataTables_length label").html(link);
 		});
 
 	</script>
