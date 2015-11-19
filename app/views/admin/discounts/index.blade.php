@@ -6,7 +6,7 @@
 		<h2>Discounts</h2>
 
 		<a href="{{ URL::route('admin.discounts.create') }}" class="mgmt-link">Create Discount</a>
-		<div class="clear"></div>
+		<br><br><br><br>
 		<table class="table table-striped table-bordered table-hover"  id="game_table">
 			<thead>
 				<tr>

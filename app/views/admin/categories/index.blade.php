@@ -9,7 +9,7 @@
 		@if(Auth::user()->role != 'admin')
 			<a href="{{ URL::route('admin.categories.create') }}" class="mgmt-link">Create Category</a>
 		@endif
-		<div class="clear"></div>
+		<br><br><br><br>
 
 		<div class="category_table_container">
 			<table class="table table-striped table-bordered table-hover"  id="category_table">

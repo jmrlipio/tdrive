@@ -11,7 +11,7 @@
 		    </div>
 		@endif
 
-		<br><br>
+		<br>
 		{{ Form::label('cat', 'Type') }}
 		{{ Form::open(array('route' => 'admin.news.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
 			{{ Form::select('cat', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
