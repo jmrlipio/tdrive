@@ -25,6 +25,7 @@
 						</td>
 						<td>{{ $log->activity }}</td>
 						<td>
+							<span>{{$log->created_at}}</span>
 							{{ Carbon::parse($log->created_at)->format('M j, Y') }} <br>
 							{{ Carbon::parse($log->created_at)->format('g:i A') }}
 						</td>
@@ -43,6 +44,8 @@
 	<script>
 	(function(){
 		$('#logs_table').DataTable( {
+			"bLengthChange": false,
+			"iDisplayLength": 50,
 			"order": [[ 2, "desc" ]],
 	         "oLanguage": {
                 "sSearch": "<span>Search  </span> _INPUT_", //search

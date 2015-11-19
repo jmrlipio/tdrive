@@ -67,6 +67,8 @@
 <script>
 $(document).ready(function() {
 	$('#filter-table').DataTable({
+		"iDisplayLength": 50,
+		"bLengthChange": false,
 		"order": [[ 3, "desc" ]],
 		"oLanguage": {
             "sSearch": "<span>Search  </span> _INPUT_", //search

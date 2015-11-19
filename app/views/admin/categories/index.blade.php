@@ -94,6 +94,8 @@
 $(document).ready(function(){
 
 	$('#category_table').DataTable( {
+		"iDisplayLength": 50,
+    	 "bLengthChange": false,
         "oLanguage": {
             "sSearch": "<span>Search  </span> _INPUT_", //search
         }
