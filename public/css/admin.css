@@ -861,7 +861,3 @@ textarea#excerpt{
 select#currency_code{
 	width: 42.2%
 }
-
-#review_table_info, #review_table_paginate {
-	display: none;
-}
