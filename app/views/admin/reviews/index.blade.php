@@ -74,14 +74,10 @@
 
 						<td>{{ $review->user->first_name . ' ' . $review->user->last_name }}</td>
 						
-						<!-- <td>{{ str_limit($review->review, $limit = 200, $end = '...') }}</td> -->
-
 						<td>
 							@if($review->status == 1)
 								<p class="approved">Approved</p>
-								<!-- <input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/> -->
-							@else
-								<!-- <input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" /> -->
+							@else								
 								<p class="pending">Pending</p>
 							@endif
 						</td>
@@ -114,8 +110,6 @@
 
 	        	var id = $(this).attr('id');
 	        	var checked = ($(this).is(':checked')) ? 1 : 0;
-
-	        	// alert(id + ' ' + checked)
 
 	            $.ajax({
 	                type: "POST",
@@ -169,18 +163,6 @@
 			    }								
 				
 			});
-
-		   /**  
-				* Purpose: Fixed sorting on the rating column
-				* Date: 01/22/2015
-			
-		   $('#review_table').dataTable( {
-		      "aoColumnDefs": [
-		          { 'bSortable': true, 'aTargets': [ 5 ], "sType": "formatted-num" }
-		        
-		       ]
-			});
-			*/
 
 			$('#review_table').dataTable({
 				"iDisplayLength": 50,
