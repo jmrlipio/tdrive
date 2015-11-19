@@ -10,7 +10,7 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
 		<h2>Games</h2>
-		<br><br>
+		<br>
 		{{ Form::label('game_category', 'Category') }}
 		{{ Form::open(array('route' => 'admin.game.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
 			

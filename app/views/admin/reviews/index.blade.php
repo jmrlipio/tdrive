@@ -72,7 +72,13 @@
 							
 						</td>
 
-						<td>{{ $review->user->first_name . ' ' . $review->user->last_name }}</td>
+						<td>
+							@if($review->user != null)
+								{{ $review->user->first_name . ' ' . $review->user->last_name }}
+							@else								
+									<i class="u-deleted">User deleted</i>								
+							@endif
+						</td>
 						
 						<td>
 							@if($review->status == 1)
@@ -101,7 +107,6 @@
 		@endif
 		
 	</div>
-		{{ $reviews->links() }}
 		<br>
 	</div>
 	<script>
