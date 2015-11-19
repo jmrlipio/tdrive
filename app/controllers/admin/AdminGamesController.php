@@ -890,5 +890,40 @@ class AdminGamesController extends \BaseController {
 				->with('message', 'Links edited successfully')
 				->with('sof', 'success');
 	}
+
+	public function multipleDestroy()
+	{
+		$ids = Input::get('ids');
+		
+		foreach($ids as $id) 
+		{
+			$game = Game::find($id);
+			$imgs[] ="";
+
+			if(count($game->media != null))
+			{
+				foreach($game->media as $media) 
+				{
+					$imgs[] += $media->id;
+				}
+
+				if(count($imgs) != null)
+				{
+					foreach ($imgs as $key => $value) 
+					{
+						$media = Media::find($value);
+						$file = public_path().'/assets/games/'.$media["type"]."/".$media["url"];
+						File::delete($file);
+					}
+				}
+			}
+
+			$game->delete();				
+		}
+
+		return Redirect::back()
+				->with('message', 'Game deleted')
+				->with('sof', 'success');
+	}
     
 }

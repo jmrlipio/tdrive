@@ -13,37 +13,37 @@
 
 					<ul id="custom-fields">
 						<li>
-							{{ Form::label('main_title', 'Main Title: ') }}
+							{{ Form::label('main_title', 'Main Title') }}
 							{{ Form::text('main_title', null, array('id' => 'title', 'class' => 'slug-reference')) }}
 							{{ $errors->first('main_title', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('slug', 'Slug: ') }}
+							{{ Form::label('slug', 'Slug') }}
 							{{ Form::text('slug', null, array('id' => 'slug', 'class' => 'slug')) }}
 							{{ $errors->first('slug', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('category_id', 'Categories: ') }}
+							{{ Form::label('category_id', 'Categories') }}
 							{{ Form::select('category_id[]', $categories, null, array('multiple' => 'multiple', 'class' => 'chosen-select', 'data-placeholder'=>'Choose category(s)...'))  }}
 							{{ $errors->first('category_id', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('status', 'Status: ') }}
+							{{ Form::label('status', 'Status') }}
 							{{ Form::select('status', array('draft' => 'Draft', 'live' => 'Live'))  }}
 							{{ $errors->first('status', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('release_date', 'Release Date:') }}
+							{{ Form::label('release_date', 'Release Date') }}
 							{{ Form::text('release_date', null, array('id' => 'release_date')) }}
 							{{ $errors->first('release_date', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('downloads', 'Displayed Number of Downloads: ') }}
+							{{ Form::label('downloads', 'Displayed Number of Downloads') }}
 							{{ Form::text('downloads') }}
 							{{ $errors->first('downloads', '<p class="error">:message</p>') }}
 						</li>
 						<li>
-							{{ Form::label('default_price', 'Default Price: ') }}
+							{{ Form::label('default_price', 'Default Price') }}
 							{{ Form::text('default_price') }}
 						</li>		
 					</ul>

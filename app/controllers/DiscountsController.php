@@ -189,6 +189,30 @@ class DiscountsController extends \BaseController {
 			->with('sof', 'failed');
 	}
 
+	public function multipleDestroy()
+	{
+		$ids = Input::get('ids');
+
+		foreach($ids as $id) {
+			$discount = Discount::find($id);
+			if($discount)
+			{
+				$featured_img = public_path().'/assets/discounts/'.$discount->featured_image;
+				
+				if($featured_img)
+				{
+					File::delete($featured_img);
+				}
+				// Event::fire('audit.discount.delete', Auth::user());
+				$discount->delete();
+			}
+		}
+
+		return Redirect::route('admin.discounts.index')
+			->with('message', 'Discount deleted.')
+			->with('sof', 'success');	
+	}
+
 	public function updatePostMedia($id)
 	{
 		$discount = Discount::find($id);

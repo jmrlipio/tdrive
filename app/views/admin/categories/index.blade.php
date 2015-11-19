@@ -92,7 +92,12 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#category_table').DataTable();
+
+	$('#category_table').DataTable( {
+        "oLanguage": {
+            "sSearch": "<span>Search  </span> _INPUT_", //search
+        }
+	});
 	
 	<?php if( Session::has('message') ) : ?>
 		var message = "{{ Session::get('message')}}";

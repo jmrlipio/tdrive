@@ -79,6 +79,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::resource('users', 'AdminUsersController');
     Route::resource('games', 'AdminGamesController');
 
+
+    Route::post('games/multiple-delete', array('as' => 'admin.games.multiple-delete', 'uses' => 'AdminGamesController@multipleDestroy'));
     Route::post('games/{id}/edit-carriers', array('as' => 'admin.games.update-carriers', 'uses' => 'AdminGamesController@updateCarrier'));
     Route::post('games/{id}/edit-media', array('as' => 'admin.games.update-media', 'uses' => 'AdminGamesController@updateMedia'));
     Route::post('games/{id}/edit-media-post', array('as' => 'admin.games.postupdate-media', 'uses' => 'AdminGamesController@updatePostMedia'));
@@ -103,6 +105,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::post('news/{id}/edit-media-post', array('as' => 'admin.news.postupdate-media', 'uses' => 'NewsController@updatePostMedia'));
 
     Route::post('news/multiple-delete', array('as' => 'admin.news.multiple-delete', 'uses' => 'NewsController@multipleDestroy'));
+    Route::post('inquiry/multiple-delete', array('as' => 'admin.inquiry.multiple-delete', 'uses' => 'InquiriesController@multipleDestroy'));
+    Route::post('discount/multiple-delete', array('as' => 'admin.discount.multiple-delete', 'uses' => 'DiscountsController@multipleDestroy'));
 
     // Site Options Routes
     Route::get('general-settings', array('as' => 'admin.general-settings', 'uses' => 'SiteOptionsController@showGeneralSettings'));
@@ -120,6 +124,9 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('ip-filters/create', array('as' => 'admin.ip-filters.get-create', 'uses' => 'SiteOptionsController@getCreateIPfilters'));
     Route::post('ip-filters', array('as' => 'admin.ip-filters.create', 'uses' => 'SiteOptionsController@addIPfilters'));
     Route::delete('ip-filters/{id}', array('as' => 'admin.ip-filters.delete', 'uses' => 'SiteOptionsController@deleteIPFilter'));
+
+    /*Route::get('debug-settings', array('as' => 'admin.debug-settings', 'uses' => 'SiteOptionsController@showDebugSettings'));
+    Route::post('set/debug-settings', array('as' => 'admin.debug-settings.update', 'uses' => 'SiteOptionsController@updateDebugSettings'));*/
 
     //added for admin reviews - transfer later on
     Route::post('reviews/status', array('as' => 'admin.reviews.status', 'uses' => 'ReviewsController@update_status'));

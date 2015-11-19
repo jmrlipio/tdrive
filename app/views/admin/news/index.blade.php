@@ -52,7 +52,11 @@
 							@endforeach
 						</td>
 						<td>{{ $data->NewsCategory->category }}</td>
-						<td >{{ $data->created_at }}</td>
+						<td>
+							<span>{{ $data->created_at }}</span>
+							{{ Carbon::parse($data->created_at)->format('M j, Y') }} <br>
+							{{ Carbon::parse($data->created_at)->format('g:i A') }}
+						</td>
 					</tr>		
 				@endforeach
 			</tbody>
@@ -79,7 +83,11 @@
 		$('[data-toggle="tooltip"]').tooltip()
 
 		$('#news_table').DataTable({
-	        "order": [[ 4, "desc" ]]
+			"iDisplayLength": 50,
+	        "order": [[ 4, "desc" ]],
+	        "oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            }
 	    });
 
 		$('th input[type=checkbox]').click(function(){
@@ -142,7 +150,7 @@
 	    });
 
 		var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>'
-		$("#news_table_length label").append(link);
+		$("#news_table_length label").html(link);
 	});
 
 	</script>

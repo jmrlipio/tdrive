@@ -35,7 +35,14 @@
 								{{ Form::close() }}
 							</td>
 							<td>{{ ($filter->added_by != 0 ? $filter->user->first_name. ' '. $filter->user->last_name : 'n/a') }}</td>
-							<td>{{ ($filter->created_at != null ? $filter->created_at : 'n/a') }}</td>
+							<td>
+								@if($filter->created_at != null)
+									{{ Carbon::parse($filter->created_at)->format('M j, Y') }} <br>
+									{{ Carbon::parse($filter->created_at)->format('g:i A') }}
+								@else
+									n/a
+								@endif
+							</td>
 						</tr>
 					@endforeach
 				@else
@@ -60,7 +67,10 @@
 <script>
 $(document).ready(function() {
 	$('#filter-table').DataTable({
-		"order": [[ 3, "asc" ]]
+		"order": [[ 3, "desc" ]],
+		"oLanguage": {
+            "sSearch": "<span>Search  </span> _INPUT_", //search
+        }
 	});
 
 	<?php if( Session::has('message') ) : ?>

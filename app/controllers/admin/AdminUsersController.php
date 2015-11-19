@@ -48,14 +48,32 @@ class AdminUsersController extends \BaseController {
 	{
 		$validator = Validator::make($data = Input::all(), User::$rules);
 
-		if ($validator->fails())
+		$user = new User;
+		$birthday = Input::get('year').'-'.Input::get('month').'-'.((int)Input::get('day') + 1);
+
+		if($validator->passes()){
+			
+			$user->email= Input::get('email');
+			$user->username= Input::get('username');
+			$user->first_name= Input::get('first_name');
+			$user->last_name= Input::get('last_name');
+			$user->password=  Hash::make(Input::get('password'));			
+			$user->active = 1;
+			$user->role = "member";
+			$user->mobile_no = Input::get('mobile_no');
+			$user->gender = Input::get('gender');
+			$user->birthday = $birthday;
+
+			$user->save();
+
+			return Redirect::route('admin.users.edit', $user->id)->with('message', 'You have successfully added this user');			
+		}
+		else
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$user = User::create($data);
-
-		return Redirect::route('admin.users.edit', $user->id)->with('message', 'You have successfully added this user');
+		
 	}
 
 	/**
@@ -111,7 +129,7 @@ class AdminUsersController extends \BaseController {
 		{
 			//$downloaded_games[] = $d->app;						
 			$data[] = $d->app;
-			$date[] = Carbon::parse($d->created_at)->format('M j Y');
+			$date[] = Carbon::parse($d->created_at)->format('M j, Y');
 			
 			$downloaded_games = array(
 				"data"=> $data,

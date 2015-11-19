@@ -13,6 +13,7 @@
 
 App::before(function($request)
 {
+	date_default_timezone_set('Asia/Manila');
 	Lang::setLocale(Session::get('locale'));
 
 	/** 		   

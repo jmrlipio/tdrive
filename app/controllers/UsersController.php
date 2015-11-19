@@ -85,7 +85,6 @@ class UsersController extends \BaseController {
 
 
 /** 
-* Added by: Jone   
 * Purpose: For user registration
 * Date: 12/04/2014
 */
@@ -305,7 +304,7 @@ class UsersController extends \BaseController {
 			}
 			$user->save();
 
-			//$response = Event::fire('user.registered', array($user));	
+			$response = Event::fire('user.registered', array($user));	
 
 			return Redirect::back()->with('message', 'Account details updated.');			
 		}

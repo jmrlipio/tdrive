@@ -1,8 +1,7 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-@include('admin._partials.reports-nav')
-{{ Form::model($inquiry, array('route' => array('admin.reports.inquiries.reply', $inquiry->id), 'method' => 'post', 'class' => 'large-form tab-container','id' => 'tab-container')) }}
+{{ Form::model($inquiry, array('route' => array('admin.reports.inquiries.reply', $inquiry->id), 'method' => 'post', 'class' => 'item-listing tab-container','id' => 'tab-container')) }}
 	<h2>Inquiry </h2>
 	@if(Session::has('message'))
         <div class="flash-success">
@@ -11,23 +10,23 @@
     @endif
 
 	<br>
-<div class='panel-container'>
+<div>
 		
-	<ul id="content">
+	<ul id="content" class="show-inquiry">
 		<li>
-			Name: {{ $inquiry->name }}
+			<h3>Name: <span>{{ $inquiry->name }}</span></h3> 
 		</li>
 		<li>
-			Email: {{ $inquiry->email }}
+			<h3>Email: <span>{{ $inquiry->email }}</span></h3> 
 		</li>
 		<li>
-			Message: {{ $inquiry->message }}
+			<h3>Message: <span>{{ $inquiry->message }}</span></h3> 
 		</li>
 	</ul>
 
 	<ul>
 		<li>
-			{{ Form::label('message', 'Reply Message:') }}
+			{{ Form::label('message', 'Reply Message') }}
 			{{ Form::textarea('message', '', array('id' => 'text-content')) }}
 		</li>
 		<li>

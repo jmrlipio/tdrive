@@ -8,7 +8,7 @@
 		    </div>
 		@endif
 
-		<div class='large-form tab-container' id='tab-container'>
+		<div class='item-listing tab-container' id='tab-container'>
 
 			<h2>Homepage</h2>
 			<br><br>
