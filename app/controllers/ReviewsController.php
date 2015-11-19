@@ -23,7 +23,7 @@ class ReviewsController extends \BaseController {
 
 	public function admin_index()
 	{
-		$reviews = Review::orderBy('viewed')->paginate(10);
+		$reviews = Review::orderBy('viewed')->get();
 		$all_games = Game::orderBy('main_title')->get();
 		$games = ['all' => 'All'];
 		
@@ -242,7 +242,21 @@ class ReviewsController extends \BaseController {
 			->with(compact('reviews'));
     }
 
+    public function multipleDestroy()
+	{
+		$ids = Input::get('ids');
 
+		foreach($ids as $id) 
+		{
+			$discount = Review::find($id);
+			$discount->delete();
+			
+		}
+
+		return Redirect::route('admin.reviews.index')
+			->with('message', 'Review deleted.')
+			->with('sof', 'success');	
+	}
 
 
 }
