@@ -242,7 +242,21 @@ class ReviewsController extends \BaseController {
 			->with(compact('reviews'));
     }
 
+    public function multipleDestroy()
+	{
+		$ids = Input::get('ids');
 
+		foreach($ids as $id) 
+		{
+			$discount = Review::find($id);
+			$discount->delete();
+			
+		}
+
+		return Redirect::route('admin.reviews.index')
+			->with('message', 'Review deleted.')
+			->with('sof', 'success');	
+	}
 
 
 }
