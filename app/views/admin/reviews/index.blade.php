@@ -191,7 +191,6 @@
 		
 
 				if(this.checked) { // check select status
-
 					$('.chckbox').each(function() { //loop through each checkbox
 
 				   		this.checked = true;  //select all checkboxes with class "chckbox"   
