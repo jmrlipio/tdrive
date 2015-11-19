@@ -11,7 +11,6 @@
 		@endif
 		<div class="clear"></div>
 
-		<br>
 		<div class="category_table_container">
 			<table class="table table-striped table-bordered table-hover"  id="category_table">
 				<thead>
