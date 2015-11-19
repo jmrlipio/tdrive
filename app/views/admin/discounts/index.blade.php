@@ -90,7 +90,12 @@ $(document).ready(function(){
 		getFlashMessage(success, message);
 	<?php endif; ?>
 
-	$('#game_table').dataTable();
+	$('#game_table').dataTable({
+		"iDisplayLength": 50,		   
+        "oLanguage": {
+            "sSearch": "<span>Search  </span> _INPUT_", //search
+        }
+    });
 	
 	var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>';
 	$("#game_table_length label").html(link);

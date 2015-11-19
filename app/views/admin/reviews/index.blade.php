@@ -183,6 +183,7 @@
 			*/
 
 			$('#review_table').dataTable({
+				"iDisplayLength": 50,
 		        "order": [[ 5, "desc" ]],
 		        "bLengthChange": false,
 		        "oLanguage": {

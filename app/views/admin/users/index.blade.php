@@ -134,15 +134,21 @@
 						<td>{{ $user->mobile_no }}</td>
 						<td>{{ $user->role }}</td>
 						<td>
-							{{ Carbon::parse($user->last_login)->format('M j, Y') }} <br>
-							{{ Carbon::parse($user->last_login)->format('g:i A') }}
+							@if($user->last_login != 0)
+								<span>{{ $user->last_login }}</span>
+								{{ Carbon::parse($user->last_login)->format('M j, Y') }} <br>
+								{{ Carbon::parse($user->last_login)->format('g:i A') }}
+							@else
+								{{ Carbon::parse($user->created_at)->format('M j, Y') }} <br>
+								{{ Carbon::parse($user->created_at)->format('g:i A') }}
+							@endif
 						</td>
 					</tr>
 
-					@empty
-						<tr class="tall-tr">
-							<td colspan="6"><p>You haven't created any cat yet.</p></td>
-						</tr>
+				@empty
+					<tr class="tall-tr">
+						<td colspan="6"><p>You haven't created any cat yet.</p></td>
+					</tr>
 
 				@endforelse
 		</tbody>
@@ -165,7 +171,7 @@
 	<script>
 	$(document).ready(function(){
 		$('#user_table').DataTable( {
-
+			"iDisplayLength": 50,
 	      	"aoColumnDefs": [
 				{ 'bSortable': false, 'aTargets': [ 0 ] },
 				{ 'aaSorting': [ "desc"], 'aTargets': [ 7 ] },

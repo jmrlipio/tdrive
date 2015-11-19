@@ -53,6 +53,7 @@
 						</td>
 						<td>{{ $data->NewsCategory->category }}</td>
 						<td>
+							<span>{{ $data->created_at }}</span>
 							{{ Carbon::parse($data->created_at)->format('M j, Y') }} <br>
 							{{ Carbon::parse($data->created_at)->format('g:i A') }}
 						</td>
@@ -82,7 +83,8 @@
 		$('[data-toggle="tooltip"]').tooltip()
 
 		$('#news_table').DataTable({
-	        "order": [[ 4, "asc" ]],
+			"iDisplayLength": 50,
+	        "order": [[ 4, "desc" ]],
 	        "oLanguage": {
                 "sSearch": "<span>Search  </span> _INPUT_", //search
             }

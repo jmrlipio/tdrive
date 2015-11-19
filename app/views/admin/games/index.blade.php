@@ -64,6 +64,7 @@
 						<td>{{ $game->user->username }}</td>
 						<td>{{ Carbon::parse($game->release_date)->format('M j, Y') }}</td>
 						<td>
+							<span>{{ $game->updated_at }}</span>
 							{{ Carbon::parse($game->updated_at)->format('M j, Y') }} <br>
 							{{ Carbon::parse($game->updated_at)->format('g:i A') }}
 						</td>					
@@ -92,6 +93,7 @@
 	<script>
 	$(document).ready(function(){
 		$('#game_table').DataTable({
+			"iDisplayLength": 50,
 	        "order": [[ 6, "desc" ]],
 	        "oLanguage": {
                 "sSearch": "<span>Search  </span> _INPUT_", //search

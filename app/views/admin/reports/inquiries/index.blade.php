@@ -65,6 +65,7 @@
 					@endif <!-- //END of first condition -->
 					
 					<td>
+						<span>{{ $inquiry->created_at }}</span>
 						{{ Carbon::parse($inquiry->created_at)->format('M j, Y') }} <br>
 						{{ Carbon::parse($inquiry->created_at)->format('g:i A') }}
 					</td>
@@ -100,10 +101,14 @@
 		});
 
 	    $('#table').DataTable({
+	    	"iDisplayLength": 50,
 	    	"columnDefs": [
 			    { "width": "80px", "targets": 6 }
 			  ],
-			  "order": [[ 7, "desc" ]]
+			  "order": [[ 7, "desc" ]],
+			  "oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            }
 	    });
 
 	    <?php if( Session::has('message') ) : ?>
