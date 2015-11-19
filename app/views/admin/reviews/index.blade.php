@@ -74,14 +74,10 @@
 
 						<td>{{ $review->user->first_name . ' ' . $review->user->last_name }}</td>
 						
-						<!-- <td>{{ str_limit($review->review, $limit = 200, $end = '...') }}</td> -->
-
 						<td>
 							@if($review->status == 1)
 								<p class="approved">Approved</p>
-								<!-- <input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" checked id="{{ $review->id }}"/> -->
-							@else
-								<!-- <input type="checkbox" class="status" name="status[]" value="{{ $review->status }}" id="{{ $review->id }}" /> -->
+							@else								
 								<p class="pending">Pending</p>
 							@endif
 						</td>
@@ -115,8 +111,6 @@
 	        	var id = $(this).attr('id');
 	        	var checked = ($(this).is(':checked')) ? 1 : 0;
 
-	        	// alert(id + ' ' + checked)
-
 	            $.ajax({
 	                type: "POST",
 	                url : "{{ URL::route('admin.reviews.status') }}",
@@ -144,6 +138,7 @@
 				var success = '1';
 				getFlashMessage(success, message);
 			<?php endif; ?>
+
 
 			$('#review_table').dataTable({
 				"iDisplayLength": 50,

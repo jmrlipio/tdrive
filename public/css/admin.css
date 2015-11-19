@@ -842,7 +842,7 @@ div.no-border{
 	border: none !important;
 }
 table#game_table span, table#user_table span, table.inquiries-table span,
-table#news_table span,{
+table#news_table span, table#logs_table span, table#table span{
 	display:none;
 }
 .users-lf.large-form { margin-top: 0; }

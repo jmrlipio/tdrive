@@ -18,7 +18,7 @@
 			<tbody>
 				@foreach($activities as $activity)
 					<tr>
-						<td style="width: 20%;">{{ Carbon::parse($activity->created_at)->toDayDateTimeString() }}</td>
+						<td style="width: 20%;"><span>{{$activity->created_at}}</span>{{ Carbon::parse($activity->created_at)->toDayDateTimeString() }}</td>
 						<td style="width: 10%">{{ $activity->user->username }}</td>
 						<td style="width: 10%">{{ $activity->action }}</td>
 						<td style="width: 15%">{{ $activity->carrier }}</td>
@@ -40,6 +40,8 @@
 	<script>
 	$(document).ready(function() {
     	 $('#table').DataTable({
+    	 	"iDisplayLength": 50,
+    	 	"bLengthChange": false,
 	        "order": [[ 0, "desc" ]],
 	        "oLanguage": {
                 "sSearch": "<span>Search  </span> _INPUT_", //search
