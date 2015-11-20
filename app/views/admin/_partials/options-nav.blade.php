@@ -19,7 +19,6 @@
 		<li>
 			<a href="{{ URL::route('admin.reports.inquiries.settings') }}">Mail Auto Responder</a>	
 		</li>
-
 	</ul>
 </nav>
 <script>

@@ -99,7 +99,8 @@ textarea { padding: 5px 10px; }
 .login p.error { text-align: center; }
 
 /* Smaller Forms */
-.small-form { width: 40%; padding: 3%; margin-top: 50px; }
+.small-form { width: 95%; padding: 20px 10px 35px; margin: 0 auto; margin-top: 50px; }
+.small-form input { width: 40%; }
 .medium-form { width: 60%;  padding: 3%;  margin-top: 50px; }
 .large-form { width: 95%; padding: 3%; margin-top: 50px; }
 /* admin sidebar */
@@ -134,7 +135,7 @@ textarea { padding: 5px 10px; }
 .item-listing, .profile { width: 95%; margin-top: 50px; }
 .item-listing table { width: 100%; margin: 0 auto;  }
 .item-listing th { background-color: lightyellow; line-height: 30px; padding: 5px 15px; text-align: left; border: 1px solid #fff; }
-.item-listing td { background-color: lightblue; line-height: 20px; padding: 5px 15px; border: 1px solid #fff; }
+.item-listing td { /*background-color: lightblue;*/ line-height: 20px; padding: 5px 15px; border: 1px solid #fff; }
 .table-bordered>thead>tr>th, .table-bordered>tbody>tr>td,.table-bordered>tbody>tr>th {border: 1px solid #fff !important;}
 
 .item-listing input[type=checkbox] { vertical-align: middle; cursor: pointer; }
@@ -829,14 +830,16 @@ tr th.no-sort, tr > th.no-sort:first-of-type { background : #337ab7 !important; 
 #register div.control, form.edit-user li { padding: 5px 0; }
 
 #games-list select#select-cat {
-	margin: 0 10px 0 0;
+	/*margin: 0 10px 0 0;*/
 }
 #games-list label{
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 }
 
 #games-list form#submit-cat{
-	margin-bottom: 30px;
+	/*margin-bottom: 30px;
+	width: 50%;
+    float: left;*/
 }
 div.no-border{
 	border: none !important;
@@ -848,7 +851,7 @@ table#news_table span, table#logs_table span, table#table span{
 .users-lf.large-form { margin-top: 0; }
 #login-history, #activity-history, div#purchase { margin-bottom: 45px; }
 .users-il .pull-left { width: 80%; }
-
+.delete-btn { color: #cc0001 !important;}
 a.c-button{
 	margin-right: 5px;
     width: auto;
@@ -865,5 +868,3 @@ select#currency_code{
 #review_table_info, #review_table_paginate {
 	display: none;
 }
-
-

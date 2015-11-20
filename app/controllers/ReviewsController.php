@@ -23,7 +23,7 @@ class ReviewsController extends \BaseController {
 
 	public function admin_index()
 	{
-		$reviews = Review::orderBy('viewed')->paginate(10);
+		$reviews = Review::orderBy('viewed')->get();
 		$all_games = Game::orderBy('main_title')->get();
 		$games = ['all' => 'All'];
 		

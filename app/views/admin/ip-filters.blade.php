@@ -6,13 +6,14 @@
 
 <div class="item-listing">
 
-	<a href="{{ URL::route('admin.ip-filters.get-create') }}" class="mgmt-link">Add IP</a>
 	
 	<div class="user_tbl_container">
 		<h2>IP Address Whitelist</h2><br>
 		<p><i>IP Address Whitelist are list of IPs that can access the website in desktop view and can access all carrier.</i></p>
-		<br><br>
-
+		
+		
+		<a href="{{ URL::route('admin.ip-filters.get-create') }}" class="mgmt-link">Add IP</a>
+		<br><br><br><br>
 		<table class="table table-striped table-bordered table-hover" id="filter-table">
 			<thead>
 				<tr>

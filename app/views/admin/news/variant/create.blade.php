@@ -10,19 +10,16 @@
 		        <p>{{ Session::get('message') }}</p>
 		    </div>
 		@endif
-		<br>
 
 		<li>
 			{{ Form::label('main_title', 'Main Title') }}
 			{{ $news->main_title }}
 		</li>
-		<br>
 		<li>
 			{{ Form::label('language', 'Language') }}
 	  		{{ Form::select('language_id', $languages) }}				
 			{{ $errors->first('language', '<p class="error">:message</p>') }}
 		</li>
-		<br>
 		<li>
 			{{ Form::label('title', 'Variant Title') }}	
 			{{ Form::text('title') }}

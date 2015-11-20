@@ -4,18 +4,15 @@
 	<ul id='game-content-form'>
 	{{ Form::open(array('route' => array('admin.news.variant.update', $news->id, $language_id),'class' => 'large-form tab-container', 'method' => 'put')) }}
 		<h2>Edit Variant</h2>
-		<br>
 		<li>
 			{{ Form::label('main_title', 'Main Title:') }}
 			{{ $news->main_title }}
 		</li>
-		<br>
 		<li>
 			{{ Form::label('language', 'Language:') }}
 	  		{{ Form::select('language_id', $languages, $language_id) }}				
 			{{ $errors->first('language', '<p class="error">:message</p>') }}
 		</li>
-		<br>
 		<li>
 			{{ Form::label('title', 'Variant Title:') }}	
 			{{ Form::text('title', $data['title']) }}

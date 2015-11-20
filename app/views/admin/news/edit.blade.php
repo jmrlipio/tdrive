@@ -69,7 +69,7 @@
 						
 						{{ Form::label('homepage_image', 'Homepage Image (1024x500)') }}
 
-						<div class="media-box" id="featured_imagec">
+						<div class="media-box" id="homepage_imagec">
 							
 							{{ Form::open(array('route' => array('admin.news.postupdate-media', $news->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
 							@if($homepage_image)

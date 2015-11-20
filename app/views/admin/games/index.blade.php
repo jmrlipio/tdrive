@@ -10,16 +10,17 @@
 	@include('admin._partials.game-nav')
 	<div class="item-listing" id="games-list">
 		<h2>Games</h2>
+		<br>
+		{{ Form::label('game_category', 'Category') }}
+		{{ Form::open(array('route' => 'admin.game.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
+			
+			{{ Form::select('game_category', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
+		{{ Form::close() }}
 		
 		@if(Auth::user()->role != 'admin')
 			<a href="{{ URL::route('admin.games.create') }}" class="mgmt-link">Create Game</a>
 		@endif
-
-		{{ Form::open(array('route' => 'admin.game.category','class' => 'simple-form', 'id' => 'submit-cat', 'method' => 'get')) }}
-			{{ Form::label('game_category', 'Category') }}
-			{{ Form::select('game_category', $categories, $selected, array('class' => 'select-filter', 'id' => 'select-cat')) }}
-		{{ Form::close() }}
-		
+		<br><br><br><br>
 		<table class="table table-striped table-bordered table-hover" id="game_table">
 			<thead>
 				<tr>
