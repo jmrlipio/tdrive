@@ -17,7 +17,6 @@
 			<thead>
 				<tr>
 					<th>IP Addresses</th>
-					<th>Action</th>
 					<th>Added by</th>
 					<th>Create Date</th>
 				</tr>
@@ -27,14 +26,19 @@
 					@foreach($filters as $filter)
 						<tr>
 							<td>
-								{{ $filter->ip_address }}
+								<a href="#">{{ $filter->ip_address }}</a>
+								
+								<ul class="actions">
+									<li>
+										{{ Form::open(array('route' => array('admin.ip-filters.delete', $filter->id), 'method' => 'delete', 'class' => 'delete-form fright')) }}
+										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
+									{{ Form::close() }}
+									</li>
+								</ul>
 							</td>
-							<td>
-								{{ Form::open(array('route' => array('admin.ip-filters.delete', $filter->id), 'method' => 'delete', 'class' => 'delete-form fright')) }}
-									{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-								{{ Form::close() }}
-							</td>
+
 							<td>{{ ($filter->added_by != 0 ? $filter->user->first_name. ' '. $filter->user->last_name : 'n/a') }}</td>
+
 							<td>
 								@if($filter->created_at != null)
 									{{ Carbon::parse($filter->created_at)->format('M j, Y') }} <br>
@@ -69,7 +73,7 @@ $(document).ready(function() {
 	$('#filter-table').DataTable({
 		"iDisplayLength": 50,
 		"bLengthChange": false,
-		"order": [[ 3, "desc" ]],
+		"order": [[ 2, "desc" ]],
 		"oLanguage": {
             "sSearch": "<span>Search  </span> _INPUT_", //search
         }

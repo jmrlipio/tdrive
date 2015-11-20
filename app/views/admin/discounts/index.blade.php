@@ -91,7 +91,8 @@ $(document).ready(function(){
 	<?php endif; ?>
 
 	$('#game_table').dataTable({
-		"iDisplayLength": 50,		   
+		"iDisplayLength": 50,
+		"bAutoWidth": false,		   
         "oLanguage": {
             "sSearch": "<span>Search  </span> _INPUT_", //search
         }

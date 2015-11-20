@@ -1,4 +1,20 @@
-@include('admin._partials.header2')
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TDrive</title>
+    {{ HTML::style('css/style.css') }}
+    {{ HTML::style('css/admin.css') }}
+    {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans') }}
+    {{ HTML::style('http://fonts.googleapis.com/css?family=Indie+Flower') }}
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
     <div id="login">
         {{ Form::open(array('route' => 'admin.login.post', 'class' => 'login')) }}
             <h2>Please login</h2>

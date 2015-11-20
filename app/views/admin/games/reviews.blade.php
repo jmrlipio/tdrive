@@ -26,30 +26,30 @@
 			<div id="chart_div"></div>
 		</div>
 	
-		<table class="table table-striped table-bordered table-hover" id="game_table">
-			<thead>
-				<tr>
-					<th>Username</th>
-					<th>Review</th>
-					<th>Rating</th>
-				</tr>
-			</thead>
+<!-- 		<table class="table table-striped table-bordered table-hover" id="game_table">
+	<thead>
+		<tr>
+			<th>Username</th>
+			<th>Review</th>
+			<th>Rating</th>
+		</tr>
+	</thead>
 
-			<tbody>
-				@foreach($game->review as $review)	
-					<tr>
-						<td>{{ $review->username }}</td>
-						<td>{{ $review->pivot->review }}</td>
-						<td>
-							{{-- $review->pivot->rating --}}
-							@for($i = 1; $i <= 5; $i++)
-								<i class="fa fa-star{{ ($i <= $review->pivot->rating) ? '' : '-empty' }}"></i>
-							@endfor
-						</td>
-					</tr>
-				@endforeach
-			</tbody>
-		</table>
+	<tbody>
+		@foreach($game->review as $review)	
+			<tr>
+				<td>{{ $review->username }}</td>
+				<td>{{ $review->pivot->review }}</td>
+				<td>
+					{{-- $review->pivot->rating --}}
+					@for($i = 1; $i <= 5; $i++)
+						<i class="fa fa-star{{-- ($i <= $review->pivot->rating) ? '' : '-empty' --}}"></i>
+					@endfor
+				</td>
+			</tr>
+		@endforeach
+	</tbody>
+</table> -->
 
 		<br>
 	</div>
@@ -70,7 +70,7 @@
 	
 	$(document).ready(function(){
 		
-		$('#game_table').DataTable();
+		//$('#game_table').DataTable();
 		$('th input[type=checkbox]').click(function(){
 			if($(this).is(':checked')) {
 				$('td input[type=checkbox').prop('checked', true);

@@ -28,8 +28,8 @@
 								<a href="{{ URL::route('admin.categories.edit', $category->id) }}">{{ $category->category }}</a>
 								@if(Auth::user()->role != 'admin')
 									<ul class="actions">
-										<li><a href="{{ URL::route('admin.categories.variant.create', $category->id) }}">Add Variant</a></li>
-										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a></li>
+										<li><a href="{{ URL::route('admin.categories.variant.create', $category->id) }}">Add Variant</a> |</li>
+										<li><a href="{{ URL::route('admin.categories.edit', $category->id) }}">Edit</a> |</li>
 										<li>
 											{{ Form::open(array('route' => array('admin.categories.destroy', $category->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 												{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
@@ -42,7 +42,7 @@
 							
 							<td>
 								@foreach($category->languages as $cat)
-									<a href="{{ URL::route('admin.categories.variant.edit', array('cat_id' => $category->id, 'variant_id' => $cat->pivot->id)) }}">{{ $cat->language }}</a>
+									<a class="{{strtolower($cat->iso_code)}} flag-link" data-toggle="tooltip" data-placement="top" title="{{$cat->language}}" href="{{ URL::route('admin.categories.variant.edit', array('cat_id' => $category->id, 'variant_id' => $cat->pivot->id)) }}"></a>
 								@endforeach
 							</td>
 							
@@ -60,10 +60,11 @@
 {{ HTML::script('js/form-functions.js') }}
 {{ HTML::script('js/jquery.dataTables.js') }}
 {{ HTML::script('js/jquery.dataTables.bootstrap.js') }}
+{{ HTML::script('js/bootstrap.min.js') }}
 
 <script>
 $(document).ready(function(){
-
+	$('[data-toggle="tooltip"]').tooltip();
 	$('#category_table').DataTable( {
 		"iDisplayLength": 50,
     	 "bLengthChange": false,

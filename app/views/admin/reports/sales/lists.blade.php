@@ -67,6 +67,7 @@
 
     	$('#table').DataTable({
 	        "order": [[ 5, "desc" ]],
+	        "iDisplayLength": 50,
         	"bAutoWidth": false,
 	        "aoColumnDefs": [
 	            { "sWidth": "7%", "aTargets": [ 5 ] },

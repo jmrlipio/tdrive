@@ -24,7 +24,7 @@
 							<a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">{{ $faq->main_question }}</a>
 							<ul class="actions">
 								
-								<li><a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">Add Variant</a></li>
+								<li><a href="{{ URL::route('admin.faqs.variant.create', $faq->id) }}">Add Variant</a> |</li>
 								<li>
 									{{ Form::open(array('route' => array('admin.faqs.destroy', $faq->id), 'method' => 'delete', 'class' => 'delete-form')) }}
 										{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
@@ -34,7 +34,7 @@
 						</td>
 						<td>
 							@foreach($faq->languages as $fq)
-								<a class="{{strtolower($fq->iso_code)}} flag-link" data-toggle="tooltip" data-placement="top" title="{{$fq->id}}" href="{{ URL::route('admin.faqs.variant.edit', array('faq_id' => $faq->id, 'language_id' => $fq->id)) }}"></a>
+								<a class="{{strtolower($fq->iso_code)}} flag-link" data-toggle="tooltip" data-placement="top" title="{{$fq->language}}" href="{{ URL::route('admin.faqs.variant.edit', array('faq_id' => $faq->id, 'language_id' => $fq->id)) }}"></a>
 							@endforeach
 						</td>
 					</tr>
@@ -47,46 +47,51 @@
 
 
 @section('scripts')
-	{{ HTML::script('js/form-functions.js') }}
-	<script>
-	$(document).ready(function(){
-		$('th input[type=checkbox]').click(function(){
-			if($(this).is(':checked')) {
-				$('td input[type=checkbox').prop('checked', true);
-			} else {
-				$('td input[type=checkbox').prop('checked', false);
-			}
-		});
-		$('#faq-list input[type="checkbox"]').click(function(){
-			var checked = $('#faq-list input[type="checkbox"]:checked');
-			if(checked.length > 0){
-				$("a.del").removeClass("disabled");
-			}else {
-				$("a.del").addClass("disabled");
-			}
-		});
+{{ HTML::script('js/bootstrap.min.js') }}
+{{ HTML::script('js/form-functions.js') }}
 
-	    $('a.del').on('click', function() {
+<script>
+$(document).ready(function(){
 
-        	if(confirm("Are you sure you want to remove this assignment?")) {
-				var ids = new Array();
-
-			    $('input[name="faq"]:checked').each(function() {
-			        ids.push($(this).attr("fq-id"));
-			    });
-
-				$.ajax({
-					url: "{{ URL::route('admin.faqs.multiple-delete') }}",
-					type: "POST", 
-					data: { ids: ids },
-					success: function(response) {
-						location.reload();
-					}
-				});
-			}
-			return false;
-	    });
-
+	$('[data-toggle="tooltip"]').tooltip();
+	$('th input[type=checkbox]').click(function(){
+		if($(this).is(':checked')) {
+			$('td input[type=checkbox').prop('checked', true);
+		} else {
+			$('td input[type=checkbox').prop('checked', false);
+		}
 	});
-	</script>
+
+	$('#faq-list input[type="checkbox"]').click(function(){
+		var checked = $('#faq-list input[type="checkbox"]:checked');
+		if(checked.length > 0){
+			$("a.del").removeClass("disabled");
+		}else {
+			$("a.del").addClass("disabled");
+		}
+	});
+
+    $('a.del').on('click', function() {
+
+    	if(confirm("Are you sure you want to remove this assignment?")) {
+			var ids = new Array();
+
+		    $('input[name="faq"]:checked').each(function() {
+		        ids.push($(this).attr("fq-id"));
+		    });
+
+			$.ajax({
+				url: "{{ URL::route('admin.faqs.multiple-delete') }}",
+				type: "POST", 
+				data: { ids: ids },
+				success: function(response) {
+					location.reload();
+				}
+			});
+		}
+		return false;
+    });
+
+});
+</script>
 @stop

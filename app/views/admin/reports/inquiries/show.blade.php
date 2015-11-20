@@ -1,41 +1,39 @@
 @extends('admin._layouts.admin')
 
 @section('content')
-{{ Form::model($inquiry, array('route' => array('admin.reports.inquiries.reply', $inquiry->id), 'method' => 'post', 'class' => 'item-listing tab-container','id' => 'tab-container')) }}
-	<h2>Inquiry </h2>
-	@if(Session::has('message'))
-        <div class="flash-success">
-            <p>{{ Session::get('message') }}</p>           
-        </div>
-    @endif
+	{{ Form::model($inquiry, array('route' => array('admin.reports.inquiries.reply', $inquiry->id), 'method' => 'post', 'class' => 'item-listing tab-container','id' => 'tab-container')) }}
+		<h2>Inquiry </h2>
 
-	<br>
-<div>
-		
-	<ul id="content" class="show-inquiry">
-		<li>
-			<h3>Name: <span>{{ $inquiry->name }}</span></h3> 
-		</li>
-		<li>
-			<h3>Email: <span>{{ $inquiry->email }}</span></h3> 
-		</li>
-		<li>
-			<h3>Message: <span>{{ $inquiry->message }}</span></h3> 
-		</li>
-	</ul>
+		<br>
+		<div>
+				
+			<ul id="content" class="show-inquiry">
+				<li>
+					{{ Form::label('name', 'Name') }}
+					<p>{{ $inquiry->name }}</p>
+				</li>
+				<li>
+					{{ Form::label('email', 'Email') }}
+					<p>{{ $inquiry->email }}</p>
+				</li>
+				<li>
+					{{ Form::label('message', 'Message') }}
+					<p>{{ $inquiry->message }}</p> 
+				</li>
+			</ul>
 
-	<ul>
-		<li>
-			{{ Form::label('message', 'Reply Message') }}
-			{{ Form::textarea('message', '', array('id' => 'text-content')) }}
-		</li>
-		<li>
-			<a href="{{ URL::route('admin.reports.inquiries.index') }}" class="custom-back">Back</a>{{ Form::submit('Reply', array('id' => 'save-news')) }}
-		</li>
-	</ul>
+			<ul>
+				<li>
+					{{ Form::label('message', 'Reply Message') }}
+					{{ Form::textarea('message', '', array('id' => 'text-content')) }}
+				</li>
+				<li>
+					<a href="{{ URL::route('admin.reports.inquiries.index') }}" class="custom-back">Back</a>{{ Form::submit('Send', array('id' => 'save-news')) }}
+				</li>
+			</ul>
 
-</div>
-		
+		</div>
+			
 	{{ Form::close() }}
 
 @stop

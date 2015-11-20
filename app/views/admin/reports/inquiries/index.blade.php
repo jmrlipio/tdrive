@@ -12,8 +12,8 @@
 				<th>Name</th>
 				<th>Country</th>
 				<th>App Store</th>
-				<th>Os</th>
-				<th>Os Version</th>
+				<th>OS</th>
+				<th>OS Version</th>
 				<th>Date</th>
 			</tr>
 			<thead>

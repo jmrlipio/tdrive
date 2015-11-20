@@ -16,11 +16,10 @@
 				<li><a href="{{ URL::route('admin.variables') }}">Social Media</a></li>
 			</ul>
 		</li>
-		<li><a href="#">Mail</a>
-			<ul class="dropdown">
-				<li><a href="{{ URL::route('admin.mail-settings') }}">Mail Server Settings</a></li>
-				<li><a href="{{ URL::route('admin.reports.inquiries.settings') }}">Auto Responder</a></li>
-			</ul>
+		<li>
+			<a href="{{ URL::route('admin.reports.inquiries.settings') }}">Mail Auto Responder</a>	
+		</li>
+
 	</ul>
 </nav>
 <script>

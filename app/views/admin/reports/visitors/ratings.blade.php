@@ -48,7 +48,13 @@
 	<script>
 	$(document).ready(function() {
     	 $('#table').DataTable({
+    	 	"order": [[ 2, "desc" ]],
+    	 	"bLengthChange": false,
+    	 	"iDisplayLength": 50,
         	"bAutoWidth": false,
+        	"oLanguage": {
+                "sSearch": "<span>Search  </span> _INPUT_", //search
+            },
 	        "aoColumnDefs": [
 	            { "sWidth": "15%", "aTargets": [ 1,2 ] }
 	        ]
