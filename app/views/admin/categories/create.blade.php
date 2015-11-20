@@ -18,7 +18,8 @@
 				{{ $errors->first('slug', '<p class="error">:message</p>') }}
 			</li>
 			<li>
-				{{ Form::submit('Save') }}
+				<a class="custom-back" href="{{ URL::route('admin.categories.index') }}">Back</a>
+				{{ Form::submit('Save', array('class' => 'auto-width')) }}
 			</li>
 		</ul>
 

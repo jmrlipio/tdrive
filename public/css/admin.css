@@ -868,3 +868,7 @@ select#currency_code{
 #review_table_info, #review_table_paginate {
 	display: none;
 }
+
+.auto-width {
+	width: auto !important;
+}
