@@ -881,3 +881,7 @@ table#game_discount_table th.c-width{
 div#users_container a.c-top{
 	margin-top: 24px;
 }
+.auto-width {
+	width: auto !important;
+}
+

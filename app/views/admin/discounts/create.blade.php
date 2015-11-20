@@ -58,7 +58,8 @@
 						{{ $errors->first('featured_image', '<p class="error">:message</p>') }}
 					</li>
 					<li>
-						{{ Form::submit('Save') }}
+						<a class="custom-back" href="{{ URL::route('admin.discounts.index') }}">Back</a>
+						{{ Form::submit('Save', array('class' => 'auto-width')) }}
 					</li>
 				</ul>
 			</div>

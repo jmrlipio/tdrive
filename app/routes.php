@@ -91,7 +91,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin'), function(){
     Route::get('games/{id}/create/app', array('as' => 'admin.games.create.app', 'uses' => 'AdminGamesController@getCreateApp'));
     Route::get('games/{id}/edit/{app}', array('as' => 'admin.games.edit.app', 'uses' => 'AdminGamesController@getEditApp'));
     Route::post('games/{id}/edit/{app}', array('as' => 'admin.games.update.app', 'uses' => 'AdminGamesController@postUpdateApp'));
-    Route::delete('games/{id}/{app}/delete', array('as' => 'admin.games.delete.app', 'uses' => 'AdminGamesController@postDeleteApp'));
+    Route::get('games/delete/{id}/{app}', array('as' => 'admin.games.delete.app', 'uses' => 'AdminGamesController@postDeleteApp'));
     Route::post('games/{id}/create/app', array('as' => 'admin.games.store.app', 'uses' => 'AdminGamesController@postStoreApp'));
     Route::post('games/{id}/edit/prices/{language}', array('as' => 'admin.games.edit.prices', 'uses' => 'AdminGamesController@updatePriceContent'));
     Route::get('games/{id}/reviews', array('as' => 'admin.game.reviews', 'uses' => 'AdminGamesController@getGameReviews'));

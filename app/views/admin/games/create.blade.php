@@ -48,7 +48,8 @@
 						</li>		
 					</ul>
 					{{ Form::hidden('user_id', Auth::user()->id) }}
-					{{ Form::submit('Save', array('id' => 'save-game')) }}
+					<a class="custom-back" href="{{ URL::route('admin.games.index') }}">Back</a>
+					{{ Form::submit('Save', array('id' => 'save-game', 'class' => 'auto-width')) }}
 				{{ Form::close() }}
 		</div>
 	@include('admin._partials.image-select')

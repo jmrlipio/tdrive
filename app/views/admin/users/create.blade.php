@@ -63,7 +63,7 @@
 		</div>
 		
 		<a class="custom-back" href="{{ URL::route('admin.users.index') }}">Back</a>
-		{{ Form::submit('Save', array('class' => 'no-radius')) }}
+		{{ Form::submit('Save', array('class' => 'no-radius auto-width')) }}
 
 	{{ Form::close() }}
 

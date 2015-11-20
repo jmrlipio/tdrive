@@ -123,11 +123,12 @@
 									<td>
 
 										<a href="{{ URL::route('admin.games.edit.app', array('game_id' => $game->id, 'app_id' => $app->pivot->app_id)) }}" class='edit-btn fleft'>
-											Edit
-										</a>
-										{{ Form::open(array('route' => array('admin.games.delete.app', $game->id, $app->pivot->app_id), 'method' => 'delete', 'class' => 'delete-form')) }}
-											{{ Form::submit('Delete', array('class' => 'delete-btn')) }}
-										{{ Form::close() }}
+											Edit  |
+										</a> 
+										<a class='edit-btn fleft delete-btn' href="{{ URL::route('admin.games.delete.app', array('game_id' => $game->id, 'app_id' => $app->pivot->app_id)) }}">Delete</a>
+										{{-- Form::open(array('route' => array('admin.games.delete.app', $game->id, $app->pivot->app_id), 'method' => 'delete', 'class' => 'delete-form')) --}}
+											{{-- Form::submit('Delete', array('class' => 'delete-btn')) --}}
+										{{-- Form::close() --}}
 									</td>
 								</tr>
 							@endforeach
@@ -141,7 +142,7 @@
 				</ul>
 				<ul id="media">
 						<li>
-							{{ Form::label('video', 'Video URL', array('class' => 'media-label')) }}
+							{{ Form::label('video', 'Video URL', array('class' => 'media-label')) }} <br> <br>
 							@foreach($selected_media as $media)
 								@if($media['type'] == 'video')
 									<?php $video = $media['media_url']; ?>
@@ -153,7 +154,7 @@
 						</li>
 						<div class="clear"></div>
 						<li>
-							{{ Form::label('promo', 'Promo Image (1024x500)', array('class' => 'media-label')) }}
+							{{ Form::label('promo', 'Promo Image (1024x500)', array('class' => 'media-label')) }} <br><br>
 							<input type="hidden" value="this is a text" name="promo-code" />
 							<div id="message"></div>
 								<?php $image = Media::getGameImages($game->id, 'promos'); ?>
@@ -176,7 +177,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('icon', 'Icon (512x512)', array('class' => 'media-label')) }}
+							{{ Form::label('icon', 'Icon (512x512)', array('class' => 'media-label')) }} <br><br>
 								<?php $image = Media::getGameImages($game->id, 'icons'); ?>
 									<div class="media-box media-icon" id="iconc">
 										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
@@ -197,7 +198,7 @@
 						</li>
 						<li>
 							
-							{{ Form::label('homepage', 'Homepage Image (1024x768)', array('class' => 'media-label')) }}
+							{{ Form::label('homepage', 'Homepage Image (1024x768)', array('class' => 'media-label')) }} <br><br>
 								<?php $image = Media::getGameImages($game->id, 'homepage'); ?>
 									<div class="media-box" id="homepagec">
 										{{ Form::open(array('route' => array('admin.games.postupdate-media', $game->id), 'method' => 'post', 'files' => true, 'class' => 'post-media-form')) }}
