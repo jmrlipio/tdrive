@@ -67,7 +67,7 @@
                     <li><a href="{{ URL::route('admin.faqs.index') }}"><i class="fa fa-question-circle"></i> FAQ</a></li>   
                     <li>
                         @if( Review::whereViewed(0)->count() >= 1 )
-                            <a href="{{ URL::route('admin.reviews.index')}}"><i class="fa fa-exclamation-triangle"></i> Notifications ({{Review::whereViewed(0)->count()}}) <i class="fa fa-exclamation"></i></a>
+                            <a href="{{ URL::route('admin.reviews.index')}}"><i class="fa fa-exclamation-triangle"></i> Notifications ({{Review::whereViewed(0)->count()}})</i></a>
                         @else
                             <a href="{{ URL::route('admin.reviews.index')}}"><i class="fa fa-exclamation-triangle"></i> Notifications</a>
                         @endif   

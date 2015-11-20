@@ -868,3 +868,16 @@ select#currency_code{
 #review_table_info, #review_table_paginate {
 	display: none;
 }
+
+.dataTables_paginate{
+	margin-top: -35px !important;
+}
+.dataTables_info{
+	margin-top: 20px !important;
+}
+table#game_discount_table th.c-width{
+	width: 120px;
+}
+div#users_container a.c-top{
+	margin-top: 24px;
+}

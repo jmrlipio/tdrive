@@ -3,7 +3,7 @@
 @section('content')
 
 
-	{{ Form::open(array('route'=>'admin.register.user', 'id' => 'register', 'class' => 'small-form')) }}
+	{{ Form::open(array('route'=>'admin.register.user', 'id' => 'register-user', 'class' => 'small-form')) }}
 		<h2>Create User</h2>
 		<div id="token">{{ Form::token() }}</div>
 
@@ -62,7 +62,8 @@
 			{{ Form::password('password_confirmation') }}
 		</div>
 		
-		{{ Form::submit('Create new account', array('class' => 'no-radius')) }}
+		<a class="custom-back" href="{{ URL::route('admin.users.index') }}">Back</a>
+		{{ Form::submit('Save', array('class' => 'no-radius')) }}
 
 	{{ Form::close() }}
 

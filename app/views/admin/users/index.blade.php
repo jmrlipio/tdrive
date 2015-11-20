@@ -28,11 +28,13 @@
 
 @section('content')
 
-	<div class="item-listing users-il">
+	<div id="users_container" class="item-listing users-il">
 		<h2>Users</h2>
 		<br>
 	
-		<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link">Create User</a>
+		<div class="pull-right">
+			<a href="{{ URL::route('admin.users.create') }}" class="mgmt-link c-top">Create User</a>
+		</div>
 		<div class="pull-left">
 
 			<div id="btn-export">

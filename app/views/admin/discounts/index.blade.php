@@ -7,16 +7,16 @@
 
 		<a href="{{ URL::route('admin.discounts.create') }}" class="mgmt-link">Create Discount</a>
 		<br><br><br><br>
-		<table class="table table-striped table-bordered table-hover"  id="game_table">
+		<table class="table table-striped table-bordered table-hover"  id="game_discount_table">
 			<thead>
 				<tr>
 					<th class="no-sort"><input type="checkbox"></th>
-					<th>Discount Name</th>
-					<th>Carrier</th>
+					<th class="c-width">Discount Name</th>
+					<th class="c-width">Carrier</th>
 					<th>Games</th>
-					<th>Discount</th>
-					<th>Start Date</th>
-					<th>End Date</th>
+					<th class="c-width">Discount</th>
+					<th class="c-width">Start Date</th>
+					<th class="c-width">End Date</th>
 				</tr>
 			</thead>
 
@@ -90,7 +90,7 @@ $(document).ready(function(){
 		getFlashMessage(success, message);
 	<?php endif; ?>
 
-	$('#game_table').dataTable({
+	$('#game_discount_table').dataTable({
 		"iDisplayLength": 50,
 		"bAutoWidth": false,		   
         "oLanguage": {
@@ -99,7 +99,7 @@ $(document).ready(function(){
     });
 	
 	var link = '<a href="#"  class="pull-right graph-link mgmt-link del disabled">Delete Selected</a>';
-	$("#game_table_length label").html(link);
+	$("#game_discount_table_length label").html(link);
 
 	//multiple delete 
 	$('th input[type=checkbox]').click(function(){
@@ -109,8 +109,8 @@ $(document).ready(function(){
 			$('td input[type=checkbox').prop('checked', false);
 		}
 	});
-	$('#game_table input[type="checkbox"]').click(function(){
-		var checked = $('#game_table input[type="checkbox"]:checked');
+	$('#game_discount_table input[type="checkbox"]').click(function(){
+		var checked = $('#game_discount_table input[type="checkbox"]:checked');
 		if(checked.length > 0){
 			$("a.del").removeClass("disabled");
 		}else {

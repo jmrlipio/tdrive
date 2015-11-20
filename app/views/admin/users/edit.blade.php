@@ -26,6 +26,7 @@
 				{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
 			</li>
 			<li>
+				<a class="custom-back" href="{{ URL::route('admin.users.index') }}">Back</a>
 				{{ Form::submit('Save') }}
 			</li>
 		</ul>

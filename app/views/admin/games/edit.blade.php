@@ -69,7 +69,7 @@
 				<ul id="apps">
 					<a href="{{ URL::route('admin.games.create.app', $game->id) }}" class="mgmt-link">Create App</a>
 					<div class="clear"></div>
-					<table id="app-table">
+					<table id="app-table" class="table table-striped table-bordered table-hover">
 						<tr>
 							<th>Status</th>
 							<th>App ID</th>
