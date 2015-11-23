@@ -66,7 +66,7 @@
     	});
 
     	$('#table').DataTable({
-	        "order": [[ 5, "desc" ]],
+	        "order": [[ 6, "desc" ]],
 	        "iDisplayLength": 50,
         	"bAutoWidth": false,
 	        "aoColumnDefs": [
