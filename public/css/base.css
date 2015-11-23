@@ -191,7 +191,9 @@ img.auto, video.auto {
   float: right;
   margin-top: 10px;
 }
-
+.more a:hover, .readmore a:hover {
+  text-decoration: none;
+}
 .captcha {
   position: relative;
 }
