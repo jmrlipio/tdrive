@@ -9,7 +9,7 @@
 	
 	<div class="user_tbl_container">
 		<h2>IP Address Whitelist</h2><br>
-		<p><i>IP Address Whitelist are list of IPs that can access the website in desktop view and can access all carrier.</i></p>
+		<p><i>IP Address Whitelist are list of IPs that can access the website in desktop view and can access all carriers.</i></p>
 		
 		
 		<a href="{{ URL::route('admin.ip-filters.get-create') }}" class="mgmt-link">Add IP</a>

@@ -3,11 +3,7 @@
 @section('content')
 	<div class="item-listing table" id="faq-list">
 		<h2>FAQs</h2>
-		@if(Session::has('message'))
-		    <div class="flash-success">
-		        <p>{{ Session::get('message') }}</p>
-		    </div>
-		@endif
+
 		<a href="#" class="mgmt-link del disabled">Delete Selected</a>
 		<a href="{{ URL::route('admin.faqs.create') }}" class="mgmt-link">New FAQ</a>
 		<table>

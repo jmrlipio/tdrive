@@ -41,7 +41,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'first_name'            => 'required|alpha|min:2|max:255',
         'last_name'             => 'required|alpha|min:2|max:255',
         'email'                 => 'required|email|unique:users',
-        'mobile_no'             => 'required'
+        'mobile_no'             => 'required',
+        'role'                  => 'required',
     ];
 
     public static $update_details_rules = [

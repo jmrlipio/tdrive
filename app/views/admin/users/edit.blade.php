@@ -26,8 +26,13 @@
 				{{ $errors->first('mobile_no', '<p class="error">:message</p>') }}
 			</li>
 			<li>
+				{{ Form::label('role', 'Role') }}
+				{{ Form::select('role', array('member' => 'Member', 'editor' => 'Editor', 'superadmin' => 'Super Admin'), $role, array('class'=>'select_gender')) }}
+				{{ $errors->first('gender', '<p class="error">:message</p>') }}
+			</li>
+			<li>
 				<a class="custom-back" href="{{ URL::route('admin.users.index') }}">Back</a>
-				{{ Form::submit('Save') }}
+				{{ Form::submit('Save', array('class'=>'auto-width')) }}
 			</li>
 		</ul>
 	{{ Form::close() }}

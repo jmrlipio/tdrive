@@ -14,7 +14,7 @@
 				<th>App Store</th>
 				<th>OS</th>
 				<th>OS Version</th>
-				<th>Date</th>
+				<th class="c-width">Date</th>
 			</tr>
 			<thead>
 			<tbody>
@@ -102,6 +102,7 @@
 
 	    $('#table').DataTable({
 	    	"iDisplayLength": 50,
+	    	"bAutoWidth": false,
 	    	"columnDefs": [
 			    { "width": "80px", "targets": 6 }
 			  ],

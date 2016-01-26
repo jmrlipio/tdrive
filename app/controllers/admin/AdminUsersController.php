@@ -59,7 +59,7 @@ class AdminUsersController extends \BaseController {
 			$user->last_name= Input::get('last_name');
 			$user->password=  Hash::make(Input::get('password'));			
 			$user->active = 1;
-			$user->role = "member";
+			$user->role = Input::get('role');
 			$user->mobile_no = Input::get('mobile_no');
 			$user->gender = Input::get('gender');
 			$user->birthday = $birthday;
@@ -155,8 +155,9 @@ class AdminUsersController extends \BaseController {
 	public function edit($id)
 	{
 		$user = User::find($id);
+		$role = $user->role;
 
-		return View::make('admin.users.edit')->with('user', $user);
+		return View::make('admin.users.edit')->with('user', $user)->with('role', $role);
 	}
 
 	/**

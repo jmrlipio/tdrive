@@ -645,6 +645,10 @@ a.cn {
 a.vn {
 	background-image: url(../images/flags/vn.png);
 }
+
+a.jp {
+	background-image: url(../images/flags/jp.png);
+}
 /**/
 .post-media-form {
 	width: 100%;
@@ -875,9 +879,10 @@ select#currency_code{
 .dataTables_info{
 	margin-top: 20px !important;
 }
-table#game_discount_table th.c-width{
+table#game_discount_table th.c-width, table.inquiries-table th.c-width{
 	width: 120px;
 }
+
 div#users_container a.c-top{
 	margin-top: 24px;
 }
