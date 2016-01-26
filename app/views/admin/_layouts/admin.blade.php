@@ -61,9 +61,11 @@
 
                 @else            
                     <li><a href="{{ URL::route('admin.games.index') }}"><i class="fa fa-gamepad"></i> Games</a></li>    
-                    <li><a href="{{ URL::route('admin.users.index') }}"><i class="fa fa-user"></i> Users</a></li>       
-                    <li><a href="{{ URL::route('admin.reports.inquiries') }}"><i class="fa fa-envelope"></i> Inquiries</a></li>    
                     <li><a href="{{ URL::route('admin.news.index') }}"><i class="fa fa-newspaper-o"></i> News</a></li>          
+                    
+                    <li><a href="{{ URL::route('admin.reports.inquiries') }}"><i class="fa fa-envelope"></i> Inquiries</a></li>    
+                    <li><a href="{{ URL::route('admin.users.index') }}"><i class="fa fa-user"></i> Users</a></li>       
+
                     <li><a href="{{ URL::route('admin.faqs.index') }}"><i class="fa fa-question-circle"></i> FAQ</a></li>   
                     <li>
                         @if( Review::whereViewed(0)->count() >= 1 )
