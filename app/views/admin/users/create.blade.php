@@ -39,7 +39,7 @@
 
 		<div class="control">
 			{{ Form::label('role', 'Role') }}
-			{{ Form::select('role', array('member' => 'Member', 'editor' => 'Editor', 'superadmin' => 'Super Admin'), 'member', array('class'=>'select_gender')) }}
+			{{ Form::select('role', array('member' => 'Member', 'editor' => 'Editor', 'admin' => 'Admin', 'superadmin' => 'Super Admin'), 'member', array('class'=>'select_gender')) }}
 			{{ $errors->first('gender', '<p class="error">:message</p>') }}
 		</div>
 

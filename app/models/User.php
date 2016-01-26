@@ -28,8 +28,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public static $rules = [
         'username'              => 'required|unique:users|min:6|max:10',
-        'password'              => 'required|alpha_num|min:8|confirmed|max:64',
-        'password_confirmation' => 'required|alpha_num|min:8|max:64',
+        'password'              => 'required|min:8|confirmed|max:64',
+        'password_confirmation' => 'required|min:8|max:64',
         'first_name'            => 'required|min:2|alpha_spaces|max:255',
         'last_name'             => 'required|min:2|alpha_spaces|max:255',
         'email'                 => 'required|email|unique:users|max:255',
