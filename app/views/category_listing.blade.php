@@ -166,15 +166,15 @@
 						</div>
 						<div class="game-button">
 							@if ($app->pivot->price == 0)
-								<a href="#" data-id="{{$app->pivot->game_id }}" class="game-free">Free</a>
+								<a href="{{ URL::route('game.show', array('id' =>  $app->pivot->game_id,  $app->pivot->app_id)) }}" class="game-free">Free</a>
 							@else
 
-								<a href="#" id="buy" data-id="{{  $app->pivot->game_id }}" class="game-buy buy">{{ trans('global.Buy') }}</a>	
+								<a href="{{ URL::route('game.show', array('id' =>  $app->pivot->game_id,  $app->pivot->app_id)) }}" id="buy" class="game-buy buy">{{ trans('global.Buy') }}</a>	
 
 							@endif
 						</div>
 					</div>
-				@endforeach  
+				@endforeach
 			</div>
 			<div class="more fr"><a href="{{ route('category.show', $cat->id) }}">{{ trans('global.More') }} +</a></div>
 		</div>
