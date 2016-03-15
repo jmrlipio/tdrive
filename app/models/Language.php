@@ -81,24 +81,17 @@ class Language extends \Eloquent {
     public static function getLanguage($cid) 
     {
 
-        // $games = Game::whereHas('apps', function($q) use ($cid)
-        // {
-        //     $q->where('carrier_id', '=', $cid);
-
-        // })->get();
-
         $carrier = Carrier::find($cid);
         $apps = GameApp::where('carrier_id',$cid)->get();
         $arr_id = [];
-
-        // foreach($games as $game){                               
-            foreach($apps as $app) {
-                if($app->status == Constant::PUBLISH && $app->game->status == 'live') 
-                {
-                    $arr_id[] = $app->language_id;
-                }
+        $output = [];
+                            
+        foreach($apps as $app) {
+            if($app->status == Constant::PUBLISH && $app->game->status == 'live') 
+            {
+                $arr_id[] = $app->language_id;
             }
-        // }
+        }
 
         $lang_id = array_unique($arr_id);
         $output = Language::whereIn('id', $lang_id)->get();
