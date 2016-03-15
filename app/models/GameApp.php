@@ -31,6 +31,10 @@ class GameApp extends \Eloquent {
     	return $this->belongsTo('Language');
     }
 
+    public function game() 
+    {
+    	return $this->belongsTo('Game');
+    }
  
 
 }

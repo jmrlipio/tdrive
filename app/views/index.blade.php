@@ -669,17 +669,6 @@
 	        	$('#newsAlert' + (i + 1)).modal('show');
 	        }
 
-			$('.thumbs-container').each(function() {
-				$(this).swiper({
-					slidesPerView: 'auto',
-					offsetPxBefore: 0,
-					offsetPxAfter: 10,
-					calculateHeight: true
-				});
-			});
-		
-			var mySwiper;
-
 	    });
 
 
